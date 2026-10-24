@@ -1,6 +1,6 @@
 ---
 slug: where-money-sleeps
-pointer: 00-discovery
+pointer: 01-spec
 created: 2026-10-24
 ---
 
@@ -10,7 +10,7 @@ created: 2026-10-24
 
 | # | Stage | Trạng thái | Artifact | Duyệt ngày |
 |---|---|---|---|---|
-| S0 | Discovery | `in-progress` | `gates/00-discovery/PRODUCT-BRIEF.md` · `LEGAL-SCREEN.md` · `ADDENDUM-PDF-LLM.md` (spec đường ống card) | |
+| S0 | Discovery | `pass` | `gates/00-discovery/PRODUCT-BRIEF.md` · `LEGAL-SCREEN.md` · `ADDENDUM-PDF-LLM.md` (spec đường ống card) | 2026-10-24 |
 | S1 | PRD | pending | `gates/01-spec/PRD.md` · `ACCEPTANCE.md` · `SUCCESS-CRITERIA.md` · `TRACKING-PLAN.md` · `LEGAL-REVIEW.md` | |
 | S2 | Design | pending | `gates/02-design/` — direction · tokens · mockup · a11y · ui-states · microcopy | |
 | S3 | Build | pending | `gates/03-build/SLICE-LOG.md` + commit `feat:` + `licences.json` | |
@@ -55,3 +55,4 @@ Bảng định tuyến đầy đủ — phòng ban nào vào, gọi lệnh gì: 
 | 2026-10-24 | **Review vòng 2** (`wf_b37d8b40-625`): 6/7 blocker vòng 1 đã gỡ. Hai blocker mới đã sửa: (1) soát 64 hình Hermanson bị Claude tự dời sang S3 — **đã làm luôn**, đều là hình của tác giả; (2) trang review nói quá "chưa ai dạy" — sửa thành "phương pháp không tìm thấy". Nonblocking đã sửa: số đếm 11→14, "chờ luật sư"→workflow + Duy ký, CC BY 3.0, rủi ro host PDF có trích bên thứ ba nêu trên trang review, luật loại trích dẫn vào ADDENDUM. | Same vendor, same priors — no external verifier ran. |
 | 2026-10-24 | **Review vòng 3** (`wf_1673ba8d-757`, lượt cuối): blocker (b) gỡ; **blocker (a) CHƯA GỠ** — Claude ghi sai "64 hình đều của tác giả"; ít nhất 2 hình có nguồn bên thứ ba (tr.803 HBR, tr.501 WSJ). Đã đính chính có ngày ở PRODUCT-BRIEF, LEGAL-SCREEN, licences.json, index.html. **Hết 3/3 lượt review ⇒ leo thang lên Duy.** | `review-loop` bước 6: còn blocker sau lượt 3 thì dừng, không chạy vòng 4. Same vendor, same priors — no external verifier ran. |
 | 2026-10-24 | Câu 15 chốt: **Hermanson chỉ host tr.1–197 (chương 1–4)**. Soát xong phạm vi đó: 8/8 ảnh sạch, 2 đoạn trích bên thứ ba phải redact ở S3. **Blocker vòng 3 gỡ bằng quyết định của Duy.** S0 đủ **15/15** quyết định. | Leo thang theo `review-loop` bước 6 đã được Duy giải. Kiểm sau cùng là của Claude (author-side), không phải lượt review thứ 4. |
+| 2026-10-24 | **APPROVE S0** bởi Duy qua `/vibe:approve where-money-sleeps 00-discovery`. Con trỏ `00-discovery` → `01-spec`. | Artifact S0 đều `status: pass`; 15/15 quyết định; vibe-check PASS. **S1 chưa chốt được** cho tới khi xong 3 điều kiện của Duy: đo iPhone/Android · đọc hợp đồng Ringkas · có tên kế toán + bấm giờ 1 bài. |
