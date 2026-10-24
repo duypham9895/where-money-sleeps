@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "note": "Sổ giấy phép. Trường 'file' chỉ thêm khi asset THẬT SỰ nằm trong repo (vibe-check [4] đối chiếu hai chiều). Trước đó dùng 'planned_file'.",
+  "assets": [
+    {
+      "id": "hermanson-accounting-principles-v1",
+      "title": "Accounting Principles: A Business Perspective — First Global Text Edition, Volume 1: Financial Accounting",
+      "authors": [
+        "Roger H. Hermanson",
+        "James Don Edwards",
+        "Michael W. Maher"
+      ],
+      "publisher": "Global Text Project",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "licence_evidence": "Trang nhan đề + chân mỗi trang PDF: \"This book is licensed under a Creative Commons Attribution 3.0 License\". Claude đọc bằng pdftotext 2026-10-24. Catalog eCampusOntario ghi CC BY 4.0 — PDF gốc thắng.",
+      "source_url": "https://openlibrary-repo.ecampusontario.ca/jspui/bitstream/123456789/425/1/Accounting%20Principles%20A%20Business%20Perspective.pdf",
+      "retrieved": "2026-10-24",
+      "bytes": 7991863,
+      "pages": 1004,
+      "planned_file": "public/books/hermanson-accounting-principles-ch1-4.pdf",
+      "exclusions": "Các đoạn trích bên thứ ba có © riêng KHÔNG thuộc CC BY: 10 trích dẫn FASB ('Copyright © by the Financial Accounting Standards Board'), trích New Accountant 1990 (© New DuBois Corporation), báo cáo thường niên GE/Gillette/Coca-Cola, bài WSJ. Máy sinh card PHẢI loại các đoạn này. 64 hình trên 59 trang: chưa soát nguồn từng hình. CẬP NHẬT 2026-10-24 (review vòng 3): hình có nguồn bên thứ ba — tr.803 Exhibit 160 (Kaplan & Norton, HBR 1996, nguồn nằm trong ảnh) và tr.501 (bảng giá Kellogg, số liệu WSJ). 63 ảnh (+1 smask logo CC): soát hình CHƯA XONG — chưa OCR, chưa xem đủ ở độ phân giải gốc.",
+      "attribution_text": "Trích chương 1–4 và sửa đổi (che 2 đoạn trích bên thứ ba) từ Hermanson, Edwards & Maher — Accounting Principles: A Business Perspective (Global Text Project), CC BY 3.0.",
+      "host_scope": "Trang 1–197 của PDF gốc (front matter + chương 1–4: Accounting and its use in business decisions · Recording business transactions · Adjustments for financial reporting · Completing the accounting cycle). Quyết định 15, 2026-10-24.",
+      "host_audit": "2026-10-24: 8/8 ảnh trong tr.1–197 xem ở độ phân giải gốc — hình của tác giả + logo CC BY. Chữ: redact tr.113 (Home Depot annual report) và tr.166 (New Accountant 1990, © New DuBois Corporation) trước khi host."
+    }
+  ]
+}

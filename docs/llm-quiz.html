@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where Money Sleeps — PDF + LLM quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="llm-quiz.html">PDF + LLM quiz</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="k a r"><p><strong>Trang lưu trữ, 2026-10-24:</strong> anh đã quyết hết. Câu 3 và 4 quyết <strong>ngược</strong> khuyến nghị bên dưới: có card từ Hermanson, có trình đọc PDF. Xem bảng 14 quyết định ở <a href="index.html">S0 Discovery</a>.</p></div>
+  <div class="meta r"><span class="words">—</span><span>S0 bổ sung · 2026-10-24</span></div>
+  <h1 class="r">Ý của anh thắng:<br>LLM chạy lúc build, không chạy lúc người học dùng.</h1>
+  <div class="tldr r"><p><strong>Card tĩnh sinh trên máy anh, soát rồi mới ship</strong> là phương án duy nhất chạy được trên điện thoại, tốn dưới $1 cho cả thư viện, và không gửi dữ liệu người học đi đâu. Câu khó còn lại: <strong>được nạp sách nào vào máy sinh card</strong>.</p></div>
+</section>
+
+<section>
+  <h2 class="r">Vì sao LLM lúc người học dùng bị loại</h2>
+  <div class="tw r"><table><thead><tr><th>Cách</th><th>Chết vì</th></tr></thead>
+  <tbody>
+    <tr><td>Trên máy (Chrome AI)</td><td>Không chạy trên Android/iOS, <strong>không có tiếng Việt</strong> (tôi đã fetch lại)</td></tr>
+    <tr><td>Trên máy (WebLLM)</td><td>Tải 1,6–2,5 GB model; model nhỏ chỉ đạt ~49–53 điểm trên bài kiểm kiến thức tiếng Việt VMLU</td></tr>
+    <tr><td>Người học tự dán key</td><td>Persona không ai có key</td></tr>
+    <tr><td>Proxy của anh</td><td>Anh bảo đảm bản quyền cho sách của người lạ + hồ sơ Luật 91/2025</td></tr>
+    <tr><td>NotebookLM</td><td>Đã làm miễn phí. Mình không thắng ở đây</td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">Card tĩnh: chống dạy sai thế nào</h2>
+  <div class="g three r">
+    <div class="k"><div class="n" data-to="22">0</div><div class="cap">% câu LLM sinh bị sai kiến thức (mức cao, đo ở y khoa)</div></div>
+    <div class="k"><div class="n" data-to="5">0</div><div class="cap">card tối đa mỗi lần gọi</div></div>
+    <div class="k"><div class="n" data-to="1">0</div><div class="cap">người duyệt từng card: anh</div></div>
+  </div>
+  <div class="k b r"><p>Mỗi card mang <code>source_quote</code>. Script kiểm câu trích có thật và <strong>mọi con số có trong câu trích</strong>; trượt thì loại. Không dùng LLM chấm LLM.</p></div>
+</section>
+
+<section>
+  <h2 class="r">Nạp sách nào vào máy sinh card</h2>
+  <div class="tw r"><table><thead><tr><th>Nguồn</th><th>Đăng card công khai</th></tr></thead>
+  <tbody>
+    <tr><td>Bài anh tự viết</td><td>✅ sạch</td></tr>
+    <tr><td>Sách CC BY (Hermanson)</td><td>✅ ghi tác giả · <strong>đã kiểm tại PDF gốc: CC BY 3.0</strong></td></tr>
+    <tr><td>OpenStax hiện hành</td><td>❌ cấm đưa vào LLM</td></tr>
+    <tr><td>Sách trả phí</td><td>⚠️ án Seinfeld trivia (1998) không phải fair use; sách phi hư cấu chưa có án</td></tr>
+  </tbody></table></div>
+  <div class="k d r"><p><strong>Xung đột:</strong> research khuyên <strong>hoãn trình đọc PDF</strong> và chỉ sinh card từ bài anh viết. Như vậy là cắt hai thứ anh vừa yêu cầu. Tôi không tự áp, nên nó thành câu 3 và 4.</p></div>
+</section>
+
+<section>
+  <h2 class="r">Còn 10 câu, hỏi từng câu</h2>
+  <p class="r">2 loại LLM runtime · 3 nguồn nạp card · 4 trình đọc PDF · 5 mùa 1 · 6 song ngữ · 7 lưu tiến độ · 8 duyệt card · 9 đo gì · 10 kiếm tiền · 11 rủi ro pháp lý (cuối).</p>
+</section>
+</main>
+
+<footer>
+  <p>Chi tiết: <code>gates/00-discovery/ADDENDUM-PDF-LLM.md</code>. Con trỏ ở <code>00-discovery</code> — chưa duyệt.</p>
+  <div class="v"><strong>Same vendor, same priors — no external verifier ran.</strong> 16 phiên Claude: 5 mũi + 10 phản bác + 1 tổng hợp.</div>
+</footer>
+<script src="assets/doc.js"></script>
+</body>
+</html>

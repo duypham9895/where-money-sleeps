@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════════════
+   XƯỞNG VIBE — bộ design cho TẦNG REVIEW.
+   Một file, dùng chung mọi app. Đổi ở đây là đổi cả xưởng.
+
+   Nó được thiết kế quanh một ràng buộc, không phải quanh một phong cách:
+   NỘI DUNG PHẢI NGẮN. Mọi lựa chọn dưới đây đều phạt văn xuôi dài và
+   thưởng cho bảng, thẻ, và số.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --bg:#09090b; --surface:#131316; --raised:#1c1c21;
+  --fg:#fafafa; --dim:#a1a1aa; --faint:#6b6b76;
+  --line:#26262c; --line-2:#34343c;
+  --a:#ff6b35;        /* ớt */
+  --b:#34d399;        /* lá */
+  --c:#fbbf24;        /* nghệ */
+  --d:#f87171;        /* chặn */
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace;
+  --sans:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --w:min(68ch,92vw);
+  --r:14px;
+}
+:root[data-theme="light"]{
+  --bg:#fcfcfa; --surface:#fff; --raised:#f4f4f1;
+  --fg:#101013; --dim:#52525b; --faint:#8b8b94;
+  --line:#e6e6e1; --line-2:#d6d6d0;
+  --a:#d94a16; --b:#047857;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+#bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;
+  background:linear-gradient(90deg,var(--a),var(--b));transition:width .08s linear}
+
+/* ── nav ─────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px)}
+nav .in{width:var(--w);margin:0 auto;display:flex;gap:3px;align-items:center;
+  padding:11px 0;flex-wrap:wrap}
+nav a{color:var(--dim);text-decoration:none;font-size:13px;padding:6px 10px;
+  border-radius:8px;transition:.16s;white-space:nowrap}
+nav a:hover{color:var(--fg);background:var(--raised)}
+nav a[aria-current]{color:var(--bg);background:var(--fg);font-weight:650}
+:root[data-theme="light"] nav a[aria-current]{color:var(--surface)}
+.slug{font-family:var(--mono);font-weight:700;font-size:14px;margin-right:auto;letter-spacing:-.3px}
+.slug i{color:var(--a);font-style:normal}
+#t{margin-left:6px;background:none;border:1px solid var(--line-2);color:var(--dim);
+  cursor:pointer;border-radius:8px;padding:5px 9px;font-size:12px;font-family:var(--sans)}
+#t:hover{color:var(--fg)}
+
+/* ── bố cục ──────────────────────────────────────── */
+main{width:var(--w);margin:0 auto;padding:0 0 110px}
+section{padding:38px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+
+/* ngân sách đọc — BẮT BUỘC ở đầu mỗi trang */
+.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:22px 0 10px}
+.meta span{font-family:var(--mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--faint);border:1px solid var(--line-2);border-radius:999px;padding:4px 10px}
+.meta span.hot{color:var(--a);border-color:color-mix(in srgb,var(--a) 45%,transparent)}
+
+h1{font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.04;letter-spacing:-2px;
+  margin:.15em 0 .3em;font-weight:800}
+h2{font-size:clamp(1.25rem,3vw,1.6rem);letter-spacing:-.6px;margin:0 0 .6em;
+  font-weight:700;line-height:1.25}
+h3{font-size:1rem;margin:0 0 .35em;font-weight:700}
+p{margin:.7em 0;max-width:62ch}
+a{color:var(--a)}
+strong{font-weight:650}
+.lede{font-size:1.1rem;color:var(--dim);max-width:58ch}
+
+/* ── TL;DR — bắt buộc, và nó là thứ đọc đầu tiên ── */
+.tldr{background:linear-gradient(135deg,
+      color-mix(in srgb,var(--a) 11%,var(--surface)),var(--surface));
+  border:1px solid color-mix(in srgb,var(--a) 28%,var(--line));
+  border-radius:var(--r);padding:20px 22px;margin:20px 0 28px}
+.tldr p{margin:0;font-size:1.06rem;max-width:none}
+.tldr p+p{margin-top:.6em}
+
+/* ── reveal ──────────────────────────────────────── */
+.r{opacity:0;transform:translateY(14px);
+  transition:opacity .5s cubic-bezier(.2,.8,.3,1),transform .5s cubic-bezier(.2,.8,.3,1)}
+.r.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.r{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}}
+
+/* ── thẻ: thay cho đoạn văn ──────────────────────── */
+.g{display:grid;gap:11px;margin:18px 0}
+.g.two{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g.three{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+.k{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:17px 19px}
+.k.a{border-left:3px solid var(--a)} .k.b{border-left:3px solid var(--b)}
+.k.c{border-left:3px solid var(--c)} .k.d{border-left:3px solid var(--d)}
+.k p:first-child{margin-top:0} .k p:last-child{margin-bottom:0}
+.k .n{font-family:var(--mono);font-size:1.9rem;font-weight:700;letter-spacing:-1.4px;
+  line-height:1;color:var(--a)}
+.k .n.b{color:var(--b)} .k .n.c{color:var(--c)} .k .n.d{color:var(--d)}
+.k .cap{font-size:12px;color:var(--faint);margin-top:6px;line-height:1.4}
+
+/* ── bảng: thứ nên dùng thay văn xuôi ────────────── */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--raised);font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--dim);font-weight:650;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+q,.q{display:block;border-left:2px solid var(--line-2);padding-left:15px;margin:15px 0;
+  color:var(--dim);font-style:italic;quotes:none}
+.q cite{display:block;font-style:normal;font-size:12px;color:var(--faint);margin-top:6px}
+
+code{font-family:var(--mono);font-size:.87em;background:var(--raised);
+  padding:2px 6px;border-radius:5px}
+pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px;overflow-x:auto;margin:16px 0;line-height:1.5}
+pre code{background:none;padding:0;font-size:12.5px;color:var(--dim)}
+
+.p{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.7px;
+  padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--dim);
+  margin:2px 3px 2px 0;white-space:nowrap}
+.p.ok{color:var(--b);border-color:color-mix(in srgb,var(--b) 42%,transparent)}
+.p.no{color:var(--d);border-color:color-mix(in srgb,var(--d) 42%,transparent)}
+.p.hm{color:var(--c);border-color:color-mix(in srgb,var(--c) 42%,transparent)}
+
+ul,ol{padding-left:1.2em;max-width:62ch} li{margin:.3em 0}
+
+footer{width:var(--w);margin:0 auto;padding:26px 0 60px;border-top:1px solid var(--line);
+  color:var(--faint);font-size:12.5px}
+footer .v{font-family:var(--mono);font-size:11px;border:1px dashed var(--line-2);
+  border-radius:9px;padding:9px 12px;margin-top:11px}

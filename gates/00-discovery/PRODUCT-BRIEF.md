@@ -1,0 +1,152 @@
+---
+status: pass
+stage: 00-discovery
+date: 2026-10-24
+---
+# PRODUCT-BRIEF — Where Money Sleeps (`where-money-sleeps`)
+
+> **2026-10-24 — ĐỌC TRƯỚC:** thân bài dưới đây viết **trước** 14 quyết định của Duy. Chỗ nào lệch, **§Quyết định của Duy (cuối file) thắng**. Cụ thể đã bị thay: "không host PDF" (câu 3–4: host Hermanson CC BY + trình đọc PDF bắt buộc) · "không backend / không script client" (câu 9: bộ đếm Worker cùng domain, `sendBeacon`) · "3–5 câu tự kiểm mỗi cụm" (card theo từng bài) · "lối vào 12–15 bài" là phạm vi mùa 1 (câu 5: ~28–30 bài) · bảng "9 câu hỏi ở S1" (thay bằng 11 câu, đã quyết hết ở S0). Quy tắc 14: không sửa tại chỗ.
+
+**TL;DR** · đọc khoảng 9 phút
+- Phương pháp này không tìm thấy lộ trình tiếng Việt nào dạy **dòng tiền doanh nghiệp/fintech (payments, VietQR, sổ cái, đối soát) cho người không chuyên**. Ngách tài chính cá nhân tiếng Việt thì đã đông, lại có bản miễn phí.
+- Ý tưởng gốc phải đổi hình dạng ở 3 chỗ. (1) Không host PDF sách bên thứ ba: cả 6 đầu sách trả phí đều còn bản quyền, và OpenStax hiện hành là NC-SA kèm điều khoản chống LLM. (2) Trình đọc chính là **HTML reflow** đọc trên điện thoại, không phải PDF. (3) Lộ trình 26 tuần viết cho PM nay phải có **lối vào ngắn cho người mới**.
+- Việc chính của dự án là **sản xuất nội dung song ngữ**. Code chỉ là phần nhỏ.
+- Rủi ro chặn: iOS Safari xoá storage sau 7 ngày (khoảng 40% thiết bị di động VN dùng iOS), và link mở trong WebView của Zalo.
+- **Go có điều kiện.** Khoảng trống là thật nhưng hẹp. Chỉ đi tiếp nếu Duy chấp nhận 3 thay đổi hình dạng ở trên và đo thực địa iPhone/Zalo trước khi S1 chốt phần lưu trữ.
+
+## Vấn đề & người dùng
+
+| Ai | Tình huống thật | Hiện họ làm gì |
+|---|---|---|
+| **Tầng vào:** nhân viên văn phòng khoảng 25 tuổi, không biết kế toán, đọc trên điện thoại lúc 10h tối | Thấy "ghi có" khi lương về. Chuyển khoản báo "đang xử lý 1–2 ngày". Trả góp có APR. Quét VietQR. | Đọc FAQ ngân hàng/MoMo. Ít nhất 6 ngân hàng hoặc báo có bài "chuyển khoản thành công nhưng chưa nhận được tiền", nghĩa là người ta thật sự gõ câu hỏi này. |
+| **Tầng sâu:** người làm fintech, ngân hàng, ops hoặc PM tại VN mà không có nền kế toán (persona của lộ trình gốc) | Phải hiểu interchange, đối soát, ledger, NĐ 52/TT 64 | Tiếng Việt chỉ có hai cực. Một bên là học kế toán để đi làm kế toán (Lê Ánh, CTU, đều trả phí). Bên kia là bài cho kỹ sư backend (Viblo). |
+
+Mặt bằng hiểu biết: 24% người trưởng thành VN hiểu biết tài chính (S&P 2014, số cũ). Phép đo này **không đo kế toán**.
+
+## Bản đồ đối thủ
+
+| Tên | Miễn phí? | Tiếng Việt? | Track tiến độ? | URL |
+|---|---|---|---|---|
+| Danh sách khoá TCCN của Finhay | 3 khoá có giá 899k–10tr, 1 khoá phải liên hệ, Khan "miễn phí" (chưa xác minh) | Có | Chưa kiểm | finhay.com.vn/khoa-hoc-tai-chinh-ca-nhan |
+| Khoá TCCN UEB-PFC (sự kiện 4/2025, không phải đối thủ đang chạy) | Có | Có | Không | thitruongtaichinhtiente.vn/…-67395.html |
+| S Challenge (Sacombank Pay) | Có | Có | Trong app | thitruongtaichinhtiente.vn/…-73856.html |
+| Kế toán Lê Ánh (bài viết, video làm phễu bán khoá) | Phần phễu | Có | Không | ketoanleanh.edu.vn |
+| Kế toán cơ bản ĐH Cần Thơ | 1,5tr (giá đọc từ tóm tắt search) | Có | Chưa kiểm | cse.ctu.edu.vn/…KTCB.pdf |
+| Viblo: sổ cái Blnk (cho kỹ sư) | Có | Có | Không | viblo.asia/p/open-source-97… |
+| Modern Treasury: Accounting for Developers | Đọc miễn phí | Không | Chưa kiểm | moderntreasury.com/ebooks/accounting-for-developers |
+| Zogo (TCCN, tổ chức tài chính trả tiền) | Với người học | Không | Chưa kiểm | yespress.io/zogo |
+| Khan Academy Financial Literacy (TCCN) | Có | Chưa xác minh (trang chặn bot) | Chưa kiểm | blog.khanacademy.org/?p=1811 |
+| CFI | Chỉ "Careers in Finance" miễn phí. Accounting Fundamentals cần membership | Không | Chưa kiểm | corporatefinanceinstitute.com/collections/free-courses/ |
+
+**Khoảng trống thật:** dòng tiền đời thường dẫn sang dòng tiền doanh nghiệp/fintech, cho người không chuyên, bằng tiếng Việt, có lộ trình và lưu tiến độ. Phía tiếng Anh cũng hở cho người không chuyên, vì Modern Treasury viết cho developer. Đây chỉ có nghĩa là phương pháp này (khoảng 8 search tiếng Việt trước) không tìm thấy ai, không có nghĩa là không ai làm.
+
+## Đề bài đã nắn lại
+
+| Ý gốc | Đổi thành | Vì sao |
+|---|---|---|
+| "Có luôn sách khuyến nghị trong website" | **Thẻ sách**: Duy tự tóm tắt "đọc chương nào, cho giai đoạn nào", ghi bản tiếng Việt nếu có (ví dụ *Trí Tuệ Tài Chính*, Alpha Books 2014, theo Goodreads), kèm link mua. Không PDF. | Sách trả phí còn bản quyền. Đơn gỡ sẽ đi tới host/CDN ở Mỹ cộng kênh NĐ 17/2023 Đ.114, và có thể bị khoá cả tài khoản host. |
+| "Solution read PDF làm người đọc muốn đọc" | **Trình đọc HTML reflow** cho bài tự viết, mỗi bài 5–8 phút, có chế độ tối, cỡ chữ, "đọc tiếp". PDF chỉ là lát mỏng tuỳ chọn (xem Q2). | PDF.js không reflow. NN/g: *"PDFs are still unfit for human consumption in the digital space"*. Lý do cũ "zoom bị mờ" đã lỗi thời: PDF.js PR #19128 sửa từ v5.0.375. |
+| OpenStax làm kho sách mở | **Chỉ deep-link** tới đúng chương trên trình đọc của OpenStax | Mọi sách tài chính/kế toán/kinh tế OpenStax đang live đều là CC BY-NC-SA, và có điều khoản cấm đưa vào LLM, kể cả trên trang sách CC BY của họ. |
+| "Ai cũng bắt đầu được" so với lộ trình 26 tuần cho PM | **Một bộ trang khái niệm chuẩn** + **lối vào khoảng 12–15 bài** đi theo dòng tiền của chính người học (lương, "ghi có", VietQR, trả góp/APR, rồi A = L + E). Code (GĐ03), Luật VN (GĐ06), IFRS 9, ISO 20022 là khối tuỳ chọn. | Tỉ lệ học xong MOOC miễn phí là 3,13% (edX 2017–18). Câu "ai cũng bắt đầu" nói về rào vào, không nói thị trường là mọi người. |
+| Tiến độ trong localStorage | Giữ localStorage, nhưng **thiết kế để mất dữ liệu RẺ**: tự khai "đang ở giai đoạn nào" trong 2 chạm, kèm link `#sync` gửi cho chính mình qua Zalo | Safari xoá sau 7 ngày. Tab Safari và Home Screen app có storage tách biệt (WebKit bug 181849). Tiến độ cũ ở `mw-roadmap-v1` trên origin claude.ai không mang sang được. |
+| Bài "so sánh 3 gói vay nhà thật" | Máy tính để người học tự nhập offer của mình | Số liệu cũ nhanh. Chép bảng lãi của báo dễ thành "thông tin tổng hợp" theo NĐ 147. |
+
+## Kiến trúc đề xuất ở mức S0
+
+| Thành phần | Lựa chọn | Lý do (1 dòng) | Giấy phép |
+|---|---|---|---|
+| Khung site | Site tĩnh. Astro i18n hoặc HTML tĩnh tối giản, chốt ở S3 | Chi phí 0, không backend | Astro: **chưa kiểm từ nguồn ở S0** |
+| Đọc bài | HTML reflow, mobile-first. Khuôn bài: giao dịch thật ở VN → 1 khái niệm → ví dụ giải sẵn → ví dụ giải dần → 1 dòng tóm tắt | Worked example rẻ hơn ngân hàng câu hỏi 200–350 câu | Nội dung của Duy |
+| Ôn tập | 3–5 câu tự kiểm cuối mỗi cụm. 1–2 câu ôn đầu phiên, tính theo phiên chứ không theo lịch | Retrieval practice có bằng chứng. Lịch ôn theo ngày thì trùng mốc xoá 7 ngày | n/a |
+| PDF/EPUB người dùng tự mở (tuỳ Q2) | PDF.js PDFViewer + foliate-js, **lazy-load**, khoảng 577 KB gz chỉ khi mở file | 0 KB trên trang bài, không host gì | PDF.js Apache-2.0 · foliate-js MIT (vendor từ GitHub, pin commit, vì gói npm không phải của tác giả) |
+| Lưu tiến độ | Một JSON có `schema` trong localStorage. ID chuỗi ổn định, sectionId dùng chung VN/EN. Giữ lại ID mồ côi. Không dùng cookie | Khoảng 80 KB, xa hạn mức 5 MiB. IndexedDB không an toàn hơn vì trình duyệt xoá cả origin một lúc | n/a |
+| Khôi phục và đồng bộ | Tự khai giai đoạn. Link `#sync=` (fragment không gửi lên server) qua Web Share dạng URL/text, có nút copy dự phòng. File JSON là tuỳ chọn nâng cao | Hợp thói quen tự gửi vào Zalo "My documents" | CompressionStream có sẵn trong trình duyệt |
+| PWA | Manifest `display: standalone`. **Chỉ mời cài sau mốc đầu tư** (khoảng 3 bài), kèm bước dán link sync | Standalone là heuristic đã biết để persist()=true, nhưng storage tách khỏi tab | n/a |
+| Cảnh báo lưu trữ | Gọi `persist()` ngầm làm cảm biến. Chỉ cảnh báo cho tab iOS có `false` và đã có tiến độ. Nhắc sao lưu cả khi `true` | Dexie #739: mất dữ liệu xảy ra cả trong Home Screen app | n/a |
+| Kéo quay lại | Nút "Thêm vào lịch" sinh file `.ics` lặp hằng tuần | Không cần push server, không định danh. Hiệu quả **chưa đo** | n/a |
+| Song ngữ | URL `/vi/` `/en/`, không auto-redirect, hreflang hai chiều tự viết. **Một file glossary** làm nguồn duy nhất, viết "Nợ (Debit)". Tên tài khoản theo **TT 99/2025** | Theo Google Search Central. TT 200 đã bị thay từ 01/01/2026 | n/a |
+| Font | IBM Plex / Be Vietnam Pro / Newsreader, **tự host**, `unicode-range`, ghi vào `licences.json` | Có subset vietnamese, không có request bên thứ ba | OFL (METADATA.pb, google/fonts) |
+
+## Đo cái gì (gợi ý cho S1)
+
+| Metric | Đo bằng | Là X thì làm gì / là Y thì làm gì |
+|---|---|---|
+| Tỉ lệ lượt xem trang bài 5 / bài 1 trong lối vào | Đếm gộp theo path ở phía host/edge, **không script ở client** | Thấp: viết lại lối vào. Cao: đầu tư tầng sâu. Ngưỡng do S1 đặt. |
+| Lượt xem trang "khôi phục / tự khai" | Như trên | Cao: ưu tiên PWA/sync. Thấp: giữ nguyên. |
+| 5 người thật đọc bài 1 trên điện thoại | Duy quan sát | Bỏ giữa bài: sửa độ dài/giọng văn trước khi viết tiếp |
+
+**Không đo:** % hoàn thành 26 tuần (nền 3,13% thì sẽ tự kết án), và funnel theo từng người (cần định danh). Cloudflare Web Analytics là beacon JS chèn vào trang. Nếu host không đếm được theo path mà không cần JS, ghi `TRACKING-PLAN.md: N/A — because không định danh, không script bên thứ ba`, kèm ngày xem lại.
+
+## Câu hỏi Duy phải quyết
+
+**Tổng cộng 9 câu**, hỏi từng câu một ở S1. Thứ tự: câu rẻ và gỡ được nhiều thứ nhất đi trước, câu tổng về rủi ro đi cuối.
+
+| # | Phải quyết | Khuyến nghị và lý do |
+|---|---|---|
+| 1 | **Người đọc là ai?** | **Hai tầng trên một bộ nội dung**: lối vào đời thường cho mọi người, lộ trình sâu tuỳ chọn. Cách này giữ lời "ai cũng bắt đầu" mà không rơi vào ngách TCCN đã đông. Mọi câu sau đều phụ thuộc câu này. |
+| 2 | **"Solution read PDF" nghĩa là gì?** | Trình đọc chính là HTML reflow. Thêm lát mỏng "mở file PDF/EPUB của chính bạn" (lazy, không host) **chỉ khi** Duy coi PDF là bắt buộc. Lát này rẻ về byte nhưng tốn công thử trên iPhone. |
+| 3 | **Mùa 1 gồm gì?** | Lối vào khoảng 12–15 bài: GĐ01, phần khái niệm của GĐ02 (VietQR/NAPAS), phần người vay của GĐ05. Hoãn GĐ03 code, GĐ04, GĐ06. Như vậy bỏ được phần lớn vùng xám pháp lý và nhu cầu duyệt chuyên môn. |
+| 4 | **Song ngữ ở mức nào?** | Giao diện và glossary song ngữ toàn bộ. Bài EN chỉ cho đúng bộ lối vào, viết bản VN trước. EN ngang hàng toàn bộ thì nhân đôi khối nội dung. |
+| 5 | **Mô hình lưu tiến độ** | localStorage + tự khai + link `#sync` qua Zalo. Mời cài PWA sau mốc đầu tư. Không bao giờ dùng chữ "lưu vĩnh viễn". |
+| 6 | **Có bao giờ kiếm tiền không?** | Không cam kết phi thương mại. Vì vậy lõi chỉ gồm nội dung tự viết và CC BY đã kiểm tại nguồn, không gồm thứ gì NC. |
+| 7 | **Ai duyệt chuyên môn?** | Một kế toán soát GĐ01 (tên tài khoản theo TT 99) và phần APR. Phần nào chưa duyệt thì không publish, thay vì gắn nhãn "bản nháp". |
+| 8 | **Thước đo** | Đếm gộp theo path ở edge nếu host làm được. Nếu không thì ghi N/A có lý do và hạn. |
+| 9 | **Chấp nhận rủi ro pháp lý còn lại? Có thuê luật sư không?** | Né mọi vùng xám (xem LEGAL-SCREEN). Không thuê luật sư ở mùa 1. Chỉ cần luật sư nếu dịch sách mở hoặc kiếm tiền. |
+
+## Việc chỉ Duy làm được
+
+- Đo thực địa trên iPhone và Android, khoảng 30 phút: localStorage có sống trong WebView của Zalo không; Zalo có giữ `#fragment` không; link mở trong WebView hay trong Safari; iOS 26 "Thêm vào màn hình chính" có tách storage không; persist() trả gì.
+- Đọc hợp đồng lao động và điều khoản IP với Ringkas, vì lộ trình có phần vay mua nhà, đúng mảng của Ringkas.
+- Duyệt giọng văn song ngữ và câu chữ cảnh báo lưu trữ.
+- Tìm người kế toán duyệt chuyên môn.
+- Cho 5 người thật đọc bài 1 trên điện thoại.
+- Tự viết thẻ sách ("đọc chương nào").
+- Nếu muốn dùng OpenStax cho bản dịch VN: tự viết thư xin phép (trang của họ ghi "is welcome to contact").
+
+## Chưa xác minh được
+
+- Hành vi WebView của Zalo/FB với localStorage và fragment. iOS 26 còn tách storage giữa Safari và web app không (bằng chứng mới nhất là 2018–2022). persist() trên iPhone (lessons.md mới đo trên macOS).
+- deflate-raw trong CompressionStream: MDN chỉ có ví dụ gzip.
+- Con số "83% traffic web VN từ điện thoại": nguồn thứ cấp, không có trên DataReportal.
+- Khan Academy có tiếng Việt không. Giá CTU. Giá và ngôn ngữ của Coursera/UMich (trang trả 403). App Store/Google Play chưa search.
+- Quy mô ngách tầng sâu. Bằng chứng hành vi (workaround) ngoài artifact của chính Duy (n=1). Bài học Zomo vẫn áp dụng.
+- Hiệu quả của `.ics`, của câu hỏi đời thường làm lối vào, của tính năng "thời gian còn lại": phương pháp này không tìm thấy nghiên cứu có đối chứng.
+- Cách "phương trình trước, Nợ/Có sau" chỉ dựa trên Rai & Sisneros (mẫu là sinh viên business học intermediate). Đây là cược.
+- Host tĩnh có đếm lượt xem theo path mà không cần JS không.
+- *Trí Tuệ Tài Chính* bản 2014 còn bán không.
+- Giấy phép Astro.
+- Các lens phản bác đều là phiên Claude. Same vendor, same priors — no external verifier ran.
+
+## Nguồn (URL)
+
+https://www.finhay.com.vn/khoa-hoc-tai-chinh-ca-nhan · https://thitruongtaichinhtiente.vn/dang-ky-tham-gia-khoa-hoc-mien-phi-67395.html · https://thitruongtaichinhtiente.vn/hoc-tai-chinh-san-qua-khung-cung-s-challenge-cua-sacombank-73856.html · https://ketoanleanh.edu.vn/kinh-nghiem-ke-toan/hoc-ke-toan-online-mien-phi.html · https://cse.ctu.edu.vn/images/upload/tttv/2025/MoTaCacKhoa/CN/CN_I1_KTCB.pdf · https://viblo.asia/p/open-source-97-blnk-finance-kien-truc-he-thong-so-cai-tai-chinh-trieu-giao-dich-voi-go-postgresql-va-redis-queue-13VM9q7xVY7 · https://www.moderntreasury.com/ebooks/accounting-for-developers · https://yespress.io/zogo · https://blog.khanacademy.org/?p=1811 · https://corporatefinanceinstitute.com/collections/free-courses/ · https://corporatefinanceinstitute.com/course/learn-accounting-fundamentals-corporate-finance/ · https://www.momo.vn/hoi-dap/vi-sao-tai-khoan-da-bi-tru-tien-nhung-tai-khoan-ngan-hang-nguoi-nhan-chua-nhan-duoc · https://www.insidehighered.com/node/7744 · https://up.csail.mit.edu/other-pubs/las2014-pguo-engagement.pdf · https://rex.libraries.wsu.edu/esploro/outputs/journalArticle/Rethinking-the-Use-of-Tests-A/99900601154801842 · https://knowledge.insead.edu/marketing/consumer-streaks-are-motivating-the-key-is-keeping-them-alive-19011 · https://gflec.org/wp-content/uploads/2015/11/3313-Finlit_Report_FINAL-5.11.16.pdf · https://pure.eur.nl/en/publications/not-new-but-nearly-forgotten-the-testing-effect-decreases-or-even/ · https://er.educause.edu/articles/2014/12/mooc-completion-and-retention-in-the-context-of-student-intent · https://thitruongtaichinhtiente.vn/nhan-bien-dong-so-du-voi-muc-phi-0-dong-tai-bidv-51818.html · https://www.nngroup.com/articles/pdf-unfit-for-human-consumption/ · https://github.com/mozilla/pdf.js/blob/master/LICENSE · https://github.com/mozilla/pdf.js/pull/19128 · https://github.com/mozilla/pdf.js/blob/master/web/app_options.js · https://github.com/johnfactotum/foliate-js · https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria · https://webkit.org/blog/14403/updates-to-storage-policy/ · https://bugs.webkit.org/show_bug.cgi?id=181849 · https://heise.de/-10749652 · https://gs.statcounter.com/os-market-share/mobile/viet-nam · https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment · https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream · https://fptshop.com.vn/tin-tuc/thu-thuat/4-tinh-nang-moi-cuc-hay-tren-zalo-42580 · https://www.thegioididong.com/tin-tuc/cach-mo-link-tren-zalo-bang-chrome-1548614 · https://webkit.org/blog/13878/web-push-for-web-apps-on-ios-and-ipados/ · https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites · https://developers.google.com/search/docs/specialty/international/localized-versions · https://docs.astro.build/en/guides/internationalization/ · https://github.com/google/fonts/blob/main/ofl/ibmplexsans/METADATA.pb · https://kpmg.com/vn/en/insights/2025/11/key-changes-in-vietnamese-accounting-system-for-enterprises.html · https://developers.cloudflare.com/pages/how-to/web-analytics · https://www.goodreads.com/work/editions/28156-financial-intelligence
+
+## Quyết định của Duy — chỉ thêm, không sửa
+
+| Ngày | # | Quyết định | Lý do |
+|---|---|---|---|
+| 2026-10-24 | 1/9 | **Người đọc: hai tầng trên một bộ nội dung** — lối vào cho mọi người + lộ trình sâu tuỳ chọn. | Giữ lời hứa "ai cũng bắt đầu được" mà không bỏ ngách duy nhất chưa ai làm (dòng tiền fintech tiếng Việt). Đánh đổi đã nói ra: lối vào có thể tốn công viết hơn lộ trình sâu. |
+| 2026-10-24 | 2/9 | **Đổi hướng câu 2. Duy yêu cầu thêm:** website *đọc được cả PDF* và *dùng LLM tóm tắt sách thành quiz card*. Trình đọc PDF trong site trở thành **bắt buộc**, không còn tuỳ chọn mùa 2. Nguyên văn: *"tôi muốn website có feature đọc được cả pdf và dùng LLM để tóm tắt và summary cuốn sách thành những quiz card"*. | Trước đó Duy hỏi *"nếu kh có tài liệu để đọc thì sao họ nắm được kiến thức"* ⇒ ưu tiên của Duy là **người học có sách thật trong tay**, không chỉ bài viết lại. LLM chạy ở đâu, ai trả tiền, pháp lý khi tóm tắt sách còn bản quyền: **CHƯA quyết**, đang research (S0 bổ sung). |
+| 2026-10-24 | 2/9 | **Đề xuất của Duy (chưa chốt):** chạy LLM *ở phía local, lúc build* để quét sách → sinh quiz card → ship thành **card tĩnh** trong website. Nguyên văn: *"cho LLM chạy quét sách để tạo ra những quiz cards ở phía local xong tạo thành những static quiz cards trong website"*. | Giải được cùng lúc chi phí runtime (trả một lần), API key, điện thoại yếu, và dữ liệu người học không rời máy. Đổi lại, nó chính là trường hợp **Duy tạo sẵn card rồi publish** ⇒ câu hỏi chuyển từ "chạy ở đâu" sang **"được phép nạp sách NÀO vào máy sinh card"**. Chờ mũi pháp lý của `wf_3ba54746-ce0`. |
+| 2026-10-24 | — | **Research bổ sung xong** (`ADDENDUM-PDF-LLM.md`, `wf_3ba54746-ce0`, 16 agent). **Xung đột cần Duy xử:** addendum khuyến nghị *hoãn* trình đọc PDF và chỉ sinh card từ bài Duy tự viết — tức là **cắt** hai thứ Duy vừa yêu cầu (đọc PDF trong site, LLM tóm tắt *sách*). Claude **không** tự áp khuyến nghị đó lên quyết định của Duy; nó đi vào câu hỏi 3 và 4 dưới đây. | Quy tắc 14: đổi ý thì thêm dòng mới, không sửa. Tự fetch lại: Chrome built-in AI không chạy trên Android/iOS và chỉ hỗ trợ en/es/ja/de/fr — đúng. |
+| 2026-10-24 | — | **Danh sách câu hỏi hợp nhất, 11 câu** (đã xong 1): 1 người đọc ✅ · 2 loại LLM runtime khỏi mùa 1 · 3 nguồn nào được nạp vào máy sinh card · 4 trình đọc PDF mùa 1 · 5 mùa 1 gồm gì · 6 song ngữ mức nào · 7 lưu tiến độ · 8 duyệt card + duyệt chuyên môn · 9 đo gì · 10 kiếm tiền (gộp A7) · 11 rủi ro pháp lý tổng + luật sư (gộp A8, hỏi cuối). Định dạng card (A5) đẩy sang S2; "Ôn với AI của bạn" (A6) để mùa 2. | Câu 2/9 cũ bị thay bởi câu 2–4. Thứ tự: 2 rẻ nhất và khớp đề xuất build-time của chính Duy; 3 quyết định 4 có nội dung hay không; 11 là tổng nên cuối. |
+| 2026-10-24 | 2/11 | **Mùa 1 không có LLM runtime.** Chỉ card tĩnh sinh lúc build trên máy Duy, soát rồi ship JSON. | Đúng đề xuất của Duy. Giữ cả ba lời hứa S0 (chi phí ~0, không tài khoản, dữ liệu trên máy người học). Proxy/BYOK/on-device ghi `N/A — because` cho mùa 1; xem lại khi Chrome AI có tiếng Việt trên điện thoại. |
+| 2026-10-24 | 3/11 | **Nguồn nạp máy sinh card, mùa 1: bài Duy tự viết + sách CC BY** (Hermanson *Accounting Principles*, **chỉ sau khi đọc trang bản quyền trong PDF gốc**). Sách trả phí: chờ luật sư trả lời câu (b). OpenStax hiện hành: không. | Bản mạnh nhất của ý Duy mà vẫn sạch: card sinh từ một cuốn sách thật. Đánh đổi đã nói: sách được phép thay cho sách muốn; Hermanson theo US GAAP ⇒ chỉ lấy khái niệm phổ quát. |
+| 2026-10-24 | 4/11 | **Mùa 1 CÓ trình đọc PDF**: PDF.js (Apache-2.0), lazy-load, mở Hermanson (host, CC BY 4.0) + file riêng của người học **thuần cục bộ, LLM không chạm**; vị trí đọc lưu localStorage. Buổi đo 5 người giữ, để đo *có dùng không*. | Câu 3 làm mất lý do hoãn chính của research ("người học không có PDF hợp pháp"). Giấy phép Hermanson: catalog eCampusOntario `dc.rights` = CC BY 4.0 (Claude tự đọc 2026-10-24); **trang bản quyền trong PDF gốc chưa đọc** — cần Duy cho phép tải file. |
+| 2026-10-24 | 5/11 | **Mùa 1 = phương án B:** lối vào 12–15 bài + GĐ01 + phần khái niệm GĐ02 (NAPAS/VietQR sâu) + phần người vay GĐ05 — ước tính ~28–30 bài, **chưa đo**. **Kèm chuẩn chất lượng của Duy:** *"mọi bài tôi đều muốn chỉnh chu và sạch sẽ, nếu có các từ chuyên ngành thì phải có phần chú thích"*. | Duy chọn chiều sâu payments (đúng chủ đề cái tên) thay vì bản sớm hơn. Hệ quả bắt buộc cho S1/S2: (1) **mọi thuật ngữ chuyên ngành trong bài phải có chú thích**, lấy từ **một file glossary duy nhất** (đã có trong kiến trúc S0) ⇒ thêm được một phép kiểm máy: thuật ngữ nào xuất hiện mà không có mục glossary thì FAIL; (2) GĐ05 kéo nhu cầu duyệt APR vào câu 8. GĐ03/04/06/07 hiện "sắp có", không ghi ngày. |
+| 2026-10-24 | 6/11 | **Song ngữ = C, dạng NÚT GẠT VI ⇄ EN.** VN là gốc; bản EN Claude dịch lúc build, Duy duyệt mới hiện; không trang nào trộn ngôn ngữ. Nút gạt đổi ngôn ngữ **tại chỗ** (giữ `sectionId`), tiến độ & card dùng chung, lựa chọn lưu localStorage; bên dưới vẫn là URL `/vi/` `/en/` + hreflang. **Mặc định Claude đặt (S2 chỉnh được):** bài chưa có EN đã duyệt ⇒ nút gạt mờ + dòng "Bài này chưa có bản tiếng Anh". | Duy: *"đa ngôn ngữ sẽ như là 1 toggle để switch"*. Giữ chuẩn "sạch sẽ" của câu 5 mà không để EN chặn ngày ra mắt. |
+| 2026-10-24 | 7/11 | **Lưu tiến độ = A:** một JSON có `schema` trong localStorage (bài đã đọc · trạng thái card · trang PDF · ngôn ngữ) + "tự khai giai đoạn" 2 chạm + link `#sync` gửi cho chính mình qua Zalo + mời cài màn hình chính sau ~3 bài. **Điều kiện: Duy đo 30 phút trên iPhone + Android thật TRƯỚC khi S1 chốt** (Zalo giữ `#fragment` không, mở WebView hay Safari). Zalo cắt `#` ⇒ sync chuyển sang copy mã. | Không cách lưu trình duyệt nào không mất được (Safari xoá sau 7 ngày, tab và app tách storage) ⇒ mục tiêu là *mất thì rẻ*. Tên key + schema là hợp đồng. |
+| 2026-10-24 | 8/11 | **Duyệt = A:** Duy duyệt mọi bài + mọi card (cả bản EN). Một người kế toán soát GĐ01 (tên tài khoản TT 99/2025) + GĐ05 (APR/lãi suất) + mọi card có con số. **Chưa duyệt thì không đăng.** Đo trước: Duy duyệt 1 bài + card của nó, bấm giờ, rồi mới ước tính tổng. | ~90–150 card; LLM sinh câu hỏi sai 6–22% (y khoa, ngoại suy). Nếu người kế toán là đồng nghiệp Ringkas ⇒ đọc hợp đồng lao động trước (đã có trong việc-chỉ-Duy-làm). |
+| 2026-10-24 | 9/11 | **Đo = B:** bộ đếm gộp tự host, cùng domain (`sendBeacon` → Cloudflare Worker của Duy). Không ID, không cookie, không lưu IP, chỉ cộng số. Event dự kiến (S1 chốt tên, tên là hợp đồng): `lesson_completed {lesson, lang}` · `card_answered {card, correct}` · `pdf_opened {source: hosted\|own}` · `sync_link_created` · `progress_restored`. | Trả lời được ba quyết định đang dựa trên giả định (câu 4 PDF, câu 7 sync, câu 8 card sai). Không script bên thứ ba (WebKit xoá storage). **Chưa kiểm:** giá/hạn mức free của Workers Analytics Engine hay D1; KV không dùng cho bộ đếm (lessons). |
+| 2026-10-24 | 10/11 | **Kiếm tiền = A:** không cam kết phi thương mại; lõi chỉ gồm bài tự viết + CC BY; mọi nguồn NC (BIS, OpenStax) chỉ là link; mùa 1 không kiếm tiền (không affiliate, không donate). | Giữ quyền đổi ý mà không phải viết lại bài nào. B khoá vĩnh viễn để đổi lấy rất ít (trích BIS ≤400 từ; OpenStax vẫn cấm LLM). C thu ~0 (Stripe không hỗ trợ VN) mà làm mờ lời hứa "dạy, không bán". |
+| 2026-10-24 | 11/11 | **Rủi ro pháp lý = A:** chấp nhận phần còn lại, không thuê luật sư ở mùa 1. **Hai điều kiện phải xong TRƯỚC S5:** (1) Duy đọc hợp đồng lao động Ringkas (điều khoản IP); (2) Claude đọc trang bản quyền trong PDF gốc Hermanson (cần Duy cho phép tải file). Kèm lời Duy: *"sau khi release rồi thì sẽ chạy workflows chuyên sâu cho luật sư"*. | Rủi ro mùa 1 còn lại đều thấp và do khiếu nại kích hoạt; có cờ `published` để gỡ. **Ghi chú của Claude:** một Workflow là research, không phải ý kiến pháp lý và không chịu trách nhiệm (review ≠ approve). Hiểu lời Duy là *workflow chuẩn bị hồ sơ câu hỏi (a)–(f) để luật sư trả lời nhanh và rẻ hơn* — **không thay luật sư** ở cổng mùa 2. Nếu Duy có ý khác, thêm dòng mới. |
+| 2026-10-24 | 12/14 | **Workflow THAY luật sư, không thuê luật sư** — kể cả cổng trước tính năng mùa 2 đụng sách người khác. Nguyên văn: *"Workflow thay luật sư, không thuê luật sư."* | Duy chọn B, ngược khuyến nghị A của Claude (đã nêu: workflow là phiên Claude, cùng vendor, không ai chịu trách nhiệm). **Hệ quả vận hành:** mọi kết luận pháp lý từ workflow ghi *"same vendor, same priors — no external verifier ran"* và *"không phải ý kiến pháp lý"*; cổng mùa 2 = workflow hồ sơ (a)–(f) + 6 câu LEGAL-SCREEN, rồi **Duy tự ký chấp nhận rủi ro** từng tính năng (review ≠ approve). Thay dòng "cách hiểu của Claude" ở câu 11. |
+| 2026-10-24 | 13/14 | **Hai điều kiện pháp lý dời lên TRƯỚC S1 chốt:** (1) Duy đọc hợp đồng lao động Ringkas (IP, không cạnh tranh); (2) Claude kiểm Hermanson — trang bản quyền **và** chú thích nguồn từng hình ngoại lệ. Duy cho phép tải PDF Hermanson từ eCampusOntario. | Thay mốc "trước S5" ở câu 11. Không còn luật sư phía sau (câu 12) ⇒ phải bắt sớm. |
+| 2026-10-24 | — | **Hermanson đã kiểm tại PDF gốc:** CC BY **3.0**; có đoạn trích bên thứ ba © riêng (FASB…) ⇒ loại khỏi máy sinh card; 64 hình chưa soát. Câu 3 và 4 **vẫn đứng**. Mở `legal/licences.json`. | Điều kiện 2 của câu 13. Điều kiện 1 (hợp đồng Ringkas) **vẫn chờ Duy**. |
+| 2026-10-24 | 14/14 | **Ra mắt = A:** ra mắt khi **lối vào (12–15 bài VN) đã duyệt xong**; GĐ01/02/05 lên dần bằng cờ `published` (phạm vi câu 5 không bị cắt). **Người kế toán có tên + bấm giờ duyệt 1 bài** là điều kiện trước khi S1 chốt `ACCEPTANCE`. | Câu 8 "chưa duyệt không đăng" × bài lối vào có con số ⇒ không có kế toán thì không đăng được gì. Khối duyệt ước tính 84–150 card VN, ~170–300 lượt kể cả EN — **chưa đo** phút/lượt. |
+| 2026-10-24 | — | **S0 ĐỦ 14/14 QUYẾT ĐỊNH.** Điều kiện trước khi S1 chốt: (1) Duy đo 30 phút iPhone + Android (Zalo `#sync`, WebView, `input type=file`) · (2) Duy đọc hợp đồng Ringkas · (3) có tên người kế toán + bấm giờ duyệt 1 bài. Hermanson đã kiểm (chữ), 64 hình còn soát ở S3. | Thay danh sách "việc chỉ Duy làm được" ở thân bài. |
+| 2026-10-24 | — | **Đính chính (review vòng 2):** dòng "S0 ĐỦ 14/14" ở trên ghi "64 hình còn soát ở S3" — **sai, trái câu 13**, Claude tự dời mà không có quyết định của Duy. Đã sửa bằng cách **làm luôn**: 64 hình trên 59 trang = sơ đồ/biểu đồ/công thức của tác giả (58 có nhãn "Exhibit N" hoặc nằm trong bài tập), 1 logo CC; không trang hình nào có dòng nguồn bên thứ ba (soát chú thích từng trang + xem trực tiếp 2/6 hình không nhãn). **Điều kiện 2 của câu 13: XONG.** | Phương pháp: `pdfimages -list` + `pdftotext` từng trang có hình. Hình không nhãn chỉ xem mẫu 2/6 — ghi rõ. |
+| 2026-10-24 | — | **Ghi chú cho S1 (review vòng 2, N6):** phép bấm giờ của câu 14 cần một bài + card **trước** khi có máy sinh card (S3) ⇒ S1 dựng tay một bài mẫu + card nháp để Duy và người kế toán bấm giờ. | Để điều kiện S1 không phụ thuộc S3. |
+| 2026-10-24 | — | **ĐÍNH CHÍNH (review vòng 3): dòng "64 hình… Điều kiện 2 của câu 13: XONG" ở trên là SAI.** Có ít nhất **2 hình mang nguồn bên thứ ba**: Exhibit 160 tr.803 (Balanced Scorecard — "Source: R. S. Kaplan and D. P. Norton… Harvard Business Review, 1996", dòng nguồn **nằm trong ảnh raster**, Claude đã tự xem lại) và hình không nhãn tr.501 (bảng giá NYSE Kellogg, số liệu "as recently reported in The Wall Street Journal"). Lỗi phương pháp: `pdftotext` không đọc chữ trong ảnh; mẫu 2/6 bỏ sót tr.501; số đếm sai (thực tế 63 ảnh + 1 smask). **Điều kiện 2 của câu 13: CHƯA XONG.** | Phần chữ (CC BY 3.0, đoạn trích © bên thứ ba) vẫn đúng. Review đã dùng 3/3 lượt cho S0 ⇒ theo `review-loop`, leo thẳng lên Duy. |
+| 2026-10-24 | 15 | **Hermanson: chỉ host các chương khớp GĐ01**, không host nguyên cuốn. Claude xem đủ mọi ảnh của phần đó ở độ phân giải gốc trước S1. Chương khác thêm sau, mỗi lần soát ảnh phần đó. | Gỡ blocker cuối của S0 (review vòng 3). Câu 4 vẫn đứng: có trình đọc PDF, có sách thật — phạm vi host thu hẹp. CC BY 3.0 cho phép trích phần, kèm ghi công + ghi rõ "đã trích". |
+| 2026-10-24 | — | **Soát Hermanson phần host (tr.1–197 = front matter + chương 1–4, khớp GĐ01): XONG.** 8/8 ảnh xem ở độ phân giải gốc — 7 sơ đồ/hình của tác giả ("Illustration 1.x–4.x", T-account, sơ đồ adjusting), 1 logo CC BY (+ smask). Chữ: 2 đoạn trích bên thứ ba — tr.113 (báo cáo thường niên Home Depot) và tr.166 (New Accountant 1990, © New DuBois) ⇒ **phải redact trong file host** (CC BY 3.0 cho phép sửa đổi, ghi "đã trích & sửa đổi") và loại khỏi máy sinh card. tr.8/26/44 chỉ nhắc tên WSJ, không trích. **Điều kiện 2 của câu 13: XONG cho phạm vi host.** | Phương pháp: `pdfimages -list` + xem từng ảnh PNG gốc + `pdftotext` từng trang tìm "©/Source:/reprinted/annual report". Giới hạn còn lại: chữ nằm trong ảnh chỉ kiểm bằng mắt (8 ảnh — đã xem hết). Việc redact là của S3. |
