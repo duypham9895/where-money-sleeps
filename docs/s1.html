@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where Money Sleeps — S1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="llm-quiz.html">PDF + LLM quiz</a>
+  <a href="s1.html">S1 Spec</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="meta r"><span class="words">—</span><span>S1 · 2026-10-25 · 51 QĐ · chưa duyệt</span></div>
+  <h1 class="r">Spec viết xong bản nháp.<br>Chưa duyệt được: còn 3 việc của anh.</h1>
+  <div class="tldr r"><p><strong>5 file hợp đồng, 86 tiêu chí PASS/FAIL, 37 ràng buộc Legal, 5 event.</strong> QĐ 38–51 đã áp. Hàng đợi còn 0 câu nhóm A. Chặn duyệt: <strong>3 việc chỉ anh làm được</strong>.</p></div>
+</section>
+
+<section>
+  <h2 class="r">S1 giao gì</h2>
+  <div class="g three r">
+    <div class="k"><div class="n" data-to="86">86</div><div class="cap">AC cho S4</div></div>
+    <div class="k"><div class="n" data-to="37">37</div><div class="cap">ràng buộc Legal</div></div>
+    <div class="k"><div class="n" data-to="5">5</div><div class="cap">event</div></div>
+  </div>
+  <div class="tw r"><table><thead><tr><th>File</th><th>Phòng</th><th>Vai trò</th></tr></thead>
+  <tbody>
+    <tr><td><code>PRD.md</code></td><td>PM</td><td>Cái gì + vì sao, 21 năng lực</td></tr>
+    <tr><td><code>ACCEPTANCE.md</code></td><td>PM</td><td>Tiêu chí PASS/FAIL cho S4</td></tr>
+    <tr><td><code>SUCCESS-CRITERIA.md</code></td><td>Data</td><td>M1–M6 và hành động theo số</td></tr>
+    <tr><td><code>TRACKING-PLAN.md</code></td><td>Data</td><td>5 event, chống trùng không ID</td></tr>
+    <tr><td><code>LEGAL-REVIEW.md</code></td><td>Legal</td><td>R1–R37 có quyền chặn. <strong>Không phải ý kiến pháp lý</strong></td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">Cổng ra mắt</h2>
+  <div class="tw r"><table><thead><tr><th>Điều kiện</th><th>QĐ</th></tr></thead>
+  <tbody>
+    <tr><td>Lối vào VN đã duyệt</td><td>14</td></tr>
+    <tr><td>Trình đọc PDF: Hermanson tr.1–197 + file riêng</td><td>29</td></tr>
+    <tr><td>Hermanson che tr.113, tr.166, bảng B2 tr.117; giữ B3</td><td>29 · 46</td></tr>
+    <tr><td>Trang sách + thẻ sách (anh viết)</td><td>29</td></tr>
+    <tr><td>Cảnh báo lưu trữ <code>persist()</code></td><td>45</td></tr>
+    <tr><td>Card có số: agent kế toán soát, anh ký</td><td>36 · 40</td></tr>
+  </tbody></table></div>
+  <div class="k c r"><p><strong>File riêng chặn cả ra mắt</strong> cho tới khi đo <code>input type=file</code> trong Zalo. S5 thêm: workflow pháp lý L13 + L18 (QĐ 51), R29 + R33 + R37 PASS.</p></div>
+</section>
+
+<section>
+  <h2 class="r">5 event — tên là hợp đồng</h2>
+  <div class="tw r"><table><thead><tr><th>Event</th><th>Thuộc tính</th><th>Cho</th></tr></thead>
+  <tbody>
+    <tr><td><code>lesson_completed</code></td><td>lesson, from_start</td><td>M1 · M2</td></tr>
+    <tr><td><code>card_answered</code></td><td>card, correct — chỉ trắc nghiệm</td><td>M3</td></tr>
+    <tr><td><code>pdf_opened</code></td><td>source: hosted / own</td><td>M4</td></tr>
+    <tr><td><code>sync_created</code></td><td>method: link / code</td><td>M5</td></tr>
+    <tr><td><code>progress_restored</code></td><td>method: link / code</td><td>M5</td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">Thước đo chính: M1 = bài 5 ÷ bài 1</h2>
+  <div class="tw r"><table><thead><tr><th></th><th>Đếm gì</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Chặt</strong></td><td>bài 5 có <code>from_start=true</code> ÷ bài 1</td></tr>
+    <tr><td><strong>Lỏng</strong></td><td>mọi bài 5 ÷ bài 1</td></tr>
+    <tr><td>Ngưỡng</td><td>Chưa có. Đặt sau ≥ 4 tuần <strong>và</strong> ≥ 100 lượt bài 1</td></tr>
+    <tr><td>Dưới / trên</td><td>Viết lại lối vào theo M2 / dồn công vào GĐ01, 02, 05</td></tr>
+  </tbody></table></div>
+  <div class="k a r"><p><strong>Proxy</strong> gộp, không phải funnel theo người. "Xong bài" = trả lời ≥ 1 card trắc nghiệm ⇒ đo "đọc + thử" (QĐ 38, 39).</p></div>
+</section>
+
+<section>
+  <h2 class="r">Chỉ anh làm được — trước khi duyệt S1</h2>
+  <div class="k d r"><p><strong>1 · 30 phút trên iPhone + Android:</strong> Zalo giữ <code>#sync</code> không, mở WebView hay trình duyệt, <code>input type=file</code> chạy không, localStorage sống trong WebView không.</p></div>
+  <div class="k d r"><p><strong>2 · Đọc hợp đồng lao động Ringkas</strong> (IP, không cạnh tranh). Mở khoá chữ "duyệt bởi" (QĐ 34.2) và công khai hộp thư (QĐ 35).</p></div>
+  <div class="k d r"><p><strong>3 · Agent kế toán chạy thử 1 bài mẫu + card;</strong> bấm giờ anh đọc báo cáo và ký (QĐ 36).</p></div>
+</section>
+
+<section>
+  <h2 class="r">Chưa xác minh</h2>
+  <div class="k b r"><p>Mọi hành vi trên điện thoại thật · agent kế toán <strong>chưa chạy lần nào</strong> trên nội dung app · Phụ lục II TT 99 chính thức chưa có ⇒ GĐ01 chưa đăng được · số bài, số card là ước tính · URL gốc các luật Legal dẫn chưa đối chiếu · <strong>QĐ 41–51 nhận theo lô</strong>: chữ đã áp vào file, anh chưa đọc · ONE-PAGER duyệt trước theo QĐ 50, anh nên đọc lại.</p></div>
+</section>
+</main>
+
+<footer>
+  <p>Chi tiết: <code>gates/01-spec/</code> · <code>DECISIONS-QUEUE.md</code> · <code>gates/ONE-PAGER.md</code>. Con trỏ ở <code>01-spec</code>, chưa duyệt.</p>
+  <div class="v"><strong>Same vendor, same priors — no external verifier ran.</strong> S1 chưa qua review.</div>
+</footer>
+<script src="assets/doc.js"></script>
+</body>
+</html>

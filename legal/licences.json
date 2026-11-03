@@ -19,10 +19,86 @@
       "bytes": 7991863,
       "pages": 1004,
       "planned_file": "public/books/hermanson-accounting-principles-ch1-4.pdf",
-      "exclusions": "Các đoạn trích bên thứ ba có © riêng KHÔNG thuộc CC BY: 10 trích dẫn FASB ('Copyright © by the Financial Accounting Standards Board'), trích New Accountant 1990 (© New DuBois Corporation), báo cáo thường niên GE/Gillette/Coca-Cola, bài WSJ. Máy sinh card PHẢI loại các đoạn này. 64 hình trên 59 trang: chưa soát nguồn từng hình. CẬP NHẬT 2026-10-24 (review vòng 3): hình có nguồn bên thứ ba — tr.803 Exhibit 160 (Kaplan & Norton, HBR 1996, nguồn nằm trong ảnh) và tr.501 (bảng giá Kellogg, số liệu WSJ). 63 ảnh (+1 smask logo CC): soát hình CHƯA XONG — chưa OCR, chưa xem đủ ở độ phân giải gốc.",
-      "attribution_text": "Trích chương 1–4 và sửa đổi (che 2 đoạn trích bên thứ ba) từ Hermanson, Edwards & Maher — Accounting Principles: A Business Perspective (Global Text Project), CC BY 3.0.",
+      "exclusions": "Các đoạn trích bên thứ ba có © riêng KHÔNG thuộc CC BY: 10 trích dẫn FASB ('Copyright © by the Financial Accounting Standards Board'), trích New Accountant 1990 (© New DuBois Corporation), báo cáo thường niên GE/Gillette/Coca-Cola, bài WSJ. Máy sinh card PHẢI loại các đoạn này. 64 hình trên 59 trang: chưa soát nguồn từng hình. CẬP NHẬT 2026-10-24 (review vòng 3): hình có nguồn bên thứ ba — tr.803 Exhibit 160 (Kaplan & Norton, HBR 1996, nguồn nằm trong ảnh) và tr.501 (bảng giá Kellogg, số liệu WSJ). 63 ảnh (+1 smask logo CC): soát hình CHƯA XONG — chưa OCR, chưa xem đủ ở độ phân giải gốc. CẬP NHẬT 2026-10-24 (vòng sửa 2, Legal; LEGAL-REVIEW X3 · §A.2): danh sách TRANG loại khỏi máy sinh card (QĐ 28 nạp cả cuốn tr.1–1004, trừ các trang này + luật máy §A.2). (1) Đoạn đã biết phải loại — áp chữ QĐ 28, không phải quyết định mới: tr.113 (Annual Report The Home Depot), tr.166 (New Accountant 1990, © New DuBois), tr.501 (bảng giá Kellogg, số liệu WSJ), tr.803 (Exhibit 160, Kaplan & Norton, HBR 1996). (2) Bảng B2 (Legal §A.2: redact trong file host + loại): tr.117 (Exhibit 15, AICPA Accounting Trends & Techniques). (3) Bảng B3 — TẠM LOẠI khỏi máy sinh card cho tới khi Duy trả lời X10 (chiều chặt, đảo được): tr.45 (J&J/3M/GE), tr.55 (Merck), tr.94–95 (Hewlett-Packard 2000), tr.170 (Exhibit 26, The Home Depot), tr.185 (P&G 2001). File host: B3 CHƯA redact, chờ X10. Danh sách (3) là kết quả soát lần 1 bằng máy (grep 30 tên công ty), chưa xem bằng mắt — bảng của công ty ngoài danh sách có thể còn sót. Ngoài tr.1–197 chưa soát bảng B2/B3. CẬP NHẬT 2026-10-25 (QĐ 46, 47; Legal): HẾT HIỆU LỰC hai câu ở trên — 'Bảng B3 — TẠM LOẠI khỏi máy sinh card cho tới khi Duy trả lời X10' và 'File host: B3 CHƯA redact, chờ X10'. QĐ 46: B3 (tr.45, 55, 94–95, 170, 185) LOẠI HẲN khỏi máy sinh card, nhưng GIỮ nguyên (không che) trong file host. B2 tr.117: CHE trong file host VÀ loại khỏi máy sinh card. QĐ 47: luật máy chính thức = mẫu ③ (LEGAL-REVIEW §A.2) cộng danh sách trang. Từ nay hai việc tách thành hai trường máy đọc: 'card_generator' (loại khỏi máy sinh card) và 'host_redactions' (che trong file host tr.1–197). Một trang có thể bị loại khỏi máy sinh card mà vẫn giữ trong file host (B3), nhưng mọi trang bị che trong file host đều bị loại khỏi máy sinh card.",
+      "attribution_text": "Trích chương 1–4 và sửa đổi (che các đoạn trích và bảng số liệu của bên thứ ba) từ Hermanson, Edwards & Maher — Accounting Principles: A Business Perspective (Global Text Project), CC BY 3.0.",
       "host_scope": "Trang 1–197 của PDF gốc (front matter + chương 1–4: Accounting and its use in business decisions · Recording business transactions · Adjustments for financial reporting · Completing the accounting cycle). Quyết định 15, 2026-10-24.",
-      "host_audit": "2026-10-24: 8/8 ảnh trong tr.1–197 xem ở độ phân giải gốc — hình của tác giả + logo CC BY. Chữ: redact tr.113 (Home Depot annual report) và tr.166 (New Accountant 1990, © New DuBois Corporation) trước khi host."
+      "host_audit": "2026-10-24: 8/8 ảnh trong tr.1–197 xem ở độ phân giải gốc — hình của tác giả + logo CC BY. Chữ: redact tr.113 (Home Depot annual report) và tr.166 (New Accountant 1990, © New DuBois Corporation) trước khi host. CẬP NHẬT 2026-10-25 (QĐ 46): che thêm bảng B2 tr.117 (Exhibit 15, dòng nguồn AICPA Accounting Trends & Techniques 2004); câu của Hermanson '63 per cent of the companies…' ở lại. Bảng B3 tr.45, 55, 94–95, 170, 185 GIỮ nguyên trong file host. Danh sách máy đọc: 'host_redactions'. Soát bảng B2/B3 tr.1–197 vẫn là lần 1 bằng máy (grep 30 tên công ty), chưa xem bằng mắt — xem bằng mắt trước ra mắt (AC-23).",
+      "card_generator": {
+        "decided_by": "QĐ 28 (nạp cả cuốn tr.1–1004 trừ đoạn đã biết) · QĐ 46 (B3 loại hẳn) · QĐ 47 (mẫu ③ + danh sách trang) · QĐ 48 (card trang > 197 chỉ đăng khi có bài published bất kỳ có based_on phủ trang đó)",
+        "excluded_pages": [
+          45,
+          55,
+          94,
+          95,
+          113,
+          117,
+          166,
+          170,
+          185,
+          501,
+          803
+        ],
+        "excluded_pages_why": {
+          "B1_loi_van_ben_thu_ba": [
+            113,
+            166
+          ],
+          "B2_bang_ben_thu_ba": [
+            117
+          ],
+          "B3_so_lieu_cong_ty_that": [
+            45,
+            55,
+            94,
+            95,
+            170,
+            185
+          ],
+          "hinh_ben_thu_ba_ngoai_pham_vi_host": [
+            501,
+            803
+          ]
+        },
+        "page_rule": {
+          "name": "mẫu ③",
+          "applies_to": "mọi trang tr.1–1004; khớp ⇒ loại cả trang khỏi máy sinh card",
+          "regex": "annual report|accounting trends|source[:']|©|copyright|wall street journal|financial accounting standards board|new accountant|dubois|reprinted|adapted from",
+          "flags": "i",
+          "extractor": "pdftotext -f N -l N (mặc định, không -layout), từng trang, trên PDF gốc bytes = 7991863",
+          "measured": "2026-10-25, Legal đo lại: 132/1004 trang khớp (33 trang trong tr.1–197); bắt 7/7 trang đã biết (94, 113, 117, 166, 185, 501, 803). Khớp số đo 2026-10-24.",
+          "known_misses": "Không bắt bảng B3 không có dấu hiệu: tr.45, 55, 170 — do excluded_pages bắt. Bảng bên thứ ba chưa thấy, không có dấu hiệu: lọt (rủi ro Duy nhận ở QĐ 28, xác nhận lại ở QĐ 51)."
+        }
+      },
+      "host_redactions": {
+        "decided_by": "QĐ 15 (host tr.1–197) · QĐ 29 (che là điều kiện ra mắt) · QĐ 46 (che B2, giữ B3)",
+        "redact": [
+          {
+            "page": 113,
+            "class": "B1",
+            "what": "đoạn trích Annual Report của The Home Depot"
+          },
+          {
+            "page": 117,
+            "class": "B2",
+            "what": "bảng Exhibit 15 và dòng nguồn AICPA Accounting Trends & Techniques (2004); giữ câu văn của Hermanson"
+          },
+          {
+            "page": 166,
+            "class": "B1",
+            "what": "đoạn trích New Accountant 1990, © New DuBois Corporation"
+          }
+        ],
+        "keep_in_host_but_excluded_from_cards": [
+          45,
+          55,
+          94,
+          95,
+          170,
+          185
+        ],
+        "keep_why": "B3 — số liệu báo cáo tài chính công ty thật, đọc là dữ kiện (Luật SHTT Đ.15, gray); rủi ro sưu tập dữ liệu (L16) Duy nhận ở QĐ 51.",
+        "keep_notice": "Giữ nguyên dòng giấy phép CC ở chân mọi trang (R4)."
+      }
     }
   ]
 }
