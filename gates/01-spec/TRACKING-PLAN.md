@@ -1,9 +1,9 @@
 ---
-status: fail
+status: pass
 stage: 01-spec
-date: 2026-10-24
+date: 2026-11-08
 owner: Data
-blocked_on: [đo iPhone/Android (Zalo #sync, WebView, input file), Duy đọc hợp đồng Ringkas (tên miền của bộ đếm vướng Legal R34)]
+blocked_on: []
 ---
 
 # TRACKING-PLAN — Where Money Sleeps, mùa 1

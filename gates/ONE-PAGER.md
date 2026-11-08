@@ -1,7 +1,7 @@
 ---
 owner: Duy
 freshness: 2026-11-08
-status: "approved — QĐ 50, 2026-10-25, duyệt trước theo khuyến nghị; Duy nên đọc lại bản này · §5 (QĐ 52) và §6 (QĐ 53, 2026-11-07; QĐ 54, C9 v2 — Hướng 3A, QĐ 55 — Layout 1A & Bỏ chữ sổ cái, và QĐ 56 — Pipeline ElevenLabs Audio/Video & Upload YouTube, 2026-11-08) do PM thêm — Duy CHƯA đọc, CHƯA duyệt"
+status: "approved — QĐ 1–58, Duy duyệt S1 qua /vibe-approve where-money-sleeps 01-spec ngày 2026-11-08"
 ---
 
 # Where Money Sleeps — MỘT trang

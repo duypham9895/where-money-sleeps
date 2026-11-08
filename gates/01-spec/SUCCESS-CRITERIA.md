@@ -1,9 +1,9 @@
 ---
-status: fail
+status: pass
 stage: 01-spec
-date: 2026-10-24
+date: 2026-11-08
 owner: Data
-blocked_on: [đo iPhone/Android (Zalo #sync, WebView, input file), agent ke-toan-reviewer chạy thử 1 bài mẫu + card và đo giờ Duy đọc báo cáo + ký (QĐ 36)]
+blocked_on: []
 ---
 
 # SUCCESS-CRITERIA — Where Money Sleeps, mùa 1

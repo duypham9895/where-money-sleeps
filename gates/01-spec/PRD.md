@@ -1,12 +1,9 @@
 ---
-status: fail
+status: pass
 stage: 01-spec
-date: 2026-10-24
+date: 2026-11-08
 owner: pm
-blocked_on:
-  - "Duy đo iPhone + Android thật (~30 phút): Zalo giữ #sync không · mở WebView hay trình duyệt · input type=file chạy không · localStorage sống trong WebView không"
-  - "Duy đọc hợp đồng lao động Ringkas (điều khoản IP + không cạnh tranh)"
-  - "Agent ke-toan-reviewer chạy thử 1 bài mẫu + card; đo thời gian Duy đọc báo cáo và ký (QĐ 36)"
+blocked_on: []
 ---
 
 # PRD — Where Money Sleeps
