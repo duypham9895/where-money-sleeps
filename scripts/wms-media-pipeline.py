@@ -423,8 +423,18 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
         },
         method="POST",
     )
-    with urllib.request.urlopen(init_req, timeout=60) as init_resp:
-        upload_url = init_resp.headers.get("Location")
+    try:
+        with urllib.request.urlopen(init_req, timeout=60) as init_resp:
+            upload_url = init_resp.headers.get("Location")
+    except urllib.error.HTTPError as exc:
+        err_raw = exc.read().decode("utf-8", errors="replace")
+        if "uploadLimitExceeded" in err_raw:
+            raise RuntimeError(
+                f"YouTube Data API v3 trả về 'uploadLimitExceeded' (kênh {DEFAULT_YT_HANDLE} đã chạm trần 10 video/24h của YouTube cho kênh mới). "
+                f"File video đã render sẵn tại {mp4_path.relative_to(ROOT)} ({len(mp4_bytes):,} bytes); "
+                "hãy bật Intermediate/Advanced Features trong YouTube Studio (Settings -> Channel -> Feature eligibility) hoặc chạy lại lệnh upload sau khi hạn mức 24h mở lại."
+            ) from exc
+        raise RuntimeError(f"YouTube Data API v3 trả về HTTP {exc.code}: {err_raw}") from exc
     if not upload_url:
         raise RuntimeError("YouTube Data API v3 không trả về Location header cho Resumable Upload")
 
@@ -739,8 +749,9 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "cacheDir": ".cache/elevenlabs/",
             },
             "visualTransitionEngine": {
-                "version": "3.0-locked-stage-30fps",
+                "version": "4.3-broadcast-split-stage-30fps",
                 "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+                "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
                 "fps": 30,
                 "crossDissolveSeconds": 0.96,
                 "easing": "cubic_smoothstep",

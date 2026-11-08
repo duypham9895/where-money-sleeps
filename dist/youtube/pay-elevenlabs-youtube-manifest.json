@@ -80,8 +80,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -135,7 +136,7 @@
           "sceneIndex": 1,
           "time": "0:33 – 1:15",
           "beat": 0,
-          "sha256CacheKey": "8c21c2aa97e140d51568284678e38c0b7477ce6759e59a1f51d78d8f9687a8e2",
+          "sha256CacheKey": "548906538816fd1707378cff7ea65ac06ac94aed7d493f4a4f6c21a8fc87a616",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -155,7 +156,7 @@
           "visualPrompt": "Cửa cuốn của Công ty, Ngân hàng trả lương và Bạn kéo lên. Đạo cụ phòng nhân sự (hr) sáng trong nhà Công ty. Một lời nhắn chạy trên dây điện từ Công ty sang Ngân hàng trả lương; nhãn “+ một tài khoản mới” bật lên trên mái ngân hàng. Ống ngầm vẫn tối: chưa có tiền.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tem đóng dấu (cần giấy phép trước khi dùng)",
-          "voWords": 129
+          "voWords": 133
         },
         {
           "sceneIndex": 2,
@@ -213,7 +214,7 @@
           "sceneIndex": 4,
           "time": "2:44 – 3:33",
           "beat": null,
-          "sha256CacheKey": "d380116b9abceffd00fdf4f28b2c0eefbd9a7168b3899ac9c21a05e4f29d6aab",
+          "sha256CacheKey": "b01abe5df4f6c2eeb198e6aa0b8510b5c7ca66face48bc3ce5f98211a351e412",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -232,7 +233,7 @@
           },
           "visualPrompt": "Máy quay hạ xuống dưới mặt đường. Ở mép khung hình, một mặt tiền nét đứt mang nhãn “ngân hàng khác” hiện ra như một nhà giả định. Lời nhắn chạy trên dây điện trước; một nhịp sau, ống ngầm giữa Ngân hàng trả lương và mặt tiền nét đứt mới sáng lên, khối tiền trượt qua. Rồi mặt tiền nét đứt mờ đi, ống tối lại.",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng ống nước chảy ngắn (cần giấy phép trước khi dùng)",
+          "sfxPrompt": "tiếng chuyển khoản ngắn (cần giấy phép trước khi dùng)",
           "voWords": 149
         },
         {
@@ -451,8 +452,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -480,7 +482,7 @@
           "sceneIndex": 0,
           "time": "0:00 – 0:04",
           "beat": 1,
-          "sha256CacheKey": "2984d15bb5c9582156d7f0582b8973d09fe30c5590f044a99270a9be27bec47c",
+          "sha256CacheKey": "6e4893450f62afa77ef726bddf3b248bf679bbb5719facb4bc2e5c066a99694d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -500,7 +502,7 @@
           "visualPrompt": "9:16, cận điện thoại trong nhà Bạn rung, tin ghi có +15.000.000. Máy quay giật lên: dây điện sáng, ống ngầm bên dưới tối hẳn.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng rung điện thoại (cần giấy phép trước khi dùng)",
-          "voWords": 21
+          "voWords": 23
         },
         {
           "sceneIndex": 1,

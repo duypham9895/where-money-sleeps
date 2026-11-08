@@ -80,8 +80,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -135,7 +136,7 @@
           "sceneIndex": 1,
           "time": "0:31 – 1:11",
           "beat": 0,
-          "sha256CacheKey": "e80a22b142e50a55349803b6189a88f05b62ce01984b700329f72ea9470df00e",
+          "sha256CacheKey": "7b10d8b65d5ac02053db808da90a8a6d39da1b9764a5f252e990ebfae68d9078",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -213,7 +214,7 @@
           "sceneIndex": 4,
           "time": "2:32 – 3:30",
           "beat": 3,
-          "sha256CacheKey": "eb43d23850b7d6e21916390f4dd0578ba9e49cbfd66a2594bd6446280fb42c7e",
+          "sha256CacheKey": "f67f56287658a1fced73ec6657f45a52df67c8e0fa6496bd0a065e7382b5569c",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -232,7 +233,7 @@
           },
           "visualPrompt": "Cửa hàng, Công ty tài chính và Ngân hàng của cửa hàng sáng (lit 1,2,4); cửa cuốn Ngân hàng của cửa hàng kéo lên. Lần đầu ống quyết toán ngầm phát sáng: tiền thật chảy từ Công ty tài chính xuống Ngân hàng của cửa hàng (msgs 2→4 money) rồi vào Cửa hàng (msgs 4→1 money). Sổ Cửa hàng đổi thành “sổ: +11.400.000” (fx paid). Thẻ trên Cửa hàng: “+ 11.400.000 vào tài khoản”; thẻ trên Công ty tài chính: “giữ 600.000 làm lãi”.",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng nước chảy trong ống, nhỏ (cần giấy phép trước khi dùng)",
+          "sfxPrompt": "tiếng chuyển khoản, nhỏ (cần giấy phép trước khi dùng)",
           "voWords": 182
         },
         {
@@ -265,7 +266,7 @@
           "sceneIndex": 6,
           "time": "4:20 – 5:19",
           "beat": 4,
-          "sha256CacheKey": "fdf7fa82bc763fc142367c100c49348d9ecc04d9febf1be48eceecccd3080c04",
+          "sha256CacheKey": "46e5d3d077f85a2144b5550d6882c343c7e563e32b701bf0d239f084c4128dbc",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -285,13 +286,13 @@
           "visualPrompt": "Giữ lit 0,2,3; máy quay hạ xuống ống ngầm giữa Ngân hàng của bạn và Công ty tài chính (msgs 3→2 money), mười hai giọt tiền nối đuôi nhau. Mỗi giọt co nhỏ dần theo khoảng cách thời gian, rồi cả mười hai giọt trượt ngược về đầu trục thời gian tại Công ty tài chính, chồng lại thành một cột cao đúng bằng 11.400.000. Bảng sổ nhỏ (fx iledger) hiện công thức.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng bấm máy tính (cần giấy phép trước khi dùng)",
-          "voWords": 186
+          "voWords": 185
         },
         {
           "sceneIndex": 7,
           "time": "5:19 – 6:09",
           "beat": null,
-          "sha256CacheKey": "1960ebafb3e9b32a1190fc52c7472ebda159d81e4d393c4600d38465da8f7a0e",
+          "sha256CacheKey": "97a5e3b28e034dbf8a87e9ffbd761e5b8986cde26fa1afbc575c9d3f40911078",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -425,8 +426,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -506,7 +508,7 @@
           "sceneIndex": 2,
           "time": "0:20 – 0:34",
           "beat": 3,
-          "sha256CacheKey": "1981c44b1eb6feb234ead76ad78613d1d7095f04273cacdff810a47a784a8042",
+          "sha256CacheKey": "7bfd19b948a97257ce13686a58199160ff769e6963fe640fcb35b001782686f7",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -525,7 +527,7 @@
           },
           "visualPrompt": "9:16, cắt dọc ống ngầm (lit 1,2,4): tiền chảy từ Công ty tài chính qua Ngân hàng của cửa hàng vào Cửa hàng (msgs 2→4 money, 4→1 money); sổ Cửa hàng hiện “+11.400.000” (fx paid).",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng nước chảy trong ống (cần giấy phép trước khi dùng)",
+          "sfxPrompt": "tiếng chuyển khoản (cần giấy phép trước khi dùng)",
           "voWords": 49
         },
         {

@@ -80,8 +80,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -109,7 +110,7 @@
           "sceneIndex": 0,
           "time": "0:00 – 0:37",
           "beat": null,
-          "sha256CacheKey": "d6101ad7134af1477e161caa140dd1125239582f7e6f24a9a7bd6f506a5806bb",
+          "sha256CacheKey": "46cc215fb23a69445f4baf7e8231c040c3f8974fbfd6cb0ffcf610d79e0cc22d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -129,7 +130,7 @@
           "visualPrompt": "Toàn cảnh mặt cắt Diorama v3.0 lúc đêm, năm nhà khép cửa cuốn (wShutter hạ); máy quay lia chậm dọc con phố từ Ngân hàng của bạn về nhà Bạn. Dây trên cao và ống ngầm đều tối.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tít máy cà thẻ (SFX chung; cần nêu giấy phép trước khi dùng)",
-          "voWords": 119
+          "voWords": 124
         },
         {
           "sceneIndex": 1,
@@ -161,7 +162,7 @@
           "sceneIndex": 2,
           "time": "1:22 – 2:09",
           "beat": 1,
-          "sha256CacheKey": "0740d17488ee28eee80356b6bc9bb189b49374857331724abba960c733957997",
+          "sha256CacheKey": "588e6c3d497930ebd39b5ac462bceacb69c543a57bc2493bad65bdf25652ff8d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -180,8 +181,8 @@
           },
           "visualPrompt": "Cửa cuốn Quán quen, Ngân hàng của quán, Tổ chức thẻ, Ngân hàng của bạn kéo lên (lit 1–4). Đạo cụ máy POS sáng ở quán, bảng điều phối sáng ở nhà tổ chức thẻ. Dây trên cao sáng lần lượt: Quán → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn, rồi dây trả lời từ Ngân hàng của bạn về Quán. Ống ngầm vẫn tối.",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng tách điện nhẹ chạy dọc dây (SFX chung)",
-          "voWords": 152
+          "sfxPrompt": "tiếng tín hiệu nhẹ (SFX chung)",
+          "voWords": 155
         },
         {
           "sceneIndex": 3,
@@ -213,7 +214,7 @@
           "sceneIndex": 4,
           "time": "2:50 – 3:36",
           "beat": null,
-          "sha256CacheKey": "3f269fd2b73bb19c6ad5f24bf26d6f26e39959f9505d2b21a60ecc0020fee8f5",
+          "sha256CacheKey": "912f4cd5b1b31df84cd6512ec17d46d67dbfd0cd86d21dcd1672ecaa2af93c0d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -233,13 +234,13 @@
           "visualPrompt": "Vẫn đêm đó. Quán quen sáng mờ; một tờ danh sách dài trượt từ quán sang Ngân hàng của quán, rồi đi trên dây tới Tổ chức thẻ và Ngân hàng của bạn (minh hoạ Clearing, ngoài dữ liệu đoạn 3 — đánh dấu là cảnh giải thích). Ống ngầm tối.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy in hoá đơn kéo dài (SFX chung)",
-          "voWords": 148
+          "voWords": 152
         },
         {
           "sceneIndex": 5,
           "time": "3:36 – 4:19",
           "beat": 3,
-          "sha256CacheKey": "931140b16442d18212f964ce073f85154ba7a0e18a7c6d5f6dbbc3ab07d7ea77",
+          "sha256CacheKey": "edb2bfd6ea9e6f2acb8af50932921e383d9d68b9c3c39ba056a541d334a9287d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -258,8 +259,8 @@
           },
           "visualPrompt": "Cửa cuốn lit 1–4 kéo lên. Dây trên cao tối; ống ngầm sáng: Ngân hàng của bạn → Ngân hàng của quán, rồi Ngân hàng của quán → Quán quen và Ngân hàng của quán → Tổ chức thẻ. Đạo cụ tiền về sáng ở quán, đạo cụ chia phí sáng ở Ngân hàng của quán, sổ Interchange sáng ở Ngân hàng của bạn.",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng nước chảy trong ống (SFX chung)",
-          "voWords": 139
+          "sfxPrompt": "tiếng chuyển khoản (SFX chung)",
+          "voWords": 144
         },
         {
           "sceneIndex": 6,
@@ -291,7 +292,7 @@
           "sceneIndex": 7,
           "time": "5:04 – 5:55",
           "beat": null,
-          "sha256CacheKey": "7f467bf91179bb48859317014690b610586c35483f7f0874e47764aa0996a25b",
+          "sha256CacheKey": "919a63d23e5dec9967bc36d8b840e58c6ba61e33d764d48c7406597c8776885a",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -310,14 +311,14 @@
           },
           "visualPrompt": "Cảnh giải thích, không theo đoạn nào: toàn cảnh con phố nhìn từ dưới lòng đất; nhiều ống mảnh từ hai chiều nhập lại; mỗi ngân hàng chỉ còn một ống ròng nối vào tài khoản quyết toán dưới nhà Tổ chức thẻ, không ống nào nối thẳng hai ngân hàng. Nhãn ống: “ròng · qua tài khoản quyết toán”.",
           "sfxEndpoint": "/v1/sound-generation",
-          "sfxPrompt": "tiếng van ống đóng lại (SFX chung)",
-          "voWords": 167
+          "sfxPrompt": "tiếng chốt phiên quyết toán (SFX chung)",
+          "voWords": 171
         },
         {
           "sceneIndex": 8,
           "time": "5:55 – 6:41",
           "beat": 4,
-          "sha256CacheKey": "7809ad3b3750e18e38f973f3625b331d1185b98b89cea2164d2c14280383d3e5",
+          "sha256CacheKey": "3823b6d0c5e07bee661e94e0d29de235a3ca9b31e53468335aeb35d36fb93ada",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -337,13 +338,13 @@
           "visualPrompt": "Cửa cuốn nhà Bạn và Ngân hàng của bạn kéo lên (lit 0, 4). Dây trên cao tối. Ống ngầm sáng từ nhà Bạn → Ngân hàng của bạn: tiền thật trả nợ thẻ chạy dưới đất. Đạo cụ điện thoại sáng ở nhà Bạn, đạo cụ nhả nợ sáng ở Ngân hàng của bạn.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng thông báo tin nhắn (SFX chung)",
-          "voWords": 147
+          "voWords": 151
         },
         {
           "sceneIndex": 9,
           "time": "6:41 – 7:30",
           "beat": null,
-          "sha256CacheKey": "aab3fff0140a456f4bd90dd9276b34951d23ac497ba05babc2a6e0351787d52e",
+          "sha256CacheKey": "596ad0e87d0e30fee4f7885d746ad6c3e324b7f41d778a7aa700ec65057895a7",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -363,7 +364,7 @@
           "visualPrompt": "Cảnh giải thích: ba lần chiếu lại nhanh trên cùng con phố. Một: lời nhắn huỷ chạy trên dây, ống tối. Hai: một dòng tiền nhỏ chạy ngược trong ống từ Ngân hàng của quán về Ngân hàng của bạn. Ba: từ Ngân hàng của bạn một lời nhắn khiếu nại đi trên dây sang Ngân hàng của quán, rồi tiền chạy ngược trong ống.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tua ngược băng (SFX chung)",
-          "voWords": 157
+          "voWords": 161
         },
         {
           "sceneIndex": 10,
@@ -425,8 +426,9 @@
         "cacheDir": ".cache/elevenlabs/"
       },
       "visualTransitionEngine": {
-        "version": "3.0-locked-stage-30fps",
+        "version": "4.3-broadcast-split-stage-30fps",
         "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
         "fps": 30,
         "crossDissolveSeconds": 0.96,
         "easing": "cubic_smoothstep",
@@ -506,7 +508,7 @@
           "sceneIndex": 2,
           "time": "0:18 – 0:29",
           "beat": 3,
-          "sha256CacheKey": "4806b286f8119eccb54b1a273bd1181be561567c1c7054bb199c1e146482e9a9",
+          "sha256CacheKey": "8649e74b339a1782ab011349ad27cf42d2983b33538e2616e50de12f38604ae4",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -526,7 +528,7 @@
           "visualPrompt": "Cận ống ngầm dưới Ngân hàng của quán: đồng xu 220.000 tách ba mảnh; mảnh lớn chạy về Ngân hàng của bạn.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "xu tách (SFX chung)",
-          "voWords": 49
+          "voWords": 50
         },
         {
           "sceneIndex": 3,
