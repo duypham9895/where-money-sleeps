@@ -184,6 +184,13 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
 7. **Cấm Rò rỉ Từ Lóng Đạo Cụ Sân Khấu Chưa Giải Thích Vào Lời Bình & Nhãn Hiển Thị (`Zero Unexplained Stage-Prop Metaphor Leak` — `LUẬT 7`):**
    - **Bài học trả giá (Duy, 2026-11-08, kèm ảnh chụp màn hình Cảnh 2):** *"tại sao là 'Nhìn lên dây điện trên cao'? kh có nghĩa gì cả? rất khó hiểu"*.
    - **Quy tắc bắt buộc (`STAGE_PROP_METAPHOR_RE` trong `scripts/check-story.py`):** Cấm tuyệt đối dùng các cụm từ đạo cụ nghĩa đen (`dây điện`, `dây tín hiệu`, `trên dây`, `ống ngầm`, `ống quyết toán`, `trong ống`, `ống dưới đất`) trong bất kỳ lời bình (`vo`), nhãn hiển thị (`onScreen`, `kicker`, `CONDUIT_PARENT_BOX`, `CHAN`) hay bài đọc nào. Bắt buộc dùng ngôn ngữ tài chính đời thường tự giải thích (`luồng hồ sơ & hợp đồng`, `luồng thông tin xét duyệt`, `giải ngân qua ngân hàng`, `luồng quyết toán liên ngân hàng`).
+8. **Bố Cục 3 Vùng Tách Biệt Không Đè Nhau (`Non-Overlapping 3-Zone Split-Stage` — `LUẬT 8`):**
+   - **Bài học trả giá (Duy, 2026-11-08, kèm ảnh chụp màn hình):** *"phần chữ đã che hết phần animation videos, tôi muốn vừa được thấy script và thấy được video"*.
+   - **Quy tắc bắt buộc:** Chia khung dọc `1080×1920` thành 3 vùng không chồng lấn (`HEADER_BOX.y1 < CONDUIT_PARENT_BOX.y0 < STAGE_BOX.y0 < STAGE_BOX.y1 < CARD_BOX.y0`):
+     - **Zone 1 (`y = 36..354`):** Header & Thanh 5 ngôi nhà.
+     - **Zone 2 (`STAGE_BOX = (48, 368, 1032, 1280)`, `984×912px`):** Sân khấu Mặt cắt & Live 30fps Animation độc lập 100%, không bị bất kỳ hộp chữ nào che khuất.
+     - **Zone 3 (`CARD_BOX = (48, 1294, 1032, 1734)`, `984×440px`):** Khung Script & Công thức gọn ở dưới, hiển thị trọn vẹn lời bình của cảnh với tô sáng từng từ.
+
 
 
 
