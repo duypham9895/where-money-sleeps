@@ -3562,7 +3562,7 @@ function renderYtEmbedHTML(s, fmt, scope){
     + `<span>hoặc chạy CLI: <code>python3 -I scripts/wms-media-pipeline.py --story ${esc(S.story)} --bind-${fmt}-id &lt;11char&gt; --embed-status uploaded_unlisted</code></span></div>` : "";
   return `<section class="yt-embed" data-yt-box="${scope}" aria-label="Video bài viết từ ElevenLabs và YouTube">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice">ElevenLabs: ${esc(voice)}${ytId ? ` · YouTube ID: ${esc(ytId)}` : ""}</span></div>`
+    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · ElevenLabs: ${esc(voice)}${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
     + `<div class="yt-switch" role="group" aria-label="Chuyển định dạng video nhúng">`
     + `<button type="button" data-yt-fmt="long" aria-pressed="${!isShort}">▶ YouTube Dài 16:9</button>`
     + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 YouTube Shorts 9:16</button></div></div>`
@@ -3715,6 +3715,8 @@ function exportVO(k){
       embedUrl:f.youtubeId ? `https://www.youtube-nocookie.com/embed/${f.youtubeId}?rel=0&modestbranding=1` : "",
       youtubeUpload:{
         api:"YouTube Data API v3 (videos.insert)",
+        channelHandle:"@WhereMoneySleeps",
+        channelUrl:"https://www.youtube.com/@WhereMoneySleeps",
         categoryId:"27",
         defaultLanguage:"vi",
         privacyStatus:s.status === "published" ? "public" : "unlisted",
@@ -3726,10 +3728,17 @@ function exportVO(k){
   const data = {story:k, articleTitle:s.title, status:s.status, language:"vi", wordsPerMinute:WPM,
     pipeline:{
       decidedBy:"QĐ 52 · QĐ 53 · C9 v2 · QĐ 56 (2026-11-08)",
+      youtubeChannel:{
+        handle:"@WhereMoneySleeps",
+        url:"https://www.youtube.com/@WhereMoneySleeps"
+      },
       elevenlabs:{
         ttsEndpoint:"POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
         sfxEndpoint:"POST https://api.elevenlabs.io/v1/sound-generation",
+        videoEndpoint:"POST https://api.elevenlabs.io/v1/flows/video",
+        videoStatusEndpoint:"GET https://api.elevenlabs.io/v1/flows/video/:generation_id",
         modelId:"eleven_flash_v2_5",
+        videoModelId:"veo-3.1-fast-generate-001",
         cachePattern:".cache/elevenlabs/{sha256}.json",
         licenceRef:"legal/licences.json#elevenlabs-commercial-tts-sfx"
       },

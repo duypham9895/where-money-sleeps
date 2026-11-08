@@ -37,12 +37,71 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DEFAULT_HTML = ROOT / "docs/prototype.html"
 LICENCES_JSON = ROOT / "legal/licences.json"
+ENV_FILE = ROOT / ".env"
 CACHE_DIR = ROOT / ".cache/elevenlabs"
 DIST_DIR = ROOT / "dist/youtube"
 
 YT_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 VALID_EMBED_STATUS = {"pending_upload", "uploaded_unlisted", "uploaded_private", "uploaded_public"}
+VALID_VIDEO_MODES = ("hybrid", "elevenlabs-full", "programmatic")
 DEFAULT_VOICE_SPEC = "eleven_flash_v2_5:vi_editorial"
+DEFAULT_VIDEO_MODEL = "veo-3.1-fast-generate-001"
+DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
+DEFAULT_YT_URL = "https://www.youtube.com/@WhereMoneySleeps"
+
+
+def load_dotenv(env_path: pathlib.Path = ENV_FILE) -> None:
+    """Nạp biến môi trường từ file `.env` nếu có (không ghi đè biến đã set sẵn trên shell)."""
+    if not env_path.is_file():
+        return
+    for raw in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, _, v = line.partition("=")
+        k = k.strip()
+        v = v.strip().strip('"').strip("'")
+        if k and k not in os.environ:
+            os.environ[k] = v
+
+
+def run_check_env() -> int:
+    """Kiểm tra sẵn sàng của `.env`, ElevenLabs API Key và YouTube OAuth (`@WhereMoneySleeps`)."""
+    load_dotenv()
+    lic = verify_elevenlabs_licence()
+    api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    video_model = os.environ.get("ELEVENLABS_VIDEO_MODEL", DEFAULT_VIDEO_MODEL).strip()
+    video_mode = os.environ.get("WMS_VIDEO_MODE", "hybrid").strip()
+    yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
+    yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
+    yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
+    yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+
+    print("=== KIỂM TRA CẤU HÌNH PIPELINE BƯỚC 5 (QĐ 56) ===")
+    print(f"  [PASS] Giấy phép ElevenLabs (legal/licences.json): {lic.get('id')} ({lic.get('status')})")
+    print(f"  [PASS] Kênh YouTube đích: {yt_handle} ({yt_url})")
+    print(f"  [INFO] Chế độ dựng Video (5B): video_mode={video_mode!r} · model={video_model!r}")
+    if ENV_FILE.is_file():
+        print(f"  [PASS] File .env: đã tạo tại {ENV_FILE.relative_to(ROOT)}")
+    else:
+        print(f"  [WAIT] File .env: chưa tạo (chạy `cp .env.example .env` trong where-money-sleeps/)")
+
+    if api_key:
+        masked = api_key[:6] + "..." + api_key[-4:] if len(api_key) > 12 else "***"
+        print(f"  [PASS] ELEVENLABS_API_KEY: đã khai báo ({masked})")
+    else:
+        print("  [WAIT] ELEVENLABS_API_KEY: chưa điền trong .env")
+
+    if yt_secret.is_file():
+        print(f"  [PASS] YouTube OAuth client_secret: {yt_secret.relative_to(ROOT)}")
+    else:
+        print(f"  [WAIT] YouTube OAuth client_secret: chưa đặt file tại {yt_secret.relative_to(ROOT)}")
+
+    if yt_token.is_file():
+        print(f"  [PASS] YouTube OAuth refresh token: {yt_token.relative_to(ROOT)}")
+    else:
+        print(f"  [INFO] YouTube OAuth refresh token: sẽ tự sinh ở lần đăng nhập đầu tiên ({yt_token.relative_to(ROOT)})")
+    return 0
 
 
 def _load_check_story():
@@ -133,11 +192,15 @@ def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
     return "\n".join(lines)
 
 
-def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
-    """5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Diorama v3.0 16:9 + 9:16 Video Spec)."""
+def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "hybrid") -> dict:
+    """5A (ElevenLabs TTS with-timestamps + SFX) & 5B (ElevenLabs /v1/flows/video + Diorama v3.0 16:9/9:16)."""
+    load_dotenv()
     lic = verify_elevenlabs_licence()
     vid = story.get("videoScript") or {}
     api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    video_model = os.environ.get("ELEVENLABS_VIDEO_MODEL", DEFAULT_VIDEO_MODEL).strip()
+    yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
+    yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -153,6 +216,7 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
         scene_plan = []
         for i, sc in enumerate(scenes):
             vo = str(sc.get("vo") or "").strip()
+            visual = str(sc.get("visual") or "").strip()
             on_screen = str(sc.get("onScreen") or "").strip()
             prev_text = str(scenes[i - 1].get("vo") or "").strip() if i > 0 else ""
             next_text = str(scenes[i + 1].get("vo") or "").strip() if i + 1 < len(scenes) else ""
@@ -181,6 +245,9 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
                 with urllib.request.urlopen(req, timeout=60) as resp:
                     cache_file.write_bytes(resp.read())
 
+            use_el_video = video_mode == "elevenlabs-full" or (
+                video_mode == "hybrid" and (i == 0 or i == len(scenes) - 1)
+            )
             scene_plan.append(
                 {
                     "sceneIndex": i,
@@ -190,6 +257,9 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
                     "cached": cache_file.is_file(),
                     "elevenlabsTtsEndpoint": f"/v1/text-to-speech/{voice_id}/with-timestamps",
                     "elevenlabsModelId": model_id,
+                    "elevenlabsVideoEndpoint": "/v1/flows/video" if use_el_video else None,
+                    "elevenlabsVideoModelId": video_model if use_el_video else None,
+                    "visualPrompt": visual,
                     "sfxEndpoint": "/v1/sound-generation" if sfx_prompt else None,
                     "sfxPrompt": sfx_prompt,
                     "voWords": len(vo.split()),
@@ -203,6 +273,13 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
             "title": fobj.get("title"),
             "aspectRatio": aspect,
             "resolution": resolution,
+            "videoMode": video_mode,
+            "elevenlabsVideoApi": {
+                "createEndpoint": "POST https://api.elevenlabs.io/v1/flows/video",
+                "statusEndpoint": "GET https://api.elevenlabs.io/v1/flows/video/:generation_id",
+                "modelId": video_model,
+                "requiredScope": "Image & Video (Flows)",
+            },
             "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
             "elevenlabsVoiceId": voice_spec,
             "youtubeId": fobj.get("youtubeId", ""),
@@ -210,6 +287,8 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
             "outputMp4": str((DIST_DIR / mp4_name).relative_to(ROOT)),
             "youtubeUploadSpec": {
                 "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+                "channelHandle": yt_handle,
+                "channelUrl": yt_url,
                 "categoryId": "27",
                 "defaultLanguage": "vi",
                 "privacyStatus": "unlisted" if story.get("status") != "published" else "public",
@@ -221,9 +300,13 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str) -> dict:
         }
 
     manifest = {
-        "schemaVersion": "1.0-qd56",
+        "schemaVersion": "1.1-qd56",
         "story": story_key,
         "storyStatus": story.get("status"),
+        "youtubeChannel": {
+            "handle": yt_handle,
+            "url": yt_url,
+        },
         "licenceCheck": {
             "id": lic.get("id"),
             "licence": lic.get("licence"),
@@ -291,15 +374,22 @@ def step_5d_embed_into_post(
 
 def main() -> int:
     ap = argparse.ArgumentParser(
-        description="Pipeline Bước 5 (QĐ 56): ElevenLabs TTS/SFX -> Render Video -> Upload YouTube -> Embed vào bài viết."
+        description="Pipeline Bước 5 (QĐ 56): ElevenLabs TTS/SFX/Video -> Render Video -> Upload YouTube -> Embed vào bài viết."
     )
     ap.add_argument("--html", type=pathlib.Path, default=DEFAULT_HTML, help="Đường dẫn tới docs/prototype.html")
-    ap.add_argument("--story", required=True, help="Khoá bài viết trong STORIES (vd: card, pay, install)")
+    ap.add_argument("--check-env", action="store_true", help="Kiểm tra file .env, ELEVENLABS_API_KEY và YouTube OAuth")
+    ap.add_argument("--story", default=None, help="Khoá bài viết trong STORIES (vd: card, pay, install)")
     ap.add_argument(
         "--mode",
         choices=("dry-run", "live"),
         default="dry-run",
         help="dry-run: kiểm giấy phép + xuất manifest ElevenLabs/YouTube; live: gọi API khi có ELEVENLABS_API_KEY",
+    )
+    ap.add_argument(
+        "--video-mode",
+        choices=VALID_VIDEO_MODES,
+        default="hybrid",
+        help="Chế độ dựng hình ảnh video 5B (hybrid | elevenlabs-full | programmatic)",
     )
     ap.add_argument("--bind-long-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Dài 16:9 và nhúng vào bài")
     ap.add_argument("--bind-short-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Shorts 9:16 và nhúng vào bài")
@@ -310,6 +400,12 @@ def main() -> int:
         help="Trạng thái nhúng YouTube (pending_upload | uploaded_unlisted | uploaded_private | uploaded_public)",
     )
     args = ap.parse_args()
+
+    if args.check_env:
+        return run_check_env()
+
+    if not args.story:
+        ap.error("Cần truyền `--story <slug>` (hoặc `--check-env` để kiểm tra cấu hình)")
 
     if args.bind_long_id is not None or args.bind_short_id is not None or args.embed_status is not None:
         long_id, short_id, st_now = step_5d_embed_into_post(
@@ -326,11 +422,11 @@ def main() -> int:
         print(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES", file=sys.stderr)
         return 1
 
-    manifest = step_5a_5b_manifest(args.story, stories[args.story], args.mode)
+    manifest = step_5a_5b_manifest(args.story, stories[args.story], args.mode, args.video_mode)
     long_cfg = manifest["formats"]["long"]
     short_cfg = manifest["formats"]["short"]
     print(
-        f"[5A-5C Pipeline] Bài '{args.story}' (status={manifest['storyStatus']!r}): "
+        f"[5A-5C Pipeline] Bài '{args.story}' (status={manifest['storyStatus']!r}, channel={manifest['youtubeChannel']['handle']}, videoMode={args.video_mode}): "
         f"Dài {len(long_cfg['scenes'])} cảnh ({long_cfg['aspectRatio']}, voice={long_cfg['elevenlabsVoiceId']}, "
         f"embed={long_cfg['embedStatus']}, yt={long_cfg['youtubeId'] or 'chưa gán'}) | "
         f"Ngắn {len(short_cfg['scenes'])} cảnh ({short_cfg['aspectRatio']}, embed={short_cfg['embedStatus']}, "
