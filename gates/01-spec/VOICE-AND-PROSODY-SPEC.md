@@ -115,11 +115,13 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
    - **CẤM TUYỆT ĐỐI hiệu ứng Ken Burns (`pan / zoom` dịch chuyển phông nền liên tục)** trên các tấm tranh mặt cắt kiến trúc (`install-short-plate-1..4.jpg`):
      + *Cơ sở khoa học thị giác (Optokinetic vs. Saccadic Conflict):* Khi mắt người xem đang thực hiện chuyển động nhảy cóc (`saccadic fixations`) để đọc con số tài chính (`12.000.000 − 600.000 = 11.400.000`) và phụ đề, bất kỳ sự trôi dịch nào của phông nền kiến trúc phía sau sẽ kích hoạt phản xạ bám đuổi thị giác ngoại vi (`optokinetic reflex`), kéo lệch điểm hội tụ của mắt và gây mỏi mắt/chóng mặt ngay lập tức.
      + *Cơ sở thẩm mỹ mặt cắt (`Diorama v3.0`) & chống rung nét (`Zero Sub-pixel Shimmer`):* Trong mặt cắt kiến trúc, toà nhà và lòng đất là **hệ quy chiếu tĩnh (`The Locked Stage`)**, được scale 1 lần duy nhất bằng `LANCZOS` về đúng `1080×1920` (`0.00px drift`, không bao giờ nội suy `BILINEAR` từng frame gây rung nét vẽ Risograph). Chỉ khi đổi bối cảnh giữa các cảnh mới dùng `0.96s Image.blend` hoà tan quang học tại chỗ; nếu hai cảnh liên tiếp dùng chung một tấm mặt cắt (như Cảnh 5 & Cảnh 6 dùng chung `plate-4`), phông nền giữ nguyên bất động 100%.
-2. **Thanh Đường Ống 5 Ngôi Nhà Chuyển Động Êm (`Smoothstep Conduit Particles & Static Header Badges`):**
+2. **Thanh Đường Ống 5 Ngôi Nhà Chuyển Động Êm (`Smoothstep Conduit Particles & Full Vietnamese Role Cards`):**
    - Chỉ có các hạt tín hiệu vàng trên dây cao thế (Cảnh 2) và dòng tiền thật xanh ngọc trong ống ngầm (Cảnh 3 & Cảnh 4) lướt êm giữa 5 ngôi nhà bằng hàm điều hoà `smoothstep(0.0, 1.0, u)` (không giật cục ở điểm ngoặt, không nhấp nháy bán kính theo số nguyên).
-   - **Cấm đổi chữ trên nhãn tiêu đề phụ (`badge`) giữa chừng trong cùng một cảnh:** Nhãn cảnh (`CẢNH X/6 · MỐC 0:XX`) và nhãn trả góp (`12 KỲ TRẢ GÓP · 1,0 TRIỆU/THÁNG`) phải giữ cố định suốt cảnh để không cướp thị giác ngoại vi khi người xem đang đọc phụ đề.
-3. **Khung Phụ Đề Tĩnh Tại, Thanh Dẫn Sáng Trượt Mượt & Cấm Nhấp Nháy Độ Đậm Chữ (`Zero Font-Weight Strobing`):**
-   - Toàn bộ các câu trong cảnh được dàn trang sẵn ở vị trí cố định trong khung phụ đề; một **Thanh Dẫn Sáng Vàng Kim (`Gliding Spotlight Bar`)** bên lề trái trượt dọc mượt mà từ câu đang đọc sang câu kế tiếp.
+   - **Trên sơ đồ 5 ngôi nhà (`HOUSE_NODES`):** Hiển thị 2 dòng tiếng Việt đầy đủ, rõ nghĩa (`BẠN / Người mua`, `CỬA HÀNG / Nơi bán máy`, `CÔNG TY / Tài chính`, `NGÂN HÀNG / Của bạn`, `NGÂN HÀNG / Cửa hàng`) — **CẤM** đánh số thứ tự mảng `1. 2. 3. 4. 5.` và **CẤM** viết tắt cụt lủn kiểu ghi chú kỹ thuật (`C.ty TC`, `NH Bạn`, `NH CH`).
+   - **Cấm tuyệt đối nhãn phân cảnh hậu trường (`CẢNH X/6`, `MỐC 0:XX`, `Ý X/Y`, `KỲ X/12`) trên màn hình:** Thay bằng **Nhãn Chặng Câu Chuyện (`Broadcast Editorial Kicker`)** cố định suốt cảnh (xem §6).
+3. **Khung Phụ Đề Tĩnh Tại, Thanh Dẫn Sáng Trượt Mượt, Khoảng Cách Từ Rộng Rãi & Cấm Nhấp Nháy Độ Đậm Chữ (`Zero Font-Weight Strobing & Kerning Safety`):**
+   - Toàn bộ các câu trong cảnh được dàn trang sẵn ở vị trí cố định trong khung phụ đề (`y = 1120..1700`, nằm trên vùng phụ đề tự động & thanh tiêu đề `#Shorts` của YouTube); một **Thanh Dẫn Sáng Vàng Kim (`Gliding Spotlight Bar`)** bên lề trái trượt dọc mượt mà từ câu đang đọc sang câu kế tiếp.
+   - **Đo chiều rộng từng từ bằng đúng font (`Bold` hoặc `Regular`) sẽ dùng để vẽ + cộng thêm khoảng đệm an toàn (`space_w >= 12.5px`):** Tuyệt đối không để xảy ra lỗi dính chữ giữa từ đậm và từ thường (`"mườihai"`, `"sáutrămnghìn"`).
    - **CẤM đổi độ đậm font (`Regular ↔ Bold`) theo từng từ đang đọc và CẤM viền hộp nhấp nháy tức thời (`0ms`):** Độ đậm của mỗi từ được khoá cố định suốt cảnh (`Bold` cho con số neo tài chính, `Regular` cho từ thường — bề rộng chữ không bao giờ phình/co). Từ đang được phát âm sử dụng **vệt sáng viên thuốc không viền (`soft borderless pill`)** và màu chữ vàng ấm pha mượt (`ramp-in 80ms, ramp-out 120ms`).
 
 ---
@@ -152,5 +154,28 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
 
 ### 5.3. Cổng kiểm Tất định (`scripts/check-story.py` — `BRAND_RE`)
 - `scripts/check-story.py` quét `BRAND_RE` trên **toàn bộ** `all_text(s)` (5 đoạn Diorama), `article_text(s)` (bài sâu `lay` + `pro` + kịch bản video `long` + `short`), `houses` (`label`, `sign`, `fxText`), `GLOSS` và `CATEGORIES`. Bất kỳ tên riêng nào trong 7 nhóm trên xuất hiện sẽ lập tức trả về **`FAIL C9`**.
+
+---
+
+## 6. LUẬT 6 — Cấm Lộ Nhãn Kịch Bản Hậu Trường & Chuẩn Đồ Hoạ Thành Phẩm (Zero Storyboard Slate Leakage & Broadcast-Grade Consumer Overlay — Khoá cứng 2026-11-08)
+
+> **Góp ý trực tiếp của Duy (2026-11-08, kèm ảnh chụp màn hình):**
+> *"tại sao trong video có part ghi 'cảnh ...' -> nó làm cho video kh phải là bản final cho users xem vậy, hãy chú ý các chi tiết và làm cho video thật là chuyên nghiệp"*
+
+### 6.1. Năm chi tiết "Bản Nháp / Hậu Trường" bị CẤM TUYỆT ĐỐI trên khung hình Video thành phẩm
+1. **Cấm in nhãn phân cảnh và timecode kịch bản (`CẢNH X/Y`, `SCENE X/Y`, `MỐC 0:XX – 0:YY`, `Ý X/Y`, `KỲ X/12` nhảy số):**
+   - Đó là ghi chú trên bảng phân cảnh của đạo diễn (`Director's Storyboard Slate`), không phải thông tin cho người xem. Hơn nữa, timecode ước tính trên giấy (`0:34 – 0:48`) lệch với thanh thời gian thực của trình phát YouTube.
+   - **Thay thế bắt buộc:** Dùng **Nhãn Chặng Câu Chuyện (`Broadcast Editorial Kicker`)** nêu đúng bản chất cơ chế tài chính của cảnh đó (VD: `TẠI QUẦY BÁN HÀNG · LỜI HỨA TRẢ GÓP 0%`, `TRÊN DÂY TÍN HIỆU · CHUYỂN GIAO KHOẢN NỢ`, `DƯỚI ỐNG QUYẾT TOÁN · KHOẢN HỤT 600.000 Đ`, `DÒNG TIỀN 12 THÁNG · LÃI SUẤT THỰC TẾ`, `BÀI TOÁN GIÁ BÁN · AI GÁNH PHẦN CHÊNH?`, `ĐIỂM MẤU CHỐT · CÂU HỎI TRƯỚC KHI KÝ`).
+2. **Cấm để sót chỉ dẫn kỹ thuật và dấu ngoặc kép thừa trong dòng Tiêu đề Số liệu (`Callout Headline`):**
+   - Trong dữ liệu kịch bản `onScreen`, người viết thường ghi `Chữ to: “12.000.000 − 600.000 = 11.400.000” · “hỗ trợ lãi suất 5% (ví dụ)” · SFX gợi ý:...`.
+   - Khi render lên video, **CẤM** để nguyên dấu ngoặc kép `“...”` bao quanh phép tính hoặc lặp lại chữ `(ví dụ)` trong ngoặc đơn ở từng tiêu đề lớn. Phải trình bày thành **Dòng Công Thức / Số Liệu Tài Chính Sạch (`Clean Financial Equation Strip`)**: `12.000.000 đ  −  600.000 đ (5%)  =  11.400.000 đ thực nhận`.
+3. **Cấm viết tắt cụt lủn và đánh số mảng `1..5` trên sơ đồ 5 ngôi nhà (`HOUSE_NODES`):**
+   - **CẤM** viết `"1. Bạn"`, `"2. Cửa hàng"`, `"3. C.ty TC"`, `"4. NH Bạn"`, `"5. NH CH"`.
+   - **BẮT BUỘC** trình bày thành thẻ 2 dòng tiếng Việt đầy đủ, sang trọng: `BẠN / Người mua`, `CỬA HÀNG / Nơi bán máy`, `CÔNG TY / Tài chính`, `NGÂN HÀNG / Của bạn`, `NGÂN HÀNG / Cửa hàng`.
+4. **Cấm để dính chữ giữa từ đậm (`Bold`) và từ thường (`Regular`):**
+   - Mọi từ trên phụ đề phải được đo bề rộng (`textlength`) bằng **chính xác font sẽ dùng để vẽ từ đó** (`f_vo_bold` cho số, `f_vo` cho chữ thường) cộng thêm khoảng cách từ an toàn `space_w >= 12.5px`. Tuyệt đối không để xảy ra hiện tượng chữ đậm lấn vào chữ thường (`"mườihai"`, `"sáutrămnghìn"`).
+5. **Tôn trọng Vùng An Toàn Giao Diện YouTube Shorts (`YouTube Shorts Bottom Safe-Zone`, `y <= 1700`):**
+   - Khung Card nội dung và phụ đề phải kết thúc ở `y <= 1700` (dành trọn `220px` đáy màn hình cho thanh tiêu đề `#Shorts`, tên kênh và lớp phụ đề tự động của YouTube Player không đè lên chữ trong video).
+
 
 
