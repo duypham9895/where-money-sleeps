@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Where Money Sleeps — Bản Đồ Điều Phối Agent & Quy Trình Realtime</title>
+<title>Where Money Sleeps — Bản Đồ Điều Phối Agent, Model & Công Cụ Thực Thi Realtime</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,10 +24,14 @@
   --teal-soft: rgba(20, 184, 166, 0.14);
   --rose: #F43F5E;
   --rose-soft: rgba(244, 63, 94, 0.14);
-  --indigo: #6366F1;
-  --indigo-soft: rgba(99, 102, 241, 0.15);
+  --indigo: #818CF8;
+  --indigo-soft: rgba(99, 102, 241, 0.16);
   --emerald: #10B981;
   --emerald-soft: rgba(16, 185, 129, 0.15);
+  --purple: #C084FC;
+  --purple-soft: rgba(192, 132, 252, 0.15);
+  --sky: #38BDF8;
+  --sky-soft: rgba(56, 189, 248, 0.15);
   --shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
   --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -53,6 +57,10 @@ html[data-theme="light"] {
   --indigo-soft: rgba(79, 70, 229, 0.11);
   --emerald: #059669;
   --emerald-soft: rgba(5, 150, 105, 0.12);
+  --purple: #7E22CE;
+  --purple-soft: rgba(126, 34, 206, 0.11);
+  --sky: #0284C7;
+  --sky-soft: rgba(2, 132, 199, 0.11);
   --shadow: 0 10px 28px rgba(24, 24, 27, 0.08);
 }
 * { box-sizing: border-box; }
@@ -82,7 +90,7 @@ a:hover { text-decoration: underline; }
   padding: 10px 20px;
 }
 .top-nav-in {
-  max-width: 1440px;
+  max-width: 1460px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -160,17 +168,17 @@ a:hover { text-decoration: underline; }
 
 /* Main Wrapper */
 .wrap {
-  max-width: 1440px;
+  max-width: 1460px;
   margin: 0 auto;
-  padding: 22px 20px 64px;
+  padding: 20px 20px 64px;
 }
 
 /* Hero + Telemetry Strip */
 .hero {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
   gap: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   padding: 20px 22px;
   border-radius: 14px;
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elev) 100%);
@@ -185,7 +193,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--amber);
@@ -208,14 +216,14 @@ a:hover { text-decoration: underline; }
 }
 .hero h1 {
   font-family: var(--font-serif);
-  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.95rem);
   margin: 0 0 8px;
   line-height: 1.2;
 }
 .hero p {
   margin: 0;
   color: var(--fg-muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
 }
 .telemetry-grid {
   display: grid;
@@ -227,29 +235,127 @@ a:hover { text-decoration: underline; }
   .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .stat-card {
-  padding: 11px 13px;
+  padding: 10px 12px;
   border-radius: 10px;
   background: var(--bg);
   border: 1px solid var(--border);
 }
 .stat-card .lbl {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 .stat-card .val {
   font-family: var(--font-mono);
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: var(--fg);
   margin-top: 2px;
 }
 .stat-card .sub {
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   color: var(--teal);
   margin-top: 2px;
+}
+
+/* 6-Pillar Vendor & Model Stack Transparency Strip */
+.stack-strip {
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  border-radius: 13px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.stack-strip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.stack-strip-head h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vendor-filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.v-filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+.v-filter-btn:hover, .v-filter-btn[aria-pressed="true"] {
+  color: var(--fg);
+  border-color: var(--amber);
+  background: var(--amber-soft);
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+@media (max-width: 1280px) {
+  .stack-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .stack-grid { grid-template-columns: 1fr; }
+}
+.stack-col {
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stack-col-head {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sc-claude { background: var(--purple-soft); color: var(--purple); }
+.sc-gemini { background: var(--sky-soft); color: var(--sky); }
+.sc-audio { background: var(--amber-soft); color: var(--amber); }
+.sc-video { background: var(--emerald-soft); color: var(--emerald); }
+.sc-yt { background: var(--rose-soft); color: var(--rose); }
+.sc-t0 { background: var(--teal-soft); color: var(--teal); }
+.stack-col ul {
+  margin: 0;
+  padding-left: 15px;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  display: grid;
+  gap: 4px;
+}
+.stack-col li strong { color: var(--fg); }
+.stack-col code {
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  color: var(--amber);
 }
 
 /* Simulation Command Bar */
@@ -259,11 +365,11 @@ a:hover { text-decoration: underline; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
+  padding: 13px 16px;
   border-radius: 12px;
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 .sim-topic-group {
   display: flex;
@@ -286,10 +392,10 @@ a:hover { text-decoration: underline; }
   border-radius: 8px;
   padding: 7px 11px;
   font-family: var(--font-sans);
-  font-size: 0.84rem;
+  font-size: 0.83rem;
 }
 .sim-select { min-width: 250px; flex: 1; }
-.sim-input { min-width: 210px; flex: 1; }
+.sim-input { min-width: 200px; flex: 1; }
 .sim-controls {
   display: flex;
   align-items: center;
@@ -298,7 +404,7 @@ a:hover { text-decoration: underline; }
 }
 .sim-status-pill {
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   padding: 6px 11px;
   border-radius: 999px;
   background: var(--bg);
@@ -311,7 +417,7 @@ a:hover { text-decoration: underline; }
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 @media (max-width: 1100px) {
   .wf-tabs { grid-template-columns: repeat(2, 1fr); }
@@ -321,13 +427,13 @@ a:hover { text-decoration: underline; }
 }
 .wf-tab {
   text-align: left;
-  padding: 12px 14px;
+  padding: 11px 13px;
   border-radius: 11px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   color: var(--fg);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 .wf-tab:hover {
   background: var(--bg-card-hover);
@@ -340,7 +446,7 @@ a:hover { text-decoration: underline; }
 }
 .wf-tab-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.69rem;
   color: var(--amber);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -350,11 +456,11 @@ a:hover { text-decoration: underline; }
 }
 .wf-tab-title {
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   line-height: 1.3;
 }
 .wf-tab-sub {
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   color: var(--fg-muted);
   margin-top: 3px;
 }
@@ -362,11 +468,11 @@ a:hover { text-decoration: underline; }
 /* Workspace Split: Hierarchy Canvas (Left) + Inspector & Live Terminal (Right) */
 .workspace {
   display: grid;
-  grid-template-columns: 1fr 410px;
+  grid-template-columns: 1fr 440px;
   gap: 18px;
   align-items: start;
 }
-@media (max-width: 1180px) {
+@media (max-width: 1200px) {
   .workspace { grid-template-columns: 1fr; }
 }
 
@@ -393,19 +499,19 @@ a:hover { text-decoration: underline; }
 .canvas-head h2 {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.22rem;
 }
 .canvas-head p {
   margin: 4px 0 0;
-  font-size: 0.84rem;
+  font-size: 0.83rem;
   color: var(--fg-muted);
 }
 .legend-bar {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
 }
 .legend-item {
   display: inline-flex;
@@ -476,7 +582,7 @@ a:hover { text-decoration: underline; }
 }
 .tier-nodes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
 .node-card {
@@ -488,7 +594,7 @@ a:hover { text-decoration: underline; }
   padding: 12px 13px;
   color: var(--fg);
   cursor: pointer;
-  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
 }
 .node-card:hover {
   transform: translateY(-2px);
@@ -497,6 +603,9 @@ a:hover { text-decoration: underline; }
 .node-card.selected {
   border-color: var(--amber);
   box-shadow: 0 0 0 2px var(--amber-soft);
+}
+.node-card.dimmed {
+  opacity: 0.28;
 }
 .node-card[data-status="running"] {
   border-color: var(--amber);
@@ -519,7 +628,7 @@ a:hover { text-decoration: underline; }
 }
 .node-dept {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 700;
   text-transform: uppercase;
   padding: 2px 7px;
@@ -527,10 +636,9 @@ a:hover { text-decoration: underline; }
   background: var(--indigo-soft);
   color: var(--indigo);
 }
-html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 .node-tier-badge {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   padding: 2px 6px;
   border-radius: 5px;
   background: var(--amber-soft);
@@ -538,24 +646,49 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 }
 .node-title {
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.87rem;
   margin-bottom: 4px;
   line-height: 1.3;
 }
 .node-desc {
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   color: var(--fg-muted);
   line-height: 1.4;
 }
-.node-meta-foot {
+
+/* Explicit Vendor & Model Badges inside every Node Card */
+.node-engine-box {
   margin-top: 8px;
-  padding-top: 7px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: grid;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+}
+.engine-primary {
+  color: var(--amber);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.engine-cross {
+  color: var(--teal);
+  font-size: 0.64rem;
+}
+
+.node-meta-foot {
+  margin-top: 7px;
+  padding-top: 6px;
   border-top: 1px dashed var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   color: var(--fg-dim);
 }
 .status-chip {
@@ -623,7 +756,7 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 .side-panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   position: sticky;
   top: 68px;
 }
@@ -631,30 +764,44 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 16px;
+  padding: 15px 16px;
   box-shadow: var(--shadow);
 }
 .inspector-card h3, .terminal-card h3 {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-family: var(--font-serif);
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
 }
 .insp-section {
-  margin-top: 11px;
-  padding-top: 10px;
+  margin-top: 10px;
+  padding-top: 9px;
   border-top: 1px solid var(--border);
 }
 .insp-label {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   color: var(--amber);
   letter-spacing: 0.05em;
   margin-bottom: 4px;
 }
+.insp-model-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  display: grid;
+  gap: 4px;
+}
+.insp-model-box .p-row { color: var(--amber); font-weight: 600; }
+.insp-model-box .c-row { color: var(--teal); }
+.insp-model-box .a-row { color: var(--fg-muted); font-size: 0.7rem; }
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -662,7 +809,7 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 }
 .code-tag {
   font-family: var(--font-mono);
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   padding: 3px 8px;
   border-radius: 6px;
   background: var(--bg);
@@ -671,7 +818,7 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 }
 .rule-tag {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   padding: 3px 8px;
   border-radius: 6px;
   background: var(--rose-soft);
@@ -681,12 +828,12 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
   background: #070A12;
   color: #D1FAE5;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   line-height: 1.55;
   padding: 12px;
   border-radius: 9px;
   border: 1px solid rgba(255,255,255,0.1);
-  height: 250px;
+  height: 230px;
   overflow-y: auto;
 }
 .log-line { margin-bottom: 5px; word-break: break-word; }
@@ -697,7 +844,7 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 
 /* Semantic Accessible Reference Table */
 .matrix-section {
-  margin-top: 28px;
+  margin-top: 26px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -707,17 +854,17 @@ html[data-theme="dark"] .node-dept { color: #A5B4FC; }
 table.matrix-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
 }
 table.matrix-table th, table.matrix-table td {
-  padding: 9px 11px;
+  padding: 9px 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: top;
 }
 table.matrix-table th {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   color: var(--amber);
   background: var(--bg);
@@ -756,12 +903,12 @@ html[data-reduced-motion="true"] *::after {
 <nav class="top-nav" aria-label="Điều hướng xưởng Vibe">
   <div class="top-nav-in">
     <div class="brand-group">
-      <span class="brand-slug">where-money-<i>sleeps</i> · <b>Agent Workflows</b></span>
+      <span class="brand-slug">where-money-<i>sleeps</i> · <b>Agent &amp; Model Stack</b></span>
       <div class="nav-links">
         <a href="index.html">S0 Discovery</a>
         <a href="s1.html">S1 Spec (56 QĐ)</a>
-        <a href="prototype.html">Prototype & Bài viết</a>
-        <a href="workflows.html" class="active" aria-current="page">⚡ Sơ đồ Xưởng Agent Realtime</a>
+        <a href="prototype.html">Prototype &amp; Bài viết</a>
+        <a href="workflows.html" class="active" aria-current="page">⚡ Sơ đồ Agent &amp; Model Realtime</a>
         <a href="llm-quiz.html">PDF + Quiz</a>
       </div>
     </div>
@@ -775,43 +922,117 @@ html[data-reduced-motion="true"] *::after {
 <main class="wrap">
   <header class="hero">
     <div>
-      <div class="hero-kicker"><span class="pulse-dot" aria-hidden="true"></span> TRUNG TÂM ĐIỀU PHỐI TỰ ĐỘNG HÓA · VIBE × WHERE MONEY SLEEPS</div>
-      <h1>Sơ đồ Phân cấp Phòng ban &amp; 5 Quy trình Tự động hóa Realtime</h1>
-      <p>Mỗi khi anh giao một chủ đề mới hoặc chạy một stage trong repo, hệ thống điều phối các Agent chuyên biệt theo phân cấp phòng ban, qua 3 tầng kiểm chéo độc lập và 2 khóa phần cứng trước khi trình anh duyệt.</p>
+      <div class="hero-kicker"><span class="pulse-dot" aria-hidden="true"></span> MINH BẠCH HÓA 100% NHÀ CUNG CẤP · HỌ MODEL · API AUDIO/VIDEO · CỔNG KIỂM</div>
+      <h1>Ai Làm Gì Trong Xưởng? Bản Đồ Phân Cấp Phòng Ban, Họ Model (Gemini ↔ Claude) &amp; Studio Phát Sóng</h1>
+      <p>Mỗi phòng ban và mỗi bước trong 5 quy trình đều ghi rõ: <strong>Model Chính (Primary)</strong> thuộc họ <strong>Gemini</strong> hay <strong>Claude</strong>, <strong>Model Kiểm Chéo (Cross-Check)</strong> đối xứng, <strong>Audio</strong> thu từ <strong>ElevenLabs <code>eleven_v3</code> (Giọng Tâm)</strong>, <strong>Hình &amp; Video</strong> dựng từ <strong>Google Imagen / Veo 3.1 + Python Pillow/FFmpeg 30fps</strong>, và <strong>Phát hành</strong> qua <strong>YouTube Data API v3</strong>.</p>
     </div>
     <div class="telemetry-grid" aria-label="Chỉ số thực tế trong Repo">
       <div class="stat-card">
-        <div class="lbl">Kho bài &amp; Mặt cắt</div>
-        <div class="val">3 bài · 12 hình</div>
-        <div class="sub">card · pay · install (LUẬT 9)</div>
+        <div class="lbl">Họ LLM Điều Phối</div>
+        <div class="val">Gemini ↔ Claude</div>
+        <div class="sub">Argon/Flash ↔ Fable/Opus/Sonnet</div>
       </div>
       <div class="stat-card">
-        <div class="lbl">Video Phát sóng</div>
-        <div class="val">6/6 MP4 30fps</div>
-        <div class="sub">3 Dài 16:9 + 3 Shorts 9:16</div>
+        <div class="lbl">Voiceover &amp; SFX</div>
+        <div class="val">ElevenLabs v3</div>
+        <div class="sub">Giọng Tâm · -14 LUFS Master</div>
       </div>
       <div class="stat-card">
-        <div class="lbl">Cổng Kiểm Tất Định</div>
-        <div class="val">PASS 100%</div>
-        <div class="sub">C0–C9 · K1–K4 · F1–F4 · B1–B4</div>
+        <div class="lbl">Đồ họa &amp; Video 30fps</div>
+        <div class="val">Veo 3.1 + Pillow</div>
+        <div class="sub">6/6 MP4 (3 Dài 16:9 + 3 Ngắn 9:16)</div>
       </div>
       <div class="stat-card">
-        <div class="lbl">Tri thức Pháp quy</div>
-        <div class="val">TT 99/2025</div>
-        <div class="sub">finance-kb.json (TTL ≤ 30d)</div>
+        <div class="lbl">Hình Mặt Cắt Bài Viết</div>
+        <div class="val">12/12 Hình 16:9</div>
+        <div class="sub">wms-render-editorial-figs.py</div>
       </div>
       <div class="stat-card">
-        <div class="lbl">Con trỏ Xưởng</div>
-        <div class="val">01-spec</div>
-        <div class="sub">56 QĐ · Khoá Hook Guard</div>
+        <div class="lbl">Kênh Phát Hành</div>
+        <div class="val">YouTube API v3</div>
+        <div class="sub">@WhereMoneySleeps (Unlisted)</div>
       </div>
       <div class="stat-card">
-        <div class="lbl">Định tuyến Model</div>
-        <div class="val">T0 → T4</div>
-        <div class="sub">S = 0..8 · Khoá-rồi-Hạ</div>
+        <div class="lbl">Cổng Tất Định &amp; Khoá</div>
+        <div class="val">Python T0 + Hook</div>
+        <div class="sub">check-story · finance-kb · force_ask</div>
       </div>
     </div>
   </header>
+
+  <!-- 6-Pillar Stack Attribution & Interactive Vendor Filter -->
+  <section class="stack-strip" aria-label="6 Trụ Công Nghệ & Nhà Cung Cấp">
+    <div class="stack-strip-head">
+      <h2>🔍 Bảng Phân Vai 6 Bên Tham Gia (Bấm để lọc các Node theo Nhà cung cấp / Công cụ)</h2>
+      <div class="vendor-filter-bar" role="group" aria-label="Lọc sơ đồ theo nhà cung cấp">
+        <button type="button" class="v-filter-btn" data-vendor="all" aria-pressed="true">Tất cả (All Stack)</button>
+        <button type="button" class="v-filter-btn" data-vendor="claude" aria-pressed="false">🟣 Họ Claude (Fable / Opus / Sonnet / Haiku)</button>
+        <button type="button" class="v-filter-btn" data-vendor="gemini" aria-pressed="false">🔵 Họ Gemini (4 Argon High / Med / 3.8 Flash)</button>
+        <button type="button" class="v-filter-btn" data-vendor="elevenlabs" aria-pressed="false">🟠 ElevenLabs Audio (eleven_v3 Giọng Tâm + SFX)</button>
+        <button type="button" class="v-filter-btn" data-vendor="video" aria-pressed="false">🟢 Google Veo 3.1 + Imagen + Pillow/FFmpeg 30fps</button>
+        <button type="button" class="v-filter-btn" data-vendor="youtube" aria-pressed="false">🔴 YouTube Data API v3</button>
+        <button type="button" class="v-filter-btn" data-vendor="python" aria-pressed="false">⚙️ Python T0 + Hook Guard</button>
+      </div>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-col">
+        <div class="stack-col-head sc-claude"><span>🟣 1. Họ Claude (Anthropic)</span><span>CLI</span></div>
+        <ul>
+          <li><strong>Claude Fable 5</strong> (<code>--model fable · 10x</code>): Sáng tạo ngôn ngữ thiết kế <code>0→1</code> (Diorama v3.0 gốc) &amp; gỡ bế tắc T4.</li>
+          <li><strong>Claude Opus 5.5</strong> (<code>--model opus · 5x</code>): Viết <code>PRD.md</code> S1, bài khảo cứu mẫu đầu, phản biện <code>REFUTE</code>, soát Kế toán <code>K1–K4</code> &amp; Tài chính <code>F1–F4</code>.</li>
+          <li><strong>Claude Sonnet 5.5</strong> (<code>--model sonnet · 2x–3.5x</code>): Ngựa thồ chủ lực (~70% việc) — viết bài mới theo khuôn <code>C9</code>, code S3, tóm tắt HTML <code>≤520 từ</code>.</li>
+          <li><strong>Claude Haiku 4.5</strong> (<code>--model haiku · 0.3x–1x</code>): Quét <code>SWEEP</code>, hậu kiểm nhanh.</li>
+        </ul>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head sc-gemini"><span>🔵 2. Họ Gemini (Google DeepMind)</span><span>AGY</span></div>
+        <ul>
+          <li><strong>Gemini 4 Argon High</strong> (<code>pro · 5x</code>): Điều phối trưởng (Lead Agent), tái lập mù <code>T3</code>, kiểm chéo đối xứng với <code>Claude Opus 5.5</code>, kiểm tra UI qua <code>chrome-devtools-mcp</code>.</li>
+          <li><strong>Gemini 4 Argon Medium</strong> (<code>inherit · 2x–3.5x</code>): Subagent song song (<code>invoke_subagent</code>), biên tập kịch bản video &amp; mặt cắt SVG, kiểm chéo với <code>Sonnet 5.5</code>.</li>
+          <li><strong>Gemini 3.8 Flash</strong> (<code>flash · 0.3x–1x</code>): Quét mù đa mũi <code>SWEEP-1..3</code>, đọc DOM/log.</li>
+        </ul>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head sc-audio"><span>🟠 3. Audio (ElevenLabs + FFmpeg)</span><span>5A</span></div>
+        <ul>
+          <li><strong>Voiceover (Lời bình):</strong> <strong>ElevenLabs API v1</strong> (<code>/v1/text-to-speech/{id}/with-timestamps</code>) · Model <code>eleven_v3</code> · <strong>Giọng Tâm</strong> (<code>JwqRvOqFdGeQNu7UjKjw</code>, <code>stability=0.65, similarity=0.80, style=0.20</code>).</li>
+          <li><strong>SFX &amp; Room Tone:</strong> <strong>ElevenLabs Sound Generation API</strong> (<code>/v1/sound-generation</code>) + <strong>Python NumPy Synth</strong> (Room Tone <code>-33 dBFS</code>, cầu thở <code>0.36s</code>, SFX <code>-22 dBFS</code>).</li>
+          <li><strong>Mastering:</strong> <strong>FFmpeg <code>loudnorm</code></strong> chuẩn phát sóng <code>-14 LUFS</code>.</li>
+        </ul>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head sc-video"><span>🟢 4. Đồ Họa &amp; Video (Veo 3.1 + Pillow)</span><span>3B &amp; 5B</span></div>
+        <ul>
+          <li><strong>Mặt cắt Web (Bước 3A):</strong> <strong>SVG + CSS + JS Bezier Engine</strong> (Diorama v3.0).</li>
+          <li><strong>4 Hình Mặt Cắt Bài Viết (Bước 3B · LUẬT 9):</strong> <strong>Python Pillow Vector/Raster Engine</strong> (<code>wms-render-editorial-figs.py</code>) xuất 12 ảnh <code>1200×675</code>.</li>
+          <li><strong>Plate Cảnh Video (Bước 5B-1):</strong> <strong>Gemini Image Generator</strong> (Risograph <code>16:9</code> &amp; <code>9:16</code>) + <strong>Google Veo 3.1</strong> (<code>veo-3.1-generate-preview</code>).</li>
+          <li><strong>Dựng MP4 30fps (Bước 5B-2):</strong> <strong>Python Pillow (LANCZOS) + FFmpeg <code>libx264</code></strong> ghép Split-Stage 3 vùng (<code>LUẬT 8</code>) + phụ đề highlight từng từ.</li>
+        </ul>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head sc-yt"><span>🔴 5. Phát Hành (YouTube API v3)</span><span>5C–5D</span></div>
+        <ul>
+          <li><strong>Upload Video (Bước 5C):</strong> <strong>YouTube Data API v3</strong> (<code>videos.insert</code>, OAuth2 Refresh Token) đẩy lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code>.</li>
+          <li><strong>Nhúng Tự Động (Bước 5D):</strong> Ghi <code>youtubeId</code> + mốc chương vào <code>docs/prototype.html</code> (<code>youtube-nocookie.com</code>).</li>
+          <li><strong>Dự Phòng Cục Bộ:</strong> Trình phát <strong>HTML5 <code>&lt;video controls&gt;</code></strong> phát thẳng 6 file MP4 từ <code>dist/youtube/</code> khi chờ hạn ngạch API.</li>
+        </ul>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head sc-t0"><span>⚙️ 6. Cổng Máy T0 &amp; Khoá Phần Cứng</span><span>0x</span></div>
+        <ul>
+          <li><strong>Kiểm Bài &amp; Luật (C0–C9):</strong> <strong>Python 3.12</strong> (<code>scripts/check-story.py</code>) + <strong>Node.js</strong> (<code>node --check</code>).</li>
+          <li><strong>Toán Tài Chính &amp; Pháp Quy (F1–F4):</strong> <strong>Python 3.12</strong> (<code>scripts/wms-finance-kb.py</code>) tính <code>IRR/EIR</code>, soát <code>TT 99/2025/TT-BTC</code>.</li>
+          <li><strong>Khoá Kép (Dual Lock):</strong> <strong>Antigravity Sandbox</strong> (chặn mạng) + <strong>PreToolUse Hook</strong> (<code>vibe-hook-guard.sh</code> / <code>wms-hook-guard.sh</code> → <code>force_ask</code>).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- Realtime Topic Simulator Bar -->
   <section class="sim-bar" aria-label="Bộ giả lập giao Topic và chạy quy trình Realtime">
@@ -820,8 +1041,8 @@ html[data-reduced-motion="true"] *::after {
       <select id="topic-select" class="sim-select">
         <optgroup label="Đã dựng đủ 3 trụ + 4 hình mặt cắt + 2 video (Sẵn sàng trong Repo)">
           <option value="install">[02 Vay &amp; Tín dụng] Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?</option>
-          <option value="card">[01 Thanh toán &amp; Thẻ] Quẹt thẻ 100.000đ ở quán quen, vì sao quán chỉ thực nhận 98.200đ sau 1 ngày?</option>
-          <option value="pay">[05 Kế toán Doanh nghiệp] Lương 20 triệu trên hợp đồng, vì sao công ty thực chi 24,3 triệu còn bạn nhận 17,9 triệu?</option>
+          <option value="card">[01 Thanh toán &amp; Thẻ] Quẹt thẻ 10 triệu lúc 22:47, vì sao quán quen chỉ thực nhận 9,78 triệu ở ngày T+2?</option>
+          <option value="pay">[05 Kế toán Doanh nghiệp] Lương Gross 17 triệu trên hợp đồng, vì sao công ty chi 20,7 triệu còn bạn thực nhận 15 triệu?</option>
         </optgroup>
         <optgroup label="16 Chủ đề trong Khung 7 Danh mục (Giả lập chạy /vibe-post mới)">
           <option value="bnpl">[02 Vay &amp; Tín dụng] Mua trước trả sau 2 triệu miễn lãi 30 ngày, vì sao phí phạt trễ hạn đẩy lãi thực lên 45%/năm?</option>
@@ -849,27 +1070,27 @@ html[data-reduced-motion="true"] *::after {
     <button type="button" class="wf-tab" role="tab" id="tab-wf1" aria-selected="true" aria-controls="panel-wf" data-wf="wf1">
       <div class="wf-tab-num"><span>QUY TRÌNH 01</span><span>13 NODES</span></div>
       <div class="wf-tab-title">/vibe-post &lt;topic&gt; — Cỗ Máy Hóa Ý Tưởng Thành Bài &amp; Video</div>
-      <div class="wf-tab-sub">6 bước · 9 phòng ban &amp; chuyên gia · LUẬT 1–9 · Cổng duyệt WMS-R4</div>
+      <div class="wf-tab-sub">Claude/Gemini viết &amp; soát · ElevenLabs thu âm · Veo 3.1/Pillow dựng 30fps · YouTube API</div>
     </button>
     <button type="button" class="wf-tab" role="tab" id="tab-wf2" aria-selected="false" aria-controls="panel-wf" data-wf="wf2">
       <div class="wf-tab-num"><span>QUY TRÌNH 02</span><span>11 NODES</span></div>
       <div class="wf-tab-title">Xưởng Sản Phẩm 7 Stage (S0→S6) &amp; Khoá Kép</div>
-      <div class="wf-tab-sub">ONE-PAGER ⇄ UNDERSTOOD · Kiểm chéo T1/T2/T3 · Sandbox + Hook Guard</div>
+      <div class="wf-tab-sub">Opus/Argon S1 · Fable 5 S2 · Sonnet/Argon S3 · Kiểm chéo Claude ↔ Gemini</div>
     </button>
     <button type="button" class="wf-tab" role="tab" id="tab-wf3" aria-selected="false" aria-controls="panel-wf" data-wf="wf3">
       <div class="wf-tab-num"><span>QUY TRÌNH 03</span><span>8 NODES</span></div>
       <div class="wf-tab-title">Cỗ Máy Nghiên Cứu 4 Pha (SWEEP → DEDUPE → REFUTE → JUDGE)</div>
-      <div class="wf-tab-sub">Subagent quét mù đa mũi · Code Python gộp trùng · Phản biện giết ứng viên</div>
+      <div class="wf-tab-sub">Gemini 3.8 Flash / Haiku quét mù · Python T0 gộp trùng · Opus / Argon High phản biện</div>
     </button>
     <button type="button" class="wf-tab" role="tab" id="tab-wf4" aria-selected="false" aria-controls="panel-wf" data-wf="wf4">
       <div class="wf-tab-num"><span>QUY TRÌNH 04</span><span>9 NODES</span></div>
       <div class="wf-tab-title">Bộ Định Tuyến Model Theo Độ Phức Tạp (T0..T4 · Quy tắc 16)</div>
-      <div class="wf-tab-sub">Chấm điểm S = Ambiguity + Risk + Taste + Scope · Khoá-rồi-Hạ</div>
+      <div class="wf-tab-sub">Python 0x → Flash/Haiku 1x → Sonnet/Argon 3x → Opus/Argon 5x → Fable 10x</div>
     </button>
     <button type="button" class="wf-tab" role="tab" id="tab-wf5" aria-selected="false" aria-controls="panel-wf" data-wf="wf5">
       <div class="wf-tab-num"><span>QUY TRÌNH 05</span><span>8 NODES</span></div>
       <div class="wf-tab-title">Vòng Lặp Tri Thức Pháp Quy &amp; Cổng Kiểm Tất Định</div>
-      <div class="wf-tab-sub">wms-finance-kb.py (TT 99/2025, NHNN) · wms-check.sh · 23/23 file luật</div>
+      <div class="wf-tab-sub">wms-finance-kb.py (TT 99/2025, NHNN) · Opus/Argon soát F1–F4 · wms-check.sh</div>
     </button>
   </div>
 
@@ -879,7 +1100,7 @@ html[data-reduced-motion="true"] *::after {
       <div class="canvas-head">
         <div>
           <h2 id="wf-heading">Quy trình 01: /vibe-post &lt;topic&gt; — Từ 1 Câu Ý Tưởng Đến Bài Khảo Cứu &amp; 2 Video Phát Sóng</h2>
-          <p id="wf-subtitle">Nhấp vào bất kỳ phòng ban / node nào trên sơ đồ phân cấp để soi chi tiết script, file đầu vào/đầu ra và luật chặn.</p>
+          <p id="wf-subtitle">Mỗi thẻ hiển thị trực tiếp: [Phòng ban] · [Model/Công cụ Chính] · [Model Kiểm chéo]. Nhấp vào bất kỳ thẻ nào để xem cấu hình API chi tiết.</p>
         </div>
         <div class="legend-bar" aria-label="Chú giải trạng thái">
           <span class="legend-item"><span class="dot dot-idle"></span> Chờ (IDLE)</span>
@@ -895,11 +1116,11 @@ html[data-reduced-motion="true"] *::after {
         <div id="tiers-container"></div>
       </div>
 
-      <!-- Interactive 4-Axis Model Router Calculator (Visible in Workflow 4 or expandable) -->
+      <!-- Interactive 4-Axis Model Router Calculator (Visible in Workflow 4) -->
       <div class="router-calc" id="router-calc-panel" hidden>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <strong style="font-size:0.94rem;color:var(--amber);">🎛️ Bàn Cân Độ Phức Tạp 4 Trục Trực Tuyến (scripts/vibe-model-route.py)</strong>
-          <span id="calc-score-badge" class="sim-status-pill">S = 4/8 → Bậc T2 (Ngựa thồ chủ lực · 2x–3.5x)</span>
+          <span id="calc-score-badge" class="sim-status-pill">S = 4/8 → Bậc T2 (Claude Sonnet 5.5 ↔ Gemini 4 Argon Medium · 2x–3.5x)</span>
         </div>
         <div class="router-sliders">
           <div class="slider-box">
@@ -920,11 +1141,11 @@ html[data-reduced-motion="true"] *::after {
           </div>
         </div>
         <div class="preset-chips" aria-label="Preset tác vụ mẫu">
-          <button type="button" class="preset-chip" data-scores="0,0,0,0">T0: check-story.py (0,0,0,0)</button>
-          <button type="button" class="preset-chip" data-scores="1,0,0,1">T1: Quét SWEEP / Đọc log (1,0,0,1)</button>
-          <button type="button" class="preset-chip" data-scores="1,1,1,1">T2: Lên bài mới theo khuôn C9 (1,1,1,1)</button>
-          <button type="button" class="preset-chip" data-scores="1,2,1,2">T3: ke-toan-reviewer TT 99 / PRD (1,2,1,2)</button>
-          <button type="button" class="preset-chip" data-scores="2,1,2,2">T4: Thiết kế Diorama 0→1 (2,1,2,2)</button>
+          <button type="button" class="preset-chip" data-scores="0,0,0,0">T0 (0x): Python check-story.py (0,0,0,0)</button>
+          <button type="button" class="preset-chip" data-scores="1,0,0,1">T1 (0.3x–1x): Gemini 3.8 Flash / Claude Haiku (1,0,0,1)</button>
+          <button type="button" class="preset-chip" data-scores="1,1,1,1">T2 (2x–3.5x): Claude Sonnet 5.5 ↔ Gemini 4 Argon Med (1,1,1,1)</button>
+          <button type="button" class="preset-chip" data-scores="1,2,1,2">T3 (5x): Claude Opus 5.5 ↔ Gemini 4 Argon High (1,2,1,2)</button>
+          <button type="button" class="preset-chip" data-scores="2,1,2,2">T4 (10x): Claude Fable 5 + Gemini 4 Argon High (2,1,2,2)</button>
         </div>
       </div>
     </div>
@@ -936,11 +1157,20 @@ html[data-reduced-motion="true"] *::after {
           <span id="insp-title">Phòng ban / Agent</span>
           <span class="node-tier-badge" id="insp-tier">T0..T4</span>
         </h3>
-        <p id="insp-summary" style="margin:0;font-size:0.84rem;color:var(--fg-muted);"></p>
+        <p id="insp-summary" style="margin:0;font-size:0.83rem;color:var(--fg-muted);"></p>
+
+        <div class="insp-section">
+          <div class="insp-label">🤖 Họ Model / Engine Thực Thi &amp; Kiểm Chéo (Quy tắc 7 &amp; 16)</div>
+          <div class="insp-model-box">
+            <div class="p-row" id="insp-primary-model">Primary: —</div>
+            <div class="c-row" id="insp-cross-model">Cross-Check: —</div>
+            <div class="a-row" id="insp-api-detail">API / Engine: —</div>
+          </div>
+        </div>
 
         <div class="insp-section">
           <div class="insp-label">Vai trò &amp; Trách nhiệm</div>
-          <div id="insp-role" style="font-size:0.82rem;"></div>
+          <div id="insp-role" style="font-size:0.81rem;"></div>
         </div>
 
         <div class="insp-section">
@@ -961,7 +1191,7 @@ html[data-reduced-motion="true"] *::after {
 
       <div class="terminal-card">
         <h3>
-          <span>📟 Nhật ký Điều phối Realtime</span>
+          <span>📟 Nhật ký Điều phối &amp; Gọi Model/API Realtime</span>
           <button type="button" class="btn" id="btn-clear-log" style="padding:3px 8px;font-size:0.72rem;">Xóa log</button>
         </h3>
         <div class="terminal-log" id="terminal-log" role="log" aria-live="off" aria-label="Nhật ký chạy mô phỏng"></div>
@@ -971,18 +1201,19 @@ html[data-reduced-motion="true"] *::after {
 
   <!-- Accessible Semantic Reference Matrix -->
   <section class="matrix-section" aria-labelledby="matrix-title">
-    <h2 id="matrix-title" style="margin:0;font-family:var(--font-serif);font-size:1.2rem;">Bảng Ma Trận Điều Phối Đầy Đủ (5 Quy Trình · Phòng Ban · Script · Cổng Khoá)</h2>
-    <p style="margin:4px 0 0;font-size:0.84rem;color:var(--fg-muted);">Bảng dữ liệu ngữ nghĩa đối chiếu toàn bộ các bước tự động hóa và cổng kiểm tất định trong repo.</p>
+    <h2 id="matrix-title" style="margin:0;font-family:var(--font-serif);font-size:1.18rem;">Bảng Ma Trận Minh Bạch Hóa Toàn Bộ 5 Quy Trình (Phòng Ban · Model Chính · Model Kiểm Chéo · API Audio/Video · Script)</h2>
+    <p style="margin:4px 0 0;font-size:0.83rem;color:var(--fg-muted);">Bảng tra cứu đầy đủ từng bước: dùng model nào của Gemini hay Claude, thu âm bằng ElevenLabs ra sao, dựng hình bằng Google Veo / Imagen / Pillow / FFmpeg thế nào và cổng kiểm nào chặn.</p>
     <div class="matrix-table-wrap">
       <table class="matrix-table" id="matrix-table">
         <thead>
           <tr>
             <th>Quy trình</th>
-            <th>Bước / Tầng</th>
-            <th>Phòng ban / Agent</th>
-            <th>Bậc Model</th>
-            <th>Script / Skill thực thi</th>
-            <th>Artifact Đầu ra &amp; Cổng chặn</th>
+            <th>Bước / Phòng ban</th>
+            <th>Bậc</th>
+            <th>Model / Engine Chính (Primary)</th>
+            <th>Kiểm Chéo (Cross-Check)</th>
+            <th>API / Công cụ &amp; Script Thực Thi</th>
+            <th>Đầu ra &amp; Luật Chặn</th>
           </tr>
         </thead>
         <tbody id="matrix-tbody"></tbody>
@@ -998,212 +1229,268 @@ html[data-reduced-motion="true"] *::after {
     wf1: {
       id: "wf1",
       title: "Quy trình 01: /vibe-post <topic> — Cỗ Máy Hóa Ý Tưởng Thành Bài & Video (6 Bước)",
-      subtitle: "Khi anh giao một chủ đề mới, 9 phòng ban & chuyên gia chạy tuần tự và song song qua 6 bước trước khi dừng ở cổng duyệt WMS-R4.",
+      subtitle: "Minh bạch hóa từng bước: Model nào của Gemini hay Claude viết/soát, ElevenLabs thu âm giọng nào, Google Veo 3.1 / Imagen / Pillow dựng video thế nào, và YouTube API đẩy lên đâu.",
       tiers: [
         {
-          label: "Tầng 0 · Khởi xướng & Định tuyến Độ phức tạp",
+          label: "Tầng 0 · Khởi xướng & Định tuyến Độ phức tạp (Human + Python Router)",
           nodes: [
             {
               id: "n0_duy",
-              dept: "Chủ Xưởng",
+              dept: "Chủ Xưởng (Duy)",
               tier: "HUMAN",
+              vendors: ["python"],
+              primaryModel: "Duy (Chủ sở hữu sản phẩm)",
+              crossModel: "Khoá phần cứng PreToolUse Hook (force_ask)",
+              apiDetail: "Lệnh trực tiếp trong chat: /vibe-post \"<câu hỏi chủ đề>\"",
               title: "0A. Duy giao 1 câu Topic",
-              desc: "Gõ lệnh /vibe-post kèm câu hỏi cơ chế dòng tiền hoặc chọn từ khung 7 danh mục.",
-              role: "Khởi phát yêu cầu sản xuất nội dung mới; nắm quyền quyết định cuối cùng tại cổng duyệt.",
+              desc: "Gõ lệnh /vibe-post kèm câu hỏi cơ chế dòng tiền hoặc chọn từ khung 7 danh mục × 19 chủ đề.",
+              role: "Khởi phát yêu cầu sản xuất nội dung mới và nắm quyền duyệt đăng cuối cùng tại Bước 6.",
               scripts: [".agents/skills/vibe-post/SKILL.md", "PIPELINE.md"],
-              io: ["Input: Ý tưởng 1 câu", "Output: Lệnh kích hoạt pipeline 6 bước"],
+              io: ["Input: Ý tưởng 1 câu", "Output: Kích hoạt pipeline 6 bước"],
               rules: ["Quy tắc 1 (Không tự đẩy con trỏ)", "WMS-R4 (Không tự đăng bài)"],
               parents: [],
-              logMsg: "Nhận chủ đề mới từ Duy → Khởi chạy pipeline /vibe-post 6 bước."
+              logMsg: "[HUMAN] Duy giao chủ đề mới → Kích hoạt skill /vibe-post."
             },
             {
               id: "n0_router",
               dept: "Phòng Điều Phối",
-              tier: "T0 → T2",
+              tier: "T0 → T2/T3",
+              vendors: ["python", "claude", "gemini"],
+              primaryModel: "Python 3.12 (scripts/vibe-model-route.py)",
+              crossModel: "Định tuyến cặp đối xứng Claude ↔ Gemini",
+              apiDetail: "Chấm S = Ambiguity + Risk + Taste + Scope (0..8) → Chọn T2 (Sonnet 5.5 / Argon Med) hoặc T3 (Opus 5.5 / Argon High)",
               title: "0B. Bộ Định Tuyến Model (vibe-model-route.py)",
-              desc: "Chấm điểm 4 trục S = Ambiguity + Risk + Taste + Scope để chọn đúng bậc model T0..T4.",
-              role: "Áp dụng nguyên tắc Khoá-rồi-Hạ: khuôn C9 đã khóa hạ xuống T2 (2x–3.5x) kết hợp cổng kiểm T0 (0x).",
+              desc: "Tính điểm 4 trục độ phức tạp để giao đúng việc cho đúng model của Gemini hoặc Claude.",
+              role: "Áp dụng luật Khoá-rồi-Hạ: khuôn C9 đã khóa chạy bằng Claude Sonnet 5.5 / Gemini 4 Argon Medium (2x–3.5x), soát bằng Opus 5.5 / Argon High (5x).",
               scripts: ["scripts/vibe-model-route.py", "docs/model-routing.md"],
-              io: ["Input: --preset wms-new-post", "Output: [Route: T2 · S=4/8]"],
-              rules: ["Quy tắc 16 (Định tuyến theo độ phức tạp)", "Cấm lạm dụng bậc T4 10x"],
+              io: ["Input: --preset wms-new-post", "Output: [Route: T2 · S=4/8 · Sonnet 5.5 ↔ Argon Med]"],
+              rules: ["Quy tắc 16 (Định tuyến theo độ phức tạp)", "Cấm lạm dụng Claude Fable 5 (10x)"],
               parents: ["n0_duy"],
-              logMsg: "Chấm điểm S=4/8 (Ambiguity=1, Risk=1, Taste=1, Scope=1) → Định tuyến bậc T2 + kiểm chéo T3."
+              logMsg: "[Python T0] vibe-model-route.py chấm S=4/8 → Giao Primary: Claude Sonnet 5.5 / Gemini 4 Argon Med · Cross-Check: Opus 5.5 ↔ Argon High."
             }
           ]
         },
         {
-          label: "Tầng 1 · Bước 1 & Bước 2: Phân loại Khung 7 Danh mục & Kiến trúc Nội dung 3 Trụ",
+          label: "Tầng 1 · Bước 1 & Bước 2: Phân loại & Biên soạn Nội dung 3 Trụ (Họ Claude ↔ Họ Gemini)",
           nodes: [
             {
               id: "n1_pm",
               dept: "Phòng PM",
-              tier: "T2",
+              tier: "T2 (2x–3.5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Sonnet 5.5 (--model sonnet) / Gemini 4 Argon Medium",
+              crossModel: "Python check-story.py (C1 · 5 ngôi nhà)",
+              apiDetail: "Đối chiếu gates/ONE-PAGER.md & danh mục CATEGORIES (7 danh mục · 19 chủ đề)",
               title: "1. Phân Loại & Khung 5 Ngôi Nhà",
-              desc: "Xếp bài vào 1/7 danh mục · 1/19 chủ đề, chọn đúng 5 ngôi nhà cố định (houses[0..4]).",
-              role: "Đảm bảo câu hỏi mở bài có đủ 3 mỏ neo: [Hành động + Giá trị gốc] → [Cơ chế bề mặt] → [Số thực nhận].",
-              scripts: ["gates/ONE-PAGER.md", "gates/01-spec/TAXONOMY-7x19.md"],
-              io: ["Input: Câu hỏi chủ đề", "Output: Khung story.id, cat, houses[0..4]"],
+              desc: "Xếp bài vào 1/7 danh mục, chọn đúng 5 ngôi nhà cố định (houses[0..4]) và đặt tiêu đề 3 mỏ neo.",
+              role: "Đảm bảo câu hỏi mở bài có đủ 3 vế: [Hành động + Giá trị gốc] → [Cơ chế bề mặt] → [Số thực nhận].",
+              scripts: ["gates/ONE-PAGER.md", "docs/prototype.html"],
+              io: ["Input: Câu hỏi chủ đề", "Output: story.id, cat, houses[0..4]"],
               rules: ["LUẬT 1 (Tiêu đề 3 mỏ neo)", "C1 (Đúng 5 ngôi nhà cố định)"],
               parents: ["n0_router"],
-              logMsg: "Phòng PM gắn bài vào khung 7 danh mục, chốt 5 ngôi nhà cố định và tiêu đề 3 mỏ neo."
+              logMsg: "[PM · Sonnet 5.5 / Argon Med] Đã xếp danh mục, chốt 5 ngôi nhà cố định và tiêu đề 3 mỏ neo."
             },
             {
               id: "n2_diorama_copy",
               dept: "Phòng Biên Tập",
-              tier: "T2",
+              tier: "T2 (2x–3.5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Sonnet 5.5 (--model sonnet) ↔ Gemini 4 Argon Medium",
+              crossModel: "Kiểm chéo khác họ model (Claude ↔ Gemini) + C3/C4",
+              apiDetail: "Sinh 5 nhịp beats[0..4] (≤65 từ/đoạn), bảng compare và từ điển thuật ngữ GLOSS",
               title: "2A. Kịch Bản 5 Nhịp Diorama (beats[0..4])",
-              desc: "Viết 5 đoạn nhân-quả (≤ 65 từ/đoạn), sổ cái Nợ/Có từng bước và chú thích thuật ngữ [[term]].",
-              role: "Chuyển hóa dòng tiền ẩn thành 5 bước tương tác trên mặt cắt cùng bảng hiểu lầm vs sự thật.",
+              desc: "Viết 5 đoạn nhân-quả cho mặt cắt, gắn bút toán Nợ/Có từng nhịp và chú thích [[term]].",
+              role: "Biến luồng tiền ngân hàng phức tạp thành 5 nhịp ngắn gọn dễ hiểu cho người không chuyên.",
               scripts: ["gates/01-spec/AGENT-CMS-PIPELINE.md", "docs/prototype.html"],
               io: ["Input: Khung 5 ngôi nhà", "Output: beats[0..4], compare, GLOSS"],
-              rules: ["C3 (≤ 65 từ/nhịp)", "C4 (Mọi [[term]] phải có trong GLOSS)", "LUẬT 7 (Không lộ đạo cụ)"],
+              rules: ["C3 (≤ 65 từ/nhịp)", "C4 (Mọi [[term]] có trong GLOSS)", "LUẬT 7 (Không lộ đạo cụ)"],
               parents: ["n1_pm"],
-              logMsg: "Phòng Biên Tập hoàn tất 5 nhịp beats[0..4] và nạp từ điển thuật ngữ GLOSS."
+              logMsg: "[Biên tập · Sonnet 5.5 ↔ Argon Med] Hoàn tất 5 nhịp beats[0..4] và nạp từ điển GLOSS."
             },
             {
               id: "n2_essay_video",
               dept: "Phòng Khảo Cứu",
-              tier: "T3",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 (--model opus) ↔ Gemini 4 Argon High (pro)",
+              crossModel: "Kiểm chéo đối xứng Opus 5.5 ↔ Argon High + C6/C9",
+              apiDetail: "Soạn article.lay (5 chương ≥850 từ), article.pro (bút toán TT 99/2025) & videoScript.{long,short}",
               title: "2B. Bài Khảo Cứu 2 Tầng & Kịch Bản Video",
-              desc: "Soạn 5 chương khảo cứu (Đời thường lay ⇄ Học thuật pro TT 99/2025) + Kịch bản Video Dài & Ngắn.",
-              role: "Đảm bảo chiều sâu cơ chế: ≥ 850 từ tầng Đời thường, ≥ 3 bút toán TT 99 tầng Học thuật, kịch bản 10–12 cảnh.",
+              desc: "Viết 5 chương khảo cứu (Đời thường lay ⇄ Học thuật pro TT 99/2025) + Kịch bản Video Dài (11–12 cảnh) & Ngắn (6 cảnh).",
+              role: "Trụ cột chiều sâu học thuật: kết hợp văn phong kể chuyện wave-cadence với chuẩn kế toán Thông tư 99/2025/TT-BTC.",
               scripts: ["docs/prototype.html", "legal/tt99-phu-luc-ii.secondary.json"],
               io: ["Input: beats[0..4] + TT 99/2025", "Output: article.lay, article.pro, videoScript"],
               rules: ["C6 (Σ Nợ = Σ Có theo TT 99/2025)", "C9 v2 (Đủ 3 trụ: lay + pro + videoScript)"],
               parents: ["n1_pm"],
-              logMsg: "Phòng Khảo Cứu biên soạn xong 5 chương khảo cứu 2 tầng (lay/pro) + kịch bản video 2 định dạng."
+              logMsg: "[Khảo cứu · Claude Opus 5.5 ↔ Gemini 4 Argon High] Hoàn tất 5 chương khảo cứu 2 tầng + kịch bản video dài/ngắn."
             }
           ]
         },
         {
-          label: "Tầng 2 · Bước 3: Thiết kế Mặt cắt Tương tác & Đồ họa Khảo cứu (LUẬT 9)",
+          label: "Tầng 2 · Bước 3: Thiết kế Mặt cắt SVG & Render 4 Hình Mặt cắt Khảo cứu (Fable 5 / Sonnet + Pillow)",
           nodes: [
             {
               id: "n3_svg",
               dept: "Phòng Thiết Kế",
-              tier: "T2",
+              tier: "T4 gốc → T2",
+              vendors: ["claude", "gemini", "video"],
+              primaryModel: "Khuôn 0→1: Claude Fable 5 · Bài mới: Sonnet 5.5 / Argon Med",
+              crossModel: "Gemini 4 Argon High + chrome-devtools-mcp + C2b",
+              apiDetail: "Inline SVG 5 ngôi nhà + CSS Keyframes + JS Bezier Particle Engine (Diorama v3.0)",
               title: "3A. Mặt Cắt Diorama v3.0 (SVG 5 Ngôi Nhà)",
-              desc: "Dựng đạo cụ (fx) khớp từng ngôi nhà, đường dẫn hạt sáng bezier và đồng bộ số tiền trên nóc nhà.",
-              role: "Biểu diễn trực quan luồng thông tin 0đ và luồng tiền giải ngân thực tế qua hệ thống ngân hàng.",
+              desc: "Ngôn ngữ thiết kế gốc do Claude Fable 5 (10x) sáng tạo; bài mới do Sonnet 5.5 / Argon Med lắp đạo cụ FX_BY_TYPE.",
+              role: "Hiển thị trực quan luồng hồ sơ 0đ và luồng tiền giải ngân thực tế qua hệ thống ngân hàng.",
               scripts: ["docs/prototype.html", "scripts/check-story.py"],
-              io: ["Input: houses[0..4], beats[0..4]", "Output: SCENECSS + SCENEJS Diorama"],
-              rules: ["C2b (Khớp đạo cụ FX_BY_TYPE)", "LUẬT 7 (Ngôn ngữ tài chính tự nhiên)"],
+              io: ["Input: houses[0..4], beats[0..4]", "Output: SCENECSS + SCENEJS Diorama v3.0"],
+              rules: ["Quy tắc 16 (Khoá-rồi-Hạ T4→T2)", "C2b (Khớp đạo cụ FX_BY_TYPE)"],
               parents: ["n2_diorama_copy"],
-              logMsg: "Phòng Thiết Kế kết xuất mặt cắt SVG 5 ngôi nhà và hiệu ứng hạt sáng dòng tiền."
+              logMsg: "[Thiết kế · Fable 5 Template → Sonnet/Argon] Kết xuất mặt cắt SVG Diorama v3.0."
             },
             {
               id: "n3_figs",
               dept: "Phòng Đồ Họa",
               tier: "T0 + T2",
+              vendors: ["video", "python", "gemini"],
+              primaryModel: "Python Pillow Engine (wms-render-editorial-figs.py) + Gemini Image Gen",
+              crossModel: "Python check-story.py (C9 · CHAP_FIGS + CLS=0)",
+              apiDetail: "Render 4 hình mặt cắt 16:9 (1200×675 JPEG, progressive, quality=92) cho Chương 02–05",
               title: "3B. 4 Hình Mặt Cắt Chen Giữa Bài (LUẬT 9)",
-              desc: "Sinh 4 hình 16:9 (1200×675) cho Chương 02–05 kèm chú thích 3 tầng và nút nhảy lên Diorama.",
-              role: "Chống ngán chữ khi đọc bài dài: giữ Chương 01 thuần chữ, đặt hình ngay sau Đoạn 1 của Chương 02–05.",
+              desc: "Dùng Python Pillow + plate kiến trúc từ Gemini Image Generator sinh 4 hình 1200×675 đặt sau Đoạn 1 của Chương 02–05.",
+              role: "Chống ngán chữ khi đọc bài dài: kèm <figcaption> 3 tầng và nút nhảy ngược lên nhịp Diorama tương ứng.",
               scripts: ["scripts/wms-render-editorial-figs.py", "legal/licences.json"],
               io: ["Input: CHAP_FIGS[slug]", "Output: public/brand/<slug>-fig-1..4.jpg"],
-              rules: ["LUẬT 9 (4 hình 16:9 · CLS = 0)", "C9 · CHAP_FIGS (Đủ 4 hình + licence)"],
+              rules: ["LUẬT 9 (4 hình 16:9 · CLS = 0)", "Quy tắc 4 (Ghi legal/licences.json)"],
               parents: ["n2_essay_video"],
-              logMsg: "Phòng Đồ Họa render 4 hình mặt cắt 1200×675 (LUẬT 9) và ghi giấy phép vào legal/licences.json."
+              logMsg: "[Đồ họa · Python Pillow + Gemini Image Gen] Đã xuất 4 hình mặt cắt 1200×675 (LUẬT 9) vào public/brand/."
             }
           ]
         },
         {
-          label: "Tầng 3 · Bước 4: Tam Giác 3 Chuyên Gia & Cổng Kiểm Tất Định (Chạy Song Song)",
+          label: "Tầng 3 · Bước 4: Tam Giác 3 Chuyên Gia & Cổng Máy T0 (Python + Claude Opus 5.5 ↔ Gemini 4 Argon High)",
           nodes: [
             {
               id: "n4_t0",
               dept: "Cổng Máy T0",
               tier: "T0 (0x)",
-              title: "4A. Phép Kiểm Tất Định (check-story.py)",
-              desc: "Chạy 10 cổng C0–C9 bằng Python thuần trong < 2 giây: kiểm schema, độ dài, bút toán, hình mặt cắt.",
-              role: "Tầng chắn cơ học đầu tiên — trượt bất kỳ cổng nào lập tức chặn chuyển sang bước dựng video.",
+              vendors: ["python"],
+              primaryModel: "Python 3.12 (scripts/check-story.py) + Node.js (node --check)",
+              crossModel: "Tất định 100% — Không dùng LLM",
+              apiDetail: "Parser JS đệ quy JSLiteral đọc thẳng GLOSS, STORIES, CATEGORIES, CHAP_FIGS",
+              title: "4A. Phép Kiểm Tất Định (check-story.py C0–C9)",
+              desc: "Chạy 10 cổng C0–C9 bằng Python thuần trong < 2 giây: kiểm cú pháp JS, độ dài, cân Nợ/Có, hình LUẬT 9.",
+              role: "Tầng chắn cơ học chi phí 0x — trượt bất kỳ cổng nào lập tức chặn chuyển sang bước thu âm/dựng video.",
               scripts: ["scripts/check-story.py", "scripts/wms-check.sh"],
               io: ["Input: docs/prototype.html", "Output: C0..C9 PASS (0 lỗi chặn)"],
               rules: ["C0–C9 (10 cổng tất định)", "C8 (23/23 file quản trị repo)"],
               parents: ["n3_svg", "n3_figs"],
-              logMsg: "check-story.py: C0..C9 PASS 100% — 0 lỗi chặn."
+              logMsg: "[Python T0] check-story.py: C0..C9 PASS 100% (0 lỗi chặn)."
             },
             {
               id: "n4_ketoan",
               dept: "Phòng Kế Toán",
-              tier: "T3",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini", "python"],
+              primaryModel: "Claude Opus 5.5 (--model opus) ↔ Gemini 4 Argon High (pro)",
+              crossModel: "Kiểm chéo khác họ model (Claude ↔ Gemini) + Python tính lại",
+              apiDetail: "Skill ke-toan-reviewer + đối chiếu legal/tt99-phu-luc-ii.secondary.json (Thông tư 99/2025/TT-BTC)",
               title: "4B. Chuyên Gia Kế Toán (K1–K4 · TT 99/2025)",
-              desc: "Tính lại toàn bộ số học bằng Python, đối chiếu mã và tên tài khoản nguyên văn Thông tư 99/2025/TT-BTC.",
-              role: "Đảm bảo Σ Nợ = Σ Có tuyệt đối và không dùng tài khoản cũ đã bãi bỏ.",
+              desc: "Claude Opus 5.5 & Gemini 4 Argon High độc lập tính lại mọi con số bằng Python và soát mã TK Thông tư 99/2025.",
+              role: "Đảm bảo Σ Nợ = Σ Có tuyệt đối (TK 112, 1388, 3335, 334, 338, 511, 521, 641, 642) theo TT 99/2025.",
               scripts: [".agents/skills/ke-toan-reviewer/SKILL.md", "legal/tt99-phu-luc-ii.secondary.json"],
               io: ["Input: Bút toán & con số trong bài", "Output: Chứng nhận K1–K4 PASS"],
-              rules: ["K1 (Số học khớp 100%)", "K2 (Đúng tên TK TT 99/2025)", "K3 (Đúng bản chất Nợ/Có)"],
+              rules: ["K1 (Số học 100%)", "K2 (Đúng tên TK TT 99/2025)", "Quy tắc 7 (Cross-vendor review)"],
               parents: ["n3_svg", "n3_figs"],
-              logMsg: "ke-toan-reviewer: K1–K4 PASS — Đã kiểm chứng Σ Nợ = Σ Có theo TT 99/2025/TT-BTC."
+              logMsg: "[Kế toán · Opus 5.5 ↔ Argon High + Python] K1–K4 PASS — Khớp phụ lục Thông tư 99/2025/TT-BTC."
             },
             {
               id: "n4_taichinh",
               dept: "Phòng Tài Chính",
-              tier: "T3",
+              tier: "T3 (5x) + T0",
+              vendors: ["claude", "gemini", "python"],
+              primaryModel: "Python (wms-finance-kb.py) + Claude Opus 5.5 ↔ Gemini 4 Argon High",
+              crossModel: "Kiểm toán dòng tiền IRR/EIR bằng toán học Python + Cross-vendor LLM",
+              apiDetail: "Skill tai-chinh-reviewer + kho tri thức knowledge/finance-kb.json (TTL ≤ 30 ngày)",
               title: "4C. Chuyên Gia Tài Chính (F1–F4 · IRR/EIR)",
-              desc: "Kiểm tra cơ chế ngân hàng, công thức lãi suất thực EIR/IRR và đối chiếu kho tri thức finance-kb.json.",
-              role: "Ngăn chặn sai lệch bản chất nghiệp vụ ngân hàng, thanh toán bù trừ T+1 và tín dụng tiêu dùng.",
+              desc: "Kiểm tra cơ chế ngân hàng (MDR, Interchange, Clearing T+2, lương On-us/Off-us) và giải phương trình IRR/EIR.",
+              role: "Ngăn chặn sai lệch bản chất nghiệp vụ ngân hàng và toán tài chính giữa bài viết và lời bình video.",
               scripts: [".agents/skills/tai-chinh-reviewer/SKILL.md", "scripts/wms-finance-kb.py"],
               io: ["Input: docs/prototype.html + finance-kb.json", "Output: Chứng nhận F1–F4 PASS"],
-              rules: ["F1 (Cơ chế ngân hàng)", "F2 (Toán tài chính EIR/IRR)", "F4 (Độ tươi tri thức ≤ 30 ngày)"],
+              rules: ["F1 (Cơ chế ngân hàng)", "F2 (Toán EIR/IRR)", "F4 (Độ tươi KB ≤ 30 ngày)"],
               parents: ["n3_svg", "n3_figs"],
-              logMsg: "tai-chinh-reviewer: F1–F4 PASS — Toán EIR/IRR và cơ chế thanh toán khớp finance-kb.json."
+              logMsg: "[Tài chính · wms-finance-kb.py + Opus/Argon] F1–F4 PASS — Toán IRR/EIR khớp tuyệt đối."
             },
             {
               id: "n4_brand",
               dept: "Phòng Pháp Chế",
               tier: "T1 + T0",
+              vendors: ["gemini", "claude", "python"],
+              primaryModel: "Gemini 3.8 Flash / Claude Haiku 4.5 + Python Regex Gate",
+              crossModel: "Cổng chặn cứng trong wms-media-pipeline.py trước khi gọi TTS",
+              apiDetail: "Skill brand-safety-reviewer quét 100% STORIES, GLOSS, vo, onScreen, visual, YouTube metadata",
               title: "4D. Chuyên Gia An Toàn Thương Hiệu (B1–B4)",
-              desc: "Quét 100% văn bản, phụ đề và khung hình: chặn tuyệt đối tên riêng thương mại, ngân hàng, ví, công cụ.",
-              role: "Bảo vệ tính trung lập học thuật — chỉ dùng danh từ chung (Ngân hàng của bạn, Tổ chức thẻ, Cửa hàng).",
+              desc: "Quét toàn bộ nội dung người đọc xem: chặn 100% tên riêng thương mại, ngân hàng, mạng thẻ, ví điện tử thật.",
+              role: "Giữ tính trung lập học thuật cho bài viết & video (chỉ dùng danh từ chung: Ngân hàng của bạn, Tổ chức thẻ, Cửa hàng).",
               scripts: [".agents/skills/brand-safety-reviewer/SKILL.md", "scripts/wms-media-pipeline.py"],
-              io: ["Input: Toàn bộ chữ & kịch bản", "Output: Chứng nhận B1–B4 (0 tên riêng)"],
-              rules: ["B1–B4 (0 tên riêng thương mại)", "LUẬT 7 (0 ẩn dụ đạo cụ rò rỉ)"],
+              io: ["Input: Toàn bộ bài viết & kịch bản video", "Output: Chứng nhận B1–B4 (0 tên riêng)"],
+              rules: ["B1–B4 (0 tên riêng thương mại trong bài/video)", "LUẬT 7 (0 ẩn dụ đạo cụ rò rỉ)"],
               parents: ["n3_svg", "n3_figs"],
-              logMsg: "brand-safety-reviewer: B1–B4 PASS — Tuyệt đối 0 tên riêng thương mại trên toàn bộ bài và kịch bản."
+              logMsg: "[Brand Safety · Flash/Haiku + Python Gate] B1–B4 PASS — 0 tên riêng thương mại trong bài & video."
             }
           ]
         },
         {
-          label: "Tầng 4 · Bước 5A–5D: Phòng Studio Phát Sóng Audio/Video & Nhúng Tự Động",
+          label: "Tầng 4 · Bước 5A–5D: Studio Âm Thanh (ElevenLabs v3) · Dựng Video (Veo 3.1 + Pillow/FFmpeg) · YouTube API",
           nodes: [
             {
               id: "n5_tts",
-              dept: "Phòng Âm Thanh",
-              tier: "T2",
-              title: "5A. Thu Giọng Đọc Liền Mạch & Chuẩn Hóa -14 LUFS",
-              desc: "Tổng hợp lời bình nguyên bài liền mạch với cầu thở 0,36s, Room Tone -33 dBFS và SFX chuyển cảnh -22 dBFS.",
-              role: "Tạo nhịp giọng kể chuyện tự nhiên, liền mạch cảm xúc giữa các cảnh.",
-              scripts: ["scripts/wms-media-pipeline.py"],
-              io: ["Input: videoScript.long & short", "Output: Master WAV -14 LUFS + word timestamps"],
-              rules: ["LUẬT 2 (Thu liền mạch nguyên bài)", "Chuẩn phát sóng -14 LUFS"],
+              dept: "Studio Âm Thanh (5A)",
+              tier: "ElevenLabs API",
+              vendors: ["elevenlabs", "python"],
+              primaryModel: "ElevenLabs API v1 · Model: eleven_v3 · Giọng Tâm (JwqRvOqFdGeQNu7UjKjw)",
+              crossModel: "FFmpeg loudnorm (-14 LUFS) + SHA-256 Cache (.cache/elevenlabs/)",
+              apiDetail: "POST /v1/text-to-speech/{voice_id}/with-timestamps (stability=0.65, similarity=0.80, style=0.20) + POST /v1/sound-generation",
+              title: "5A. Thu Giọng Đọc ElevenLabs v3 & Mix SFX (-14 LUFS)",
+              desc: "Gọi ElevenLabs eleven_v3 (Giọng Tâm) thu liền mạch nguyên bài kèm timestamps từng từ + tạo SFX chuyển cảnh & Room Tone.",
+              role: "Kết hợp giọng kể truyền cảm của ElevenLabs với cầu thở 0,36s, Room Tone -33 dBFS, SFX -22 dBFS và chuẩn hóa -14 LUFS bằng FFmpeg.",
+              scripts: ["scripts/wms-media-pipeline.py", "legal/licences.json"],
+              io: ["Input: videoScript.{long,short}.vo", "Output: Master WAV -14 LUFS + Word Timestamps JSON"],
+              rules: ["LUẬT 2 (Thu liền mạch nguyên bài)", "Chuẩn âm lượng phát sóng -14 LUFS"],
               parents: ["n4_t0", "n4_ketoan", "n4_taichinh", "n4_brand"],
-              logMsg: "Phòng Âm Thanh: Đã tổng hợp Master Audio (-14 LUFS) kèm mốc thời gian từng từ."
+              logMsg: "[ElevenLabs eleven_v3 · Giọng Tâm] Đã thu âm liền mạch kèm word-timestamps & chuẩn hóa FFmpeg -14 LUFS."
             },
             {
               id: "n5_video",
-              dept: "Phòng Dựng Hình",
-              tier: "T2",
-              title: "5B. Kết Xuất Video 30fps Split-Stage (LUẬT 6b & LUẬT 8)",
-              desc: "Dựng MP4 16:9 (1920×1080) & 9:16 (1080×1920 chia 3 vùng độc lập: Header, Sân khấu, Thẻ phụ đề).",
-              role: "Đảm bảo thẻ chữ không bao giờ đè lên hình minh họa và 5 hộp con nằm gọn trong hộp cha.",
+              dept: "Studio Dựng Hình (5B)",
+              tier: "Veo 3.1 + Pillow",
+              vendors: ["video", "gemini", "python"],
+              primaryModel: "Gemini Image Gen + Google Veo 3.1 + Python Pillow/FFmpeg 30fps Compositor",
+              crossModel: "assert_parent_child_containment (LUẬT 6b) + Split-Stage 3 vùng (LUẬT 8)",
+              apiDetail: "Plates: Gemini Image Gen / google.genai Veo 3.1 (veo-3.1-generate-preview) · Render: Pillow LANCZOS + FFmpeg libx264 30fps CRF 18",
+              title: "5B. Dựng Video 16:9 & 9:16 (Veo 3.1 / Imagen + Pillow/FFmpeg 30fps)",
+              desc: "Ghép plate mặt cắt Risograph đêm (từ Gemini Image Gen / Google Veo 3.1) với sơ đồ 5 ngôi nhà, chùm sáng spotlight và phụ đề highlight từng từ khớp ElevenLabs.",
+              role: "Kết xuất 2 file MP4 1080p 30fps (16:9 1920×1080 & 9:16 1080×1920 chia 3 vùng không đè chữ) cho mỗi bài viết.",
               scripts: ["scripts/wms-media-pipeline.py"],
-              io: ["Input: Master WAV + Cutaway Plates", "Output: dist/youtube/<slug>-{long,short}.mp4"],
+              io: ["Input: Master WAV + Risograph Plates", "Output: dist/youtube/<slug>-{long-16x9,short-9x16}.mp4"],
               rules: ["LUẬT 6b (Containment P_inner ≥ 20px)", "LUẬT 8 (Split-Stage 3 vùng không đè chữ)"],
               parents: ["n5_tts"],
-              logMsg: "Phòng Dựng Hình: Render hoàn tất 2 file MP4 30fps (16:9 & 9:16) đạt chuẩn LUẬT 6b + LUẬT 8."
+              logMsg: "[Google Veo 3.1 / Imagen + Pillow/FFmpeg 30fps] Đã render xong MP4 16:9 & 9:16 đạt chuẩn LUẬT 6b + LUẬT 8."
             },
             {
               id: "n5_embed",
-              dept: "Phòng Phát Hành",
-              tier: "T1",
-              title: "5C–5D. Upload Unlisted & Tự Động Nhúng Vào Bài",
-              desc: "Đẩy video lên kênh ở chế độ Unlisted (kèm trình phát MP4 cục bộ dự phòng) và ghi mã nhúng vào bài.",
-              role: "Giúp Duy xem thử cả bài viết lẫn 2 video ngay trong giao diện đọc bài trước khi quyết định đăng.",
+              dept: "Phát Hành (5C–5D)",
+              tier: "YouTube API v3",
+              vendors: ["youtube", "python"],
+              primaryModel: "YouTube Data API v3 (videos.insert) + HTML5 <video> Local Fallback",
+              crossModel: "Kiểm tra mã youtubeId 11 ký tự & manifest trong dist/youtube/",
+              apiDetail: "OAuth 2.0 Refresh Token → Kênh @WhereMoneySleeps (privacyStatus='unlisted', categoryId='27', defaultLanguage='vi')",
+              title: "5C–5D. Upload YouTube (@WhereMoneySleeps) & Tự Động Nhúng",
+              desc: "Đẩy 2 file MP4 lên YouTube qua Data API v3 ở chế độ Unlisted, nhận mã youtubeId và tự động nhúng vào đầu bài viết (kèm fallback MP4 cục bộ).",
+              role: "Giúp Duy xem thử cả bài khảo cứu lẫn 2 video ngay trong trang đọc bài trước khi bấm duyệt công khai.",
               scripts: ["scripts/wms-media-pipeline.py", "docs/prototype.html"],
-              io: ["Input: 2 file MP4 + manifest.json", "Output: youtubeId + trình phát nhúng trong bài"],
-              rules: ["QĐ 56 (Tự động nhúng vào 2 đầu bài)", "Fallback MP4 cục bộ khi chờ hạn ngạch API"],
+              io: ["Input: 2 file MP4 + OAuth2 Token", "Output: youtubeId + Trình phát nhúng trong prototype.html"],
+              rules: ["QĐ 56 (Tự động nhúng vào 2 đầu bài)", "Fallback HTML5 MP4 khi chờ hạn ngạch kênh"],
               parents: ["n5_video"],
-              logMsg: "Phòng Phát Hành: Đã cập nhật manifest và nhúng trình phát video vào đầu bài viết."
+              logMsg: "[YouTube Data API v3] Đã cập nhật manifest & nhúng trình phát video vào docs/prototype.html."
             }
           ]
         },
@@ -1213,16 +1500,20 @@ html[data-reduced-motion="true"] *::after {
             {
               id: "n6_gate",
               dept: "Cổng Duyệt Duy",
-              tier: "LOCK",
+              tier: "HARDWARE LOCK",
+              vendors: ["python"],
+              primaryModel: "Duy (Người duyệt cuối) + PreToolUse Hook (wms-hook-guard.sh)",
+              crossModel: "Antigravity Terminal Sandbox (chặn mạng mặc định)",
+              apiDetail: "Hook canh docs/prototype.html & PIPELINE.md → trả về {\"decision\": \"force_ask\"} nếu Agent tự đổi status sang published",
               title: "6. Hàng Chờ Review & Khoá Phần Cứng (wms-hook-guard.sh)",
-              desc: "Bài mới dừng ở trạng thái status: \"review\". Hook PreToolUse chặn mọi lệnh tự đổi sang \"published\".",
-              role: "Chỉ chính tay Duy kiểm tra bài viết + 4 hình mặt cắt + 2 video rồi bấm \"Duyệt & Đăng\" mới lên sóng.",
+              desc: "Bài mới dừng ở status: \"review\". Hook PreToolUse chặn mọi lệnh tự đổi sang \"published\" hoặc chuyển video sang \"public\".",
+              role: "Đảm bảo 100% quyền xuất bản nằm trong tay Duy sau khi đã nghe giọng đọc, xem hình mặt cắt và duyệt nội dung.",
               scripts: ["scripts/wms-hook-guard.sh", ".claude/settings.json"],
               io: ["Input: Bài ở trạng thái review", "Output: Hộp xác nhận force_ask chờ Duy duyệt"],
               rules: ["WMS-R4 (Cấm Agent tự đăng bài)", "PreToolUse Hook (decision: force_ask)"],
               parents: ["n5_embed"],
-               isGate: true,
-              logMsg: "🛑 DỪNG TẠI CỔNG WMS-R4: Bài đang ở trạng thái 'review'. Đã khóa bằng wms-hook-guard.sh — chờ Duy duyệt."
+              isGate: true,
+              logMsg: "🛑 [HARDWARE LOCK · wms-hook-guard.sh] Bài dừng ở trạng thái 'review'. Chỉ Duy mới có quyền duyệt đăng."
             }
           ]
         }
@@ -1231,8 +1522,8 @@ html[data-reduced-motion="true"] *::after {
 
     wf2: {
       id: "wf2",
-      title: "Quy trình 02: Xưởng Sản Phẩm 7 Stage (S0 → S6) & Cơ Chế Khoá Kép",
-      subtitle: "Luồng điều phối 7 giai đoạn phát triển sản phẩm từ Khám phá đến Vận hành, kèm hợp đồng hiểu 2 chiều và 3 tầng kiểm chéo.",
+      title: "Quy trình 02: Xưởng Sản Phẩm 7 Stage (S0 → S6) & Phân Công Giữa Gemini ↔ Claude",
+      subtitle: "Mỗi Stage từ Khám phá đến Vận hành đều phân công rõ model chính, model kiểm chéo khác họ (Claude ↔ Gemini) và 2 khóa phần cứng.",
       tiers: [
         {
           label: "Tầng 0 · Hiến Pháp Sản Phẩm & Hợp Đồng Kể Lại Bằng Chữ Của Mình (Quy tắc 11)",
@@ -1240,116 +1531,148 @@ html[data-reduced-motion="true"] *::after {
             {
               id: "s_onepager",
               dept: "Phòng PM + Duy",
-              tier: "T3",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 / Gemini 4 Argon High + Duy ký sở hữu",
+              crossModel: "Bash vibe-check.sh mục [2] (kiểm tra owner: & freshness:)",
+              apiDetail: "1 trang duy nhất định nghĩa 4 trụ sản phẩm tại gates/ONE-PAGER.md",
               title: "ONE-PAGER.md (1 Trang Duy Sở Hữu)",
-              desc: "Định nghĩa 4 trụ: Sản phẩm cho ai · Cảm giác tạo ra · 3 thứ KHÔNG làm · Đo thành công bằng gì.",
-              role: "Nguồn sự thật gốc của toàn dự án. Mọi stage sau phải trích dẫn nguyên văn từ file này.",
+              desc: "PM (Opus 5.5 / Argon High) soạn nháp, Duy duyệt và đứng tên owner. Mọi stage sau bắt buộc đối chiếu file này.",
+              role: "Nguồn sự thật gốc của toàn dự án — ONE-PAGER cũ hơn PRD.md là lỗi chặn cứng.",
               scripts: ["gates/ONE-PAGER.md", "scripts/vibe-check.sh"],
-              io: ["Input: Quyết định của Duy", "Output: gates/ONE-PAGER.md (freshness ≥ PRD)"],
+              io: ["Input: Quyết định của Duy", "Output: gates/ONE-PAGER.md"],
               rules: ["Quy tắc 11 (ONE-PAGER mới hơn PRD)", "Mục [2] vibe-check.sh"],
               parents: [],
-              logMsg: "Đã nạp gates/ONE-PAGER.md — kiểm tra dấu thời gian freshness hợp lệ."
+              logMsg: "[PM · Opus 5.5 / Argon High] Đã nạp gates/ONE-PAGER.md (freshness hợp lệ)."
             },
             {
               id: "s_understood",
               dept: "Phòng Sở Hữu Stage",
-              tier: "T2",
+              tier: "T2 (2x–3.5x)",
+              vendors: ["claude", "gemini", "python"],
+              primaryModel: "Claude Sonnet 5.5 / Gemini 4 Argon Medium",
+              crossModel: "Python trong vibe-check.sh mục [3] (kiểm tra 2 chiều)",
+              apiDetail: "So khớp nguyên văn khối <grounding> với ONE-PAGER và kiểm tra phần diễn giải độc lập",
               title: "UNDERSTOOD.md (Cầu Nối Hiểu 2 Chiều)",
-              desc: "Trích nguyên văn <grounding> từ ONE-PAGER và diễn giải lại bằng chữ riêng của phòng ban phụ trách.",
-              role: "Chống hiện tượng Agent đọc lướt tài liệu mà không hiểu mục tiêu cốt lõi của sản phẩm.",
+              desc: "Trước khi bắt đầu bất kỳ stage nào, model phụ trách phải trích nguyên văn ONE-PAGER và kể lại bằng chữ của mình.",
+              role: "Chống hiện tượng LLM đọc lướt tài liệu mà không hiểu mục tiêu cốt lõi của sản phẩm.",
               scripts: ["gates/01-spec/UNDERSTOOD.md", "scripts/vibe-check.sh"],
               io: ["Input: gates/ONE-PAGER.md", "Output: gates/<stage>/UNDERSTOOD.md"],
               rules: ["Mục [3] vibe-check.sh (Khớp nguyên văn <grounding> & khác văn diễn giải)"],
               parents: ["s_onepager"],
-              logMsg: "vibe-check.sh [3]: Khối <grounding> khớp ONE-PAGER 100%, phần kể lại độc lập."
+              logMsg: "[vibe-check.sh mục 3] Khối <grounding> khớp ONE-PAGER 100%, phần kể lại độc lập."
             }
           ]
         },
         {
-          label: "Tầng 1 · Dây Chuyền 7 Stage Cốt Lõi (S0 Discovery → S6 Iterate)",
+          label: "Tầng 1 · Dây Chuyền 7 Stage Cốt Lõi & Phân Vai Model (S0 Discovery → S6 Iterate)",
           nodes: [
             {
               id: "s0_s1",
               dept: "PM + Legal + Data",
-              tier: "T3",
-              title: "S0 Discovery → S1 Spec (Đang mở tại 01-spec)",
-              desc: "S0 sàng lọc pháp lý & thị trường; S1 khóa PRD.md, SUCCESS-CRITERIA.md, TRACKING-PLAN.md và 56 Quyết định.",
-              role: "Giai đoạn định hình toàn bộ quy tắc nghiệp vụ, cấu trúc dữ liệu và ranh giới pháp lý trước khi code.",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 (--model opus) ↔ Gemini 4 Argon High (pro)",
+              crossModel: "Kiểm chéo khác họ model (Claude ↔ Gemini) + T3 Tái lập mù",
+              apiDetail: "S0: Quét thị trường & sàng lọc pháp lý · S1: Viết PRD.md, SUCCESS-CRITERIA.md, TRACKING-PLAN.md",
+              title: "S0 Discovery → S1 Spec (Opus 5.5 ↔ Argon High)",
+              desc: "Dùng cặp suy luận sâu nhất của 2 họ (Claude Opus 5.5 & Gemini 4 Argon High) để khóa đặc tả, pháp lý và đo lường.",
+              role: "Định hình toàn bộ 56 Quyết định, 86 tiêu chí nghiệm thu và 37 ràng buộc pháp lý trước khi thiết kế/code.",
               scripts: ["gates/00-discovery/PRODUCT-BRIEF.md", "gates/01-spec/PRD.md"],
               io: ["Input: 15 QĐ S0", "Output: 56 QĐ S1 + docs/s1.html (≤ 520 từ)"],
               rules: ["Quy tắc 4 (Pháp lý đi trước)", "Quy tắc 8 (Data vào từ S1)", "Quy tắc 15 (HTML ≤ 520 từ)"],
               parents: ["s_understood"],
-              logMsg: "S0 đã duyệt (APPROVED). Con trỏ hiện tại: 01-spec (56 Quyết định khớp giữa PIPELINE.md và HTML)."
+              logMsg: "[S0→S1 · Claude Opus 5.5 ↔ Gemini 4 Argon High] S0 APPROVED; S1 đang mở tại 01-spec."
             },
             {
               id: "s2_s3",
               dept: "Design + SWE",
-              tier: "T4 → T2",
-              title: "S2 Design (Chốt Gu) → S3 Build (SWE × 2 Worktree)",
-              desc: "S2 dùng bậc T4 khóa ngôn ngữ thiết kế chống mùi máy móc; S3 hạ xuống bậc T2 chia lát cắt code song song.",
-              role: "Chuyển hóa bản đặc tả thành giao diện thật và mã nguồn sạch có kiểm thử.",
+              tier: "T4 (10x) → T2 (3x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "S2: Claude Fable 5 (10x) · S3: Claude Sonnet 5.5 / Gemini 4 Argon Med (×2 Worktree)",
+              crossModel: "Gemini 4 Argon High + chrome-devtools-mcp kiểm tra DOM/UI thật",
+              apiDetail: "S2 dùng Fable 5 mở lối thiết kế 0→1; S3 hạ xuống Sonnet 5.5 / Argon Med chạy song song trên git worktree",
+              title: "S2 Design (Claude Fable 5) → S3 Build (Sonnet 5.5 / Argon Med)",
+              desc: "S2 gọi Claude Fable 5 đúc ngôn ngữ thiết kế chống mùi AI; S3 khóa khuôn và hạ xuống Sonnet 5.5 / Argon Med để code nhanh & chuẩn.",
+              role: "Kết hợp đỉnh cao thẩm mỹ 0→1 của Fable 5 với hiệu suất thi công của Sonnet 5.5 & Argon Medium.",
               scripts: ["gates/02-design/DESIGN-BRIEF.md", "docs/prototype.html"],
               io: ["Input: DESIGN-BRIEF.md", "Output: Giao diện & mã nguồn sản phẩm"],
               rules: ["Quy tắc 13 (Duy chốt gu đầu S2 & duyệt cuối S2)", "Quy tắc 16 (Khoá-rồi-Hạ T4→T2)"],
               parents: ["s0_s1"],
-              logMsg: "S2 khóa mẫu thiết kế mặt cắt Diorama → S3 thi công trên nhánh độc lập."
+              logMsg: "[S2→S3 · Fable 5 → Sonnet 5.5 / Argon Med] Khóa hệ thống thiết kế S2 và chia lát cắt code S3."
             },
             {
               id: "s4_s6",
               dept: "QA + Ops + PM",
-              tier: "T2",
+              tier: "T2 + T1",
+              vendors: ["gemini", "claude", "python"],
+              primaryModel: "Gemini 4 Argon Med / Flash + Claude Sonnet 5.5 + chrome-devtools-mcp",
+              crossModel: "Script T0 (vibe-check.sh + wms-check.sh) + Kiểm tra mắt thật ở S4",
+              apiDetail: "S4: Kiểm thử a11y, CWV, LCP & bộ đếm event · S5: Ship qua cổng khóa mạng · S6: Vòng lặp dữ liệu",
               title: "S4 QA → S5 Launch → S6 Iterate",
-              desc: "S4 kiểm thử chéo và xác minh bộ đếm sự kiện bằng mắt; S5 phát hành qua cổng khóa mạng; S6 đo lường vòng lặp.",
-              role: "Đảm bảo sản phẩm vận hành đúng cam kết bảo mật, không rò rỉ dữ liệu và đo được hiệu quả thực tế.",
+              desc: "Dùng Gemini + Chrome DevTools MCP kiểm tra giao diện thật, xác minh event về đích và vận hành vòng lặp sau ra mắt.",
+              role: "Đảm bảo sản phẩm đạt chuẩn chất lượng, tốc độ và bảo mật trước khi đến tay người đọc.",
               scripts: ["scripts/vibe-check.sh", "scripts/wms-check.sh"],
               io: ["Input: Bản build S3", "Output: Báo cáo QA, Release & Vòng lặp S6"],
               rules: ["Quy tắc 8 (Xác minh event bằng mắt ở S4)", "Không gắn script theo dõi bên thứ ba"],
               parents: ["s2_s3"],
-              logMsg: "Chuỗi S4 QA → S5 Launch → S6 Iterate sẵn sàng kích hoạt sau khi S1–S3 được duyệt."
+              logMsg: "[S4→S6 · Gemini + Sonnet + DevTools MCP] Chuỗi kiểm thử QA, phát hành và vòng lặp sẵn sàng."
             }
           ]
         },
         {
-          label: "Tầng 2 · Ba Tầng Kiểm Chéo Độc Lập (Quy tắc 12: T1 Máy · T2 Chéo-Phòng · T3 Tái Lập Mù)",
+          label: "Tầng 2 · Ba Tầng Kiểm Chéo Độc Lập (Quy tắc 7 & 12: T1 Máy · T2 Chéo-Phòng · T3 Tái Lập Mù)",
           nodes: [
             {
               id: "cc_t1",
               dept: "Tầng T1 · Máy",
               tier: "T0 (0x)",
+              vendors: ["python"],
+              primaryModel: "Bash + Python 3.12 (scripts/vibe-check.sh & scripts/wms-check.sh)",
+              crossModel: "Tất định 100% (< 2 giây)",
+              apiDetail: "Kiểm 7 mục: PIPELINE, ONE-PAGER, UNDERSTOOD, giấy phép, link chết, ngân sách 520 từ, định tuyến model",
               title: "T1. Kiểm Tất Định (< 2 giây · vibe-check.sh)",
-              desc: "Kiểm tra 7 hạng mục tự động: đường dẫn, dấu thời gian, trích dẫn, ngân sách 520 từ và độ khớp quyết định.",
-              role: "Chạy ở mọi stage — phát hiện ngay lỗi hình thức và lệch đồng bộ giữa tầng máy đọc và tầng người đọc.",
+              desc: "Chạy tự động ở mọi stage bằng Bash/Python thuần, bắt ngay lỗi lệch quyết định giữa PIPELINE.md và HTML.",
+              role: "Không tốn token LLM, chạy tức thì và không bao giờ bỏ sót lỗi cấu trúc.",
               scripts: ["scripts/vibe-check.sh", "scripts/wms-check.sh"],
               io: ["Input: gates/* + docs/*.html", "Output: PASS 0 lỗi chặn"],
               rules: ["Mục [1] đến [7] trong scripts/vibe-check.sh"],
               parents: ["s0_s1", "s2_s3", "s4_s6"],
-              logMsg: "T1 Máy (vibe-check.sh): Đạt 7/7 hạng mục kiểm tra tất định."
+              logMsg: "[T1 · Python/Bash] vibe-check.sh đạt 7/7 hạng mục (0 lỗi chặn)."
             },
             {
               id: "cc_t2",
               dept: "Tầng T2 · Chéo Phòng",
-              tier: "T2",
+              tier: "T2 (Claude ↔ Gemini)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Subagent đóng vai phòng ban khác (Claude Sonnet 5.5 ↔ Gemini 4 Argon Med)",
+              crossModel: "Ghi câu hỏi & câu trả lời trực tiếp vào artifact của stage",
+              apiDetail: "Mỗi stage: 1 phòng KHÔNG sở hữu stage đặt đúng 2 câu hỏi phản biện sát sườn nhất",
               title: "T2. Phản Biện Chéo Phòng Ban (Đúng 2 Câu Hỏi)",
-              desc: "Một phòng KHÔNG sở hữu stage đặt đúng 2 câu hỏi hóc búa nhất; phòng sở hữu phải trả lời ngay trong artifact.",
-              role: "Chống tư duy cục bộ của một phòng ban đơn lẻ ở mọi stage.",
-              scripts: ["gates/01-spec/CROSS-CHECK.md"],
-              io: ["Input: Bản nháp stage", "Output: 2 câu hỏi & câu trả lời trong artifact"],
-              rules: ["Quy tắc 12 (Không đếm số người duyệt, đếm PHÁT HIỆN)"],
+              desc: "Ví dụ: Phòng Legal/Data hỏi ngược Phòng PM ở S1; Phòng QA/SWE hỏi ngược Phòng Design ở S2.",
+              role: "Không đếm số lượng reviewer — đếm số PHÁT HIỆN thực chất giúp sửa spec ngay từ sớm.",
+              scripts: ["gates/01-spec/PRD.md"],
+              io: ["Input: Bản nháp stage", "Output: 2 câu hỏi & giải trình trong artifact"],
+              rules: ["Quy tắc 12 (Đếm PHÁT HIỆN, không đếm nghi lễ)"],
               parents: ["s0_s1", "s2_s3"],
-              logMsg: "T2 Chéo-phòng: Đã ghi nhận và giải trình 2 câu hỏi phản biện liên phòng ban."
+              logMsg: "[T2 · Cross-Department] Đã hoàn tất 2 câu hỏi phản biện chéo phòng ban."
             },
             {
               id: "cc_t3",
               dept: "Tầng T3 · Tái Lập Mù",
-              tier: "T3",
-              title: "T3. Tái Lập Mù Từ Nguồn Gốc (S1 & S2)",
-              desc: "Gọi một phiên Agent mới hoàn toàn, đọc từ nguồn gốc mà KHÔNG nhìn bản cũ để dựng lại kết luận.",
-              role: "Nếu 2 phiên bất đồng → đó là tín hiệu spec chưa rõ, lập tức leo thẳng lên hỏi Duy (cấm gọi phiên thứ 3 phân xử).",
+              tier: "T3 (Claude ↔ Gemini)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Phiên mới khác họ model (Claude Opus 5.5 tái lập Gemini 4 Argon High hoặc ngược lại)",
+              crossModel: "Ghi nhãn: cross-vendor model review (Claude ↔ Gemini) — no human external verifier ran",
+              apiDetail: "Gọi invoke_subagent / claude -p đọc từ nguồn gốc, KHÔNG đọc bản kết luận cũ",
+              title: "T3. Tái Lập Mù Từ Nguồn Gốc (Chỉ S1 & S2)",
+              desc: "Một phiên model mới hoàn toàn dựng lại kết luận từ dữ liệu gốc. Nếu bất đồng → báo thẳng lên Duy.",
+              role: "Phát hiện sớm chỗ đặc tả còn mơ hồ; nghiêm cấm gọi model thứ 3 để biểu quyết 2–1.",
               scripts: ["gates/01-spec/PRD.md"],
-              io: ["Input: Dữ liệu nguồn gốc", "Output: Báo cáo đối chiếu độc lập"],
-              rules: ["Quy tắc 7 (Ghi rõ quan hệ họ model)", "Quy tắc 12 (Bất đồng = báo thẳng lên Duy)"],
+              io: ["Input: Dữ liệu nguồn gốc", "Output: Báo cáo tái lập độc lập"],
+              rules: ["Quy tắc 7 (Ưu tiên kiểm chéo Gemini ↔ Claude)", "Quy tắc 12 (Bất đồng = leo thẳng lên Duy)"],
               parents: ["s0_s1", "s2_s3"],
-              logMsg: "T3 Tái lập mù: Kết luận khớp nguồn gốc, ghi nhãn đối chiếu minh bạch."
+              logMsg: "[T3 · Blind Re-derivation Opus ↔ Argon] Tái lập mù từ nguồn gốc khớp kết luận."
             }
           ]
         },
@@ -1359,16 +1682,20 @@ html[data-reduced-motion="true"] *::after {
             {
               id: "lock_dual",
               dept: "Khoá Phần Cứng",
-              tier: "LOCK",
+              tier: "DUAL LOCK",
+              vendors: ["python"],
+              primaryModel: "Antigravity Sandbox + Bash PreToolUse Hook (vibe-hook-guard.sh)",
+              crossModel: "Chỉ Duy gõ /vibe-approve <slug> <stage>",
+              apiDetail: "Khoá 1: BypassSandbox=false chặn mạng · Khoá 2: Hook chặn sửa pointer: trong PIPELINE.md và git push",
               title: "Khoá Kép: Sandbox Cấm Mạng + Hook Canh PIPELINE.md",
-              desc: "Mọi thao tác sửa dòng pointer: hoặc chạy lệnh đẩy code đều bị scripts/vibe-hook-guard.sh chặn bằng force_ask.",
-              role: "Đảm bảo không một Agent nào có thể tự ý duyệt stage hoặc tự ý phát hành sản phẩm khi chưa có lệnh của Duy.",
+              desc: "Không một model nào (dù là Gemini hay Claude) có thể tự đẩy con trỏ stage hoặc tự ship code ra ngoài.",
+              role: "Bắt buộc bật hộp thoại xác nhận của Duy (decision: force_ask) cho mọi thao tác đẩy con trỏ hoặc git push.",
               scripts: ["scripts/vibe-hook-guard.sh", ".agents/hooks.json"],
-              io: ["Input: Lệnh edit_file / run_command", "Output: {\"decision\": \"force_ask\"}"],
-              rules: ["Quy tắc 1 (Chỉ Duy gõ /vibe-approve)", "Cổng con trỏ & Cổng ship"],
+              io: ["Input: edit_file PIPELINE.md / git push", "Output: {\"decision\": \"force_ask\"}"],
+              rules: ["Quy tắc 1 (Gemini viết artifact, KHÔNG đẩy con trỏ)"],
               parents: ["cc_t1", "cc_t2", "cc_t3"],
               isGate: true,
-              logMsg: "🛑 KHOÁ KÉP HOẠT ĐỘNG: Con trỏ giữ nguyên tại 01-spec. Chỉ Duy mới có quyền đẩy con trỏ."
+              logMsg: "🛑 [DUAL HARDWARE LOCK] Con trỏ giữ nguyên tại 01-spec. Không model nào tự đẩy được."
             }
           ]
         }
@@ -1378,117 +1705,145 @@ html[data-reduced-motion="true"] *::after {
     wf3: {
       id: "wf3",
       title: "Quy trình 03: Cỗ Máy Nghiên Cứu 4 Pha (SWEEP → DEDUPE → REFUTE → JUDGE)",
-      subtitle: "Phương pháp nghiên cứu có trích dẫn nguyên văn và phản biện đối kháng (docs/method.md) trước khi viết bất kỳ dòng spec hay code nào.",
+      subtitle: "Phân công rõ trong nghiên cứu: Gemini 3.8 Flash / Claude Haiku quét mù đa mũi → Python T0 gộp trùng → Claude Opus 5.5 / Gemini 4 Argon High phản biện.",
       tiers: [
         {
-          label: "Pha 1 · SWEEP (Quét Mù Đa Mũi Song Song — Cô Lập Ngữ Cảnh)",
+          label: "Pha 1 · SWEEP (Quét Mù Đa Mũi Song Song — Gemini 3.8 Flash / Claude Haiku 4.5)",
           nodes: [
             {
               id: "r_sweep1",
               dept: "Mũi Quét 01",
-              tier: "T1",
-              title: "SWEEP-1: Hành Vi Đọc & Eye-Tracking",
-              desc: "Subagent độc lập số 1 quét các nghiên cứu thực nghiệm về nhịp đọc, điểm mù thị giác và mật độ hình minh họa.",
-              role: "Chạy trong ngữ cảnh cô lập hoàn toàn — mù với Mũi 2 và Mũi 3 để không sao chép thiên kiến của nhau.",
+              tier: "T1 (0.3x–1x)",
+              vendors: ["gemini", "claude"],
+              primaryModel: "Subagent 1: Gemini 3.8 Flash (invoke_subagent) / Claude Haiku 4.5",
+              crossModel: "Cô lập ngữ cảnh 100% (Mù với Mũi 2 & Mũi 3)",
+              apiDetail: "Quét tài liệu & nghiên cứu thực nghiệm nhánh 1 kèm trích dẫn nguyên văn + URL",
+              title: "SWEEP-1: Hành Vi Đọc & Eye-Tracking (Flash / Haiku)",
+              desc: "Subagent số 1 chạy trong phiên riêng biệt để thu thập bằng chứng thực nghiệm mà không bị nhiễm ý của mũi khác.",
+              role: "Mở rộng độ phủ tìm kiếm với tốc độ cao và chi phí thấp (0.3x–1x).",
               scripts: ["docs/method.md"],
-              io: ["Input: Câu hỏi nghiên cứu", "Output: Danh sách ứng viên + trích dẫn nguyên văn"],
+              io: ["Input: Câu hỏi nghiên cứu", "Output: Ứng viên nhánh 1 + trích dẫn nguyên văn"],
               rules: ["Quy tắc 2 (Mỗi mũi mù hoàn toàn với nhau)", "Không có URL + trích dẫn = không tính"],
               parents: [],
-              logMsg: "SWEEP-1 hoàn tất quét độc lập nhánh Hành vi người đọc & Eye-tracking."
+              logMsg: "[SWEEP-1 · Gemini 3.8 Flash / Haiku] Hoàn tất quét độc lập nhánh 1."
             },
             {
               id: "r_sweep2",
               dept: "Mũi Quét 02",
-              tier: "T1",
-              title: "SWEEP-2: Tải Nhận Thức & Đa Phương Tiện",
-              desc: "Subagent độc lập số 2 quét lý thuyết tải nhận thức, nguyên lý tiếp cận không gian và cấu trúc chú thích 3 tầng.",
-              role: "Thu thập bằng chứng học thuật độc lập kèm điều kiện biên áp dụng.",
+              tier: "T1 (0.3x–1x)",
+              vendors: ["gemini", "claude"],
+              primaryModel: "Subagent 2: Gemini 3.8 Flash (invoke_subagent) / Claude Haiku 4.5",
+              crossModel: "Cô lập ngữ cảnh 100% (Mù với Mũi 1 & Mũi 3)",
+              apiDetail: "Quét lý thuyết tải nhận thức, nguyên lý tiếp cận không gian & cấu trúc đa phương tiện",
+              title: "SWEEP-2: Tải Nhận Thức & Đa Phương Tiện (Flash / Haiku)",
+              desc: "Subagent số 2 độc lập thu thập các nghiên cứu học thuật và điều kiện biên áp dụng.",
+              role: "Đảm bảo đa dạng nguồn tiếp cận trước khi đưa vào phễu lọc.",
               scripts: ["docs/method.md"],
-              io: ["Input: Câu hỏi nghiên cứu", "Output: Danh sách ứng viên + trích dẫn nguyên văn"],
+              io: ["Input: Câu hỏi nghiên cứu", "Output: Ứng viên nhánh 2 + trích dẫn nguyên văn"],
               rules: ["Quy tắc 2 (Không bịa số liệu hay trích dẫn)"],
               parents: [],
-              logMsg: "SWEEP-2 hoàn tất quét độc lập nhánh Tải nhận thức & Đa phương tiện."
+              logMsg: "[SWEEP-2 · Gemini 3.8 Flash / Haiku] Hoàn tất quét độc lập nhánh 2."
             },
             {
               id: "r_sweep3",
               dept: "Mũi Quét 03",
-              tier: "T1",
-              title: "SWEEP-3: Đối Chuẩn Xuất Bản & Thực Thực Tế Repo",
-              desc: "Subagent độc lập số 3 đo đạc thực tế số chữ, chiều cao khung nhìn và cấu trúc dữ liệu ngay trong repo.",
-              role: "Neo các lý thuyết bên ngoài vào đúng kích thước màn hình và dữ liệu thực của dự án.",
+              tier: "T1 (0.3x–1x)",
+              vendors: ["gemini", "claude", "python"],
+              primaryModel: "Subagent 3: Gemini 3.8 Flash / Claude Haiku + Python Audit",
+              crossModel: "Cô lập ngữ cảnh 100% (Mù với Mũi 1 & Mũi 2)",
+              apiDetail: "Đo đạc thực tế số từ, chiều cao viewport và cấu trúc dữ liệu ngay trong codebase",
+              title: "SWEEP-3: Đối Chuẩn Xuất Bản & Đo Đạc Repo (Flash / Python)",
+              desc: "Subagent số 3 đo thông số thực tế của bài viết trong repo để đối chiếu với chuẩn ngành.",
+              role: "Neo kết quả nghiên cứu vào đúng điều kiện kỹ thuật thực tế của dự án.",
               scripts: ["docs/method.md", "docs/prototype.html"],
               io: ["Input: Mã nguồn repo", "Output: Số đo thực nghiệm trên bài viết thật"],
               rules: ["Không tìm thấy ≠ Không tồn tại"],
               parents: [],
-              logMsg: "SWEEP-3 hoàn tất đo đạc thực nghiệm trên dữ liệu repo."
+              logMsg: "[SWEEP-3 · Flash + Python] Hoàn tất đo đạc thực nghiệm trên dữ liệu repo."
             }
           ]
         },
         {
-          label: "Pha 2 · DEDUPE (Gộp Trùng Tất Định Bằng Code Thường — Không Dùng Agent)",
+          label: "Pha 2 · DEDUPE (Gộp Trùng Tất Định Bằng Code Thường Python — Cấm Dùng LLM)",
           nodes: [
             {
               id: "r_dedupe",
               dept: "Bộ Lọc Code T0",
               tier: "T0 (0x)",
-              title: "2. DEDUPE Bằng Script Python Thuần",
-              desc: "Chuẩn hóa URL, gộp các phát hiện trùng lặp từ 3 mũi SWEEP và loại bỏ mọi ứng viên thiếu trích dẫn nguyên văn.",
-              role: "Tuyệt đối không dùng mô hình ngôn ngữ để gộp trùng nhằm tránh rơi rớt dữ liệu hoặc tự bịa thêm ý.",
+              vendors: ["python"],
+              primaryModel: "Python 3.12 / Node.js Script thuần (0x cost)",
+              crossModel: "Cấm dùng Gemini/Claude ở bước DEDUPE để tránh rơi rớt hoặc bịa dữ liệu",
+              apiDetail: "Chuẩn hóa URL, gộp ứng viên trùng và loại bỏ thẳng mọi mục thiếu trích dẫn nguyên văn",
+              title: "2. DEDUPE Bằng Script Python Thuần (Không Dùng Agent)",
+              desc: "Gộp kết quả từ 3 mũi SWEEP bằng code thường để bảo toàn 100% trích dẫn gốc.",
+              role: "Tầng lọc tất định giữa pha quét rộng (T1) và pha phản biện sâu (T3).",
               scripts: ["docs/method.md"],
               io: ["Input: Kết quả thô từ 3 mũi SWEEP", "Output: Bảng ứng viên đã khử trùng"],
               rules: ["Quy tắc 2 (Gộp trùng bằng code thường Python/Node)"],
               parents: ["r_sweep1", "r_sweep2", "r_sweep3"],
-              logMsg: "DEDUPE (Python T0): Đã gộp trùng và lọc sạch các ứng viên có đủ trích dẫn nguyên văn."
+              logMsg: "[DEDUPE · Python T0] Đã gộp trùng và lọc sạch các ứng viên có đủ trích dẫn nguyên văn."
             }
           ]
         },
         {
-          label: "Pha 3 · REFUTE (Phản Biện Độc Lập Với Nhiệm Vụ Giết Ứng Viên)",
+          label: "Pha 3 · REFUTE (Phản Biện Đối Kháng Bằng Claude Opus 5.5 ↔ Gemini 4 Argon High)",
           nodes: [
             {
               id: "r_refute1",
               dept: "Phản Biện 01",
-              tier: "T3",
-              title: "3A. REFUTE: Công Kích Giả Định & Ngoại Lệ",
-              desc: "Subagent phản biện độc lập tìm mọi lý do khiến phương án đề xuất thất bại trên màn hình điện thoại hoặc bài dài.",
-              role: "Nhiệm vụ là GIẾT ứng viên yếu kèm điều kiện sửa (fix_if_any), không phải chấm điểm khen ngợi.",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 (--model opus) / Gemini 4 Argon High (pro)",
+              crossModel: "Subagent độc lập với nhiệm vụ GIẾT ứng viên (kèm fix_if_any)",
+              apiDetail: "Tìm mọi lỗ hổng logic, trường hợp biên trên mobile và xung đột với các luật cũ",
+              title: "3A. REFUTE: Công Kích Giả Định (Opus 5.5 / Argon High)",
+              desc: "Model suy luận sâu đóng vai người phản biện gay gắt nhất để bác bỏ các ứng viên yếu.",
+              role: "Chỉ những phương án sống sót qua vòng công kích hoặc có điều kiện sửa (fix_if_any) rõ ràng mới được giữ lại.",
               scripts: ["docs/method.md"],
               io: ["Input: Bảng ứng viên sau DEDUPE", "Output: Lập luận bác bỏ + fix_if_any"],
               rules: ["Quy tắc 2 (Phản bác kèm fix_if_any)"],
               parents: ["r_dedupe"],
-              logMsg: "REFUTE-1: Đã kiểm tra các trường hợp biên và gắn điều kiện khắc phục fix_if_any."
+              logMsg: "[REFUTE-1 · Opus 5.5 / Argon High] Đã công kích các trường hợp biên và gắn điều kiện fix_if_any."
             },
             {
               id: "r_refute2",
               dept: "Phản Biện 02",
-              tier: "T3",
-              title: "3B. REFUTE: Kiểm Chứng Hiệu Năng & CLS",
-              desc: "Kiểm tra nguy cơ nhảy bố cục (CLS), thời gian tải ảnh và khả năng tiếp cận bàn phím/trình đọc màn hình.",
-              role: "Đảm bảo giải pháp vượt qua các tiêu chuẩn kỹ thuật hiện đại trước khi trình lên bảng quyết định.",
+              tier: "T3 (5x)",
+              vendors: ["gemini", "claude"],
+              primaryModel: "Gemini 4 Argon High (pro) ↔ Claude Opus 5.5",
+              crossModel: "Đối chiếu chuẩn modern-web-guidance (CLS, LCP, Accessibility)",
+              apiDetail: "Kiểm chứng hiệu năng trình duyệt, độ tương phản, điều hướng bàn phím và trình đọc màn hình",
+              title: "3B. REFUTE: Kiểm Chứng Kỹ Thuật & CLS (Argon High / Opus)",
+              desc: "Kiểm tra xem phương án có gây nhảy bố cục (CLS > 0) hoặc làm chậm trang đọc hay không.",
+              role: "Chốt các ràng buộc kỹ thuật cứng (như khai báo sẵn width/height 1200×675 để CLS = 0).",
               scripts: ["docs/method.md"],
               io: ["Input: Bảng ứng viên sau DEDUPE", "Output: Ràng buộc kỹ thuật CLS = 0"],
               rules: ["Quy tắc 10 (modern-web-guidance)"],
               parents: ["r_dedupe"],
-              logMsg: "REFUTE-2: Áp đặt ràng buộc kích thước tĩnh 1200×675 để giữ CLS = 0."
+              logMsg: "[REFUTE-2 · Argon High / Opus 5.5] Đã khóa ràng buộc kích thước tĩnh giữ CLS = 0."
             }
           ]
         },
         {
-          label: "Pha 4 · JUDGE (Bảng Quyết Định ≤ 1 Trang & Mục Chưa Xác Minh Được)",
+          label: "Pha 4 · JUDGE (Bảng Quyết Định ≤ 1 Trang Trình Duy)",
           nodes: [
             {
               id: "r_judge",
               dept: "Hội Đồng Tổng Hợp",
-              tier: "T3",
-              title: "4. JUDGE: Bảng Phương Án & Mục \"Chưa Xác Minh Được\"",
-              desc: "Chưng cất thành bảng quyết định ngắn gọn kèm khuyến nghị rõ ràng và liệt kê thẳng những gì chưa xác minh được.",
-              role: "Giúp Duy đọc trong vài phút và ra quyết định ngay mà không phải bơi trong biển chữ.",
+              tier: "T3 (5x)",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 ↔ Gemini 4 Argon High (Lead)",
+              crossModel: "Duy duyệt phương án cuối cùng (Quy tắc 5 & 9)",
+              apiDetail: "Xuất bảng so sánh (Được gì · Mất gì · Rủi ro) + Khuyến nghị + Mục 'Chưa xác minh được'",
+              title: "4. JUDGE: Bảng Quyết Định & Mục \"Chưa Xác Minh Được\"",
+              desc: "Chưng cất kết quả thành bảng ngắn gọn ≤ 1 trang kèm khuyến nghị mở đầu và liệt kê rõ những gì chưa xác minh.",
+              role: "Giúp Duy nắm toàn bộ bức tranh và chốt quyết định trong vài phút.",
               scripts: ["docs/lessons.md", "gates/01-spec/PRD.md"],
               io: ["Input: Ứng viên sống sót sau REFUTE", "Output: Bảng khuyến nghị 7 dòng trình Duy"],
-              rules: ["Quy tắc 3 (Nêu rõ cái gì CHƯA xác minh được)", "Quy tắc 5 & 9 (Hỏi 1 câu kèm khuyến nghị)"],
+              rules: ["Quy tắc 3 (Nêu rõ cái gì CHƯA xác minh được)", "Quy tắc 9 (Hỏi 1 câu kèm khuyến nghị)"],
               parents: ["r_refute1", "r_refute2"],
               isGate: true,
-              logMsg: "JUDGE: Đã xuất bảng quyết định kèm mục 'Chưa xác minh được' — sẵn sàng trình Duy."
+              logMsg: "🛑 [JUDGE · Opus 5.5 / Argon High] Đã xuất bảng quyết định kèm mục 'Chưa xác minh được' trình Duy."
             }
           ]
         }
@@ -1498,7 +1853,7 @@ html[data-reduced-motion="true"] *::after {
     wf4: {
       id: "wf4",
       title: "Quy trình 04: Bộ Định Tuyến & Xoay Vòng Model Theo Độ Phức Tạp (T0..T4 · Quy tắc 16)",
-      subtitle: "Sử dụng đúng cấp độ mô hình cho đúng việc để tối ưu chi phí mà chất lượng đầu ra đạt chuẩn cao nhất. Hãy kéo thanh trượt bên dưới để thử!",
+      subtitle: "Bảng phân bổ chính xác giữa Python (0x), Gemini 3.8 Flash / Claude Haiku (1x), Sonnet 5.5 / Argon Med (3x), Opus 5.5 / Argon High (5x) và Claude Fable 5 (10x).",
       tiers: [
         {
           label: "Tầng Đầu Vào · Chấm Điểm 4 Trục Độ Phức Tạp (S = Ambiguity + Risk + Taste + Scope)",
@@ -1507,84 +1862,108 @@ html[data-reduced-motion="true"] *::after {
               id: "m_input",
               dept: "Bộ Đo 4 Trục",
               tier: "S = 0..8",
+              vendors: ["python"],
+              primaryModel: "Python 3.12 (scripts/vibe-model-route.py)",
+              crossModel: "Hợp đồng docs/model-routing.md",
+              apiDetail: "Tính tổng S = Ambiguity (0..2) + Risk (0..2) + Taste (0..2) + Scope (0..2)",
               title: "Máy Chấm Điểm Độ Phức Tạp (vibe-model-route.py)",
-              desc: "Đo 4 trục (mỗi trục 0..2): Độ mơ hồ (Ambiguity) · Rủi ro sai số (Risk) · Gu thẩm mỹ 0→1 (Taste) · Phạm vi (Scope).",
-              role: "In nhãn [Route: T0..T4 · S=../8] ở đầu mỗi task để minh bạch hóa lý do chọn mô hình.",
+              desc: "Đánh giá mỗi tác vụ trên 4 trục trước khi gọi bất kỳ lệnh claude -p hay invoke_subagent nào.",
+              role: "In nhãn [Route: T0..T4 · S=../8 · Primary=.. · CrossCheck=..] ở đầu mỗi stage.",
               scripts: ["scripts/vibe-model-route.py", "docs/model-routing.md"],
-              io: ["Input: 4 điểm số trục (0..2)", "Output: Bậc T0..T4 + Cặp kiểm chéo"],
+              io: ["Input: 4 điểm số trục (0..2)", "Output: Bậc T0..T4 + Cặp model đối xứng"],
               rules: ["Quy tắc 16 (Bắt buộc in nhãn Route ở đầu task)"],
               parents: [],
-              logMsg: "vibe-model-route.py: Đang tính điểm S = Ambiguity + Risk + Taste + Scope..."
+              logMsg: "[vibe-model-route.py] Đang tính điểm S = Ambiguity + Risk + Taste + Scope..."
             }
           ]
         },
         {
-          label: "Tầng Phân Luồng 5 Bậc (T0 Tất Định → T4 Đỉnh Cao 0→1 Taste)",
+          label: "Tầng Phân Luồng 5 Bậc Model Cụ Thể (Python → Flash/Haiku → Sonnet/Argon Med → Opus/Argon High → Fable 5)",
           nodes: [
             {
               id: "m_t0",
               dept: "Bậc T0 · 0x",
-              tier: "S = 0",
-              title: "T0: Script Python / Bash Tất Định",
-              desc: "Đếm từ, gộp trùng DEDUPE, cân Σ Nợ = Σ Có, kiểm đường dẫn chết (check-story.py, vibe-check.sh).",
-              role: "Chi phí 0x, tốc độ < 2 giây, độ chính xác cơ học 100% — cấm dùng LLM cho việc tất định.",
+              tier: "S = 0 (0x)",
+              vendors: ["python"],
+              primaryModel: "Python 3.12 / Bash Script (check-story.py, vibe-check.sh)",
+              crossModel: "Không cần LLM",
+              apiDetail: "Đếm từ, gộp trùng DEDUPE, cân Σ Nợ = Σ Có, kiểm đường dẫn chết, giải phương trình IRR/EIR",
+              title: "T0: Python / Bash Script Tất Định (0x)",
+              desc: "Mọi việc có quy tắc toán học hoặc cú pháp xác định đều do script Python/Bash xử lý với chi phí 0x.",
+              role: "Chạy trong < 2 giây, chính xác tuyệt đối 100%.",
               scripts: ["scripts/check-story.py", "scripts/vibe-check.sh"],
               io: ["Input: File HTML/Markdown", "Output: PASS / FAIL tức thì"],
               rules: ["Chi phí 0x · Không bao giờ ảo giác"],
               parents: ["m_input"],
-              logMsg: "Kích hoạt Bậc T0 (S=0): Chạy script Python/Bash tất định (Chi phí 0x)."
+              logMsg: "[Bậc T0 · S=0] Chạy Python/Bash Script tất định (Chi phí 0x)."
             },
             {
               id: "m_t1",
               dept: "Bậc T1 · 0.3x–1x",
               tier: "S = 1..2",
-              title: "T1: Mô Hình Nhanh (Quét SWEEP & Đồng Bộ File)",
-              desc: "Quét đa mũi SWEEP, đọc DOM trình duyệt, sửa cơ học hoặc kiểm tra tên riêng B1–B4.",
-              role: "Xử lý khối lượng lớn tác vụ tốc độ cao và được hậu kiểm ngay bằng script T0.",
+              vendors: ["gemini", "claude", "python"],
+              primaryModel: "Gemini 3.8 Flash (flash) · Claude Haiku 4.5 (--model haiku)",
+              crossModel: "Hậu kiểm bằng Script T0",
+              apiDetail: "Quét đa mũi SWEEP, đọc DOM/log trình duyệt, sửa cơ học, quét tên riêng B1–B4",
+              title: "T1: Gemini 3.8 Flash · Claude Haiku 4.5 (0.3x–1x)",
+              desc: "Dùng các model nhẹ và nhanh nhất của Google và Anthropic cho tác vụ quét thông tin hoặc đồng bộ cơ học.",
+              role: "Giữ tốc độ phản hồi cực nhanh và tiết kiệm ngân sách token.",
               scripts: ["scripts/vibe-model-route.py"],
               io: ["Input: Tác vụ rõ ràng S=1..2", "Output: Dữ liệu quét thô / đồng bộ"],
-              rules: ["Kiểm chéo bằng Script T0"],
+              rules: ["Luôn hậu kiểm bằng Script T0"],
               parents: ["m_input"],
-              logMsg: "Kích hoạt Bậc T1 (S=1..2): Chạy mô hình tốc độ cao + hậu kiểm bằng Script T0."
+              logMsg: "[Bậc T1 · S=1..2] Giao Gemini 3.8 Flash / Claude Haiku 4.5 + hậu kiểm Script T0."
             },
             {
               id: "m_t2",
               dept: "Bậc T2 · 2x–3.5x",
               tier: "S = 3..4",
-              title: "T2: Ngựa Thồ Chủ Lực (~70% Công Việc Xưởng)",
-              desc: "Code tính năng S3 theo spec, lên bài mới theo khuôn C9 đã khóa, dựng hình mặt cắt và tóm tắt HTML ≤ 520 từ.",
-              role: "Trụ cột sản xuất hàng ngày sau khi khuôn mẫu đã được khóa.",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Sonnet 5.5 (--model sonnet) · Gemini 4 Argon Medium",
+              crossModel: "Kiểm chéo khác họ model (Sonnet 5.5 ↔ Argon Medium)",
+              apiDetail: "Code tính năng S3 theo spec, viết bài mới theo khuôn C9 đã khóa, tóm tắt HTML ≤ 520 từ",
+              title: "T2: Claude Sonnet 5.5 ↔ Gemini 4 Argon Med (~70% Việc)",
+              desc: "Ngựa thồ chủ lực gánh ~70% khối lượng công việc hàng ngày của xưởng sau khi đã có khuôn mẫu.",
+              role: "Cân bằng tối ưu giữa chất lượng lập trình/biên tập và chi phí vận hành.",
               scripts: ["scripts/vibe-model-route.py", "docs/prototype.html"],
               io: ["Input: Khuôn mẫu đã khóa", "Output: Code S3 / Bài viết mới chuẩn C9"],
-              rules: ["Kiểm chéo khác họ mô hình"],
+              rules: ["Kiểm chéo đối xứng Sonnet 5.5 ↔ Argon Medium"],
               parents: ["m_input"],
-              logMsg: "Kích hoạt Bậc T2 (S=3..4): Ngựa thồ chủ lực đảm nhận ~70% khối lượng công việc."
+              logMsg: "[Bậc T2 · S=3..4] Giao ngựa thồ chủ lực Claude Sonnet 5.5 ↔ Gemini 4 Argon Medium."
             },
             {
               id: "m_t3",
               dept: "Bậc T3 · 5x",
               tier: "S = 5..6",
-              title: "T3: Suy Luận Sâu & Pháp Quy (PRD, REFUTE, TT 99)",
-              desc: "Viết PRD S1, phản biện REFUTE, soát kế toán TT 99/2025 (K1–K4), tài chính EIR (F1–F4) và tái lập mù T3.",
-              role: "Đảm nhận các quyết định kiến trúc, toán tài chính và pháp quy đòi hỏi suy luận nhiều bước.",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Opus 5.5 (--model opus) ↔ Gemini 4 Argon High (pro)",
+              crossModel: "Bắt buộc kiểm chéo khác họ model (Opus 5.5 ↔ Argon High)",
+              apiDetail: "Viết PRD.md S1, phản biện REFUTE, soát kế toán TT 99/2025 (K1–K4), tài chính (F1–F4), tái lập mù T3",
+              title: "T3: Claude Opus 5.5 ↔ Gemini 4 Argon High (5x)",
+              desc: "Cặp model suy luận sâu nhất dùng cho kiến trúc đặc tả, pháp quy kế toán Thông tư 99/2025 và phản biện đối kháng.",
+              role: "Chốt chặn chất lượng học thuật và kỹ thuật ở những khâu rủi ro cao.",
               scripts: [".agents/skills/ke-toan-reviewer/SKILL.md", ".agents/skills/tai-chinh-reviewer/SKILL.md"],
-              io: ["Input: Bài toán rủi ro cao S=5..6", "Output: Đặc tả PRD / Chứng nhận K1–K4, F1–F4"],
-              rules: ["Bắt buộc kiểm chéo khác họ mô hình"],
+              io: ["Input: Bài toán rủi ro cao S=5..6", "Output: PRD.md / Chứng nhận K1–K4, F1–F4"],
+              rules: ["Bắt buộc kiểm chéo khác họ model (Opus ↔ Argon High)"],
               parents: ["m_input"],
-              logMsg: "Kích hoạt Bậc T3 (S=5..6): Suy luận sâu & kiểm duyệt kế toán/tài chính/pháp lý."
+              logMsg: "[Bậc T3 · S=5..6] Giao cặp suy luận sâu Claude Opus 5.5 ↔ Gemini 4 Argon High."
             },
             {
               id: "m_t4",
               dept: "Bậc T4 · 10x",
               tier: "S = 7..8",
-              title: "T4: Đỉnh Cao Sáng Tạo 0→1 & Gỡ Bế Tắc",
-              desc: "Sáng tạo ngôn ngữ thiết kế mặt cắt Diorama 0→1 đầu tiên hoặc gỡ bế tắc khi bậc T3 thất bại 2 lần.",
-              role: "Chỉ gọi đúng lúc cần đột phá thẩm mỹ 0→1; nghiêm cấm lạm dụng cho tác vụ thường ngày.",
+              vendors: ["claude", "gemini"],
+              primaryModel: "Claude Fable 5 (--model fable --effort high --fallback-model opus,sonnet)",
+              crossModel: "Gemini 4 Argon High + chrome-devtools-mcp",
+              apiDetail: "Sáng tạo ngôn ngữ thiết kế 0→1 chống mùi AI (Mặt cắt Diorama v3.0 gốc) hoặc gỡ bế tắc khi T3 fail 2 lần",
+              title: "T4: Claude Fable 5 + Gemini 4 Argon High (10x)",
+              desc: "Chỉ kích hoạt khi cần đột phá thẩm mỹ 0→1 đầu tiên (S ≥ 7) hoặc khi bậc T3 thất bại 2 lần liên tiếp.",
+              role: "Đúc khuôn mẫu gốc (Golden Template) rồi bàn giao lại cho bậc T2 nhân bản.",
               scripts: ["docs/model-routing.md"],
-              io: ["Input: Bài toán 0→1 S=7..8", "Output: Khuôn mẫu gốc + Hệ thống thiết kế"],
-              rules: ["Cấm lạm dụng T4 cho việc dưới S=7"],
+              io: ["Input: Bài toán 0→1 S=7..8", "Output: Khuôn mẫu thiết kế gốc"],
+              rules: ["Cấm lạm dụng Fable 5 cho việc thường ngày dưới S=7"],
               parents: ["m_input"],
-              logMsg: "Kích hoạt Bậc T4 (S=7..8): Sáng tạo ngôn ngữ thiết kế 0→1 & đúc khuôn mẫu gốc."
+              logMsg: "[Bậc T4 · S=7..8] Kích hoạt Claude Fable 5 (--effort high) + kiểm chéo Gemini 4 Argon High."
             }
           ]
         },
@@ -1595,14 +1974,18 @@ html[data-reduced-motion="true"] *::after {
               id: "m_downgrade",
               dept: "Khoá-Rồi-Hạ",
               tier: "T4/T3 → T2+T0",
+              vendors: ["claude", "gemini", "python"],
+              primaryModel: "Khuôn Fable 5 / Opus 5.5 → Thực thi lặp lại bằng Sonnet 5.5 / Argon Med + Python T0",
+              crossModel: "check-story.py + wms-finance-kb.py + vibe-check.sh",
+              apiDetail: "Giữ chất lượng đầu ra của bậc T4/T3 nhưng đưa chi phí vận hành hàng loạt về bậc T2 (2x–3.5x) + T0 (0x)",
               title: "Vòng Lặp Khoá Khuôn Mẫu & Hạ Bậc Chi Phí",
-              desc: "Sau khi T4/T3 đúc xong bài mẫu đầu tiên và viết xong script kiểm T0 (check-story.py), mọi bài tiếp theo tự động hạ về T2 + T0.",
-              role: "Giữ chất lượng ngang tầm T4 nhưng chi phí vận hành dài hạn chỉ ở mức T2 (tiết kiệm 65%–75% chi phí).",
+              desc: "Khi Claude Fable 5 / Opus 5.5 đã đúc xong mẫu chuẩn và khóa bằng script Python T0, mọi bài tiếp theo hạ về Sonnet 5.5 / Argon Med.",
+              role: "Giúp xưởng mở rộng quy mô lên 30+ bài viết và video mà chi phí luôn trong tầm kiểm soát.",
               scripts: ["scripts/vibe-model-route.py", "scripts/check-story.py"],
-              io: ["Input: Khuôn mẫu T4 + Script T0", "Output: Quy trình sản xuất hàng loạt ở bậc T2"],
+              io: ["Input: Khuôn mẫu T4 + Script T0", "Output: Sản xuất hàng loạt ở bậc T2"],
               rules: ["Quy tắc 16.2 (Lock-then-Downgrade)"],
               parents: ["m_t0", "m_t1", "m_t2", "m_t3", "m_t4"],
-              logMsg: "Chu trình Khoá-rồi-Hạ hoàn tất: Khuôn mẫu đã khóa → Hạ bậc thực thi lặp lại về T2 + T0."
+              logMsg: "[Lock-then-Downgrade] Khuôn mẫu đã khóa → Hạ bậc chạy lặp lại về Sonnet 5.5 / Argon Med + Python T0."
             }
           ]
         }
@@ -1612,67 +1995,83 @@ html[data-reduced-motion="true"] *::after {
     wf5: {
       id: "wf5",
       title: "Quy trình 05: Vòng Lặp Tri Thức Pháp Quy & Cổng Kiểm Tất Định (wms-finance-kb.py + wms-check.sh)",
-      subtitle: "Cách hệ thống tự động thu thập văn bản pháp quy, kiểm toán công thức tài chính và khóa chặt 23/23 file quản trị trước mỗi lần commit.",
+      subtitle: "Sự kết hợp giữa Python Crawler/Verifier (T0) và cặp chuyên gia Claude Opus 5.5 ↔ Gemini 4 Argon High (T3) để giữ độ chính xác pháp quy 100%.",
       tiers: [
         {
-          label: "Tầng 1 · Thu Thập & Chuẩn Hóa Tri Thức Tài Chính (scripts/wms-finance-kb.py --crawl)",
+          label: "Tầng 1 · Thu Thập & Chuẩn Hóa Tri Thức Pháp Quy (Python Crawler + Claude/Gemini Chắt Lọc)",
           nodes: [
             {
               id: "kb_sources",
               dept: "Nguồn Pháp Quy",
-              tier: "DATA",
-              title: "1A. Hệ Thống Văn Bản Pháp Quy & Biểu Phí Chuẩn",
-              desc: "Thông tư 99/2025/TT-BTC (thay thế TT 200 từ 01/01/2026), quy định NHNN về lãi suất/trả góp, biểu phí thanh toán thẻ & lương.",
-              role: "Cung cấp cơ sở pháp lý và biên độ số liệu thực tế tại Việt Nam cho toàn bộ các bài viết.",
+              tier: "REGULATORY DATA",
+              vendors: ["python", "claude", "gemini"],
+              primaryModel: "Python 3.12 (wms-finance-kb.py --crawl) + Claude Opus 5.5 / Gemini 4 Argon High",
+              crossModel: "Đối chiếu văn bản gốc Thông tư 99/2025/TT-BTC & quy định NHNN",
+              apiDetail: "Thu thập hệ thống tài khoản TT 99/2025 (hiệu lực 01/01/2026), biểu phí MDR/Interchange, tỷ lệ BHXH/BHYT/BHTN",
+              title: "1A. Thu Thập Văn Bản Pháp Quy & Biểu Phí Chuẩn",
+              desc: "Cập nhật các quy định kế toán và ngân hàng hiện hành tại Việt Nam vào bộ nhớ tham chiếu của repo.",
+              role: "Chặn đứng nguy cơ LLM dùng nhầm tài khoản cũ của Thông tư 200 đã hết hiệu lực.",
               scripts: ["legal/tt99-phu-luc-ii.secondary.json", "scripts/wms-finance-kb.py"],
-              io: ["Input: Phụ lục tài khoản TT 99 & quy định NHNN", "Output: Dữ liệu tham chiếu gốc"],
+              io: ["Input: Phụ lục TT 99/2025 & quy định NHNN", "Output: Dữ liệu pháp quy chuẩn"],
               rules: ["Quy tắc 2 (Mọi con số phải có nguồn gốc)"],
               parents: [],
-              logMsg: "Đang đọc nguồn pháp quy Thông tư 99/2025/TT-BTC và quy định nghiệp vụ ngân hàng..."
+              logMsg: "[wms-finance-kb.py --crawl] Đã nạp nguồn pháp quy Thông tư 99/2025/TT-BTC & quy định NHNN."
             },
             {
               id: "kb_store",
               dept: "Kho Tri Thức",
-              tier: "T0",
+              tier: "JSON KB (TTL 30d)",
+              vendors: ["python"],
+              primaryModel: "knowledge/finance-kb.json (Python Schema Validator)",
+              crossModel: "Kiểm tra dấu thời gian cập nhật (TTL ≤ 30 ngày)",
+              apiDetail: "Lưu trữ 5 nguồn pháp quy active, công thức toán tài chính và dải thông số hợp lệ cho từng cơ chế",
               title: "1B. Kho Tri Thức Chuẩn Hóa (knowledge/finance-kb.json)",
-              desc: "Lưu trữ có cấu trúc các dải phí MDR/Interchange, tỷ lệ trích nộp lương, công thức EIR/IRR và hạn sử dụng dữ liệu (TTL ≤ 30 ngày).",
-              role: "Đóng vai trò bộ nhớ chuẩn để Agent tra cứu tức thì mà không phải đoán mò thông số thị trường.",
+              desc: "Cơ sở dữ liệu JSON nội bộ giúp cả Gemini, Claude và script Python tra cứu cùng một chuẩn số liệu.",
+              role: "Đảm bảo tính nhất quán tuyệt đối giữa các phiên làm việc khác nhau.",
               scripts: ["knowledge/finance-kb.json", "scripts/wms-finance-kb.py"],
-              io: ["Input: --crawl", "Output: knowledge/finance-kb.json (freshness verified)"],
+              io: ["Input: --crawl", "Output: knowledge/finance-kb.json (TTL ≤ 30 ngày)"],
               rules: ["F4 (Cảnh báo nếu dữ liệu cũ quá 30 ngày)"],
               parents: ["kb_sources"],
-              logMsg: "wms-finance-kb.py --crawl: Đã cập nhật knowledge/finance-kb.json (TTL 30 ngày hợp lệ)."
+              logMsg: "[knowledge/finance-kb.json] Kho tri thức còn tươi (0.1/30 ngày, 5 nguồn active)."
             }
           ]
         },
         {
-          label: "Tầng 2 · Bộ Kiểm Định Toán Tài Chính & Kế Toán Tự Động (--verify)",
+          label: "Tầng 2 · Bộ Kiểm Định Toán Tài Chính, Kế Toán & Cấu Trúc (Python T0 + Opus 5.5 ↔ Argon High)",
           nodes: [
             {
               id: "kb_verify_f",
               dept: "Kiểm Toán F1–F4",
-              tier: "T0 (Python)",
+              tier: "T0 + T3",
+              vendors: ["python", "claude", "gemini"],
+              primaryModel: "Python 3.12 (wms-finance-kb.py --verify) + Claude Opus 5.5 ↔ Gemini 4 Argon High",
+              crossModel: "Kiểm tra chéo giữa Bài viết (lay/pro) ↔ Kịch bản Video (long/short)",
+              apiDetail: "Giải phương trình dòng tiền chiết khấu IRR/EIR, kiểm tra Gross − MDR = Net và khấu trừ lương",
               title: "2A. Kiểm Định Cơ Chế & Toán EIR/IRR (wms-finance-kb.py --verify)",
-              desc: "Tính lại dòng tiền chiết khấu, kiểm tra lãi suất thực EIR 11,1%/năm của bài trả góp và tỷ lệ phí thanh toán.",
-              role: "Đảm bảo mọi phép tính tài chính trong bài viết và lời bình video khớp tuyệt đối với công thức toán học.",
+              desc: "Python tính lại toàn bộ các phép toán tài chính (F1–F4) trên cả 3 bài card, pay, install.",
+              role: "Chứng minh bằng toán học mọi con số xuất hiện trên màn hình và trong lời bình.",
               scripts: ["scripts/wms-finance-kb.py"],
-              io: ["Input: docs/prototype.html + finance-kb.json", "Output: F1, F2, F3, F4 PASS"],
-              rules: ["F1 (Cơ chế)", "F2 (Toán EIR/IRR)", "F3 (Pháp quy TT 99)", "F4 (Độ tươi KB)"],
+              io: ["Input: docs/prototype.html + finance-kb.json", "Output: F1–F4 PASS (14/14 mục)"],
+              rules: ["F1 (Cơ chế)", "F2 (Toán EIR/IRR)", "F3 (Pháp quy TT 99)", "F4 (Đồng nhất Bài ↔ Video)"],
               parents: ["kb_store"],
-              logMsg: "wms-finance-kb.py --verify: F1–F4 PASS 100% trên toàn bộ 3 bài (card, pay, install)."
+              logMsg: "[wms-finance-kb.py --verify] PASS 14/14 mục F1–F4 trên toàn bộ kho bài."
             },
             {
               id: "kb_verify_c",
               dept: "Kiểm Định C0–C9",
               tier: "T0 (Python)",
-              title: "2B. Kiểm Định Cấu Trúc Bài & 23 File Quản Trị (check-story.py)",
-              desc: "Kiểm tra 10 cổng C0–C9: từ điển thuật ngữ, cân đối Nợ/Có, đủ 4 hình mặt cắt LUẬT 9 và sự hiện diện của 23/23 file luật.",
-              role: "Ngăn chặn mọi sự trôi lệch dữ liệu hoặc xóa nhầm file quy tắc trong repo.",
+              vendors: ["python"],
+              primaryModel: "Python 3.12 (scripts/check-story.py)",
+              crossModel: "Node.js (node --check) + Kiểm đồng bộ 4 bản skill (.claude ≡ .agents)",
+              apiDetail: "Kiểm 23/23 file quản trị repo, đồng bộ skill giữa Claude Code & Antigravity, và 4 hình mặt cắt LUẬT 9",
+              title: "2B. Kiểm Định Cấu Trúc Bài & Đồng Bộ Claude ≡ Gemini (check-story.py)",
+              desc: "Đảm bảo toàn bộ các file skill trong .claude/ và .agents/ giống hệt nhau để cả Claude lẫn Gemini chạy cùng một luật.",
+              role: "Giữ kỷ luật hai hệ sinh thái (Claude Code & Google Antigravity) luôn đồng bộ 100%.",
               scripts: ["scripts/check-story.py"],
-              io: ["Input: docs/prototype.html + cấu trúc repo", "Output: C0–C9 PASS (23/23 files)"],
-              rules: ["C6 (Σ Nợ = Σ Có)", "C8 (23/23 file luật)", "C9 (Đủ 3 trụ + 4 hình mặt cắt)"],
+              io: ["Input: docs/prototype.html + 23 file luật", "Output: C0–C9 PASS (FAIL 0)"],
+              rules: ["C6 (Σ Nợ = Σ Có)", "C8 (Đồng bộ .claude ≡ .agents)", "C9 (Đủ 3 trụ + 4 hình LUẬT 9)"],
               parents: ["kb_store"],
-              logMsg: "check-story.py: C0–C9 PASS — 3/3 bài đạt chuẩn, 23/23 file quản trị nguyên vẹn."
+              logMsg: "[check-story.py] PASS C0–C9: 23/23 file luật nguyên vẹn, .claude ≡ .agents khớp từng byte."
             }
           ]
         },
@@ -1683,15 +2082,19 @@ html[data-reduced-motion="true"] *::after {
               id: "kb_master_gate",
               dept: "Tổng Kiểm Xưởng",
               tier: "MASTER GATE",
-              title: "3. Cổng Tổng Hợp (scripts/wms-check.sh = A + B + C)",
-              desc: "Chạy nối tiếp check-story.py + wms-finance-kb.py + vibe-check.sh. Chỉ khi cả 3 đạt FAIL = 0 mới được phép git commit.",
-              role: "Chốt chặn kỹ thuật cuối cùng bảo vệ nhánh làm việc của dự án luôn ở trạng thái sạch 100%.",
+              vendors: ["python"],
+              primaryModel: "Bash + Python 3.12 (scripts/wms-check.sh = check-story + wms-finance-kb + vibe-check)",
+              crossModel: "PreToolUse Hook (vibe-hook-guard.sh) khi chạy git push",
+              apiDetail: "Chuỗi 3 tầng kiểm tất định liên hoàn — chỉ khi FAIL = 0 ở cả 3 tầng mới được phép commit & push",
+              title: "3. Cổng Tổng Hợp (scripts/wms-check.sh = [1/3] + [2/3] + [3/3])",
+              desc: "Gộp cả 3 bộ kiểm tra của repo con và xưởng cha vào một lệnh duy nhất.",
+              role: "Đảm bảo mọi bản commit đẩy lên GitHub đều đạt 100% tiêu chuẩn nội dung, kế toán, tài chính và kỹ thuật.",
               scripts: ["scripts/wms-check.sh", "../scripts/vibe-check.sh"],
               io: ["Input: Toàn bộ repo where-money-sleeps", "Output: PASS — 0 lỗi chặn"],
-              rules: ["Quy tắc 1 (Tầng kiểm tất định là script, không phải lời hứa)"],
+              rules: ["Quy tắc 1 (Tầng kiểm tất định là script, không phải prompt)"],
               parents: ["kb_verify_f", "kb_verify_c"],
               isGate: true,
-              logMsg: "✅ wms-check.sh HOÀN TẤT: check-story + wms-finance-kb + vibe-check đều PASS (0 lỗi chặn)."
+              logMsg: "✅ [MASTER GATE · wms-check.sh] Cả 3 cổng (check-story + wms-finance-kb + vibe-check) đều PASS 100%."
             }
           ]
         }
@@ -1708,6 +2111,9 @@ html[data-reduced-motion="true"] *::after {
   const inspTitle = document.getElementById("insp-title");
   const inspTier = document.getElementById("insp-tier");
   const inspSummary = document.getElementById("insp-summary");
+  const inspPrimaryModel = document.getElementById("insp-primary-model");
+  const inspCrossModel = document.getElementById("insp-cross-model");
+  const inspApiDetail = document.getElementById("insp-api-detail");
   const inspRole = document.getElementById("insp-role");
   const inspScripts = document.getElementById("insp-scripts");
   const inspIo = document.getElementById("insp-io");
@@ -1718,6 +2124,7 @@ html[data-reduced-motion="true"] *::after {
   const matrixTbody = document.getElementById("matrix-tbody");
 
   let currentWfId = "wf1";
+  let currentVendorFilter = "all";
   let flatNodes = [];
   let selectedNodeId = null;
   let simStep = -1;
@@ -1753,6 +2160,19 @@ html[data-reduced-motion="true"] *::after {
       tier.nodes.forEach(n => list.push(n));
     });
     return list;
+  }
+
+  function applyVendorFilterToDOM() {
+    flatNodes.forEach(node => {
+      const card = document.getElementById("card-" + node.id);
+      if (!card) return;
+      if (currentVendorFilter === "all") {
+        card.classList.remove("dimmed");
+      } else {
+        const match = Array.isArray(node.vendors) && node.vendors.includes(currentVendorFilter);
+        card.classList.toggle("dimmed", !match);
+      }
+    });
   }
 
   function renderWorkflow(wfId) {
@@ -1792,6 +2212,10 @@ html[data-reduced-motion="true"] *::after {
           </div>
           <div class="node-title">${node.title}</div>
           <div class="node-desc">${node.desc}</div>
+          <div class="node-engine-box">
+            <div class="engine-primary">🤖 ${node.primaryModel}</div>
+            <div class="engine-cross">🔄 ${node.crossModel}</div>
+          </div>
           <div class="node-meta-foot">
             <span>${node.scripts[0] || "repo"}</span>
             <span class="status-chip" id="chip-${node.id}">IDLE</span>
@@ -1805,6 +2229,7 @@ html[data-reduced-motion="true"] *::after {
       tiersContainer.appendChild(row);
     });
 
+    applyVendorFilterToDOM();
     updateStatusPill();
     if (flatNodes.length > 0) {
       selectNode(flatNodes[0].id, false);
@@ -1823,6 +2248,9 @@ html[data-reduced-motion="true"] *::after {
     inspTitle.textContent = node.title;
     inspTier.textContent = node.tier;
     inspSummary.textContent = node.desc;
+    inspPrimaryModel.textContent = "Primary: " + node.primaryModel;
+    inspCrossModel.textContent = "Cross-Check: " + node.crossModel;
+    inspApiDetail.textContent = "Cấu hình / API: " + node.apiDetail;
     inspRole.textContent = node.role;
 
     inspScripts.innerHTML = node.scripts.map(s => `<span class="code-tag">${s}</span>`).join("");
@@ -1830,7 +2258,7 @@ html[data-reduced-motion="true"] *::after {
     inspRules.innerHTML = node.rules.map(s => `<span class="rule-tag">${s}</span>`).join("");
 
     if (logClick) {
-      appendLog(node.dept, `Đang soi chi tiết node "${node.title}" (${node.scripts.join(", ")}).`, "");
+      appendLog(node.dept, `Soi node "${node.title}" → Primary: ${node.primaryModel} | Cross-Check: ${node.crossModel}`, "");
     }
   }
 
@@ -1900,15 +2328,15 @@ html[data-reduced-motion="true"] *::after {
   function stepForward() {
     if (simStep === -1) {
       const topic = getActiveTopicText();
-      appendLog("TOPIC", `Bắt đầu mô phỏng trên chủ đề: "${topic}"`, "ok");
+      appendLog("TOPIC", `Khởi chạy mô phỏng trên chủ đề: "${topic}"`, "ok");
     }
     if (simStep < flatNodes.length - 1) {
       simStep++;
       const node = flatNodes[simStep];
       selectNode(node.id, false);
       applySimStepVisuals();
-      appendLog(node.dept, node.logMsg, node.isGate ? "gate" : "ok");
-      liveAnnouncer.textContent = `Bước ${simStep + 1}: ${node.title} — ${node.logMsg}`;
+      appendLog(node.dept, `${node.logMsg} [Engine: ${node.primaryModel}]`, node.isGate ? "gate" : "ok");
+      liveAnnouncer.textContent = `Bước ${simStep + 1}: ${node.title} — ${node.primaryModel}`;
     } else {
       stopSimulation();
     }
@@ -1969,11 +2397,12 @@ html[data-reduced-motion="true"] *::after {
           rows.push(`
             <tr>
               <td><strong>${wf.id.toUpperCase()}</strong></td>
-              <td>${tier.label.split("·")[0]}</td>
-              <td><strong>${node.dept}</strong> — ${node.title}</td>
+              <td><strong>${node.dept}</strong><br>${node.title}</td>
               <td><code>${node.tier}</code></td>
-              <td><code>${node.scripts.join(" · ")}</code></td>
-              <td>${node.io.join(" → ")} <br><small style="color:var(--fg-muted);">${node.rules.join(" · ")}</small></td>
+              <td><strong style="color:var(--amber);">${node.primaryModel}</strong></td>
+              <td><span style="color:var(--teal);">${node.crossModel}</span></td>
+              <td><code>${node.apiDetail}</code><br><small>${node.scripts.join(" · ")}</small></td>
+              <td>${node.io.join(" → ")}<br><small style="color:var(--fg-muted);">${node.rules.join(" · ")}</small></td>
             </tr>
           `);
         });
@@ -1996,22 +2425,22 @@ html[data-reduced-motion="true"] *::after {
 
     const total = a + r + t + s;
     let tierId = "m_t0";
-    let label = `S = ${total}/8 → Bậc T0 (Script Python/Bash Tất Định · Chi phí 0x)`;
+    let label = `S = ${total}/8 → Bậc T0 (Python 3.12 / Bash Script Tất Định · Chi phí 0x)`;
 
     if (total === 0) {
       tierId = "m_t0";
     } else if (total <= 2) {
       tierId = "m_t1";
-      label = `S = ${total}/8 → Bậc T1 (Mô hình Nhanh Quét SWEEP · 0.3x–1x + Kiểm T0)`;
+      label = `S = ${total}/8 → Bậc T1 (Gemini 3.8 Flash · Claude Haiku 4.5 · 0.3x–1x + Kiểm T0)`;
     } else if (total <= 4) {
       tierId = "m_t2";
-      label = `S = ${total}/8 → Bậc T2 (Ngựa thồ chủ lực ~70% việc · 2x–3.5x)`;
+      label = `S = ${total}/8 → Bậc T2 (Claude Sonnet 5.5 ↔ Gemini 4 Argon Medium · 2x–3.5x)`;
     } else if (total <= 6) {
       tierId = "m_t3";
-      label = `S = ${total}/8 → Bậc T3 (Suy luận sâu PRD / Kế toán TT 99 / REFUTE · 5x)`;
+      label = `S = ${total}/8 → Bậc T3 (Claude Opus 5.5 ↔ Gemini 4 Argon High · 5x)`;
     } else {
       tierId = "m_t4";
-      label = `S = ${total}/8 → Bậc T4 (Đỉnh cao Sáng tạo 0→1 Taste & Gỡ bế tắc · 10x)`;
+      label = `S = ${total}/8 → Bậc T4 (Claude Fable 5 --effort high + Gemini 4 Argon High · 10x)`;
     }
 
     document.getElementById("calc-score-badge").textContent = label;
@@ -2040,6 +2469,16 @@ html[data-reduced-motion="true"] *::after {
       document.getElementById("panel-wf").setAttribute("aria-labelledby", tab.id);
       renderWorkflow(tab.dataset.wf);
       appendLog("WORKFLOW", `Chuyển sang ${WORKFLOWS[tab.dataset.wf].title}`, "");
+    });
+  });
+
+  document.querySelectorAll(".v-filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".v-filter-btn").forEach(b => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+      currentVendorFilter = btn.dataset.vendor;
+      applyVendorFilterToDOM();
+      appendLog("FILTER", `Lọc các node theo nhà cung cấp / công cụ: ${btn.textContent.trim()}`, "");
     });
   });
 
@@ -2089,7 +2528,6 @@ html[data-reduced-motion="true"] *::after {
 
   window.addEventListener("resize", () => requestAnimationFrame(drawConnectors));
 
-  // Keyboard shortcuts (ArrowRight / ArrowLeft to step, Space to play/pause when not in input)
   window.addEventListener("keydown", (e) => {
     if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
     if (e.key === "ArrowRight") {
@@ -2105,7 +2543,7 @@ html[data-reduced-motion="true"] *::after {
   // Initialize
   populateMatrixTable();
   renderWorkflow("wf1");
-  appendLog("SYSTEM", "Trung tâm điều phối Agent & 5 Quy trình sẵn sàng. Bấm '▶ Chạy Mô Phỏng Realtime' hoặc phím mũi tên → để duyệt từng bước.", "ok");
+  appendLog("SYSTEM", "Đã nạp đầy đủ thông tin Nhà cung cấp (Gemini ↔ Claude · ElevenLabs eleven_v3 · Google Veo 3.1 / Imagen · Pillow/FFmpeg · YouTube Data API v3 · Python T0).", "ok");
 })();
 </script>
 </body>
