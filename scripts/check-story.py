@@ -496,6 +496,15 @@ def mmss(t: int) -> str:
 
 YT_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 EMBED_STATES = {"pending_upload", "uploaded_unlisted", "uploaded_private", "uploaded_public"}
+STACCATO_VIDU_RE = re.compile(
+    r"(?:,\s*(?:vẫn\s+là\s+(?:số\s+)?|cũng\s+là\s+|chỉ\s+là\s+)?ví\s+dụ(?:\s+thôi)?\s*[.?!]"
+    r"|(?:^|[.?!]\s+)(?:Vẫn|Tất\s+cả)\s+là\s+số\s+ví\s+dụ\s*[.?!])"
+)
+BARE_PCT_START_RE = re.compile(r"^\s*\d+(?:[.,]\d+)?\s*%")
+RESIDUAL_CLAUSE_RE = re.compile(
+    r"\b(?:nhưng|vì sao|mà)\b.*?\b(?:chỉ\s+(?:thực\s+)?nhận|nhận\s+về|còn\s+lại)\b",
+    flags=re.I,
+)
 
 
 def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, int]:
@@ -507,12 +516,26 @@ def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, in
     for f in cfg["head"]:
         if not isinstance(v.get(f), str) or not v.get(f).strip():
             rep.add("FAIL", "C9", w, f"{tag} thiếu `{f}`")
-    # QĐ 56 — kiểm khoá nhúng YouTube & ElevenLabs voice ID trong videoScript.{long,short}
+    # VOICE-AND-PROSODY-SPEC.md §1 — Kiểm Luật Đủ 3 Điểm Neo Ngữ cảnh ở tiêu đề video
+    v_title = str(v.get("title", "")).strip()
+    if v_title:
+        if nwords(v_title) < 8:
+            rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} quá ngắn ({nwords(v_title)} từ < 8 từ) — thiếu ngữ cảnh tự thân (cần đủ 3 điểm neo: Hành động + Giá gốc → Cơ chế → Sự thật hệ thống)")
+        if not re.search(r"\d+", v_title):
+            rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} thiếu con số quy mô gốc ban đầu (VD: '10 triệu', '12 triệu', '15 triệu') — phải đủ 3 điểm neo ngữ cảnh tự thân (VOICE-AND-PROSODY-SPEC.md)")
+        if BARE_PCT_START_RE.match(v_title):
+            rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} mở đầu bằng số % trơ trọi — phải nêu hành động & giá trị gốc trước (VD: 'Mua hàng 12 triệu trả góp lãi suất 0%...')")
+        m_res = RESIDUAL_CLAUSE_RE.search(v_title)
+        if m_res and not re.search(r"\d+", v_title[:m_res.start()]):
+            rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} nêu số nhận về ở vế sau nhưng thiếu con số giá trị ban đầu ở vế trước (VOICE-AND-PROSODY-SPEC.md)")
+    # QĐ 56 & VOICE-AND-PROSODY-SPEC.md §2 — kiểm khoá nhúng YouTube & ElevenLabs voice ID (eleven_v3)
     yt_id = v.get("youtubeId")
     em_st = v.get("embedStatus")
     el_voice = v.get("elevenlabsVoiceId")
     if not isinstance(el_voice, str) or not el_voice.strip():
         rep.add("FAIL", "C9", w, f"{tag} thiếu `elevenlabsVoiceId` (QĐ 56)")
+    elif el_voice.startswith("eleven_flash"):
+        rep.add("FAIL", "C9", w, f"{tag}.elevenlabsVoiceId {el_voice!r} dùng model flash (nhịp phẳng, đọc từng chữ) — bắt buộc dùng 'eleven_v3:<voice_id>' (VOICE-AND-PROSODY-SPEC.md)")
     if em_st not in EMBED_STATES:
         rep.add("FAIL", "C9", w, f"{tag}.embedStatus {em_st!r} không hợp lệ — cần 1 trong {sorted(EMBED_STATES)} (QĐ 56)")
     if not isinstance(yt_id, str):
@@ -548,6 +571,8 @@ def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, in
             covered.add(bt)
         if "[[" in str(x.get("vo", "")) or "<" in str(x.get("vo", "")):
             rep.add("FAIL", "C9", w, f"{tag}.scenes[{i}].vo còn markup [[…]] hoặc thẻ HTML — ElevenLabs sẽ đọc to")
+        if STACCATO_VIDU_RE.search(str(x.get("vo", ""))):
+            rep.add("FAIL", "C9", w, f"{tag}.scenes[{i}].vo đặt đuôi ', ví dụ.' cụt hứng ở cuối câu (End-Focus Sabotage) — phải đưa 'Trong ví dụ này,...' / 'Giả sử...' lên đầu mệnh đề (VOICE-AND-PROSODY-SPEC.md)")
         vo += nwords(x.get("vo"))
     if cfg["cover"]:
         first = sc[0] if sc and isinstance(sc[0], dict) else {}
@@ -685,6 +710,7 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
 GOV_REQUIRED = [
     "CLAUDE.md", "GEMINI.md",
     "gates/01-spec/AGENT-CMS-PIPELINE.md",
+    "gates/01-spec/VOICE-AND-PROSODY-SPEC.md",
     ".claude/rules/wms-pipeline-rules.md",
     ".claude/skills/vibe-post/SKILL.md",
     ".claude/commands/vibe/post.md",

@@ -49,7 +49,13 @@ DIST_DIR = ROOT / "dist/youtube"
 YT_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 VALID_EMBED_STATUS = {"pending_upload", "uploaded_unlisted", "uploaded_private", "uploaded_public"}
 VALID_VIDEO_MODES = ("veo-hybrid", "veo-full", "elevenlabs-hybrid", "programmatic")
-DEFAULT_VOICE_SPEC = "eleven_flash_v2_5:vi_editorial"
+DEFAULT_VOICE_SPEC = "eleven_v3:JwqRvOqFdGeQNu7UjKjw"
+DEFAULT_VOICE_SETTINGS = {
+    "stability": 0.5,
+    "similarity_boost": 0.80,
+    "style": 0.20,
+    "use_speaker_boost": True,
+}
 DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
 DEFAULT_VEO_FAST_MODEL = "veo-3.1-fast-generate-preview"
 DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
@@ -483,7 +489,7 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         model_id, _, voice_id = voice_spec.partition(":")
         if not voice_id:
             voice_id = model_id
-            model_id = "eleven_flash_v2_5"
+            model_id = "eleven_v3"
         resolution = "1920x1080" if fmt == "long" else "1080x1920"
         aspect = "16:9" if fmt == "long" else "9:16"
         scenes = fobj.get("scenes") or []
@@ -500,23 +506,24 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
             sfx_prompt = sfx_match.group(1).strip() if sfx_match else ""
 
             if mode == "live" and api_key and not cache_file.is_file():
-                # Gọi ElevenLabs /v1/text-to-speech/{voice_id}/with-timestamps
+                # Gọi ElevenLabs /v1/text-to-speech/{voice_id}/with-timestamps (eleven_v3 expressive prosody)
                 url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps"
-                body = json.dumps(
-                    {
-                        "text": vo,
-                        "model_id": model_id,
-                        "previous_text": prev_text,
-                        "next_text": next_text,
-                    }
-                ).encode("utf-8")
+                tts_payload: dict = {
+                    "text": vo,
+                    "model_id": model_id,
+                    "voice_settings": DEFAULT_VOICE_SETTINGS,
+                }
+                if not model_id.startswith("eleven_v3"):
+                    tts_payload["previous_text"] = prev_text
+                    tts_payload["next_text"] = next_text
+                body = json.dumps(tts_payload, ensure_ascii=False).encode("utf-8")
                 req = urllib.request.Request(
                     url,
                     data=body,
                     headers={"xi-api-key": api_key, "Content-Type": "application/json"},
                     method="POST",
                 )
-                with urllib.request.urlopen(req, timeout=60) as resp:
+                with urllib.request.urlopen(req, timeout=90) as resp:
                     cache_file.write_bytes(resp.read())
 
             use_veo = video_mode in ("veo-hybrid", "veo-full")

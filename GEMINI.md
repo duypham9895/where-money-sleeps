@@ -67,6 +67,11 @@ Bản v1 (`lay.body`, `videoScript.scenes`) đã bỏ — còn sót là FAIL. Ng
 Taxonomy hiển thị lúc khởi đầu là **7 danh mục** của QĐ 53 (mở rộng QĐ 52/53); thêm danh mục vẫn theo WMS-R1.
 Chữ chính xác của đề xuất Duy đồng ý **chưa nằm trong repo** — xem `gates/00-discovery/PRODUCT-BRIEF.md` QĐ 54.
 
+## WMS-R3d · Luật Đủ 3 Điểm Neo Ngữ cảnh (Tiêu đề/Hook) & Giọng Đọc `eleven_v3` (`VOICE-AND-PROSODY-SPEC.md`)
+
+- **Đủ 3 Điểm Neo Ngữ cảnh Tự thân (Self-Contained Context Rule):** Mọi tiêu đề (`title`, `videoScript.{long,short}.title`) và câu mở đầu (`scenes[0].vo`) bắt buộc chứa đủ 3 điểm neo logic trong cùng một câu: **`[1. Hành động + Quy mô gốc ban đầu] → [2. Cơ chế / Lời hứa bề mặt] → [3. Sự thật hệ thống / Số thực nhận]`** (VD: *"Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?"*). **CẤM** viết tiêu đề cụt thiếu mốc giá trị ban đầu hoặc mở đầu bằng `%` trơ trọi kiểu *"0% nhưng cửa hàng chỉ nhận 11,4 triệu"* hay *"Lương về, 0 đồng di chuyển"*.
+- **Giọng đọc Đặc trưng (`eleven_v3`) & Kịch bản Viết Cho Tai Nghe:** Bắt buộc dùng model **`eleven_v3`** (`elevenlabsVoiceId: "eleven_v3:<voice_id>"`, mặc định Signature Voice: `eleven_v3:JwqRvOqFdGeQNu7UjKjw` — giọng Tâm, `stability: 0.65, similarity_boost: 0.80, style: 0.20, use_speaker_boost: true`); **CẤM** dùng `eleven_flash_v2_5`. Trong `vo`: **CẤM** đặt đuôi rào đón pháp lý `", ví dụ."` / `", vẫn là số ví dụ."` ở cuối câu (làm tụt trọng âm kết câu — phải đưa `"Trong ví dụ này,..."` / `"Giả sử..."` lên đầu mệnh đề); dùng dấu `:` sau cụm dẫn thị giác và `...` / `—` trước vế lật ngược vấn đề để tạo nhịp nghỉ tự nhiên. Kiểm tất định tại `scripts/check-story.py` (`C9`). Hợp đồng đầy đủ: `gates/01-spec/VOICE-AND-PROSODY-SPEC.md`.
+
 ## WMS-R4 · Cổng duyệt 1:1 (Web & YouTube) — agent KHÔNG BAO GIỜ tự đăng
 
 - Bài agent tạo hoặc sửa ⇒ `status: "review"`, `approvedBy` rỗng (hợp đồng dùng `""`; `null` cũng qua C7).
