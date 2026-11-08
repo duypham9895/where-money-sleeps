@@ -3676,7 +3676,7 @@ function renderVid(s, draft){
     + `<ol class="scenes${short ? " short" : ""}">${f.scenes.map((x, i) => `<li class="scene"><div class="tc"><b>${esc(x.time)}</b><span>${esc(sceneLabel(s, x, i, f.scenes.length))}</span>${x.chapter ? `<em>${esc(x.chapter)}</em>` : ""}</div><div class="bd">`
       + `<div class="f"><span>Hình ảnh</span><p>${esc(x.visual)}</p></div><div class="f vo"><span>Lời bình</span><p>${esc(x.vo)}</p></div>`
       + `<div class="f os"><span>Chữ · SFX</span><p>${esc(x.onScreen)}</p></div></div></li>`).join("")}</ol>`
-    + `<p class="pack-note"><b>Pipeline khép kín ElevenLabs → Video → YouTube → Nhúng vào bài viết (QĐ 56):</b> Lời bình (<code>vo</code>) và hiệu ứng âm thanh (<code>onScreen</code> SFX) gọi qua ElevenLabs API (<code>POST /v1/text-to-speech/{voice_id}/with-timestamps</code> + <code>POST /v1/sound-generation</code>, có SHA-256 content-hash cache), ghép với Mặt cắt Diorama v3.0 để xuất <code>.mp4</code> (YouTube Dài 16:9 <code>1920×1080</code> &amp; YouTube Shorts 9:16 <code>1080×1920</code>, chuẩn âm lượng <code>-14 LUFS</code>), đẩy lên YouTube qua <code>scripts/wms-media-pipeline.py</code> ở chế độ <code>unlisted</code> (hoặc <code>private</code>) và tự động ghi ngược <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát YouTube nhúng thẳng vào bài viết chờ Duy duyệt. Yêu cầu gói ElevenLabs trả phí có Commercial License trong <code>legal/licences.json</code>.</p>${draft}`;
+    + `<p class="pack-note"><b>Pipeline khép kín ElevenLabs Audio + Google Veo 3.1 Video → YouTube → Nhúng vào bài viết (QĐ 56):</b> (5A) Lời bình (<code>vo</code>) và hiệu ứng âm thanh (<code>onScreen</code> SFX) gọi qua ElevenLabs API (<code>POST /v1/text-to-speech/{voice_id}/with-timestamps</code> + <code>POST /v1/sound-generation</code>, chỉ cần quyền Audio trên key, có SHA-256 cache); (5B) Hình ảnh chuyển động gọi qua <b>Google Veo 3.1</b> (<code>google-genai</code> SDK <code>client.models.generate_videos</code> tận dụng quota Google AI Ultra của Duy cho cả <code>16:9</code> lẫn <code>9:16</code> kèm <code>reference_images</code> Risograph) rồi ghép lớp Mặt cắt Diorama v3.0 &amp; bảng kế toán TT 99/2025 sắc nét qua <code>FFmpeg</code> (chuẩn âm lượng <code>-14 LUFS</code>); (5C–5D) Đẩy lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code> và tự động ghi ngược <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát YouTube nhúng thẳng vào bài viết chờ Duy duyệt.</p>${draft}`;
   bindYtEmbed("vid", s, draft);
   const btns = $$("#pnl-vid .fmt button");
   btns.forEach((b, i) => { b.onclick = () => { PK.fmt = b.dataset.fmt; renderPack(); $(`#pnl-vid .fmt [data-fmt="${PK.fmt}"]`).focus(); };
@@ -3733,17 +3733,25 @@ function exportVO(k){
         url:"https://www.youtube.com/@WhereMoneySleeps"
       },
       elevenlabs:{
+        role:"5A Audio (Voiceover + Word-level Timestamps + Sound Effects)",
         ttsEndpoint:"POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
         sfxEndpoint:"POST https://api.elevenlabs.io/v1/sound-generation",
-        videoEndpoint:"POST https://api.elevenlabs.io/v1/flows/video",
-        videoStatusEndpoint:"GET https://api.elevenlabs.io/v1/flows/video/:generation_id",
+        requiredScopes:["Text to Speech", "Sound Effects", "Voices (Read)", "Pronunciation Dictionaries"],
         modelId:"eleven_flash_v2_5",
-        videoModelId:"veo-3.1-fast-generate-001",
         cachePattern:".cache/elevenlabs/{sha256}.json",
         licenceRef:"legal/licences.json#elevenlabs-commercial-tts-sfx"
       },
+      googleVeo:{
+        role:"5B Video (Cinematic Night-Cutaway Risograph 16:9 & 9:16 via Google AI Ultra quota)",
+        sdkMethod:"google.genai.Client().models.generate_videos",
+        heroModelId:"veo-3.1-generate-preview",
+        bodyModelId:"veo-3.1-fast-generate-preview",
+        referenceImages:["public/brand/youtube-banner-2560x1440-safezone.jpg", "public/brand/youtube-avatar-1024x1024.png"],
+        cachePattern:".cache/google-veo/{sha256}.mp4",
+        licenceRef:"legal/licences.json#google-veo-video-generation"
+      },
       videoRender:{
-        engine:"Diorama v3.0 Scene + Remotion/Chromium + FFmpeg (loudnorm=-14 LUFS)",
+        engine:"Google Veo 3.1 + Diorama v3.0 SVG/TT99 Overlay + FFmpeg (loudnorm=-14 LUFS)",
         outputs:[`dist/youtube/${k}-long-16x9.mp4`, `dist/youtube/${k}-short-9x16.mp4`, `public/media/${k}/beats.mp3`]
       },
       youtubeGate:"Mặc định upload ở privacyStatus='private' (hoặc 'unlisted'); chỉ Duy duyệt và chuyển sang 'public' (WMS-R4)."

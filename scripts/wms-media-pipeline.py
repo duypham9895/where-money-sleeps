@@ -39,15 +39,21 @@ DEFAULT_HTML = ROOT / "docs/prototype.html"
 LICENCES_JSON = ROOT / "legal/licences.json"
 ENV_FILE = ROOT / ".env"
 CACHE_DIR = ROOT / ".cache/elevenlabs"
+VEO_CACHE_DIR = ROOT / ".cache/google-veo"
 DIST_DIR = ROOT / "dist/youtube"
 
 YT_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
 VALID_EMBED_STATUS = {"pending_upload", "uploaded_unlisted", "uploaded_private", "uploaded_public"}
-VALID_VIDEO_MODES = ("hybrid", "elevenlabs-full", "programmatic")
+VALID_VIDEO_MODES = ("veo-hybrid", "veo-full", "elevenlabs-hybrid", "programmatic")
 DEFAULT_VOICE_SPEC = "eleven_flash_v2_5:vi_editorial"
-DEFAULT_VIDEO_MODEL = "veo-3.1-fast-generate-001"
+DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
+DEFAULT_VEO_FAST_MODEL = "veo-3.1-fast-generate-preview"
 DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
 DEFAULT_YT_URL = "https://www.youtube.com/@WhereMoneySleeps"
+DEFAULT_REF_IMAGES = [
+    "public/brand/youtube-banner-2560x1440-safezone.jpg",
+    "public/brand/youtube-avatar-1024x1024.png",
+]
 
 
 def load_dotenv(env_path: pathlib.Path = ENV_FILE) -> None:
@@ -66,21 +72,24 @@ def load_dotenv(env_path: pathlib.Path = ENV_FILE) -> None:
 
 
 def run_check_env() -> int:
-    """Kiểm tra sẵn sàng của `.env`, ElevenLabs API Key và YouTube OAuth (`@WhereMoneySleeps`)."""
+    """Kiểm tra sẵn sàng của `.env`, ElevenLabs API Key (Audio), Google Veo 3.1 (Video) và YouTube OAuth (`@WhereMoneySleeps`)."""
     load_dotenv()
-    lic = verify_elevenlabs_licence()
+    lic_el = verify_elevenlabs_licence()
+    lic_veo = verify_google_veo_licence()
     api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
-    video_model = os.environ.get("ELEVENLABS_VIDEO_MODEL", DEFAULT_VIDEO_MODEL).strip()
-    video_mode = os.environ.get("WMS_VIDEO_MODE", "hybrid").strip()
+    gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    veo_model = os.environ.get("GOOGLE_VEO_MODEL", DEFAULT_VEO_MODEL).strip()
+    video_mode = os.environ.get("WMS_VIDEO_MODE", "veo-hybrid").strip()
     yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
     yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
     yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
     yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
 
-    print("=== KIỂM TRA CẤU HÌNH PIPELINE BƯỚC 5 (QĐ 56) ===")
-    print(f"  [PASS] Giấy phép ElevenLabs (legal/licences.json): {lic.get('id')} ({lic.get('status')})")
+    print("=== KIỂM TRA CẤU HÌNH PIPELINE BƯỚC 5 (QĐ 56: ElevenLabs Audio + Google Veo 3.1 Video -> YouTube) ===")
+    print(f"  [PASS] Giấy phép Audio ElevenLabs (legal/licences.json): {lic_el.get('id')} ({lic_el.get('licence')})")
+    print(f"  [PASS] Giấy phép Video Google Veo (legal/licences.json): {lic_veo.get('id')} ({lic_veo.get('licence')})")
     print(f"  [PASS] Kênh YouTube đích: {yt_handle} ({yt_url})")
-    print(f"  [INFO] Chế độ dựng Video (5B): video_mode={video_mode!r} · model={video_model!r}")
+    print(f"  [INFO] Chế độ dựng Video (5B): video_mode={video_mode!r} · veo_model={veo_model!r}")
     if ENV_FILE.is_file():
         print(f"  [PASS] File .env: đã tạo tại {ENV_FILE.relative_to(ROOT)}")
     else:
@@ -88,9 +97,15 @@ def run_check_env() -> int:
 
     if api_key:
         masked = api_key[:6] + "..." + api_key[-4:] if len(api_key) > 12 else "***"
-        print(f"  [PASS] ELEVENLABS_API_KEY: đã khai báo ({masked})")
+        print(f"  [PASS] ELEVENLABS_API_KEY (5A Audio: TTS + SFX): đã khai báo ({masked})")
     else:
-        print("  [WAIT] ELEVENLABS_API_KEY: chưa điền trong .env")
+        print("  [WAIT] ELEVENLABS_API_KEY (5A Audio: chỉ cần quyền Text to Speech + Sound Effects): chưa điền trong .env")
+
+    if gemini_key:
+        g_masked = gemini_key[:6] + "..." + gemini_key[-4:] if len(gemini_key) > 12 else "***"
+        print(f"  [PASS] GEMINI_API_KEY (5B Video: Google Veo 3.1 Ultra quota): đã khai báo ({g_masked})")
+    else:
+        print("  [WAIT] GEMINI_API_KEY (5B Video: Google Veo 3.1): chưa điền trong .env")
 
     if yt_secret.is_file():
         print(f"  [PASS] YouTube OAuth client_secret: {yt_secret.relative_to(ROOT)}")
@@ -167,9 +182,31 @@ def verify_elevenlabs_licence() -> dict:
     )
 
 
+def verify_google_veo_licence() -> dict:
+    """Kiểm tra mục giấy phép thương mại Google Veo 3.1 trong legal/licences.json (Quy tắc 4)."""
+    if not LICENCES_JSON.is_file():
+        raise RuntimeError(f"Thiếu {LICENCES_JSON} — Quy tắc 4 bắt buộc kiểm giấy phép trước khi build video")
+    data = json.loads(LICENCES_JSON.read_text(encoding="utf-8"))
+    for asset in data.get("assets", []):
+        if asset.get("id") == "google-veo-video-generation":
+            return asset
+    raise RuntimeError(
+        "legal/licences.json thiếu mục `id: \"google-veo-video-generation\"` — không được gọi Google Veo API"
+    )
+
+
 def scene_cache_key(voice_spec: str, fmt: str, idx: int, vo: str, on_screen: str) -> str:
     payload = json.dumps(
         {"voice": voice_spec, "fmt": fmt, "idx": idx, "vo": vo.strip(), "onScreen": on_screen.strip()},
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def veo_scene_cache_key(veo_model: str, aspect: str, idx: int, visual: str) -> str:
+    payload = json.dumps(
+        {"model": veo_model, "aspectRatio": aspect, "idx": idx, "visual": visual.strip()},
         ensure_ascii=False,
         sort_keys=True,
     )
@@ -192,16 +229,19 @@ def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
     return "\n".join(lines)
 
 
-def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "hybrid") -> dict:
-    """5A (ElevenLabs TTS with-timestamps + SFX) & 5B (ElevenLabs /v1/flows/video + Diorama v3.0 16:9/9:16)."""
+def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
+    """5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Google Veo 3.1 Video + FFmpeg Diorama/TT99 Overlay 16:9/9:16)."""
     load_dotenv()
-    lic = verify_elevenlabs_licence()
+    lic_el = verify_elevenlabs_licence()
+    lic_veo = verify_google_veo_licence()
     vid = story.get("videoScript") or {}
     api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
-    video_model = os.environ.get("ELEVENLABS_VIDEO_MODEL", DEFAULT_VIDEO_MODEL).strip()
+    veo_model = os.environ.get("GOOGLE_VEO_MODEL", DEFAULT_VEO_MODEL).strip()
+    veo_fast_model = os.environ.get("GOOGLE_VEO_FAST_MODEL", DEFAULT_VEO_FAST_MODEL).strip()
     yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
     yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    VEO_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
     formats_out = {}
@@ -212,6 +252,8 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         if not voice_id:
             voice_id = model_id
             model_id = "eleven_flash_v2_5"
+        resolution = "1920x1080" if fmt == "long" else "1080x1920"
+        aspect = "16:9" if fmt == "long" else "9:16"
         scenes = fobj.get("scenes") or []
         scene_plan = []
         for i, sc in enumerate(scenes):
@@ -245,9 +287,13 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 with urllib.request.urlopen(req, timeout=60) as resp:
                     cache_file.write_bytes(resp.read())
 
-            use_el_video = video_mode == "elevenlabs-full" or (
-                video_mode == "hybrid" and (i == 0 or i == len(scenes) - 1)
-            )
+            use_veo = video_mode in ("veo-hybrid", "veo-full")
+            scene_veo_model = (
+                veo_model if (i == 0 or i == len(scenes) - 1 or fmt == "short") else veo_fast_model
+            ) if use_veo else None
+            veo_ck = veo_scene_cache_key(scene_veo_model or "none", aspect, i, visual) if use_veo else None
+            veo_clip_file = VEO_CACHE_DIR / f"{veo_ck}.mp4" if veo_ck else None
+
             scene_plan.append(
                 {
                     "sceneIndex": i,
@@ -257,8 +303,16 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                     "cached": cache_file.is_file(),
                     "elevenlabsTtsEndpoint": f"/v1/text-to-speech/{voice_id}/with-timestamps",
                     "elevenlabsModelId": model_id,
-                    "elevenlabsVideoEndpoint": "/v1/flows/video" if use_el_video else None,
-                    "elevenlabsVideoModelId": video_model if use_el_video else None,
+                    "googleVeoVideo": {
+                        "enabled": use_veo,
+                        "sdkMethod": "google.genai.Client().models.generate_videos",
+                        "modelId": scene_veo_model,
+                        "aspectRatio": aspect,
+                        "referenceImages": DEFAULT_REF_IMAGES,
+                        "sha256CacheKey": veo_ck,
+                        "cachedMp4": bool(veo_clip_file and veo_clip_file.is_file()),
+                        "dioramaHudOverlay": video_mode == "veo-hybrid",
+                    } if use_veo else None,
                     "visualPrompt": visual,
                     "sfxEndpoint": "/v1/sound-generation" if sfx_prompt else None,
                     "sfxPrompt": sfx_prompt,
@@ -266,19 +320,24 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 }
             )
 
-        resolution = "1920x1080" if fmt == "long" else "1080x1920"
-        aspect = "16:9" if fmt == "long" else "9:16"
         mp4_name = f"{story_key}-{fmt}-{aspect.replace(':', 'x')}.mp4"
         formats_out[fmt] = {
             "title": fobj.get("title"),
             "aspectRatio": aspect,
             "resolution": resolution,
             "videoMode": video_mode,
-            "elevenlabsVideoApi": {
-                "createEndpoint": "POST https://api.elevenlabs.io/v1/flows/video",
-                "statusEndpoint": "GET https://api.elevenlabs.io/v1/flows/video/:generation_id",
-                "modelId": video_model,
-                "requiredScope": "Image & Video (Flows)",
+            "videoGenerator": {
+                "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+                "sdk": "google-genai (client.models.generate_videos)",
+                "heroModelId": veo_model,
+                "bodyModelId": veo_fast_model,
+                "referenceImages": DEFAULT_REF_IMAGES,
+                "cacheDir": ".cache/google-veo/",
+            },
+            "audioGenerator": {
+                "provider": "ElevenLabs API (Text to Speech with-timestamps + Sound Effects)",
+                "requiredKeyScopes": ["Text to Speech", "Sound Effects", "Voices (Read)", "Pronunciation Dictionaries"],
+                "cacheDir": ".cache/elevenlabs/",
             },
             "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
             "elevenlabsVoiceId": voice_spec,
@@ -300,7 +359,7 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         }
 
     manifest = {
-        "schemaVersion": "1.1-qd56",
+        "schemaVersion": "1.2-qd56-elevenlabs-google-veo",
         "story": story_key,
         "storyStatus": story.get("status"),
         "youtubeChannel": {
@@ -308,9 +367,14 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
             "url": yt_url,
         },
         "licenceCheck": {
-            "id": lic.get("id"),
-            "licence": lic.get("licence"),
-            "status": lic.get("status"),
+            "audio": {
+                "id": lic_el.get("id"),
+                "licence": lic_el.get("licence"),
+            },
+            "video": {
+                "id": lic_veo.get("id"),
+                "licence": lic_veo.get("licence"),
+            },
         },
         "formats": formats_out,
     }
@@ -388,8 +452,8 @@ def main() -> int:
     ap.add_argument(
         "--video-mode",
         choices=VALID_VIDEO_MODES,
-        default="hybrid",
-        help="Chế độ dựng hình ảnh video 5B (hybrid | elevenlabs-full | programmatic)",
+        default="veo-hybrid",
+        help="Chế độ dựng hình ảnh video 5B (veo-hybrid | veo-full | elevenlabs-hybrid | programmatic)",
     )
     ap.add_argument("--bind-long-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Dài 16:9 và nhúng vào bài")
     ap.add_argument("--bind-short-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Shorts 9:16 và nhúng vào bài")
