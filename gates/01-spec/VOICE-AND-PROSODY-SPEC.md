@@ -57,12 +57,12 @@ ElevenLabs Engine & Voice Configuration (Bắt buộc từ 2026-11-08)
   + `similarity_boost`: 0.80 (giữ độ dày ấm nguyên bản của giọng thu)
   + `style`: 0.20 (kích hoạt sắc thái kể chuyện phóng sự đêm)
   + `use_speaker_boost`: true
-- Danh sách Giọng đọc Đề cử (Signature Voice Candidates đã xác minh chạy trực tiếp trên `eleven_v3`):
-  1. `JwqRvOqFdGeQNu7UjKjw` — **Tâm** (Nam miền Nam, trầm ấm, nhịp kể chuyện gần gũi, giàu chiều sâu — **Khuyến nghị mặc định**: `eleven_v3:JwqRvOqFdGeQNu7UjKjw`)
-  2. `GaEEAHHYlbueVlFfyrPr` — **Tuấn Khang** (Nam miền Bắc, truyền cảm, nhấn nhá rõ, hợp giọng phóng sự điều tra đêm)
-  3. `zvKj91MOobqOvPjHamvG` — **Văn Phong** (Nam miền Nam, điềm đạm, kiểu host podcast tài chính đêm muộn)
-  4. `cKxI7IOUsPeiDfNgV1cE` — **Tùng Anh** (Nam miền Bắc, rõ chữ, mạch lạc, chuẩn mực)
-  5. `rEvzjbRl5jRhZdVEX9vl` — **Nắng Xuân** (Nữ miền Bắc, trầm sâu, sắc sảo, giàu nội lực)
+- Giọng đọc Đặc trưng ĐÃ CHỐT DUYỆT (Duy duyệt 2026-11-08):
+  1. `JwqRvOqFdGeQNu7UjKjw` — **Tâm** (Nam miền Nam, trầm ấm, nhịp kể chuyện gần gũi, giàu chiều sâu — **CHÍNH THỨC KHOÁ CỨNG**: `eleven_v3:JwqRvOqFdGeQNu7UjKjw`)
+  2. (Dự phòng Bắc) `GaEEAHHYlbueVlFfyrPr` — **Tuấn Khang** (Nam miền Bắc, truyền cảm, nhấn nhá rõ)
+  3. (Dự phòng Nam) `zvKj91MOobqOvPjHamvG` — **Văn Phong** (Nam miền Nam, điềm đạm)
+  4. (Dự phòng Bắc) `cKxI7IOUsPeiDfNgV1cE` — **Tùng Anh** (Nam miền Bắc, rõ chữ)
+  5. (Dự phòng Nữ) `rEvzjbRl5jRhZdVEX9vl` — **Nắng Xuân** (Nữ miền Bắc, trầm sâu)
 ```
 
 ---
@@ -110,16 +110,17 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
      + Sang Cảnh 6 (Kết bài): `sfx_shutter_close` (tiếng cửa cuốn phố đêm khép nhẹ)
    - Chuẩn hoá tổng thể về **`-14 LUFS`** (`TP <= -1.5 dBTP, LRA = 11`).
 
-### 4.3. Kiến trúc Chuyển Tiếp Hình Ảnh 30fps (`Continuous 30fps Visual Compositor`)
-1. **Chuyển cảnh `0.95s Smoothstep Cross-Dissolve` + `Camera Glide`:**
-   - Sử dụng bộ **4 tấm tranh Mặt cắt Kiến trúc Đêm 9:16** (`install-short-plate-1..4.jpg`: Quầy cửa hàng · Ống ngầm quyết toán · Dây điện & Tháp tài chính · Toàn cảnh 5 ngôi nhà & Chiếc cân đồng).
-   - Máy quay lướt liên tục (`pan + zoom` nội suy mượt bằng `smoothstep`) và hoà tan (`cross-dissolve 0.96s`) giữa hai cảnh, tuyệt đối không dùng `hard cut`.
-2. **Thanh Đường Ống 5 Ngôi Nhà Chuyển Động Trực Tiếp (`30fps Live Animated Conduit Bar`):**
-   - Độ sáng của 5 ngôi nhà (`1. Bạn · 2. Cửa hàng · 3. C.ty TC · 4. NH Bạn · 5. NH CH`) nội suy mượt (`lerp`) khi chuyển cảnh.
-   - Hạt tín hiệu vàng chạy dọc dây điện trên cao ở Cảnh 2; giọt tiền thật xanh ngọc chảy dọc ống ngầm ở Cảnh 3 & Cảnh 4 (kèm bộ đếm trực tiếp `KỲ 1/12 .. KỲ 12/12`).
-3. **Phụ đề Cuốn Chiếu Từng Cụm & Tô Sáng Từng Từ (`Phrase-by-Phrase Progressive Captions`):**
-   - Mỗi cảnh được chia thành **3–5 cụm câu ngắn** (`12–20 chữ`, tối đa 2–3 dòng mỗi lần hiển thị), trượt nhẹ từ dưới lên (`ease-out 0.28s`) khi sang cụm câu mới.
-   - Từng từ được đồng bộ tới `0.01s` theo `alignment.character_start_times_seconds` của ElevenLabs: từ đang đọc được bọc viên thuốc phát sáng vàng ấm (`#FFD166`), các con số neo tài chính giữ màu vàng kim sau khi đọc xong, giúp mắt người xem lướt theo giọng kể một cách tự nhiên.
+### 4.3. Kiến trúc Chuyển Tiếp Hình Ảnh 30fps — Mặt Cắt Tĩnh Tại (`Locked-Stage Architectural Diorama v3.0`)
+1. **Phông Nền Mặt Cắt Tĩnh Tại 100% (`0px Pan, 1.00x Zoom — Zero Optokinetic Drift`) + Hoà Tan Quang Học Tại Chỗ (`0.96s In-Place Optical Cross-Dissolve`):**
+   - **CẤM TUYỆT ĐỐI hiệu ứng Ken Burns (`pan / zoom` dịch chuyển phông nền liên tục)** trên các tấm tranh mặt cắt kiến trúc (`install-short-plate-1..4.jpg`):
+     + *Cơ sở khoa học thị giác (Optokinetic vs. Saccadic Conflict):* Khi mắt người xem đang thực hiện chuyển động nhảy cóc (`saccadic fixations`) để đọc con số tài chính (`12.000.000 − 600.000 = 11.400.000`) và phụ đề, bất kỳ sự trôi dịch nào của phông nền kiến trúc phía sau sẽ kích hoạt phản xạ bám đuổi thị giác ngoại vi (`optokinetic reflex`), kéo lệch điểm hội tụ của mắt và gây mỏi mắt/chóng mặt ngay lập tức.
+     + *Cơ sở thẩm mỹ mặt cắt (`Diorama v3.0`) & chống rung nét (`Zero Sub-pixel Shimmer`):* Trong mặt cắt kiến trúc, toà nhà và lòng đất là **hệ quy chiếu tĩnh (`The Locked Stage`)**, được scale 1 lần duy nhất bằng `LANCZOS` về đúng `1080×1920` (`0.00px drift`, không bao giờ nội suy `BILINEAR` từng frame gây rung nét vẽ Risograph). Chỉ khi đổi bối cảnh giữa các cảnh mới dùng `0.96s Image.blend` hoà tan quang học tại chỗ; nếu hai cảnh liên tiếp dùng chung một tấm mặt cắt (như Cảnh 5 & Cảnh 6 dùng chung `plate-4`), phông nền giữ nguyên bất động 100%.
+2. **Thanh Đường Ống 5 Ngôi Nhà Chuyển Động Êm (`Smoothstep Conduit Particles & Static Header Badges`):**
+   - Chỉ có các hạt tín hiệu vàng trên dây cao thế (Cảnh 2) và dòng tiền thật xanh ngọc trong ống ngầm (Cảnh 3 & Cảnh 4) lướt êm giữa 5 ngôi nhà bằng hàm điều hoà `smoothstep(0.0, 1.0, u)` (không giật cục ở điểm ngoặt, không nhấp nháy bán kính theo số nguyên).
+   - **Cấm đổi chữ trên nhãn tiêu đề phụ (`badge`) giữa chừng trong cùng một cảnh:** Nhãn cảnh (`CẢNH X/6 · MỐC 0:XX`) và nhãn trả góp (`12 KỲ TRẢ GÓP · 1,0 TRIỆU/THÁNG`) phải giữ cố định suốt cảnh để không cướp thị giác ngoại vi khi người xem đang đọc phụ đề.
+3. **Khung Phụ Đề Tĩnh Tại, Thanh Dẫn Sáng Trượt Mượt & Cấm Nhấp Nháy Độ Đậm Chữ (`Zero Font-Weight Strobing`):**
+   - Toàn bộ các câu trong cảnh được dàn trang sẵn ở vị trí cố định trong khung phụ đề; một **Thanh Dẫn Sáng Vàng Kim (`Gliding Spotlight Bar`)** bên lề trái trượt dọc mượt mà từ câu đang đọc sang câu kế tiếp.
+   - **CẤM đổi độ đậm font (`Regular ↔ Bold`) theo từng từ đang đọc và CẤM viền hộp nhấp nháy tức thời (`0ms`):** Độ đậm của mỗi từ được khoá cố định suốt cảnh (`Bold` cho con số neo tài chính, `Regular` cho từ thường — bề rộng chữ không bao giờ phình/co). Từ đang được phát âm sử dụng **vệt sáng viên thuốc không viền (`soft borderless pill`)** và màu chữ vàng ấm pha mượt (`ramp-in 80ms, ramp-out 120ms`).
 
 ---
 
