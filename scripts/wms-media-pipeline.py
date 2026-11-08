@@ -26,13 +26,17 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.server
 import importlib.util
 import json
 import os
 import pathlib
 import re
+import shutil
 import sys
+import urllib.parse
 import urllib.request
+import webbrowser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DEFAULT_HTML = ROOT / "docs/prototype.html"
@@ -71,6 +75,114 @@ def load_dotenv(env_path: pathlib.Path = ENV_FILE) -> None:
             os.environ[k] = v
 
 
+def normalize_youtube_secrets(yt_secret: pathlib.Path, yt_token: pathlib.Path) -> None:
+    """Tự động phát hiện nếu file OAuth client_secret (`installed`/`web`) được lưu nhầm tên thành youtube_token.json."""
+    if yt_token.is_file() and not yt_secret.is_file():
+        try:
+            data = json.loads(yt_token.read_text(encoding="utf-8"))
+            if isinstance(data, dict) and ("installed" in data or "web" in data):
+                yt_secret.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(yt_token), str(yt_secret))
+        except Exception:
+            pass
+
+
+def run_auth_youtube(port: int = 8765) -> int:
+    """Chạy luồng OAuth 2.0 loopback (`http://localhost:<port>`) để lấy `refresh_token` cho kênh `@WhereMoneySleeps`."""
+    load_dotenv()
+    yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
+    yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+    normalize_youtube_secrets(yt_secret, yt_token)
+    if not yt_secret.is_file():
+        print(f"LỖI: Không tìm thấy {yt_secret.relative_to(ROOT)}", file=sys.stderr)
+        return 1
+
+    raw = json.loads(yt_secret.read_text(encoding="utf-8"))
+    cfg = raw.get("installed") or raw.get("web") or {}
+    client_id = cfg.get("client_id", "")
+    client_secret = cfg.get("client_secret", "")
+    auth_uri = cfg.get("auth_uri", "https://accounts.google.com/o/oauth2/auth")
+    token_uri = cfg.get("token_uri", "https://oauth2.googleapis.com/token")
+    redirect_uri = f"http://localhost:{port}"
+    scopes = "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly"
+
+    params = urllib.parse.urlencode(
+        {
+            "client_id": client_id,
+            "redirect_uri": redirect_uri,
+            "response_type": "code",
+            "scope": scopes,
+            "access_type": "offline",
+            "prompt": "consent",
+        }
+    )
+    auth_url = f"{auth_uri}?{params}"
+    captured: dict[str, str] = {}
+
+    class OAuthHandler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):  # noqa: N802
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            if "code" in q:
+                captured["code"] = q["code"][0]
+                body = "<html><meta charset='utf-8'><body style='font-family:sans-serif;padding:2rem'><h2>Đã kết nối kênh @WhereMoneySleeps thành công!</h2><p>Bạn có thể đóng tab này và quay lại cửa sổ dòng lệnh.</p></body></html>"
+                self.send_response(200)
+            else:
+                captured["error"] = q.get("error", ["unknown"])[0]
+                body = f"<html><meta charset='utf-8'><body><h2>Lỗi OAuth: {captured['error']}</h2></body></html>"
+                self.send_response(400)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(body.encode("utf-8"))
+
+        def log_message(self, format, *args):  # noqa: A002
+            return
+
+    print("=== ĐĂNG NHẬP OAUTH 2.0 CHO KÊNH @WhereMoneySleeps ===")
+    print(f"1. Mở URL sau trên trình duyệt (chọn đúng tài khoản quản lý kênh @WhereMoneySleeps):\n   {auth_url}\n")
+    try:
+        webbrowser.open(auth_url)
+    except Exception:
+        pass
+    print(f"2. Đang chờ Google gọi ngược về {redirect_uri} ...")
+    with http.server.HTTPServer(("127.0.0.1", port), OAuthHandler) as httpd:
+        httpd.handle_request()
+
+    if "code" not in captured:
+        print(f"LỖI: Không nhận được mã uỷ quyền OAuth ({captured.get('error', 'timeout')})", file=sys.stderr)
+        return 1
+
+    token_body = urllib.parse.urlencode(
+        {
+            "code": captured["code"],
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "redirect_uri": redirect_uri,
+            "grant_type": "authorization_code",
+        }
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        token_uri,
+        data=token_body,
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        tok_data = json.loads(resp.read().decode("utf-8"))
+
+    saved = {
+        "access_token": tok_data.get("access_token"),
+        "refresh_token": tok_data.get("refresh_token"),
+        "token_uri": token_uri,
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "scopes": scopes.split(),
+    }
+    yt_token.parent.mkdir(parents=True, exist_ok=True)
+    yt_token.write_text(json.dumps(saved, indent=2) + "\n", encoding="utf-8")
+    print(f"[PASS] Đã lưu YouTube OAuth refresh token vào {yt_token.relative_to(ROOT)}")
+    return 0
+
+
 def run_check_env() -> int:
     """Kiểm tra sẵn sàng của `.env`, ElevenLabs API Key (Audio), Google Veo 3.1 (Video) và YouTube OAuth (`@WhereMoneySleeps`)."""
     load_dotenv()
@@ -84,6 +196,7 @@ def run_check_env() -> int:
     yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
     yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
     yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+    normalize_youtube_secrets(yt_secret, yt_token)
 
     print("=== KIỂM TRA CẤU HÌNH PIPELINE BƯỚC 5 (QĐ 56: ElevenLabs Audio + Google Veo 3.1 Video -> YouTube) ===")
     print(f"  [PASS] Giấy phép Audio ElevenLabs (legal/licences.json): {lic_el.get('id')} ({lic_el.get('licence')})")
@@ -108,14 +221,19 @@ def run_check_env() -> int:
         print("  [WAIT] GEMINI_API_KEY (5B Video: Google Veo 3.1): chưa điền trong .env")
 
     if yt_secret.is_file():
-        print(f"  [PASS] YouTube OAuth client_secret: {yt_secret.relative_to(ROOT)}")
+        raw_sec = json.loads(yt_secret.read_text(encoding="utf-8"))
+        proj = (raw_sec.get("installed") or raw_sec.get("web") or {}).get("project_id", "unknown")
+        print(f"  [PASS] YouTube OAuth client_secret: {yt_secret.relative_to(ROOT)} (project_id={proj!r})")
     else:
         print(f"  [WAIT] YouTube OAuth client_secret: chưa đặt file tại {yt_secret.relative_to(ROOT)}")
 
     if yt_token.is_file():
         print(f"  [PASS] YouTube OAuth refresh token: {yt_token.relative_to(ROOT)}")
     else:
-        print(f"  [INFO] YouTube OAuth refresh token: sẽ tự sinh ở lần đăng nhập đầu tiên ({yt_token.relative_to(ROOT)})")
+        print(
+            f"  [INFO] YouTube OAuth refresh token: chưa sinh ({yt_token.relative_to(ROOT)}) — "
+            "chạy `python3 -I scripts/wms-media-pipeline.py --auth-youtube` để uỷ quyền kênh @WhereMoneySleeps 1 lần"
+        )
     return 0
 
 
@@ -441,7 +559,8 @@ def main() -> int:
         description="Pipeline Bước 5 (QĐ 56): ElevenLabs TTS/SFX/Video -> Render Video -> Upload YouTube -> Embed vào bài viết."
     )
     ap.add_argument("--html", type=pathlib.Path, default=DEFAULT_HTML, help="Đường dẫn tới docs/prototype.html")
-    ap.add_argument("--check-env", action="store_true", help="Kiểm tra file .env, ELEVENLABS_API_KEY và YouTube OAuth")
+    ap.add_argument("--check-env", action="store_true", help="Kiểm tra file .env, ELEVENLABS_API_KEY, GEMINI_API_KEY và YouTube OAuth")
+    ap.add_argument("--auth-youtube", action="store_true", help="Mở trình duyệt đăng nhập OAuth 2.0 1 lần để lấy refresh_token cho @WhereMoneySleeps")
     ap.add_argument("--story", default=None, help="Khoá bài viết trong STORIES (vd: card, pay, install)")
     ap.add_argument(
         "--mode",
@@ -468,8 +587,11 @@ def main() -> int:
     if args.check_env:
         return run_check_env()
 
+    if args.auth_youtube:
+        return run_auth_youtube()
+
     if not args.story:
-        ap.error("Cần truyền `--story <slug>` (hoặc `--check-env` để kiểm tra cấu hình)")
+        ap.error("Cần truyền `--story <slug>` (hoặc `--check-env` / `--auth-youtube`)")
 
     if args.bind_long_id is not None or args.bind_short_id is not None or args.embed_status is not None:
         long_id, short_id, st_now = step_5d_embed_into_post(
