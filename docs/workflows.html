@@ -1,0 +1,2112 @@
+<!doctype html>
+<html lang="vi" data-theme="dark" data-tier="reference">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where Money Sleeps — Bản Đồ Điều Phối Agent & Quy Trình Realtime</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0B101B;
+  --bg-elev: #111827;
+  --bg-card: #151E30;
+  --bg-card-hover: #1B263B;
+  --fg: #F3EFE6;
+  --fg-muted: #9CA8BC;
+  --fg-dim: #64748B;
+  --border: rgba(243, 239, 230, 0.12);
+  --border-strong: rgba(245, 165, 36, 0.45);
+  --amber: #F5A524;
+  --amber-soft: rgba(245, 165, 36, 0.14);
+  --teal: #14B8A6;
+  --teal-soft: rgba(20, 184, 166, 0.14);
+  --rose: #F43F5E;
+  --rose-soft: rgba(244, 63, 94, 0.14);
+  --indigo: #6366F1;
+  --indigo-soft: rgba(99, 102, 241, 0.15);
+  --emerald: #10B981;
+  --emerald-soft: rgba(16, 185, 129, 0.15);
+  --shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+html[data-theme="light"] {
+  --bg: #F6F1E6;
+  --bg-elev: #EFE8D8;
+  --bg-card: #FFFDF9;
+  --bg-card-hover: #F9F4E8;
+  --fg: #18181B;
+  --fg-muted: #4B5563;
+  --fg-dim: #6B7280;
+  --border: rgba(24, 24, 27, 0.13);
+  --border-strong: rgba(217, 119, 6, 0.55);
+  --amber: #D97706;
+  --amber-soft: rgba(217, 119, 6, 0.12);
+  --teal: #0D9488;
+  --teal-soft: rgba(13, 148, 136, 0.12);
+  --rose: #E11D48;
+  --rose-soft: rgba(225, 29, 72, 0.11);
+  --indigo: #4F46E5;
+  --indigo-soft: rgba(79, 70, 229, 0.11);
+  --emerald: #059669;
+  --emerald-soft: rgba(5, 150, 105, 0.12);
+  --shadow: 0 10px 28px rgba(24, 24, 27, 0.08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Top Navigation */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+}
+.top-nav-in {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.brand-slug {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--fg);
+  letter-spacing: -0.02em;
+}
+.brand-slug i { color: var(--amber); font-style: italic; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+  border: 1px solid transparent;
+}
+.nav-links a.active, .nav-links a:hover {
+  color: var(--fg);
+  background: var(--amber-soft);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+.btn:hover { background: var(--bg-card-hover); border-color: var(--border-strong); }
+.btn-primary {
+  background: var(--amber);
+  color: #0B101B;
+  border-color: var(--amber);
+  font-weight: 700;
+}
+.btn-primary:hover { filter: brightness(1.06); background: var(--amber); }
+.btn-teal {
+  background: var(--teal-soft);
+  color: var(--teal);
+  border-color: color-mix(in srgb, var(--teal) 45%, transparent);
+}
+
+/* Main Wrapper */
+.wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px 20px 64px;
+}
+
+/* Hero + Telemetry Strip */
+.hero {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elev) 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  background: var(--amber-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 0 4px var(--emerald-soft);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.65; }
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.hero p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.92rem;
+}
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-content: center;
+}
+@media (max-width: 600px) {
+  .telemetry-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.stat-card {
+  padding: 11px 13px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.stat-card .lbl {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.stat-card .val {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-top: 2px;
+}
+.stat-card .sub {
+  font-size: 0.73rem;
+  color: var(--teal);
+  margin-top: 2px;
+}
+
+/* Simulation Command Bar */
+.sim-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  margin-bottom: 18px;
+}
+.sim-topic-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 460px;
+  flex-wrap: wrap;
+}
+.sim-topic-group label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+.sim-select, .sim-input {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+}
+.sim-select { min-width: 250px; flex: 1; }
+.sim-input { min-width: 210px; flex: 1; }
+.sim-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sim-status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--teal);
+}
+
+/* Workflow Tabs */
+.wf-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+@media (max-width: 1100px) {
+  .wf-tabs { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .wf-tabs { grid-template-columns: 1fr; }
+}
+.wf-tab {
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 11px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+.wf-tab:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+.wf-tab[aria-selected="true"] {
+  background: linear-gradient(180deg, var(--amber-soft), var(--bg-card));
+  border-color: var(--amber);
+  box-shadow: 0 6px 20px rgba(245, 165, 36, 0.15);
+}
+.wf-tab-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.wf-tab-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+.wf-tab-sub {
+  font-size: 0.74rem;
+  color: var(--fg-muted);
+  margin-top: 3px;
+}
+
+/* Workspace Split: Hierarchy Canvas (Left) + Inspector & Live Terminal (Right) */
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 410px;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 1180px) {
+  .workspace { grid-template-columns: 1fr; }
+}
+
+/* Hierarchy Canvas */
+.canvas-shell {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.canvas-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.canvas-head h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+}
+.canvas-head p {
+  margin: 4px 0 0;
+  font-size: 0.84rem;
+  color: var(--fg-muted);
+}
+.legend-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot-idle { background: var(--fg-dim); }
+.dot-running { background: var(--amber); }
+.dot-pass { background: var(--emerald); }
+.dot-gate { background: var(--rose); }
+
+/* Hierarchy Tiers & SVG Overlay */
+.hierarchy-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px 4px;
+}
+.connector-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.conn-path {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease;
+}
+.conn-path.done {
+  stroke: color-mix(in srgb, var(--emerald) 65%, transparent);
+  stroke-width: 2.2;
+}
+.conn-path.active {
+  stroke: var(--amber);
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+  animation: dashFlow 0.75s linear infinite;
+}
+@keyframes dashFlow {
+  to { stroke-dashoffset: -28; }
+}
+.tier-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tier-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+.tier-nodes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+  gap: 12px;
+}
+.node-card {
+  position: relative;
+  text-align: left;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  padding: 12px 13px;
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.node-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+.node-card.selected {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px var(--amber-soft);
+}
+.node-card[data-status="running"] {
+  border-color: var(--amber);
+  background: linear-gradient(180deg, var(--amber-soft), var(--bg));
+  box-shadow: 0 0 24px rgba(245, 165, 36, 0.24);
+}
+.node-card[data-status="pass"] {
+  border-color: color-mix(in srgb, var(--emerald) 65%, transparent);
+}
+.node-card[data-status="gate"] {
+  border-color: var(--rose);
+  background: linear-gradient(180deg, var(--rose-soft), var(--bg));
+}
+.node-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.node-dept {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--indigo-soft);
+  color: var(--indigo);
+}
+html[data-theme="dark"] .node-dept { color: #A5B4FC; }
+.node-tier-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.node-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.node-desc {
+  font-size: 0.76rem;
+  color: var(--fg-muted);
+  line-height: 1.4;
+}
+.node-meta-foot {
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--fg-dim);
+}
+.status-chip {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.node-card[data-status="idle"] .status-chip { color: var(--fg-dim); }
+.node-card[data-status="running"] .status-chip { color: var(--amber); }
+.node-card[data-status="pass"] .status-chip { color: var(--emerald); }
+.node-card[data-status="gate"] .status-chip { color: var(--rose); }
+
+/* Interactive 4-Axis Model Router Panel (Inside Workflow 4) */
+.router-calc {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+}
+.router-sliders {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 12px 0;
+}
+@media (max-width: 640px) {
+  .router-sliders { grid-template-columns: 1fr; }
+}
+.slider-box {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.slider-box label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.slider-box input[type="range"] {
+  width: 100%;
+  accent-color: var(--amber);
+}
+.preset-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.preset-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+.preset-chip:hover { color: var(--fg); border-color: var(--amber); }
+
+/* Right Column: Inspector + Terminal */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 68px;
+}
+.inspector-card, .terminal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.inspector-card h3, .terminal-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.insp-section {
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.insp-label {
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  text-transform: uppercase;
+  color: var(--amber);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.code-tag {
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--teal);
+}
+.rule-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--rose-soft);
+  color: var(--rose);
+}
+.terminal-log {
+  background: #070A12;
+  color: #D1FAE5;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  padding: 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,0.1);
+  height: 250px;
+  overflow-y: auto;
+}
+.log-line { margin-bottom: 5px; word-break: break-word; }
+.log-ts { color: #64748B; margin-right: 6px; }
+.log-dept { color: #F5A524; font-weight: 700; margin-right: 6px; }
+.log-ok { color: #34D399; }
+.log-gate { color: #FB7185; font-weight: 700; }
+
+/* Semantic Accessible Reference Table */
+.matrix-section {
+  margin-top: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+}
+.matrix-table-wrap { overflow-x: auto; margin-top: 12px; }
+table.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+table.matrix-table th, table.matrix-table td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+table.matrix-table th {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--bg);
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+</head>
+<body>
+<div id="live-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<nav class="top-nav" aria-label="Điều hướng xưởng Vibe">
+  <div class="top-nav-in">
+    <div class="brand-group">
+      <span class="brand-slug">where-money-<i>sleeps</i> · <b>Agent Workflows</b></span>
+      <div class="nav-links">
+        <a href="index.html">S0 Discovery</a>
+        <a href="s1.html">S1 Spec (56 QĐ)</a>
+        <a href="prototype.html">Prototype & Bài viết</a>
+        <a href="workflows.html" class="active" aria-current="page">⚡ Sơ đồ Xưởng Agent Realtime</a>
+        <a href="llm-quiz.html">PDF + Quiz</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button type="button" class="btn" id="btn-motion" aria-pressed="false" title="Bật/tắt giảm chuyển động">✨ Chuyển động: Chuẩn</button>
+      <button type="button" class="btn" id="btn-theme" title="Đổi giao diện Sáng / Tối">☀️ Sáng / 🌙 Tối</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="hero-kicker"><span class="pulse-dot" aria-hidden="true"></span> TRUNG TÂM ĐIỀU PHỐI TỰ ĐỘNG HÓA · VIBE × WHERE MONEY SLEEPS</div>
+      <h1>Sơ đồ Phân cấp Phòng ban &amp; 5 Quy trình Tự động hóa Realtime</h1>
+      <p>Mỗi khi anh giao một chủ đề mới hoặc chạy một stage trong repo, hệ thống điều phối các Agent chuyên biệt theo phân cấp phòng ban, qua 3 tầng kiểm chéo độc lập và 2 khóa phần cứng trước khi trình anh duyệt.</p>
+    </div>
+    <div class="telemetry-grid" aria-label="Chỉ số thực tế trong Repo">
+      <div class="stat-card">
+        <div class="lbl">Kho bài &amp; Mặt cắt</div>
+        <div class="val">3 bài · 12 hình</div>
+        <div class="sub">card · pay · install (LUẬT 9)</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">Video Phát sóng</div>
+        <div class="val">6/6 MP4 30fps</div>
+        <div class="sub">3 Dài 16:9 + 3 Shorts 9:16</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">Cổng Kiểm Tất Định</div>
+        <div class="val">PASS 100%</div>
+        <div class="sub">C0–C9 · K1–K4 · F1–F4 · B1–B4</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">Tri thức Pháp quy</div>
+        <div class="val">TT 99/2025</div>
+        <div class="sub">finance-kb.json (TTL ≤ 30d)</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">Con trỏ Xưởng</div>
+        <div class="val">01-spec</div>
+        <div class="sub">56 QĐ · Khoá Hook Guard</div>
+      </div>
+      <div class="stat-card">
+        <div class="lbl">Định tuyến Model</div>
+        <div class="val">T0 → T4</div>
+        <div class="sub">S = 0..8 · Khoá-rồi-Hạ</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Realtime Topic Simulator Bar -->
+  <section class="sim-bar" aria-label="Bộ giả lập giao Topic và chạy quy trình Realtime">
+    <div class="sim-topic-group">
+      <label for="topic-select">🎯 Giao Topic:</label>
+      <select id="topic-select" class="sim-select">
+        <optgroup label="Đã dựng đủ 3 trụ + 4 hình mặt cắt + 2 video (Sẵn sàng trong Repo)">
+          <option value="install">[02 Vay &amp; Tín dụng] Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?</option>
+          <option value="card">[01 Thanh toán &amp; Thẻ] Quẹt thẻ 100.000đ ở quán quen, vì sao quán chỉ thực nhận 98.200đ sau 1 ngày?</option>
+          <option value="pay">[05 Kế toán Doanh nghiệp] Lương 20 triệu trên hợp đồng, vì sao công ty thực chi 24,3 triệu còn bạn nhận 17,9 triệu?</option>
+        </optgroup>
+        <optgroup label="16 Chủ đề trong Khung 7 Danh mục (Giả lập chạy /vibe-post mới)">
+          <option value="bnpl">[02 Vay &amp; Tín dụng] Mua trước trả sau 2 triệu miễn lãi 30 ngày, vì sao phí phạt trễ hạn đẩy lãi thực lên 45%/năm?</option>
+          <option value="home-loan">[02 Vay &amp; Tín dụng] Vay mua nhà 2 tỷ lãi ưu đãi 6,5% năm đầu, vì sao từ năm thứ 2 biên độ thả nổi nhảy lên 11,2%?</option>
+          <option value="casa">[03 Ngân hàng &amp; Tiền gửi] Để 50 triệu nhàn rỗi trong tài khoản thanh toán lãi 0,1%/năm, ngân hàng đem cho vay 9,5% như thế nào?</option>
+          <option value="ewallet">[04 Ví &amp; Siêu ứng dụng] Nạp 5 triệu vào ví điện tử chờ thanh toán, tiền thật thực sự nằm ở ngân hàng đảm bảo nào?</option>
+          <option value="fx-card">[01 Thanh toán &amp; Thẻ] Cà thẻ 1.000 đô ở nước ngoài, vì sao sao kê thu thêm 3,5% phí chuyển đổi ngoại tệ ẩn?</option>
+          <option value="cashback">[01 Thanh toán &amp; Thẻ] Hoàn tiền thẻ tín dụng 5% tối đa 300.000đ, ai là người thực sự trả khoản hoàn tiền đó?</option>
+        </optgroup>
+      </select>
+      <input type="text" id="custom-topic" class="sim-input" placeholder="Hoặc nhập câu hỏi chủ đề mới của anh..." aria-label="Nhập chủ đề tùy chỉnh">
+    </div>
+    <div class="sim-controls">
+      <button type="button" class="btn btn-primary" id="btn-play">▶ Chạy Mô Phỏng Realtime</button>
+      <button type="button" class="btn" id="btn-prev" title="Lùi 1 bước (Phím ←)">⏮ Bước trước</button>
+      <button type="button" class="btn" id="btn-next" title="Tiến 1 bước (Phím →)">⏭ Bước kế</button>
+      <button type="button" class="btn" id="btn-reset" title="Đặt lại từ đầu">↺ Đặt lại</button>
+      <button type="button" class="btn btn-teal" id="btn-speed" title="Đổi tốc độ mô phỏng">⚡ Tốc độ: 1×</button>
+      <span class="sim-status-pill" id="sim-status-text">Sẵn sàng · Bước 0/13</span>
+    </div>
+  </section>
+
+  <!-- 5 Core Repo Workflows Tablist -->
+  <div class="wf-tabs" role="tablist" aria-label="5 Quy trình cốt lõi trong Repo">
+    <button type="button" class="wf-tab" role="tab" id="tab-wf1" aria-selected="true" aria-controls="panel-wf" data-wf="wf1">
+      <div class="wf-tab-num"><span>QUY TRÌNH 01</span><span>13 NODES</span></div>
+      <div class="wf-tab-title">/vibe-post &lt;topic&gt; — Cỗ Máy Hóa Ý Tưởng Thành Bài &amp; Video</div>
+      <div class="wf-tab-sub">6 bước · 9 phòng ban &amp; chuyên gia · LUẬT 1–9 · Cổng duyệt WMS-R4</div>
+    </button>
+    <button type="button" class="wf-tab" role="tab" id="tab-wf2" aria-selected="false" aria-controls="panel-wf" data-wf="wf2">
+      <div class="wf-tab-num"><span>QUY TRÌNH 02</span><span>11 NODES</span></div>
+      <div class="wf-tab-title">Xưởng Sản Phẩm 7 Stage (S0→S6) &amp; Khoá Kép</div>
+      <div class="wf-tab-sub">ONE-PAGER ⇄ UNDERSTOOD · Kiểm chéo T1/T2/T3 · Sandbox + Hook Guard</div>
+    </button>
+    <button type="button" class="wf-tab" role="tab" id="tab-wf3" aria-selected="false" aria-controls="panel-wf" data-wf="wf3">
+      <div class="wf-tab-num"><span>QUY TRÌNH 03</span><span>8 NODES</span></div>
+      <div class="wf-tab-title">Cỗ Máy Nghiên Cứu 4 Pha (SWEEP → DEDUPE → REFUTE → JUDGE)</div>
+      <div class="wf-tab-sub">Subagent quét mù đa mũi · Code Python gộp trùng · Phản biện giết ứng viên</div>
+    </button>
+    <button type="button" class="wf-tab" role="tab" id="tab-wf4" aria-selected="false" aria-controls="panel-wf" data-wf="wf4">
+      <div class="wf-tab-num"><span>QUY TRÌNH 04</span><span>9 NODES</span></div>
+      <div class="wf-tab-title">Bộ Định Tuyến Model Theo Độ Phức Tạp (T0..T4 · Quy tắc 16)</div>
+      <div class="wf-tab-sub">Chấm điểm S = Ambiguity + Risk + Taste + Scope · Khoá-rồi-Hạ</div>
+    </button>
+    <button type="button" class="wf-tab" role="tab" id="tab-wf5" aria-selected="false" aria-controls="panel-wf" data-wf="wf5">
+      <div class="wf-tab-num"><span>QUY TRÌNH 05</span><span>8 NODES</span></div>
+      <div class="wf-tab-title">Vòng Lặp Tri Thức Pháp Quy &amp; Cổng Kiểm Tất Định</div>
+      <div class="wf-tab-sub">wms-finance-kb.py (TT 99/2025, NHNN) · wms-check.sh · 23/23 file luật</div>
+    </button>
+  </div>
+
+  <!-- Main Interactive Workspace -->
+  <div class="workspace" id="panel-wf" role="tabpanel" aria-labelledby="tab-wf1">
+    <div class="canvas-shell">
+      <div class="canvas-head">
+        <div>
+          <h2 id="wf-heading">Quy trình 01: /vibe-post &lt;topic&gt; — Từ 1 Câu Ý Tưởng Đến Bài Khảo Cứu &amp; 2 Video Phát Sóng</h2>
+          <p id="wf-subtitle">Nhấp vào bất kỳ phòng ban / node nào trên sơ đồ phân cấp để soi chi tiết script, file đầu vào/đầu ra và luật chặn.</p>
+        </div>
+        <div class="legend-bar" aria-label="Chú giải trạng thái">
+          <span class="legend-item"><span class="dot dot-idle"></span> Chờ (IDLE)</span>
+          <span class="legend-item"><span class="dot dot-running"></span> Đang chạy (ACTIVE)</span>
+          <span class="legend-item"><span class="dot dot-pass"></span> Đạt (PASS)</span>
+          <span class="legend-item"><span class="dot dot-gate"></span> Cổng khoá chờ Duy (GATE)</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Hierarchy Stage -->
+      <div class="hierarchy-stage" id="hierarchy-stage">
+        <svg class="connector-svg" id="connector-svg" aria-hidden="true"></svg>
+        <div id="tiers-container"></div>
+      </div>
+
+      <!-- Interactive 4-Axis Model Router Calculator (Visible in Workflow 4 or expandable) -->
+      <div class="router-calc" id="router-calc-panel" hidden>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <strong style="font-size:0.94rem;color:var(--amber);">🎛️ Bàn Cân Độ Phức Tạp 4 Trục Trực Tuyến (scripts/vibe-model-route.py)</strong>
+          <span id="calc-score-badge" class="sim-status-pill">S = 4/8 → Bậc T2 (Ngựa thồ chủ lực · 2x–3.5x)</span>
+        </div>
+        <div class="router-sliders">
+          <div class="slider-box">
+            <label for="sl-amb"><span>1. Ambiguity (Độ mơ hồ)</span><span id="val-amb">1 / 2</span></label>
+            <input type="range" id="sl-amb" min="0" max="2" step="1" value="1">
+          </div>
+          <div class="slider-box">
+            <label for="sl-risk"><span>2. Risk (Rủi ro số học / pháp lý)</span><span id="val-risk">1 / 2</span></label>
+            <input type="range" id="sl-risk" min="0" max="2" step="1" value="1">
+          </div>
+          <div class="slider-box">
+            <label for="sl-taste"><span>3. Taste (Gu thẩm mỹ 0→1)</span><span id="val-taste">1 / 2</span></label>
+            <input type="range" id="sl-taste" min="0" max="2" step="1" value="1">
+          </div>
+          <div class="slider-box">
+            <label for="sl-scope"><span>4. Scope (Phạm vi liên thông)</span><span id="val-scope">1 / 2</span></label>
+            <input type="range" id="sl-scope" min="0" max="2" step="1" value="1">
+          </div>
+        </div>
+        <div class="preset-chips" aria-label="Preset tác vụ mẫu">
+          <button type="button" class="preset-chip" data-scores="0,0,0,0">T0: check-story.py (0,0,0,0)</button>
+          <button type="button" class="preset-chip" data-scores="1,0,0,1">T1: Quét SWEEP / Đọc log (1,0,0,1)</button>
+          <button type="button" class="preset-chip" data-scores="1,1,1,1">T2: Lên bài mới theo khuôn C9 (1,1,1,1)</button>
+          <button type="button" class="preset-chip" data-scores="1,2,1,2">T3: ke-toan-reviewer TT 99 / PRD (1,2,1,2)</button>
+          <button type="button" class="preset-chip" data-scores="2,1,2,2">T4: Thiết kế Diorama 0→1 (2,1,2,2)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Inspector & Live Terminal -->
+    <aside class="side-panel" aria-label="Chi tiết Node và Nhật ký Thực thi Realtime">
+      <div class="inspector-card" id="inspector-card">
+        <h3>
+          <span id="insp-title">Phòng ban / Agent</span>
+          <span class="node-tier-badge" id="insp-tier">T0..T4</span>
+        </h3>
+        <p id="insp-summary" style="margin:0;font-size:0.84rem;color:var(--fg-muted);"></p>
+
+        <div class="insp-section">
+          <div class="insp-label">Vai trò &amp; Trách nhiệm</div>
+          <div id="insp-role" style="font-size:0.82rem;"></div>
+        </div>
+
+        <div class="insp-section">
+          <div class="insp-label">Script / Skill / Hook thật trong Repo</div>
+          <div class="tag-list" id="insp-scripts"></div>
+        </div>
+
+        <div class="insp-section">
+          <div class="insp-label">File Đầu vào (Inputs) → Đầu ra (Outputs)</div>
+          <div class="tag-list" id="insp-io"></div>
+        </div>
+
+        <div class="insp-section">
+          <div class="insp-label">Luật cứng &amp; Cổng kiểm chặn</div>
+          <div class="tag-list" id="insp-rules"></div>
+        </div>
+      </div>
+
+      <div class="terminal-card">
+        <h3>
+          <span>📟 Nhật ký Điều phối Realtime</span>
+          <button type="button" class="btn" id="btn-clear-log" style="padding:3px 8px;font-size:0.72rem;">Xóa log</button>
+        </h3>
+        <div class="terminal-log" id="terminal-log" role="log" aria-live="off" aria-label="Nhật ký chạy mô phỏng"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Accessible Semantic Reference Matrix -->
+  <section class="matrix-section" aria-labelledby="matrix-title">
+    <h2 id="matrix-title" style="margin:0;font-family:var(--font-serif);font-size:1.2rem;">Bảng Ma Trận Điều Phối Đầy Đủ (5 Quy Trình · Phòng Ban · Script · Cổng Khoá)</h2>
+    <p style="margin:4px 0 0;font-size:0.84rem;color:var(--fg-muted);">Bảng dữ liệu ngữ nghĩa đối chiếu toàn bộ các bước tự động hóa và cổng kiểm tất định trong repo.</p>
+    <div class="matrix-table-wrap">
+      <table class="matrix-table" id="matrix-table">
+        <thead>
+          <tr>
+            <th>Quy trình</th>
+            <th>Bước / Tầng</th>
+            <th>Phòng ban / Agent</th>
+            <th>Bậc Model</th>
+            <th>Script / Skill thực thi</th>
+            <th>Artifact Đầu ra &amp; Cổng chặn</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script>
+(function() {
+  "use strict";
+
+  const WORKFLOWS = {
+    wf1: {
+      id: "wf1",
+      title: "Quy trình 01: /vibe-post <topic> — Cỗ Máy Hóa Ý Tưởng Thành Bài & Video (6 Bước)",
+      subtitle: "Khi anh giao một chủ đề mới, 9 phòng ban & chuyên gia chạy tuần tự và song song qua 6 bước trước khi dừng ở cổng duyệt WMS-R4.",
+      tiers: [
+        {
+          label: "Tầng 0 · Khởi xướng & Định tuyến Độ phức tạp",
+          nodes: [
+            {
+              id: "n0_duy",
+              dept: "Chủ Xưởng",
+              tier: "HUMAN",
+              title: "0A. Duy giao 1 câu Topic",
+              desc: "Gõ lệnh /vibe-post kèm câu hỏi cơ chế dòng tiền hoặc chọn từ khung 7 danh mục.",
+              role: "Khởi phát yêu cầu sản xuất nội dung mới; nắm quyền quyết định cuối cùng tại cổng duyệt.",
+              scripts: [".agents/skills/vibe-post/SKILL.md", "PIPELINE.md"],
+              io: ["Input: Ý tưởng 1 câu", "Output: Lệnh kích hoạt pipeline 6 bước"],
+              rules: ["Quy tắc 1 (Không tự đẩy con trỏ)", "WMS-R4 (Không tự đăng bài)"],
+              parents: [],
+              logMsg: "Nhận chủ đề mới từ Duy → Khởi chạy pipeline /vibe-post 6 bước."
+            },
+            {
+              id: "n0_router",
+              dept: "Phòng Điều Phối",
+              tier: "T0 → T2",
+              title: "0B. Bộ Định Tuyến Model (vibe-model-route.py)",
+              desc: "Chấm điểm 4 trục S = Ambiguity + Risk + Taste + Scope để chọn đúng bậc model T0..T4.",
+              role: "Áp dụng nguyên tắc Khoá-rồi-Hạ: khuôn C9 đã khóa hạ xuống T2 (2x–3.5x) kết hợp cổng kiểm T0 (0x).",
+              scripts: ["scripts/vibe-model-route.py", "docs/model-routing.md"],
+              io: ["Input: --preset wms-new-post", "Output: [Route: T2 · S=4/8]"],
+              rules: ["Quy tắc 16 (Định tuyến theo độ phức tạp)", "Cấm lạm dụng bậc T4 10x"],
+              parents: ["n0_duy"],
+              logMsg: "Chấm điểm S=4/8 (Ambiguity=1, Risk=1, Taste=1, Scope=1) → Định tuyến bậc T2 + kiểm chéo T3."
+            }
+          ]
+        },
+        {
+          label: "Tầng 1 · Bước 1 & Bước 2: Phân loại Khung 7 Danh mục & Kiến trúc Nội dung 3 Trụ",
+          nodes: [
+            {
+              id: "n1_pm",
+              dept: "Phòng PM",
+              tier: "T2",
+              title: "1. Phân Loại & Khung 5 Ngôi Nhà",
+              desc: "Xếp bài vào 1/7 danh mục · 1/19 chủ đề, chọn đúng 5 ngôi nhà cố định (houses[0..4]).",
+              role: "Đảm bảo câu hỏi mở bài có đủ 3 mỏ neo: [Hành động + Giá trị gốc] → [Cơ chế bề mặt] → [Số thực nhận].",
+              scripts: ["gates/ONE-PAGER.md", "gates/01-spec/TAXONOMY-7x19.md"],
+              io: ["Input: Câu hỏi chủ đề", "Output: Khung story.id, cat, houses[0..4]"],
+              rules: ["LUẬT 1 (Tiêu đề 3 mỏ neo)", "C1 (Đúng 5 ngôi nhà cố định)"],
+              parents: ["n0_router"],
+              logMsg: "Phòng PM gắn bài vào khung 7 danh mục, chốt 5 ngôi nhà cố định và tiêu đề 3 mỏ neo."
+            },
+            {
+              id: "n2_diorama_copy",
+              dept: "Phòng Biên Tập",
+              tier: "T2",
+              title: "2A. Kịch Bản 5 Nhịp Diorama (beats[0..4])",
+              desc: "Viết 5 đoạn nhân-quả (≤ 65 từ/đoạn), sổ cái Nợ/Có từng bước và chú thích thuật ngữ [[term]].",
+              role: "Chuyển hóa dòng tiền ẩn thành 5 bước tương tác trên mặt cắt cùng bảng hiểu lầm vs sự thật.",
+              scripts: ["gates/01-spec/AGENT-CMS-PIPELINE.md", "docs/prototype.html"],
+              io: ["Input: Khung 5 ngôi nhà", "Output: beats[0..4], compare, GLOSS"],
+              rules: ["C3 (≤ 65 từ/nhịp)", "C4 (Mọi [[term]] phải có trong GLOSS)", "LUẬT 7 (Không lộ đạo cụ)"],
+              parents: ["n1_pm"],
+              logMsg: "Phòng Biên Tập hoàn tất 5 nhịp beats[0..4] và nạp từ điển thuật ngữ GLOSS."
+            },
+            {
+              id: "n2_essay_video",
+              dept: "Phòng Khảo Cứu",
+              tier: "T3",
+              title: "2B. Bài Khảo Cứu 2 Tầng & Kịch Bản Video",
+              desc: "Soạn 5 chương khảo cứu (Đời thường lay ⇄ Học thuật pro TT 99/2025) + Kịch bản Video Dài & Ngắn.",
+              role: "Đảm bảo chiều sâu cơ chế: ≥ 850 từ tầng Đời thường, ≥ 3 bút toán TT 99 tầng Học thuật, kịch bản 10–12 cảnh.",
+              scripts: ["docs/prototype.html", "legal/tt99-phu-luc-ii.secondary.json"],
+              io: ["Input: beats[0..4] + TT 99/2025", "Output: article.lay, article.pro, videoScript"],
+              rules: ["C6 (Σ Nợ = Σ Có theo TT 99/2025)", "C9 v2 (Đủ 3 trụ: lay + pro + videoScript)"],
+              parents: ["n1_pm"],
+              logMsg: "Phòng Khảo Cứu biên soạn xong 5 chương khảo cứu 2 tầng (lay/pro) + kịch bản video 2 định dạng."
+            }
+          ]
+        },
+        {
+          label: "Tầng 2 · Bước 3: Thiết kế Mặt cắt Tương tác & Đồ họa Khảo cứu (LUẬT 9)",
+          nodes: [
+            {
+              id: "n3_svg",
+              dept: "Phòng Thiết Kế",
+              tier: "T2",
+              title: "3A. Mặt Cắt Diorama v3.0 (SVG 5 Ngôi Nhà)",
+              desc: "Dựng đạo cụ (fx) khớp từng ngôi nhà, đường dẫn hạt sáng bezier và đồng bộ số tiền trên nóc nhà.",
+              role: "Biểu diễn trực quan luồng thông tin 0đ và luồng tiền giải ngân thực tế qua hệ thống ngân hàng.",
+              scripts: ["docs/prototype.html", "scripts/check-story.py"],
+              io: ["Input: houses[0..4], beats[0..4]", "Output: SCENECSS + SCENEJS Diorama"],
+              rules: ["C2b (Khớp đạo cụ FX_BY_TYPE)", "LUẬT 7 (Ngôn ngữ tài chính tự nhiên)"],
+              parents: ["n2_diorama_copy"],
+              logMsg: "Phòng Thiết Kế kết xuất mặt cắt SVG 5 ngôi nhà và hiệu ứng hạt sáng dòng tiền."
+            },
+            {
+              id: "n3_figs",
+              dept: "Phòng Đồ Họa",
+              tier: "T0 + T2",
+              title: "3B. 4 Hình Mặt Cắt Chen Giữa Bài (LUẬT 9)",
+              desc: "Sinh 4 hình 16:9 (1200×675) cho Chương 02–05 kèm chú thích 3 tầng và nút nhảy lên Diorama.",
+              role: "Chống ngán chữ khi đọc bài dài: giữ Chương 01 thuần chữ, đặt hình ngay sau Đoạn 1 của Chương 02–05.",
+              scripts: ["scripts/wms-render-editorial-figs.py", "legal/licences.json"],
+              io: ["Input: CHAP_FIGS[slug]", "Output: public/brand/<slug>-fig-1..4.jpg"],
+              rules: ["LUẬT 9 (4 hình 16:9 · CLS = 0)", "C9 · CHAP_FIGS (Đủ 4 hình + licence)"],
+              parents: ["n2_essay_video"],
+              logMsg: "Phòng Đồ Họa render 4 hình mặt cắt 1200×675 (LUẬT 9) và ghi giấy phép vào legal/licences.json."
+            }
+          ]
+        },
+        {
+          label: "Tầng 3 · Bước 4: Tam Giác 3 Chuyên Gia & Cổng Kiểm Tất Định (Chạy Song Song)",
+          nodes: [
+            {
+              id: "n4_t0",
+              dept: "Cổng Máy T0",
+              tier: "T0 (0x)",
+              title: "4A. Phép Kiểm Tất Định (check-story.py)",
+              desc: "Chạy 10 cổng C0–C9 bằng Python thuần trong < 2 giây: kiểm schema, độ dài, bút toán, hình mặt cắt.",
+              role: "Tầng chắn cơ học đầu tiên — trượt bất kỳ cổng nào lập tức chặn chuyển sang bước dựng video.",
+              scripts: ["scripts/check-story.py", "scripts/wms-check.sh"],
+              io: ["Input: docs/prototype.html", "Output: C0..C9 PASS (0 lỗi chặn)"],
+              rules: ["C0–C9 (10 cổng tất định)", "C8 (23/23 file quản trị repo)"],
+              parents: ["n3_svg", "n3_figs"],
+              logMsg: "check-story.py: C0..C9 PASS 100% — 0 lỗi chặn."
+            },
+            {
+              id: "n4_ketoan",
+              dept: "Phòng Kế Toán",
+              tier: "T3",
+              title: "4B. Chuyên Gia Kế Toán (K1–K4 · TT 99/2025)",
+              desc: "Tính lại toàn bộ số học bằng Python, đối chiếu mã và tên tài khoản nguyên văn Thông tư 99/2025/TT-BTC.",
+              role: "Đảm bảo Σ Nợ = Σ Có tuyệt đối và không dùng tài khoản cũ đã bãi bỏ.",
+              scripts: [".agents/skills/ke-toan-reviewer/SKILL.md", "legal/tt99-phu-luc-ii.secondary.json"],
+              io: ["Input: Bút toán & con số trong bài", "Output: Chứng nhận K1–K4 PASS"],
+              rules: ["K1 (Số học khớp 100%)", "K2 (Đúng tên TK TT 99/2025)", "K3 (Đúng bản chất Nợ/Có)"],
+              parents: ["n3_svg", "n3_figs"],
+              logMsg: "ke-toan-reviewer: K1–K4 PASS — Đã kiểm chứng Σ Nợ = Σ Có theo TT 99/2025/TT-BTC."
+            },
+            {
+              id: "n4_taichinh",
+              dept: "Phòng Tài Chính",
+              tier: "T3",
+              title: "4C. Chuyên Gia Tài Chính (F1–F4 · IRR/EIR)",
+              desc: "Kiểm tra cơ chế ngân hàng, công thức lãi suất thực EIR/IRR và đối chiếu kho tri thức finance-kb.json.",
+              role: "Ngăn chặn sai lệch bản chất nghiệp vụ ngân hàng, thanh toán bù trừ T+1 và tín dụng tiêu dùng.",
+              scripts: [".agents/skills/tai-chinh-reviewer/SKILL.md", "scripts/wms-finance-kb.py"],
+              io: ["Input: docs/prototype.html + finance-kb.json", "Output: Chứng nhận F1–F4 PASS"],
+              rules: ["F1 (Cơ chế ngân hàng)", "F2 (Toán tài chính EIR/IRR)", "F4 (Độ tươi tri thức ≤ 30 ngày)"],
+              parents: ["n3_svg", "n3_figs"],
+              logMsg: "tai-chinh-reviewer: F1–F4 PASS — Toán EIR/IRR và cơ chế thanh toán khớp finance-kb.json."
+            },
+            {
+              id: "n4_brand",
+              dept: "Phòng Pháp Chế",
+              tier: "T1 + T0",
+              title: "4D. Chuyên Gia An Toàn Thương Hiệu (B1–B4)",
+              desc: "Quét 100% văn bản, phụ đề và khung hình: chặn tuyệt đối tên riêng thương mại, ngân hàng, ví, công cụ.",
+              role: "Bảo vệ tính trung lập học thuật — chỉ dùng danh từ chung (Ngân hàng của bạn, Tổ chức thẻ, Cửa hàng).",
+              scripts: [".agents/skills/brand-safety-reviewer/SKILL.md", "scripts/wms-media-pipeline.py"],
+              io: ["Input: Toàn bộ chữ & kịch bản", "Output: Chứng nhận B1–B4 (0 tên riêng)"],
+              rules: ["B1–B4 (0 tên riêng thương mại)", "LUẬT 7 (0 ẩn dụ đạo cụ rò rỉ)"],
+              parents: ["n3_svg", "n3_figs"],
+              logMsg: "brand-safety-reviewer: B1–B4 PASS — Tuyệt đối 0 tên riêng thương mại trên toàn bộ bài và kịch bản."
+            }
+          ]
+        },
+        {
+          label: "Tầng 4 · Bước 5A–5D: Phòng Studio Phát Sóng Audio/Video & Nhúng Tự Động",
+          nodes: [
+            {
+              id: "n5_tts",
+              dept: "Phòng Âm Thanh",
+              tier: "T2",
+              title: "5A. Thu Giọng Đọc Liền Mạch & Chuẩn Hóa -14 LUFS",
+              desc: "Tổng hợp lời bình nguyên bài liền mạch với cầu thở 0,36s, Room Tone -33 dBFS và SFX chuyển cảnh -22 dBFS.",
+              role: "Tạo nhịp giọng kể chuyện tự nhiên, liền mạch cảm xúc giữa các cảnh.",
+              scripts: ["scripts/wms-media-pipeline.py"],
+              io: ["Input: videoScript.long & short", "Output: Master WAV -14 LUFS + word timestamps"],
+              rules: ["LUẬT 2 (Thu liền mạch nguyên bài)", "Chuẩn phát sóng -14 LUFS"],
+              parents: ["n4_t0", "n4_ketoan", "n4_taichinh", "n4_brand"],
+              logMsg: "Phòng Âm Thanh: Đã tổng hợp Master Audio (-14 LUFS) kèm mốc thời gian từng từ."
+            },
+            {
+              id: "n5_video",
+              dept: "Phòng Dựng Hình",
+              tier: "T2",
+              title: "5B. Kết Xuất Video 30fps Split-Stage (LUẬT 6b & LUẬT 8)",
+              desc: "Dựng MP4 16:9 (1920×1080) & 9:16 (1080×1920 chia 3 vùng độc lập: Header, Sân khấu, Thẻ phụ đề).",
+              role: "Đảm bảo thẻ chữ không bao giờ đè lên hình minh họa và 5 hộp con nằm gọn trong hộp cha.",
+              scripts: ["scripts/wms-media-pipeline.py"],
+              io: ["Input: Master WAV + Cutaway Plates", "Output: dist/youtube/<slug>-{long,short}.mp4"],
+              rules: ["LUẬT 6b (Containment P_inner ≥ 20px)", "LUẬT 8 (Split-Stage 3 vùng không đè chữ)"],
+              parents: ["n5_tts"],
+              logMsg: "Phòng Dựng Hình: Render hoàn tất 2 file MP4 30fps (16:9 & 9:16) đạt chuẩn LUẬT 6b + LUẬT 8."
+            },
+            {
+              id: "n5_embed",
+              dept: "Phòng Phát Hành",
+              tier: "T1",
+              title: "5C–5D. Upload Unlisted & Tự Động Nhúng Vào Bài",
+              desc: "Đẩy video lên kênh ở chế độ Unlisted (kèm trình phát MP4 cục bộ dự phòng) và ghi mã nhúng vào bài.",
+              role: "Giúp Duy xem thử cả bài viết lẫn 2 video ngay trong giao diện đọc bài trước khi quyết định đăng.",
+              scripts: ["scripts/wms-media-pipeline.py", "docs/prototype.html"],
+              io: ["Input: 2 file MP4 + manifest.json", "Output: youtubeId + trình phát nhúng trong bài"],
+              rules: ["QĐ 56 (Tự động nhúng vào 2 đầu bài)", "Fallback MP4 cục bộ khi chờ hạn ngạch API"],
+              parents: ["n5_video"],
+              logMsg: "Phòng Phát Hành: Đã cập nhật manifest và nhúng trình phát video vào đầu bài viết."
+            }
+          ]
+        },
+        {
+          label: "Tầng 5 · Bước 6: Cổng Khoá Phần Cứng & Duyệt Đăng Của Duy (WMS-R4)",
+          nodes: [
+            {
+              id: "n6_gate",
+              dept: "Cổng Duyệt Duy",
+              tier: "LOCK",
+              title: "6. Hàng Chờ Review & Khoá Phần Cứng (wms-hook-guard.sh)",
+              desc: "Bài mới dừng ở trạng thái status: \"review\". Hook PreToolUse chặn mọi lệnh tự đổi sang \"published\".",
+              role: "Chỉ chính tay Duy kiểm tra bài viết + 4 hình mặt cắt + 2 video rồi bấm \"Duyệt & Đăng\" mới lên sóng.",
+              scripts: ["scripts/wms-hook-guard.sh", ".claude/settings.json"],
+              io: ["Input: Bài ở trạng thái review", "Output: Hộp xác nhận force_ask chờ Duy duyệt"],
+              rules: ["WMS-R4 (Cấm Agent tự đăng bài)", "PreToolUse Hook (decision: force_ask)"],
+              parents: ["n5_embed"],
+               isGate: true,
+              logMsg: "🛑 DỪNG TẠI CỔNG WMS-R4: Bài đang ở trạng thái 'review'. Đã khóa bằng wms-hook-guard.sh — chờ Duy duyệt."
+            }
+          ]
+        }
+      ]
+    },
+
+    wf2: {
+      id: "wf2",
+      title: "Quy trình 02: Xưởng Sản Phẩm 7 Stage (S0 → S6) & Cơ Chế Khoá Kép",
+      subtitle: "Luồng điều phối 7 giai đoạn phát triển sản phẩm từ Khám phá đến Vận hành, kèm hợp đồng hiểu 2 chiều và 3 tầng kiểm chéo.",
+      tiers: [
+        {
+          label: "Tầng 0 · Hiến Pháp Sản Phẩm & Hợp Đồng Kể Lại Bằng Chữ Của Mình (Quy tắc 11)",
+          nodes: [
+            {
+              id: "s_onepager",
+              dept: "Phòng PM + Duy",
+              tier: "T3",
+              title: "ONE-PAGER.md (1 Trang Duy Sở Hữu)",
+              desc: "Định nghĩa 4 trụ: Sản phẩm cho ai · Cảm giác tạo ra · 3 thứ KHÔNG làm · Đo thành công bằng gì.",
+              role: "Nguồn sự thật gốc của toàn dự án. Mọi stage sau phải trích dẫn nguyên văn từ file này.",
+              scripts: ["gates/ONE-PAGER.md", "scripts/vibe-check.sh"],
+              io: ["Input: Quyết định của Duy", "Output: gates/ONE-PAGER.md (freshness ≥ PRD)"],
+              rules: ["Quy tắc 11 (ONE-PAGER mới hơn PRD)", "Mục [2] vibe-check.sh"],
+              parents: [],
+              logMsg: "Đã nạp gates/ONE-PAGER.md — kiểm tra dấu thời gian freshness hợp lệ."
+            },
+            {
+              id: "s_understood",
+              dept: "Phòng Sở Hữu Stage",
+              tier: "T2",
+              title: "UNDERSTOOD.md (Cầu Nối Hiểu 2 Chiều)",
+              desc: "Trích nguyên văn <grounding> từ ONE-PAGER và diễn giải lại bằng chữ riêng của phòng ban phụ trách.",
+              role: "Chống hiện tượng Agent đọc lướt tài liệu mà không hiểu mục tiêu cốt lõi của sản phẩm.",
+              scripts: ["gates/01-spec/UNDERSTOOD.md", "scripts/vibe-check.sh"],
+              io: ["Input: gates/ONE-PAGER.md", "Output: gates/<stage>/UNDERSTOOD.md"],
+              rules: ["Mục [3] vibe-check.sh (Khớp nguyên văn <grounding> & khác văn diễn giải)"],
+              parents: ["s_onepager"],
+              logMsg: "vibe-check.sh [3]: Khối <grounding> khớp ONE-PAGER 100%, phần kể lại độc lập."
+            }
+          ]
+        },
+        {
+          label: "Tầng 1 · Dây Chuyền 7 Stage Cốt Lõi (S0 Discovery → S6 Iterate)",
+          nodes: [
+            {
+              id: "s0_s1",
+              dept: "PM + Legal + Data",
+              tier: "T3",
+              title: "S0 Discovery → S1 Spec (Đang mở tại 01-spec)",
+              desc: "S0 sàng lọc pháp lý & thị trường; S1 khóa PRD.md, SUCCESS-CRITERIA.md, TRACKING-PLAN.md và 56 Quyết định.",
+              role: "Giai đoạn định hình toàn bộ quy tắc nghiệp vụ, cấu trúc dữ liệu và ranh giới pháp lý trước khi code.",
+              scripts: ["gates/00-discovery/PRODUCT-BRIEF.md", "gates/01-spec/PRD.md"],
+              io: ["Input: 15 QĐ S0", "Output: 56 QĐ S1 + docs/s1.html (≤ 520 từ)"],
+              rules: ["Quy tắc 4 (Pháp lý đi trước)", "Quy tắc 8 (Data vào từ S1)", "Quy tắc 15 (HTML ≤ 520 từ)"],
+              parents: ["s_understood"],
+              logMsg: "S0 đã duyệt (APPROVED). Con trỏ hiện tại: 01-spec (56 Quyết định khớp giữa PIPELINE.md và HTML)."
+            },
+            {
+              id: "s2_s3",
+              dept: "Design + SWE",
+              tier: "T4 → T2",
+              title: "S2 Design (Chốt Gu) → S3 Build (SWE × 2 Worktree)",
+              desc: "S2 dùng bậc T4 khóa ngôn ngữ thiết kế chống mùi máy móc; S3 hạ xuống bậc T2 chia lát cắt code song song.",
+              role: "Chuyển hóa bản đặc tả thành giao diện thật và mã nguồn sạch có kiểm thử.",
+              scripts: ["gates/02-design/DESIGN-BRIEF.md", "docs/prototype.html"],
+              io: ["Input: DESIGN-BRIEF.md", "Output: Giao diện & mã nguồn sản phẩm"],
+              rules: ["Quy tắc 13 (Duy chốt gu đầu S2 & duyệt cuối S2)", "Quy tắc 16 (Khoá-rồi-Hạ T4→T2)"],
+              parents: ["s0_s1"],
+              logMsg: "S2 khóa mẫu thiết kế mặt cắt Diorama → S3 thi công trên nhánh độc lập."
+            },
+            {
+              id: "s4_s6",
+              dept: "QA + Ops + PM",
+              tier: "T2",
+              title: "S4 QA → S5 Launch → S6 Iterate",
+              desc: "S4 kiểm thử chéo và xác minh bộ đếm sự kiện bằng mắt; S5 phát hành qua cổng khóa mạng; S6 đo lường vòng lặp.",
+              role: "Đảm bảo sản phẩm vận hành đúng cam kết bảo mật, không rò rỉ dữ liệu và đo được hiệu quả thực tế.",
+              scripts: ["scripts/vibe-check.sh", "scripts/wms-check.sh"],
+              io: ["Input: Bản build S3", "Output: Báo cáo QA, Release & Vòng lặp S6"],
+              rules: ["Quy tắc 8 (Xác minh event bằng mắt ở S4)", "Không gắn script theo dõi bên thứ ba"],
+              parents: ["s2_s3"],
+              logMsg: "Chuỗi S4 QA → S5 Launch → S6 Iterate sẵn sàng kích hoạt sau khi S1–S3 được duyệt."
+            }
+          ]
+        },
+        {
+          label: "Tầng 2 · Ba Tầng Kiểm Chéo Độc Lập (Quy tắc 12: T1 Máy · T2 Chéo-Phòng · T3 Tái Lập Mù)",
+          nodes: [
+            {
+              id: "cc_t1",
+              dept: "Tầng T1 · Máy",
+              tier: "T0 (0x)",
+              title: "T1. Kiểm Tất Định (< 2 giây · vibe-check.sh)",
+              desc: "Kiểm tra 7 hạng mục tự động: đường dẫn, dấu thời gian, trích dẫn, ngân sách 520 từ và độ khớp quyết định.",
+              role: "Chạy ở mọi stage — phát hiện ngay lỗi hình thức và lệch đồng bộ giữa tầng máy đọc và tầng người đọc.",
+              scripts: ["scripts/vibe-check.sh", "scripts/wms-check.sh"],
+              io: ["Input: gates/* + docs/*.html", "Output: PASS 0 lỗi chặn"],
+              rules: ["Mục [1] đến [7] trong scripts/vibe-check.sh"],
+              parents: ["s0_s1", "s2_s3", "s4_s6"],
+              logMsg: "T1 Máy (vibe-check.sh): Đạt 7/7 hạng mục kiểm tra tất định."
+            },
+            {
+              id: "cc_t2",
+              dept: "Tầng T2 · Chéo Phòng",
+              tier: "T2",
+              title: "T2. Phản Biện Chéo Phòng Ban (Đúng 2 Câu Hỏi)",
+              desc: "Một phòng KHÔNG sở hữu stage đặt đúng 2 câu hỏi hóc búa nhất; phòng sở hữu phải trả lời ngay trong artifact.",
+              role: "Chống tư duy cục bộ của một phòng ban đơn lẻ ở mọi stage.",
+              scripts: ["gates/01-spec/CROSS-CHECK.md"],
+              io: ["Input: Bản nháp stage", "Output: 2 câu hỏi & câu trả lời trong artifact"],
+              rules: ["Quy tắc 12 (Không đếm số người duyệt, đếm PHÁT HIỆN)"],
+              parents: ["s0_s1", "s2_s3"],
+              logMsg: "T2 Chéo-phòng: Đã ghi nhận và giải trình 2 câu hỏi phản biện liên phòng ban."
+            },
+            {
+              id: "cc_t3",
+              dept: "Tầng T3 · Tái Lập Mù",
+              tier: "T3",
+              title: "T3. Tái Lập Mù Từ Nguồn Gốc (S1 & S2)",
+              desc: "Gọi một phiên Agent mới hoàn toàn, đọc từ nguồn gốc mà KHÔNG nhìn bản cũ để dựng lại kết luận.",
+              role: "Nếu 2 phiên bất đồng → đó là tín hiệu spec chưa rõ, lập tức leo thẳng lên hỏi Duy (cấm gọi phiên thứ 3 phân xử).",
+              scripts: ["gates/01-spec/PRD.md"],
+              io: ["Input: Dữ liệu nguồn gốc", "Output: Báo cáo đối chiếu độc lập"],
+              rules: ["Quy tắc 7 (Ghi rõ quan hệ họ model)", "Quy tắc 12 (Bất đồng = báo thẳng lên Duy)"],
+              parents: ["s0_s1", "s2_s3"],
+              logMsg: "T3 Tái lập mù: Kết luận khớp nguồn gốc, ghi nhãn đối chiếu minh bạch."
+            }
+          ]
+        },
+        {
+          label: "Tầng 3 · Cơ Chế Khoá Kép Bảo Vệ Con Trỏ (Quy tắc 1: Sandbox + PreToolUse Hook)",
+          nodes: [
+            {
+              id: "lock_dual",
+              dept: "Khoá Phần Cứng",
+              tier: "LOCK",
+              title: "Khoá Kép: Sandbox Cấm Mạng + Hook Canh PIPELINE.md",
+              desc: "Mọi thao tác sửa dòng pointer: hoặc chạy lệnh đẩy code đều bị scripts/vibe-hook-guard.sh chặn bằng force_ask.",
+              role: "Đảm bảo không một Agent nào có thể tự ý duyệt stage hoặc tự ý phát hành sản phẩm khi chưa có lệnh của Duy.",
+              scripts: ["scripts/vibe-hook-guard.sh", ".agents/hooks.json"],
+              io: ["Input: Lệnh edit_file / run_command", "Output: {\"decision\": \"force_ask\"}"],
+              rules: ["Quy tắc 1 (Chỉ Duy gõ /vibe-approve)", "Cổng con trỏ & Cổng ship"],
+              parents: ["cc_t1", "cc_t2", "cc_t3"],
+              isGate: true,
+              logMsg: "🛑 KHOÁ KÉP HOẠT ĐỘNG: Con trỏ giữ nguyên tại 01-spec. Chỉ Duy mới có quyền đẩy con trỏ."
+            }
+          ]
+        }
+      ]
+    },
+
+    wf3: {
+      id: "wf3",
+      title: "Quy trình 03: Cỗ Máy Nghiên Cứu 4 Pha (SWEEP → DEDUPE → REFUTE → JUDGE)",
+      subtitle: "Phương pháp nghiên cứu có trích dẫn nguyên văn và phản biện đối kháng (docs/method.md) trước khi viết bất kỳ dòng spec hay code nào.",
+      tiers: [
+        {
+          label: "Pha 1 · SWEEP (Quét Mù Đa Mũi Song Song — Cô Lập Ngữ Cảnh)",
+          nodes: [
+            {
+              id: "r_sweep1",
+              dept: "Mũi Quét 01",
+              tier: "T1",
+              title: "SWEEP-1: Hành Vi Đọc & Eye-Tracking",
+              desc: "Subagent độc lập số 1 quét các nghiên cứu thực nghiệm về nhịp đọc, điểm mù thị giác và mật độ hình minh họa.",
+              role: "Chạy trong ngữ cảnh cô lập hoàn toàn — mù với Mũi 2 và Mũi 3 để không sao chép thiên kiến của nhau.",
+              scripts: ["docs/method.md"],
+              io: ["Input: Câu hỏi nghiên cứu", "Output: Danh sách ứng viên + trích dẫn nguyên văn"],
+              rules: ["Quy tắc 2 (Mỗi mũi mù hoàn toàn với nhau)", "Không có URL + trích dẫn = không tính"],
+              parents: [],
+              logMsg: "SWEEP-1 hoàn tất quét độc lập nhánh Hành vi người đọc & Eye-tracking."
+            },
+            {
+              id: "r_sweep2",
+              dept: "Mũi Quét 02",
+              tier: "T1",
+              title: "SWEEP-2: Tải Nhận Thức & Đa Phương Tiện",
+              desc: "Subagent độc lập số 2 quét lý thuyết tải nhận thức, nguyên lý tiếp cận không gian và cấu trúc chú thích 3 tầng.",
+              role: "Thu thập bằng chứng học thuật độc lập kèm điều kiện biên áp dụng.",
+              scripts: ["docs/method.md"],
+              io: ["Input: Câu hỏi nghiên cứu", "Output: Danh sách ứng viên + trích dẫn nguyên văn"],
+              rules: ["Quy tắc 2 (Không bịa số liệu hay trích dẫn)"],
+              parents: [],
+              logMsg: "SWEEP-2 hoàn tất quét độc lập nhánh Tải nhận thức & Đa phương tiện."
+            },
+            {
+              id: "r_sweep3",
+              dept: "Mũi Quét 03",
+              tier: "T1",
+              title: "SWEEP-3: Đối Chuẩn Xuất Bản & Thực Thực Tế Repo",
+              desc: "Subagent độc lập số 3 đo đạc thực tế số chữ, chiều cao khung nhìn và cấu trúc dữ liệu ngay trong repo.",
+              role: "Neo các lý thuyết bên ngoài vào đúng kích thước màn hình và dữ liệu thực của dự án.",
+              scripts: ["docs/method.md", "docs/prototype.html"],
+              io: ["Input: Mã nguồn repo", "Output: Số đo thực nghiệm trên bài viết thật"],
+              rules: ["Không tìm thấy ≠ Không tồn tại"],
+              parents: [],
+              logMsg: "SWEEP-3 hoàn tất đo đạc thực nghiệm trên dữ liệu repo."
+            }
+          ]
+        },
+        {
+          label: "Pha 2 · DEDUPE (Gộp Trùng Tất Định Bằng Code Thường — Không Dùng Agent)",
+          nodes: [
+            {
+              id: "r_dedupe",
+              dept: "Bộ Lọc Code T0",
+              tier: "T0 (0x)",
+              title: "2. DEDUPE Bằng Script Python Thuần",
+              desc: "Chuẩn hóa URL, gộp các phát hiện trùng lặp từ 3 mũi SWEEP và loại bỏ mọi ứng viên thiếu trích dẫn nguyên văn.",
+              role: "Tuyệt đối không dùng mô hình ngôn ngữ để gộp trùng nhằm tránh rơi rớt dữ liệu hoặc tự bịa thêm ý.",
+              scripts: ["docs/method.md"],
+              io: ["Input: Kết quả thô từ 3 mũi SWEEP", "Output: Bảng ứng viên đã khử trùng"],
+              rules: ["Quy tắc 2 (Gộp trùng bằng code thường Python/Node)"],
+              parents: ["r_sweep1", "r_sweep2", "r_sweep3"],
+              logMsg: "DEDUPE (Python T0): Đã gộp trùng và lọc sạch các ứng viên có đủ trích dẫn nguyên văn."
+            }
+          ]
+        },
+        {
+          label: "Pha 3 · REFUTE (Phản Biện Độc Lập Với Nhiệm Vụ Giết Ứng Viên)",
+          nodes: [
+            {
+              id: "r_refute1",
+              dept: "Phản Biện 01",
+              tier: "T3",
+              title: "3A. REFUTE: Công Kích Giả Định & Ngoại Lệ",
+              desc: "Subagent phản biện độc lập tìm mọi lý do khiến phương án đề xuất thất bại trên màn hình điện thoại hoặc bài dài.",
+              role: "Nhiệm vụ là GIẾT ứng viên yếu kèm điều kiện sửa (fix_if_any), không phải chấm điểm khen ngợi.",
+              scripts: ["docs/method.md"],
+              io: ["Input: Bảng ứng viên sau DEDUPE", "Output: Lập luận bác bỏ + fix_if_any"],
+              rules: ["Quy tắc 2 (Phản bác kèm fix_if_any)"],
+              parents: ["r_dedupe"],
+              logMsg: "REFUTE-1: Đã kiểm tra các trường hợp biên và gắn điều kiện khắc phục fix_if_any."
+            },
+            {
+              id: "r_refute2",
+              dept: "Phản Biện 02",
+              tier: "T3",
+              title: "3B. REFUTE: Kiểm Chứng Hiệu Năng & CLS",
+              desc: "Kiểm tra nguy cơ nhảy bố cục (CLS), thời gian tải ảnh và khả năng tiếp cận bàn phím/trình đọc màn hình.",
+              role: "Đảm bảo giải pháp vượt qua các tiêu chuẩn kỹ thuật hiện đại trước khi trình lên bảng quyết định.",
+              scripts: ["docs/method.md"],
+              io: ["Input: Bảng ứng viên sau DEDUPE", "Output: Ràng buộc kỹ thuật CLS = 0"],
+              rules: ["Quy tắc 10 (modern-web-guidance)"],
+              parents: ["r_dedupe"],
+              logMsg: "REFUTE-2: Áp đặt ràng buộc kích thước tĩnh 1200×675 để giữ CLS = 0."
+            }
+          ]
+        },
+        {
+          label: "Pha 4 · JUDGE (Bảng Quyết Định ≤ 1 Trang & Mục Chưa Xác Minh Được)",
+          nodes: [
+            {
+              id: "r_judge",
+              dept: "Hội Đồng Tổng Hợp",
+              tier: "T3",
+              title: "4. JUDGE: Bảng Phương Án & Mục \"Chưa Xác Minh Được\"",
+              desc: "Chưng cất thành bảng quyết định ngắn gọn kèm khuyến nghị rõ ràng và liệt kê thẳng những gì chưa xác minh được.",
+              role: "Giúp Duy đọc trong vài phút và ra quyết định ngay mà không phải bơi trong biển chữ.",
+              scripts: ["docs/lessons.md", "gates/01-spec/PRD.md"],
+              io: ["Input: Ứng viên sống sót sau REFUTE", "Output: Bảng khuyến nghị 7 dòng trình Duy"],
+              rules: ["Quy tắc 3 (Nêu rõ cái gì CHƯA xác minh được)", "Quy tắc 5 & 9 (Hỏi 1 câu kèm khuyến nghị)"],
+              parents: ["r_refute1", "r_refute2"],
+              isGate: true,
+              logMsg: "JUDGE: Đã xuất bảng quyết định kèm mục 'Chưa xác minh được' — sẵn sàng trình Duy."
+            }
+          ]
+        }
+      ]
+    },
+
+    wf4: {
+      id: "wf4",
+      title: "Quy trình 04: Bộ Định Tuyến & Xoay Vòng Model Theo Độ Phức Tạp (T0..T4 · Quy tắc 16)",
+      subtitle: "Sử dụng đúng cấp độ mô hình cho đúng việc để tối ưu chi phí mà chất lượng đầu ra đạt chuẩn cao nhất. Hãy kéo thanh trượt bên dưới để thử!",
+      tiers: [
+        {
+          label: "Tầng Đầu Vào · Chấm Điểm 4 Trục Độ Phức Tạp (S = Ambiguity + Risk + Taste + Scope)",
+          nodes: [
+            {
+              id: "m_input",
+              dept: "Bộ Đo 4 Trục",
+              tier: "S = 0..8",
+              title: "Máy Chấm Điểm Độ Phức Tạp (vibe-model-route.py)",
+              desc: "Đo 4 trục (mỗi trục 0..2): Độ mơ hồ (Ambiguity) · Rủi ro sai số (Risk) · Gu thẩm mỹ 0→1 (Taste) · Phạm vi (Scope).",
+              role: "In nhãn [Route: T0..T4 · S=../8] ở đầu mỗi task để minh bạch hóa lý do chọn mô hình.",
+              scripts: ["scripts/vibe-model-route.py", "docs/model-routing.md"],
+              io: ["Input: 4 điểm số trục (0..2)", "Output: Bậc T0..T4 + Cặp kiểm chéo"],
+              rules: ["Quy tắc 16 (Bắt buộc in nhãn Route ở đầu task)"],
+              parents: [],
+              logMsg: "vibe-model-route.py: Đang tính điểm S = Ambiguity + Risk + Taste + Scope..."
+            }
+          ]
+        },
+        {
+          label: "Tầng Phân Luồng 5 Bậc (T0 Tất Định → T4 Đỉnh Cao 0→1 Taste)",
+          nodes: [
+            {
+              id: "m_t0",
+              dept: "Bậc T0 · 0x",
+              tier: "S = 0",
+              title: "T0: Script Python / Bash Tất Định",
+              desc: "Đếm từ, gộp trùng DEDUPE, cân Σ Nợ = Σ Có, kiểm đường dẫn chết (check-story.py, vibe-check.sh).",
+              role: "Chi phí 0x, tốc độ < 2 giây, độ chính xác cơ học 100% — cấm dùng LLM cho việc tất định.",
+              scripts: ["scripts/check-story.py", "scripts/vibe-check.sh"],
+              io: ["Input: File HTML/Markdown", "Output: PASS / FAIL tức thì"],
+              rules: ["Chi phí 0x · Không bao giờ ảo giác"],
+              parents: ["m_input"],
+              logMsg: "Kích hoạt Bậc T0 (S=0): Chạy script Python/Bash tất định (Chi phí 0x)."
+            },
+            {
+              id: "m_t1",
+              dept: "Bậc T1 · 0.3x–1x",
+              tier: "S = 1..2",
+              title: "T1: Mô Hình Nhanh (Quét SWEEP & Đồng Bộ File)",
+              desc: "Quét đa mũi SWEEP, đọc DOM trình duyệt, sửa cơ học hoặc kiểm tra tên riêng B1–B4.",
+              role: "Xử lý khối lượng lớn tác vụ tốc độ cao và được hậu kiểm ngay bằng script T0.",
+              scripts: ["scripts/vibe-model-route.py"],
+              io: ["Input: Tác vụ rõ ràng S=1..2", "Output: Dữ liệu quét thô / đồng bộ"],
+              rules: ["Kiểm chéo bằng Script T0"],
+              parents: ["m_input"],
+              logMsg: "Kích hoạt Bậc T1 (S=1..2): Chạy mô hình tốc độ cao + hậu kiểm bằng Script T0."
+            },
+            {
+              id: "m_t2",
+              dept: "Bậc T2 · 2x–3.5x",
+              tier: "S = 3..4",
+              title: "T2: Ngựa Thồ Chủ Lực (~70% Công Việc Xưởng)",
+              desc: "Code tính năng S3 theo spec, lên bài mới theo khuôn C9 đã khóa, dựng hình mặt cắt và tóm tắt HTML ≤ 520 từ.",
+              role: "Trụ cột sản xuất hàng ngày sau khi khuôn mẫu đã được khóa.",
+              scripts: ["scripts/vibe-model-route.py", "docs/prototype.html"],
+              io: ["Input: Khuôn mẫu đã khóa", "Output: Code S3 / Bài viết mới chuẩn C9"],
+              rules: ["Kiểm chéo khác họ mô hình"],
+              parents: ["m_input"],
+              logMsg: "Kích hoạt Bậc T2 (S=3..4): Ngựa thồ chủ lực đảm nhận ~70% khối lượng công việc."
+            },
+            {
+              id: "m_t3",
+              dept: "Bậc T3 · 5x",
+              tier: "S = 5..6",
+              title: "T3: Suy Luận Sâu & Pháp Quy (PRD, REFUTE, TT 99)",
+              desc: "Viết PRD S1, phản biện REFUTE, soát kế toán TT 99/2025 (K1–K4), tài chính EIR (F1–F4) và tái lập mù T3.",
+              role: "Đảm nhận các quyết định kiến trúc, toán tài chính và pháp quy đòi hỏi suy luận nhiều bước.",
+              scripts: [".agents/skills/ke-toan-reviewer/SKILL.md", ".agents/skills/tai-chinh-reviewer/SKILL.md"],
+              io: ["Input: Bài toán rủi ro cao S=5..6", "Output: Đặc tả PRD / Chứng nhận K1–K4, F1–F4"],
+              rules: ["Bắt buộc kiểm chéo khác họ mô hình"],
+              parents: ["m_input"],
+              logMsg: "Kích hoạt Bậc T3 (S=5..6): Suy luận sâu & kiểm duyệt kế toán/tài chính/pháp lý."
+            },
+            {
+              id: "m_t4",
+              dept: "Bậc T4 · 10x",
+              tier: "S = 7..8",
+              title: "T4: Đỉnh Cao Sáng Tạo 0→1 & Gỡ Bế Tắc",
+              desc: "Sáng tạo ngôn ngữ thiết kế mặt cắt Diorama 0→1 đầu tiên hoặc gỡ bế tắc khi bậc T3 thất bại 2 lần.",
+              role: "Chỉ gọi đúng lúc cần đột phá thẩm mỹ 0→1; nghiêm cấm lạm dụng cho tác vụ thường ngày.",
+              scripts: ["docs/model-routing.md"],
+              io: ["Input: Bài toán 0→1 S=7..8", "Output: Khuôn mẫu gốc + Hệ thống thiết kế"],
+              rules: ["Cấm lạm dụng T4 cho việc dưới S=7"],
+              parents: ["m_input"],
+              logMsg: "Kích hoạt Bậc T4 (S=7..8): Sáng tạo ngôn ngữ thiết kế 0→1 & đúc khuôn mẫu gốc."
+            }
+          ]
+        },
+        {
+          label: "Tầng Tối Ưu Hóa · Quy Luật Khoá-Rồi-Hạ (Lock-then-Downgrade)",
+          nodes: [
+            {
+              id: "m_downgrade",
+              dept: "Khoá-Rồi-Hạ",
+              tier: "T4/T3 → T2+T0",
+              title: "Vòng Lặp Khoá Khuôn Mẫu & Hạ Bậc Chi Phí",
+              desc: "Sau khi T4/T3 đúc xong bài mẫu đầu tiên và viết xong script kiểm T0 (check-story.py), mọi bài tiếp theo tự động hạ về T2 + T0.",
+              role: "Giữ chất lượng ngang tầm T4 nhưng chi phí vận hành dài hạn chỉ ở mức T2 (tiết kiệm 65%–75% chi phí).",
+              scripts: ["scripts/vibe-model-route.py", "scripts/check-story.py"],
+              io: ["Input: Khuôn mẫu T4 + Script T0", "Output: Quy trình sản xuất hàng loạt ở bậc T2"],
+              rules: ["Quy tắc 16.2 (Lock-then-Downgrade)"],
+              parents: ["m_t0", "m_t1", "m_t2", "m_t3", "m_t4"],
+              logMsg: "Chu trình Khoá-rồi-Hạ hoàn tất: Khuôn mẫu đã khóa → Hạ bậc thực thi lặp lại về T2 + T0."
+            }
+          ]
+        }
+      ]
+    },
+
+    wf5: {
+      id: "wf5",
+      title: "Quy trình 05: Vòng Lặp Tri Thức Pháp Quy & Cổng Kiểm Tất Định (wms-finance-kb.py + wms-check.sh)",
+      subtitle: "Cách hệ thống tự động thu thập văn bản pháp quy, kiểm toán công thức tài chính và khóa chặt 23/23 file quản trị trước mỗi lần commit.",
+      tiers: [
+        {
+          label: "Tầng 1 · Thu Thập & Chuẩn Hóa Tri Thức Tài Chính (scripts/wms-finance-kb.py --crawl)",
+          nodes: [
+            {
+              id: "kb_sources",
+              dept: "Nguồn Pháp Quy",
+              tier: "DATA",
+              title: "1A. Hệ Thống Văn Bản Pháp Quy & Biểu Phí Chuẩn",
+              desc: "Thông tư 99/2025/TT-BTC (thay thế TT 200 từ 01/01/2026), quy định NHNN về lãi suất/trả góp, biểu phí thanh toán thẻ & lương.",
+              role: "Cung cấp cơ sở pháp lý và biên độ số liệu thực tế tại Việt Nam cho toàn bộ các bài viết.",
+              scripts: ["legal/tt99-phu-luc-ii.secondary.json", "scripts/wms-finance-kb.py"],
+              io: ["Input: Phụ lục tài khoản TT 99 & quy định NHNN", "Output: Dữ liệu tham chiếu gốc"],
+              rules: ["Quy tắc 2 (Mọi con số phải có nguồn gốc)"],
+              parents: [],
+              logMsg: "Đang đọc nguồn pháp quy Thông tư 99/2025/TT-BTC và quy định nghiệp vụ ngân hàng..."
+            },
+            {
+              id: "kb_store",
+              dept: "Kho Tri Thức",
+              tier: "T0",
+              title: "1B. Kho Tri Thức Chuẩn Hóa (knowledge/finance-kb.json)",
+              desc: "Lưu trữ có cấu trúc các dải phí MDR/Interchange, tỷ lệ trích nộp lương, công thức EIR/IRR và hạn sử dụng dữ liệu (TTL ≤ 30 ngày).",
+              role: "Đóng vai trò bộ nhớ chuẩn để Agent tra cứu tức thì mà không phải đoán mò thông số thị trường.",
+              scripts: ["knowledge/finance-kb.json", "scripts/wms-finance-kb.py"],
+              io: ["Input: --crawl", "Output: knowledge/finance-kb.json (freshness verified)"],
+              rules: ["F4 (Cảnh báo nếu dữ liệu cũ quá 30 ngày)"],
+              parents: ["kb_sources"],
+              logMsg: "wms-finance-kb.py --crawl: Đã cập nhật knowledge/finance-kb.json (TTL 30 ngày hợp lệ)."
+            }
+          ]
+        },
+        {
+          label: "Tầng 2 · Bộ Kiểm Định Toán Tài Chính & Kế Toán Tự Động (--verify)",
+          nodes: [
+            {
+              id: "kb_verify_f",
+              dept: "Kiểm Toán F1–F4",
+              tier: "T0 (Python)",
+              title: "2A. Kiểm Định Cơ Chế & Toán EIR/IRR (wms-finance-kb.py --verify)",
+              desc: "Tính lại dòng tiền chiết khấu, kiểm tra lãi suất thực EIR 11,1%/năm của bài trả góp và tỷ lệ phí thanh toán.",
+              role: "Đảm bảo mọi phép tính tài chính trong bài viết và lời bình video khớp tuyệt đối với công thức toán học.",
+              scripts: ["scripts/wms-finance-kb.py"],
+              io: ["Input: docs/prototype.html + finance-kb.json", "Output: F1, F2, F3, F4 PASS"],
+              rules: ["F1 (Cơ chế)", "F2 (Toán EIR/IRR)", "F3 (Pháp quy TT 99)", "F4 (Độ tươi KB)"],
+              parents: ["kb_store"],
+              logMsg: "wms-finance-kb.py --verify: F1–F4 PASS 100% trên toàn bộ 3 bài (card, pay, install)."
+            },
+            {
+              id: "kb_verify_c",
+              dept: "Kiểm Định C0–C9",
+              tier: "T0 (Python)",
+              title: "2B. Kiểm Định Cấu Trúc Bài & 23 File Quản Trị (check-story.py)",
+              desc: "Kiểm tra 10 cổng C0–C9: từ điển thuật ngữ, cân đối Nợ/Có, đủ 4 hình mặt cắt LUẬT 9 và sự hiện diện của 23/23 file luật.",
+              role: "Ngăn chặn mọi sự trôi lệch dữ liệu hoặc xóa nhầm file quy tắc trong repo.",
+              scripts: ["scripts/check-story.py"],
+              io: ["Input: docs/prototype.html + cấu trúc repo", "Output: C0–C9 PASS (23/23 files)"],
+              rules: ["C6 (Σ Nợ = Σ Có)", "C8 (23/23 file luật)", "C9 (Đủ 3 trụ + 4 hình mặt cắt)"],
+              parents: ["kb_store"],
+              logMsg: "check-story.py: C0–C9 PASS — 3/3 bài đạt chuẩn, 23/23 file quản trị nguyên vẹn."
+            }
+          ]
+        },
+        {
+          label: "Tầng 3 · Cổng Tổng Hợp Cuối Cùng Trước Khi Commit (scripts/wms-check.sh)",
+          nodes: [
+            {
+              id: "kb_master_gate",
+              dept: "Tổng Kiểm Xưởng",
+              tier: "MASTER GATE",
+              title: "3. Cổng Tổng Hợp (scripts/wms-check.sh = A + B + C)",
+              desc: "Chạy nối tiếp check-story.py + wms-finance-kb.py + vibe-check.sh. Chỉ khi cả 3 đạt FAIL = 0 mới được phép git commit.",
+              role: "Chốt chặn kỹ thuật cuối cùng bảo vệ nhánh làm việc của dự án luôn ở trạng thái sạch 100%.",
+              scripts: ["scripts/wms-check.sh", "../scripts/vibe-check.sh"],
+              io: ["Input: Toàn bộ repo where-money-sleeps", "Output: PASS — 0 lỗi chặn"],
+              rules: ["Quy tắc 1 (Tầng kiểm tất định là script, không phải lời hứa)"],
+              parents: ["kb_verify_f", "kb_verify_c"],
+              isGate: true,
+              logMsg: "✅ wms-check.sh HOÀN TẤT: check-story + wms-finance-kb + vibe-check đều PASS (0 lỗi chặn)."
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  // DOM Elements
+  const tiersContainer = document.getElementById("tiers-container");
+  const connectorSvg = document.getElementById("connector-svg");
+  const wfHeading = document.getElementById("wf-heading");
+  const wfSubtitle = document.getElementById("wf-subtitle");
+  const routerCalcPanel = document.getElementById("router-calc-panel");
+  const inspTitle = document.getElementById("insp-title");
+  const inspTier = document.getElementById("insp-tier");
+  const inspSummary = document.getElementById("insp-summary");
+  const inspRole = document.getElementById("insp-role");
+  const inspScripts = document.getElementById("insp-scripts");
+  const inspIo = document.getElementById("insp-io");
+  const inspRules = document.getElementById("insp-rules");
+  const terminalLog = document.getElementById("terminal-log");
+  const simStatusText = document.getElementById("sim-status-text");
+  const liveAnnouncer = document.getElementById("live-announcer");
+  const matrixTbody = document.getElementById("matrix-tbody");
+
+  let currentWfId = "wf1";
+  let flatNodes = [];
+  let selectedNodeId = null;
+  let simStep = -1;
+  let simTimer = null;
+  let simSpeedIndex = 0;
+  const SPEEDS = [
+    { label: "1×", ms: 1350 },
+    { label: "1.8×", ms: 750 },
+    { label: "3×", ms: 420 }
+  ];
+
+  function getActiveTopicText() {
+    const custom = document.getElementById("custom-topic").value.trim();
+    if (custom) return custom;
+    const sel = document.getElementById("topic-select");
+    return sel.options[sel.selectedIndex].text;
+  }
+
+  function appendLog(dept, msg, type) {
+    const now = new Date();
+    const ts = now.toTimeString().slice(0, 8);
+    const line = document.createElement("div");
+    line.className = "log-line";
+    const cls = type === "gate" ? "log-gate" : (type === "ok" ? "log-ok" : "");
+    line.innerHTML = `<span class="log-ts">[${ts}]</span><span class="log-dept">[${dept}]</span><span class="${cls}">${msg}</span>`;
+    terminalLog.appendChild(line);
+    terminalLog.scrollTop = terminalLog.scrollHeight;
+  }
+
+  function flattenWorkflowNodes(wf) {
+    const list = [];
+    wf.tiers.forEach(tier => {
+      tier.nodes.forEach(n => list.push(n));
+    });
+    return list;
+  }
+
+  function renderWorkflow(wfId) {
+    stopSimulation();
+    currentWfId = wfId;
+    const wf = WORKFLOWS[wfId];
+    flatNodes = flattenWorkflowNodes(wf);
+    simStep = -1;
+
+    wfHeading.textContent = wf.title;
+    wfSubtitle.textContent = wf.subtitle;
+    routerCalcPanel.hidden = (wfId !== "wf4");
+
+    tiersContainer.innerHTML = "";
+    wf.tiers.forEach(tier => {
+      const row = document.createElement("div");
+      row.className = "tier-row";
+      const lbl = document.createElement("div");
+      lbl.className = "tier-label";
+      lbl.textContent = tier.label;
+      row.appendChild(lbl);
+
+      const grid = document.createElement("div");
+      grid.className = "tier-nodes";
+
+      tier.nodes.forEach(node => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "node-card";
+        btn.id = "card-" + node.id;
+        btn.dataset.nodeId = node.id;
+        btn.dataset.status = "idle";
+        btn.innerHTML = `
+          <div class="node-top">
+            <span class="node-dept">${node.dept}</span>
+            <span class="node-tier-badge">${node.tier}</span>
+          </div>
+          <div class="node-title">${node.title}</div>
+          <div class="node-desc">${node.desc}</div>
+          <div class="node-meta-foot">
+            <span>${node.scripts[0] || "repo"}</span>
+            <span class="status-chip" id="chip-${node.id}">IDLE</span>
+          </div>
+        `;
+        btn.addEventListener("click", () => selectNode(node.id, true));
+        grid.appendChild(btn);
+      });
+
+      row.appendChild(grid);
+      tiersContainer.appendChild(row);
+    });
+
+    updateStatusPill();
+    if (flatNodes.length > 0) {
+      selectNode(flatNodes[0].id, false);
+    }
+    requestAnimationFrame(drawConnectors);
+  }
+
+  function selectNode(nodeId, logClick) {
+    selectedNodeId = nodeId;
+    document.querySelectorAll(".node-card").forEach(el => {
+      el.classList.toggle("selected", el.dataset.nodeId === nodeId);
+    });
+    const node = flatNodes.find(n => n.id === nodeId);
+    if (!node) return;
+
+    inspTitle.textContent = node.title;
+    inspTier.textContent = node.tier;
+    inspSummary.textContent = node.desc;
+    inspRole.textContent = node.role;
+
+    inspScripts.innerHTML = node.scripts.map(s => `<span class="code-tag">${s}</span>`).join("");
+    inspIo.innerHTML = node.io.map(s => `<span class="code-tag">${s}</span>`).join("");
+    inspRules.innerHTML = node.rules.map(s => `<span class="rule-tag">${s}</span>`).join("");
+
+    if (logClick) {
+      appendLog(node.dept, `Đang soi chi tiết node "${node.title}" (${node.scripts.join(", ")}).`, "");
+    }
+  }
+
+  function drawConnectors() {
+    const stageRect = document.getElementById("hierarchy-stage").getBoundingClientRect();
+    connectorSvg.setAttribute("viewBox", `0 0 ${Math.max(10, stageRect.width)} ${Math.max(10, stageRect.height)}`);
+    connectorSvg.innerHTML = "";
+
+    flatNodes.forEach((node, idx) => {
+      if (!node.parents || node.parents.length === 0) return;
+      const childEl = document.getElementById("card-" + node.id);
+      if (!childEl) return;
+      const childRect = childEl.getBoundingClientRect();
+      const x2 = childRect.left - stageRect.left + childRect.width / 2;
+      const y2 = childRect.top - stageRect.top;
+
+      node.parents.forEach(pid => {
+        const parentEl = document.getElementById("card-" + pid);
+        if (!parentEl) return;
+        const parentRect = parentEl.getBoundingClientRect();
+        const x1 = parentRect.left - stageRect.left + parentRect.width / 2;
+        const y1 = parentRect.top - stageRect.top + parentRect.height;
+        const midY = (y1 + y2) / 2;
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`);
+        let cls = "conn-path";
+        if (idx === simStep) cls += " active";
+        else if (idx < simStep) cls += " done";
+        path.setAttribute("class", cls);
+        connectorSvg.appendChild(path);
+      });
+    });
+  }
+
+  function applySimStepVisuals() {
+    flatNodes.forEach((node, idx) => {
+      const card = document.getElementById("card-" + node.id);
+      const chip = document.getElementById("chip-" + node.id);
+      if (!card || !chip) return;
+
+      if (simStep < 0 || idx > simStep) {
+        card.dataset.status = "idle";
+        chip.textContent = "IDLE";
+      } else if (idx < simStep) {
+        card.dataset.status = node.isGate ? "gate" : "pass";
+        chip.textContent = node.isGate ? "LOCKED GATE" : "PASS ✓";
+      } else {
+        card.dataset.status = node.isGate ? "gate" : "running";
+        chip.textContent = node.isGate ? "WAITING DUY" : "ACTIVE ⚡";
+      }
+    });
+    updateStatusPill();
+    drawConnectors();
+  }
+
+  function updateStatusPill() {
+    const total = flatNodes.length;
+    if (simStep < 0) {
+      simStatusText.textContent = `Sẵn sàng · Bước 0/${total}`;
+    } else {
+      const activeNode = flatNodes[simStep];
+      simStatusText.textContent = `Bước ${simStep + 1}/${total} · ${activeNode.dept}`;
+    }
+  }
+
+  function stepForward() {
+    if (simStep === -1) {
+      const topic = getActiveTopicText();
+      appendLog("TOPIC", `Bắt đầu mô phỏng trên chủ đề: "${topic}"`, "ok");
+    }
+    if (simStep < flatNodes.length - 1) {
+      simStep++;
+      const node = flatNodes[simStep];
+      selectNode(node.id, false);
+      applySimStepVisuals();
+      appendLog(node.dept, node.logMsg, node.isGate ? "gate" : "ok");
+      liveAnnouncer.textContent = `Bước ${simStep + 1}: ${node.title} — ${node.logMsg}`;
+    } else {
+      stopSimulation();
+    }
+  }
+
+  function stepBackward() {
+    stopSimulation();
+    if (simStep >= 0) {
+      simStep--;
+      if (simStep >= 0) {
+        selectNode(flatNodes[simStep].id, false);
+      }
+      applySimStepVisuals();
+    }
+  }
+
+  function startSimulation() {
+    if (simTimer) {
+      stopSimulation();
+      return;
+    }
+    if (simStep >= flatNodes.length - 1) {
+      simStep = -1;
+      applySimStepVisuals();
+    }
+    document.getElementById("btn-play").textContent = "⏸ Tạm dừng";
+    stepForward();
+    simTimer = setInterval(() => {
+      if (simStep < flatNodes.length - 1) {
+        stepForward();
+      } else {
+        stopSimulation();
+      }
+    }, SPEEDS[simSpeedIndex].ms);
+  }
+
+  function stopSimulation() {
+    if (simTimer) {
+      clearInterval(simTimer);
+      simTimer = null;
+    }
+    document.getElementById("btn-play").textContent = "▶ Chạy Mô Phỏng Realtime";
+  }
+
+  function resetSimulation() {
+    stopSimulation();
+    simStep = -1;
+    applySimStepVisuals();
+    appendLog("SYSTEM", "Đã đặt lại trạng thái sơ đồ về IDLE.", "");
+  }
+
+  // Populate Accessible Semantic Matrix Table
+  function populateMatrixTable() {
+    const rows = [];
+    Object.values(WORKFLOWS).forEach(wf => {
+      wf.tiers.forEach(tier => {
+        tier.nodes.forEach(node => {
+          rows.push(`
+            <tr>
+              <td><strong>${wf.id.toUpperCase()}</strong></td>
+              <td>${tier.label.split("·")[0]}</td>
+              <td><strong>${node.dept}</strong> — ${node.title}</td>
+              <td><code>${node.tier}</code></td>
+              <td><code>${node.scripts.join(" · ")}</code></td>
+              <td>${node.io.join(" → ")} <br><small style="color:var(--fg-muted);">${node.rules.join(" · ")}</small></td>
+            </tr>
+          `);
+        });
+      });
+    });
+    matrixTbody.innerHTML = rows.join("");
+  }
+
+  // Interactive 4-Axis Model Router Calculator (Workflow 4)
+  function updateRouterCalculator() {
+    const a = parseInt(document.getElementById("sl-amb").value, 10);
+    const r = parseInt(document.getElementById("sl-risk").value, 10);
+    const t = parseInt(document.getElementById("sl-taste").value, 10);
+    const s = parseInt(document.getElementById("sl-scope").value, 10);
+
+    document.getElementById("val-amb").textContent = `${a} / 2`;
+    document.getElementById("val-risk").textContent = `${r} / 2`;
+    document.getElementById("val-taste").textContent = `${t} / 2`;
+    document.getElementById("val-scope").textContent = `${s} / 2`;
+
+    const total = a + r + t + s;
+    let tierId = "m_t0";
+    let label = `S = ${total}/8 → Bậc T0 (Script Python/Bash Tất Định · Chi phí 0x)`;
+
+    if (total === 0) {
+      tierId = "m_t0";
+    } else if (total <= 2) {
+      tierId = "m_t1";
+      label = `S = ${total}/8 → Bậc T1 (Mô hình Nhanh Quét SWEEP · 0.3x–1x + Kiểm T0)`;
+    } else if (total <= 4) {
+      tierId = "m_t2";
+      label = `S = ${total}/8 → Bậc T2 (Ngựa thồ chủ lực ~70% việc · 2x–3.5x)`;
+    } else if (total <= 6) {
+      tierId = "m_t3";
+      label = `S = ${total}/8 → Bậc T3 (Suy luận sâu PRD / Kế toán TT 99 / REFUTE · 5x)`;
+    } else {
+      tierId = "m_t4";
+      label = `S = ${total}/8 → Bậc T4 (Đỉnh cao Sáng tạo 0→1 Taste & Gỡ bế tắc · 10x)`;
+    }
+
+    document.getElementById("calc-score-badge").textContent = label;
+    if (currentWfId === "wf4") {
+      ["m_t0", "m_t1", "m_t2", "m_t3", "m_t4"].forEach(id => {
+        const card = document.getElementById("card-" + id);
+        const chip = document.getElementById("chip-" + id);
+        if (!card || !chip) return;
+        if (id === tierId) {
+          card.dataset.status = "running";
+          chip.textContent = "SELECTED ⚡";
+        } else {
+          card.dataset.status = "idle";
+          chip.textContent = "STANDBY";
+        }
+      });
+      selectNode(tierId, false);
+    }
+  }
+
+  // Event Listeners
+  document.querySelectorAll(".wf-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".wf-tab").forEach(t => t.setAttribute("aria-selected", "false"));
+      tab.setAttribute("aria-selected", "true");
+      document.getElementById("panel-wf").setAttribute("aria-labelledby", tab.id);
+      renderWorkflow(tab.dataset.wf);
+      appendLog("WORKFLOW", `Chuyển sang ${WORKFLOWS[tab.dataset.wf].title}`, "");
+    });
+  });
+
+  document.getElementById("btn-play").addEventListener("click", startSimulation);
+  document.getElementById("btn-next").addEventListener("click", () => { stopSimulation(); stepForward(); });
+  document.getElementById("btn-prev").addEventListener("click", stepBackward);
+  document.getElementById("btn-reset").addEventListener("click", resetSimulation);
+  document.getElementById("btn-clear-log").addEventListener("click", () => { terminalLog.innerHTML = ""; });
+
+  document.getElementById("btn-speed").addEventListener("click", (e) => {
+    simSpeedIndex = (simSpeedIndex + 1) % SPEEDS.length;
+    e.currentTarget.textContent = `⚡ Tốc độ: ${SPEEDS[simSpeedIndex].label}`;
+    if (simTimer) {
+      stopSimulation();
+      startSimulation();
+    }
+  });
+
+  document.getElementById("btn-theme").addEventListener("click", () => {
+    const html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+    requestAnimationFrame(drawConnectors);
+  });
+
+  document.getElementById("btn-motion").addEventListener("click", (e) => {
+    const html = document.documentElement;
+    const isReduced = html.dataset.reducedMotion === "true";
+    html.dataset.reducedMotion = isReduced ? "false" : "true";
+    e.currentTarget.setAttribute("aria-pressed", String(!isReduced));
+    e.currentTarget.textContent = !isReduced ? "✨ Chuyển động: Tắt" : "✨ Chuyển động: Chuẩn";
+  });
+
+  ["sl-amb", "sl-risk", "sl-taste", "sl-scope"].forEach(id => {
+    document.getElementById(id).addEventListener("input", updateRouterCalculator);
+  });
+
+  document.querySelectorAll(".preset-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const [a, r, t, s] = chip.dataset.scores.split(",").map(Number);
+      document.getElementById("sl-amb").value = a;
+      document.getElementById("sl-risk").value = r;
+      document.getElementById("sl-taste").value = t;
+      document.getElementById("sl-scope").value = s;
+      updateRouterCalculator();
+    });
+  });
+
+  window.addEventListener("resize", () => requestAnimationFrame(drawConnectors));
+
+  // Keyboard shortcuts (ArrowRight / ArrowLeft to step, Space to play/pause when not in input)
+  window.addEventListener("keydown", (e) => {
+    if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      stopSimulation();
+      stepForward();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      stepBackward();
+    }
+  });
+
+  // Initialize
+  populateMatrixTable();
+  renderWorkflow("wf1");
+  appendLog("SYSTEM", "Trung tâm điều phối Agent & 5 Quy trình sẵn sàng. Bấm '▶ Chạy Mô Phỏng Realtime' hoặc phím mũi tên → để duyệt từng bước.", "ok");
+})();
+</script>
+</body>
+</html>

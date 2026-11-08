@@ -781,6 +781,7 @@ body.cms-on{padding-bottom:150px}
         <span class="ab-badge" id="abSum"></span>
         <kbd class="ab-kbd">⌘K</kbd>
       </button>
+      <a href="workflows.html" class="ab-btn" style="text-decoration:none" title="Mở Trung tâm Điều phối Agent &amp; 5 Quy trình Realtime">⚡ Sơ đồ Agent</a>
       <button type="button" class="ab-btn cmsbtn" id="cmsBtn" aria-pressed="false">Chế độ duyệt bài</button>
     </div>
   </div>
@@ -3583,7 +3584,7 @@ function renderYtEmbedHTML(s, fmt, scope){
         : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Đang chờ bước 5A–5D (wms-media-pipeline.py) dựng video và tải lên kênh.")}`}</p>`
     + (ytId
         ? `<button type="button" class="yt-play" data-yt-load="0">▶ Phát Video minh hoạ (${isShort ? "Khung dọc 9:16" : "Khung ngang 16:9"})</button>`
-        : `<button type="button" class="yt-play" data-yt-go-studio="1">🎬 Mở Studio Kịch bản &amp; Gói JSON (${sc.length} cảnh)</button>`)
+        : `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-local="0">▶ Phát bản MP4 30fps đã dựng (${isShort ? "9:16" : "16:9"})</button><button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Mở Studio Kịch bản (${sc.length} cảnh)</button></div>`)
     + `</div></div>`
     + `<div class="yt-chaps"><b>Chương Video:</b>${chaps}</div>${cmsBar}</div></section>`;
 }
@@ -3592,17 +3593,37 @@ function bindYtEmbed(scope, s, draft){
   if (!box) return;
   const f = (s.videoScript && s.videoScript[PK.fmt]) || {}, sc = Array.isArray(f.scenes) ? f.scenes : [];
   const ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
+  const isShort = PK.fmt === "short";
+  const localSrc = `../dist/youtube/${encodeURIComponent(S.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
   const stage = $(`[data-yt-stage="${scope}"]`, box);
   const mountIframe = sec => {
     if (!ytId || !stage) return;
     const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&autoplay=1&start=${sec||0}`;
     stage.innerHTML = `<iframe src="${u}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
   };
+  const mountLocal = sec => {
+    if (!stage) return;
+    let vid = $("video", stage);
+    if (!vid) {
+      stage.innerHTML = `<video controls preload="metadata" src="${localSrc}" title="${esc(f.title || s.title)}" style="position:absolute;inset:0;width:100%;height:100%;background:#070a12"></video>`;
+      vid = $("video", stage);
+    }
+    if (vid) {
+      const seekAndPlay = () => {
+        if (sec > 0) { try { vid.currentTime = sec; } catch (_) {} }
+        vid.play().catch(() => {});
+      };
+      if (vid.readyState >= 1) seekAndPlay();
+      else vid.addEventListener("loadedmetadata", seekAndPlay, {once: true});
+    }
+  };
   $$("[data-yt-fmt]", box).forEach(b => {
     b.onclick = () => { PK.fmt = b.dataset.ytFmt; renderPack(); };
   });
   const playBtn = $("[data-yt-load]", box);
   if (playBtn) playBtn.onclick = () => mountIframe(+playBtn.dataset.ytLoad || 0);
+  const localBtn = $("[data-yt-local]", box);
+  if (localBtn) localBtn.onclick = () => mountLocal(+localBtn.dataset.ytLocal || 0);
   const studioBtn = $("[data-yt-go-studio]", box);
   if (studioBtn) studioBtn.onclick = () => showTab("vid", true);
   $$(".yt-chap", box).forEach(b => {
@@ -3611,6 +3632,7 @@ function bindYtEmbed(scope, s, draft){
       const sec = +b.dataset.sec || 0, idx = +b.dataset.idx || 0;
       if (ytId) { mountIframe(sec); }
       else {
+        mountLocal(sec);
         const pv = $(`[data-yt-preview="${scope}"]`, box), item = sc[idx];
         if (pv && item) pv.textContent = `Cảnh ${idx+1}/${sc.length} (${item.time}): ${item.vo}`;
         if (item && Number.isInteger(item.beat)) setBeat(item.beat);
