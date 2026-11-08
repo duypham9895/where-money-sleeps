@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "kbId": "wms-financial-specialist-kb",
+  "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
+  "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
+  "lastCrawledAt": "2026-11-08T17:08:03+07:00",
+  "freshnessPolicy": {
+    "maxAgeDays": 30,
+    "recommendedCron": "0 8 * * 1",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "staleAction": "WARN_AND_TRIGGER_CRAWL",
+    "supersededAction": "FAIL_BLOCK_PUBLISH"
+  },
+  "authoritativeSources": [
+    {
+      "sourceId": "SRC-MOF-TT99-2025",
+      "authority": "Bộ Tài chính Việt Nam (MOF)",
+      "documentNumber": "99/2025/TT-BTC",
+      "title": "Thông tư 99/2025/TT-BTC hướng dẫn Chế độ kế toán doanh nghiệp (thay thế Thông tư 200/2014/TT-BTC)",
+      "issuedDate": "2025-10-27",
+      "effectiveFrom": "2026-01-01",
+      "status": "active",
+      "verificationTier": "primary_body_plus_secondary_appendix",
+      "officialUrls": [
+        "https://vbpl.vn/botaichinh/Pages/vbpq-toanvan.aspx?ItemID=180615",
+        "https://mof.gov.vn",
+        "https://congbao.chinhphu.vn"
+      ],
+      "localRepoFiles": [
+        "legal/VanBanGoc_TT 99.2025-btc.pdf",
+        "legal/tt99-phu-luc-ii.secondary.json"
+      ],
+      "distilledScope": "Hệ thống tài khoản kế toán doanh nghiệp Việt Nam áp dụng từ 01/01/2026: phân biệt rạch ròi TK 1388 (Phải thu khác — dùng cho khoản phải thu từ ngân hàng thanh toán thẻ hoặc công ty tài chính trung gian) với TK 131 (Phải thu của khách hàng); TK 112 (Tiền gửi không kỳ hạn); TK 511 (Doanh thu bán hàng và cung cấp dịch vụ); TK 521 (Các khoản giảm trừ doanh thu); TK 641 (Chi phí bán hàng); TK 642 (Chi phí quản lý doanh nghiệp); TK 334 (Phải trả người lao động); TK 338 (Phải trả, phải nộp khác — 3383 BHXH, 3384 BHYT, 3386 BHTN); TK 3335 (Thuế thu nhập cá nhân)."
+    },
+    {
+      "sourceId": "SRC-SBV-PAYMENT-CARD",
+      "authority": "Ngân hàng Nhà nước Việt Nam (SBV) & BIS Committee on Payments and Market Infrastructures (CPMI)",
+      "documentNumber": "SBV-Card-Settlement-Mechanics / BIS-CPMI-Glossary",
+      "title": "Cơ chế Hoạt động Thẻ ngân hàng 4 bên / 5 vai & Thanh toán Bù trừ Liên ngân hàng (Authorization, Clearing, Net Settlement)",
+      "effectiveFrom": "2024-07-01",
+      "status": "active",
+      "verificationTier": "domain_standard",
+      "officialUrls": [
+        "https://www.sbv.gov.vn",
+        "https://www.bis.org/cpmi/publ/d00b.htm"
+      ],
+      "localRepoFiles": [],
+      "distilledScope": "Tách biệt 3 pha: (1) Uỷ quyền (Authorization) chỉ truyền thông điệp giữ hạn mức (Hold) trên dây tín hiệu trong vài giây, 0 đồng tiền thật di chuyển; (2) Bù trừ (Clearing) đối chiếu lô giao dịch cuối ngày; (3) Quyết toán (Settlement T+1/T+2) chuyển tiền thật ròng qua ống thanh toán liên ngân hàng sau khi khấu trừ MDR (Merchant Discount Rate = Interchange Fee + Scheme Assessment Fee + Acquirer Markup)."
+    },
+    {
+      "sourceId": "SRC-SBV-CONSUMER-FINANCE",
+      "authority": "Ngân hàng Nhà nước Việt Nam (SBV)",
+      "documentNumber": "SBV-Consumer-Lending-Installment-Mechanics",
+      "title": "Cơ chế Cho vay Tiêu dùng Trả góp 0% qua Công ty Tài chính & Phương pháp Tính Lãi suất Thực tế (EIR / IRR)",
+      "effectiveFrom": "2024-07-01",
+      "status": "active",
+      "verificationTier": "domain_standard",
+      "officialUrls": [
+        "https://www.sbv.gov.vn",
+        "https://vbpl.vn/nganhangnhanuoc"
+      ],
+      "localRepoFiles": [],
+      "distilledScope": "Trong giao dịch mua hàng trả góp danh nghĩa 0% qua công ty tài chính tiêu dùng: người mua ký hợp đồng tín dụng độc lập với công ty tài chính; công ty tài chính giải ngân cho cửa hàng số tiền đã khấu trừ khoản 'hỗ trợ lãi suất / chiết khấu thương mại' (Merchant Subsidy). Nếu người mua trả thẳng bằng tiền mặt được giảm giá đúng bằng khoản hỗ trợ này thì chi phí cơ hội của việc chọn trả góp tương đương lãi suất thực tế theo dòng tiền chiết khấu (EIR/IRR) tính trên giá trị thực nhận."
+    },
+    {
+      "sourceId": "SRC-SBV-PAYROLL-BOOK-TRANSFER",
+      "authority": "Ngân hàng Nhà nước Việt Nam (SBV)",
+      "documentNumber": "SBV-OnUs-OffUs-Payroll-Mechanics",
+      "title": "Cơ chế Chi lương Nội bộ Ngân hàng (On-Us Book Transfer) vs Liên Ngân hàng (Off-Us Switching & Net Clearing) & Định giá Điều chuyển Vốn Nội bộ (FTP)",
+      "effectiveFrom": "2024-07-01",
+      "status": "active",
+      "verificationTier": "domain_standard",
+      "officialUrls": [
+        "https://www.sbv.gov.vn"
+      ],
+      "localRepoFiles": [],
+      "distilledScope": "Khi doanh nghiệp và nhân viên mở tài khoản tại cùng một ngân hàng (On-Us): chi lương là bút toán điều chỉnh sổ cái nội bộ (giảm CASA doanh nghiệp, tăng CASA nhân viên), 0 đồng tiền dự trữ tại NHNN phải chuyển đi, giữ nguyên nguồn vốn giá rẻ (CASA) và sinh lời qua cơ chế FTP (Funds Transfer Pricing). Khi chuyển khác ngân hàng (Off-Us): phải phát thông điệp qua mạng chuyển mạch và quyết toán tiền thật qua tài khoản Nostro/tiền gửi thanh toán tại NHNN."
+    },
+    {
+      "sourceId": "SRC-HERMANSON-ACCOUNTING",
+      "authority": "Roger H. Hermanson, James Don Edwards, Michael W. Maher (Global Text Project)",
+      "documentNumber": "CC-BY-3.0-Hermanson-Vol1-Ch1-4",
+      "title": "Accounting Principles: A Business Perspective — Double-Entry Bookkeeping, Accrual Basis & Matching Principle",
+      "effectiveFrom": "2011-01-01",
+      "status": "active",
+      "verificationTier": "primary_textbook_cc_by",
+      "officialUrls": [
+        "https://openlibrary-repo.ecampusontario.ca/jspui/bitstream/123456789/425/1/Accounting%20Principles%20A%20Business%20Perspective.pdf"
+      ],
+      "localRepoFiles": [
+        "legal/licences.json"
+      ],
+      "distilledScope": "Nguyên tắc kế toán kép (Tổng phát sinh Nợ = Tổng phát sinh Có trong mọi bút toán), cơ sở dồn tích (Accrual Basis — ghi nhận doanh thu và phải thu ngay khi chuyển giao quyền kiểm soát hàng hoá/dịch vụ, không đợi tiền mặt về tài khoản), và nguyên tắc phù hợp (Matching Principle)."
+    }
+  ],
+  "domainRules": [
+    {
+      "ruleId": "FIN-MECH-01",
+      "checkCode": "F1",
+      "category": "spending",
+      "title": "Tách biệt Uỷ quyền (Authorization - Wire) và Quyết toán (Settlement - Pipe)",
+      "distilledTruth": "Quẹt thẻ thành công tại máy POS chỉ là thông điệp uỷ quyền (Authorization) và phong tỏa hạn mức (Hold) chạy trên dây tín hiệu trong 2 giây; tiền thật chỉ di chuyển qua ống ngầm liên ngân hàng ở kỳ bù trừ/quyết toán (T+1/T+2) sau khi đã trừ phí MDR.",
+      "forbiddenErrors": [
+        "Nói tiền thật chảy ngay từ người mua sang cửa hàng lúc quẹt thẻ (Beat 0 / Beat 1 có 'money' pipe trực tiếp)",
+        "Ghi nhận phải thu ngân hàng thanh toán thẻ vào TK 131 thay vì TK 1388",
+        "Đánh đồng phí MDR với phí thường niên của chủ thẻ"
+      ],
+      "sourceRefs": [
+        "SRC-SBV-PAYMENT-CARD",
+        "SRC-MOF-TT99-2025"
+      ]
+    },
+    {
+      "ruleId": "FIN-MECH-02",
+      "checkCode": "F1",
+      "category": "borrowing",
+      "title": "Bản chất Trả góp 0% qua Công ty Tài chính: Chiết khấu Nhà bán hàng (Merchant Subsidy) & Hợp đồng Tín dụng Độc lập",
+      "distilledTruth": "Trả góp 0% không phải là khoản vay không có lãi trong hệ thống: cửa hàng chịu khấu trừ một phần giá bán (ví dụ 5% = 600.000đ trên món hàng 12.000.000đ, chỉ thực nhận 11.400.000đ) để bù lãi cho công ty tài chính. Nghĩa vụ trả nợ hàng tháng của người mua là với công ty tài chính, độc lập với cửa hàng.",
+      "forbiddenErrors": [
+        "Nói công ty tài chính cho vay không thu lời ở đầu giải ngân",
+        "Nói trả hàng cho cửa hàng thì tự động hết nghĩa vụ trả nợ công ty tài chính mà không qua thủ tục tất toán/đảo bút toán",
+        "Tính EIR bằng cách lấy 600.000 / 12.000.000 = 5%/năm (nhầm lãi phẳng trên mệnh giá với lãi suất thực tế theo dòng tiền giảm dần ~10%/năm)"
+      ],
+      "sourceRefs": [
+        "SRC-SBV-CONSUMER-FINANCE",
+        "SRC-MOF-TT99-2025"
+      ]
+    },
+    {
+      "ruleId": "FIN-MECH-03",
+      "checkCode": "F1",
+      "category": "income",
+      "title": "Chi lương Cùng Ngân hàng (On-Us Book Transfer) vs Khác Ngân hàng (Off-Us Clearing) & Khấu trừ Lương tại Nguồn",
+      "distilledTruth": "Chi lương cùng ngân hàng chỉ đổi tên chủ sở hữu trên sổ cái nội bộ của đúng ngân hàng đó (0 đồng tiền dự trữ rời kho, giữ trọn CASA). Về kế toán doanh nghiệp, chi phí lương ghi nhận theo lương gộp (Gross) vào TK 642/641/622 đối ứng TK 334; phần BHXH/BHYT/BHTN (10,5% lương đóng bảo hiểm) và thuế TNCN được khấu trừ từ TK 334 sang TK 338 và TK 3335 trước khi chi lương thực lĩnh (Net) qua TK 112.",
+      "forbiddenErrors": [
+        "Ghi chi phí lương doanh nghiệp chỉ bằng lương thực lĩnh (Net) thay vì lương gộp (Gross)",
+        "Vẽ ống tiền thật ('money' pipe) chảy ra ngoài ngân hàng trong giao dịch trả lương nội bộ (On-Us)"
+      ],
+      "sourceRefs": [
+        "SRC-SBV-PAYROLL-BOOK-TRANSFER",
+        "SRC-MOF-TT99-2025"
+      ]
+    },
+    {
+      "ruleId": "FIN-MATH-01",
+      "checkCode": "F2",
+      "category": "accounting",
+      "title": "Bất biến Toán Tài chính: Cân đối Sổ cái Kép (Σ Nợ = Σ Có) & Công thức IRR/EIR Dòng tiền Đều",
+      "distilledTruth": "Mọi bút toán kế toán trong cả Diorama (beats.ledger) và Bài chuyên sâu (article.pro.journal) phải thoả mãn Σ Nợ = Σ Có tuyệt đối tới từng đồng. Mọi phép quy đổi lãi suất thực tế (EIR) từ dòng tiền trả góp đều phải giải phương trình giá trị hiện tại: sum_{t=1..n} CF_t / (1 + r_m)^t = PV_eff, với EIR_năm = (1 + r_m)^12 - 1 (hoặc lãi danh nghĩa năm = 12 * r_m nêu rõ cách tính).",
+      "forbiddenErrors": [
+        "Lệch tổng Nợ và tổng Có dù chỉ 1 đồng",
+        "Lệch số tiền giữa bài viết (beats / article) và kịch bản video (videoScript.long / videoScript.short)"
+      ],
+      "sourceRefs": [
+        "SRC-HERMANSON-ACCOUNTING",
+        "SRC-SBV-CONSUMER-FINANCE"
+      ]
+    },
+    {
+      "ruleId": "FIN-REG-01",
+      "checkCode": "F3",
+      "category": "regulatory",
+      "title": "Tính Thời sự Pháp quy TT 99/2025/TT-BTC & Ranh giới Pháp lý Không Khuyên Đầu tư",
+      "distilledTruth": "Từ 01/01/2026, tên và số hiệu tài khoản kế toán doanh nghiệp tuân theo Phụ lục II Thông tư 99/2025/TT-BTC (ví dụ TK 112 mang tên 'Tiền gửi không kỳ hạn', không còn gọi là 'Tiền gửi ngân hàng' như TT 200 cũ). Bài viết và video chỉ mô tả cơ chế vận hành ở ngôi thứ ba, tuyệt đối không đưa lời khuyên cá nhân ('bạn nên vay/mua/mở thẻ').",
+      "forbiddenErrors": [
+        "Dùng tên tài khoản cũ của TT 200 đã đổi tên ở TT 99/2025 (ví dụ gọi TK 112 là 'Tiền gửi ngân hàng')",
+        "Trích dẫn văn bản pháp luật đã hết hiệu lực hoặc đưa lời khuyên tài chính cá nhân"
+      ],
+      "sourceRefs": [
+        "SRC-MOF-TT99-2025"
+      ]
+    }
+  ],
+  "storyInvariants": {
+    "card": {
+      "storySlug": "card",
+      "category": "spending",
+      "mechanismType": "card_4party_5house_settlement",
+      "parameters": {
+        "grossAmount": 10000000,
+        "mdrRateExample": 0.022,
+        "mdrFeeAmount": 220000,
+        "netMerchantReceipt": 9780000,
+        "cashbackExample": 100000,
+        "partialRefundExample": 500000,
+        "chargebackExample": 10000000
+      },
+      "wireOnlyBeats": [
+        0,
+        1
+      ],
+      "pipeMoneyBeats": [
+        3,
+        4
+      ],
+      "requiredAccounts": [
+        "1388",
+        "511",
+        "112",
+        "641",
+        "521"
+      ],
+      "forbiddenAccounts": [
+        "131"
+      ],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "10.000.000",
+          "9.780.000",
+          "220.000",
+          "1388"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "10 triệu",
+            "10.000.000"
+          ],
+          [
+            "9,78 triệu",
+            "9.780.000",
+            "chín triệu bảy trăm tám mươi"
+          ],
+          [
+            "220 nghìn",
+            "220.000",
+            "hai trăm hai mươi nghìn"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "10 triệu",
+            "10.000.000"
+          ],
+          [
+            "100 nghìn",
+            "100.000",
+            "một trăm nghìn"
+          ],
+          [
+            "220 nghìn",
+            "220.000",
+            "hai trăm hai mươi nghìn",
+            "9,78 triệu",
+            "chín triệu bảy trăm tám mươi"
+          ]
+        ]
+      }
+    },
+    "pay": {
+      "storySlug": "pay",
+      "category": "income",
+      "mechanismType": "payroll_onus_vs_offus_book_transfer",
+      "parameters": {
+        "grossSalary": 17000000,
+        "totalDeduction": 2000000,
+        "employeeInsurance": 1785000,
+        "employeeInsuranceRate": 0.105,
+        "personalIncomeTax": 215000,
+        "netSalary": 15000000,
+        "offUsTransferFeeExample": 3300
+      },
+      "wireOnlyBeats": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "pipeMoneyBeats": [],
+      "requiredAccounts": [
+        "642",
+        "334",
+        "338",
+        "3335",
+        "112"
+      ],
+      "forbiddenAccounts": [],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "17.000.000",
+          "15.000.000",
+          "1.785.000",
+          "215.000",
+          "334"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "15 triệu",
+            "15.000.000",
+            "mười lăm triệu"
+          ],
+          [
+            "17 triệu",
+            "17.000.000",
+            "mười bảy triệu"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "15 triệu",
+            "15.000.000",
+            "mười lăm triệu"
+          ]
+        ]
+      }
+    },
+    "install": {
+      "storySlug": "install",
+      "category": "borrowing",
+      "mechanismType": "zero_percent_installment_merchant_subsidy",
+      "parameters": {
+        "listedPrice": 12000000,
+        "merchantSubsidyRate": 0.05,
+        "merchantSubsidyAmount": 600000,
+        "netMerchantDisbursement": 11400000,
+        "installmentMonths": 12,
+        "monthlyInstallment": 1000000,
+        "totalPaidByBuyer": 12000000,
+        "expectedMonthlyIRR": 0.00798114,
+        "expectedAnnualEIRCompounded": 0.1000881,
+        "expectedAnnualEIRNominal": 0.0957737,
+        "statedMonthlyEIRApprox": "0,8%",
+        "statedAnnualEIRApprox": "10%"
+      },
+      "wireOnlyBeats": [
+        0,
+        1
+      ],
+      "pipeMoneyBeats": [
+        3,
+        4
+      ],
+      "requiredAccounts": [
+        "1388",
+        "511",
+        "112",
+        "641",
+        "521"
+      ],
+      "forbiddenAccounts": [
+        "131"
+      ],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "12.000.000",
+          "11.400.000",
+          "600.000",
+          "1.000.000",
+          "1388"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "12 triệu",
+            "12.000.000",
+            "mười hai triệu"
+          ],
+          [
+            "11,4 triệu",
+            "11.400.000",
+            "mười một triệu bốn"
+          ],
+          [
+            "600 nghìn",
+            "600.000",
+            "sáu trăm nghìn"
+          ],
+          [
+            "0,8%",
+            "không phẩy tám phần trăm"
+          ],
+          [
+            "10%",
+            "mười phần trăm"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "12 triệu",
+            "12.000.000",
+            "mười hai triệu"
+          ],
+          [
+            "11,4 triệu",
+            "11.400.000",
+            "mười một triệu bốn"
+          ],
+          [
+            "600 nghìn",
+            "600.000",
+            "sáu trăm nghìn"
+          ],
+          [
+            "0,8%",
+            "không phẩy tám phần trăm"
+          ],
+          [
+            "10%",
+            "mười phần trăm"
+          ]
+        ]
+      }
+    }
+  },
+  "lastCrawlSummary": {
+    "crawledAt": "2026-11-08T17:08:03+07:00",
+    "localArtifactsVerified": 3,
+    "localArtifactsTotal": 3,
+    "liveUrlsProbed": 7,
+    "liveUrlsReachable": 6,
+    "domainRulesCount": 5,
+    "storyInvariantsCount": 3
+  }
+}

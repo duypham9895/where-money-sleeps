@@ -305,11 +305,63 @@ def step_5_0_brand_safety_audit(story_key: str, story: dict) -> dict:
     }
 
 
+def step_5_0b_financial_specialist_audit(story_key: str, story: dict) -> dict:
+    """
+    5.0b — Financial Domain, Banking Mechanics & Regulatory Intelligence Specialist (`tai-chinh-reviewer`, F1..F4).
+    Chạy bắt buộc TRƯỚC 5A (ElevenLabs TTS), 5B (Render Video) và 5C (YouTube Upload).
+    Đối chiếu trực tiếp với `knowledge/finance-kb.json` qua `scripts/wms-finance-kb.py`:
+      - F1: Cơ chế ngân hàng, thanh toán & tín dụng (Wire vs Pipe vs Book).
+      - F2: Toán tài chính (IRR/EIR, MDR, khấu trừ lương, Σ Nợ = Σ Có).
+      - F3: Tính thời sự pháp quy (TT 99/2025/TT-BTC, độ tươi kho tri thức ≤ 30 ngày).
+      - F4: Độ khớp xuyên suốt Bài viết ↔ Video (Long 16:9 & Short 9:16).
+    """
+    import importlib.util
+
+    fkb_script = ROOT / "scripts" / "wms-finance-kb.py"
+    kb_file = ROOT / "knowledge" / "finance-kb.json"
+    if not fkb_script.is_file() or not kb_file.is_file():
+        raise RuntimeError(f"Thiếu bộ kiểm định Chuyên gia Tài chính: {fkb_script} hoặc {kb_file}")
+
+    spec = importlib.util.spec_from_file_location("wms_finance_kb", fkb_script)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Không nạp được module {fkb_script}")
+    fkb = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fkb)
+
+    kb = json.loads(kb_file.read_text(encoding="utf-8"))
+    cs = fkb._load_check_story_module()
+    tt99 = cs.load_tt99()
+
+    fresh_rows = fkb.check_kb_freshness(kb)
+    res = fkb.verify_story_finance(story_key, story, kb, tt99)
+    all_rows = fresh_rows + res["rows"]
+    fails = [f"[{code}] {where}: {msg}" for lv, code, where, msg in all_rows if lv == "FAIL"]
+    if fails:
+        joined = "\n  - ".join(fails)
+        raise RuntimeError(
+            f"FAIL [Financial Specialist tai-chinh-reviewer F1–F4] trên bài '{story_key}':\n  - {joined}"
+        )
+
+    return {
+        "specialist": "tai-chinh-reviewer",
+        "kbFile": "knowledge/finance-kb.json",
+        "kbLastCrawledAt": kb.get("lastCrawledAt"),
+        "checks": [
+            "F1_banking_payment_credit_mechanics",
+            "F2_financial_math_irr_eir_ledger",
+            "F3_regulatory_freshness_tt99_2025",
+            "F4_cross_format_post_to_video_fidelity",
+        ],
+        "status": "PASS",
+        "details": [msg for lv, code, where, msg in res["rows"] if lv == "PASS"],
+    }
+
+
 def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: pathlib.Path) -> str:
     """
     5C — Đẩy file `.mp4` lên kênh `@WhereMoneySleeps` qua YouTube Data API v3 Resumable Upload.
-    Bắt buộc chạy `step_5_0_brand_safety_audit` trước khi đẩy và đặt `privacyStatus = "unlisted"`
-    khi `story.status != "published"` (WMS-R4 / QĐ 56).
+    Bắt buộc chạy `step_5_0_brand_safety_audit` và `step_5_0b_financial_specialist_audit` trước khi đẩy
+    và đặt `privacyStatus = "unlisted"` khi `story.status != "published"` (WMS-R4 / QĐ 56).
     Trả về `youtubeId` 11 ký tự.
     """
     if not mp4_path.is_file():
@@ -318,6 +370,10 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
     print(
         f"[5.0 Brand Safety Specialist PASS] B1–B4 sạch ({brand_audit['scenesAudited']} cảnh, "
         f"0 tên riêng/thương hiệu) trước khi upload {mp4_path.name}"
+    )
+    fin_audit = step_5_0b_financial_specialist_audit(story_key, story)
+    print(
+        f"[5.0b Financial Specialist PASS] F1–F4 sạch (KB: {fin_audit['kbLastCrawledAt']}) trước khi upload {mp4_path.name}"
     )
     access_token = get_youtube_access_token()
     fobj = (story.get("videoScript") or {}).get(fmt) or {}
@@ -557,12 +613,17 @@ def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
 
 
 def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
-    """5.0 (Brand Safety Specialist B1-B4) -> 5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Locked-Stage Diorama v3.0 Video 16:9/9:16)."""
+    """5.0 (Brand Safety Specialist B1-B4 & Financial Specialist F1-F4) -> 5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Locked-Stage Diorama v3.0 Video 16:9/9:16)."""
     load_dotenv()
     brand_audit = step_5_0_brand_safety_audit(story_key, story)
     print(
         f"[5.0 Brand Safety Specialist PASS] B1–B4 sạch trên '{story_key}' "
         f"({brand_audit['scenesAudited']} cảnh, 0 tên riêng/thương hiệu có thật)"
+    )
+    fin_audit = step_5_0b_financial_specialist_audit(story_key, story)
+    print(
+        f"[5.0b Financial Specialist PASS] F1–F4 sạch trên '{story_key}' "
+        f"(KB: {fin_audit['kbLastCrawledAt']})"
     )
     lic_el = verify_elevenlabs_licence()
     lic_veo = verify_google_veo_licence()
@@ -706,10 +767,11 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         }
 
     manifest = {
-        "schemaVersion": "1.3-qd56-locked-stage-brand-safety",
+        "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
         "story": story_key,
         "storyStatus": story.get("status"),
         "brandSafetyAudit": brand_audit,
+        "financialSpecialistAudit": fin_audit,
         "youtubeChannel": {
             "handle": yt_handle,
             "url": yt_url,

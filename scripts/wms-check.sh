@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # wms-check — MỘT lệnh kiểm toàn bộ repo where-money-sleeps.
 #
-#   1. scripts/check-story.py     dữ liệu bài (C0–C7, C6v) + bộ luật trong repo (C8)
-#   2. ../scripts/vibe-check.sh   pipeline · ONE-PAGER · kể-lại · giấy phép · đường dẫn chết · tầng HTML
+#   1. scripts/check-story.py     dữ liệu bài (C0–C7, C6v, C9) + bộ luật trong repo (C8)
+#   2. scripts/wms-finance-kb.py  chuyên gia tài chính (F1–F4: cơ chế ngân hàng, toán IRR/EIR, kho tri thức, bài↔video)
+#   3. ../scripts/vibe-check.sh   pipeline · ONE-PAGER · kể-lại · giấy phép · đường dẫn chết · tầng HTML
 #                                 — script của XƯỞNG CHA. Clone riêng repo thì không có ⇒ SKIP, nói rõ.
 #
 # Dùng:  scripts/wms-check.sh [tham số cho check-story.py, vd --story pay --quiet]
@@ -14,11 +15,15 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 2
 cd "$ROOT" || exit 2
 
 rc=0
-echo "════ [1/2] check-story.py ════"
+echo "════ [1/3] check-story.py ════"
 python3 -I scripts/check-story.py "$@" || rc=1
 
 echo
-echo "════ [2/2] vibe-check.sh (xưởng cha) ════"
+echo "════ [2/3] wms-finance-kb.py (tai-chinh-reviewer F1–F4) ════"
+python3 -I scripts/wms-finance-kb.py --verify || rc=1
+
+echo
+echo "════ [3/3] vibe-check.sh (xưởng cha) ════"
 if [ -f ../scripts/vibe-check.sh ]; then
   bash ../scripts/vibe-check.sh . || rc=1
 else

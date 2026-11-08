@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.3-qd56-locked-stage-brand-safety",
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
   "story": "install",
   "storyStatus": "review",
   "brandSafetyAudit": {
@@ -14,6 +14,24 @@
     "status": "PASS",
     "scenesAudited": 17,
     "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (zero_percent_installment_merchant_subsidy)",
+      "Toán dòng tiền IRR/EIR khớp tuyệt đối: PV_eff=11,400,000đ, CF=1,000,000đ×12 kỳ → r_tháng=0.7981% (xấp xỉ bài/video 0,8%) · EIR_năm gộp=10.01% / danh nghĩa=9.58% (xấp xỉ bài/video 10%)",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 1388, 511, 521, 641)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
   },
   "youtubeChannel": {
     "handle": "@WhereMoneySleeps",

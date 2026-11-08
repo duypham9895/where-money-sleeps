@@ -1,40 +1,132 @@
 {
-  "schemaVersion": "1.0-qd56",
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
   "story": "pay",
   "storyStatus": "published",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 18,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (payroll_onus_vs_offus_book_transfer)",
+      "Toán khấu trừ lương khớp tuyệt đối: Gross 17,000,000đ − (BHXH/YT/TN 10,5% = 1,785,000đ + Thuế TNCN 215,000đ = 2,000,000đ) = Net 15,000,000đ",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 3335, 334, 338, 642)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
   "licenceCheck": {
-    "id": "elevenlabs-commercial-tts-sfx",
-    "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)",
-    "status": null
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
   },
   "formats": {
     "long": {
-      "title": "Lương về mà không đồng nào di chuyển: tiền của bạn ngủ ở đâu?",
+      "title": "Lương về 15 triệu mà không đồng nào di chuyển: đêm nay tiền của bạn ngủ ở đâu?",
       "aspectRatio": "16:9",
       "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/pay_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "3.0-locked-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
-      "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
       "youtubeId": "",
       "embedStatus": "pending_upload",
       "outputMp4": "dist/youtube/pay-long-16x9.mp4",
       "youtubeUploadSpec": {
         "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
         "categoryId": "27",
         "defaultLanguage": "vi",
         "privacyStatus": "public",
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
-        "chaptersDescription": "0:00 Mở đầu — Lương về mà không đồng nào di chuyển: tiền của bạn ngủ ở đâu?\n0:33 Đoạn 1\n1:15 Đoạn 2\n1:56 Đoạn 2\n2:44 Cảnh 5\n3:33 Đoạn 3\n4:16 Đoạn 4\n5:00 Đoạn 4\n5:44 Cảnh 9\n6:25 Đoạn 5\n7:12 Cảnh 11\n7:47 Cảnh kết"
+        "chaptersDescription": "0:00 Mở đầu — Lương về 15 triệu mà không đồng nào di chuyển: đêm nay tiền của bạn ngủ ở đâu?\n0:33 Đoạn 1\n1:15 Đoạn 2\n1:56 Đoạn 2\n2:44 Cảnh 5\n3:33 Đoạn 3\n4:16 Đoạn 4\n5:00 Đoạn 4\n5:44 Cảnh 9\n6:25 Đoạn 5\n7:12 Cảnh 11\n7:47 Cảnh kết"
       },
       "scenes": [
         {
           "sceneIndex": 0,
           "time": "0:00 – 0:33",
           "beat": null,
-          "sha256CacheKey": "3386b1b123c6a507f75ad8c821445adbf06a1c071d137b3785af951a8b283059",
+          "sha256CacheKey": "6d3e42536f1a241e6b063723ad29ff48fd37b9c31716698bbc5201e74ef148bc",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "6a10c3c8bb110fab9a8bdde02cb0c81c52e11940e28d367c17c6d3a68d4bd5c3",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh mặt cắt Diorama v3.0: năm ngôi nhà trên một con phố, mọi cửa cuốn (wShutter) đóng, dây điện trên cao và ống ngầm đều tối. Máy quay lướt chậm từ trái sang phải, dừng ở nhà Bạn: một màn hình điện thoại sáng lên trong bóng tối.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng rung điện thoại nhẹ (cần giấy phép trước khi dùng)",
           "voWords": 103
@@ -43,10 +135,24 @@
           "sceneIndex": 1,
           "time": "0:33 – 1:15",
           "beat": 0,
-          "sha256CacheKey": "8b57800213676a548d7bfe76956623281162bf17741c30257250401f60c6a384",
+          "sha256CacheKey": "8c21c2aa97e140d51568284678e38c0b7477ce6759e59a1f51d78d8f9687a8e2",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9e58951222ec9ea83e5657901961ba0ac0014d0652839aac1193ae3420a9bf92",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn của Công ty, Ngân hàng trả lương và Bạn kéo lên. Đạo cụ phòng nhân sự (hr) sáng trong nhà Công ty. Một lời nhắn chạy trên dây điện từ Công ty sang Ngân hàng trả lương; nhãn “+ một tài khoản mới” bật lên trên mái ngân hàng. Ống ngầm vẫn tối: chưa có tiền.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tem đóng dấu (cần giấy phép trước khi dùng)",
           "voWords": 129
@@ -55,10 +161,24 @@
           "sceneIndex": 2,
           "time": "1:15 – 1:56",
           "beat": 1,
-          "sha256CacheKey": "9199f3cf9344e32c77fb6077172e3bdb9e2931e7d29d38a9027e407e7f78dc50",
+          "sha256CacheKey": "022bdd4b18b67b41c2c508a036fcb647caa5bd37b0f39e7b173f095e8ce5fd41",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "bfe0346a1e6fa62f37000457e90de6c1cd0d70f2eccb5fc4f9885df058c4fc16",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Công ty, Ngân hàng trả lương, Bạn sáng. Hai lời nhắn chạy trên dây điện: Công ty → Ngân hàng trả lương, rồi Ngân hàng trả lương → Bạn. Đạo cụ hai dòng sổ (two) sáng trong Ngân hàng trả lương; điện thoại (phone) của Bạn rung. Ống ngầm cố ý giữ tối suốt cảnh: không đồng nào rời toà nhà.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng rung điện thoại (cần giấy phép trước khi dùng)",
           "voWords": 125
@@ -67,10 +187,24 @@
           "sceneIndex": 3,
           "time": "1:56 – 2:44",
           "beat": 1,
-          "sha256CacheKey": "e0d480cb49ec386c9f959f2fdd9b06dc24ff94e565729a2e74b3b72ac122d0cb",
+          "sha256CacheKey": "2fe6d70ebce9bef0c896b9a81bac6b779bfbfa948ff43fbf46d2a43580df1e76",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "42de441dc49c0e4842c483e20c1df50d3a83e1a505a034ec1c59a4bb9e8e8144",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay đẩy vào nhà Công ty; bức tường cắt gạch chéo (poché) mở ra một cuốn sổ lớn. Ba bút toán hiện lần lượt: 642/334 17.000.000; 334/338·3335 2.000.000; 334/112 15.000.000. Dây điện và ống ngầm ngoài phố mờ đi.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng bút ký nhẹ (cần giấy phép trước khi dùng)",
           "voWords": 149
@@ -79,22 +213,50 @@
           "sceneIndex": 4,
           "time": "2:44 – 3:33",
           "beat": null,
-          "sha256CacheKey": "32dbe012de57bea6bfbd41225960ac99a5fc4188fc41faa35f7180cc3eafe322",
+          "sha256CacheKey": "d380116b9abceffd00fdf4f28b2c0eefbd9a7168b3899ac9c21a05e4f29d6aab",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "bf852669b18185cbb6c6fb75e820bef8f6a436eb73b9c59d55c84419e02cc2b4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay hạ xuống dưới mặt đường. Ở mép khung hình, một mặt tiền nét đứt mang nhãn “ngân hàng khác” hiện ra như một nhà giả định. Lời nhắn chạy trên dây điện trước; một nhịp sau, ống ngầm giữa Ngân hàng trả lương và mặt tiền nét đứt mới sáng lên, khối tiền trượt qua. Rồi mặt tiền nét đứt mờ đi, ống tối lại.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng ống nước chảy ngắn (cần giấy phép trước khi dùng)",
-          "voWords": 148
+          "voWords": 149
         },
         {
           "sceneIndex": 5,
           "time": "3:33 – 4:16",
           "beat": 2,
-          "sha256CacheKey": "592b047bf6aaea141151f89be8e24604ad84c9f124fe95b09a24162ff908b1ca",
+          "sha256CacheKey": "cf0c791f3934c317ff254d5e2d914bff91f4e1a3173a382e9f8c0f920aae6ec4",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "3a9b368562c3263270ddb7b1b6bd86074ededccff2c3221c7993f6bf8bc58160",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ngân hàng trả lương, Bạn và 500 đồng nghiệp sáng. Không có lời nhắn, ống ngầm tối. Đạo cụ số dư nằm yên (idle) sáng mờ trong nhà Bạn, rồi nhân lên thành nhiều đốm trong nhà 500 đồng nghiệp. Máy quay lùi chậm để thấy cả ba nhà.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tích tắc chậm (cần giấy phép trước khi dùng)",
           "voWords": 134
@@ -103,22 +265,50 @@
           "sceneIndex": 6,
           "time": "4:16 – 5:00",
           "beat": 3,
-          "sha256CacheKey": "a2cc84339792ce9554afb150b341d6d248b2becf1913a9bcc814c847c303b2d1",
+          "sha256CacheKey": "6de6e6777b5b62047eebe9d1fa5c9b9c740877fb93af96cc3b7e8a9efad192a0",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4eb92e5f5c457322d6bfb79ea271554ecef3d79acb6976d0bf8521cc92de8d57",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ngân hàng trả lương, 500 đồng nghiệp và Bên cho vay của ngân hàng sáng. Đạo cụ bể vốn gộp (pool) giữa Ngân hàng trả lương sáng dần; các đốm idle vẫn đứng yên tại chỗ. Một lời nhắn chạy trên dây điện từ Ngân hàng trả lương sang Bên cho vay; đạo cụ khoản vay (loan) sáng. Ống ngầm tối: đây là giá nội bộ, không phải tiền đi.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng ù trầm khi bể sáng (cần giấy phép trước khi dùng)",
-          "voWords": 134
+          "voWords": 142
         },
         {
           "sceneIndex": 7,
           "time": "5:00 – 5:44",
           "beat": 3,
-          "sha256CacheKey": "7486594be4dded891ec1faaad9e3ed7466c68ef4e4fb4c8d7e7ffa797e099f1f",
+          "sha256CacheKey": "c87e3a26bf66ffb1ac873f7c4aec9394c2bb0fd2e09867a0b6f535ed33d9b81d",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "64564f486822f0aa55e2bc0a3b7ad36fc966833c1c2461fda464e0b98b39f85b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay vào bên trong Ngân hàng trả lương: ba quầy nhỏ dưới mái — bên huy động, bộ phận quản lý vốn, bên cho vay. Hai mũi tên giá nội bộ chạy trên một sợi dây điện mảnh nối ba quầy: 4,5% rồi 6,0%. Một thanh 8,5% bị cắt thành ba khúc 4,4 · 1,5 · 2,5 và một khúc nhỏ 0,1 trả cho người gửi.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy tính tiền nhẹ (cần giấy phép trước khi dùng)",
           "voWords": 136
@@ -127,10 +317,24 @@
           "sceneIndex": 8,
           "time": "5:44 – 6:25",
           "beat": null,
-          "sha256CacheKey": "9f3a13e73486a4c2e96c204dd0b9fb8d20dac005f5bb2be898a9b4bd45bdc677",
+          "sha256CacheKey": "4a3f59cbe95a6a31751adc331ee05e81dd3bd847b365755e104abb8226e7dfa2",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4e2913594a1ab02b5d9c5835185797cf3bb56e19004e9fcf366f4a28790b95dd",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay hạ xuống dưới Ngân hàng trả lương: một ngăn két nhỏ có nhãn “dự trữ bắt buộc” tách khỏi bể vốn gộp, khoá lại. Bể vốn co nhẹ. Ngăn két sáng tĩnh, nhãn “đã nằm sẵn ở ngân hàng trung ương”; ống ngầm giữ tối.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng khoá két (cần giấy phép trước khi dùng)",
           "voWords": 126
@@ -139,10 +343,24 @@
           "sceneIndex": 9,
           "time": "6:25 – 7:12",
           "beat": 4,
-          "sha256CacheKey": "9c0d8b2c46e5fb3b6b005de7e853fb1540dc5ff22eee231a5efe4ef0849906a6",
+          "sha256CacheKey": "d7e5769c551ffe4c1add96c48f7d0b6a4b30b3502465bc6a5fc4cebddcf88114",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fb90f2033bb892e0742323c3edc7d6e629bf414aecbe52291a7cd07f0c7f1ba0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Công ty, Ngân hàng trả lương và Bạn sáng. Một lời nhắn chạy trên dây điện từ Ngân hàng trả lương ngược về Công ty; đạo cụ bắt tay (deal) sáng trong nhà Công ty, nhãn “ưu đãi trong gói dịch vụ” bật lên. Ống ngầm tối.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chạm ly nhẹ (cần giấy phép trước khi dùng)",
           "voWords": 144
@@ -151,10 +369,24 @@
           "sceneIndex": 10,
           "time": "7:12 – 7:47",
           "beat": null,
-          "sha256CacheKey": "eaf6a84bcadc9cd769422564447759c5a3e43b2a12ec19af591a50eee52dde8a",
+          "sha256CacheKey": "a578e921771c0a8f2bcba0fb1d403dc51d3d6aecb5cc4e5001fe03a78181d68c",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b82ad7599711c5e09ea2ef71396ba1a4af8ea2a6fef0c45beed1d54b0c8c0ba4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ba khung nhỏ ghép dọc trên nền phố: (1) một lời nhắn trên dây điện bật ngược từ Ngân hàng trả lương về Công ty, sổ công ty mở lại dòng 334; (2) lịch treo tường ở nhà Công ty lật sang ngày nghỉ; (3) các đốm idle trong nhà 500 đồng nghiệp trôi ra mép khung, bể vốn co lại.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng bíp báo lỗi ngắn (cần giấy phép trước khi dùng)",
           "voWords": 110
@@ -163,10 +395,24 @@
           "sceneIndex": 11,
           "time": "7:47 – 8:17",
           "beat": null,
-          "sha256CacheKey": "bb2f9f239228103766c4d19c6483b1569834b9c32cc1ea88cf0bec4d02c92f00",
+          "sha256CacheKey": "5b68d449801b737a629a9561011b12c3df51d2628b3ff7e21eed396223283597",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7679838d0c87bf7b827731804f2d816ff614eb69e7f48306b087d76ee41ed8f9",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay kéo về toàn cảnh. Mọi cửa cuốn hạ dần, chỉ còn nhà Ngân hàng trả lương sáng một dòng sổ mang tên Bạn. Đèn tắt dần, còn dòng sổ.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "một nốt chuông nhẹ (cần giấy phép trước khi dùng)",
           "voWords": 92
@@ -174,80 +420,188 @@
       ]
     },
     "short": {
-      "title": "Lương về, 0 đồng di chuyển",
+      "title": "Nhận lương 15 triệu cùng ngân hàng với công ty: vì sao không đồng tiền nào thực sự di chuyển?",
       "aspectRatio": "9:16",
       "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/pay_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "3.0-locked-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
-      "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
       "youtubeId": "",
       "embedStatus": "pending_upload",
       "outputMp4": "dist/youtube/pay-short-9x16.mp4",
       "youtubeUploadSpec": {
         "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
         "categoryId": "27",
         "defaultLanguage": "vi",
         "privacyStatus": "public",
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
-        "chaptersDescription": "0:00 Mở đầu — Lương về, 0 đồng di chuyển\n0:04 Đoạn 2\n0:18 Đoạn 3\n0:30 Đoạn 4\n0:51 Đoạn 5\n0:59 Cảnh kết"
+        "chaptersDescription": "0:00 Mở đầu — Nhận lương 15 triệu cùng ngân hàng với công ty: vì sao không đồng tiền nào thực sự di chuyển?\n0:04 Đoạn 2\n0:18 Đoạn 3\n0:30 Đoạn 4\n0:51 Đoạn 5\n0:59 Cảnh kết"
       },
       "scenes": [
         {
           "sceneIndex": 0,
           "time": "0:00 – 0:04",
           "beat": 1,
-          "sha256CacheKey": "142cf2708c963abea8ddbd77c7499a37517cb2e300546a62ce066ee954e4418f",
+          "sha256CacheKey": "2984d15bb5c9582156d7f0582b8973d09fe30c5590f044a99270a9be27bec47c",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "bf097c1768f38f77f3fdc3c82a4b2aecdeb44bbc9e9987194f4d2bea7a1d7e7b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cận điện thoại trong nhà Bạn rung, tin ghi có +15.000.000. Máy quay giật lên: dây điện sáng, ống ngầm bên dưới tối hẳn.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng rung điện thoại (cần giấy phép trước khi dùng)",
-          "voWords": 13
+          "voWords": 21
         },
         {
           "sceneIndex": 1,
           "time": "0:04 – 0:18",
           "beat": 1,
-          "sha256CacheKey": "44ea7c504497edb5bd261b2c01b54008d45e0fb68cc0bb98ecf254edc4f8e833",
+          "sha256CacheKey": "ab5d532d82ded55ed4e866a26f6494d3f397809afd684db3d9213f7f52061574",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "66a1decab9f52d6c1c20fad7ad57e725d5b79a4cd9435493d411d4b3a8b6500a",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cắt cận cuốn sổ trong Ngân hàng trả lương: hai dòng sổ đổi tên chủ nợ, Công ty −15.000.000, Bạn +15.000.000.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng lật trang (cần giấy phép trước khi dùng)",
-          "voWords": 41
+          "voWords": 48
         },
         {
           "sceneIndex": 2,
           "time": "0:18 – 0:30",
           "beat": 2,
-          "sha256CacheKey": "e90dab4f77dfec566f7a8f3251afb68436ace3c6992997f123bdc37f4af4176f",
+          "sha256CacheKey": "ebd8d1fe8ef289861608c51d803ff135ea85c783a457614e4c5516a0ef2e6087",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "ba2aaee54416cad53f24b36712cbd483f1877d575b04c5be13239c1a55d0b1e2",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cận nhà Bạn rồi zoom out sang 500 đồng nghiệp: các đốm idle nhân lên, đứng yên.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tích tắc (cần giấy phép trước khi dùng)",
-          "voWords": 34
+          "voWords": 50
         },
         {
           "sceneIndex": 3,
           "time": "0:30 – 0:51",
           "beat": 3,
-          "sha256CacheKey": "ca5a8f8adeefa1c1d1286131cda7016ed30afdbcae4da6734fd447028f4276f3",
+          "sha256CacheKey": "1eb0b35ce2cb8970e4888d0c49bb5d0a3d2bc1ac3d373203690581a8096d8f10",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "74f4677919f975733d3610a096a86839c0565cf78694486eefc2ba5d6127e4af",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, bể vốn gộp trong Ngân hàng trả lương sáng; thanh so sánh dựng đứng: 2,5 triệu ↔ 125 triệu.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng ù trầm (cần giấy phép trước khi dùng)",
-          "voWords": 63
+          "voWords": 66
         },
         {
           "sceneIndex": 4,
           "time": "0:51 – 0:59",
           "beat": 4,
-          "sha256CacheKey": "8038d704f472945a0699079b6b34ca8de27f615017b3dc16cee779ac38496544",
+          "sha256CacheKey": "1345b32c2bb2838396d63360c19ddc2c630db57c585130fe99aa849c4e15819f",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "58ce955d61e6995f49f2f2a057d3b9b70ec8b94781f661c605c20d3e3c98ee93",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, dây điện từ Ngân hàng trả lương về Công ty sáng; đạo cụ bắt tay (deal) trong nhà Công ty.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chạm ly (cần giấy phép trước khi dùng)",
           "voWords": 22
@@ -256,13 +610,27 @@
           "sceneIndex": 5,
           "time": "0:59 – 1:10",
           "beat": null,
-          "sha256CacheKey": "41a34fc010a11b07d035e226816b826922e4c88c8afb7a8f99f87cbb565317d8",
+          "sha256CacheKey": "84cc6920b35661bf604f2ea9cf96a667440c85ee50dfcd90c67cb342c4e2afec",
           "cached": false,
-          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
-          "elevenlabsModelId": "eleven_flash_v2_5",
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "08fe96c94df0085a94b92b557879972423fac6e74d6ce6efeafa4014b7bd0406",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, toàn cảnh tắt dần, chỉ còn một dòng sổ mang tên Bạn sáng.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "một nốt chuông (cần giấy phép trước khi dùng)",
-          "voWords": 32
+          "voWords": 31
         }
       ]
     }

@@ -736,13 +736,17 @@ GOV_REQUIRED = [
     ".claude/skills/vibe-post/SKILL.md",
     ".claude/commands/vibe/post.md",
     ".claude/agents/ke-toan-reviewer.md",
+    ".claude/agents/tai-chinh-reviewer.md",
     ".claude/agents/brand-safety-reviewer.md",
     ".claude/settings.json",
     ".agents/skills/vibe-post/SKILL.md",
     ".agents/skills/ke-toan-reviewer/SKILL.md",
+    ".agents/skills/tai-chinh-reviewer/SKILL.md",
     ".agents/skills/brand-safety-reviewer/SKILL.md",
     ".agents/hooks.json",
-    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh", "scripts/wms-media-pipeline.py",
+    "knowledge/finance-kb.json",
+    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
+    "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
             "Bash(gh pr merge:*)", "Bash(rtk gh pr merge:*)", "Bash(gh release:*)", "Bash(rtk gh release:*)",
@@ -757,6 +761,12 @@ KETOAN_COPIES = [
     ".agents/skills/ke-toan-reviewer/SKILL.md",
     "../.claude/agents/ke-toan-reviewer.md",            # xưởng cha — chỉ có khi repo nằm trong Vibe/
     "../.agents/skills/ke-toan-reviewer/SKILL.md",
+]
+TAICHINH_COPIES = [
+    ".claude/agents/tai-chinh-reviewer.md",
+    ".agents/skills/tai-chinh-reviewer/SKILL.md",
+    "../.claude/agents/tai-chinh-reviewer.md",          # xưởng cha — chỉ có khi repo nằm trong Vibe/
+    "../.agents/skills/tai-chinh-reviewer/SKILL.md",
 ]
 BRAND_SAFETY_COPIES = [
     ".claude/agents/brand-safety-reviewer.md",
@@ -925,6 +935,29 @@ def check_governance(rep: Report) -> None:
         rep.add("PASS", "C8", where, f"ke-toan-reviewer khớp giữa {len(cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
     if skipped:
         rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so ke-toan với bản của xưởng")
+
+    tc_cores, tc_skipped = {}, []
+    for rel in TAICHINH_COPIES:
+        p = ROOT / rel
+        if not p.is_file():
+            if rel.startswith(".."):
+                tc_skipped.append(rel)
+            continue
+        try:
+            core = _ketoan_core(p.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError) as e:
+            rep.add("FAIL", "C8", where, f"{rel}: không đọc được ({e})")
+            continue
+        if core is None:
+            rep.add("FAIL", "C8", where, f"{rel}: thiếu mục '## Phạm vi' — không so được với các bản khác")
+        else:
+            tc_cores[rel] = core
+    if len(set(tc_cores.values())) > 1:
+        rep.add("FAIL", "C8", where, f"tai-chinh-reviewer lệch giữa các bản (từ '## Phạm vi'): {', '.join(tc_cores)}")
+    elif tc_cores:
+        rep.add("PASS", "C8", where, f"tai-chinh-reviewer khớp giữa {len(tc_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
+    if tc_skipped:
+        rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so tai-chinh với bản của xưởng")
 
     bs_cores, bs_skipped = {}, []
     for rel in BRAND_SAFETY_COPIES:
