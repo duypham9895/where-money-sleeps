@@ -872,7 +872,7 @@ body.cms-on{padding-bottom:150px}
       <svg id="scene" role="img" aria-label="Mặt cắt một con phố đêm có năm ngôi nhà. Nhà nào có mặt trong đoạn này thì cửa cuốn kéo lên để thấy bên trong. Lời nhắn chạy trên dây điện; tiền thật chỉ chạy trong ống quyết toán dưới lòng đất."></svg>
       <div class="tags" id="tags" aria-hidden="true"></div>
     </div>
-    <p class="legend" aria-hidden="true"><span><i></i>trên dây: lời nhắn, chạy trong vài giây</span><span><i class="m"></i>dưới đất: tiền thật, chỉ chạy lúc quyết toán</span></p>
+    <p class="legend" aria-hidden="true"><span><i></i>luồng thông tin: lời nhắn & hợp đồng (0 đồng)</span><span><i class="m"></i>luồng quyết toán: tiền thật chuyển qua ngân hàng</span></p>
     <ul class="taglist" id="taglist" aria-label="Dòng sổ vừa đổi"></ul>
 
     <div class="caption" id="caption" aria-live="polite">
@@ -1130,17 +1130,17 @@ const STORIES = {
     "h": "Một bữa liên hoan, một tiếng tít",
     "paras": [
      "Mười giờ bốn mươi bảy tối, bữa liên hoan ở quán quen hết 10.000.000 đồng. Bạn chạm thẻ tín dụng, máy kêu tít, điện thoại báo hạn mức còn lại giảm 10 triệu. Nhân viên đưa hoá đơn, cả nhóm đứng dậy. Với bạn, chuyện đã xong. Với năm ngôi nhà trên con phố của bài này — bạn, quán, ngân hàng của quán, tổ chức thẻ và ngân hàng của bạn — chuyện mới bắt đầu, và nó kéo dài ít nhất hai ngày làm việc.",
-     "Bài này đi theo mười triệu ấy qua ba loại đường. Dây điện trên cao chở lời nhắn: câu hỏi “có đồng ý không”, câu trả lời “đồng ý”, danh sách giao dịch cuối ngày. Ống ngầm dưới đất chở tiền thật giữa các ngân hàng. Và cuốn sổ của mỗi nhà ghi lại ai đang nợ ai, dù chưa có đồng nào chạy. Phần lớn thời gian, mười triệu của bạn không nằm trong ống, mà nằm trong sổ."
+     "Bài này đi theo mười triệu ấy qua ba tầng xử lý. Luồng thông tin chở các bản tin điện tử: câu hỏi “có đồng ý không”, câu trả lời “đồng ý”, danh sách giao dịch cuối ngày. Luồng quyết toán liên ngân hàng chở tiền thật giữa các ngân hàng. Và cuốn sổ kế toán của mỗi bên ghi lại ai đang nợ ai, dù chưa có đồng nào chạy. Phần lớn thời gian, mười triệu của bạn chưa nằm trên đường chuyển tiền, mà nằm trong sổ."
     ]
    },
    {
     "h": "Giải phẫu: dây, ống và sổ",
     "paras": [
      "Giây đầu tiên, ngân hàng của bạn — bên phát hành thẻ, gọi là [[Issuer|issuer]] — đặt một [[Authorization hold|hold]] 10 triệu lên hạn mức. Đó là một ghi chú tạm để bạn không tiêu trùng khoản này, chưa phải bút toán. Dư nợ thẻ của bạn chưa tăng; chỉ phần hạn mức còn được tiêu giảm đi.",
-     "Vài giây sau, một lời nhắn đi trên dây: máy của quán gửi tới ngân hàng của quán — [[Acquirer|acquirer]] —, qua mạng của [[tổ chức thẻ|scheme]], tới ngân hàng của bạn, rồi chữ “đồng ý” quay về máy của quán. Không có tiền đi theo lời nhắn ấy. Nó chỉ trả lời câu hỏi: thẻ này có thật, còn hạn mức, và ngân hàng phát hành có nhận trả khoản này không.",
-     "Cuối ngày, quán chốt ca. Ngân hàng của quán gom mọi giao dịch đã được đồng ý thành một danh sách, gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Đây là bước [[Clearing|clearing]] — đối chiếu xem ai nợ ai bao nhiêu. Danh sách ấy vẫn là lời nhắn, vẫn đi trên dây.",
+     "Vài giây sau, một bản tin cấp phép được gửi đi: máy của quán gửi tới ngân hàng của quán — [[Acquirer|acquirer]] —, qua mạng của [[tổ chức thẻ|scheme]], tới ngân hàng của bạn, rồi chữ “đồng ý” quay về máy của quán. Không có tiền đi theo lời nhắn ấy. Nó chỉ trả lời câu hỏi: thẻ này có thật, còn hạn mức, và ngân hàng phát hành có nhận trả khoản này không.",
+     "Cuối ngày, quán chốt ca. Ngân hàng của quán gom mọi giao dịch đã được đồng ý thành một danh sách, gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Đây là bước [[Clearing|clearing]] — đối chiếu xem ai nợ ai bao nhiêu. Danh sách ấy vẫn là dữ liệu đối chiếu, chưa phải lệnh chuyển tiền.",
      "Đêm đó, trong két không có 10 triệu của bạn, tài khoản của quán cũng chưa có. Kế toán của quán ghi một khoản phải thu — phải thu từ ngân hàng của quán, không phải từ bạn, vì bạn đã trả bằng thẻ và không còn nợ quán. Đêm nay, tiền của bạn ngủ trong một dòng sổ.",
-     "Hai ngày làm việc sau — [[T+2|t2]], một ví dụ, mỗi hợp đồng có thể khác — ống ngầm mới mở. Ngân hàng của bạn ứng tiền ra trước, chuyển cho ngân hàng của quán 9.850.000 đồng (ví dụ), tức 10 triệu đã trừ sẵn phần phí của mình. Ngân hàng của quán trả quán 9.780.000 đồng. Lúc này bạn vẫn chưa trả ai: người đã bỏ tiền thật ra là ngân hàng của bạn.",
+     "Hai ngày làm việc sau — [[T+2|t2]], một ví dụ, mỗi hợp đồng có thể khác — bước quyết toán tiền thật mới diễn ra. Ngân hàng của bạn ứng tiền ra trước, chuyển cho ngân hàng của quán 9.850.000 đồng (ví dụ), tức 10 triệu đã trừ sẵn phần phí của mình. Ngân hàng của quán trả quán 9.780.000 đồng. Lúc này bạn vẫn chưa trả ai: người đã bỏ tiền thật ra là ngân hàng của bạn.",
      "Cuối kỳ, sao kê về. Trước hạn thanh toán ghi trên sao kê, bạn chuyển 10 triệu cho ngân hàng của mình — đoạn ống cuối cùng. Từ cú chạm đến lúc đó có thể là vài tuần, tuỳ ngày bạn quẹt nằm ở đâu trong kỳ sao kê."
     ]
    },
@@ -1185,7 +1185,7 @@ const STORIES = {
     "channel": "wire",
     "fromTo": "Quán quen → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn → Quán quen",
     "amount": "lệnh cấp phép 10.000.000 đ",
-    "essence": "Câu hỏi “có đồng ý không” và câu trả lời “đồng ý” đi trên dây; không đồng nào đi theo."
+    "essence": "Câu hỏi “có đồng ý không” và câu trả lời “đồng ý” chỉ là bản tin xác nhận; không đồng nào đi theo."
    },
    {
     "step": "Mốc 3 · Sổ của quán (đêm đó)",
@@ -1443,7 +1443,7 @@ const STORIES = {
     "beat": null,
     "chapter": "Câu hỏi",
     "visual": "Toàn cảnh mặt cắt Diorama v3.0 lúc đêm, năm nhà khép cửa cuốn (wShutter hạ); máy quay lia chậm dọc con phố từ Ngân hàng của bạn về nhà Bạn. Dây trên cao và ống ngầm đều tối.",
-    "vo": "Mười giờ bốn mươi bảy phút tối. Cả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng. Bạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu. Mọi người đứng dậy ra về. Nhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả. Không phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán. Vậy đêm nay, mười triệu ấy đang ngủ ở đâu? Để trả lời, mình sẽ đi dọc một con phố có năm ngôi nhà, và nhìn ba loại đường nối chúng: dây điện trên cao, ống ngầm dưới đất, và cuốn sổ trong mỗi nhà.",
+    "vo": "Mười giờ bốn mươi bảy phút tối. Cả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng. Bạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu. Mọi người đứng dậy ra về. Nhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả. Không phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán. Vậy đêm nay, mười triệu ấy đang ngủ ở đâu? Để trả lời, mình sẽ đi dọc một con phố có năm ngôi nhà, và nhìn ba tầng vận hành nối chúng: luồng thông tin cấp phép, luồng quyết toán tiền thật, và cuốn sổ kế toán trong mỗi nhà.",
     "onScreen": "22:47 · 10.000.000đ · “Đêm nay, 10 triệu đang ngủ ở đâu?” — SFX: tiếng tít máy cà thẻ (SFX chung; cần nêu giấy phép trước khi dùng)"
    },
    {
@@ -1459,7 +1459,7 @@ const STORIES = {
     "beat": 1,
     "chapter": "Lời nhắn đi một vòng",
     "visual": "Cửa cuốn Quán quen, Ngân hàng của quán, Tổ chức thẻ, Ngân hàng của bạn kéo lên (lit 1–4). Đạo cụ máy POS sáng ở quán, bảng điều phối sáng ở nhà tổ chức thẻ. Dây trên cao sáng lần lượt: Quán → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn, rồi dây trả lời từ Ngân hàng của bạn về Quán. Ống ngầm vẫn tối.",
-    "vo": "Trong vài giây sau cú chạm, một lời nhắn đi một vòng quanh con phố, trên dây điện. Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer. Lời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer. Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không. Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép. Để ý điều này: tổ chức thẻ không cho bạn vay đồng nào. Họ giữ đường dây và luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng. Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.",
+    "vo": "Trong vài giây sau cú chạm, một bản tin xét duyệt chạy một vòng qua hệ thống thanh toán. Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer. Lời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer. Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không. Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép. Để ý điều này: tổ chức thẻ không cho bạn vay đồng nào. Họ giữ đường dây và luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng. Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.",
     "onScreen": "Tổ chức thẻ: “chuyển lời nhắn” · Ngân hàng của bạn: “đồng ý” · nhãn dây: “lời nhắn — không phải tiền” — SFX: tiếng tách điện nhẹ chạy dọc dây (SFX chung)"
    },
    {
@@ -1475,15 +1475,15 @@ const STORIES = {
     "beat": null,
     "chapter": "Danh sách cuối ngày",
     "visual": "Vẫn đêm đó. Quán quen sáng mờ; một tờ danh sách dài trượt từ quán sang Ngân hàng của quán, rồi đi trên dây tới Tổ chức thẻ và Ngân hàng của bạn (minh hoạ Clearing, ngoài dữ liệu đoạn 3 — đánh dấu là cảnh giải thích). Ống ngầm tối.",
-    "vo": "Nhưng trước khi đi ngủ, quán còn một việc: chốt ca. Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Bước này gọi là clearing, tức là đối chiếu. Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch. Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu. Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn. Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này. Danh sách ấy vẫn là thông tin, vẫn đi trên dây. Ống ngầm dưới đất vẫn chưa có giọt nào.",
+    "vo": "Nhưng trước khi đi ngủ, quán còn một việc: chốt ca. Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Bước này gọi là clearing, tức là đối chiếu. Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch. Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu. Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn. Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này. Danh sách ấy vẫn chỉ là dữ liệu đối chiếu giữa các bên. Luồng quyết toán tiền thật vẫn chưa chuyển một đồng nào.",
     "onScreen": "“Clearing = đối chiếu, chưa chuyển tiền” · danh sách: mã cấp phép · số tiền · ngày — SFX: tiếng máy in hoá đơn kéo dài (SFX chung)"
    },
    {
     "time": "3:36 – 4:19",
     "beat": 3,
-    "chapter": "Ống ngầm mở",
+    "chapter": "Quyết toán tiền thật",
     "visual": "Cửa cuốn lit 1–4 kéo lên. Dây trên cao tối; ống ngầm sáng: Ngân hàng của bạn → Ngân hàng của quán, rồi Ngân hàng của quán → Quán quen và Ngân hàng của quán → Tổ chức thẻ. Đạo cụ tiền về sáng ở quán, đạo cụ chia phí sáng ở Ngân hàng của quán, sổ Interchange sáng ở Ngân hàng của bạn.",
-    "vo": "Hai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — ống ngầm dưới đất mới mở. Tiền thật bắt đầu chạy, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn. Ngân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ. Ngân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn. Trên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn. Lời hứa đêm qua đã thành tiền... thiếu đúng phần phí.",
+    "vo": "Hai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — phiên quyết toán liên ngân hàng mới thực sự chạy. Tiền thật bắt đầu chuyển đi, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn. Ngân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ. Ngân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn. Trên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn. Lời hứa đêm qua đã thành tiền... thiếu đúng phần phí.",
     "onScreen": "T+2 (ví dụ) · Quán quen: “+ 9.780.000 vào tài khoản” · Ngân hàng của bạn: “Interchange ≈ 150.000 · ví dụ” · nhãn ống: “tiền thật” — SFX: tiếng nước chảy trong ống (SFX chung)"
    },
    {
@@ -1499,7 +1499,7 @@ const STORIES = {
     "beat": null,
     "chapter": "Một con số ròng",
     "visual": "Cảnh giải thích, không theo đoạn nào: toàn cảnh con phố nhìn từ dưới lòng đất; nhiều ống mảnh từ hai chiều nhập lại; mỗi ngân hàng chỉ còn một ống ròng nối vào tài khoản quyết toán dưới nhà Tổ chức thẻ, không ống nào nối thẳng hai ngân hàng. Nhãn ống: “ròng · qua tài khoản quyết toán”.",
-    "vo": "Có một chi tiết làm con số thật khó nhìn thấy. Ngân hàng không chuyển tiền cho từng hoá đơn. Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ. Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn. Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn. Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày. Nên không ai lần được mười triệu của bạn trong ống. Nó tan vào một dòng chảy chung. Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình.",
+    "vo": "Có một chi tiết làm con số thật khó nhìn thấy. Ngân hàng không chuyển tiền cho từng hoá đơn. Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ. Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn. Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn. Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày. Nên không ai tách riêng từng tờ mười triệu của bạn trên luồng chuyển tiền. Nó tan vào một dòng chảy chung. Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình.",
     "onScreen": "9.850.000 − 2.955.000 = 6.895.000 (ví dụ) · “mỗi ngân hàng một con số ròng” — SFX: tiếng van ống đóng lại (SFX chung)"
    },
    {
@@ -1515,7 +1515,7 @@ const STORIES = {
     "beat": null,
     "chapter": "Khi có chuyện",
     "visual": "Cảnh giải thích: ba lần chiếu lại nhanh trên cùng con phố. Một: lời nhắn huỷ chạy trên dây, ống tối. Hai: một dòng tiền nhỏ chạy ngược trong ống từ Ngân hàng của quán về Ngân hàng của bạn. Ba: từ Ngân hàng của bạn một lời nhắn khiếu nại đi trên dây sang Ngân hàng của quán, rồi tiền chạy ngược trong ống.",
-    "vo": "Còn khi có chuyện thì sao? Có ba con đường, và chúng khác nhau ở chỗ ai khởi xướng. Nếu nhân viên bấm nhầm số tiền rồi huỷ ngay trong ca, đó là reversal: giao dịch chưa vào danh sách cuối ngày, ngân hàng của bạn nhả lệnh giữ chỗ, không có đồng nào chạy. Nếu hôm sau quán đồng ý giảm giá cho một món ra sai và hoàn qua thẻ, đó là refund, do quán khởi xướng: một giao dịch mới chạy ngược trong ống. Còn nếu bạn bị trừ hai lần mà quán không hoàn, bạn khiếu nại với ngân hàng của mình, đó là chargeback. Ngân hàng của quán trừ lại tiền của quán trong lúc hai bên đưa bằng chứng. Tiền đã về tài khoản rồi vẫn có thể bị lấy lại. Quán có được trả lại phần phí nhận thẻ hay không, thì tuỳ hợp đồng với ngân hàng của quán.",
+    "vo": "Còn khi có chuyện thì sao? Có ba con đường, và chúng khác nhau ở chỗ ai khởi xướng. Nếu nhân viên bấm nhầm số tiền rồi huỷ ngay trong ca, đó là reversal: giao dịch chưa vào danh sách cuối ngày, ngân hàng của bạn nhả lệnh giữ chỗ, không có đồng nào chạy. Nếu hôm sau quán đồng ý giảm giá cho một món ra sai và hoàn qua thẻ, đó là refund, do quán khởi xướng: một lệnh hoàn tiền thật sẽ chạy ngược lại qua ngân hàng. Còn nếu bạn bị trừ hai lần mà quán không hoàn, bạn khiếu nại với ngân hàng của mình, đó là chargeback. Ngân hàng của quán trừ lại tiền của quán trong lúc hai bên đưa bằng chứng. Tiền đã về tài khoản rồi vẫn có thể bị lấy lại. Quán có được trả lại phần phí nhận thẻ hay không, thì tuỳ hợp đồng với ngân hàng của quán.",
     "onScreen": "Reversal: không tiền chạy · Refund: quán khởi xướng · Chargeback: chủ thẻ khởi xướng — SFX: tiếng tua ngược băng (SFX chung)"
    },
    {
@@ -1553,7 +1553,7 @@ const STORIES = {
     "time": "0:18 – 0:29",
     "beat": 3,
     "visual": "Cận ống ngầm dưới Ngân hàng của quán: đồng xu 220.000 tách ba mảnh; mảnh lớn chạy về Ngân hàng của bạn.",
-    "vo": "Trong ví dụ này, phải hai ngày làm việc sau ống ngầm mới mở để tiền thật chảy về quán. Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn... vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.",
+    "vo": "Trong ví dụ này, phải hai ngày làm việc sau ngân hàng mới quyết toán để tiền thật chảy về quán. Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn... vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.",
     "onScreen": "Quán nhận 9.780.000 · phí 220.000 (ví dụ) — SFX: xu tách (SFX chung)"
    },
    {
@@ -1738,7 +1738,7 @@ const STORIES = {
     "channel": "book",
     "fromTo": "Ngân hàng trả lương → sổ của Ngân hàng",
     "amount": "15.000.000 đ",
-    "essence": "On-Us: ngân hàng bớt khoản nợ công ty, thêm khoản nợ bạn; ống ngầm không sáng vì không có quyết toán liên ngân hàng."
+    "essence": "On-Us: ngân hàng bớt khoản nợ công ty, thêm khoản nợ bạn; không phát sinh quyết toán liên ngân hàng."
    },
    {
     "step": "Mốc 5 · Ngày lương",
@@ -2058,8 +2058,8 @@ const STORIES = {
     "beat": 0,
     "chapter": "Tờ giấy ngày đầu",
     "visual": "Cửa cuốn của Công ty, Ngân hàng trả lương và Bạn kéo lên. Đạo cụ phòng nhân sự (hr) sáng trong nhà Công ty. Một lời nhắn chạy trên dây điện từ Công ty sang Ngân hàng trả lương; nhãn “+ một tài khoản mới” bật lên trên mái ngân hàng. Ống ngầm vẫn tối: chưa có tiền.",
-    "vo": "Ngày đầu đi làm, phòng nhân sự đưa bạn một tờ giấy: mở tài khoản ở đúng ngân hàng này để nhận lương. Chuyển khoản khác ngân hàng không khó. Một file chi lương vẫn trả được cho nhiều ngân hàng. Nhưng khi cả công ty dùng chung một ngân hàng, công ty có thể tốn ít phí hơn, tiền về sớm hơn, ít lệnh bị trả lại hơn, và việc đối soát, tức so sổ của mình với sao kê ngân hàng, gọn hơn. Tờ giấy ấy là lời nhắn đầu tiên đi trên dây: công ty báo có thêm một người, ngân hàng mở thêm một tài khoản. Chưa đồng nào di chuyển. Nhưng từ hôm nay, tháng nào cũng có tiền chảy vào tài khoản đó.",
-    "onScreen": "Nhãn trên Ngân hàng trả lương: “+ một tài khoản mới” · Chữ: “dây điện = lời nhắn · ống ngầm = tiền thật” · SFX gợi ý: tiếng tem đóng dấu (cần giấy phép trước khi dùng)"
+    "vo": "Ngày đầu đi làm, phòng nhân sự đưa bạn một tờ giấy: mở tài khoản ở đúng ngân hàng này để nhận lương. Chuyển khoản khác ngân hàng không khó. Một file chi lương vẫn trả được cho nhiều ngân hàng. Nhưng khi cả công ty dùng chung một ngân hàng, công ty có thể tốn ít phí hơn, tiền về sớm hơn, ít lệnh bị trả lại hơn, và việc đối soát, tức so sổ của mình với sao kê ngân hàng, gọn hơn. Tờ giấy ấy là thông tin đăng ký đầu tiên gửi sang ngân hàng: công ty báo có thêm một nhân sự, ngân hàng mở thêm một tài khoản. Chưa đồng nào di chuyển. Nhưng từ hôm nay, tháng nào cũng có tiền chảy vào tài khoản đó.",
+    "onScreen": "Nhãn trên Ngân hàng trả lương: “+ một tài khoản mới” · Chữ: “luồng thông tin = lời nhắn · luồng quyết toán = tiền thật” · SFX gợi ý: tiếng tem đóng dấu (cần giấy phép trước khi dùng)"
    },
    {
     "time": "1:15 – 1:56",
@@ -2154,7 +2154,7 @@ const STORIES = {
     "time": "0:00 – 0:04",
     "beat": 1,
     "visual": "9:16, cận điện thoại trong nhà Bạn rung, tin ghi có +15.000.000. Máy quay giật lên: dây điện sáng, ống ngầm bên dưới tối hẳn.",
-    "vo": "Điện thoại báo lương về mười lăm triệu... nhưng dưới ống ngầm, không một đồng tiền nào thực sự di chuyển.",
+    "vo": "Điện thoại báo lương về mười lăm triệu... nhưng giữa các ngân hàng, không một đồng tiền nào thực sự phải chuyển đi.",
     "onScreen": "Chữ lớn giữa màn hình: “+15.000.000 · 0 đồng di chuyển” · SFX gợi ý: tiếng rung điện thoại (cần giấy phép trước khi dùng)"
    },
    {
@@ -2288,11 +2288,11 @@ const STORIES = {
    {
     "h": "Lời nhắn, dòng sổ và tiền thật",
     "paras": [
-     "Bước một là hồ sơ của bạn. Nó đi từ cửa hàng tới một [[công ty tài chính|fincomp]], không phải tới ngân hàng của cửa hàng. Đó là một lời nhắn chở thông tin để thẩm định — họ tên, thu nhập, lịch sử vay — chứ chưa chở đồng nào. Trên mặt cắt Diorama, nó chạy trên dây điện trên cao.",
+     "Bước một là hồ sơ của bạn. Nó đi từ cửa hàng tới một [[công ty tài chính|fincomp]], không phải tới ngân hàng của cửa hàng. Đó là một lời nhắn chở thông tin để thẩm định — họ tên, thu nhập, lịch sử vay — chứ chưa chở đồng nào. Ở bước này, mới chỉ có luồng thông tin thẩm định chạy qua hệ thống.",
      "Bước hai cũng là lời nhắn. Công ty tài chính trả lời “duyệt”, và bạn ký hợp đồng vay với họ. Hợp đồng là một lời hứa: bạn sẽ trả 12 lần, mỗi lần 1 triệu. Từ giây này, người bạn nợ là công ty tài chính. Cửa hàng không cho bạn vay đồng nào.",
      "Bước ba xảy ra khi cửa hàng đóng sổ. Két không có 12 triệu, tài khoản cũng chưa. Kế toán ghi một khoản phải thu 12 triệu — phải thu từ công ty tài chính, không phải từ bạn. Không gì di chuyển; chỉ có một dòng sổ ghi lại lời hứa.",
-     "Bước bốn là lần đầu tiền thật chạy, trong ống ngầm dưới đất. Hôm sau — [[T+1|tplusone]] theo ví dụ — công ty tài chính chuyển 11.400.000 đồng qua ngân hàng của cửa hàng vào tài khoản cửa hàng. Thiếu 600.000.",
-     "Bước năm kéo dài 12 tháng và gồm hai luồng. Mỗi cuối tháng, một lệnh trích từ tài khoản của bạn đi tới ngân hàng của bạn — vẫn là lời nhắn. Rồi 1 triệu tiền thật chạy từ ngân hàng của bạn sang công ty tài chính trong ống ngầm. Mười hai lần như thế, đủ 12 triệu."
+     "Bước bốn là lần đầu tiền thật được chuyển khoản qua hệ thống ngân hàng. Hôm sau — [[T+1|tplusone]] theo ví dụ — công ty tài chính chuyển 11.400.000 đồng qua ngân hàng của cửa hàng vào tài khoản cửa hàng. Thiếu 600.000.",
+     "Bước năm kéo dài 12 tháng và gồm hai luồng. Mỗi cuối tháng, một lệnh trích từ tài khoản của bạn đi tới ngân hàng của bạn — vẫn là lời nhắn. Rồi 1 triệu tiền thật được chuyển khoản từ ngân hàng của bạn sang công ty tài chính. Mười hai lần như thế, đủ 12 triệu."
     ]
    },
    {
@@ -2318,7 +2318,7 @@ const STORIES = {
     "paras": [
      "Hai chuyện hay gặp cho thấy rõ hợp đồng nào điều khiển cái gì. Nếu bạn trả lại máy, cửa hàng nhận máy nhưng không tự xoá được khoản vay, vì hợp đồng vay là giữa bạn và công ty tài chính. Cửa hàng hoàn lại phần tiền đã nhận; khoản hỗ trợ 600.000 có được trả lại hay không là chuyện của hợp đồng giữa cửa hàng và công ty tài chính.",
      "Nếu bạn trễ một kỳ, người tính phạt và ghi nhận vào lịch sử tín dụng là công ty tài chính. Cửa hàng không bị ảnh hưởng — họ đã nhận tiền từ T+1. Một khoản phạt nhỏ đủ biến khoản “0%” thành khoản vay có giá lộ rõ, và vết trễ hạn có thể theo bạn tới lần xin vay sau.",
-     "Còn một chuyện xảy ra sớm hơn cả hai: hồ sơ bị từ chối. Lời nhắn quay về trên dây mang chữ “không duyệt”. Vì chưa có hợp đồng vay nào được ký, sổ cửa hàng không có dòng phải thu, cũng không có đồng hỗ trợ nào bị trừ. Muốn bán chiếc máy, cửa hàng phải quay về cách thu khác — tiền mặt, chuyển khoản hay quẹt thẻ — và khi đó chi phí của cửa hàng là phí của kênh ấy, không còn là 600.000."
+     "Còn một chuyện xảy ra sớm hơn cả hai: hồ sơ bị từ chối. Hệ thống gửi trả thông báo xác nhận “không duyệt”. Vì chưa có hợp đồng vay nào được ký, sổ cửa hàng không có dòng phải thu, cũng không có đồng hỗ trợ nào bị trừ. Muốn bán chiếc máy, cửa hàng phải quay về cách thu khác — tiền mặt, chuyển khoản hay quẹt thẻ — và khi đó chi phí của cửa hàng là phí của kênh ấy, không còn là 600.000."
     ]
    }
   ],
@@ -2328,7 +2328,7 @@ const STORIES = {
     "channel": "wire",
     "fromTo": "Cửa hàng → Công ty tài chính",
     "amount": "0 đ / hồ sơ thẩm định",
-    "essence": "Thông tin của bạn đi trên dây để công ty tài chính chấm điểm; chưa có đồng nào di chuyển."
+    "essence": "Thông tin hồ sơ được gửi đi để công ty tài chính chấm điểm tín dụng; chưa có đồng nào di chuyển."
    },
    {
     "step": "Mốc 2 · Duyệt và ký hợp đồng",
@@ -2605,15 +2605,15 @@ const STORIES = {
     "beat": 0,
     "chapter": "Tờ rơi 0%",
     "visual": "Cửa cuốn nhà Bạn và Cửa hàng kéo lên (lit 0,1). Đạo cụ điện thoại và máy tính bảng ở quầy sáng (fx phone, pos). Một lời nhắn chạy trên dây điện trên cao từ Cửa hàng sang Công ty tài chính (msgs 1→2); ống ngầm vẫn tắt. Thẻ trên Cửa hàng: “gửi hồ sơ trả góp”. Máy quay bám theo lời nhắn tới cuối phố.",
-    "vo": "Thứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại. Chiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu. Nhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi. Nhìn lên dây điện phía trên phố: thứ vừa chạy đi là một lời nhắn. Nó không chở đồng nào. Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một ngôi nhà khác ở cuối phố. Giữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?",
+    "vo": "Thứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại. Chiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu. Nhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi. Trên luồng thông tin xét duyệt: thứ vừa gửi đi chỉ là bộ hồ sơ điện tử. Nó chưa chở đồng tiền nào. Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một ngôi nhà khác ở cuối phố. Giữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?",
     "onScreen": "“0% · 12 kỳ × 1.000.000 (ví dụ)” · nhãn dây: “lời nhắn — không phải tiền” · SFX gợi ý: tiếng chạm màn hình (cần giấy phép trước khi dùng)"
    },
    {
     "time": "1:11 – 1:50",
     "beat": 1,
-    "chapter": "Hợp đồng đi trên dây",
+    "chapter": "Chuyển giao hợp đồng vay",
     "visual": "Cửa cuốn Công ty tài chính kéo lên (lit 0,1,2). Hai lời nhắn trên dây điện: “duyệt” từ Công ty tài chính về Cửa hàng (msgs 2→1), hợp đồng từ Bạn sang Công ty tài chính (msgs 0→2). Đạo cụ điện thoại nhà Bạn sáng (fx phone). Thẻ trên Công ty tài chính: “duyệt”; thẻ trên nhà Bạn: “nợ công ty tài chính 12.000.000”.",
-    "vo": "Ngôi nhà cuối phố là một công ty tài chính tiêu dùng. Họ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại một chữ trên dây: duyệt. Rồi một lời nhắn nữa chạy theo hướng khác, từ nhà bạn sang công ty tài chính: đó là hợp đồng vay bạn vừa ký. Hợp đồng là một lời hứa, nên nó cũng đi trên dây, không đi trong ống. Từ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng. Nếu bạn trả chậm một kỳ, người tính phạt là họ. Cửa hàng chỉ bán hàng. Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về ngôi nhà cuối phố.",
+    "vo": "Ngôi nhà cuối phố là một công ty tài chính tiêu dùng. Họ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại thông báo xác nhận: duyệt. Rồi một bản hợp đồng điện tử được xác lập thẳng giữa bạn và công ty tài chính: đó là cam kết nhận nợ bạn vừa ký. Hợp đồng là một lời hứa trả tiền, nên lúc này mới chỉ có thông tin được ghi nhận, chưa có tiền giải ngân. Từ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng. Nếu bạn trả chậm một kỳ, người tính phạt là họ. Cửa hàng chỉ bán hàng. Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về ngôi nhà cuối phố.",
     "onScreen": "Thẻ “duyệt” · mũi tên hợp đồng Bạn → Công ty tài chính · “Bạn nợ: Công ty tài chính, không phải cửa hàng” · SFX gợi ý: tiếng ký bút (cần giấy phép trước khi dùng)"
    },
    {
@@ -2621,7 +2621,7 @@ const STORIES = {
     "beat": 2,
     "chapter": "Một lời hứa trong sổ",
     "visual": "Chỉ Cửa hàng và Công ty tài chính sáng (lit 1,2); nhà Bạn tối dần. Không có lời nhắn hay dòng tiền nào chạy: dây im, ống tối. Cận cảnh cuốn sổ trong Cửa hàng (fx recv) hiện chữ “sổ: phải thu 12tr”; két tiền mở ra, trống. Thẻ trên Cửa hàng: “+ Phải thu 12.000.000”.",
-    "vo": "Bạn cầm máy về. Tối đó, cửa hàng đóng sổ. Nếu mở két, bạn sẽ không thấy mười hai triệu. Nếu mở tài khoản ngân hàng của cửa hàng, cũng chưa thấy. Dây điện im, ống ngầm tối. Không có gì di chuyển. Vậy đêm nay, tiền mua chiếc điện thoại ngủ ở đâu? Nó ngủ trong một dòng sổ. Kế toán của cửa hàng ghi một khoản phải thu mười hai triệu đồng, và ghi rõ: phải thu từ công ty tài chính, không phải từ bạn. Trong hệ thống tài khoản kế toán doanh nghiệp, dòng phải thu ấy nằm ở tài khoản phải thu khác, không nằm ở phải thu khách hàng. Còn bạn đã có điện thoại trong tay mà chưa trả đồng nào. Đó chính là khoản vay.",
+    "vo": "Bạn cầm máy về. Tối đó, cửa hàng đóng sổ. Nếu mở két, bạn sẽ không thấy mười hai triệu. Nếu mở tài khoản ngân hàng của cửa hàng, cũng chưa thấy. Chưa có lệnh chuyển khoản nào chạy, ngân hàng chưa giải ngân. Không có đồng tiền nào di chuyển. Vậy đêm nay, tiền mua chiếc điện thoại ngủ ở đâu? Nó ngủ trong một dòng sổ. Kế toán của cửa hàng ghi một khoản phải thu mười hai triệu đồng, và ghi rõ: phải thu từ công ty tài chính, không phải từ bạn. Trong hệ thống tài khoản kế toán doanh nghiệp, dòng phải thu ấy nằm ở tài khoản phải thu khác, không nằm ở phải thu khách hàng. Còn bạn đã có điện thoại trong tay mà chưa trả đồng nào. Đó chính là khoản vay.",
     "onScreen": "Bút toán: “Debit 1388 · Credit 511 — 12.000.000” · chú thích nhỏ “phải thu từ công ty tài chính, không phải 131” · SFX gợi ý: tiếng lật trang sổ (cần giấy phép trước khi dùng)"
    },
    {
@@ -2629,7 +2629,7 @@ const STORIES = {
     "beat": 3,
     "chapter": "Giải ngân hụt 600.000",
     "visual": "Cửa hàng, Công ty tài chính và Ngân hàng của cửa hàng sáng (lit 1,2,4); cửa cuốn Ngân hàng của cửa hàng kéo lên. Lần đầu ống quyết toán ngầm phát sáng: tiền thật chảy từ Công ty tài chính xuống Ngân hàng của cửa hàng (msgs 2→4 money) rồi vào Cửa hàng (msgs 4→1 money). Sổ Cửa hàng đổi thành “sổ: +11.400.000” (fx paid). Thẻ trên Cửa hàng: “+ 11.400.000 vào tài khoản”; thẻ trên Công ty tài chính: “giữ 600.000 làm lãi”.",
-    "vo": "Sáng hôm sau, ví dụ là một ngày làm việc, lần đầu tiên ống quyết toán dưới đất sáng lên. Tiền thật chảy từ công ty tài chính xuống ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng. Nhưng nhìn kỹ con số: mười một triệu bốn trăm nghìn đồng. Không phải mười hai triệu. Sáu trăm nghìn còn thiếu đi đâu? Đó là khoản hỗ trợ lãi suất, ví dụ năm phần trăm giá bán, mà cửa hàng trả cho công ty tài chính để hợp đồng của bạn được ghi không phần trăm. Họ cấn trừ thẳng lúc giải ngân, nên cửa hàng chỉ thấy tiền về thiếu. Trong sổ, khoản phải thu mười hai triệu tối qua được xoá: mười một triệu bốn là tiền đã về, sáu trăm nghìn là chi phí cửa hàng chịu. Vì sao cửa hàng chấp nhận? Vì tờ rơi không phần trăm kéo người mua tới quầy, và tiền về sau một ngày, không phải sau một năm. Vậy lãi vẫn có. Chỉ là người trả lãi đứng sau quầy.",
+    "vo": "Sáng hôm sau, ví dụ là một ngày làm việc, lệnh giải ngân liên ngân hàng mới thực sự chạy. Tiền thật chuyển từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng. Nhưng nhìn kỹ con số: mười một triệu bốn trăm nghìn đồng. Không phải mười hai triệu. Sáu trăm nghìn còn thiếu đi đâu? Đó là khoản hỗ trợ lãi suất, ví dụ năm phần trăm giá bán, mà cửa hàng trả cho công ty tài chính để hợp đồng của bạn được ghi không phần trăm. Họ cấn trừ thẳng lúc giải ngân, nên cửa hàng chỉ thấy tiền về thiếu. Trong sổ, khoản phải thu mười hai triệu tối qua được xoá: mười một triệu bốn là tiền đã về, sáu trăm nghìn là chi phí cửa hàng chịu. Vì sao cửa hàng chấp nhận? Vì tờ rơi không phần trăm kéo người mua tới quầy, và tiền về sau một ngày, không phải sau một năm. Vậy lãi vẫn có. Chỉ là người trả lãi đứng sau quầy.",
     "onScreen": "“12.000.000 − 600.000 = 11.400.000” · “hỗ trợ lãi suất 5% (ví dụ)” · nhãn ống: “tiền thật” · SFX gợi ý: tiếng nước chảy trong ống, nhỏ (cần giấy phép trước khi dùng)"
    },
    {
@@ -2637,7 +2637,7 @@ const STORIES = {
     "beat": 4,
     "chapter": "Mười hai kỳ trả",
     "visual": "Bạn, Công ty tài chính và Ngân hàng của bạn sáng (lit 0,2,3). Đạo cụ điện thoại nhà Bạn sáng mỗi tháng (fx phone). Mỗi tháng một lệnh trích đi trên dây từ Bạn sang Ngân hàng của bạn (msgs 0→3), rồi tiền thật chạy trong ống ngầm từ Ngân hàng của bạn sang Công ty tài chính (msgs 3→2 money). Bộ đếm tại Công ty tài chính: “thu 12 kỳ × 1.000.000” (fx loan); bảng sổ nhỏ hiện lên (fx iledger). Thẻ nhà Bạn: “−1.000.000 mỗi tháng”; thẻ Công ty tài chính: “dư nợ của bạn giảm dần”.",
-    "vo": "Mười hai tháng tiếp theo là phần việc của bạn. Mỗi cuối tháng, một lệnh trích chạy trên dây từ nhà bạn tới ngân hàng của bạn. Đó vẫn là lời nhắn. Ngay sau đó, một triệu đồng tiền thật rời ngân hàng của bạn, chạy trong ống ngầm sang công ty tài chính. Đủ mười hai lần là mười hai triệu đồng, đúng như tờ rơi hứa. Không một đồng lãi nào hiện trên sao kê. Nhưng giờ thử đặt hai con số cạnh nhau. Giả sử ai trả thẳng thì được giảm sáu trăm nghìn, tức món hàng hôm nay chỉ đáng mười một triệu bốn. Bạn thì trả dần mười hai triệu cho cùng món hàng ấy. Phần chênh không mang tên lãi, nhưng nó làm đúng việc của tiền lãi: trả cho việc bạn được dùng hàng trước, trả tiền sau. Câu hỏi còn lại là: lãi ấy đắt hay rẻ, nếu quy ra phần trăm?",
+    "vo": "Mười hai tháng tiếp theo là phần việc của bạn. Mỗi cuối tháng, bạn gửi một lệnh thanh toán tới ngân hàng của mình. Đó là lệnh uỷ quyền trích nợ. Ngay sau đó, một triệu đồng tiền thật rời ngân hàng của bạn, chuyển khoản sang công ty tài chính. Đủ mười hai lần là mười hai triệu đồng, đúng như tờ rơi hứa. Không một đồng lãi nào hiện trên sao kê. Nhưng giờ thử đặt hai con số cạnh nhau. Giả sử ai trả thẳng thì được giảm sáu trăm nghìn, tức món hàng hôm nay chỉ đáng mười một triệu bốn. Bạn thì trả dần mười hai triệu cho cùng món hàng ấy. Phần chênh không mang tên lãi, nhưng nó làm đúng việc của tiền lãi: trả cho việc bạn được dùng hàng trước, trả tiền sau. Câu hỏi còn lại là: lãi ấy đắt hay rẻ, nếu quy ra phần trăm?",
     "onScreen": "Trục thời gian 12 kỳ × 1.000.000 · “Giá trả thẳng: 11.400.000 (ví dụ)” · “Chênh lệch 600.000” · SFX gợi ý: tiếng tích tắc đồng hồ nhẹ (cần giấy phép trước khi dùng)"
    },
    {
@@ -2685,7 +2685,7 @@ const STORIES = {
  "short": {
   "title": "Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?",
   "angle": "Cửa hàng ghi bán 12 triệu trả góp lãi suất 0% nhưng chỉ thực nhận 11,4 triệu (ví dụ) — 600.000 hụt đó chính là tiền lãi của khoản “0%”.",
-  "youtubeId": "oCLOTPxWBlA",
+  "youtubeId": "x3BIOhyTahU",
   "embedStatus": "uploaded_unlisted",
   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
   "scenes": [
@@ -2700,14 +2700,14 @@ const STORIES = {
     "time": "0:08 – 0:20",
     "beat": 1,
     "visual": "9:16, cắt dọc nhà Bạn, Cửa hàng và Công ty tài chính (lit 0,1,2); hai lời nhắn chạy trên dây: “duyệt” (msgs 2→1) và hợp đồng (msgs 0→2). Ống ngầm tối.",
-    "vo": "Nhìn lên dây điện trên cao: hợp đồng bạn vừa ký không ở lại cửa hàng, mà chạy về một công ty tài chính. Từ giây đó, chủ nợ là họ... còn trên dây chỉ là lời nhắn, chưa có đồng tiền nào.",
+    "vo": "Ngay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng, mà chuyển thẳng về một công ty tài chính. Từ giây đó, chủ nợ của bạn là họ... còn lúc này mới chỉ có hồ sơ được duyệt, chưa có đồng tiền nào chuyển đi.",
     "onScreen": "“Bạn nợ: công ty tài chính” · SFX gợi ý: tiếng ký bút (cần giấy phép trước khi dùng)"
    },
    {
     "time": "0:20 – 0:34",
     "beat": 3,
     "visual": "9:16, cắt dọc ống ngầm (lit 1,2,4): tiền chảy từ Công ty tài chính qua Ngân hàng của cửa hàng vào Cửa hàng (msgs 2→4 money, 4→1 money); sổ Cửa hàng hiện “+11.400.000” (fx paid).",
-    "vo": "Hôm sau, ống ngầm mới sáng đèn. Tiền thật chảy về cửa hàng, nhưng nhìn kỹ mà xem: chỉ có mười một triệu bốn trăm nghìn. Sáu trăm nghìn bị giữ lại lúc giải ngân... chính là năm phần trăm hỗ trợ lãi suất cửa hàng trả thay bạn.",
+    "vo": "Qua hôm sau, công ty tài chính mới giải ngân về cửa hàng, nhưng nhìn kỹ mà xem: chỉ có mười một triệu bốn trăm nghìn. Sáu trăm nghìn bị giữ lại lúc giải ngân... chính là năm phần trăm hỗ trợ lãi suất cửa hàng trả thay bạn.",
     "onScreen": "Chữ to: “12.000.000 − 600.000 = 11.400.000” · “hỗ trợ lãi suất 5% (ví dụ)” · SFX gợi ý: tiếng nước chảy trong ống (cần giấy phép trước khi dùng)"
    },
    {
@@ -2748,13 +2748,13 @@ const STORIES = {
        lit:[0,1],tags:{1:["gửi hồ sơ trả góp","plain"]},msgs:[[1,2]],fx:["phone","pos"],
        life:"0% là lãi suất ghi trên hợp đồng của bạn, chưa phải giá thật của khoản vay. Giá thật tính từ tiền bạn nhận và tiền bạn trả.",
        sys:"Hồ sơ đi từ cửa hàng tới bên cho vay là thông tin để thẩm định, không phải tiền.",ledger:null},
-      {when:"15 phút",sub:"sau khi nộp hồ sơ",title:"Hợp đồng đi trên dây",
+      {when:"15 phút",sub:"sau khi nộp hồ sơ",title:"Chuyển giao hợp đồng vay",
        say:["Hồ sơ không về ngân hàng của cửa hàng, mà về một [[công ty tài chính|fincomp]]. Vài phút sau, họ trả lời: duyệt.",
             "Bạn ký hợp đồng vay với công ty tài chính. Từ giây này, người bạn nợ 12 triệu là họ — không phải cửa hàng.",
             "Cửa hàng chỉ bán hàng. Rủi ro bạn không trả nằm ở công ty tài chính."],
        lit:[0,1,2],tags:{2:["“duyệt”","plain"],0:["nợ công ty tài chính 12.000.000","minus"]},msgs:[[2,1],[0,2]],fx:["phone"],
        life:"Trả chậm một kỳ thì người tính phạt, và ghi vào lịch sử tín dụng của bạn, là công ty tài chính.",
-       sys:"Hợp đồng vay là lời hứa giữa bạn và công ty tài chính. Nó đi trên dây, cùng loại với lời nhắn cấp phép ở chuyện thẻ.",ledger:null},
+       sys:"Hợp đồng vay là cam kết nhận nợ giữa bạn và công ty tài chính. Nó thuộc luồng thông tin xác nhận, tương tự bước cấp phép ở giao dịch thẻ.",ledger:null},
       {when:"tối đó",sub:"cửa hàng đóng sổ",title:"Cửa hàng ghi một lời hứa",
        say:["Bạn cầm máy về. Két của cửa hàng không có 12 triệu, tài khoản của cửa hàng cũng chưa.",
             "Thứ cửa hàng đang giữ là một lời hứa: công ty tài chính sẽ giải ngân cho họ.",
@@ -2774,7 +2774,7 @@ const STORIES = {
        lit:[1,2,4],tags:{1:["+ 11.400.000 vào tài khoản","plus"],2:["giữ 600.000 làm lãi","plain"]},
        msgs:[[2,4,"money"],[4,1,"money"]],fx:["paid"],
        life:"Có cửa hàng giảm giá cho người trả thẳng mà không giảm cho người trả góp 0%. Khoản giảm bạn bỏ lỡ chính là tiền lãi.",
-       sys:"Tiền thật chỉ chạy ở bước giải ngân, trong ống dưới đất: từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng.",
+       sys:"Tiền thật chỉ chạy ở bước giải ngân qua ngân hàng: từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng.",
        ledger:{book:"Sổ của cửa hàng",assume:"Giả định công ty tài chính trừ phần hỗ trợ lãi suất ngay khi giải ngân; bỏ qua thuế GTGT.",
          rows:[["Nợ","112","Tiền gửi không kỳ hạn","","Tiền đã vào tài khoản",11400000],
                ["Nợ","641","Chi phí bán hàng","641 hay ghi giảm doanh thu — tuỳ bản chất hợp đồng hỗ trợ lãi suất, chưa chốt","Phần hỗ trợ lãi suất",600000],
@@ -2897,7 +2897,7 @@ const Scene = (() => {
     R(c, 30, PIPE - 13, W - 60, 26, "#1c1a26", {rx: 13, stroke: "#5d566b", "stroke-width": 3});
     R(c, 30, PIPE - 13, W - 60, 26, "#5fbf8a", {rx: 13, opacity: 0, class: "wFlow"});
     for (let x = 90; x < W - 60; x += 120) R(c, x, PIPE - 15, 6, 30, "#4a4456", {rx: 2});
-    T(c, 44, PIPE - 22, "ống quyết toán — tiền thật chỉ đi ở dưới này (Settlement)", "wPipeLbl");
+    T(c, 44, PIPE - 22, "luồng quyết toán — tiền thật chuyển qua ngân hàng (Settlement)", "wPipeLbl");
   }
 
   function lamp(g, x, dir) {
@@ -2929,7 +2929,7 @@ const Scene = (() => {
     });
     P(g, `M-10 ${POLE + 40}Q${A[0].x / 2} ${POLE + 80} ${A[0].x} ${A[0].y}`, "none", {stroke: "#0c0b13", "stroke-width": 1.3});
     P(g, `M${A[A.length - 1].x} ${A[A.length - 1].y}Q1150 ${POLE + 90} 1210 ${POLE + 50}`, "none", {stroke: "#0c0b13", "stroke-width": 1.3});
-    T(g, PX[0] + 12, POLE - 8, "dây lời nhắn — không có tiền chạy trên dây", "wWireLbl");
+    T(g, PX[0] + 12, POLE - 8, "luồng thông tin — chỉ gửi hồ sơ & xác nhận, 0 đồng di chuyển", "wWireLbl");
   }
   function wirePath(i, j) {
     const A = anchors(), idx = [];
@@ -3520,7 +3520,7 @@ const PK = {tab:"lay", fmt:"long"};
 const nw = (...t) => t.reduce((n, x) => n + (typeof x === "string" ? x.split(/\s+/).filter(Boolean).length : 0), 0);
 const WPM = 190;                                   // âm tiết lời bình / phút — cùng số với scripts/check-story.py
 const FMT = {long:{name:"Video Dài 16:9", band:"8–10 phút", file:"long"}, short:{name:"Video Dọc 9:16", band:"60–90 giây · khung dọc 9:16", file:"short"}};
-const CHAN = {wire:["ch-wire","Dây điện — Lời nhắn"], pipe:["ch-pipe","Ống ngầm — Tiền thật"], book:["ch-book","Sổ kế toán — Ghi nội bộ"]};
+const CHAN = {wire:["ch-wire","Luồng thông tin — 0 đồng"], pipe:["ch-pipe","Luồng tiền thật — Quyết toán"], book:["ch-book","Sổ kế toán — Ghi nội bộ"]};
 const badge = c => { const [k, t] = CHAN[c] || ["ch-book", c]; return `<span class="ch ${k}"><i aria-hidden="true"></i>${esc(t)}</span>`; };
 const clock = t => `${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}`;
 const tspan = t => { const m = /^\s*(\d+):(\d\d)\s*[–-]\s*(\d+):(\d\d)/.exec(t || "") || []; return [(+m[1])*60 + (+m[2]), (+m[3])*60 + (+m[4])]; };

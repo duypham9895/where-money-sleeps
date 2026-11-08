@@ -521,6 +521,10 @@ STACCATO_VIDU_RE = re.compile(
     r"(?:,\s*(?:vẫn\s+là\s+(?:số\s+)?|cũng\s+là\s+|chỉ\s+là\s+)?ví\s+dụ(?:\s+thôi)?\s*[.?!]"
     r"|(?:^|[.?!]\s+)(?:Vẫn|Tất\s+cả)\s+là\s+số\s+ví\s+dụ\s*[.?!])"
 )
+STAGE_PROP_METAPHOR_RE = re.compile(
+    r"(?:dây\s+điện|dây\s+tín\s+hiệu|trên\s+dây|ống\s+ngầm|ống\s+quyết\s+toán|trong\s+ống|ống\s+dưới\s+đất)",
+    flags=re.I,
+)
 BARE_PCT_START_RE = re.compile(r"^\s*\d+(?:[.,]\d+)?\s*%")
 RESIDUAL_CLAUSE_RE = re.compile(
     r"\b(?:nhưng|vì sao|mà)\b.*?\b(?:chỉ\s+(?:thực\s+)?nhận|nhận\s+về|còn\s+lại)\b",
@@ -594,6 +598,9 @@ def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, in
             rep.add("FAIL", "C9", w, f"{tag}.scenes[{i}].vo còn markup [[…]] hoặc thẻ HTML — ElevenLabs sẽ đọc to")
         if STACCATO_VIDU_RE.search(str(x.get("vo", ""))):
             rep.add("FAIL", "C9", w, f"{tag}.scenes[{i}].vo đặt đuôi ', ví dụ.' cụt hứng ở cuối câu (End-Focus Sabotage) — phải đưa 'Trong ví dụ này,...' / 'Giả sử...' lên đầu mệnh đề (VOICE-AND-PROSODY-SPEC.md)")
+        m_prop = STAGE_PROP_METAPHOR_RE.search(str(x.get("vo", "")))
+        if m_prop:
+            rep.add("FAIL", "C9", w, f"{tag}.scenes[{i}].vo chứa từ lóng đạo cụ sân khấu chưa giải thích ({m_prop.group(0)!r}) — phải dùng ngôn ngữ tài chính đời thường (LUẬT 7)")
         vo += nwords(x.get("vo"))
     if cfg["cover"]:
         first = sc[0] if sc and isinstance(sc[0], dict) else {}

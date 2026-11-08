@@ -181,6 +181,10 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
    - **Quy tắc Hình học Bắt buộc (`assert_parent_child_containment`):** Trong mọi trình dựng đồ hoạ/video bằng code (`PIL.ImageDraw`, `Canvas`, `SVG`), mọi phần tử con (`child`) nằm trong một khung chứa (`parent`) phải thoả mãn bất đẳng thức bao hàm có lề trong tối thiểu (`min_h_pad >= 20px`, `min_v_pad >= 12px`):
      $$\text{child.x0} \ge \text{parent.x0} + 20, \quad \text{child.x1} \le \text{parent.x1} - 20, \quad \text{child.y0} \ge \text{parent.y0} + 12, \quad \text{child.y1} \le \text{parent.y1} - 12$$
    - Với thanh 5 ngôi nhà trong khung cha `x = 48..1032` (`984px`): dùng `HOUSE_BW = 172px`, `HOUSE_GAP = 20px` $\implies 5 \times 172 + 4 \times 20 = 940\text{px}$, đặt từ `x = 70` đến `x = 1010` (`HOUSE_XS = [156, 348, 540, 732, 924]`), tạo lề trong đối xứng hoàn hảo **`22px`** ở cả hai bên trái/phải.
+7. **Cấm Rò rỉ Từ Lóng Đạo Cụ Sân Khấu Chưa Giải Thích Vào Lời Bình & Nhãn Hiển Thị (`Zero Unexplained Stage-Prop Metaphor Leak` — `LUẬT 7`):**
+   - **Bài học trả giá (Duy, 2026-11-08, kèm ảnh chụp màn hình Cảnh 2):** *"tại sao là 'Nhìn lên dây điện trên cao'? kh có nghĩa gì cả? rất khó hiểu"*.
+   - **Quy tắc bắt buộc (`STAGE_PROP_METAPHOR_RE` trong `scripts/check-story.py`):** Cấm tuyệt đối dùng các cụm từ đạo cụ nghĩa đen (`dây điện`, `dây tín hiệu`, `trên dây`, `ống ngầm`, `ống quyết toán`, `trong ống`, `ống dưới đất`) trong bất kỳ lời bình (`vo`), nhãn hiển thị (`onScreen`, `kicker`, `CONDUIT_PARENT_BOX`, `CHAN`) hay bài đọc nào. Bắt buộc dùng ngôn ngữ tài chính đời thường tự giải thích (`luồng hồ sơ & hợp đồng`, `luồng thông tin xét duyệt`, `giải ngân qua ngân hàng`, `luồng quyết toán liên ngân hàng`).
+
 
 
 
