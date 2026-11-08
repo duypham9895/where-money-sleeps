@@ -83,3 +83,41 @@ ElevenLabs Engine & Voice Configuration (Bắt buộc từ 2026-11-08)
    - Xen kẽ giữa câu dẫn có độ trôi (16–22 âm tiết, có nhịp nghỉ `,` hoặc `...` ở giữa) với câu chốt ngắn, sắc gọn (6–9 âm tiết: *"Từ giây đó, chủ nợ là họ."* / *"Khoảng chênh lộ ra... chính là tiền lãi."*).
 5. **Mọi con số trong `vo` viết bằng chữ tiếng Việt kèm từ đệm dẫn nhịp:**
    - Không xả 5–6 con số liên tiếp không có từ chuyển ý. Luôn dùng từ đệm tạo nhịp tư duy (*"Đổi lại,"*, *"Tức là"*, *"Đặt hai con số cạnh nhau:"*).
+
+---
+
+## 4. Chuẩn Chuyển Tiếp Mượt Mà — Audio & Visual Continuity Standard (Cập nhật 2026-11-08)
+
+### 4.1. Căn bệnh "Đứt gãy Chuyển cảnh" (Abrupt Scene Cuts) cần triệt tiêu
+Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
+1. **Lỗi Audio:** Gọi TTS rời rạc từng cảnh rồi ghép bằng `ffmpeg -f concat` khiến mô hình thần kinh reset lại cao độ/âm sắc ở đầu mỗi cảnh, đồng thời khoảng nghỉ giữa hai cảnh rơi thẳng về mức "im lặng chết" (`-inf dB`).
+2. **Lỗi Hình ảnh:** Cắt cứng (`0-frame hard cut`) giữa các tấm nền tĩnh, đập toàn bộ khối chữ 6–7 dòng lên màn hình cùng lúc, và nhảy cóc trạng thái 5 ngôi nhà trong `0.00s`.
+
+### 4.2. Kiến trúc Chuyển Tiếp Âm Thanh Liền Mạch (`Continuous Audio Master`)
+1. **Thu liền mạch 1 lần đọc (`Single-Take Continuous eleven_v3`):**
+   - Nối toàn bộ lời bình các cảnh bằng `\n\n` (`"\n\n".join(scene_texts)`) và gửi trong **một request duy nhất** tới `/v1/text-to-speech/{voice_id}/with-timestamps` với `model_id: "eleven_v3"`.
+   - Nhờ đọc liền mạch, giọng đọc giữ nguyên một hơi thở, một đường cong cảm xúc xuyên suốt từ giây đầu tới giây cuối, kèm khoảng lấy hơi tự nhiên `0.48s–0.66s` giữa các cảnh.
+2. **Cầu nối Hơi thở Mềm (`0.36s Cosine-Crossfaded Breath Bridge`):**
+   - Tại điểm giữa của khoảng lấy hơi tự nhiên giữa hai cảnh, mở rộng thêm `0.36s` với đường fade cosine `25ms` để tổng thời gian chuyển giao đạt `~0.85s–0.95s` — khớp hoàn hảo với thời gian chuyển cảnh thị giác.
+3. **Lớp nền Không gian Đêm & Hiệu ứng Chuyển cảnh (`Warm Night-Watch Bed + ElevenLabs SFX`):**
+   - Phủ xuyên suốt một lớp nền **Analog Night-Watch Room Tone** ấm áp ở mức `-33 dBFS` (tuyệt đối không có khoảng trống `-inf dB`).
+   - Điểm xuyết **6 hiệu ứng âm thanh chuyển cảnh tinh tế** sinh từ ElevenLabs `/v1/sound-generation` ở mức `-22 dBFS` ngay tại ranh giới chuyển cảnh:
+     + Mở bài: `sfx_lamp_switch` (tiếng bật đèn bàn dây tóc ấm)
+     + Sang Cảnh 2 (Dây điện trên cao): `sfx_wire_pulse` (xung tín hiệu analog lướt qua dây)
+     + Sang Cảnh 3 (Ống ngầm quyết toán): `sfx_pipe_flow` (dòng chảy trầm ấm trong đường ống ngầm)
+     + Sang Cảnh 4 (12 kỳ trả góp): `sfx_clock_tick` (nhịp đồng hồ cơ đều đặn)
+     + Sang Cảnh 5 (So sánh giá mặt): `sfx_scale_chime` (tiếng ngân nhẹ của chiếc cân đồng)
+     + Sang Cảnh 6 (Kết bài): `sfx_shutter_close` (tiếng cửa cuốn phố đêm khép nhẹ)
+   - Chuẩn hoá tổng thể về **`-14 LUFS`** (`TP <= -1.5 dBTP, LRA = 11`).
+
+### 4.3. Kiến trúc Chuyển Tiếp Hình Ảnh 30fps (`Continuous 30fps Visual Compositor`)
+1. **Chuyển cảnh `0.95s Smoothstep Cross-Dissolve` + `Camera Glide`:**
+   - Sử dụng bộ **4 tấm tranh Mặt cắt Kiến trúc Đêm 9:16** (`install-short-plate-1..4.jpg`: Quầy cửa hàng · Ống ngầm quyết toán · Dây điện & Tháp tài chính · Toàn cảnh 5 ngôi nhà & Chiếc cân đồng).
+   - Máy quay lướt liên tục (`pan + zoom` nội suy mượt bằng `smoothstep`) và hoà tan (`cross-dissolve 0.96s`) giữa hai cảnh, tuyệt đối không dùng `hard cut`.
+2. **Thanh Đường Ống 5 Ngôi Nhà Chuyển Động Trực Tiếp (`30fps Live Animated Conduit Bar`):**
+   - Độ sáng của 5 ngôi nhà (`1. Bạn · 2. Cửa hàng · 3. C.ty TC · 4. NH Bạn · 5. NH CH`) nội suy mượt (`lerp`) khi chuyển cảnh.
+   - Hạt tín hiệu vàng chạy dọc dây điện trên cao ở Cảnh 2; giọt tiền thật xanh ngọc chảy dọc ống ngầm ở Cảnh 3 & Cảnh 4 (kèm bộ đếm trực tiếp `KỲ 1/12 .. KỲ 12/12`).
+3. **Phụ đề Cuốn Chiếu Từng Cụm & Tô Sáng Từng Từ (`Phrase-by-Phrase Progressive Captions`):**
+   - Mỗi cảnh được chia thành **3–5 cụm câu ngắn** (`12–20 chữ`, tối đa 2–3 dòng mỗi lần hiển thị), trượt nhẹ từ dưới lên (`ease-out 0.28s`) khi sang cụm câu mới.
+   - Từng từ được đồng bộ tới `0.01s` theo `alignment.character_start_times_seconds` của ElevenLabs: từ đang đọc được bọc viên thuốc phát sáng vàng ấm (`#FFD166`), các con số neo tài chính giữ màu vàng kim sau khi đọc xong, giúp mắt người xem lướt theo giọng kể một cách tự nhiên.
+
