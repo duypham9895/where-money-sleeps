@@ -139,6 +139,22 @@
       "source_url": "https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps",
       "retrieved": "2026-11-08",
       "planned_file": "public/media/{story}/beats.mp3"
+    },
+    {
+      "id": "youtube-channel-brand-art-gemini",
+      "title": "Where Money Sleeps — YouTube Channel Avatar (1024x1024) & Banner (2560x1440 Safe-Zone) (Night-Cutaway Risograph Diorama)",
+      "authors": [
+        "Duy Pham (generated via Google Gemini image-generator)"
+      ],
+      "licence": "First-party original AI-assisted illustration (Google Gemini Terms of Service — full commercial & platform usage rights)",
+      "licence_url": "https://policies.google.com/terms/generative-ai",
+      "retrieved": "2026-11-08",
+      "brand_files": [
+        "public/brand/youtube-avatar-1024x1024.png",
+        "public/brand/youtube-avatar-framed-1024x1024.jpg",
+        "public/brand/youtube-banner-2560x1440-safezone.jpg",
+        "public/brand/youtube-banner-2560x1440-full.jpg"
+      ]
     }
   ]
 }
