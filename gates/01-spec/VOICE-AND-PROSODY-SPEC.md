@@ -176,6 +176,11 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
    - Mọi từ trên phụ đề phải được đo bề rộng (`textlength`) bằng **chính xác font sẽ dùng để vẽ từ đó** (`f_vo_bold` cho số, `f_vo` cho chữ thường) cộng thêm khoảng cách từ an toàn `space_w >= 12.5px`. Tuyệt đối không để xảy ra hiện tượng chữ đậm lấn vào chữ thường (`"mườihai"`, `"sáutrămnghìn"`).
 5. **Tôn trọng Vùng An Toàn Giao Diện YouTube Shorts (`YouTube Shorts Bottom Safe-Zone`, `y <= 1700`):**
    - Khung Card nội dung và phụ đề phải kết thúc ở `y <= 1700` (dành trọn `220px` đáy màn hình cho thanh tiêu đề `#Shorts`, tên kênh và lớp phụ đề tự động của YouTube Player không đè lên chữ trong video).
+6. **Bất Biến Bao Hàm Hình Học Khung Cha – Con (`Parent–Child Bounding-Box Containment Invariant` — `LUẬT 6b`):**
+   - **Bài học trả giá (Duy, 2026-11-08, kèm ảnh chụp màn hình):** *"5 child boxes đang vượt ra ngoài parent box, fix it and take it as lesson"*. Khi tăng bề rộng 5 hộp con (`HOUSE_NODES`) từ `168px` lên `182px` mà giữ nguyên khoảng cách tâm `204px`, tổng bề ngang 5 hộp con (`4 × 204 + 182 = 998px`, `x = 41..1039`) đã vượt ra ngoài khung cha (`x = 48..1032`, rộng `984px`) mất `7px` ở cả hai đầu trái và phải.
+   - **Quy tắc Hình học Bắt buộc (`assert_parent_child_containment`):** Trong mọi trình dựng đồ hoạ/video bằng code (`PIL.ImageDraw`, `Canvas`, `SVG`), mọi phần tử con (`child`) nằm trong một khung chứa (`parent`) phải thoả mãn bất đẳng thức bao hàm có lề trong tối thiểu (`min_h_pad >= 20px`, `min_v_pad >= 12px`):
+     $$\text{child.x0} \ge \text{parent.x0} + 20, \quad \text{child.x1} \le \text{parent.x1} - 20, \quad \text{child.y0} \ge \text{parent.y0} + 12, \quad \text{child.y1} \le \text{parent.y1} - 12$$
+   - Với thanh 5 ngôi nhà trong khung cha `x = 48..1032` (`984px`): dùng `HOUSE_BW = 172px`, `HOUSE_GAP = 20px` $\implies 5 \times 172 + 4 \times 20 = 940\text{px}$, đặt từ `x = 70` đến `x = 1010` (`HOUSE_XS = [156, 348, 540, 732, 924]`), tạo lề trong đối xứng hoàn hảo **`22px`** ở cả hai bên trái/phải.
 
 
 
