@@ -2,8 +2,8 @@
 <html lang="vi" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Where Money Sleeps — S1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Money Sleeps — S1 Spec (QĐ 1–58)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
@@ -24,82 +24,50 @@
 
 <main>
 <section>
-  <div class="meta r"><span class="words">—</span><span>S1 · 2026-10-25 · 51 QĐ · chưa duyệt</span></div>
-  <h1 class="r">Spec viết xong bản nháp.<br>Chưa duyệt được: còn 3 việc của anh.</h1>
-  <div class="tldr r"><p><strong>5 file hợp đồng, 86 tiêu chí PASS/FAIL, 37 ràng buộc Legal, 5 event.</strong> QĐ 38–51 đã áp. Hàng đợi còn 0 câu nhóm A. Chặn duyệt: <strong>3 việc chỉ anh làm được</strong>.</p></div>
+  <div class="meta r"><span class="words">—</span><span>S1 · 2026-11-08 · 58 QĐ · sẵn sàng duyệt</span></div>
+  <h1 class="r">Gói S1 hoàn chỉnh tới QĐ 58.<br>4 cổng máy sạch — chờ anh duyệt sang S2/S3.</h1>
+  <div class="tldr r"><p><strong>7 danh mục · Mặt cắt Diorama 5 nhà · Khảo cứu 2 tầng (<code>C9 v2</code> + 4 hình <code>16:9</code> <code>LUẬT 9</code>) · Studio Video YouTube (<code>16:9</code> + <code>9:16</code>) · 4 Chuyên gia (<code>K/F/B/M</code>).</strong> Đã bỏ PDF <em>Hermanson</em> (QĐ 52) và chữ <em>"sổ cái"</em> (QĐ 55). Cả 4 cổng <code>wms-check.sh</code> đều <strong>PASS (0 lỗi chặn)</strong>.</p></div>
 </section>
 
 <section>
-  <h2 class="r">S1 giao gì</h2>
+  <h2 class="r">Hợp đồng S1 &amp; 4 cổng kiểm tất định</h2>
   <div class="g three r">
-    <div class="k"><div class="n" data-to="86">86</div><div class="cap">AC cho S4</div></div>
-    <div class="k"><div class="n" data-to="37">37</div><div class="cap">ràng buộc Legal</div></div>
-    <div class="k"><div class="n" data-to="5">5</div><div class="cap">event</div></div>
+    <div class="k"><div class="n" data-to="58">58</div><div class="cap">Quyết định đã áp</div></div>
+    <div class="k"><div class="n" data-to="26">26</div><div class="cap">File luật &amp; pipeline (C8)</div></div>
+    <div class="k"><div class="n" data-to="4">4</div><div class="cap">Chuyên gia kiểm duyệt</div></div>
   </div>
-  <div class="tw r"><table><thead><tr><th>File</th><th>Phòng</th><th>Vai trò</th></tr></thead>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng hợp đồng S1 và 4 cổng kiểm"><table><thead><tr><th>Tầng / Cổng</th><th>Phụ trách</th><th>Vai trò &amp; trạng thái</th></tr></thead>
   <tbody>
-    <tr><td><code>PRD.md</code></td><td>PM</td><td>Cái gì + vì sao, 21 năng lực</td></tr>
-    <tr><td><code>ACCEPTANCE.md</code></td><td>PM</td><td>Tiêu chí PASS/FAIL cho S4</td></tr>
-    <tr><td><code>SUCCESS-CRITERIA.md</code></td><td>Data</td><td>M1–M6 và hành động theo số</td></tr>
-    <tr><td><code>TRACKING-PLAN.md</code></td><td>Data</td><td>5 event, chống trùng không ID</td></tr>
-    <tr><td><code>LEGAL-REVIEW.md</code></td><td>Legal</td><td>R1–R37 có quyền chặn. <strong>Không phải ý kiến pháp lý</strong></td></tr>
+    <tr><td><code>PRD.md</code> · <code>ONE-PAGER.md</code></td><td>PM</td><td>Hợp đồng sản phẩm QĐ 1–58, điều hướng <code>1A Split-Pill 48px</code></td></tr>
+    <tr><td><code>AGENT-CMS-PIPELINE.md</code></td><td>PM + SWE</td><td>Pipeline 6 bước <code>/vibe-post</code>, Luật <code>C0–C9</code> &amp; <code>LUẬT 1–9</code></td></tr>
+    <tr><td><code>[1/4] check-story.py</code></td><td>Kế toán <code>K1–K4</code> + Brand <code>B1–B4</code></td><td><strong>PASS:</strong> <code>Σ Nợ = Σ Có</code> TT 99/2025, 0 tên riêng, 4 hình <code>CHAP_FIGS</code>/bài</td></tr>
+    <tr><td><code>[2/4] wms-finance-kb.py</code></td><td>Tài chính <code>F1–F4</code></td><td><strong>PASS (14/14):</strong> cơ chế ngân hàng, toán <code>IRR/EIR</code>, khớp Bài ↔ Video</td></tr>
+    <tr><td><code>[3/4] wms-motion-snap.py</code></td><td>Motion <code>M1–M4</code> (<code>bang-motion</code>)</td><td><strong>PASS (12/12):</strong> Anti-PPT, <code>tabular-nums</code>, Split-Stage, <code>window.__vibeSeek</code></td></tr>
+    <tr><td><code>[4/4] vibe-check.sh</code></td><td>Xưởng + Legal + Data</td><td><strong>PASS:</strong> <code>licences.json</code> khớp đĩa, <code>SUCCESS-CRITERIA.md</code>, <code>TRACKING-PLAN.md</code></td></tr>
   </tbody></table></div>
 </section>
 
 <section>
-  <h2 class="r">Cổng ra mắt</h2>
-  <div class="tw r"><table><thead><tr><th>Điều kiện</th><th>QĐ</th></tr></thead>
+  <h2 class="r">Kiến trúc mỗi bài chuẩn C9 v2 + LUẬT 9 (QĐ 52–58)</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Cấu trúc 3 trụ của mỗi bài"><table><thead><tr><th>Trụ</th><th>Quy chuẩn bắt buộc</th><th>Đã có trên Prototype</th></tr></thead>
   <tbody>
-    <tr><td>Lối vào VN đã duyệt</td><td>14</td></tr>
-    <tr><td>Trình đọc PDF: Hermanson tr.1–197 + file riêng</td><td>29</td></tr>
-    <tr><td>Hermanson che tr.113, tr.166, bảng B2 tr.117; giữ B3</td><td>29 · 46</td></tr>
-    <tr><td>Trang sách + thẻ sách (anh viết)</td><td>29</td></tr>
-    <tr><td>Cảnh báo lưu trữ <code>persist()</code></td><td>45</td></tr>
-    <tr><td>Card có số: agent kế toán soát, anh ký</td><td>36 · 40</td></tr>
-  </tbody></table></div>
-  <div class="k c r"><p><strong>File riêng chặn cả ra mắt</strong> cho tới khi đo <code>input type=file</code> trong Zalo. S5 thêm: workflow pháp lý L13 + L18 (QĐ 51), R29 + R33 + R37 PASS.</p></div>
-</section>
-
-<section>
-  <h2 class="r">5 event — tên là hợp đồng</h2>
-  <div class="tw r"><table><thead><tr><th>Event</th><th>Thuộc tính</th><th>Cho</th></tr></thead>
-  <tbody>
-    <tr><td><code>lesson_completed</code></td><td>lesson, from_start</td><td>M1 · M2</td></tr>
-    <tr><td><code>card_answered</code></td><td>card, correct — chỉ trắc nghiệm</td><td>M3</td></tr>
-    <tr><td><code>pdf_opened</code></td><td>source: hosted / own</td><td>M4</td></tr>
-    <tr><td><code>sync_created</code></td><td>method: link / code</td><td>M5</td></tr>
-    <tr><td><code>progress_restored</code></td><td>method: link / code</td><td>M5</td></tr>
+    <tr><td><strong>Mặt cắt Diorama v3.0</strong></td><td>5 nhà mở cửa cuốn, thông tin trên cao, tiền thật dưới ngầm, 2 góc nhìn (<em>Cá nhân</em> ⇄ <em>Sổ kế toán TT 99/2025</em>)</td><td>3 bài mẫu (<code>card</code>, <code>pay</code>, <code>install</code>)</td></tr>
+    <tr><td><strong>Trụ A · Khảo cứu phổ thông</strong></td><td>≥ 850 từ (5 chương), đan xen <strong>4 hình mặt cắt <code>16:9</code> (<code>1200×675</code>, <code>LUẬT 9</code>)</strong> ở Chương 02–05 kèm chú thích 3 tầng</td><td>12/12 hình <code>.jpg</code> + <code>CLS = 0</code></td></tr>
+    <tr><td><strong>Trụ B · Chuyên sâu nghề</strong></td><td>≥ 4 cơ chế hệ thống, toán dòng tiền <code>IRR/EIR</code>, ≥ 3 bút toán kép TT 99/2025, ≥ 3 ngoại lệ</td><td>Khớp 100% <code>F1–F4</code> &amp; <code>K1–K4</code></td></tr>
+    <tr><td><strong>Trụ C · Studio Video 30fps</strong></td><td>Thu liền mạch 1 lần đọc <code>eleven_v3</code> <strong>Giọng Tâm</strong> (<code>-14 LUFS</code>), <code>Locked-Stage v4.0</code>, Split-Stage 3 vùng (<code>LUẬT 8</code>)</td><td><strong>6/6 file <code>.mp4</code></strong> đã xuất xong</td></tr>
   </tbody></table></div>
 </section>
 
 <section>
-  <h2 class="r">Thước đo chính: M1 = bài 5 ÷ bài 1</h2>
-  <div class="tw r"><table><thead><tr><th></th><th>Đếm gì</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Chặt</strong></td><td>bài 5 có <code>from_start=true</code> ÷ bài 1</td></tr>
-    <tr><td><strong>Lỏng</strong></td><td>mọi bài 5 ÷ bài 1</td></tr>
-    <tr><td>Ngưỡng</td><td>Chưa có. Đặt sau ≥ 4 tuần <strong>và</strong> ≥ 100 lượt bài 1</td></tr>
-    <tr><td>Dưới / trên</td><td>Viết lại lối vào theo M2 / dồn công vào GĐ01, 02, 05</td></tr>
-  </tbody></table></div>
-  <div class="k a r"><p><strong>Proxy</strong> gộp, không phải funnel theo người. "Xong bài" = trả lời ≥ 1 card trắc nghiệm ⇒ đo "đọc + thử" (QĐ 38, 39).</p></div>
-</section>
-
-<section>
-  <h2 class="r">Chỉ anh làm được — trước khi duyệt S1</h2>
-  <div class="k d r"><p><strong>1 · 30 phút trên iPhone + Android:</strong> Zalo giữ <code>#sync</code> không, mở WebView hay trình duyệt, <code>input type=file</code> chạy không, localStorage sống trong WebView không.</p></div>
-  <div class="k d r"><p><strong>2 · Đọc hợp đồng lao động Ringkas</strong> (IP, không cạnh tranh). Mở khoá chữ "duyệt bởi" (QĐ 34.2) và công khai hộp thư (QĐ 35).</p></div>
-  <div class="k d r"><p><strong>3 · Đọc báo cáo agent kế toán và bấm giờ ký (QĐ 36):</strong> bài mẫu <code>SAMPLE-LESSON-01.md</code> + báo cáo <code>SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md</code> đã chạy xong (0 FAIL, 7 FLAG).</p></div>
-</section>
-
-<section>
-  <h2 class="r">Chưa xác minh</h2>
-  <div class="k b r"><p>Mọi hành vi trên điện thoại thật · thời gian anh đọc báo cáo agent và ký · Phụ lục II TT 99 chính thức chưa có ⇒ GĐ01 chưa đăng được · số bài, số card là ước tính · URL gốc các luật Legal dẫn chưa đối chiếu · <strong>QĐ 41–51 nhận theo lô</strong>: chữ đã áp vào file, anh chưa đọc · ONE-PAGER duyệt trước theo QĐ 50, anh nên đọc lại.</p></div>
+  <h2 class="r">Việc riêng của anh &amp; mục chưa xác minh</h2>
+  <div class="k d r"><p><strong>Việc của anh:</strong> (1) Xem 3 bài mẫu trên <code>prototype.html</code> + sơ đồ <code>workflows.html</code> và gõ <code>/vibe-approve where-money-sleeps 01-spec</code> khi ưng ý; (2) Khi YouTube Studio bật <em>Advanced features</em> (đang <em>Pending</em>), báo để đẩy nốt 5 video lên kênh; (3) Kiểm hợp đồng Ringkas và đo điện thoại thật trước <code>S5 Launch</code>.</p></div>
+  <div class="k b r"><p><strong>Chưa xác minh:</strong> Thời điểm YouTube mở hạn mức API ngày · Phụ lục II TT 99/2025 bản Công báo gốc (đang đối chiếu nguồn thứ cấp <code>SECONDARY</code>) · Hành vi WebView Zalo trên điện thoại thật.</p></div>
 </section>
 </main>
 
 <footer>
-  <p>Chi tiết: <code>gates/01-spec/</code> · <code>DECISIONS-QUEUE.md</code> · <code>gates/ONE-PAGER.md</code>. Con trỏ ở <code>01-spec</code>, chưa duyệt.</p>
-  <div class="v"><strong>Same vendor, same priors — no external verifier ran.</strong> Gói S1 đã qua review kiểm chéo (2026-11-07).</div>
+  <p>Chi tiết: <code>gates/01-spec/</code> · <code>docs/prototype.html</code> · <code>docs/workflows.html</code>. Con trỏ ở <code>01-spec</code>, chờ lệnh <code>/vibe-approve where-money-sleeps 01-spec</code>.</p>
+  <div class="v"><strong>Cross-vendor model review (Claude ↔ Gemini) + 4 cổng script tất định — no human external verifier ran.</strong></div>
 </footer>
 <script src="assets/doc.js"></script>
 </body>
