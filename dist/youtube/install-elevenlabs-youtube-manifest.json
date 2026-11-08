@@ -376,8 +376,8 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
-      "youtubeId": "",
-      "embedStatus": "pending_upload",
+      "youtubeId": "wILTsnBMZ_I",
+      "embedStatus": "uploaded_unlisted",
       "outputMp4": "dist/youtube/install-short-9x16.mp4",
       "youtubeUploadSpec": {
         "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
@@ -396,7 +396,7 @@
           "time": "0:00 – 0:08",
           "beat": null,
           "sha256CacheKey": "04b81646334959bf3cc0579e61470604b501f6df68b33956a5eac9ebece8697e",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {
@@ -422,7 +422,7 @@
           "time": "0:08 – 0:20",
           "beat": 1,
           "sha256CacheKey": "a430e1b46edbfda0d987866df89243c87026c40be1393fb77d44bb7bda95df4b",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {
@@ -448,7 +448,7 @@
           "time": "0:20 – 0:34",
           "beat": 3,
           "sha256CacheKey": "dd70f6cbf0eb957633f3bb7e31e310c0c85c7e3cb3868acea306db015ec4e115",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {
@@ -474,7 +474,7 @@
           "time": "0:34 – 0:48",
           "beat": 4,
           "sha256CacheKey": "7fe92748b7f38c90de4d0e4035ba1345c2aef8ae88aeb494556730663365aa15",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {
@@ -500,7 +500,7 @@
           "time": "0:48 – 1:00",
           "beat": null,
           "sha256CacheKey": "d6a69e5de34a100fa8dcbaf06a416c1a7a284c25eaa2d908fdf57f231d1ad8a6",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {
@@ -526,7 +526,7 @@
           "time": "1:00 – 1:10",
           "beat": null,
           "sha256CacheKey": "29f4f0ee383f94794a5f50bbf637fb2590cefe30a70b92d56b2d47194dd303e8",
-          "cached": false,
+          "cached": true,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
           "elevenlabsModelId": "eleven_flash_v2_5",
           "googleVeoVideo": {

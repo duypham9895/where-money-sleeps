@@ -654,7 +654,7 @@ def step_5d_embed_into_post(
                 )
             fobj["youtubeId"] = clean_id
         if embed_status is not None:
-            fobj["embedStatus"] = target_status
+            fobj["embedStatus"] = target_status if fobj.get("youtubeId") else "pending_upload"
         if not fobj.get("elevenlabsVoiceId"):
             fobj["elevenlabsVoiceId"] = DEFAULT_VOICE_SPEC
 
@@ -664,7 +664,7 @@ def step_5d_embed_into_post(
     return (
         vid["long"].get("youtubeId", ""),
         vid["short"].get("youtubeId", ""),
-        vid["long"].get("embedStatus", "pending_upload"),
+        vid["short"].get("embedStatus") if vid["short"].get("youtubeId") else vid["long"].get("embedStatus", "pending_upload"),
     )
 
 

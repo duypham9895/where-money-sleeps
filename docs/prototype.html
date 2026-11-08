@@ -2685,8 +2685,8 @@ const STORIES = {
  "short": {
   "title": "0% nhưng cửa hàng chỉ nhận 11,4 triệu",
   "angle": "Cửa hàng ghi bán 12 triệu nhưng chỉ nhận 11,4 triệu (ví dụ) — 600.000 hụt đó chính là tiền lãi của khoản “0%”.",
-  "youtubeId": "",
-  "embedStatus": "pending_upload",
+  "youtubeId": "wILTsnBMZ_I",
+  "embedStatus": "uploaded_unlisted",
   "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
   "scenes": [
    {
@@ -3629,6 +3629,13 @@ function renderPack(){
   // bản nháp chỉ hiện ở chế độ duyệt (WMS-R4, advisory); dữ liệu schema cũ (thiếu long/short) ⇒ ẩn, không sập
   sec.hidden = !(a && a.lay && a.pro && v && v.long && v.short && Array.isArray(v.long.scenes) && Array.isArray(v.short.scenes)) || !visible(S.story);
   if (sec.hidden) return;
+  if (PK.story !== S.story) {
+    PK.story = S.story;
+    if (!(v[PK.fmt] && v[PK.fmt].youtubeId)) {
+      if (v.long && v.long.youtubeId) PK.fmt = "long";
+      else if (v.short && v.short.youtubeId) PK.fmt = "short";
+    }
+  }
   $("#pack-h").textContent = s.title;
   const L = a.lay, P = a.pro, arr = x => Array.isArray(x) ? x : [], draft = s.status !== "published"
     ? `<p class="pack-note"><b>Bản nháp chờ Duy duyệt.</b> Số liệu là ví dụ để thấy cơ chế; tên tài khoản theo bản chép thứ cấp của Thông tư 99/2025. Kế toán — agent soát: ${esc((s.review && s.review.ketoan) || "chưa chạy")}.</p>` : "";
