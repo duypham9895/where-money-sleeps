@@ -192,6 +192,19 @@
       "source_url": "https://ai.google.dev/gemini-api/docs/video",
       "retrieved": "2026-11-08",
       "planned_file": "dist/youtube/{story}-{fmt}.mp4"
+    },
+    {
+      "id": "bangtutorial-bang-motion-skill",
+      "title": "Bang Motion — Open-Source Agent Skill for Browser-Based Motion Graphics (Adapted with LUẬT 6b & LUẬT 8 Guards as M1–M4)",
+      "authors": [
+        "Bang Tutorial (bangtutorial)"
+      ],
+      "licence": "MIT License",
+      "licence_url": "https://opensource.org/licenses/MIT",
+      "licence_evidence": "2026-11-08 (Phương án A): Duy duyệt tích hợp có kiểm soát các nguyên lý Anti-Slideshow (Persistent World), Kinetic Financial Counter (tabular-nums), Deterministic Timeline (__vibeSeek) và Keyframe Snapshot Verification từ bangtutorial/bang-motion (MIT License) thành skill nội bộ .agents/skills/bang-motion/SKILL.md & .claude/skills/bang-motion/SKILL.md, ràng buộc chặt với LUẬT 6b (Containment), LUẬT 8 (3-Zone Split-Stage), prefers-reduced-motion và cấm gọi CDN bên thứ ba lúc runtime.",
+      "source_url": "https://github.com/bangtutorial/bang-motion",
+      "retrieved": "2026-11-08",
+      "planned_file": ".agents/skills/bang-motion/SKILL.md"
     }
   ]
 }

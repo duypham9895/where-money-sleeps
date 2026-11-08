@@ -404,6 +404,7 @@ a:hover { text-decoration: underline; }
 }
 .sim-status-pill {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
   padding: 6px 11px;
   border-radius: 999px;
@@ -594,7 +595,11 @@ a:hover { text-decoration: underline; }
   padding: 12px 13px;
   color: var(--fg);
   cursor: pointer;
-  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+.signal-orb {
+  fill: var(--amber);
+  filter: drop-shadow(0 0 6px var(--amber));
 }
 .node-card:hover {
   transform: translateY(-2px);
@@ -2284,15 +2289,62 @@ html[data-reduced-motion="true"] *::after {
         const midY = (y1 + y2) / 2;
 
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`);
+        const dStr = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+        path.setAttribute("d", dStr);
         let cls = "conn-path";
         if (idx === simStep) cls += " active";
         else if (idx < simStep) cls += " done";
         path.setAttribute("class", cls);
         connectorSvg.appendChild(path);
+
+        if (idx === simStep && document.documentElement.dataset.reducedMotion !== "true") {
+          const orb = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          orb.setAttribute("r", "4.5");
+          orb.setAttribute("class", "signal-orb");
+          const anim = document.createElementNS("http://www.w3.org/2000/svg", "animateMotion");
+          anim.setAttribute("dur", "0.85s");
+          anim.setAttribute("repeatCount", "indefinite");
+          anim.setAttribute("path", dStr);
+          orb.appendChild(anim);
+          connectorSvg.appendChild(orb);
+        }
       });
     });
   }
+
+  function animateCounter(el, fromNum, toNum, prefix, suffix) {
+    if (!el) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.dataset.reducedMotion === "true";
+    if (isReduced || fromNum === toNum) {
+      el.textContent = `${prefix}${toNum}${suffix}`;
+      return;
+    }
+    const start = performance.now();
+    const dur = 360;
+    function tick(now) {
+      const p = Math.min(1, (now - start) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const cur = Math.round(fromNum + (toNum - fromNum) * ease);
+      el.textContent = `${prefix}${cur}${suffix}`;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Deterministic Timeline Clock Hook (M4 · bang-motion)
+  window.__vibeSeek = function(stepIndex, wfId) {
+    stopSimulation();
+    if (wfId && WORKFLOWS[wfId] && wfId !== currentWfId) {
+      renderWorkflow(wfId);
+    }
+    const clamped = Math.max(-1, Math.min(flatNodes.length - 1, Number(stepIndex)));
+    simStep = clamped;
+    if (simStep >= 0 && flatNodes[simStep]) {
+      selectNode(flatNodes[simStep].id, false);
+    }
+    applySimStepVisuals();
+    return { workflow: currentWfId, step: simStep, total: flatNodes.length };
+  };
 
   function applySimStepVisuals() {
     flatNodes.forEach((node, idx) => {

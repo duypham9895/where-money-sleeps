@@ -745,15 +745,18 @@ GOV_REQUIRED = [
     ".claude/agents/ke-toan-reviewer.md",
     ".claude/agents/tai-chinh-reviewer.md",
     ".claude/agents/brand-safety-reviewer.md",
+    ".claude/agents/bang-motion.md",
     ".claude/settings.json",
     ".agents/skills/vibe-post/SKILL.md",
     ".agents/skills/ke-toan-reviewer/SKILL.md",
     ".agents/skills/tai-chinh-reviewer/SKILL.md",
     ".agents/skills/brand-safety-reviewer/SKILL.md",
+    ".agents/skills/bang-motion/SKILL.md",
     ".agents/hooks.json",
     "knowledge/finance-kb.json",
     "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
     "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
+    "scripts/wms-motion-snap.py",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
             "Bash(gh pr merge:*)", "Bash(rtk gh pr merge:*)", "Bash(gh release:*)", "Bash(rtk gh release:*)",
@@ -780,6 +783,12 @@ BRAND_SAFETY_COPIES = [
     ".agents/skills/brand-safety-reviewer/SKILL.md",
     "../.claude/agents/brand-safety-reviewer.md",       # xưởng cha — chỉ có khi repo nằm trong Vibe/
     "../.agents/skills/brand-safety-reviewer/SKILL.md",
+]
+BANG_MOTION_COPIES = [
+    ".claude/agents/bang-motion.md",
+    ".agents/skills/bang-motion/SKILL.md",
+    "../.claude/agents/bang-motion.md",                 # xưởng cha — chỉ có khi repo nằm trong Vibe/
+    "../.agents/skills/bang-motion/SKILL.md",
 ]
 
 
@@ -988,6 +997,29 @@ def check_governance(rep: Report) -> None:
         rep.add("PASS", "C8", where, f"brand-safety-reviewer khớp giữa {len(bs_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
     if bs_skipped:
         rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so brand-safety với bản của xưởng")
+
+    bm_cores, bm_skipped = {}, []
+    for rel in BANG_MOTION_COPIES:
+        p = ROOT / rel
+        if not p.is_file():
+            if rel.startswith(".."):
+                bm_skipped.append(rel)
+            continue
+        try:
+            core = _ketoan_core(p.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError) as e:
+            rep.add("FAIL", "C8", where, f"{rel}: không đọc được ({e})")
+            continue
+        if core is None:
+            rep.add("FAIL", "C8", where, f"{rel}: thiếu mục '## Phạm vi' — không so được với các bản khác")
+        else:
+            bm_cores[rel] = core
+    if len(set(bm_cores.values())) > 1:
+        rep.add("FAIL", "C8", where, f"bang-motion lệch giữa các bản (từ '## Phạm vi'): {', '.join(bm_cores)}")
+    elif bm_cores:
+        rep.add("PASS", "C8", where, f"bang-motion khớp giữa {len(bm_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
+    if bm_skipped:
+        rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so bang-motion với bản của xưởng")
 
     # đường dẫn chép từ xưởng mà quên đổi sang tương đối repo
     # settings.local.json do Claude Code tự sinh (đường dẫn tuyệt đối khi bấm "always allow") — không phải luật, bỏ qua

@@ -3425,6 +3425,13 @@ function countUp(el, txt, delay){
     if (p < 1) requestAnimationFrame(f); };
   requestAnimationFrame(f);
 }
+const animateMoneyText = countUp;
+window.__vibeSeek = (beatIdx, storyKey) => {
+  const k = storyKey && STORIES[storyKey] ? storyKey : S.story;
+  const b = Math.max(0, Math.min((STORIES[k].beats.length || 5) - 1, +beatIdx || 0));
+  go(k, b, 0, false);
+  return {story: S.story, beat: S.beat};
+};
 
 /* ── trạng thái ───────────────────────────── */
 const S = {story:"card", beat:0, sent:0, playing:false, voice:false, lens:"life", mode:"watch", run:0};

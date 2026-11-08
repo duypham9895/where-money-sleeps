@@ -65,6 +65,29 @@ DEFAULT_REF_IMAGES = [
     "public/brand/youtube-avatar-1024x1024.png",
 ]
 
+# LUẬT 6b + LUẬT 8 + M3 (Bang-Motion Split-Stage & Parent-Child Containment Guard)
+HEADER_BOX = (48, 36, 1032, 184)
+CONDUIT_PARENT_BOX = (48, 198, 1032, 354)
+STAGE_BOX = (48, 368, 1032, 1280)
+CARD_BOX = (48, 1294, 1032, 1734)
+
+
+def assert_parent_child_containment(
+    parent_box: tuple[int, int, int, int],
+    child_boxes: list[tuple[int, int, int, int]],
+    pad_x: int = 20,
+    pad_y: int = 12,
+) -> None:
+    """LUẬT 6b + M3: Đảm bảo mọi hộp con nằm gọn trong hộp cha với lề trong tối thiểu."""
+    px0, py0, px1, py1 = parent_box
+    for idx, (cx0, cy0, cx1, cy1) in enumerate(child_boxes):
+        if cx0 < px0 + pad_x or cx1 > px1 - pad_x or cy0 < py0 + pad_y or cy1 > py1 - pad_y:
+            raise AssertionError(
+                f"Vi phạm LUẬT 6b/M3: child_box[{idx}]={(cx0, cy0, cx1, cy1)} tràn ngoài parent_box={parent_box} (pad=({pad_x},{pad_y}))"
+            )
+    if STAGE_BOX[3] + 12 > CARD_BOX[1]:
+        raise AssertionError(f"Vi phạm LUẬT 8/M3: STAGE_BOX {STAGE_BOX} đè lên CARD_BOX {CARD_BOX}")
+
 
 def load_dotenv(env_path: pathlib.Path = ENV_FILE) -> None:
     """Nạp biến môi trường từ file `.env` nếu có (không ghi đè biến đã set sẵn trên shell)."""
