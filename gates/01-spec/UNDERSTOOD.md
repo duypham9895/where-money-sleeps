@@ -43,10 +43,10 @@ làm ra một tính năng xấu; nó làm ra một bài học sai mà người h
 
 ## Chưa xác minh được
 
-- Câu "S1 phải biến mười lăm quyết định đó thành những câu có thể kiểm" viết khi gói S0 được coi là 15 quyết định; Brief nay có **16** (QĐ 16 thêm sau APPROVE S0), và QĐ 16 có thuộc gói S0 đã duyệt không là câu chưa giải (PRD T3 Δ21).
-- ONE-PAGER (`gates/ONE-PAGER.md`) vẫn `draft` và cũ hơn `PRD.md` (vibe-check [2]): ba câu trích ở trên khớp bản ONE-PAGER hiện tại, nhưng bản đó chưa được Duy duyệt lại sau QĐ 15, 16.
-- Mục 5 "không giả vờ chốt": ba điều kiện (đo iPhone/Android · hợp đồng Ringkas · kế toán) chưa điều kiện nào xong ở ngày viết.
-- Bản này là của một phiên Claude. Same vendor, same priors — no external verifier ran.
+- Câu "S1 phải biến mười lăm quyết định đó thành những câu có thể kiểm" viết khi gói S0 được coi là 15 quyết định; nay `PRODUCT-BRIEF.md` có **51 quyết định** (QĐ 16–51 chốt trong quá trình S1).
+- `gates/ONE-PAGER.md` đã được cập nhật lên bản v2 theo QĐ 50 (`vibe-check [2]` PASS, ba câu trích ở mục Trích nguyên văn phía trên giữ nguyên từng chữ); Duy nên đọc lại bản đã áp.
+- Mục 5 "không giả vờ chốt": bài mẫu `SAMPLE-LESSON-01.md` và báo cáo chạy thử `ke-toan-reviewer` (`SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md`) đã dựng xong ngày 2026-11-07; vẫn chờ Duy bấm giờ ký + đo iPhone/Android + đọc hợp đồng Ringkas.
+- Bản này là của một phiên Claude, cập nhật ngày 2026-11-07. Same vendor, same priors — no external verifier ran.
 
 ## Đổi ở vòng sửa 2026-10-24
 

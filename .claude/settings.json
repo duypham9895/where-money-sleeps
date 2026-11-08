@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(rtk git push:*)",
+      "Bash(rtk proxy git push:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(rtk gh pr merge:*)",
+      "Bash(gh release:*)",
+      "Bash(rtk gh release:*)",
+      "Bash(vercel:*)",
+      "Bash(npx vercel:*)",
+      "Bash(netlify:*)",
+      "Bash(npx netlify:*)",
+      "Bash(wrangler:*)",
+      "Bash(npx wrangler:*)",
+      "Bash(youtube-upload:*)",
+      "Bash(yt-upload:*)",
+      "Bash(wms-youtube-upload:*)"
+    ]
+  }
+}

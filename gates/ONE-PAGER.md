@@ -1,14 +1,14 @@
 ---
 owner: Duy
-freshness: 2026-10-25
-status: "approved — QĐ 50, 2026-10-25, duyệt trước theo khuyến nghị; Duy nên đọc lại bản này"
+freshness: 2026-11-08
+status: "approved — QĐ 50, 2026-10-25, duyệt trước theo khuyến nghị; Duy nên đọc lại bản này · §5 (QĐ 52) và §6 (QĐ 53, 2026-11-07; QĐ 54, C9 v2 — Hướng 3A, QĐ 55 — Layout 1A & Bỏ chữ sổ cái, và QĐ 56 — Pipeline ElevenLabs Audio/Video & Upload YouTube, 2026-11-08) do PM thêm — Duy CHƯA đọc, CHƯA duyệt"
 ---
 
 # Where Money Sleeps — MỘT trang
 
 > Duy **DUYỆT và SỞ HỮU** trang này. Mọi stage phải trích nguyên văn được từ đây.
 > Quy tắc 11: file này **cũ hơn `PRD.md` là lỗi CHẶN**, không phải cảnh báo.
-> Nguồn của từng dòng: `gates/00-discovery/PRODUCT-BRIEF.md` §Quyết định của Duy (QĐ 1–51; dòng sau thắng dòng trước).
+> Nguồn của từng dòng: `gates/00-discovery/PRODUCT-BRIEF.md` §Quyết định của Duy (QĐ 1–56; dòng sau thắng dòng trước).
 
 ## 1. Sản phẩm này là gì, cho ai
 
@@ -64,3 +64,27 @@ S1 phải định nghĩa cách chống trùng. Cách S1 đề xuất: mỗi bài
 Bộ đếm tự host, cùng domain, chỉ cộng số, lưu theo ngày; ô dưới 5 lượt không hiện.
 Không đặt ngưỡng trước: Duy đặt sau **≥ 4 tuần** ra mắt **và** bài 1 **≥ 100** lượt, từ số thật. S1 chỉ đặt cách đặt.
 Đặt ngưỡng trên số chặt hay số lỏng: Duy quyết lúc đặt baseline (Data khuyến nghị số chặt).
+
+## 5. Cập nhật định hướng theo QĐ 52 (2026-11-07) — Khung 6 Trụ cột Mở rộng · Dual-Lens · ElevenLabs Video & Podcast
+
+> Ghi bổ sung theo Quy tắc 14 (dòng sau thắng dòng trước; giữ nguyên các mục 1–4 phía trên để bảo toàn đối chiếu lịch sử):
+
+- **Trục giá trị kiến thức (`Scalable 6-Pillar Atlas`):** Giải phẫu các hiện tượng & quyết định tiền tệ thực tế (*"Đằng sau quy định đó ai được lợi gì, và dòng tiền thật di chuyển qua những sổ cái nào?"*) qua **6 Trụ cột mở đầu**: (P01) Ngân hàng, Tiền gửi & Bảng lương (`CASA`, `On-Us` vs `Off-Us`); (P02) Thẻ tín dụng, VISA/Mastercard, QR & Ví điện tử (`MDR`, `Interchange`, `Scheme Fee`, `Auth` vs `Settlement`, `Escrow`); (P03) Tín dụng, Trả góp, Vay mua nhà & Toán học Lãi suất (`EIR`, `Minimum Payment`, `FTP`); (P04) Dòng tiền Doanh nghiệp, Thuế & Ảo ảnh Lợi nhuận (`Accrual` vs `Cash Flow`, VAT `TK 1331`, Voucher `TK 3387`); (P05) Bảo hiểm, Bất động sản & Kênh giữ tài sản; (P06) Ngoại tệ, Tỷ giá & Tiền Xuyên biên giới (`DCC`, `SWIFT`, `Nostro/Vostro`). Đợt 1 ra mắt P01–P03, các trụ cột P04–P06 và các Topic mới trong tương lai mở rộng tự do; **bỏ trình đọc PDF sách *Hermanson (1998)*** khỏi luồng chính.
+- **Hai góc nhìn tự chọn (`Dual-Lens`):** Người học tự chọn giữa **`👤 Góc nhìn Cá nhân`** (hiểu lợi ích ngầm, phí ẩn, bảo vệ túi tiền — không bắt học mã tài khoản thuế) và **`⚙️ Góc nhìn Hệ thống, PM & Kế toán`** (luồng bản tin thanh toán, đối soát lô, bút toán `Debit`/`Credit` chuẩn Thông tư 99/2025 đã qua `ke-toan-reviewer`).
+- **Đa phương tiện ElevenLabs (Build-time):** Mỗi Case có **🎬 Explainer Video tương tác** đồng bộ giọng đọc (`eleven_flash_v2_5` + `with-timestamps`) làm chạy sơ đồ dòng tiền và **🎧 Chế độ nghe như Podcast (`Podcast Mode`)** cho người di chuyển (sinh từ gói trả phí có Commercial License, ghi vào `legal/licences.json`).
+- **Kiến trúc mở rộng (`Content-as-Data`):** Mọi Topic (`pillars` registry) và Case (`case` + `flow` + `audio` bundle) đều đóng gói dạng dữ liệu độc lập, lưu tiến độ theo `caseId` ổn định để khi thêm Topic/Case mới trong tương lai không phải sửa code UI, trình phát hay schema tiến độ.
+
+## 6. Cập nhật theo QĐ 53 (2026-11-07) — Diorama v3.0 · Danh mục · Duyệt bài 1:1 · Pipeline agent
+
+> Ghi bổ sung theo Quy tắc 14 (dòng sau thắng dòng trước; giữ nguyên các mục 1–5 phía trên).
+
+- **Mọi bài là một Mặt cắt Kiến trúc Diorama v3.0:** năm ngôi nhà mở cửa cuốn, lời hứa chạy trên dây điện, tiền thật chỉ chạy trong ống ngầm, và một cuốn sổ cái cân hai bên.
+- **Người đọc luôn biết mình đang ở đâu:** ngay dưới tên trang là tổng kho (bao nhiêu danh mục, bao nhiêu chủ đề), các nhãn danh mục, và dòng *"đang ở danh mục k/N → bài k/N"*; một ngăn kéo mở ra bản đồ toàn bộ. Mở đầu 7 danh mục · 19 chủ đề, thêm bao nhiêu cũng được.
+- **Không bài nào lên trang khi Duy chưa xem nó đúng như người đọc:** agent soạn xong thì bài nằm ở hàng chờ duyệt; Duy xem bản 1:1 rồi mới đăng. Đây là luật trong prompt, không phải khoá. Khoá thật duy nhất là script kiểm `scripts/check-story.py`, và nó chỉ khoá **hình dạng dữ liệu bài** — không khoá được việc Duy đã duyệt hay chưa.
+- **Một câu ý tưởng ⇒ một bài chờ duyệt:** pipeline 6 bước `/vibe-post`, hợp đồng ở `gates/01-spec/AGENT-CMS-PIPELINE.md`.
+- *(2026-11-08, QĐ 54 — PM ghi theo lời Duy "đồng ý"; chữ chính xác của đề xuất chờ Duy xác nhận)* **Mở đầu bằng 7 danh mục** (mở rộng QĐ 52/53); thêm danh mục vẫn là thêm dữ liệu.
+- *(2026-11-08, QĐ 54)* **Mỗi bài đủ ba trụ:** một bài giải thích trọn vẹn cho người không có chuyên môn (lầm tưởng và sự thật, câu chuyện từ đầu đến cuối, ai trả · ai hưởng · ai chịu rủi ro); một phần chuyên sâu cho người trong nghề (cơ chế hệ thống, sổ cái TT 99/2025, các ngoại lệ); và một kịch bản phân cảnh có lời bình để dựng thành video. Năm đoạn kể chỉ là cửa vào. Máy (`scripts/check-story.py` C9) chỉ kiểm **đủ và đủ dài**, không kiểm hay hay đúng.
+- *(2026-11-08, C9 v2 — Hướng 3A, Duy chọn)* **Ba trụ sâu hơn, video hai định dạng:** bài khảo cứu dài cỡ một bài tạp chí, có sơ đồ dòng chảy và hộp *khi cơ chế có lợi / khi thành bẫy* — mô tả cơ chế, không khuyên ai mua hay vay; phần chuyên sâu đủ cho người làm nghề; và mỗi bài có **hai** kịch bản dựng sẵn: YouTube 8–10 phút và Shorts/Reels/TikTok 60–90 giây. Máy vẫn chỉ kiểm **đủ và đủ dài**.
+- *(2026-11-08, PM thêm — Duy chưa duyệt)* **Luật đi theo repo:** mở agent thẳng ở repo này hay clone riêng nó vẫn có đủ luật WMS-R1..R5, lệnh `/vibe-post`, agent kế toán và một lệnh kiểm `scripts/wms-check.sh`. Các phép kiểm chỉ khoá **hình dạng** và **sự có mặt**; việc Duy đã duyệt hay chưa vẫn không có máy nào khoá trong Claude Code.
+- *(2026-11-08, QĐ 55 — Duy chốt Layout `1A` và thay chữ `"sổ cái"`)* **Điều hướng 1 hàng `48px` (`Editorial Split-Pill`) + Overlay Mục lục 2 cột (`Master–Detail`) + `⌘K` + Thẻ chuyển bài cuối bài:** thay dải pill danh mục cuộn ngang 2–3 tầng (`162px`) bằng thanh `48px` gọn nhẹ (Trái: tên trang `Where Money Sleeps`, không đặt icon hamburger cạnh logo; Giữa: `Split-Pill` `[Danh mục k/N ▾ │ Bài m/M ▾]` + nút `‹ ›`; Phải: `⌕ Mục lục & Tìm ⌘K`), mở bảng Mục lục 2 cột nổi phủ không đẩy sân khấu Diorama xuống. **Thay toàn bộ chữ `"sổ cái"`** trên giao diện bằng **"Mục lục"** (điều hướng), **"Sổ kế toán"** (góc nhìn bút toán) và **"Từ tin báo “ghi có” tới sổ sách ngân hàng: tiền của bạn đi qua những đâu."** (tagline tiếng Việt, sửa QĐ 22 & QĐ 44) để người đọc không nhầm sang blockchain.
+- *(2026-11-08, QĐ 56 — Pipeline khép kín Build Audio + Video qua ElevenLabs → Upload YouTube → Nhúng ngược vào bài viết)* **Toàn bộ Audio (Voiceover + SFX) và Video (YouTube Dài `16:9` `1920×1080` + YouTube Shorts `9:16` `1080×1920`) được gọi qua ElevenLabs API lúc build, đẩy lên YouTube và nhúng ngược vào bài viết (`scripts/wms-media-pipeline.py`):** dùng `with-timestamps` + `sound-generation` (từ gói trả phí có Commercial License ghi trong `legal/licences.json`, có bộ nhớ đệm SHA-256), đồng bộ từng mili-giây với Mặt cắt Diorama v3.0 để xuất `.mp4` chuẩn `-14 LUFS`, upload lên YouTube ở trạng thái mặc định **`privacyStatus: "unlisted"`** (hoặc `"private"`), và **tự động ghi ngược mã `youtubeId` 11 ký tự + `embedStatus: "uploaded_unlisted"` vào `videoScript.long` và `videoScript.short` trong `docs/prototype.html`** để khung trình phát YouTube nhúng (`.yt-embed`, hỗ trợ chuyển đổi `16:9` ⇄ `9:16` và nhảy chương) hiển thị ngay trong bài viết — chỉ Duy duyệt mới chuyển sang `"published"` / `"uploaded_public"`.

@@ -1,0 +1,1640 @@
+{
+ "schema": 1,
+ "status": "SECONDARY — bản chép bên thứ ba, KHÔNG phải Phụ lục II chính thức. Phán tối đa: KHỚP NGUỒN THỨ CẤP (QĐ 37).",
+ "retrieved": "2026-10-24",
+ "sources": [
+  {
+   "id": "ketoanleanh",
+   "url": "https://ketoanleanh.edu.vn/kinh-nghiem-ke-toan/he-thong-tai-khoan-ke-toan-theo-thong-tu-992025tt-btc.html",
+   "coverage": "đủ bảng: 71 TK cấp 1, 101 TK cấp 2 (STT 01–71)"
+  },
+  {
+   "id": "xcyber",
+   "url": "https://xcyber.vn/he-thong-tai-khoan-theo-thong-tu-99/",
+   "coverage": "CHỈ TRÍCH ĐOẠN: trang tự ghi là \"50 danh mục tài khoản đầu tiên\" (STT 01–50, 111→411), 13 TK cấp 2; bản đủ chỉ có qua link Google Sheets/Docs, chưa đọc"
+  }
+ ],
+ "accounts": [
+  {
+   "code": "111",
+   "level": 1,
+   "name": "Tiền mặt",
+   "names_by_source": {
+    "ketoanleanh": "Tiền mặt",
+    "xcyber": "Tiền mặt"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "112",
+   "level": 1,
+   "name": "Tiền gửi không kỳ hạn",
+   "names_by_source": {
+    "ketoanleanh": "Tiền gửi không kỳ hạn",
+    "xcyber": "Tiền gửi không kỳ hạn"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "113",
+   "level": 1,
+   "name": "Tiền đang chuyển",
+   "names_by_source": {
+    "ketoanleanh": "Tiền đang chuyển",
+    "xcyber": "Tiền đang chuyển"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "121",
+   "level": 1,
+   "name": "Chứng khoán kinh doanh",
+   "names_by_source": {
+    "ketoanleanh": "Chứng khoán kinh doanh",
+    "xcyber": "Chứng khoán kinh doanh"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "128",
+   "level": 1,
+   "name": "Đầu tư nắm giữ đến ngày đáo hạn",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư nắm giữ đến ngày đáo hạn",
+    "xcyber": "Đầu tư nắm giữ đến ngày đáo hạn"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1281",
+   "level": 2,
+   "name": "Tiền gửi có kỳ hạn",
+   "names_by_source": {
+    "ketoanleanh": "Tiền gửi có kỳ hạn",
+    "xcyber": "Tiền gửi có kỳ hạn"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1282",
+   "level": 2,
+   "name": "Trái phiếu",
+   "names_by_source": {
+    "ketoanleanh": "Trái phiếu",
+    "xcyber": "Trái phiếu"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1283",
+   "level": 2,
+   "name": "Cho vay",
+   "names_by_source": {
+    "ketoanleanh": "Cho vay",
+    "xcyber": "Cho vay"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1288",
+   "level": 2,
+   "name": "Các khoản đầu tư khác nắm giữ đến ngày đáo hạn",
+   "names_by_source": {
+    "ketoanleanh": "Các khoản đầu tư khác nắm giữ đến ngày đáo hạn",
+    "xcyber": "Các khoản đầu tư khác nắm giữ đến ngày đáo hạn"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "131",
+   "level": 1,
+   "name": "Phải thu của khách hàng",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu của khách hàng",
+    "xcyber": "Phải thu của khách hàng"
+   },
+   "agreement": "both_match",
+   "note": "ketoanleanh: ô số hiệu TK trống trong bảng; số hiệu lấy từ slug liên kết của tên TK (tai-khoan-131-...)"
+  },
+  {
+   "code": "133",
+   "level": 1,
+   "name": "Thuế GTGT được khấu trừ",
+   "names_by_source": {
+    "ketoanleanh": "Thuế GTGT được khấu trừ",
+    "xcyber": "Thuế GTGT được khấu trừ"
+   },
+   "agreement": "both_match",
+   "note": "ketoanleanh: ô số hiệu TK trống trong bảng; số hiệu lấy từ slug liên kết của tên TK (tai-khoan-133-...)"
+  },
+  {
+   "code": "1331",
+   "level": 2,
+   "name": "Thuế GTGT được khấu trừ của hàng hóa, dịch vụ",
+   "names_by_source": {
+    "ketoanleanh": "Thuế GTGT được khấu trừ của hàng hóa, dịch vụ",
+    "xcyber": "Thuế GTGT được khấu trừ của hàng hóa, dịch vụ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1332",
+   "level": 2,
+   "name": "Thuế GTGT được khấu trừ của TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Thuế GTGT được khấu trừ của TSCĐ",
+    "xcyber": "Thuế GTGT được khấu trừ của TSCĐ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "136",
+   "level": 1,
+   "name": "Phải thu nội bộ",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu nội bộ",
+    "xcyber": "Phải thu nội bộ"
+   },
+   "agreement": "both_match",
+   "note": "ketoanleanh: ô số hiệu TK trống trong bảng; số hiệu lấy từ slug liên kết của tên TK (tai-khoan-136-...)"
+  },
+  {
+   "code": "1361",
+   "level": 2,
+   "name": "",
+   "names_by_source": {
+    "ketoanleanh": "Vốn kinh doanh ở các đơn vị trực thuộc",
+    "xcyber": "Vốn kinh doanh ở đơn vị trực thuộc"
+   },
+   "agreement": "mismatch"
+  },
+  {
+   "code": "1362",
+   "level": 2,
+   "name": "Phải thu nội bộ về chênh lệch tỷ giá",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu nội bộ về chênh lệch tỷ giá",
+    "xcyber": "Phải thu nội bộ về chênh lệch tỷ giá"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1363",
+   "level": 2,
+   "name": "Phải thu nội bộ về chi phí đi vay đủ điều kiện được vốn hoá",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu nội bộ về chi phí đi vay đủ điều kiện được vốn hoá",
+    "xcyber": "Phải thu nội bộ về chi phí đi vay đủ điều kiện được vốn hoá"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1368",
+   "level": 2,
+   "name": "Phải thu nội bộ khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu nội bộ khác",
+    "xcyber": "Phải thu nội bộ khác"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "138",
+   "level": 1,
+   "name": "Phải thu khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu khác",
+    "xcyber": "Phải thu khác"
+   },
+   "agreement": "both_match",
+   "note": "ketoanleanh: ô số hiệu TK trống trong bảng; số hiệu lấy từ slug liên kết của tên TK (tai-khoan-138-...)"
+  },
+  {
+   "code": "1381",
+   "level": 2,
+   "name": "Tài sản thiếu chờ xử lý",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản thiếu chờ xử lý",
+    "xcyber": "Tài sản thiếu chờ xử lý"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1383",
+   "level": 2,
+   "name": "Thuế TTĐB của hàng nhập khẩu",
+   "names_by_source": {
+    "ketoanleanh": "Thuế TTĐB của hàng nhập khẩu",
+    "xcyber": "Thuế TTĐB của hàng nhập khẩu"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "1388",
+   "level": 2,
+   "name": "Phải thu khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải thu khác",
+    "xcyber": "Phải thu khác"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "141",
+   "level": 1,
+   "name": "Tạm ứng",
+   "names_by_source": {
+    "ketoanleanh": "Tạm ứng",
+    "xcyber": "Tạm ứng"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "151",
+   "level": 1,
+   "name": "Hàng mua đang đi đường",
+   "names_by_source": {
+    "ketoanleanh": "Hàng mua đang đi đường",
+    "xcyber": "Hàng mua đang đi đường"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "152",
+   "level": 1,
+   "name": "Nguyên liệu, vật liệu",
+   "names_by_source": {
+    "ketoanleanh": "Nguyên liệu, vật liệu",
+    "xcyber": "Nguyên liệu, vật liệu"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "153",
+   "level": 1,
+   "name": "Công cụ, dụng cụ",
+   "names_by_source": {
+    "ketoanleanh": "Công cụ, dụng cụ",
+    "xcyber": "Công cụ, dụng cụ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "154",
+   "level": 1,
+   "name": "Chi phí sản xuất, kinh doanh dở dang",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí sản xuất, kinh doanh dở dang",
+    "xcyber": "Chi phí sản xuất, kinh doanh dở dang"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "155",
+   "level": 1,
+   "name": "Sản phẩm",
+   "names_by_source": {
+    "ketoanleanh": "Sản phẩm",
+    "xcyber": "Sản phẩm"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "156",
+   "level": 1,
+   "name": "Hàng hóa",
+   "names_by_source": {
+    "ketoanleanh": "Hàng hóa",
+    "xcyber": "Hàng hóa"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "157",
+   "level": 1,
+   "name": "Hàng gửi đi bán",
+   "names_by_source": {
+    "ketoanleanh": "Hàng gửi đi bán",
+    "xcyber": "Hàng gửi đi bán"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "158",
+   "level": 1,
+   "name": "Nguyên liệu, vật tư tại kho bảo thuế",
+   "names_by_source": {
+    "ketoanleanh": "Nguyên liệu, vật tư tại kho bảo thuế",
+    "xcyber": "Nguyên liệu, vật tư tại kho bảo thuế"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "171",
+   "level": 1,
+   "name": "Giao dịch mua, bán lại trái phiếu chính phủ",
+   "names_by_source": {
+    "ketoanleanh": "Giao dịch mua, bán lại trái phiếu chính phủ",
+    "xcyber": "Giao dịch mua, bán lại trái phiếu chính phủ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "211",
+   "level": 1,
+   "name": "Tài sản cố định hữu hình",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản cố định hữu hình",
+    "xcyber": "Tài sản cố định hữu hình"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "212",
+   "level": 1,
+   "name": "Tài sản cố định thuê tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản cố định thuê tài chính",
+    "xcyber": "Tài sản cố định thuê tài chính"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "213",
+   "level": 1,
+   "name": "Tài sản cố định vô hình",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản cố định vô hình",
+    "xcyber": "Tài sản cố định vô hình"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "214",
+   "level": 1,
+   "name": "Hao mòn tài sản cố định",
+   "names_by_source": {
+    "ketoanleanh": "Hao mòn tài sản cố định",
+    "xcyber": "Hao mòn tài sản cố định"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "2141",
+   "level": 2,
+   "name": "Hao mòn TSCĐ hữu hình",
+   "names_by_source": {
+    "ketoanleanh": "Hao mòn TSCĐ hữu hình"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2142",
+   "level": 2,
+   "name": "Hao mòn TSCĐ thuê tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Hao mòn TSCĐ thuê tài chính"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2143",
+   "level": 2,
+   "name": "Hao mòn TSCĐ vô hình",
+   "names_by_source": {
+    "ketoanleanh": "Hao mòn TSCĐ vô hình"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2147",
+   "level": 2,
+   "name": "Hao mòn bất động sản đầu tư",
+   "names_by_source": {
+    "ketoanleanh": "Hao mòn bất động sản đầu tư"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "215",
+   "level": 1,
+   "name": "Tài sản sinh học",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản sinh học",
+    "xcyber": "Tài sản sinh học"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "2151",
+   "level": 2,
+   "name": "Súc vật nuôi cho sản phẩm định kỳ",
+   "names_by_source": {
+    "ketoanleanh": "Súc vật nuôi cho sản phẩm định kỳ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2152",
+   "level": 2,
+   "name": "Súc vật nuôi lấy sản phẩm một lần",
+   "names_by_source": {
+    "ketoanleanh": "Súc vật nuôi lấy sản phẩm một lần"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2153",
+   "level": 2,
+   "name": "Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần",
+   "names_by_source": {
+    "ketoanleanh": "Cây trồng theo mùa vụ hoặc lấy sản phẩm một lần"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "217",
+   "level": 1,
+   "name": "Bất động sản đầu tư",
+   "names_by_source": {
+    "ketoanleanh": "Bất động sản đầu tư",
+    "xcyber": "Bất động sản đầu tư"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "221",
+   "level": 1,
+   "name": "Đầu tư vào công ty con",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư vào công ty con",
+    "xcyber": "Đầu tư vào công ty con"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "222",
+   "level": 1,
+   "name": "Đầu tư vào công ty liên doanh, liên kết",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư vào công ty liên doanh, liên kết",
+    "xcyber": "Đầu tư vào công ty liên doanh, liên kết"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "228",
+   "level": 1,
+   "name": "Đầu tư khác",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư khác",
+    "xcyber": "Đầu tư khác"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "2281",
+   "level": 2,
+   "name": "Đầu tư góp vốn vào đơn vị khác",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư góp vốn vào đơn vị khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2288",
+   "level": 2,
+   "name": "Đầu tư khác",
+   "names_by_source": {
+    "ketoanleanh": "Đầu tư khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "229",
+   "level": 1,
+   "name": "Dự phòng tổn thất tài sản",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng tổn thất tài sản",
+    "xcyber": "Dự phòng tổn thất tài sản"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "2291",
+   "level": 2,
+   "name": "Dự phòng giảm giá chứng khoán kinh doanh",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng giảm giá chứng khoán kinh doanh"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2292",
+   "level": 2,
+   "name": "Dự phòng tổn thất đầu tư vào đơn vị khác",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng tổn thất đầu tư vào đơn vị khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2293",
+   "level": 2,
+   "name": "Dự phòng phải thu khó đòi",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng phải thu khó đòi"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2294",
+   "level": 2,
+   "name": "Dự phòng giảm giá hàng tồn kho",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng giảm giá hàng tồn kho"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2295",
+   "level": 2,
+   "name": "Dự phòng tổn thất tài sản sinh học",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng tổn thất tài sản sinh học"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "241",
+   "level": 1,
+   "name": "Xây dựng cơ bản dở dang",
+   "names_by_source": {
+    "ketoanleanh": "Xây dựng cơ bản dở dang",
+    "xcyber": "Xây dựng cơ bản dở dang"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "2411",
+   "level": 2,
+   "name": "Mua sắm TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Mua sắm TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2412",
+   "level": 2,
+   "name": "Xây dựng cơ bản",
+   "names_by_source": {
+    "ketoanleanh": "Xây dựng cơ bản"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2413",
+   "level": 2,
+   "name": "Sửa chữa, bảo dưỡng định kỳ TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Sửa chữa, bảo dưỡng định kỳ TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "2414",
+   "level": 2,
+   "name": "Nâng cấp, cải tạo TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Nâng cấp, cải tạo TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "242",
+   "level": 1,
+   "name": "Chi phí chờ phân bổ",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí chờ phân bổ",
+    "xcyber": "Chi phí chờ phân bổ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "243",
+   "level": 1,
+   "name": "Tài sản thuế thu nhập hoãn lại",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản thuế thu nhập hoãn lại",
+    "xcyber": "Tài sản thuế thu nhập hoãn lại"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "244",
+   "level": 1,
+   "name": "Ký quỹ, ký cược",
+   "names_by_source": {
+    "ketoanleanh": "Ký quỹ, ký cược",
+    "xcyber": "Ký quỹ, ký cược"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "331",
+   "level": 1,
+   "name": "Phải trả cho người bán",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả cho người bán",
+    "xcyber": "Phải trả cho người bán"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "332",
+   "level": 1,
+   "name": "Phải trả cổ tức, lợi nhuận",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả cổ tức, lợi nhuận",
+    "xcyber": "Phải trả cổ tức, lợi nhuận"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "333",
+   "level": 1,
+   "name": "Thuế và các khoản phải nộp Nhà nước",
+   "names_by_source": {
+    "ketoanleanh": "Thuế và các khoản phải nộp Nhà nước",
+    "xcyber": "Thuế và các khoản phải nộp Nhà nước"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3331",
+   "level": 2,
+   "name": "Thuế giá trị gia tăng phải nộp",
+   "names_by_source": {
+    "ketoanleanh": "Thuế giá trị gia tăng phải nộp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3332",
+   "level": 2,
+   "name": "Thuế tiêu thụ đặc biệt",
+   "names_by_source": {
+    "ketoanleanh": "Thuế tiêu thụ đặc biệt"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3333",
+   "level": 2,
+   "name": "Thuế xuất, nhập khẩu",
+   "names_by_source": {
+    "ketoanleanh": "Thuế xuất, nhập khẩu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3334",
+   "level": 2,
+   "name": "Thuế thu nhập doanh nghiệp",
+   "names_by_source": {
+    "ketoanleanh": "Thuế thu nhập doanh nghiệp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3335",
+   "level": 2,
+   "name": "Thuế thu nhập cá nhân",
+   "names_by_source": {
+    "ketoanleanh": "Thuế thu nhập cá nhân"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3336",
+   "level": 2,
+   "name": "Thuế tài nguyên",
+   "names_by_source": {
+    "ketoanleanh": "Thuế tài nguyên"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3337",
+   "level": 2,
+   "name": "Thuế nhà đất, tiền thuê đất",
+   "names_by_source": {
+    "ketoanleanh": "Thuế nhà đất, tiền thuê đất"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3338",
+   "level": 2,
+   "name": "Thuế bảo vệ môi trường và các loại thuế khác",
+   "names_by_source": {
+    "ketoanleanh": "Thuế bảo vệ môi trường và các loại thuế khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3339",
+   "level": 2,
+   "name": "Phí, lệ phí và các khoản phải nộp khác",
+   "names_by_source": {
+    "ketoanleanh": "Phí, lệ phí và các khoản phải nộp khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "334",
+   "level": 1,
+   "name": "Phải trả người lao động",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả người lao động",
+    "xcyber": "Phải trả người lao động"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "335",
+   "level": 1,
+   "name": "Chi phí phải trả",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí phải trả",
+    "xcyber": "Chi phí phải trả"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "336",
+   "level": 1,
+   "name": "Phải trả nội bộ",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả nội bộ",
+    "xcyber": "Phải trả nội bộ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3361",
+   "level": 2,
+   "name": "Phải trả nội bộ về vốn kinh doanh",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả nội bộ về vốn kinh doanh"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3362",
+   "level": 2,
+   "name": "Phải trả nội bộ về chênh lệch tỷ giá",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả nội bộ về chênh lệch tỷ giá"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3363",
+   "level": 2,
+   "name": "Phải trả nội bộ về chi phí đi vay đủ điều kiện được vốn hoá",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả nội bộ về chi phí đi vay đủ điều kiện được vốn hoá"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3368",
+   "level": 2,
+   "name": "Phải trả nội bộ khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả nội bộ khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "337",
+   "level": 1,
+   "name": "Thanh toán theo tiến độ hợp đồng xây dựng",
+   "names_by_source": {
+    "ketoanleanh": "Thanh toán theo tiến độ hợp đồng xây dựng",
+    "xcyber": "Thanh toán theo tiến độ hợp đồng xây dựng"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "338",
+   "level": 1,
+   "name": "Phải trả, phải nộp khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả, phải nộp khác",
+    "xcyber": "Phải trả, phải nộp khác"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3381",
+   "level": 2,
+   "name": "Tài sản thừa chờ giải quyết",
+   "names_by_source": {
+    "ketoanleanh": "Tài sản thừa chờ giải quyết"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3382",
+   "level": 2,
+   "name": "Kinh phí công đoàn",
+   "names_by_source": {
+    "ketoanleanh": "Kinh phí công đoàn"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3383",
+   "level": 2,
+   "name": "Bảo hiểm xã hội",
+   "names_by_source": {
+    "ketoanleanh": "Bảo hiểm xã hội"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3384",
+   "level": 2,
+   "name": "Bảo hiểm y tế",
+   "names_by_source": {
+    "ketoanleanh": "Bảo hiểm y tế"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3386",
+   "level": 2,
+   "name": "Bảo hiểm thất nghiệp",
+   "names_by_source": {
+    "ketoanleanh": "Bảo hiểm thất nghiệp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3387",
+   "level": 2,
+   "name": "Doanh thu chờ phân bổ",
+   "names_by_source": {
+    "ketoanleanh": "Doanh thu chờ phân bổ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3388",
+   "level": 2,
+   "name": "Phải trả, phải nộp khác",
+   "names_by_source": {
+    "ketoanleanh": "Phải trả, phải nộp khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "341",
+   "level": 1,
+   "name": "Vay và nợ thuê tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Vay và nợ thuê tài chính",
+    "xcyber": "Vay và nợ thuê tài chính"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3411",
+   "level": 2,
+   "name": "Các khoản đi vay",
+   "names_by_source": {
+    "ketoanleanh": "Các khoản đi vay"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3412",
+   "level": 2,
+   "name": "Nợ thuê tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Nợ thuê tài chính"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "343",
+   "level": 1,
+   "name": "Trái phiếu phát hành",
+   "names_by_source": {
+    "ketoanleanh": "Trái phiếu phát hành",
+    "xcyber": "Trái phiếu phát hành"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3431",
+   "level": 2,
+   "name": "Trái phiếu thường",
+   "names_by_source": {
+    "ketoanleanh": "Trái phiếu thường"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3432",
+   "level": 2,
+   "name": "Trái phiếu chuyển đổi",
+   "names_by_source": {
+    "ketoanleanh": "Trái phiếu chuyển đổi"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "344",
+   "level": 1,
+   "name": "Nhận ký quỹ, ký cược",
+   "names_by_source": {
+    "ketoanleanh": "Nhận ký quỹ, ký cược",
+    "xcyber": "Nhận ký quỹ, ký cược"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "347",
+   "level": 1,
+   "name": "Thuế thu nhập hoãn lại phải trả",
+   "names_by_source": {
+    "ketoanleanh": "Thuế thu nhập hoãn lại phải trả",
+    "xcyber": "Thuế thu nhập hoãn lại phải trả"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "352",
+   "level": 1,
+   "name": "Dự phòng phải trả",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng phải trả",
+    "xcyber": "Dự phòng phải trả"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3521",
+   "level": 2,
+   "name": "Dự phòng bảo hành sản phẩm hàng hóa",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng bảo hành sản phẩm hàng hóa"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3522",
+   "level": 2,
+   "name": "Dự phòng bảo hành công trình xây dựng",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng bảo hành công trình xây dựng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3523",
+   "level": 2,
+   "name": "Dự phòng tái cơ cấu doanh nghiệp",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng tái cơ cấu doanh nghiệp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3525",
+   "level": 2,
+   "name": "Dự phòng phải trả khác",
+   "names_by_source": {
+    "ketoanleanh": "Dự phòng phải trả khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "353",
+   "level": 1,
+   "name": "",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ khen thưởng phúc lợi",
+    "xcyber": "Quỹ khen thưởng, phúc lợi"
+   },
+   "agreement": "mismatch"
+  },
+  {
+   "code": "3531",
+   "level": 2,
+   "name": "Quỹ khen thưởng",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ khen thưởng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3532",
+   "level": 2,
+   "name": "Quỹ phúc lợi",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ phúc lợi"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3533",
+   "level": 2,
+   "name": "Quỹ phúc lợi đã hình thành TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ phúc lợi đã hình thành TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3534",
+   "level": 2,
+   "name": "Quỹ thưởng ban quản lý điều hành công ty",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ thưởng ban quản lý điều hành công ty"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "356",
+   "level": 1,
+   "name": "Quỹ phát triển khoa học và công nghệ",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ phát triển khoa học và công nghệ",
+    "xcyber": "Quỹ phát triển khoa học và công nghệ"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "3561",
+   "level": 2,
+   "name": "Quỹ phát triển khoa học và công nghệ",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ phát triển khoa học và công nghệ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "3562",
+   "level": 2,
+   "name": "Qũy phát triển khoa học và công nghệ đã hình thành tài sản",
+   "names_by_source": {
+    "ketoanleanh": "Qũy phát triển khoa học và công nghệ đã hình thành tài sản"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "357",
+   "level": 1,
+   "name": "Quỹ bình ổn giá",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ bình ổn giá",
+    "xcyber": "Quỹ bình ổn giá"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "411",
+   "level": 1,
+   "name": "Vốn đầu tư của chủ sở hữu",
+   "names_by_source": {
+    "ketoanleanh": "Vốn đầu tư của chủ sở hữu",
+    "xcyber": "Vốn đầu tư của chủ sở hữu"
+   },
+   "agreement": "both_match"
+  },
+  {
+   "code": "4111",
+   "level": 2,
+   "name": "Vốn góp của chủ sở hữu",
+   "names_by_source": {
+    "ketoanleanh": "Vốn góp của chủ sở hữu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "4112",
+   "level": 2,
+   "name": "Thặng dư vốn",
+   "names_by_source": {
+    "ketoanleanh": "Thặng dư vốn"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "4113",
+   "level": 2,
+   "name": "Quyền chọn chuyển đổi trái phiếu",
+   "names_by_source": {
+    "ketoanleanh": "Quyền chọn chuyển đổi trái phiếu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "4118",
+   "level": 2,
+   "name": "Vốn khác",
+   "names_by_source": {
+    "ketoanleanh": "Vốn khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "412",
+   "level": 1,
+   "name": "Chênh lệch đánh giá lại tài sản",
+   "names_by_source": {
+    "ketoanleanh": "Chênh lệch đánh giá lại tài sản"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "413",
+   "level": 1,
+   "name": "Chênh lệch tỷ giá hối đoái",
+   "names_by_source": {
+    "ketoanleanh": "Chênh lệch tỷ giá hối đoái"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "414",
+   "level": 1,
+   "name": "Quỹ đầu tư phát triển",
+   "names_by_source": {
+    "ketoanleanh": "Quỹ đầu tư phát triển"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "418",
+   "level": 1,
+   "name": "Các quỹ khác thuộc vốn chủ sở hữu",
+   "names_by_source": {
+    "ketoanleanh": "Các quỹ khác thuộc vốn chủ sở hữu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "419",
+   "level": 1,
+   "name": "Cổ phiếu mua lại của chính mình",
+   "names_by_source": {
+    "ketoanleanh": "Cổ phiếu mua lại của chính mình"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "421",
+   "level": 1,
+   "name": "Lợi nhuận sau thuế chưa phân phối",
+   "names_by_source": {
+    "ketoanleanh": "Lợi nhuận sau thuế chưa phân phối"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "4211",
+   "level": 2,
+   "name": "Lợi nhuận sau thuế chưa phân phối lũy kế đến cuối năm trước",
+   "names_by_source": {
+    "ketoanleanh": "Lợi nhuận sau thuế chưa phân phối lũy kế đến cuối năm trước"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "4212",
+   "level": 2,
+   "name": "Lợi nhuận sau thuế chưa phân phối năm nay",
+   "names_by_source": {
+    "ketoanleanh": "Lợi nhuận sau thuế chưa phân phối năm nay"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "511",
+   "level": 1,
+   "name": "Doanh thu bán hàng và cung cấp dịch vụ",
+   "names_by_source": {
+    "ketoanleanh": "Doanh thu bán hàng và cung cấp dịch vụ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "515",
+   "level": 1,
+   "name": "Doanh thu hoạt động tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Doanh thu hoạt động tài chính"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "521",
+   "level": 1,
+   "name": "Các khoản giảm trừ doanh thu",
+   "names_by_source": {
+    "ketoanleanh": "Các khoản giảm trừ doanh thu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "621",
+   "level": 1,
+   "name": "Chi phí nguyên liệu, vật liệu trực tiếp",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nguyên liệu, vật liệu trực tiếp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "622",
+   "level": 1,
+   "name": "Chi phí nhân công trực tiếp",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nhân công trực tiếp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "623",
+   "level": 1,
+   "name": "Chi phí sử dụng máy thi công",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí sử dụng máy thi công"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6231",
+   "level": 2,
+   "name": "Chi phí nhân công",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nhân công"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6232",
+   "level": 2,
+   "name": "Chi phí vật liệu",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí vật liệu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6233",
+   "level": 2,
+   "name": "Chi phí dụng cụ sản xuất",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dụng cụ sản xuất"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6234",
+   "level": 2,
+   "name": "Chi phí khấu hao máy thi công",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí khấu hao máy thi công"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6237",
+   "level": 2,
+   "name": "Chi phí dịch vụ mua ngoài",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dịch vụ mua ngoài"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6238",
+   "level": 2,
+   "name": "Chi phí bằng tiền khác",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí bằng tiền khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "627",
+   "level": 1,
+   "name": "Chi phí sản xuất chung",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí sản xuất chung"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6271",
+   "level": 2,
+   "name": "Chi phí nhân viên phân xưởng",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nhân viên phân xưởng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6272",
+   "level": 2,
+   "name": "Chi phí vật liệu",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí vật liệu"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6273",
+   "level": 2,
+   "name": "Chi phí dụng cụ sản xuất",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dụng cụ sản xuất"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6274",
+   "level": 2,
+   "name": "Chi phí khấu hao TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí khấu hao TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6275",
+   "level": 2,
+   "name": "Thuế, phí, lệ phí",
+   "names_by_source": {
+    "ketoanleanh": "Thuế, phí, lệ phí"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6277",
+   "level": 2,
+   "name": "Chi phí dịch vụ mua ngoài",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dịch vụ mua ngoài"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6278",
+   "level": 2,
+   "name": "Chi phí bằng tiền khác",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí bằng tiền khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "632",
+   "level": 1,
+   "name": "Giá vốn hàng bán",
+   "names_by_source": {
+    "ketoanleanh": "Giá vốn hàng bán"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "635",
+   "level": 1,
+   "name": "Chi phí tài chính",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí tài chính"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "641",
+   "level": 1,
+   "name": "Chi phí bán hàng",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí bán hàng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6411",
+   "level": 2,
+   "name": "Chi phí nhân viên",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nhân viên"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6412",
+   "level": 2,
+   "name": "Chi phí vật liệu, bao bì",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí vật liệu, bao bì"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6413",
+   "level": 2,
+   "name": "Chi phí dụng cụ, đồ dùng",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dụng cụ, đồ dùng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6414",
+   "level": 2,
+   "name": "Chi phí khấu hao TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí khấu hao TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6415",
+   "level": 2,
+   "name": "Thuế, phí, lệ phí",
+   "names_by_source": {
+    "ketoanleanh": "Thuế, phí, lệ phí"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6417",
+   "level": 2,
+   "name": "Chi phí dịch vụ mua ngoài",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dịch vụ mua ngoài"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6418",
+   "level": 2,
+   "name": "Chi phí bằng tiền khác",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí bằng tiền khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "642",
+   "level": 1,
+   "name": "Chi phí quản lý doanh nghiệp",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí quản lý doanh nghiệp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6421",
+   "level": 2,
+   "name": "Chi phí nhân viên quản lý",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí nhân viên quản lý"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6422",
+   "level": 2,
+   "name": "Chi phí vật liệu quản lý",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí vật liệu quản lý"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6423",
+   "level": 2,
+   "name": "Chi phí đồ dùng văn phòng",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí đồ dùng văn phòng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6424",
+   "level": 2,
+   "name": "Chi phí khấu hao TSCĐ",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí khấu hao TSCĐ"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6425",
+   "level": 2,
+   "name": "Thuế, phí và lệ phí",
+   "names_by_source": {
+    "ketoanleanh": "Thuế, phí và lệ phí"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6426",
+   "level": 2,
+   "name": "Chi phí dự phòng",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dự phòng"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6427",
+   "level": 2,
+   "name": "Chi phí dịch vụ mua ngoài",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí dịch vụ mua ngoài"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "6428",
+   "level": 2,
+   "name": "Chi phí bằng tiền khác",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí bằng tiền khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "711",
+   "level": 1,
+   "name": "Thu nhập khác",
+   "names_by_source": {
+    "ketoanleanh": "Thu nhập khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "811",
+   "level": 1,
+   "name": "Chi phí khác",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí khác"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "821",
+   "level": 1,
+   "name": "Chi phí thuế thu nhập doanh nghiệp",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí thuế thu nhập doanh nghiệp"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "8211",
+   "level": 2,
+   "name": "Chi phí thuế TNDN hiện hành",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí thuế TNDN hiện hành"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "8212",
+   "level": 2,
+   "name": "Chi phí thuế TNDN hoãn lại",
+   "names_by_source": {
+    "ketoanleanh": "Chi phí thuế TNDN hoãn lại"
+   },
+   "agreement": "only_ketoanleanh"
+  },
+  {
+   "code": "911",
+   "level": 1,
+   "name": "Xác định kết quả kinh doanh",
+   "names_by_source": {
+    "ketoanleanh": "Xác định kết quả kinh doanh"
+   },
+   "agreement": "only_ketoanleanh"
+  }
+ ],
+ "summary": {
+  "total": 172,
+  "both_match": 61,
+  "mismatch": 2,
+  "only_one": 109
+ }
+}

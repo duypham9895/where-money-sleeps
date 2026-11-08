@@ -136,16 +136,16 @@ Mọi câu nhóm A đã có trả lời: Q-23 → QĐ 38 · Q-24 → QĐ 39 · Q
 
 ## Việc còn nợ ở S1 — không phải câu hỏi
 
-- Trang review HTML cho S1 chưa có (CLAUDE.md quy tắc 15; review N14/N13; vibe-check [6] chỉ thấy `docs/index.html`, `docs/llm-quiz.html`).
-- ~~WRITER chưa sửa: ví dụ "✅ Đúng" của quy tắc giọng 1 dạy sai bút toán kép (N12); câu mẫu EN chứa `easy` (N13)~~ — xong ở đợt áp QĐ 17–35. Còn: khai `based_on` cho mọi section (Legal §A.1).
-- `RESEARCH-GLOSSARY-UX.md` thiếu `status`/`blocked_on`; dòng 63 lỗi thời từ QĐ 20.
-- ~~LEGAL-REVIEW bảng "Việc cho phòng khác" còn ghi "chờ PM"~~ — Legal đọc lại bằng grep ở đợt QĐ 17–35. Mới "chờ PM" (vòng sửa 2): AC cho R33 (a′) kiểm lộ danh tính hộp thư (PRD ghi "không làm").
-- ~~vibe-check [5] FAIL (đường dẫn data.md thiếu `../../../`)~~ — PASS từ đợt QĐ 17–35 (review §5). [2] vẫn FAIL cho tới khi ONE-PAGER v2 được áp (dòng dưới).
-- **QĐ 50 (2026-10-25):** Duy duyệt ONE-PAGER v2 *trước* khi thấy chữ cuối. PM còn nợ: cập nhật `ONE-PAGER-V2-PROPOSAL.md` theo QĐ 36–51 (file vẫn ghi `status: draft`, chờ Q-19) rồi áp vào `gates/ONE-PAGER.md` (vẫn ghi "14 quyết định S0, Duy chưa duyệt"), và đưa Duy đọc lại bản đã áp. **Chưa làm** — ngoài phạm vi file của lượt 2026-10-25 (chỉ PRD, ACCEPTANCE, file này). Phải làm **sau** lượt sửa PRD cuối, nếu không vibe-check [2] lại FAIL.
-- ~~Nếu Q-22 = A: …~~ Q-22 → nhóm B (B-16). Còn treo: Writer đề nghị thêm điều kiện hợp đồng Ringkas vào `blocked_on` của WRITER (§5 chờ hợp đồng đó) — việc của Writer, chưa ai làm.
-- **QĐ 51:** workflow pháp lý cho **L13 + L18** phải chạy **trước S5** — chưa ai được giao, chưa có ngày. Kết quả ghi *"same vendor, same priors — no external verifier ran"* và *"không phải ý kiến pháp lý"* (QĐ 12).
-- **Việc của phòng khác theo QĐ 38–51 (PM không sửa file phòng khác):** Data — `TRACKING-PLAN.md`/`SUCCESS-CRITERIA.md` thêm `from_start` (QĐ 39), cờ F4 (QĐ 38 = N1 B), M1 số chặt/lỏng, F2 trên số chặt · Legal — `licences.json` đổi B3 từ "TẠM LOẠI … chờ X10" thành loại hẳn khỏi máy sinh card (QĐ 46); `LEGAL-REVIEW.md` X10–X13, R25 (câu mới), R37 (4) "xoá khi khiếu nại đóng", luật máy R11 = mẫu ③ · Writer — `WRITER.md` W1 (`ledger` rời `keep_en`), W2 (câu dòng soát), dòng "chưa có bản EN" song ngữ, bản EN câu R25 mới.
-- Thay nhãn N1–N8, M4, M7, X10–X13, W1–W2 bằng số QĐ: **PRD, ACCEPTANCE xong 2026-10-25**; TRACKING-PLAN, SUCCESS-CRITERIA, LEGAL-REVIEW, WRITER còn (file phòng khác).
+- ~~Trang review HTML cho S1 chưa có~~ — đã tạo `docs/s1.html` (`vibe-check [6]` PASS).
+- ~~WRITER chưa sửa: ví dụ "✅ Đúng" của quy tắc giọng 1 dạy sai bút toán kép (N12); câu mẫu EN chứa `easy` (N13); khai `based_on` cho mọi section (Legal §A.1)~~ — đã xong (`WRITER.md` §1).
+- ~~`RESEARCH-GLOSSARY-UX.md` thiếu `status`/`blocked_on`; dòng 63 lỗi thời từ QĐ 20~~ — đã cập nhật theo QĐ 17, 19, 20, 44.
+- ~~LEGAL-REVIEW bảng "Việc cho phòng khác" còn ghi "chờ PM"~~ — đã đồng bộ toàn bộ (2026-11-07); kiểm lộ danh tính hộp thư R33 (a′) nằm ở ĐK-3.
+- ~~vibe-check [5] FAIL · [2] FAIL~~ — cả hai đã PASS.
+- ~~**QĐ 50 (2026-10-25):** cập nhật `ONE-PAGER-V2-PROPOSAL.md` và áp vào `gates/ONE-PAGER.md`~~ — đã áp xong (`vibe-check [2]` PASS); còn việc Duy đọc lại bản đã áp.
+- ~~Writer đề nghị thêm điều kiện hợp đồng Ringkas vào `blocked_on` của WRITER~~ — đã đồng bộ frontmatter `blocked_on` của `WRITER.md` đủ 3 điều kiện chuẩn của S1.
+- **Điều kiện 3 của `blocked_on` (QĐ 36):** đã dựng bài mẫu lối vào + 4 quiz cards tại `gates/01-spec/SAMPLE-LESSON-01.md` và chạy `ke-toan-reviewer` xuất báo cáo `gates/01-spec/SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md` (`PASS 12 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 6 · FLAG 7`, 2026-11-07) — còn chờ Duy đọc báo cáo và bấm giờ ký.
+- **QĐ 51:** workflow pháp lý cho **L13 + L18** phải chạy **trước S5** — cổng trước S5, chưa đến stage. Kết quả ghi *"same vendor, same priors — no external verifier ran"* và *"không phải ý kiến pháp lý"* (QĐ 12).
+- ~~**Việc của phòng khác theo QĐ 38–51** và thay nhãn N1–N8, M4, M7, X10–X13, W1–W2 bằng số QĐ~~ — toàn bộ `PRD.md`, `ACCEPTANCE.md`, `TRACKING-PLAN.md`, `SUCCESS-CRITERIA.md`, `LEGAL-REVIEW.md`, `WRITER.md`, `licences.json` đã cập nhật và qua review kiểm chéo S1 (2026-11-07).
 
 ## Chưa xác minh được
 

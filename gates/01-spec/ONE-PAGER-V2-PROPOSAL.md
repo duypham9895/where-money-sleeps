@@ -1,10 +1,8 @@
 ---
-status: draft — PM đề xuất, chờ Duy duyệt (Q-19)
+status: "approved — QĐ 50 (2026-10-25), đã áp vào gates/ONE-PAGER.md"
 stage: 01-spec
-date: 2026-10-24
+date: 2026-10-25
 owner: pm
-blocked_on:
-  - "Duy duyệt Q-19 (ONE-PAGER v2)"
 ---
 
 # ONE-PAGER v2 — đề xuất cho Q-19

@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0-qd56",
+  "story": "install",
+  "storyStatus": "review",
+  "licenceCheck": {
+    "id": "elevenlabs-commercial-tts-sfx",
+    "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)",
+    "status": null
+  },
+  "formats": {
+    "long": {
+      "title": "Trả góp 0%: vậy ai đang trả tiền lãi?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "outputMp4": "dist/youtube/install-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Trả góp 0%: vậy ai đang trả tiền lãi?\n0:31 Đoạn 1\n1:11 Đoạn 2\n1:50 Đoạn 3\n2:32 Đoạn 4\n3:30 Đoạn 5\n4:20 Đoạn 5\n5:19 Cảnh 8\n6:09 Cảnh 9\n7:05 Cảnh 10\n7:57 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:31",
+          "beat": null,
+          "sha256CacheKey": "46a9948ec75beeaddc76e748e9be86394fabf25a11b947999b9d90e6034d5a50",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông cửa tiệm nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 99
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:31 – 1:11",
+          "beat": 0,
+          "sha256CacheKey": "48c5c6b085a0471430851994a2be3f896b9c99b449a53538104a8e3bc7f59f38",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chạm màn hình (cần giấy phép trước khi dùng)",
+          "voWords": 124
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:11 – 1:50",
+          "beat": 1,
+          "sha256CacheKey": "986ade020cabef1f9282201bd455248230c9258aec3b8f0797d436ca4de7a50a",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng ký bút (cần giấy phép trước khi dùng)",
+          "voWords": 125
+        },
+        {
+          "sceneIndex": 3,
+          "time": "1:50 – 2:32",
+          "beat": 2,
+          "sha256CacheKey": "d0c2b89dd18d8363d3211549c032d4eb31f79a486435ea38ed3d8643f5e643c3",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật trang sổ (cần giấy phép trước khi dùng)",
+          "voWords": 133
+        },
+        {
+          "sceneIndex": 4,
+          "time": "2:32 – 3:30",
+          "beat": 3,
+          "sha256CacheKey": "c87343542435db558fe1c8fe21e484a8213ef52f95ab56ae534343cc0839c8bc",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng nước chảy trong ống, nhỏ (cần giấy phép trước khi dùng)",
+          "voWords": 182
+        },
+        {
+          "sceneIndex": 5,
+          "time": "3:30 – 4:20",
+          "beat": 4,
+          "sha256CacheKey": "7648317bdac42c79e3c1c176a0e57ff6c72e61d5fda99223e898cd06a7c8bd87",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tích tắc đồng hồ nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 160
+        },
+        {
+          "sceneIndex": 6,
+          "time": "4:20 – 5:19",
+          "beat": 4,
+          "sha256CacheKey": "37e17dd943dbff1af487b6a54ddae4d0180511f7092bf226f8b57654a485a71c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bấm máy tính (cần giấy phép trước khi dùng)",
+          "voWords": 186
+        },
+        {
+          "sceneIndex": 7,
+          "time": "5:19 – 6:09",
+          "beat": null,
+          "sha256CacheKey": "550c630c972d8cf313fb714a8bc18d6cfd668f3bc7aafac094c60a9dcddff63f",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân lên đĩa cân (cần giấy phép trước khi dùng)",
+          "voWords": 159
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:09 – 7:05",
+          "beat": null,
+          "sha256CacheKey": "22cd20d43d876901cbe664d94f2b064078f482dd455a8dc77984f171a437b924",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng quẹt thẻ (cần giấy phép trước khi dùng)",
+          "voWords": 176
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:05 – 7:57",
+          "beat": null,
+          "sha256CacheKey": "9250234c008d7baf3b1c78674df440ae7c2c09443e1b844bd143114d3ca7ed9b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng còi báo nhỏ (cần giấy phép trước khi dùng)",
+          "voWords": 165
+        },
+        {
+          "sceneIndex": 10,
+          "time": "7:57 – 8:30",
+          "beat": null,
+          "sha256CacheKey": "777a82d401ce46bd9f5cb202617d13e0a41674fbb9d68ad908698bf437aaa4d4",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng cửa cuốn hạ (cần giấy phép trước khi dùng)",
+          "voWords": 104
+        }
+      ]
+    },
+    "short": {
+      "title": "0% nhưng cửa hàng chỉ nhận 11,4 triệu",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_flash_v2_5:vi_editorial",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "outputMp4": "dist/youtube/install-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — 0% nhưng cửa hàng chỉ nhận 11,4 triệu\n0:08 Đoạn 2\n0:20 Đoạn 4\n0:34 Đoạn 5\n0:48 Cảnh 5\n1:00 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:08",
+          "beat": null,
+          "sha256CacheKey": "04b81646334959bf3cc0579e61470604b501f6df68b33956a5eac9ebece8697e",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bật đèn (cần giấy phép trước khi dùng)",
+          "voWords": 19
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:08 – 0:20",
+          "beat": 1,
+          "sha256CacheKey": "a430e1b46edbfda0d987866df89243c87026c40be1393fb77d44bb7bda95df4b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng ký bút (cần giấy phép trước khi dùng)",
+          "voWords": 39
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:20 – 0:34",
+          "beat": 3,
+          "sha256CacheKey": "dd70f6cbf0eb957633f3bb7e31e310c0c85c7e3cb3868acea306db015ec4e115",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng nước chảy trong ống (cần giấy phép trước khi dùng)",
+          "voWords": 49
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:34 – 0:48",
+          "beat": 4,
+          "sha256CacheKey": "7fe92748b7f38c90de4d0e4035ba1345c2aef8ae88aeb494556730663365aa15",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tích tắc (cần giấy phép trước khi dùng)",
+          "voWords": 57
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:48 – 1:00",
+          "beat": null,
+          "sha256CacheKey": "d6a69e5de34a100fa8dcbaf06a416c1a7a284c25eaa2d908fdf57f231d1ad8a6",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân (cần giấy phép trước khi dùng)",
+          "voWords": 41
+        },
+        {
+          "sceneIndex": 5,
+          "time": "1:00 – 1:10",
+          "beat": null,
+          "sha256CacheKey": "29f4f0ee383f94794a5f50bbf637fb2590cefe30a70b92d56b2d47194dd303e8",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/vi_editorial/with-timestamps",
+          "elevenlabsModelId": "eleven_flash_v2_5",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng cửa cuốn hạ (cần giấy phép trước khi dùng)",
+          "voWords": 22
+        }
+      ]
+    }
+  }
+}

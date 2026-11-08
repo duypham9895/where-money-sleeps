@@ -1,9 +1,10 @@
 ---
 tier: reference
+status: reference
 date: 2026-10-24
 stage: 01-spec
 owner: PM (tổng hợp research)
-answers: PRD.md §B5 "cách hiện chú thích là câu Design #2" — Duy đã chốt 2026-10-24: chạm mới hiện
+answers: PRD.md §B5 "cách hiện chú thích là câu Design #2" — Duy đã chốt QĐ 16 (chạm mới hiện), QĐ 17 (mở tại chỗ), QĐ 19 (lần đầu mỗi mục H2), QĐ 20 + QĐ 44 (nhãn thẻ theo keep_en)
 review: same vendor, same priors — no external verifier ran
 ---
 
@@ -17,7 +18,7 @@ review: same vendor, same priors — no external verifier ran
 1. **Khuyến nghị: chạm vào thuật ngữ thì một thẻ chú thích MỞ RA TẠI CHỖ, ngay sau câu chứa thuật ngữ, đẩy phần chữ bên dưới xuống. Không dùng bong bóng phủ lên chữ, không dùng sheet ở đáy.**
 2. Lý do: không che chữ. Câu đang đọc vẫn nằm trên thẻ. Không phụ thuộc Popover API hay CSS anchor (iOS < 18.3 và < 26 thiếu). Không có lớp phủ nào để nút Back của Zalo đóng nhầm cả bài. A11y dùng pattern disclosure, pattern này APG đã có đồng thuận.
 3. Đánh dấu: gạch chân chấm, giữ màu chữ thân bài, chỉ ở **lần đầu mỗi mục (H2)**. Các lần sau là chữ thường.
-4. Thẻ chứa nhãn `Nợ · Debit`, một câu định nghĩa ≤ 25 từ (WRITER §2), và một câu ví dụ về tiền của chính người đọc. Không link rời trang.
+4. Thẻ chứa nhãn song ngữ theo QĐ 20 & QĐ 44 (`Debit · bên Nợ` cho mục `keep_en: true`; `sổ cái · ledger` cho mục `keep_en: false`), một câu định nghĩa ≤ 25 từ (WRITER §2), và một câu ví dụ về tiền của chính người đọc. Không link rời trang.
 5. **Cảnh báo:** 2 trên 4 mũi nghiêng về dạng phủ: thẻ bám dòng, hoặc ngăn đáy. Không có nghiên cứu nào so sánh trực tiếp các dạng này. Nên chọn bằng buổi thử 5 người, với 2 ứng viên, không chọn bằng lập luận.
 
 ---
@@ -59,8 +60,7 @@ Không nguồn nào đo câu này. Buổi thử 5 người ở §6 là chỗ tr�
 | Mọi lần | Chỗ nào cũng tra được | "Nợ" xuất hiện hàng chục lần ⇒ trang toàn gạch chân, đi ngược cảm giác "không thấy mình đang học" | Chữ được đánh dấu bị nhìn lâu hơn và bị coi là quan trọng (S17). Tác giả nói hiệu ứng này không hại mạnh tới việc đọc ⇒ mức tin **low** |
 | Hai mức (gạch rõ ở lần đầu, gạch rất nhạt ở các lần sau) | Tra được mọi nơi | Lúc 10h tối, độ sáng thấp hoặc dark mode, gạch "rất nhạt" coi như không có | lens user của mũi affordance. **Bỏ** |
 
-⚠ **Xung đột với `gates/01-spec/WRITER.md` §3:** WRITER đang ghi "các lần sau: `Nợ`", tức tính theo mỗi bài. Research đề nghị tính theo mỗi H2. File này **không sửa WRITER**; Duy chọn.
-Riêng phần `(Debit)` ở lần đầu thì giữ nguyên quy tắc WRITER. Câu X1 (có tính là trộn ngôn ngữ không) vẫn mở.
+> **Cập nhật theo QĐ 19, 20, 44 (2026-10-25):** Xung đột cũ với `WRITER.md` §3 đã đóng — đơn vị đánh dấu lần đầu chốt theo **mỗi mục H2** (QĐ 19), thuật ngữ chuyên ngành viết tiếng Anh trong dòng (`Debit`, không viết `Nợ (Debit)`, QĐ 20), ngoại lệ `sổ cái` viết tiếng Việt trong dòng (QĐ 44).
 
 **Tín hiệu:**
 - Gạch chân **chấm**, cùng màu chữ, lệch xuống khoảng 3px.
@@ -74,7 +74,7 @@ Riêng phần `(Debit)` ở lần đầu thì giữ nguyên quy tắc WRITER. C�
 
 ```
 ┌──────────────────────────────────────────┐
-│ Nợ · Debit                            ✕  │  nhãn song ngữ (VI trước khi trang ở chế độ VI)
+│ Debit · bên Nợ (hoặc: sổ cái · ledger) ✕ │  nhãn song ngữ theo keep_en (QĐ 20, 44)
 │ <một câu định nghĩa, ngôn ngữ đang đọc>  │  ≤ 25 từ VN / ≤ 20 từ EN — WRITER §2, đã có
 │ Ví dụ: <một câu về tiền của chính bạn>   │  chưa có ngân sách — xem dưới
 └──────────────────────────────────────────┘
@@ -108,7 +108,7 @@ Riêng phần `(Debit)` ở lần đầu thì giữ nguyên quy tắc WRITER. C�
 | **Không có `role=tooltip`** | Pattern tooltip của APG chưa có đồng thuận, và tooltip không nhận focus (S10) |
 | **Glossary chưa có mục** | Build **fail** (AC-11 · AC-13 trong `gates/01-spec/ACCEPTANCE.md`). Phòng thủ lúc runtime: render chữ thường, không gạch, không nút. **Không bao giờ có thẻ rỗng** |
 | **JS lỗi** | Thuật ngữ thành chữ thường. Bài vẫn phải đọc hiểu được khi không mở thẻ nào (S1) |
-| **Chế độ EN** | Cùng component. Nhãn theo bảng hiển thị trang EN của WRITER §3 (X1 còn mở) |
+| **Chế độ EN** | Cùng component. Nhãn theo bảng hiển thị trang EN của WRITER §3 (X1 đã đóng bởi QĐ 20, 43) |
 | **Gõ chữ / biên tập** | `line-height` ≥ 1.6. **Không** dùng padding để nới vùng chạm, vì nó chồng lên dòng trên và dòng dưới. Quy tắc cho người viết: không để hai thuật ngữ chạm được đứng liền nhau (ca "Nợ/Có") |
 | **Gợi ý khám phá** | Bài 1 của lối vào có một câu trong nội dung: *"Chữ có gạch chấm: chạm để xem nghĩa."* Không cần storage |
 

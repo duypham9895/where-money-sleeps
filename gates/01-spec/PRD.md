@@ -23,7 +23,7 @@ blocked_on:
 - **Cổng ra mắt (QĐ 14 + QĐ 29):** lối vào VN đã duyệt **+** trình đọc PDF chạy (Hermanson host + file riêng) **+** Hermanson đã redact (2 đoạn trích + bảng số liệu bên thứ ba theo quy tắc Legal) **+** trang sách + thẻ sách **+ cảnh báo lưu trữ `persist()`** (QĐ 45). Hermanson host: **giữ** bảng B3, **che** bảng B2 tr.117 (QĐ 46). Kế toán = **agent `ke-toan-reviewer` soát, Duy ký** (QĐ 36), phạm vi QĐ 30: **GĐ01 (TT 99) · GĐ05 (APR/lãi suất) · mọi card có con số + đoạn bài mà card đó trích**. Card lối vào có con số ⇒ **chưa có báo cáo soát của agent + chữ ký Duy thì không ra mắt được.** FAIL ở K1/K2/K3 chặn đăng; phán khác Duy ký kèm một dòng lý do (QĐ 40). Mục có số hiện câu công khai *"Con số và tên tài khoản được một agent AI soát; ⟨…⟩ ký duyệt."* (QĐ 41). Tên tài khoản: K2 chỉ có bản chép thứ cấp, phán tối đa "KHỚP NGUỒN THỨ CẤP" ⇒ **GĐ01 chỉ đăng khi có Phụ lục II chính thức**; lối vào không bị chặn (QĐ 37).
 - 10 bề mặt, nối ở §Bản đồ bề mặt. 2 bề mặt bị chặn bởi phép đo điện thoại của Duy: khôi phục/sync, mở file riêng trong trình đọc PDF — **file riêng giờ chặn cả ra mắt** (QĐ 29). Lời mời cài màn hình chính cũng bị chặn, nhưng nó không phải bề mặt.
 - **Legal có quyền CHẶN** qua 37 ràng buộc (R1–R37; R35, R36 thêm theo QĐ 31, 32; R37 dữ liệu người khiếu nại, Legal vòng sửa 2); cổng S5 cần **R29 + R33 + R37 PASS**, cổng ra mắt thêm **R1–R4, R6, R13, R31 + §A.2** theo QĐ 29 (§Ràng buộc có quyền CHẶN). **Trước S5: workflow pháp lý L13 + L18 phải chạy** (QĐ 51). Đo: **M1 = `lesson_completed` bài 5 ÷ bài 1**, báo **số chặt** (`from_start=true`) và **số lỏng** (tất cả) (QĐ 39); chưa có ngưỡng — đặt sau ≥ 4 tuần và ≥ 100 lượt bài 1 (§Success Metrics).
-- **Câu hỏi cho Duy: `DECISIONS-QUEUE.md` — 0 câu nhóm A còn mở (2026-10-25).** N1–N5, N7, X4, Legal X10–X13, Writer W1–W2, K1, K11 đã quyết ở QĐ 38–51; N8 đóng (B-16). Còn: **ĐK-1** (= N3, chỉ hỏi nếu `input type=file` không chạy trong Zalo) · ĐK-2 · ĐK-3 · 2 điểm chờ hợp đồng Ringkas (QĐ 34.2 định danh trong dòng AI/dòng soát · QĐ 35 công khai hộp thư). ONE-PAGER v2 đã duyệt (QĐ 50) nhưng **chưa áp** vào `gates/ONE-PAGER.md` ⇒ vibe-check [2] còn FAIL.
+- **Câu hỏi cho Duy: `DECISIONS-QUEUE.md` — 0 câu nhóm A còn mở (2026-10-25).** N1–N5, N7, X4, Legal X10–X13, Writer W1–W2, K1, K11 đã quyết ở QĐ 38–51; N8 đóng (B-16). Còn: **ĐK-1** (= N3, chỉ hỏi nếu `input type=file` không chạy trong Zalo) · ĐK-2 · ĐK-3 · 2 điểm chờ hợp đồng Ringkas (QĐ 34.2 định danh trong dòng AI/dòng soát · QĐ 35 công khai hộp thư). ONE-PAGER v2 đã duyệt (QĐ 50) và **đã áp** vào `gates/ONE-PAGER.md` (`vibe-check [2]` PASS); Duy nên đọc lại bản đã áp. Bài mẫu M0 (`SAMPLE-LESSON-01.md`) và báo cáo `ke-toan-reviewer` (`SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md`) đã dựng sẵn chờ Duy bấm giờ ký.
 - T2 (2026-10-24): Data và Design hỏi 4 câu — trả lời ở §T2 cuối file.
 
 ## Problem
@@ -77,7 +77,7 @@ Phòng Data sở hữu `SUCCESS-CRITERIA.md` và `TRACKING-PLAN.md`. PRD **khôn
 | Trường thời điểm hoạt động cuối (để tính "phiên") trong JSON tiến độ, **không** đi theo bản sao lưu | QĐ 26 | AC-58 · AC-76 |
 | Hợp đồng event: `lesson_completed{lesson, from_start}` (bỏ `lang`; `from_start` ∈ {`true`,`false`} = storage này đã có `lesson_completed` của bài 1 lối vào chưa, tính trên máy, không rời máy dưới dạng ID — QĐ 39 mở lại QĐ 25b có chủ đích) · `card_answered{card, correct}` chỉ card trắc nghiệm · `pdf_opened{source}` · `sync_created{method}` · `progress_restored{method}`, `method` ∈ {`link`,`code`}. **Không event** cho tự khai, mời cài, `persist()` — `N/A — because` ở SUCCESS-CRITERIA §3 | QĐ 25 · 39 · TRACKING-PLAN §1 | AC-62 – AC-66 |
 | Bộ đếm lưu theo **ngày**; dashboard ẩn mọi ô n < 5, không có bảng ngày × bài/card; workflow pháp lý L13 kết luận số gộp ghép ra được người ⇒ gộp lên tuần, xoá dòng ngày | QĐ 32 | AC-80 |
-| **Không** rule chặn theo IP ở Cloudflare (Rate Limiting / WAF / Bot Fight Mode). Bơm số ⇒ cờ F1–F3 + cách ly ngày, không xoá; cách ly ≥ 2 lần trong 4 tuần ⇒ Data đưa số lên Duy. **F2 tính trên số chặt** (QĐ 39). QĐ 38 mở đường cho cờ F4 (TRACKING-PLAN §2.4 — lập luận, chưa thử; Data cập nhật) | QĐ 31 · 38 · 39 · TRACKING-PLAN §2.4 | AC-84 |
+| **Không** rule chặn theo IP ở Cloudflare (Rate Limiting / WAF / Bot Fight Mode). Bơm số ⇒ cờ F1–F4 + cách ly ngày, không xoá; cách ly ≥ 2 lần trong 4 tuần ⇒ Data đưa số lên Duy. **F2 tính trên số chặt** (QĐ 39). QĐ 38 thêm cờ F4 (TRACKING-PLAN §2.4 — lập luận, chưa thử; Data đã cập nhật) | QĐ 31 · 38 · 39 · TRACKING-PLAN §2.4 | AC-84 |
 | `card` mang phiên bản `<cardId>.v<n>`; `cardId` gán lúc duyệt, không đổi khi máy sinh card chạy lại | TRACKING-PLAN §1 | AC-64 |
 | Site và bộ đếm **cùng origin** ⇒ site không host trên GitHub Pages. Tên miền **chưa mua**; đăng ký dưới tên Duy là việc chạm Legal R34 | TRACKING-PLAN §3 · LEGAL-REVIEW R34 | AC-68 |
 | **Workers Logs mặc định BẬT** cho Worker mới ⇒ phải tắt hẳn | TRACKING-PLAN §3 | AC-56 |
@@ -133,7 +133,7 @@ Phòng Data sở hữu `SUCCESS-CRITERIA.md` và `TRACKING-PLAN.md`. PRD **khôn
 | Funnel theo từng người, % hoàn thành 26 tuần | Cần định danh; nền 3,13% tự kết án | PRODUCT-BRIEF §Đo cái gì |
 | Thời gian đọc, cuộn, quốc gia, thiết bị, referrer | Không đổi hành động nào; muốn thêm ⇒ Duy quyết, dòng có ngày | SUCCESS-CRITERIA §3 |
 | Event cho tự khai · mời cài · kết quả `persist()` · thẻ lật tự chấm | Không đổi hành động nào ở mùa 1 | QĐ 25d, e |
-| Chặn spam theo IP — **cả trong mã Worker lẫn rule ở Cloudflare** | Đọc IP là xử lý dữ liệu; giữ QĐ 9. Phát hiện bằng F1–F3 + cách ly ngày | LEGAL-REVIEW R23 · QĐ 31 · TRACKING-PLAN §2.4 |
+| Chặn spam theo IP — **cả trong mã Worker lẫn rule ở Cloudflare** | Đọc IP là xử lý dữ liệu; giữ QĐ 9. Phát hiện bằng F1–F4 + cách ly ngày | LEGAL-REVIEW R23 · QĐ 31 · 38 · TRACKING-PLAN §2.4 |
 
 ## Bản đồ bề mặt
 
@@ -257,10 +257,10 @@ Writer sở hữu câu chữ (stages.md). PRD chỉ chở những gì thành **y
 | Số VN ⇄ EN | `2,5%` ⇄ `2.5%` · `10.000.000đ` ⇄ `10,000,000 VND`; kiểm số trong card phải hiểu cả hai | WRITER §1 | AC-71 |
 | Bối cảnh bản EN | Giữ VND, VietQR, NAPAS 247 — không đổi sang ví dụ Mỹ | WRITER §1 | NGƯỜI |
 | Nhãn giao diện | Không dùng "đồng bộ"/"sync" trên giao diện (cơ chế là ảnh chụp gửi một lần). Tên event là chuyện khác (`sync_created`, QĐ 25a) | WRITER §5 | AC-72 |
-| Glossary | Thuật ngữ chuyên ngành **giữ tiếng Anh trong dòng** (Debit, Credit, accrual, APR…), mục glossary có cờ `keep_en`, chạm mở chú thích tiếng Việt (QĐ 20) ⇒ quy ước `Nợ`/`Có` viết hoa cho bên bút toán ở WRITER §3 **hết căn cứ** — Writer sửa; PM không sửa file phòng khác. **`ledger` không `keep_en`: bài VN viết "sổ cái", `ledger` chỉ ở `en.term` trong thẻ** (QĐ 44 — Writer sửa danh sách mặc định §3). Tên TK nguyên văn TT 99 PL II (tiếng Việt, vào danh sách gốc của QĐ 21); tên TT 200 vào `aliases`. Nguồn tên TK trong repo hiện chỉ là bản chép thứ cấp `legal/tt99-phu-luc-ii.secondary.json` (QĐ 37). **GĐ01: BLOCKED — chờ Phụ lục II chính thức** | WRITER §3 · QĐ 20 · 21 · 44 | AC-03 · AC-04 · AC-11 – AC-13 |
+| Glossary | Thuật ngữ chuyên ngành **giữ tiếng Anh trong dòng** (Debit, Credit, accrual, APR…), mục glossary có cờ `keep_en`, chạm mở chú thích tiếng Việt (QĐ 20); quy ước `Nợ`/`Có` viết hoa cho bên bút toán ở WRITER §3 đã bỏ (Writer đã cập nhật). **`ledger` không `keep_en`: bài VN viết "sổ cái", `ledger` chỉ ở `en.term` trong thẻ** (QĐ 44 — Writer đã cập nhật §3). Tên TK nguyên văn TT 99 PL II (tiếng Việt, vào danh sách gốc của QĐ 21); tên TT 200 vào `aliases`. Nguồn tên TK trong repo hiện chỉ là bản chép thứ cấp `legal/tt99-phu-luc-ii.secondary.json` (QĐ 37). **GĐ01: BLOCKED — chờ Phụ lục II chính thức** | WRITER §3 · QĐ 20 · 21 · 44 | AC-03 · AC-04 · AC-11 – AC-13 |
 | Sổ phía ngân hàng (GĐ02) | TT 99 chỉ phủ doanh nghiệp ⇒ WRITER §7 X2 đề xuất **mô tả bằng lời**, không ghi số hiệu tài khoản của ngân hàng. Con số trong sổ ngân hàng GĐ02 không card nào hỏi: **Duy đọc**, không chờ agent kế toán (QĐ 30, 36) | WRITER §7 X2 · QĐ 30 | NGƯỜI |
 | Cảnh báo lưu trữ | 3 biến thể theo `persist()`, nói "lâu hơn", không nói "luôn". **Điều kiện ra mắt** (QĐ 18, 45) | WRITER §6 · QĐ 18 · 45 | AC-72 · AC-83 |
-| Dòng soát + minh bạch AI | Mục có số/tên TK: *"Con số và tên tài khoản được một agent AI soát; ⟨…⟩ ký duyệt."* (EN: Writer đề xuất *"Figures and account names checked by an AI agent; signed off by ⟨…⟩."* — chưa duyệt riêng). Không chứa "kế toán / accountant / chuyên gia / expert" trong dòng minh bạch và `reviewed_by` (QĐ 41). ⟨…⟩ chờ hợp đồng Ringkas (QĐ 34.2) | WRITER §5 · QĐ 41 | AC-21 · AC-86 |
+| Dòng soát + minh bạch AI | Mục thuộc phạm vi QĐ 30 (có báo cáo agent): VN *"Con số và tên tài khoản được một agent AI soát; ⟨…⟩ ký duyệt."* · EN *"Figures and account names checked by an AI agent; signed off by ⟨…⟩."* (WRITER §5, Duy duyệt EN theo AC-02). Không chứa "kế toán / accountant / chuyên gia / expert" hoặc `ke-toan-reviewer` trong dòng minh bạch và `reviewed_by` (QĐ 41, AC-86). ⟨…⟩ chờ hợp đồng Ringkas (QĐ 34.2) | WRITER §5 · QĐ 41 | AC-21 · AC-86 |
 | Dòng "chưa có bản EN" | **Song ngữ**, ngoại lệ có tên của "không trộn" (QĐ 43 b) | WRITER §5 · QĐ 43 | AC-05 · AC-06 |
 | Tên và chủ ngữ | Không dịch "Where Money Sleeps"; site tự xưng bằng tên, không "chúng tôi" — **mặc định của Writer, S2 chỉnh được** | WRITER §7 X4 | — |
 | Tagline | **T1** (QĐ 22). VN: *"Từ tin báo "ghi có" tới sổ cái: tiền của bạn đi qua những đâu."* · EN: *"From the bank alert to the ledger: where your money actually goes."* Việc của Duy: chụp 3 tin báo biến động số dư thật để xác nhận chữ "ghi có" | WRITER §4 · QĐ 22 | AC-39 · AC-78 |
@@ -271,7 +271,7 @@ Writer sở hữu câu chữ (stages.md). PRD chỉ chở những gì thành **y
 
 | # | Milestone | Outcome người dùng thấy | Status | Plan |
 |---|---|---|---|---|
-| 0 | Gỡ ba điều kiện S1 | Không có — là cổng. Gồm **một bài mẫu + card nháp dựng tay** (ghi chú N6, PRODUCT-BRIEF) để **agent `ke-toan-reviewer` chạy thử và đo thời gian Duy đọc báo cáo + ký** — điều kiện 3 theo QĐ 36 (thay "tên người kế toán + bấm giờ"); `blocked_on` đã theo chữ QĐ 36 (B-16) | pending | — |
+| 0 | Gỡ ba điều kiện S1 | Không có — là cổng. Gồm **một bài mẫu + card nháp dựng tay** (`gates/01-spec/SAMPLE-LESSON-01.md`) và **báo cáo chạy thử của agent `ke-toan-reviewer`** (`gates/01-spec/SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md`: `PASS 12 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 6 · FLAG 7`) để **đo thời gian Duy đọc báo cáo + ký** — điều kiện 3 theo QĐ 36; `blocked_on` đã theo chữ QĐ 36 (B-16) | in-progress (bài mẫu + báo cáo agent đã xong 2026-11-07; chờ Duy bấm giờ ký + đo điện thoại + đọc hợp đồng Ringkas) | — |
 | 1 | Ra mắt lối vào VN **+ sách** | Người lạ đọc được 12–15 bài, làm card, có glossary, tự khai, nút gạt (mờ khi chưa có EN); **mở Hermanson tr.1–197 đã redact và file PDF của chính mình trong trình đọc; đọc trang sách + thẻ sách** (QĐ 29); **được báo trước nguy cơ mất tiến độ** (`persist()`, QĐ 45) | pending — BLOCKED bởi M0 · phép đo `input type=file` · redact tr.113/166/117 (S3) · thẻ sách (Duy viết) | — |
 | 2 | EN cho lối vào | Nút gạt sáng dần theo từng bài đã duyệt EN | pending | — |
 | 3 | GĐ01 | Bút toán, T-account; **card Hermanson** bắt đầu đăng được (cần một bài `published` có `based_on` phủ trang — QĐ 27, 28, 48) | pending — **BLOCKED — chờ Phụ lục II TT 99 chính thức** (QĐ 37: bài có tên TK chính thức chỉ đăng khi có bản chính thức) | — |
@@ -292,7 +292,7 @@ Thứ tự 2–5 là **đề xuất của PM**, chưa có quyết định của 
 
 | Nhãn | Câu | Kết quả |
 |---|---|---|
-| X4 | ONE-PAGER cũ hơn PRD.md (vibe-check [2] FAIL) | **QĐ 50** — duyệt ONE-PAGER v2; PM áp vào `gates/ONE-PAGER.md`. **Chưa áp** ⇒ [2] còn FAIL (§Còn treo) |
+| X4 | ONE-PAGER cũ hơn PRD.md (vibe-check [2] FAIL) | **QĐ 50** — duyệt ONE-PAGER v2; PM **đã áp** vào `gates/ONE-PAGER.md` (`vibe-check [2]` PASS); Duy đọc lại bản đã áp |
 | N1 | Thẻ lật tự chấm có tính "đã trả lời" | **QĐ 38** — không tính; mỗi bài `published` ≥ 1 card trắc nghiệm `published` |
 | N2 | Ngoại lệ AC-05 ngoài `keep_en` | **QĐ 43** — (a) danh sách tên riêng · (b) dòng "chưa có bản EN" song ngữ · (c) đối xứng cho trang EN |
 | N3 | `input type=file` không chạy trong Zalo | **Chưa quyết — câu có điều kiện ĐK-1**, chỉ hỏi nếu phép đo ra "không chạy" |
@@ -314,7 +314,7 @@ Thứ tự 2–5 là **đề xuất của PM**, chưa có quyết định của 
 - [ ] **QĐ 34.2** Chữ định danh trong "duyệt bởi ⟨…⟩" và dòng soát (QĐ 41) — **BLOCKED — chờ Duy đọc hợp đồng Ringkas.**
 - [ ] **QĐ 35** Công khai hộp thư khiếu nại — **BLOCKED — chờ Duy đọc hợp đồng Ringkas.**
 - [ ] **ĐK-1 · ĐK-2 · ĐK-3** — câu có điều kiện (`DECISIONS-QUEUE.md`), chỉ hỏi khi phép đo/cấu hình ra kết quả xấu.
-- [ ] **Áp ONE-PAGER v2** (QĐ 50) vào `gates/ONE-PAGER.md` sau lượt sửa PRD cuối, rồi đưa Duy đọc lại bản đã áp (QĐ 50 tự ghi "nên đọc lại"). Việc của PM; chưa làm.
+- [x] **Áp ONE-PAGER v2** (QĐ 50) vào `gates/ONE-PAGER.md` (`vibe-check [2]` PASS); còn việc Duy đọc lại bản đã áp (QĐ 50 ghi "nên đọc lại").
 - [ ] **Workflow pháp lý L13 + L18** trước S5 (QĐ 51) — chưa giao ai, chưa có ngày.
 
 **Câu mở khác — không phải câu của Duy ở S1**
@@ -332,7 +332,7 @@ PM gộp bốn file và thấy các chỗ dưới. **PM không tự quyết.** C
 | **K1** | **Mức rủi ro Luật 91 mà QĐ 11 đã chấp nhận** | LEGAL-SCREEN (S0): "vùng xám nhẹ" | Legal S1, theo `../../../docs/data.md` của xưởng: Đ.20.1.c phủ cả cá nhân, không miễn trừ; không nộp CTIA ⇒ phạt 30–50 triệu (mức tổ chức; cá nhân bằng một nửa, ~15–25 triệu, Điều 7 NĐ 330 theo `../../../docs/data.md` — chưa xác minh; và docs/data.md kết luận đếm lượt không lưu gì định danh thì không phát sinh nghĩa vụ — xem LEGAL-REVIEW X1, hai cách đọc) **và bị buộc ngừng chuyển dữ liệu**. Host nào cũng thấy IP ⇒ thiết kế không tránh được | Câu hỏi #12 | **Đã quyết — QĐ 51:** xác nhận lại QĐ 11; workflow L13 + L18 trước S5 |
 | **K2** | Cờ chống trùng `tel` trong JSON tiến độ | Data: `tel` đi theo bản sao lưu, nếu không thì khôi phục xong bắn lại | Legal R28: sao lưu chỉ mang field schema (bài · card · trang PDF · ngôn ngữ). QĐ 7: schema là hợp đồng | Thêm `tel` vào schema **và** vào whitelist R28. `tel` chỉ chứa ID bài/card + `hosted`/`own` + `sent`/`suppressed`, không tên file | **Đã quyết — QĐ 26:** `tel` vào schema, đi theo sao lưu |
 | **K3** | Tên event sao lưu | Data: `sync_link_created` → `sync_created{method}`, để Zalo cắt `#` không bắt đổi tên | Writer: "tên event `sync_link_created` vẫn giữ" — ý là nhãn giao diện khác tên event | Nhận tên của Data. Writer không phản đối đổi tên, chỉ nói nhãn ≠ event | **Đã quyết — QĐ 25a:** `sync_created{method}` |
-| K4 | Cách hiện chú thích | Writer khuyến nghị C: lần đầu mỗi bài **hiện ngay** | **QĐ 16** (sau): chạm mới hiện, không hiện sẵn | **Đã giải bởi QĐ 16** (dòng sau thắng). Phương án C của Writer không áp. *2026-10-24 (T2 Design):* WRITER TL;DR, §2 và §3 (`Nợ (Debit)` trong dòng) **chưa cập nhật theo** — Writer sửa; PM không sửa file phòng khác. Tới lúc đó S2 đọc PRD, không đọc WRITER, cho cách hiện chú thích | **Đã quyết — QĐ 17 · 19 · 20** (mở tại chỗ · lần đầu mỗi H2 · giữ EN trong dòng). WRITER §2, §3 vẫn phải sửa theo — việc của Writer |
+| K4 | Cách hiện chú thích | Writer khuyến nghị C: lần đầu mỗi bài **hiện ngay** | **QĐ 16** (sau): chạm mới hiện, không hiện sẵn | **Đã giải bởi QĐ 16** (dòng sau thắng). Phương án C của Writer không áp. *2026-10-24 (T2 Design):* WRITER TL;DR, §2 và §3 (`Nợ (Debit)` trong dòng) đã được Writer cập nhật theo QĐ 16, 17, 19, 20, 44 | **Đã quyết — QĐ 17 · 19 · 20 · 44** (mở tại chỗ · lần đầu mỗi H2 · giữ EN trong dòng · ngoại lệ "sổ cái"). WRITER §2, §3 đã sửa khớp |
 | K5 | `exclusions` trong `licences.json` thiếu tr.113 Home Depot | Legal: thêm dòng có ngày, sửa cơ học | PRODUCT-BRIEF: tr.113 phải loại khỏi máy sinh card | Cho Legal thêm dòng | **S0 đã trả lời** (`DECISIONS-QUEUE.md` B-01) — **Legal đã thêm ở vòng sửa 2** (2026-10-24): `exclusions` nay có tr.113, 166, 501, 803, tr.117 (B2) và B3 tạm loại |
 | K6 | Hai bản chữ câu ghi công Hermanson | `licences.json` `attribution_text` | LEGAL-SCREEN dòng "Quyết định 15" (khác chữ, không có URI) | **Đã giải theo chỉ thị S1:** dùng `licences.json`; URI hiện riêng (Legal R4) | Không |
 | K7 | Chặn spam ở bộ đếm | Data: chặn theo IP là xử lý IP ⇒ hỏi Legal | Legal R23: Worker không đọc IP | **Chỉ phần mã Worker đã giải** (R23 + QĐ 9): Worker không đọc IP; dùng whitelist + trần ghi. **Phần rule chặn theo IP ở tầng Cloudflare (Rate Limiting/WAF/Bot do Duy cấu hình) chưa giải:** Data khuyến nghị không bật, phát hiện bằng cờ F1–F3 + cách ly ngày (TRACKING-PLAN §2.4) | **Đã quyết — QĐ 31:** không bật rule IP ở Cloudflare |
@@ -391,7 +391,7 @@ PM gộp bốn file và thấy các chỗ dưới. **PM không tự quyết.** C
 
 - Toàn bộ hành vi trên điện thoại thật: Zalo `#fragment`, WebView hay trình duyệt, `input type=file`, iOS 26 có tách storage tab ↔ app, `persist()` trên iPhone.
 - Số bài thật của mùa 1 (~28–30 là ước tính) và số card (84–150 VN là ước tính).
-- Thời gian duyệt một bài + card: Duy đọc bài, và Duy đọc báo cáo agent kế toán rồi ký (điều kiện 3, QĐ 36). Agent `ke-toan-reviewer` **chưa chạy lần nào** trên nội dung app này.
+- Thời gian duyệt một bài + card: Duy đọc bài, và Duy đọc báo cáo agent kế toán rồi ký (điều kiện 3, QĐ 36). Agent `ke-toan-reviewer` **đã chạy thử** trên bài mẫu `SAMPLE-LESSON-01.md` (báo cáo `SAMPLE-LESSON-01-ACCOUNTING-REVIEW.md`: `PASS 12 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 6 · FLAG 7`), chờ Duy bấm giờ ký.
 - Bản chép Phụ lục II (`legal/tt99-phu-luc-ii.secondary.json`): hai nguồn bên thứ ba; một nguồn chỉ trích đoạn (file tự ghi). Phụ lục II chính thức: chưa có trong repo, chưa biết lấy ở đâu (QĐ 37).
 - Tỉ lệ người học có PDF muốn đọc trong site — không có số liệu.
 - Tỉ lệ sai của card LLM trên văn bản tài chính tiếng Việt — mọi số đều ngoại suy.
@@ -407,9 +407,9 @@ PM gộp bốn file và thấy các chỗ dưới. **PM không tự quyết.** C
 - Tagline có vừa một dòng ở bề ngang 360px không — chờ mockup S2.
 - Link sao lưu có `tel` dài bao nhiêu và Zalo có giữ nguyên không — chờ phép đo của Duy.
 - QĐ 41–51 nhận theo lô **trước khi Duy đọc từng bảng phương án** (PRODUCT-BRIEF.md:179). PRD áp đúng chữ khuyến nghị; Duy chưa thấy chữ PRD sau khi áp.
-- Câu dòng soát W2 (QĐ 41) và câu R25 mới (QĐ 49) chưa đối chiếu Luật AI 134/2025 (L14) và Luật 91 (L18); bản EN của câu R25 mới chưa có (Writer).
+- Câu dòng soát W2 (QĐ 41) và câu R25 mới (QĐ 49) chưa đối chiếu Luật AI 134/2025 (L14) và Luật 91 (L18); bản EN của câu R25 mới đã có ở WRITER §5 (Duy duyệt theo AC-02).
 - Số đo mẫu ③ (132/1004 trang, ~41 oan, 7/7 trang đã biết) là của Legal (LEGAL-REVIEW §A.2), PM chưa chạy lại.
-- Bản nháp này là của một phiên Claude; chưa qua review. Bản gộp S1 cũng vậy: kiểm chéo giữa bốn file là xác minh phía tác giả. Same vendor, same priors — no external verifier ran.
+- Bản gộp S1 đã qua review kiểm chéo sau QĐ 38–51 (2026-11-07). Same vendor, same priors — no external verifier ran.
 
 ---
 *Status: DRAFT — requirements only. Implementation planning pending via /ecc:plan sau khi S1 được Duy duyệt.*
@@ -592,4 +592,78 @@ PM sửa tại chỗ vì file là nháp chưa duyệt. Nguồn: `PRODUCT-BRIEF.m
 | §Open Questions | Viết lại: bảng nhãn đã quyết (X4, N1–N8, X10–X13, W1–W2, M4, M7, K1); còn treo = QĐ 34.2, QĐ 35, ĐK-1…3, áp ONE-PAGER v2, workflow L13 + L18 | 38–51 |
 | §Xung đột · §Câu hỏi cho Duy · §Risks · §Chưa xác minh · §T3 | K1 → 51, K11 → 41; sổ #4, #7, #8, #9, #12; rủi ro `from_start`, mẫu ③, B3, hộp thư; giới hạn của nhận theo lô; Δ14, Δ21, Δ22, Δ23 đóng | 38–51 |
 
-**Không làm:** frontmatter · `gates/ONE-PAGER.md` và `ONE-PAGER-V2-PROPOSAL.md` (QĐ 50 giao PM nhưng ngoài phạm vi file lượt này) · file phòng khác (TRACKING-PLAN, SUCCESS-CRITERIA, LEGAL-REVIEW, WRITER, `licences.json`) · chữ "→ Duy" trong các mục lịch sử (§T2, §T3 bảng Δ, §Đổi …) — bản ghi lúc đó, không phải câu đang mở.
+**Không làm ở lượt 2026-10-25 (đã hoàn tất ở đợt đồng bộ & review 2026-11-07):** frontmatter (`status: fail` giữ nguyên vì 3 điều kiện của Duy chưa xong) · `gates/ONE-PAGER.md` và `ONE-PAGER-V2-PROPOSAL.md` đã áp theo QĐ 50 · các file phòng khác (`TRACKING-PLAN.md`, `SUCCESS-CRITERIA.md`, `LEGAL-REVIEW.md`, `WRITER.md`, `licences.json`) đã đồng bộ hết theo QĐ 38–51 · chữ "→ Duy" trong các mục lịch sử (§T2, §T3 bảng Δ, §Đổi …) giữ nguyên làm bản ghi lúc đó, không phải câu đang mở.
+
+## Đổi theo QĐ 52 (2026-11-07) — Định hướng Giá trị Kiến thức, Dual-Lens, ElevenLabs Video/Podcast & Kiến trúc Mở rộng (`Scalable Topic Engine`)
+
+Theo Quy tắc 14 (thêm mục mới có ngày, giữ nguyên lịch sử bên trên; chỗ nào xung đột thì mục này thắng):
+
+1. **Khung 6 Trụ cột Tài chính & Dòng tiền (`P01`–`P06`) mở rộng tự do (`Scalable Content-as-Data`):**
+   - Mỗi bài học là một **Case Giải Phẫu Dòng Tiền Thực Tế** (*"Đằng sau quy định/hiện tượng đó, ai được lợi gì và dòng tiền di chuyển qua những sổ cái nào?"*).
+   - **6 Trụ cột hiện tại:** `P01` Ngân hàng, Tiền gửi & Bảng lương (`CASA`, `On-Us` vs `Off-Us`) · `P02` Thẻ tín dụng, VISA/Mastercard, QR & Ví điện tử (`MDR`, `Interchange`, `Scheme Fee`, `Authorization` vs `Settlement`, `Escrow`) · `P03` Tín dụng, Trả góp, Vay mua nhà & Toán học Lãi suất (`EIR`, `Minimum Payment`, `FTP`) · `P04` Dòng tiền Doanh nghiệp, Thuế & Ảo ảnh Lợi nhuận (`Accrual` vs `Cash Flow`, VAT `TK 1331`, Voucher `TK 3387`) · `P05` Bảo hiểm, Bất động sản & Kênh giữ tài sản · `P06` Ngoại tệ, Tỷ giá & Tiền Xuyên biên giới (`DCC`, `SWIFT`, `Nostro/Vostro`).
+   - **Phạm vi ra mắt Đợt 1:** Hiển thị đủ Bản đồ 6 Trụ cột trên trang chủ; mở trước các Case thuộc `P01`, `P02`, `P03`; các trụ cột `P04`–`P06` và các Topic mới trong tương lai (`P07`, `P08`...) bật dần qua cờ `published`.
+   - **Gỡ bỏ trình đọc PDF sách *Hermanson (1998)*** khỏi cổng ra mắt M1 (ghi đè QĐ 4, 15, 27–29, 46–48 về việc bắt buộc host PDF *Hermanson* ở M1).
+2. **Nút gạt 2 góc nhìn tự chọn (`Dual-Lens Switcher`):**
+   - **`👤 Góc nhìn Cá nhân` (Mặc định):** Giải mã động cơ lợi ích, phí ẩn, lãi thực (`EIR`) và cách bảo vệ túi tiền; sổ cái chỉ hiện ở mức trực quan (*Ai giữ tiền thật* vs *Ai nợ ai*), không bắt người đọc phổ thông học số hiệu tài khoản kế toán thuế.
+   - **`⚙️ Góc nhìn Hệ thống, PM & Kế toán`:** Bật lớp X-Ray kỹ thuật (luồng bản tin thanh toán, đối soát lô, xử lý lỗi/hoàn trả) và bút toán `Debit`/`Credit` chuẩn Thông tư 99/2025/TT-BTC (đã qua `ke-toan-reviewer`).
+3. **Explainer Video tương tác & Podcast bằng ElevenLabs (Build-time):**
+   - Mỗi Case sinh sẵn lúc build bằng ElevenLabs (`eleven_flash_v2_5` hỗ trợ tiếng Việt + từ điển phát âm PLS cho thuật ngữ chuyên ngành):
+     - **🎬 Explainer Video tương tác:** Gọi API `POST /v1/text-to-speech/{voice_id}/with-timestamps` sinh file âm thanh + dữ liệu `timestamps` để sơ đồ dòng tiền (`flow` schema) tự động chạy hiệu ứng và nhảy số khớp từng câu thuyết minh.
+     - **🎧 Podcast Mode:** Bản thu âm kể chuyện độc lập phát qua trình nghe Podcast cố định ở đáy trang để người học nghe khi di chuyển mà không cần nhìn màn hình.
+   - **Pháp lý âm thanh (Quy tắc 4):** Sinh từ gói ElevenLabs trả phí có Commercial License (không dùng gói Free phi thương mại) và ghi đầy đủ vào `legal/licences.json` để khớp `vibe-check [4]`.
+4. **Kiến trúc kỹ thuật mở rộng (`Zero-Code Topic & Case Plug-in` cho S2/S3):**
+   - **Tách dữ liệu khỏi code giao diện:** Danh mục chủ đề nằm ở bảng khai báo `pillars` registry; mỗi bài học nằm trong một gói dữ liệu độc lập theo `caseSlug` (`case` data chứa nội dung 2 góc nhìn + quiz; `flow` data khai báo `actors[]` và `steps[]` cho bộ dựng Explainer Video; thư mục `audio` chứa file âm thanh + `timestamps`).
+   - **Thêm Topic hoặc Case mới không sửa code:** Khi Duy yêu cầu thêm một Topic mới (`P07`...) hoặc Case mới, chỉ cần thêm mục vào danh mục `pillars` và tạo gói dữ liệu Case mới + chạy script build media ở S3; giao diện trang chủ, bộ lọc, trình phát Explainer Video, kênh Podcast và schema tiến độ (`progress.cases[caseId]`) tự động nhận diện mà không cần sửa code UI hay migrate dữ liệu cũ.
+
+## Đổi theo QĐ 53 (2026-11-07) — Diorama v3.0 bắt buộc · Taxonomy đa danh mục · CMS Preview 1:1 · Pipeline agent `/vibe-post`
+
+Theo Quy tắc 14 (mục mới có ngày, giữ nguyên lịch sử bên trên; chỗ nào xung đột thì mục này thắng). Hợp đồng chi tiết cho agent: `gates/01-spec/AGENT-CMS-PIPELINE.md`.
+
+| # | Yêu cầu | Kiểm bằng |
+|---|---|---|
+| 1 | **Mọi bài dùng Mặt cắt Kiến trúc Diorama v3.0**: đúng 5 nhà là archetype có sẵn (cửa cuốn · poché · đạo cụ), lời hứa trên dây, tiền thật dưới ống ngầm, sổ cái kép TT 99/2025 | `scripts/check-story.py` C2–C6 |
+| 2 | **Taxonomy 3 cấp** `Category → Topic/Story → Beats + Scene`; mở đầu 7 danh mục · 19 chủ đề; thêm danh mục/chủ đề = thêm dữ liệu, không sửa giao diện | C1 · đếm suy từ dữ liệu |
+| 3 | **Định vị ngay dưới masthead**: tổng kho (danh mục · chủ đề · trạng thái), nhãn danh mục cuộn ngang không giới hạn có số bài, breadcrumb *"Đang ở danh mục X (k/N) → Bài k/N: tiêu đề"*, ngăn kéo *bản đồ toàn bộ* có tìm kiếm và lọc *Đang mở đọc / Bản nháp chờ Duy / Sắp lên* | Đã chạy thử headless trên `docs/prototype.html`, 2026-11-07 |
+| 4 | **CMS Preview 1:1**: bài agent soạn vào `status: "review"`; Duy xem bằng `?preview=1` đúng như người đọc; thanh duyệt nổi: lọc Chờ duyệt/Đã đăng, cổng kiểm, *Sửa chữ trực tiếp* (không lưu), *Duyệt & Đăng* (không lưu) | Thanh duyệt trong prototype |
+| 5 | **Pipeline 6 bước `/vibe-post`**: phân loại & "cái À" → 5 đoạn 2 góc nhìn → Diorama → kiểm (script + ke-toan-reviewer) → giọng đọc → hàng đợi `review`. Agent không bao giờ đặt `published` | Skill vibe-post (đã viết; chưa chạy thử lần nào, xem (d)) + hợp đồng |
+
+**Khoá thật vs advisory:** chỉ `scripts/check-story.py` là khoá thật (thoát mã 1). "Chỉ Duy đăng" và "ẩn bản nháp" là luật trong prompt: nút *Duyệt & Đăng* là JS không lưu, bản nháp vẫn nằm trong mã nguồn trang.
+
+**Chưa chốt — cần Duy:** (a) 7 danh mục của QĐ 53 chia khác 6 trụ cột P01–P06 của QĐ 52, quan hệ giữa hai cách chia chưa quyết. (b) Bài 3 "Trả góp 0%": ke-toan-reviewer trả **FAIL 0 · FLAG 6 · UNVERIFIED 3** (2026-11-07; agent không được chạy code). Sau đó tác giả sửa câu chữ theo 4 FLAG (#10–#13) và tự tính lại K1 bằng code (khớp: 0,80%/tháng, ~10%/năm) — **chưa chạy lại reviewer**. Hai FLAG còn lại là việc của người ký: ghi 1388 hay 131 cho phải thu từ công ty tài chính; ghi 641 hay giảm doanh thu cho hỗ trợ lãi suất. (c) Hai bài đang "đã đăng" trong prototype mang `approvedBy: "demo-prototype"` — chưa phải Duy duyệt thật, **và chưa chạy ke-toan-reviewer trên bản này** (trái ONE-PAGER §3.3 nếu coi là đã đăng thật). (d) Lệnh `/vibe-post` chưa dùng được trong Claude Code (skill nằm ở `.agents/skills`, Claude Code đọc `.claude/skills`).
+
+## Đổi theo QĐ 54 (2026-11-08) — 7 danh mục khởi đầu · Luật C9: Bài sâu 2 tầng + Kịch bản Video
+
+Theo Quy tắc 14 (mục mới có ngày, giữ nguyên lịch sử bên trên; chỗ nào xung đột thì mục này thắng). Nguồn: `gates/00-discovery/PRODUCT-BRIEF.md` QĐ 54.
+
+| # | Yêu cầu | Kiểm bằng |
+|---|---|---|
+| 1 | **7 danh mục khởi đầu** (QĐ 52/53 mở rộng) là taxonomy hiển thị; 6 trụ cột P01–P06 không còn là cách chia trên giao diện. Mục (a) ở trên **đề xuất đóng — chờ Duy xác nhận chữ** (đề xuất gốc không nằm trong repo) | C1 · đếm suy từ dữ liệu |
+| 2 | **Mỗi bài đủ 3 trụ (Luật C9):** A · bài giải thích cho người không chuyên (`article.lay`) · B · phân tích chuyên sâu hệ thống & kế toán TT 99/2025 (`article.pro`, chuỗi bút toán chỉ ghi sổ doanh nghiệp; phía ngân hàng viết bằng lời, không bịa số hiệu) · C · kịch bản ≥ 7 cảnh `time`/`visual`/`vo`/`onScreen`, lời bình ≥ 220 từ, dùng thẳng cho ElevenLabs | `scripts/check-story.py` C9 (hình dạng + độ dài — **không** đo chất lượng) |
+| 3 | Trên `docs/prototype.html`: mục *"Bài viết đầy đủ & Kịch bản dựng Video"* với 3 tab A/B/C, nút *Sao chép toàn bộ kịch bản Video* và *Xuất JSON Voiceover*; thanh duyệt có cổng *C9 (Bài sâu 2 tầng + Kịch bản Video)*, là cổng nội dung thứ 5 | Chưa chạy thử trong trình duyệt ở phiên 2026-11-08 |
+| 4 | `card`, `pay` về `status: "review"` (WMS-R4) — trước đó chỉ là demo. Người đọc thường không thấy bài nào cho tới khi Duy duyệt | C7 sẽ WARN "không còn bài nào published" — đúng sự thật |
+
+**Chưa chốt — cần Duy:** (e) chữ chính xác của QĐ 54(1). (f) Phần B do agent soạn và agent cùng vendor soát; chưa người làm nghề nào đọc. (g) Giọng đọc ElevenLabs chưa sinh — chưa có giấy phép trong `legal/licences.json`.
+
+## Đổi theo C9 v2 — Hướng 3A (2026-11-08)
+
+Theo Quy tắc 14 (mục mới có ngày; chỗ nào xung đột với mục QĐ 54 bên trên thì mục này thắng). Duy, 2026-11-08, chọn *"Hướng 3A (Nâng cấp toàn diện chuẩn C9 — Bài khảo cứu sâu 2 tầng + Studio Kịch bản Video 2 định dạng: YouTube Dài 8–10 phút & Shorts/Reels/TikTok 60–90 giây)"*. Ngưỡng đầy đủ: `AGENT-CMS-PIPELINE.md` §1.
+
+| # | Yêu cầu | Kiểm bằng |
+|---|---|---|
+| 1 | Thay dòng 2 của mục QĐ 54: **A** là bài khảo cứu ≥ 850 từ chia ≥ 4 chương, có sơ đồ dòng chảy 3 kênh (dây = lời nhắn · ống ngầm = tiền thật · sổ cái = ghi nội bộ), hộp *khi cơ chế có lợi / khi thành bẫy* (ngôi thứ ba, không khuyên), ≥ 4 câu hỏi tự soi. **B** ≥ 4 cơ chế ≥ 450 từ (bù trừ ròng, cấu trúc phí, FTP, dự trữ bắt buộc, DCF/IRR/EIR có ví dụ tính) · ≥ 4 ghi chú kế toán ≥ 180 từ · ≥ 3 bút toán · ≥ 3 ngoại lệ × 50 từ. **C** hai định dạng: YouTube dài ≥ 10 cảnh, lời bình ≥ 1.350 từ, kết 7:30–11:00; Shorts/Reels/TikTok ≥ 5 cảnh, lời bình 150–260 từ, kết 0:55–1:35 | `scripts/check-story.py` C9 v2 (hình dạng + độ dài + grep điều luật/URL/tên ngân hàng/câu khuyên — **không** đo chất lượng) |
+| 2 | Thay dòng 3 của mục QĐ 54: tab A và B có mục lục nhanh; tab C có bộ chọn *YouTube Dài* / *Shorts · Reels · TikTok*, hiện số cảnh · số từ lời bình · thời lượng ước tính; nút *Sao chép kịch bản đang xem* và *Xuất JSON Voiceover* (gồm cả dài lẫn ngắn); cổng thanh duyệt *C9 v2* | Mở `docs/prototype.html?preview=1` |
+| 3 | **Thay dòng 4 của mục QĐ 54:** `card`, `pay` **giữ** `published` / `approvedBy: "demo-prototype"` theo lời Duy (nguyên văn ở `AGENT-CMS-PIPELINE.md` §6, 2026-11-08) — ngoại lệ WMS-R4 cho hai bài mẫu, **không** phải Duy duyệt nội dung; `install` giữ `review` | C7 WARN demo · thanh duyệt ✗ *"chưa phải Duy duyệt thật"* |
+| 4 | `review.ketoan` = dòng tổng **nguyên văn** của ke-toan-reviewer chạy trên nội dung đã tích hợp; ngày ở `review.ketoanAt` | Đọc dữ liệu bài |
+
+**Chưa chốt — cần Duy:** (h) đọc và duyệt nội dung C9 v2 của cả 3 bài — hiện là chữ agent, đã hiện cho người đọc thường ở `card`/`pay`. (i) Nhịp 190 từ/phút chưa đo trên giọng ElevenLabs thật; video ngắn đọc nhanh có thể lệch ước lượng.
+
+## Đổi theo QĐ 55 & QĐ 56 (2026-11-08) — Điều hướng Layout `1A` · Bỏ chữ `"sổ cái"` · Pipeline Build Audio/Video qua ElevenLabs & Upload YouTube
+
+Theo Quy tắc 14 (mục mới có ngày; chỗ nào xung đột với các mục bên trên thì mục này thắng). Nguồn: `gates/00-discovery/PRODUCT-BRIEF.md` QĐ 55, QĐ 56 và `gates/01-spec/UX-CATEGORY-NAVIGATION-RESEARCH.md`.
+
+| # | Yêu cầu | Kiểm bằng |
+|---|---|---|
+| 1 | **Layout `1A` (`Editorial Split-Pill` `48px` + Overlay Mục lục 2 cột `Master–Detail` + `⌘K` + Thẻ chuyển bài cuối bài):** Thay dải pill danh mục cuộn ngang 2–3 tầng (`162px`) bằng thanh điều hướng 1 hàng `48px` (Trái: tên thương hiệu `Where Money Sleeps`, không đặt icon hamburger cạnh logo; Giữa: `Split-Pill` `[Danh mục k/N ▾ │ Bài m/M: Tiêu đề ▾]` + nút `‹ ›` + Popover đổi nhanh bài cùng danh mục; Phải: `⌕ Mục lục & Tìm ⌘K` + `Chế độ duyệt bài`). Overlay Mục lục 2 cột nổi phủ không đẩy sân khấu Diorama xuống (**`0px` Layout Shift**) | Đã triển khai trong `docs/prototype.html` |
+| 2 | **Thay toàn bộ wording `"sổ cái"` (QĐ 55):** Dùng **"Mục lục"** cho điều hướng, **"Sổ kế toán"** cho góc nhìn kế toán (`data-lens="ledger"`), và **"Từ tin báo “ghi có” tới sổ sách ngân hàng: tiền của bạn đi qua những đâu."** cho tagline tiếng Việt (sửa QĐ 22, QĐ 44, QĐ 53) | Quét Unicode NFC trên `docs/prototype.html` = `0` lần xuất hiện `"sổ cái"` |
+| 3 | **Pipeline khép kín Build Audio + Video qua ElevenLabs → Upload YouTube (`unlisted`) → Nhúng Video YouTube vào bài viết (`QĐ 56` — Bước 5A–5D của `/vibe-post`, thực thi qua `scripts/wms-media-pipeline.py`):** (5A) **ElevenLabs API:** gọi `with-timestamps` (`eleven_flash_v2_5` + từ điển phát âm `.pls`) và `sound-generation` (cho SFX trong `onScreen`), lưu qua bộ nhớ đệm SHA-256 theo skill `content-hash-cache-pattern` của ECC; (5B) **Kết xuất Video `.mp4`:** đồng bộ Mặt cắt Diorama v3.0 với `alignment` timestamps của ElevenLabs (`remotion-video-creation` + `ffmpeg loudnorm=-14 LUFS`), xuất bản Dài `16:9` (`1920×1080`) và bản Shorts `9:16` (`1080×1920`); (5C) **Upload YouTube (`YouTube Data API v3` — `videos.insert`):** tự động sinh Chapters từ timestamps thật, đặt mặc định `privacyStatus: "unlisted"` (hoặc `"private"` — dùng `"unlisted"` để nhúng xem thử được trong `?preview=1` mà không lộ công khai trên kênh), `selfDeclaredMadeForKids: false`, `containsSyntheticMedia: true`; (5D) **Nhúng ngược vào bài viết:** tự động ghi `youtubeId` (11 ký tự) và `embedStatus: "uploaded_unlisted"` vào `STORIES[<khoá>].videoScript.{long,short}` trong `docs/prototype.html` để khung trình phát `.yt-embed` (`youtube-nocookie.com`, hỗ trợ chuyển đổi `16:9` ⇄ `9:16` và nhảy chương) hiển thị ngay đầu bài viết (`#pnl-lay` và `#pnl-vid`). Mọi lệnh upload YouTube và việc đặt `embedStatus: "uploaded_public"` đều qua cổng hỏi Duy (`force_ask` ở `scripts/wms-hook-guard.sh` + `SHIP_ASK` 16 mục của `scripts/check-story.py` C8 & C9) | `scripts/check-story.py` C8 + C9 · `scripts/wms-media-pipeline.py` · `legal/licences.json` (`elevenlabs-commercial-tts-sfx`) |
+
