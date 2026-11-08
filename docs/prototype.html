@@ -647,7 +647,7 @@ body.cms-on{padding-bottom:150px}
 .scenes.short .scene .bd{align-content:start}
 .scenes.short .scene .f{grid-template-columns:1fr;gap:2px}
 .scene .tc em{display:block;font:italic 500 12px var(--serif);margin-top:4px;color:var(--lamp-soft);color:color-mix(in srgb,var(--paper) 85%,var(--lamp))}
-/* ── Khung nhúng YouTube Video (QĐ 56: ElevenLabs Build → YouTube Upload → Nhúng vào bài viết) ── */
+/* ── Khung nhúng Video (QĐ 56) ── */
 .yt-embed{margin:0 0 18px;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2);border-radius:4px;overflow:hidden;font-family:var(--sans)}
 .yt-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--paper-2);border-bottom:1.5px solid var(--ink)}
 .yt-bar-left{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -786,7 +786,7 @@ body.cms-on{padding-bottom:150px}
       </div>
       <div class="atlas-tools">
         <label class="atlas-q" for="atlasQ"><span class="vh">Tìm chủ đề</span>
-          <input type="search" id="atlasQ" placeholder="Tìm nhanh trong mọi danh mục: thẻ, lãi, lương, VietQR…" autocomplete="off"></label>
+          <input type="search" id="atlasQ" placeholder="Tìm nhanh trong mọi danh mục: thẻ, lãi, lương, mã QR…" autocomplete="off"></label>
         <span class="seg" role="group" aria-label="Lọc theo trạng thái" id="atlasSt">
           <button type="button" data-st="all" aria-pressed="true">Tất cả</button>
           <button type="button" data-st="published" aria-pressed="false">Đang mở đọc</button>
@@ -816,7 +816,7 @@ body.cms-on{padding-bottom:150px}
   </div>
   <div class="hero-art">
     <div class="slip" aria-hidden="true">
-      <b>QUÁN NHÀ LIÊN</b><span class="c">bàn 6 · 22:47</span><hr>
+      <b>QUÁN ĂN QUEN</b><span class="c">bàn 6 · 22:47</span><hr>
       <span class="r"><span>TỔNG</span><span>10.000.000</span></span>
       <span class="r"><span>THẺ</span><span>****4821</span></span><hr>
       <span class="ok">ĐÃ DUYỆT</span>
@@ -824,8 +824,8 @@ body.cms-on{padding-bottom:150px}
     <div class="phone" role="img" aria-label="Màn hình khoá điện thoại lúc 22:47, có một tin nhắn ngân hàng">
       <div class="clock"><b class="num">22:47</b><span>Thứ Bảy, 7 tháng 11</span></div>
       <div class="sms" id="sms">
-        <div class="who"><b>Ngân hàng X</b><span>bây giờ</span></div>
-        <code>The tin dung ****4821 GD -10,000,000 VND luc 22:47 07/11 tai QUAN NHA LIEN. Han muc kha dung: 18,500,000 VND.</code>
+        <div class="who"><b>Ngân hàng phát hành</b><span>bây giờ</span></div>
+        <code>The tin dung ****4821 GD -10,000,000 VND luc 22:47 07/11 tai QUAN AN QUEN. Han muc kha dung: 18,500,000 VND.</code>
       </div>
       <div class="note" id="smsnote">chưa có đồng nào rời đi…</div>
     </div>
@@ -838,7 +838,7 @@ body.cms-on{padding-bottom:150px}
   <h2 id="before-h">Ba điều bạn sẽ tự trả lời được, sau chừng ba phút</h2>
   <ol class="three">
     <li><span>Vì sao hoá đơn 10 triệu mà quán chỉ nhận về 9.780.000 đồng, và vì sao phải đợi hai ngày làm việc mới nhận.</span></li>
-    <li><span>Visa, Mastercard không cho bạn vay đồng nào. Vậy họ thu tiền từ đâu, và thật ra ai đang trả tiền hoàn cho bạn?</span></li>
+    <li><span>Tổ chức chuyển mạch thẻ không cho bạn vay đồng nào. Vậy họ thu tiền từ đâu, và thật ra ai đang trả tiền hoàn cho bạn?</span></li>
     <li><span>Vì sao ngày đầu đi làm, công ty bảo bạn mở tài khoản ở đúng một ngân hàng — và số dư của bạn thật ra là khoản nợ của ai.</span></li>
   </ol>
 </section>
@@ -927,7 +927,7 @@ body.cms-on{padding-bottom:150px}
         <div class="track"><span id="zIc" style="background:#c99a2c"></span><span id="zRest" style="background:#a3401f"></span></div>
         <ul>
           <li><i style="background:#c99a2c"></i><span><b class="num" id="zIcOut"></b> sang ngân hàng của bạn — <button class="term" data-term="interchange">Interchange</button>, ví dụ 1,5%</span></li>
-          <li><i style="background:#a3401f"></i><span><b class="num" id="zRestOut"></b> ngân hàng của quán giữ — rồi từ phần này còn phải trả phí cho Visa hoặc Mastercard</span></li>
+          <li><i style="background:#a3401f"></i><span><b class="num" id="zRestOut"></b> ngân hàng của quán giữ — rồi từ phần này còn phải trả phí cho tổ chức thẻ</span></li>
         </ul>
       </div>
       <div class="bars" aria-hidden="true"></div>
@@ -1057,7 +1057,7 @@ const GLOSS = {
   hold:{t:"Authorization hold",en:"lệnh giữ chỗ",d:"Ngân hàng tạm khoá một phần hạn mức của bạn để chắc giao dịch sẽ trả được — trước khi có đồng tiền thật nào di chuyển."},
   acquirer:{t:"Acquirer",en:"ngân hàng thanh toán",d:"Ngân hàng ký hợp đồng với quán: đưa máy cà thẻ, nhận giao dịch, rồi trả tiền vào tài khoản của quán."},
   issuer:{t:"Issuer",en:"ngân hàng phát hành",d:"Ngân hàng đã cấp thẻ cho bạn. Họ cho bạn vay hạn mức, tính lãi nếu đến hạn bạn không trả hết dư nợ sao kê, và gánh rủi ro nếu bạn không trả."},
-  scheme:{t:"Card scheme",en:"tổ chức thẻ — Visa, Mastercard…",d:"Bên vận hành đường đi của lời nhắn giữa các ngân hàng và đặt luật chơi. Không cho chủ thẻ vay; với Visa, Mastercard, thu phí từ cả hai ngân hàng."},
+  scheme:{t:"Card scheme",en:"tổ chức chuyển mạch thẻ",d:"Bên vận hành đường đi của lời nhắn giữa các ngân hàng và đặt luật chơi. Không cho chủ thẻ vay; thu phí sử dụng mạng lưới từ cả hai ngân hàng."},
   t2:{t:"T+2",en:"ngày giao dịch cộng hai ngày làm việc",d:"Tiền về tài khoản quán sau hai ngày làm việc kể từ ngày chạm thẻ. Ở bài này là một ví dụ; mỗi hợp đồng có thể khác."},
   settlement:{t:"Settlement",en:"quyết toán",d:"Lúc tiền thật được chuyển giữa các ngân hàng để trả cho những giao dịch đã được đồng ý trước đó."},
   mdr:{t:"MDR",en:"Merchant Discount Rate — phí chiết khấu của người bán",d:"Tỉ lệ phần trăm quán trả cho ngân hàng thanh toán trên mỗi giao dịch thẻ. Ở bài này lấy ví dụ 2,2%."},
@@ -1077,7 +1077,7 @@ const GLOSS = {
   chargeback:{t:"Chargeback",en:"đòi lại tiền qua ngân hàng phát hành",d:"Chủ thẻ khiếu nại với ngân hàng phát hành; ngân hàng đòi lại tiền từ phía quán theo luật của tổ chức thẻ."},
   onus:{t:"On-Us",en:"giao dịch trong cùng một ngân hàng",d:"Người gửi và người nhận cùng một ngân hàng: ngân hàng chỉ sửa sổ của mình, không cần quyết toán với ngân hàng khác."},
   offus:{t:"Off-Us",en:"giao dịch khác ngân hàng",d:"Chuyển tiền giữa hai ngân hàng: lời nhắn đi qua một kênh liên ngân hàng, tiền thật được quyết toán giữa hai ngân hàng."},
-  napas:{t:"NAPAS",en:"bên chuyển mạch liên ngân hàng ở Việt Nam",d:"Đơn vị vận hành hệ thống chuyển mạch giữa các ngân hàng ở Việt Nam, chuyển lệnh chuyển khoản và hỗ trợ bù trừ giữa họ."},
+  interbank:{t:"Interbank switch",en:"tổ chức chuyển mạch liên ngân hàng",d:"Đơn vị vận hành hệ thống chuyển mạch giữa các ngân hàng, chuyển lệnh chuyển khoản và hỗ trợ bù trừ giữa các ngân hàng thành viên."},
   reserve:{t:"Reserve requirement",en:"dự trữ bắt buộc",d:"Phần tiền gửi ngân hàng phải giữ tại ngân hàng trung ương theo một tỉ lệ quy định, không được đem cho vay."},
   dcf:{t:"Discounted cash flow",en:"dòng tiền chiết khấu",d:"Quy mọi khoản tiền nhận và trả ở các thời điểm khác nhau về giá trị hôm nay, vì tiền nhận sau đáng ít hơn."},
   irr:{t:"IRR — Internal Rate of Return",en:"tỷ suất hoàn vốn nội bộ",d:"Lãi suất làm tổng giá trị hôm nay của các khoản phải trả đúng bằng số tiền nhận được lúc đầu."},
@@ -1086,7 +1086,7 @@ const GLOSS = {
   opentobuy:{"t": "Open-to-buy", "en": "hạn mức khả dụng", "d": "Phần hạn mức thẻ tín dụng còn được tiêu ngay lúc này, sau khi trừ dư nợ và các lệnh giữ chỗ đang treo."},
   presentment:{"t": "Presentment", "en": "tệp trình giao dịch", "d": "Danh sách giao dịch đã cấp phép mà ngân hàng của quán gửi qua tổ chức thẻ để đòi ngân hàng phát hành trả tiền."},
   netting:{"t": "Net settlement", "en": "quyết toán ròng", "d": "Cộng trừ mọi khoản hai chiều giữa các ngân hàng trong kỳ, rồi mỗi ngân hàng chỉ trả hoặc nhận một con số chênh lệch."},
-  schemefee:{"t": "Scheme fee", "en": "phí của tổ chức thẻ", "d": "Phí Visa, Mastercard thu từ ngân hàng của quán và ngân hàng phát hành cho việc dùng mạng và luật chơi; khác với Interchange."},
+  schemefee:{"t": "Scheme fee", "en": "phí của tổ chức thẻ", "d": "Phí tổ chức chuyển mạch thẻ thu từ ngân hàng của quán và ngân hàng phát hành cho việc dùng mạng và luật chơi; khác với Interchange."},
   representment:{"t": "Representment", "en": "phản bác khiếu nại của chủ thẻ", "d": "Phía quán gửi bằng chứng qua ngân hàng của mình để chứng minh giao dịch hợp lệ, đòi lại khoản đã bị trừ do chargeback."},
   amortization:{"t": "Effective-interest amortization", "en": "phân bổ theo lãi suất thực tế", "d": "Cách bên cho vay chia tiền lãi ra từng kỳ: mỗi kỳ ghi nhận dư nợ đầu kỳ nhân lãi suất thực tế, nên kỳ đầu nhiều, kỳ cuối ít."},
   latefee:{"t": "Late payment fee", "en": "phí trễ hạn", "d": "Khoản phạt bên cho vay thu khi một kỳ trả đến muộn. Có hay không, bao nhiêu, tuỳ hợp đồng."},
@@ -1113,8 +1113,8 @@ const STORIES = {
     "truth": "Ở giây đó chỉ có một lời nhắn cấp phép và một lệnh giữ chỗ trên hạn mức của bạn; tiền thật chỉ chạy ở bước quyết toán, ở ví dụ này là T+2 — hai ngày làm việc sau."
    },
    {
-    "myth": "Visa hay Mastercard là bên cho mình vay khi dùng thẻ tín dụng, nên trả chậm là mình nợ Visa.",
-    "truth": "Người cho bạn vay là ngân hàng đã phát hành thẻ; Visa, Mastercard chỉ giữ đường đi của lời nhắn và luật chơi, rồi thu phí của cả hai ngân hàng."
+    "myth": "Tổ chức in biểu tượng trên mặt thẻ là bên cho mình vay khi dùng thẻ tín dụng, nên trả chậm là mình nợ tổ chức thẻ.",
+    "truth": "Người cho bạn vay là ngân hàng đã phát hành thẻ; tổ chức thẻ chỉ giữ đường đi của lời nhắn và luật chơi, rồi thu phí của cả hai ngân hàng."
    },
    {
     "myth": "Quẹt thẻ thì không ai mất phí, vì mình trả đúng mười triệu và quán nhận đúng mười triệu.",
@@ -1129,7 +1129,7 @@ const STORIES = {
    {
     "h": "Một bữa liên hoan, một tiếng tít",
     "paras": [
-     "Mười giờ bốn mươi bảy tối, bữa liên hoan ở quán quen hết 10.000.000 đồng. Bạn chạm thẻ tín dụng, máy kêu tít, điện thoại báo hạn mức còn lại giảm 10 triệu. Nhân viên đưa hoá đơn, cả nhóm đứng dậy. Với bạn, chuyện đã xong. Với năm ngôi nhà trên con phố của bài này — bạn, quán, ngân hàng của quán, Visa · Mastercard và ngân hàng của bạn — chuyện mới bắt đầu, và nó kéo dài ít nhất hai ngày làm việc.",
+     "Mười giờ bốn mươi bảy tối, bữa liên hoan ở quán quen hết 10.000.000 đồng. Bạn chạm thẻ tín dụng, máy kêu tít, điện thoại báo hạn mức còn lại giảm 10 triệu. Nhân viên đưa hoá đơn, cả nhóm đứng dậy. Với bạn, chuyện đã xong. Với năm ngôi nhà trên con phố của bài này — bạn, quán, ngân hàng của quán, tổ chức thẻ và ngân hàng của bạn — chuyện mới bắt đầu, và nó kéo dài ít nhất hai ngày làm việc.",
      "Bài này đi theo mười triệu ấy qua ba loại đường. Dây điện trên cao chở lời nhắn: câu hỏi “có đồng ý không”, câu trả lời “đồng ý”, danh sách giao dịch cuối ngày. Ống ngầm dưới đất chở tiền thật giữa các ngân hàng. Và cuốn sổ của mỗi nhà ghi lại ai đang nợ ai, dù chưa có đồng nào chạy. Phần lớn thời gian, mười triệu của bạn không nằm trong ống, mà nằm trong sổ."
     ]
    },
@@ -1137,7 +1137,7 @@ const STORIES = {
     "h": "Giải phẫu: dây, ống và sổ",
     "paras": [
      "Giây đầu tiên, ngân hàng của bạn — bên phát hành thẻ, gọi là [[Issuer|issuer]] — đặt một [[Authorization hold|hold]] 10 triệu lên hạn mức. Đó là một ghi chú tạm để bạn không tiêu trùng khoản này, chưa phải bút toán. Dư nợ thẻ của bạn chưa tăng; chỉ phần hạn mức còn được tiêu giảm đi.",
-     "Vài giây sau, một lời nhắn đi trên dây: máy của quán gửi tới ngân hàng của quán — [[Acquirer|acquirer]] —, qua mạng của [[Visa hoặc Mastercard|scheme]], tới ngân hàng của bạn, rồi chữ “đồng ý” quay về máy của quán. Không có tiền đi theo lời nhắn ấy. Nó chỉ trả lời câu hỏi: thẻ này có thật, còn hạn mức, và ngân hàng phát hành có nhận trả khoản này không.",
+     "Vài giây sau, một lời nhắn đi trên dây: máy của quán gửi tới ngân hàng của quán — [[Acquirer|acquirer]] —, qua mạng của [[tổ chức thẻ|scheme]], tới ngân hàng của bạn, rồi chữ “đồng ý” quay về máy của quán. Không có tiền đi theo lời nhắn ấy. Nó chỉ trả lời câu hỏi: thẻ này có thật, còn hạn mức, và ngân hàng phát hành có nhận trả khoản này không.",
      "Cuối ngày, quán chốt ca. Ngân hàng của quán gom mọi giao dịch đã được đồng ý thành một danh sách, gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Đây là bước [[Clearing|clearing]] — đối chiếu xem ai nợ ai bao nhiêu. Danh sách ấy vẫn là lời nhắn, vẫn đi trên dây.",
      "Đêm đó, trong két không có 10 triệu của bạn, tài khoản của quán cũng chưa có. Kế toán của quán ghi một khoản phải thu — phải thu từ ngân hàng của quán, không phải từ bạn, vì bạn đã trả bằng thẻ và không còn nợ quán. Đêm nay, tiền của bạn ngủ trong một dòng sổ.",
      "Hai ngày làm việc sau — [[T+2|t2]], một ví dụ, mỗi hợp đồng có thể khác — ống ngầm mới mở. Ngân hàng của bạn ứng tiền ra trước, chuyển cho ngân hàng của quán 9.850.000 đồng (ví dụ), tức 10 triệu đã trừ sẵn phần phí của mình. Ngân hàng của quán trả quán 9.780.000 đồng. Lúc này bạn vẫn chưa trả ai: người đã bỏ tiền thật ra là ngân hàng của bạn.",
@@ -1149,7 +1149,7 @@ const STORIES = {
     "paras": [
      "Quán chấp nhận mất 220.000 đồng ([[MDR|mdr]] ví dụ 2,2%) vì từ chối thẻ là từ chối một phần khách, và vì tiền thẻ không nằm trong két qua đêm. Cái quán đổi lấy là thời gian chờ và một khoản phí trên mỗi hoá đơn.",
      "Ngân hàng của quán sống bằng phần chênh lệch nhỏ trên rất nhiều giao dịch. Nó cũng là bên ký hợp đồng với quán, nên khi quán biến mất mà còn khoản bị đòi lại, ngân hàng của quán là bên đứng ra trả.",
-     "Visa và Mastercard không cho ai vay. Họ bán sự tin cậy: một bộ luật để hàng nghìn ngân hàng không quen nhau vẫn chấp nhận lời nhắn của nhau, và một đường dây chở lời nhắn ấy. Họ thu phí từ cả hai phía.",
+     "Tổ chức chuyển mạch thẻ không cho ai vay. Họ bán sự tin cậy: một bộ luật để hàng nghìn ngân hàng không quen nhau vẫn chấp nhận lời nhắn của nhau, và một đường dây chở lời nhắn ấy. Họ thu phí từ cả hai phía.",
      "Ngân hàng của bạn ứng tiền trước và gánh rủi ro bạn không trả. Đổi lại, nó nhận [[Interchange|interchange]] — ví dụ 150.000 đồng trên giao dịch này — và tiền lãi nếu đến hạn bạn không trả hết dư nợ sao kê.",
      "Còn bạn được ăn trước, trả sau, không trả phí cho giao dịch này nếu trả đủ đúng hạn, và có thể nhận [[tiền hoàn|cashback]]. Cái giá của bạn không in trên hoá đơn."
     ]
@@ -1183,7 +1183,7 @@ const STORIES = {
    {
     "step": "Mốc 2 · Lời nhắn cấp phép (vài giây)",
     "channel": "wire",
-    "fromTo": "Quán quen → Ngân hàng của quán → Visa · Mastercard → Ngân hàng của bạn → Quán quen",
+    "fromTo": "Quán quen → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn → Quán quen",
     "amount": "lệnh cấp phép 10.000.000 đ",
     "essence": "Câu hỏi “có đồng ý không” và câu trả lời “đồng ý” đi trên dây; không đồng nào đi theo."
    },
@@ -1197,7 +1197,7 @@ const STORIES = {
    {
     "step": "Mốc 3b · Danh sách cuối ngày (Clearing)",
     "channel": "wire",
-    "fromTo": "Ngân hàng của quán → Visa · Mastercard → Ngân hàng của bạn",
+    "fromTo": "Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn",
     "amount": "danh sách giao dịch đã cấp phép",
     "essence": "Hai phía đối chiếu ai nợ ai bao nhiêu; vẫn là thông tin, chưa chuyển tiền."
    },
@@ -1211,7 +1211,7 @@ const STORIES = {
    {
     "step": "Mốc 4b · Trả quán và trả phí mạng thẻ (T+2, ví dụ)",
     "channel": "pipe",
-    "fromTo": "Ngân hàng của quán → Quán quen · Ngân hàng của quán → Visa · Mastercard",
+    "fromTo": "Ngân hàng của quán → Quán quen · Ngân hàng của quán → Tổ chức thẻ",
     "amount": "9.780.000 đ cho quán · phí mạng thẻ ví dụ 10.000 đ",
     "essence": "Quán nhận thiếu đúng phần MDR 220.000; ngân hàng của quán giữ phần chênh và trả phí tổ chức thẻ."
    },
@@ -1243,7 +1243,7 @@ const STORIES = {
     "risk": "Đã trả tiền cho quán; nếu bị đòi lại mà không thu được từ quán thì tự chịu."
    },
    {
-    "who": "Visa · Mastercard",
+    "who": "Tổ chức thẻ",
     "pays": "Không trả gì trong giao dịch này; bỏ chi phí vận hành mạng và giữ luật chơi.",
     "gains": "Thu phí mạng thẻ từ cả hai ngân hàng.",
     "risk": "Mạng gián đoạn hoặc luật chơi mất lòng tin thì mất vai trò người giữ đường dây."
@@ -1458,9 +1458,9 @@ const STORIES = {
     "time": "1:22 – 2:09",
     "beat": 1,
     "chapter": "Lời nhắn đi một vòng",
-    "visual": "Cửa cuốn Quán quen, Ngân hàng của quán, Visa · Mastercard, Ngân hàng của bạn kéo lên (lit 1–4). Đạo cụ máy POS sáng ở quán, bảng điều phối sáng ở nhà tổ chức thẻ. Dây trên cao sáng lần lượt: Quán → Ngân hàng của quán → Visa · Mastercard → Ngân hàng của bạn, rồi dây trả lời từ Ngân hàng của bạn về Quán. Ống ngầm vẫn tối.",
-    "vo": "Trong vài giây sau cú chạm, một lời nhắn đi một vòng quanh con phố, trên dây điện. Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer. Lời nhắn chạy qua mạng của Visa hoặc Mastercard, tới ngân hàng của bạn, gọi là issuer. Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không. Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép. Để ý điều này: Visa không cho bạn vay đồng nào. Họ giữ đường dây và luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng. Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.",
-    "onScreen": "Visa · Mastercard: “chuyển lời nhắn” · Ngân hàng của bạn: “đồng ý” · nhãn dây: “lời nhắn — không phải tiền” — SFX: tiếng tách điện nhẹ chạy dọc dây (SFX chung)"
+    "visual": "Cửa cuốn Quán quen, Ngân hàng của quán, Tổ chức thẻ, Ngân hàng của bạn kéo lên (lit 1–4). Đạo cụ máy POS sáng ở quán, bảng điều phối sáng ở nhà tổ chức thẻ. Dây trên cao sáng lần lượt: Quán → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn, rồi dây trả lời từ Ngân hàng của bạn về Quán. Ống ngầm vẫn tối.",
+    "vo": "Trong vài giây sau cú chạm, một lời nhắn đi một vòng quanh con phố, trên dây điện. Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer. Lời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer. Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không. Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép. Để ý điều này: tổ chức thẻ không cho bạn vay đồng nào. Họ giữ đường dây và luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng. Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.",
+    "onScreen": "Tổ chức thẻ: “chuyển lời nhắn” · Ngân hàng của bạn: “đồng ý” · nhãn dây: “lời nhắn — không phải tiền” — SFX: tiếng tách điện nhẹ chạy dọc dây (SFX chung)"
    },
    {
     "time": "2:09 – 2:50",
@@ -1474,15 +1474,15 @@ const STORIES = {
     "time": "2:50 – 3:36",
     "beat": null,
     "chapter": "Danh sách cuối ngày",
-    "visual": "Vẫn đêm đó. Quán quen sáng mờ; một tờ danh sách dài trượt từ quán sang Ngân hàng của quán, rồi đi trên dây tới Visa · Mastercard và Ngân hàng của bạn (minh hoạ Clearing, ngoài dữ liệu đoạn 3 — đánh dấu là cảnh giải thích). Ống ngầm tối.",
-    "vo": "Nhưng trước khi đi ngủ, quán còn một việc: chốt ca. Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua Visa hoặc Mastercard tới từng ngân hàng phát hành. Bước này gọi là clearing, tức là đối chiếu. Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch. Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu. Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn. Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này. Danh sách ấy vẫn là thông tin, vẫn đi trên dây. Ống ngầm dưới đất vẫn chưa có giọt nào.",
+    "visual": "Vẫn đêm đó. Quán quen sáng mờ; một tờ danh sách dài trượt từ quán sang Ngân hàng của quán, rồi đi trên dây tới Tổ chức thẻ và Ngân hàng của bạn (minh hoạ Clearing, ngoài dữ liệu đoạn 3 — đánh dấu là cảnh giải thích). Ống ngầm tối.",
+    "vo": "Nhưng trước khi đi ngủ, quán còn một việc: chốt ca. Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành. Bước này gọi là clearing, tức là đối chiếu. Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch. Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu. Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn. Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này. Danh sách ấy vẫn là thông tin, vẫn đi trên dây. Ống ngầm dưới đất vẫn chưa có giọt nào.",
     "onScreen": "“Clearing = đối chiếu, chưa chuyển tiền” · danh sách: mã cấp phép · số tiền · ngày — SFX: tiếng máy in hoá đơn kéo dài (SFX chung)"
    },
    {
     "time": "3:36 – 4:19",
     "beat": 3,
     "chapter": "Ống ngầm mở",
-    "visual": "Cửa cuốn lit 1–4 kéo lên. Dây trên cao tối; ống ngầm sáng: Ngân hàng của bạn → Ngân hàng của quán, rồi Ngân hàng của quán → Quán quen và Ngân hàng của quán → Visa · Mastercard. Đạo cụ tiền về sáng ở quán, đạo cụ chia phí sáng ở Ngân hàng của quán, sổ Interchange sáng ở Ngân hàng của bạn.",
+    "visual": "Cửa cuốn lit 1–4 kéo lên. Dây trên cao tối; ống ngầm sáng: Ngân hàng của bạn → Ngân hàng của quán, rồi Ngân hàng của quán → Quán quen và Ngân hàng của quán → Tổ chức thẻ. Đạo cụ tiền về sáng ở quán, đạo cụ chia phí sáng ở Ngân hàng của quán, sổ Interchange sáng ở Ngân hàng của bạn.",
     "vo": "Hai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — ống ngầm dưới đất mới mở. Tiền thật bắt đầu chạy, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn. Ngân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ. Ngân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn. Trên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn. Lời hứa đêm qua đã thành tiền... thiếu đúng phần phí.",
     "onScreen": "T+2 (ví dụ) · Quán quen: “+ 9.780.000 vào tài khoản” · Ngân hàng của bạn: “Interchange ≈ 150.000 · ví dụ” · nhãn ống: “tiền thật” — SFX: tiếng nước chảy trong ống (SFX chung)"
    },
@@ -1490,16 +1490,16 @@ const STORIES = {
     "time": "4:19 – 5:04",
     "beat": 3,
     "chapter": "Ai lấy 220.000",
-    "visual": "Đóng băng khung T+2; máy quay hạ xuống dưới mặt đất. Một đồng xu lớn 220.000 tách thành ba mảnh trôi theo ống: mảnh lớn về Ngân hàng của bạn, mảnh nhỏ về Visa · Mastercard, mảnh vừa ở lại Ngân hàng của quán.",
-    "vo": "Vậy hai trăm hai mươi nghìn ấy đi đâu? Đó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm. Nó không biến mất, nó được chia ba. Khoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange. Đây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn. Một phần nhỏ trả phí cho Visa hoặc Mastercard; câu chuyện không có con số này, mình giả sử ví dụ mười nghìn. Phần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán. Ba bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn. Con số thật khác nhau theo loại thẻ, loại quán và hợp đồng.",
+    "visual": "Đóng băng khung T+2; máy quay hạ xuống dưới mặt đất. Một đồng xu lớn 220.000 tách thành ba mảnh trôi theo ống: mảnh lớn về Ngân hàng của bạn, mảnh nhỏ về Tổ chức thẻ, mảnh vừa ở lại Ngân hàng của quán.",
+    "vo": "Vậy hai trăm hai mươi nghìn ấy đi đâu? Đó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm. Nó không biến mất, nó được chia ba. Khoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange. Đây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn. Một phần nhỏ trả phí cho tổ chức thẻ; câu chuyện không có con số này, mình giả sử ví dụ mười nghìn. Phần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán. Ba bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn. Con số thật khác nhau theo loại thẻ, loại quán và hợp đồng.",
     "onScreen": "MDR 220.000 (ví dụ 2,2%) = Interchange 150.000 + phí mạng thẻ 10.000 + biên ngân hàng của quán 60.000 · tất cả là ví dụ — SFX: tiếng xu tách rời (SFX chung)"
    },
    {
     "time": "5:04 – 5:55",
     "beat": null,
     "chapter": "Một con số ròng",
-    "visual": "Cảnh giải thích, không theo đoạn nào: toàn cảnh con phố nhìn từ dưới lòng đất; nhiều ống mảnh từ hai chiều nhập lại; mỗi ngân hàng chỉ còn một ống ròng nối vào tài khoản quyết toán dưới nhà Visa · Mastercard, không ống nào nối thẳng hai ngân hàng. Nhãn ống: “ròng · qua tài khoản quyết toán”.",
-    "vo": "Có một chi tiết làm con số thật khó nhìn thấy. Ngân hàng không chuyển tiền cho từng hoá đơn. Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ. Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn. Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn. Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày. Nên không ai lần được mười triệu của bạn trong ống. Nó tan vào một dòng chảy chung. Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy Visa: quán chỉ nói chuyện với ngân hàng của mình.",
+    "visual": "Cảnh giải thích, không theo đoạn nào: toàn cảnh con phố nhìn từ dưới lòng đất; nhiều ống mảnh từ hai chiều nhập lại; mỗi ngân hàng chỉ còn một ống ròng nối vào tài khoản quyết toán dưới nhà Tổ chức thẻ, không ống nào nối thẳng hai ngân hàng. Nhãn ống: “ròng · qua tài khoản quyết toán”.",
+    "vo": "Có một chi tiết làm con số thật khó nhìn thấy. Ngân hàng không chuyển tiền cho từng hoá đơn. Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ. Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn. Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn. Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày. Nên không ai lần được mười triệu của bạn trong ống. Nó tan vào một dòng chảy chung. Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình.",
     "onScreen": "9.850.000 − 2.955.000 = 6.895.000 (ví dụ) · “mỗi ngân hàng một con số ròng” — SFX: tiếng van ống đóng lại (SFX chung)"
    },
    {
@@ -1560,7 +1560,7 @@ const STORIES = {
     "time": "0:29 – 0:40",
     "beat": 3,
     "visual": "Cận nhà Ngân hàng của bạn: sổ Interchange sáng “+150.000 · ví dụ”.",
-    "vo": "Nhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange. Ngân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho Visa hoặc Mastercard.",
+    "vo": "Nhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange. Ngân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho tổ chức thẻ.",
     "onScreen": "Interchange ≈ 150.000 (ví dụ) — SFX: tiếng đóng dấu (SFX chung)"
    },
    {
@@ -1582,7 +1582,7 @@ const STORIES = {
 },
     houses:[
       {type:"home",label:"Bạn"},{type:"shop",label:"Quán quen"},{type:"acq",label:"Ngân hàng của quán"},
-      {type:"scheme",label:"Visa · Mastercard"},{type:"iss",label:"Ngân hàng của bạn"}],
+      {type:"scheme",label:"Tổ chức thẻ"},{type:"iss",label:"Ngân hàng của bạn"}],
     beats:[
       {when:"22:47",sub:"lúc chạm thẻ",title:"Cú chạm",
        say:["Bữa liên hoan cả nhóm ở quán quen hết 10 triệu. Bạn chạm thẻ tín dụng, máy kêu tít một tiếng.",
@@ -1593,10 +1593,10 @@ const STORIES = {
        sys:"Lệnh giữ chỗ chưa phải bút toán ở ngân hàng của bạn — chỉ là một ghi chú tạm trên hạn mức.",ledger:null},
       {when:"vài giây",sub:"sau khi chạm",title:"Lời nhắn đi một vòng",
        say:["Máy của quán gửi một lời nhắn tới ngân hàng của quán — [[Acquirer|acquirer]].",
-            "Lời nhắn đi qua mạng của [[Visa hoặc Mastercard|scheme]], tới ngân hàng đã phát hành thẻ cho bạn — [[Issuer|issuer]] — rồi quay về với một chữ: đồng ý.",
-            "Visa không cho bạn vay đồng nào. Họ giữ đường đi của lời nhắn và luật chơi, rồi thu phí của cả hai ngân hàng."],
+            "Lời nhắn đi qua mạng của [[tổ chức thẻ|scheme]], tới ngân hàng đã phát hành thẻ cho bạn — [[Issuer|issuer]] — rồi quay về với một chữ: đồng ý.",
+            "Tổ chức thẻ không cho bạn vay đồng nào. Họ giữ đường đi của lời nhắn và luật chơi, rồi thu phí của cả hai ngân hàng."],
        lit:[1,2,3,4],tags:{3:["chuyển lời nhắn","plain"],4:["“đồng ý”","plain"]},msgs:[[1,2],[2,3],[3,4],[4,1]],fx:["pos","board","wire","hold"],
-       life:"Người cho bạn vay là ngân hàng phát hành thẻ, không phải Visa. Trả chậm thì người tính lãi và gánh rủi ro là ngân hàng ấy.",
+       life:"Người cho bạn vay là ngân hàng phát hành thẻ, không phải tổ chức thẻ. Trả chậm thì người tính lãi và gánh rủi ro là ngân hàng ấy.",
        sys:"Thứ chạy trong vài giây này là thông tin cấp phép, không phải tiền. Tiền chỉ di chuyển ở bước quyết toán ([[Settlement|settlement]]), sau đó.",ledger:null},
       {when:"đêm đó",sub:"quán đã đóng cửa",title:"Tiền ngủ trong một lời hứa",
        say:["Quán đóng cửa. Trong két không có 10 triệu của bạn, tài khoản của quán cũng chưa có.",
@@ -1613,7 +1613,7 @@ const STORIES = {
       {when:"T+2",sub:"hai ngày làm việc, ví dụ",title:"Lời hứa thành tiền — hụt 220.000",
        say:["Hai ngày làm việc sau — người trong ngành gọi là [[T+2|t2]] — ngân hàng của quán trả tiền: 9.780.000 đồng.",
             "220.000 đồng còn lại là phí quán trả cho việc nhận thẻ — [[MDR|mdr]], ở đây lấy ví dụ 2,2%.",
-            "Ở ví dụ này, phần lớn số phí ấy đi tiếp sang ngân hàng của bạn, gọi là [[Interchange|interchange]]. Phần còn lại ngân hàng của quán giữ, và từ đó trả phí cho Visa hoặc Mastercard."],
+            "Ở ví dụ này, phần lớn số phí ấy đi tiếp sang ngân hàng của bạn, gọi là [[Interchange|interchange]]. Phần còn lại ngân hàng của quán giữ, và từ đó trả phí cho tổ chức thẻ."],
        lit:[1,2,3,4],tags:{1:["+ 9.780.000 vào tài khoản","plus"],2:["giữ phần phí còn lại","plain"],3:["+ phí mạng thẻ","plain"],4:["+ Interchange ≈ 150.000","plus"]},
        // quyết toán RÒNG: ngân hàng của bạn chuyển 10.000.000 − Interchange; Interchange không chạy ngược thành một luồng riêng (soát vòng 3)
        msgs:[[4,2,"money"],[2,1,"money"],[2,3,"money"]],fx:["paid","split","iledger"],
@@ -1677,7 +1677,7 @@ const STORIES = {
      "Câu chuyện thật bắt đầu ở sổ của công ty, trước ngày lương. Với công ty, lương của bạn là 17 triệu — lương gộp, ghi là chi phí của tháng làm việc, kèm một khoản công ty đang nợ bạn. Rồi công ty giữ lại 1.785.000 đồng bảo hiểm phần bạn đóng — tính theo giả định 10,5% trên lương gộp (ví dụ), chưa đối chiếu tỉ lệ hiện hành — và 215.000 đồng thuế thu nhập cá nhân, một con số minh hoạ. Hai triệu này vẫn là tiền của bạn, công ty giữ để nộp thay. Còn lại 15 triệu lương thực lĩnh.",
      "Ngày lương, công ty gửi cho ngân hàng một file chi lương: tên, số tài khoản, số tiền. File ấy là một lời nhắn, không chở đồng nào. Vì công ty và bạn cùng một ngân hàng, ngân hàng không gửi tiền đi đâu cả. Họ chỉ sửa hai dòng trong cùng một cuốn sổ: bớt khoản đang nợ công ty 15 triệu, thêm khoản đang nợ bạn 15 triệu. Người trong nghề gọi kiểu chuyển này là [[On-Us|onus]]. Tổng nợ không đổi; chỉ tên chủ nợ đổi.",
      "Tin nhắn ghi có trên điện thoại là lời nhắn thứ ba. Chữ “ghi có” là một dòng [[Credit|credit]] trong sổ của ngân hàng, không phải sổ của bạn: số dư của bạn nằm ở phía nợ phải trả của họ — phần ghi những gì họ đang nợ người khác. Cùng lúc, ở sổ công ty, cùng 15 triệu là một dòng Credit vào TK 112, tài khoản tiền gửi ngân hàng của công ty — số tiền ấy giảm. Cùng chữ Credit, khác sổ, khác chiều: một bên làm tăng khoản nợ, một bên làm giảm tài sản.",
-     "Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng. Lệnh đi sang ngân hàng của bạn qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch do [[NAPAS|napas]] vận hành hoặc một kênh liên ngân hàng khác. Lần này có tiền thật chạy dưới lòng đất: hai ngân hàng [[Settlement|settlement]] với nhau trên tài khoản thanh toán của họ. Kiểu chuyển này gọi là [[Off-Us|offus]], và chỉ khi đó tiền gửi của công ty mới thật sự rời ngân hàng trả lương."
+     "Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng. Lệnh đi sang ngân hàng của bạn qua kênh liên ngân hàng, có thể qua [[hệ thống chuyển mạch liên ngân hàng|interbank]] hoặc một kênh thanh toán liên ngân hàng khác. Lần này có tiền thật chạy dưới lòng đất: hai ngân hàng [[Settlement|settlement]] với nhau trên tài khoản thanh toán của họ. Kiểu chuyển này gọi là [[Off-Us|offus]], và chỉ khi đó tiền gửi của công ty mới thật sự rời ngân hàng trả lương."
     ]
    },
    {
@@ -1827,7 +1827,7 @@ const STORIES = {
    },
    {
     "h": "Off-Us: lời nhắn đi trước, tiền đi sau",
-    "p": "Nếu người nhận ở ngân hàng khác, giao dịch là [[Off-Us|offus]]. Lệnh đi qua kênh liên ngân hàng — ở Việt Nam, [[NAPAS|napas]] vận hành chuyển mạch liên ngân hàng; một số lệnh có thể đi kênh khác. Lời nhắn đi trước, ngân hàng người nhận có thể ghi Credit gần như ngay; tiền thật đi sau: hai ngân hàng [[Settlement|settlement]] trên tài khoản thanh toán của họ, có thể theo vị thế ròng sau [[Clearing|clearing]] nhiều lệnh. Trong khoảng giữa, ngân hàng người nhận chịu rủi ro với ngân hàng gửi. Với ngân hàng trả lương, tiền gửi của khách giảm ngay; số dư trên tài khoản thanh toán của ngân hàng giảm khi quyết toán, sau khi bù trừ với các lệnh chiều về. Xét riêng một lệnh, cả hai giảm cùng một số và bảng cân đối co lại. Phí, giờ chốt và chu kỳ bù trừ tuỳ quy định và hợp đồng; bài không nêu con số nào."
+    "p": "Nếu người nhận ở ngân hàng khác, giao dịch là [[Off-Us|offus]]. Lệnh đi qua kênh liên ngân hàng — qua [[hệ thống chuyển mạch liên ngân hàng|interbank]] hoặc một kênh thanh toán liên ngân hàng khác. Lời nhắn đi trước, ngân hàng người nhận có thể ghi Credit gần như ngay; tiền thật đi sau: hai ngân hàng [[Settlement|settlement]] trên tài khoản thanh toán của họ, có thể theo vị thế ròng sau [[Clearing|clearing]] nhiều lệnh. Trong khoảng giữa, ngân hàng người nhận chịu rủi ro với ngân hàng gửi. Với ngân hàng trả lương, tiền gửi của khách giảm ngay; số dư trên tài khoản thanh toán của ngân hàng giảm khi quyết toán, sau khi bù trừ với các lệnh chiều về. Xét riêng một lệnh, cả hai giảm cùng một số và bảng cân đối co lại. Phí, giờ chốt và chu kỳ bù trừ tuỳ quy định và hợp đồng; bài không nêu con số nào."
    },
    {
     "h": "Vì sao ngân hàng quý CASA",
@@ -2040,7 +2040,7 @@ const STORIES = {
     videoScript:{
  "long": {
   "title": "Lương về 15 triệu mà không đồng nào di chuyển: đêm nay tiền của bạn ngủ ở đâu?",
-  "hookNote": "Nhịp chậm, tò mò; 30 giây đầu chỉ một hình: điện thoại sáng trong phố tối, ống ngầm tắt. Câu mồi ở giây thứ 10: “bạn có biết không một đồng tiền nào thực sự di chuyển không?” — trả lời ở cảnh Ngày lương (beat 1), không trước. Phát âm: On-Us, Off-Us, Credit đọc theo tiếng Anh; CASA, FTP, NAPAS đọc liền hay đánh vần cần Duy chọn và khoá trong từ điển phát âm của công cụ giọng đọc trước khi dựng.",
+  "hookNote": "Nhịp chậm, tò mò; 30 giây đầu chỉ một hình: điện thoại sáng trong phố tối, ống ngầm tắt. Câu mồi ở giây thứ 10: “bạn có biết không một đồng tiền nào thực sự di chuyển không?” — trả lời ở cảnh Ngày lương (beat 1), không trước. Phát âm: On-Us, Off-Us, Credit đọc theo tiếng Anh; CASA, FTP đọc liền hay đánh vần cần Duy chọn và khoá trong từ điển phát âm của công cụ giọng đọc trước khi dựng.",
   "youtubeId": "",
   "embedStatus": "pending_upload",
   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
@@ -2082,7 +2082,7 @@ const STORIES = {
     "beat": null,
     "chapter": "Khi khác ngân hàng",
     "visual": "Máy quay hạ xuống dưới mặt đường. Ở mép khung hình, một mặt tiền nét đứt mang nhãn “ngân hàng khác” hiện ra như một nhà giả định. Lời nhắn chạy trên dây điện trước; một nhịp sau, ống ngầm giữa Ngân hàng trả lương và mặt tiền nét đứt mới sáng lên, khối tiền trượt qua. Rồi mặt tiền nét đứt mờ đi, ống tối lại.",
-    "vo": "Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng. Lệnh đi qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch do NAPAS vận hành, hoặc một kênh liên ngân hàng khác. Lời nhắn đi trước, nên ngân hàng của bạn có thể báo ghi có gần như ngay. Tiền thật đi sau: hai ngân hàng quyết toán với nhau trên tài khoản thanh toán của họ, có khi gộp nhiều lệnh rồi chỉ chuyển phần chênh. Người trong nghề gọi kiểu này là Off-Us. Trong khoảng giữa lời nhắn và tiền, ngân hàng của bạn đang tin ngân hàng kia sẽ trả. Và chỉ trong trường hợp này, tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương. Với công ty, mỗi lệnh như vậy có thể tốn phí, ví dụ ba nghìn ba trăm đồng.",
+    "vo": "Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng. Lệnh đi qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch liên ngân hàng, hoặc một kênh thanh toán liên ngân hàng khác. Lời nhắn đi trước, nên ngân hàng của bạn có thể báo ghi có gần như ngay. Tiền thật đi sau: hai ngân hàng quyết toán với nhau trên tài khoản thanh toán của họ, có khi gộp nhiều lệnh rồi chỉ chuyển phần chênh. Người trong nghề gọi kiểu này là Off-Us. Trong khoảng giữa lời nhắn và tiền, ngân hàng của bạn đang tin ngân hàng kia sẽ trả. Và chỉ trong trường hợp này, tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương. Với công ty, mỗi lệnh như vậy có thể tốn phí, ví dụ ba nghìn ba trăm đồng.",
     "onScreen": "Chữ: “Off-Us: lời nhắn trước · tiền sau” · Nhãn ống ngầm: “quyết toán liên ngân hàng” · Chữ nhỏ: “phí 3.300 đ/lệnh — ví dụ” · SFX gợi ý: tiếng ống nước chảy ngắn (cần giấy phép trước khi dùng)"
    },
    {
@@ -2685,7 +2685,7 @@ const STORIES = {
  "short": {
   "title": "Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?",
   "angle": "Cửa hàng ghi bán 12 triệu trả góp lãi suất 0% nhưng chỉ thực nhận 11,4 triệu (ví dụ) — 600.000 hụt đó chính là tiền lãi của khoản “0%”.",
-  "youtubeId": "XmWWffaJw-k",
+  "youtubeId": "CNY0Lflf1a0",
   "embedStatus": "uploaded_unlisted",
   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
   "scenes": [
@@ -2803,7 +2803,7 @@ const CATEGORIES = [
     {t:"Lãi tiền gửi có kỳ hạn: ngân hàng trả bạn bằng tiền của ai?",status:"upcoming"}]},
   {id:"c2",name:"Thẻ, QR & Thanh toán",c:"#8a4a2b",topics:[
     {story:"card"},
-    {t:"Quét VietQR ở quán cà phê: tiền đi qua những ai?",status:"upcoming"},
+    {t:"Quét mã QR ở quán cà phê: tiền đi qua những ai?",status:"upcoming"},
     {t:"Thẻ ghi nợ và thẻ tín dụng: ai đang cho ai vay?",status:"upcoming"},
     {t:"Hoàn tiền một giao dịch thẻ: tiền quay về bằng đường nào?",status:"upcoming"}]},
   {id:"c3",name:"Vay nợ & Lãi suất thực",c:"#5c5a2e",topics:[
@@ -3112,7 +3112,7 @@ const Scene = (() => {
     return finish(s, top - 40, top + 26);
   }
 
-  /* ── TRẠM TÍN HIỆU THẺ (Visa · Mastercard): chỉ có cáp và tủ chuyển mạch — KHÔNG có két ── */
+  /* ── TRẠM TÍN HIỆU THẺ (Tổ chức thẻ): chỉ có cáp và tủ chuyển mạch — KHÔNG có két ── */
   function scheme(g, cx) {
     const s = shell(g, cx, 118, 300), x = s.rx, y = s.ry, w = s.rw, h = s.rh, a = s.a, t = s.t;
     R(a, x, y, w, h, "#222b47");
@@ -3519,7 +3519,7 @@ function renderLens(){
 const PK = {tab:"lay", fmt:"long"};
 const nw = (...t) => t.reduce((n, x) => n + (typeof x === "string" ? x.split(/\s+/).filter(Boolean).length : 0), 0);
 const WPM = 190;                                   // âm tiết lời bình / phút — cùng số với scripts/check-story.py
-const FMT = {long:{name:"YouTube Dài", band:"8–10 phút", file:"long"}, short:{name:"Shorts · Reels · TikTok", band:"60–90 giây · khung dọc 9:16", file:"short"}};
+const FMT = {long:{name:"Video Dài 16:9", band:"8–10 phút", file:"long"}, short:{name:"Video Dọc 9:16", band:"60–90 giây · khung dọc 9:16", file:"short"}};
 const CHAN = {wire:["ch-wire","Dây điện — Lời nhắn"], pipe:["ch-pipe","Ống ngầm — Tiền thật"], book:["ch-book","Sổ kế toán — Ghi nội bộ"]};
 const badge = c => { const [k, t] = CHAN[c] || ["ch-book", c]; return `<span class="ch ${k}"><i aria-hidden="true"></i>${esc(t)}</span>`; };
 const clock = t => `${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}`;
@@ -3539,41 +3539,40 @@ function journalHTML(e){
     + `<table>${rows}</table><p class="foot">${esc(e.assume)} ${esc(e.note)}</p></div>`;
 }
 const EMBED_LABELS = {
-  pending_upload: ["wait", "Chờ ElevenLabs Build & Upload YouTube"],
-  uploaded_unlisted: ["ok", "Đã Upload YouTube (Unlisted · Nhúng xem thử)"],
-  uploaded_private: ["wait", "Đã Upload YouTube (Private · Chờ mở nhúng)"],
-  uploaded_public: ["ok", "Đã Công khai YouTube & Nhúng bài viết"]
+  pending_upload: ["wait", "Chờ dựng Video & tải lên kênh"],
+  uploaded_unlisted: ["ok", "Đã tải lên kênh (Unlisted · Nhúng xem thử)"],
+  uploaded_private: ["wait", "Đã tải lên kênh (Private · Chờ mở nhúng)"],
+  uploaded_public: ["ok", "Đã Công khai & Nhúng bài viết"]
 };
 function renderYtEmbedHTML(s, fmt, scope){
   const v = s.videoScript || {}, f = v[fmt] || {}, sc = Array.isArray(f.scenes) ? f.scenes : [];
   const ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
   const stKey = f.embedStatus || "pending_upload";
   const [bCls, bTxt] = EMBED_LABELS[stKey] || EMBED_LABELS.pending_upload;
-  const voice = f.elevenlabsVoiceId || "eleven_v3:JwqRvOqFdGeQNu7UjKjw";
   const isShort = fmt === "short";
   const chaps = sc.map((x, i) => {
     const [startSec] = tspan(x.time);
     const lbl = x.chapter || sceneLabel(s, x, i, sc.length);
     return `<button type="button" class="yt-chap" data-sec="${startSec}" data-idx="${i}" aria-current="${i===0?"true":"false"}">${clock(startSec)} · ${esc(lbl)}</button>`;
   }).join("");
-  const cmsBar = CMS.on ? `<div class="yt-cms-bind"><span><b>Bước 5D (Embed Test):</b> Gán thử mã <code>youtubeId</code> 11 ký tự cho bản ${isShort?"Shorts 9:16":"Dài 16:9"}:</span>`
-    + `<input type="text" maxlength="11" placeholder="dQw4w9WgXcQ" value="${esc(ytId)}" data-yt-input="${scope}" aria-label="Mã YouTube Video ID 11 ký tự">`
-    + `<button type="button" data-yt-apply="${scope}">Nhúng YouTube (${isShort?"9:16":"16:9"})</button>`
+  const cmsBar = CMS.on ? `<div class="yt-cms-bind"><span><b>Bước 5D (Embed Test):</b> Gán thử mã <code>youtubeId</code> 11 ký tự cho bản ${isShort?"Dọc 9:16":"Dài 16:9"}:</span>`
+    + `<input type="text" maxlength="11" placeholder="dQw4w9WgXcQ" value="${esc(ytId)}" data-yt-input="${scope}" aria-label="Mã Video ID 11 ký tự">`
+    + `<button type="button" data-yt-apply="${scope}">Nhúng Video (${isShort?"9:16":"16:9"})</button>`
     + `<span>hoặc chạy CLI: <code>python3 -I scripts/wms-media-pipeline.py --story ${esc(S.story)} --bind-${fmt}-id &lt;11char&gt; --embed-status uploaded_unlisted</code></span></div>` : "";
-  return `<section class="yt-embed" data-yt-box="${scope}" aria-label="Video bài viết từ ElevenLabs và YouTube">`
+  return `<section class="yt-embed" data-yt-box="${scope}" aria-label="Video minh hoạ bài viết">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · ElevenLabs: ${esc(voice)}${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
+    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · Giọng kể chuyên mục · Mặt cắt Diorama v3.0${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
     + `<div class="yt-switch" role="group" aria-label="Chuyển định dạng video nhúng">`
-    + `<button type="button" data-yt-fmt="long" aria-pressed="${!isShort}">▶ YouTube Dài 16:9</button>`
-    + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 YouTube Shorts 9:16</button></div></div>`
+    + `<button type="button" data-yt-fmt="long" aria-pressed="${!isShort}">▶ Video Dài 16:9</button>`
+    + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 Video Dọc 9:16</button></div></div>`
     + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">`
     + `<div class="yt-facade"><h4>${esc(f.title || s.title)}</h4>`
     + `<p data-yt-preview="${scope}">${ytId
-        ? `Video đã tải lên YouTube (${esc(ytId)}) từ âm thanh ElevenLabs + mặt cắt Diorama v3.0. Bấm phát hoặc chọn chương bên dưới để mở trình nhúng bảo mật youtube-nocookie.com.`
-        : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Đang chờ bước 5A–5D (wms-media-pipeline.py) tạo audio ElevenLabs, dựng MP4 và đẩy lên YouTube.")}`}</p>`
+        ? `Video minh hoạ (${esc(ytId)}) kết hợp giọng đọc thu âm và mặt cắt Diorama v3.0. Bấm phát hoặc chọn chương bên dưới để xem ngay trong bài.`
+        : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Đang chờ bước 5A–5D (wms-media-pipeline.py) dựng video và tải lên kênh.")}`}</p>`
     + (ytId
-        ? `<button type="button" class="yt-play" data-yt-load="0">▶ Phát Video YouTube nhúng (${isShort ? "Shorts 9:16" : "Dài 16:9"})</button>`
-        : `<button type="button" class="yt-play" data-yt-go-studio="1">🎬 Mở Studio Kịch bản &amp; Gói JSON ElevenLabs (${sc.length} cảnh)</button>`)
+        ? `<button type="button" class="yt-play" data-yt-load="0">▶ Phát Video minh hoạ (${isShort ? "Khung dọc 9:16" : "Khung ngang 16:9"})</button>`
+        : `<button type="button" class="yt-play" data-yt-go-studio="1">🎬 Mở Studio Kịch bản &amp; Gói JSON (${sc.length} cảnh)</button>`)
     + `</div></div>`
     + `<div class="yt-chaps"><b>Chương Video:</b>${chaps}</div>${cmsBar}</div></section>`;
 }
@@ -3674,16 +3673,16 @@ function renderVid(s, draft){
   const v = s.videoScript, f = {...v[PK.fmt], scenes:Array.isArray(v[PK.fmt].scenes) ? v[PK.fmt].scenes : []}, st = vstat(f), short = PK.fmt === "short";
   const opt = k => { const x = vstat(v[k]); return `<button role="radio" data-fmt="${k}" aria-checked="${k === PK.fmt}" tabindex="${k === PK.fmt ? 0 : -1}">${esc(FMT[k].name)}<small>${esc(FMT[k].band)} · ${x.n} cảnh</small></button>`; };
   $("#pnl-vid").innerHTML =
-    `<p class="pack-sub">Studio Kịch bản Video · ElevenLabs Audio/Video Build → YouTube Upload → Nhúng vào bài viết (QĐ 56)</p>`
+    `<p class="pack-sub">Studio Kịch bản Video · Dựng Audio/Video → Tải lên Kênh → Nhúng vào bài viết (QĐ 56)</p>`
     + renderYtEmbedHTML(s, PK.fmt, "vid")
     + `<div class="fmt" role="radiogroup" aria-label="Định dạng video">${opt("long")}${opt("short")}</div>`
-    + `<div class="vid-head"><h4>${esc(f.title)}</h4>${short ? `<p><b>Góc cắt (YouTube Shorts 9:16 · 1080×1920)</b>${esc(f.angle)}</p>` : `<p><b>Nhịp 30 giây đầu (YouTube Dài 16:9 · 1920×1080)</b>${esc(f.hookNote)}</p>`}</div>`
-    + `<div class="vid-bar"><button id="vidCopy">Sao chép kịch bản đang xem</button><button class="alt" id="vidJson">Xuất gói JSON ElevenLabs + YouTube (dài + ngắn)</button>`
+    + `<div class="vid-head"><h4>${esc(f.title)}</h4>${short ? `<p><b>Góc cắt (Video Dọc 9:16 · 1080×1920)</b>${esc(f.angle)}</p>` : `<p><b>Nhịp 30 giây đầu (Video Dài 16:9 · 1920×1080)</b>${esc(f.hookNote)}</p>`}</div>`
+    + `<div class="vid-bar"><button id="vidCopy">Sao chép kịch bản đang xem</button><button class="alt" id="vidJson">Xuất gói JSON Kịch bản Video (dài + ngắn)</button>`
     + `<span class="meta">${st.n} cảnh · ${st.vo} từ lời bình · mốc cuối ${clock(st.end)} · đọc ≈ ${clock(st.est)} ở ${WPM} từ/phút (ước lượng)</span><output id="vidMsg" aria-live="polite"></output></div>`
     + `<ol class="scenes${short ? " short" : ""}">${f.scenes.map((x, i) => `<li class="scene"><div class="tc"><b>${esc(x.time)}</b><span>${esc(sceneLabel(s, x, i, f.scenes.length))}</span>${x.chapter ? `<em>${esc(x.chapter)}</em>` : ""}</div><div class="bd">`
       + `<div class="f"><span>Hình ảnh</span><p>${esc(x.visual)}</p></div><div class="f vo"><span>Lời bình</span><p>${esc(x.vo)}</p></div>`
       + `<div class="f os"><span>Chữ · SFX</span><p>${esc(x.onScreen)}</p></div></div></li>`).join("")}</ol>`
-    + `<p class="pack-note"><b>Pipeline khép kín ElevenLabs Audio + Google Veo 3.1 Video → YouTube → Nhúng vào bài viết (QĐ 56):</b> (5A) Lời bình (<code>vo</code>) và hiệu ứng âm thanh (<code>onScreen</code> SFX) gọi qua ElevenLabs API (<code>POST /v1/text-to-speech/{voice_id}/with-timestamps</code> + <code>POST /v1/sound-generation</code>, chỉ cần quyền Audio trên key, có SHA-256 cache); (5B) Hình ảnh chuyển động gọi qua <b>Google Veo 3.1</b> (<code>google-genai</code> SDK <code>client.models.generate_videos</code> tận dụng quota Google AI Ultra của Duy cho cả <code>16:9</code> lẫn <code>9:16</code> kèm <code>reference_images</code> Risograph) rồi ghép lớp Mặt cắt Diorama v3.0 &amp; bảng kế toán TT 99/2025 sắc nét qua <code>FFmpeg</code> (chuẩn âm lượng <code>-14 LUFS</code>); (5C–5D) Đẩy lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code> và tự động ghi ngược <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát YouTube nhúng thẳng vào bài viết chờ Duy duyệt.</p>${draft}`;
+    + `<p class="pack-note"><b>Quy trình dựng Video minh hoạ &amp; nhúng vào bài viết (QĐ 56):</b> (5A) Thu âm lời bình (<code>vo</code>) với timestamps từng từ và tạo hiệu ứng âm thanh chuyển cảnh (<code>onScreen</code> SFX, có bộ nhớ đệm SHA-256); (5B) Dựng hình ảnh mặt cắt Risograph đêm cho cả khung ngang <code>16:9</code> lẫn khung dọc <code>9:16</code>, kết hợp chuyển cảnh cross-dissolve mượt mà, lớp Mặt cắt Diorama v3.0 và bảng bút toán kế toán sắc nét (chuẩn âm lượng <code>-14 LUFS</code>); (5C–5D) Tải lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code> và tự động gắn mã <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát nhúng thẳng vào bài viết chờ Duy duyệt.</p>${draft}`;
   bindYtEmbed("vid", s, draft);
   const btns = $$("#pnl-vid .fmt button");
   btns.forEach((b, i) => { b.onclick = () => { PK.fmt = b.dataset.fmt; renderPack(); $(`#pnl-vid .fmt [data-fmt="${PK.fmt}"]`).focus(); };
@@ -3767,7 +3766,7 @@ function exportVO(k){
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"}));
   const a = document.createElement("a"); a.href = url; a.download = `wms-${k}-voiceover.json`;
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-  $("#vidMsg").textContent = `Đã xuất gói ElevenLabs + YouTube: wms-${k}-voiceover.json (dài + ngắn).`;
+  $("#vidMsg").textContent = `Đã xuất gói kịch bản video: wms-${k}-voiceover.json (dài + ngắn).`;
 }
 function showTab(t, focus){
   PK.tab = t;

@@ -61,3 +61,4 @@ Kèm theo: kết quả `check-story.py` (dán nguyên văn dòng "Kết quả"),
 - Đưa bài vào hàng chờ khi thiếu một trong 3 trụ C9 v2 (bài khảo cứu · phân tích chuyên sâu · kịch bản video dài + ngắn) — bài sơ sài không phải bài nháp, là bài chưa xong.
 - Gõ số đếm cứng (số danh mục, số bài) vào giao diện — mọi số suy từ dữ liệu.
 - Đổi tên khoá bài (`STORIES` key) đã đăng — đó là hợp đồng với tiến độ của người đọc (QĐ 52).
+- Nhắc bất kỳ tên riêng / thương hiệu / nhãn hàng / cửa hàng / mạng thẻ / công cụ hậu trường có thật nào (`ElevenLabs`, `Google`, `Veo`, `Gemini`, `Claude`, `TikTok`, `Reels`, `Visa`, `Mastercard`, `NAPAS`, `VietQR`, `MoMo`, `Quán Nhà Liên`, `Hermanson`...) trong lời bình `vo`, chữ trên màn hình `onScreen`, khung hình video, mô tả YouTube, nhãn nhà `houses`, hay `GLOSS`/`CATEGORIES` (`LUẬT 4` — bắt buộc dùng nguyên mẫu hệ thống: `Tổ chức thẻ`, `hệ thống chuyển mạch liên ngân hàng`, `mã QR`, `Cửa hàng`, `Quán quen`, `Công ty tài chính`).

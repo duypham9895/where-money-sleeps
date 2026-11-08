@@ -455,11 +455,32 @@ CHANNELS = ("wire", "pipe", "book")
 # Grep tất định trên MỌI chuỗi của article + videoScript. Chỉ Thông tư 99/2025/TT-BTC được trích — trích
 # "Thông tư 200/2014" để so sánh cũng FAIL, CÓ CHỦ Ý (không có bản gốc trong repo để đối chiếu).
 REG_RE = re.compile(r"Điều\s+\d+|Nghị định|Thông tư(?!\s*(?:số\s*)?99\b)|https?://", re.I)
-# Danh sách cố định — ngân hàng thương mại & công ty tài chính tiêu dùng. Mạng thẻ (Visa, Mastercard) và NAPAS
-# CỐ Ý không có: đó là hạ tầng, và "Visa · Mastercard" là nhãn nhà bắt buộc của bài card.
-BRANDS = ("Vietcombank", "VietinBank", "BIDV", "Agribank", "Techcombank", "VPBank", "MB Bank", "MBBank", "ACB",
-          "Sacombank", "TPBank", "HDBank", "SHB", "VIB", "OCB", "MSB", "SeABank", "Eximbank", "LPBank", "Shinhan",
-          "HSBC", "Standard Chartered", "FE Credit", "Home Credit", "HD Saison", "Mcredit", "Mirae Asset")
+# LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5) — Cấm tuyệt đối nhắc tên riêng / thương hiệu có thật / công cụ hậu trường
+# trong bài viết, kịch bản video, giọng đọc (vo), chữ trên màn hình (onScreen), nhãn nhà (houses), GLOSS và CATEGORIES.
+BRANDS = (
+    # 1. Công cụ AI, Voice, Video hậu trường & Mạng xã hội
+    "ElevenLabs", "Google", "Veo", "Gemini", "Claude", "Anthropic", "OpenAI", "ChatGPT", "Sora", "Runway", "Midjourney",
+    "TikTok", "Reels", "Facebook", "Instagram", "Zalo", "Threads",
+    # 2. Tổ chức thẻ & mạng chuyển mạch / trung gian thanh toán
+    "Visa", "Mastercard", "JCB", "Amex", "American Express", "UnionPay", "NAPAS", "VietQR", "SmartPay", "Payoo", "VNPay",
+    # 3. Ngân hàng thương mại & ngân hàng số
+    "Vietcombank", "VietinBank", "BIDV", "Agribank", "Techcombank", "VPBank", "MB Bank", "MBBank", "ACB",
+    "Sacombank", "TPBank", "HDBank", "SHB", "VIB", "OCB", "MSB", "SeABank", "Eximbank", "LPBank", "Shinhan",
+    "HSBC", "Standard Chartered", "Timo", "Cake",
+    # 4. Công ty tài chính tiêu dùng & BNPL
+    "FE Credit", "Home Credit", "HD Saison", "Mcredit", "Mirae Asset", "Lotte Finance", "SHB Finance", "VietCredit",
+    "Kredivo", "Fundiin", "Atome", "Reepay", "Muadee",
+    # 5. Ví điện tử & cổng thanh toán
+    "MoMo", "ZaloPay", "Viettel Money", "ShopeePay", "VTC Pay", "Moca", "GrabPay", "Apple Pay", "Google Pay", "Samsung Pay",
+    # 6. Chuỗi bán lẻ, sàn TMĐT, hãng thiết bị, F&B & tên quán riêng
+    "Thế Giới Di Động", "Điện Máy Xanh", "FPT Shop", "CellphoneS", "Di Động Việt", "Hoàng Hà Mobile",
+    "Shopee", "Lazada", "Tiki", "Sendo", "Grab", "Xanh SM", "Gojek",
+    "Apple", "iPhone", "iPad", "MacBook", "Samsung", "Galaxy", "Sony", "Xiaomi", "Oppo",
+    "Highlands", "Phúc Long", "Starbucks", "Katinat", "The Coffee House", "Bách Hoá Xanh", "WinMart", "Circle K",
+    "Nhà Liên", "Quán Nhà Liên",
+    # 7. Tên riêng tác giả sách giáo khoa trong lời bài / khung hình
+    "Hermanson", "Maher",
+)
 BRAND_RE = re.compile(r"(?<![\w])(" + "|".join(re.escape(b) for b in BRANDS) + r")(?![\w])", re.I)
 ADVICE_RE = re.compile(r"\b(bạn|anh|chị|mình)\s+(nên|hãy|đừng)\s+(mua|vay|chọn|mở|gửi|trả góp|quẹt|dùng)\b"
                        r"|\bhãy\s+(mua|vay|chọn|mở thẻ|gửi tiền)\b", re.I)
@@ -681,11 +702,11 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
         x = x if isinstance(x, dict) else {}
         if not x.get("h") or nwords(x.get("p")) < m["edge_words"]:
             rep.add("FAIL", "C9", w, f"B·edgeCases[{i}]: cần tiêu đề `h` và ≥ {m['edge_words']} từ ở `p`, có {nwords(x.get('p'))}")
-    texts = article_text(s)
+    texts = all_text(s) + article_text(s) + _walk(s.get("houses", []), [])
     if not any("ví dụ" in t for t in _walk(art, [])):
         rep.add("FAIL", "C9", w, "bài sâu không có chữ 'ví dụ' nào — số minh hoạ phải gắn nhãn (proxy yếu)")
     for rx, why in ((REG_RE, "trích điều luật / văn bản ngoài TT 99/2025 / URL — không có nguồn gốc trong repo"),
-                    (BRAND_RE, "tên ngân hàng / công ty tài chính thương mại — ONE-PAGER §3 cấm"),
+                    (BRAND_RE, "tên thương hiệu / nhãn hàng / công cụ / tên riêng có thật — LUẬT 4 & ONE-PAGER §3 cấm"),
                     (ADVICE_RE, "câu khuyên mua/vay/chọn — ONE-PAGER §3.2 cấm lời khuyên tài chính")):
         hits = sorted({mt.group(0) for t in texts for mt in rx.finditer(t)})
         if hits:
@@ -970,6 +991,11 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
             rep.add("FAIL", "C1", f"bài '{k}'", "khoá bài chỉ dùng a-z 0-9 _ (đi thẳng vào data-story=\"…\")")
         if not only or k == only:
             check_story(k, s, ctx, rep)
+    if not only:
+        meta_hits = sorted({mt.group(0) for t in _walk(gloss, []) + _walk(cats, []) for mt in BRAND_RE.finditer(t)})
+        if meta_hits:
+            rep.add("FAIL", "C9", f"{label} GLOSS/CATEGORIES",
+                    f"grep: tên thương hiệu / nhãn hàng / tên riêng có thật (LUẬT 4): {', '.join(repr(h) for h in meta_hits[:5])}")
     if not any(s.get("status") == "published" for s in stories.values()):
         rep.add("WARN", "C7", label, "không còn bài nào 'published' — người đọc thường sẽ thấy trang trống")
 

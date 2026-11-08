@@ -121,3 +121,35 @@ Khi dựng video từ nhiều cảnh (`scenes[0..5]`):
    - Mỗi cảnh được chia thành **3–5 cụm câu ngắn** (`12–20 chữ`, tối đa 2–3 dòng mỗi lần hiển thị), trượt nhẹ từ dưới lên (`ease-out 0.28s`) khi sang cụm câu mới.
    - Từng từ được đồng bộ tới `0.01s` theo `alignment.character_start_times_seconds` của ElevenLabs: từ đang đọc được bọc viên thuốc phát sáng vàng ấm (`#FFD166`), các con số neo tài chính giữ màu vàng kim sau khi đọc xong, giúp mắt người xem lướt theo giọng kể một cách tự nhiên.
 
+---
+
+## 5. Luật Cấm Nhắc Tên Riêng & Thương Hiệu Có Thật — Zero Real-Brand & Proper-Noun Policy (Khoá cứng 2026-11-08)
+
+### 5.1. Năm Nguyên lý Gốc (First Principles) vì sao KHÔNG BAO GIỜ nhắc tên riêng có thật
+1. **Bảo vệ Pháp lý & Chống Rủi ro Quy chụp Thương hiệu (Legal & Trade Libel Immunity):**
+   - Khi bóc tách cơ chế *phí ẩn, chiết khấu thương nhân, hỗ trợ lãi suất 0%, giữ chỗ hạn mức, hay chênh lệch lãi suất*, nếu gắn bất kỳ tên ngân hàng, công ty tài chính, ví điện tử, mạng thẻ, hay chuỗi cửa hàng có thật nào vào ví dụ, người xem sẽ hiểu nhầm rằng sản phẩm đang tố cáo đích danh đơn vị đó thu phí cao hoặc gài bẫy. Dùng **nhân vật nguyên mẫu hệ thống (System Archetypes)** triệt tiêu 100% rủi ro khiếu nại thương hiệu (defamation / trade libel).
+2. **Bảo toàn Bức Tường Thứ Tư & Thế giới Kể chuyện Đêm (Fourth Wall & Narrative Immersion):**
+   - *Where Money Sleeps* là một không gian khảo cứu tĩnh lặng lúc nửa đêm. Việc để lọt tên công cụ hậu trường (*ElevenLabs, Google, Veo, Gemini, Claude, OpenAI*) hay tên tác giả sách giáo khoa (*Hermanson, Edwards & Maher*) vào khung hình video, dòng chữ dưới đáy video, mô tả YouTube, hoặc giao diện người đọc sẽ **đập vỡ ngay lập tức thế giới mặt cắt kiến trúc đêm** và biến tác phẩm thành một bản demo kỹ thuật.
+3. **Tính Phổ quát & Vượt Thời gian của Nguyên mẫu (System Archetype Universality & Timelessness):**
+   - Tên thương hiệu, ứng dụng hay cổng thanh toán có thể đổi tên, sáp nhập hoặc biến mất sau vài năm; nhưng **5 vai nguyên mẫu trong hệ thống tài chính** (*Người mua · Cửa hàng / Quán quen · Ngân hàng của quán · Tổ chức chuyển mạch thẻ / Chuyển mạch liên ngân hàng · Ngân hàng phát hành / Công ty tài chính*) là cấu trúc bất biến của kế toán kép và thanh toán hiện đại.
+4. **Không Quảng cáo Không Công & Giữ Trọng tâm Nhận thức (Zero Unpaid Brand Plug & Cognitive Focus):**
+   - Nhắc tên một nhãn hàng cụ thể kích hoạt định kiến sẵn có của người nghe về nhãn hàng đó (*"Hãng X tốt hay xấu"*), làm chệch hướng sự chú ý khỏi bản chất kế toán (`Σ Debit = Σ Credit`, dòng lời nhắn trên dây điện và dòng tiền thật dưới ống ngầm).
+5. **An toàn Bản quyền Nhãn hiệu & Phân phối Đa nền tảng (Trademark & Platform Brand Safety):**
+   - Video và bài viết hoàn toàn sạch bóng tên thương hiệu thứ ba giúp xuất bản tự nhiên trên mọi nền tảng mà không bao giờ vướng bộ lọc thương hiệu hay tranh chấp nhãn hiệu.
+
+### 5.2. Từ điển Chuyển đổi Nguyên mẫu Chuẩn (Canonical Generic Archetype Dictionary)
+
+| Nhóm bị cấm tuyệt đối (`BRAND_RE` FAIL) | CẤM viết (Thương hiệu / Tên riêng có thật) | BẮT BUỘC dùng (Nguyên mẫu Hệ thống — Generic Archetype) |
+|---|---|---|
+| **1. Công cụ AI, Voice, Video & Nền tảng** | `ElevenLabs`, `Google`, `Veo`, `Gemini`, `Claude`, `OpenAI`, `ChatGPT`, `TikTok`, `Reels`, `Facebook`, `Zalo` | Không nhắc trong nội dung/video/mô tả kênh; trên UI gọi là *"Giọng kể chuyên mục"*, *"Video Dọc 9:16"*, *"Video Dài 16:9"* |
+| **2. Tổ chức thẻ & Mạng chuyển mạch** | `Visa`, `Mastercard`, `JCB`, `Amex`, `UnionPay`, `NAPAS`, `VietQR`, `VNPay`, `Payoo` | `Tổ chức thẻ`, `tổ chức chuyển mạch thẻ`, `hệ thống chuyển mạch liên ngân hàng`, `mã QR` |
+| **3. Ngân hàng thương mại & Ngân hàng số** | `Vietcombank`, `Techcombank`, `VPBank`, `BIDV`, `ACB`, `MBBank`, `TPBank`, `HSBC`, `Timo`, `Cake`... | `Ngân hàng của bạn` (`Issuer`), `Ngân hàng của quán / cửa hàng` (`Acquirer`), `Ngân hàng trả lương` |
+| **4. Công ty tài chính & Mua trước trả sau** | `FE Credit`, `Home Credit`, `HD Saison`, `Mcredit`, `Mirae Asset`, `Kredivo`, `Fundiin`, `Atome`... | `Công ty tài chính`, `bên cho vay trả góp`, `đơn vị cấp tín dụng tiêu dùng` |
+| **5. Ví điện tử & Cổng thanh toán** | `MoMo`, `ZaloPay`, `Viettel Money`, `ShopeePay`, `Apple Pay`, `Google Pay`, `Samsung Pay`... | `Ví điện tử`, `ứng dụng thanh toán`, `tài khoản trung gian thanh toán` |
+| **6. Chuỗi cửa hàng, Sàn TMĐT, Hãng & Quán** | `Thế Giới Di Động`, `Điện Máy Xanh`, `FPT Shop`, `Shopee`, `Lazada`, `Apple`, `iPhone`, `Samsung`, `Highlands`, `Starbucks`, `Quán Nhà Liên`... | `Cửa hàng`, `Quán quen` (`QUÁN ĂN QUEN`), `Sàn thương mại điện tử`, `chiếc điện thoại`, `món hàng` |
+| **7. Tên riêng tác giả trong khung hình video** | `Hermanson, Edwards & Maher` in ở footer video | Chỉ lưu nguồn học thuật trong `legal/licences.json`; trên video dùng dòng chữ nguyên mẫu: `WHERE MONEY SLEEPS · ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU? · SỐ LIỆU VÍ DỤ MINH HOẠ CƠ CHẾ` |
+
+### 5.3. Cổng kiểm Tất định (`scripts/check-story.py` — `BRAND_RE`)
+- `scripts/check-story.py` quét `BRAND_RE` trên **toàn bộ** `all_text(s)` (5 đoạn Diorama), `article_text(s)` (bài sâu `lay` + `pro` + kịch bản video `long` + `short`), `houses` (`label`, `sign`, `fxText`), `GLOSS` và `CATEGORIES`. Bất kỳ tên riêng nào trong 7 nhóm trên xuất hiện sẽ lập tức trả về **`FAIL C9`**.
+
+
