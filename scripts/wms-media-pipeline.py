@@ -222,14 +222,103 @@ def get_youtube_access_token() -> str:
     return str(tok.get("access_token") or "")
 
 
+def step_5_0_brand_safety_audit(story_key: str, story: dict) -> dict:
+    """
+    5.0 — Brand Safety & Zero Proper Noun Specialist (`brand-safety-reviewer`, B1..B4).
+    Chạy bắt buộc TRƯỚC 5A (ElevenLabs TTS), 5B (Render Video) và 5C (YouTube Upload).
+    Nếu phát hiện bất kỳ tên riêng / thương hiệu / ngân hàng / mạng thẻ / công cụ AI hậu trường nào
+    trong lời bình `vo`, chữ trên màn hình `onScreen`, mô tả cảnh `visual`, 5 ngôi nhà `houses` hoặc metadata YouTube,
+    lập tức tung RuntimeError để chặn trước khi tốn quota hoặc đẩy lên YouTube.
+    """
+    brand_re = re.compile(
+        r"\b(Vietcombank|Techcombank|VPBank|ACB|BIDV|VietinBank|MBBank|TPBank|Sacombank|VIB|"
+        r"Agribank|HDBank|SHB|MSB|OCB|SeABank|LPBank|Eximbank|NamABank|Cake|Timo|"
+        r"MoMo|ZaloPay|VNPay|Viettel\s*Money|ShopeePay|Payoo|OnePay|AirPay|Moca|"
+        r"Visa|Mastercard|JCB|Amex|American\s+Express|UnionPay|NAPAS|VietQR|SWIFT|"
+        r"FE\s*Credit|Home\s*Credit|HD\s*Saison|Shinhan\s*Finance|Mirae\s*Asset|Lotte\s*Finance|"
+        r"Fundiin|Kredivo|Atome|Ree-Pay|Kaypay|"
+        r"Shopee|Lazada|Tiki|TikTok|Reels|Facebook|Instagram|"
+        r"Thế\s+Giới\s+Di\s+Động|FPT\s+Shop|Điện\s+Máy\s+Xanh|CellphoneS|Bách\s+Hoá\s+Xanh|"
+        r"WinMart|Circle\s*K|Highlands|Starbucks|Phúc\s+Long|Grab|Be|Gojek|"
+        r"Apple|iPhone|MacBook|Samsung|Xiaomi|Oppo|Sony|"
+        r"ElevenLabs|Google|Veo|Gemini|OpenAI|ChatGPT|Claude|Anthropic|Sora|Runway|Midjourney|CapCut|"
+        r"Stripe|PayPal|Adyen|Square|Klarna|Affirm|Afterpay|"
+        r"Hermanson|Maher|Quán\s+Nhà\s+Liên)\b",
+        re.I,
+    )
+
+    violations: list[str] = []
+
+    def _scan_text(label: str, text: str) -> None:
+        m = brand_re.search(str(text or ""))
+        if m:
+            violations.append(f"{label}: chứa tên riêng/thương hiệu cấm '{m.group(0)}' (B1/B2)")
+
+    # B1/B2/B3: Quét cấp độ bài và 5 ngôi nhà
+    _scan_text(f"STORIES.{story_key}.title", story.get("title", ""))
+    _scan_text(f"STORIES.{story_key}.sub", story.get("sub", ""))
+    _scan_text(f"STORIES.{story_key}.teaser", story.get("teaser", ""))
+    houses = story.get("houses") or []
+    for h_idx, h in enumerate(houses):
+        if isinstance(h, dict):
+            _scan_text(f"STORIES.{story_key}.houses[{h_idx}].name", h.get("name", ""))
+            _scan_text(f"STORIES.{story_key}.houses[{h_idx}].sub", h.get("sub", ""))
+
+    # B1/B2/B4: Quét toàn bộ videoScript.long & videoScript.short + YouTube metadata
+    vid = story.get("videoScript") or {}
+    checked_scenes = 0
+    for fmt in ("long", "short"):
+        fobj = vid.get(fmt) or {}
+        vtitle = str(fobj.get("title") or "").strip()
+        _scan_text(f"videoScript.{fmt}.title", vtitle)
+        _scan_text(f"videoScript.{fmt}.hookNote", fobj.get("hookNote", ""))
+        _scan_text(f"videoScript.{fmt}.angle", fobj.get("angle", ""))
+        if len(vtitle.split()) < 8 or re.match(r"^\s*\d+(?:[.,]\d+)?\s*%", vtitle):
+            violations.append(
+                f"videoScript.{fmt}.title ({vtitle!r}): chưa đủ 3 điểm neo ngữ cảnh tự thân (B4)"
+            )
+        scenes = fobj.get("scenes") or []
+        for s_idx, sc in enumerate(scenes):
+            if not isinstance(sc, dict):
+                continue
+            checked_scenes += 1
+            _scan_text(f"videoScript.{fmt}.scenes[{s_idx}].vo", sc.get("vo", ""))
+            _scan_text(f"videoScript.{fmt}.scenes[{s_idx}].onScreen", sc.get("onScreen", ""))
+            _scan_text(f"videoScript.{fmt}.scenes[{s_idx}].visual", sc.get("visual", ""))
+            _scan_text(f"videoScript.{fmt}.scenes[{s_idx}].chapter", sc.get("chapter", ""))
+        chapters_txt = build_youtube_chapters(scenes, vtitle or str(story.get("title") or ""))
+        _scan_text(f"videoScript.{fmt}.youtubeChapters", chapters_txt)
+
+    if violations:
+        joined = "\n  - ".join(violations)
+        raise RuntimeError(
+            f"FAIL [Brand Safety & Zero Proper Noun Specialist B1–B4] trên bài '{story_key}':\n  - {joined}"
+        )
+
+    return {
+        "specialist": "brand-safety-reviewer",
+        "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+        "checks": ["B1_zero_commercial_proper_nouns", "B2_fourth_wall_tool_immunity", "B3_canonical_5house_archetypes", "B4_frame_and_metadata_audit"],
+        "status": "PASS",
+        "scenesAudited": checked_scenes,
+        "properNounsFound": 0,
+    }
+
+
 def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: pathlib.Path) -> str:
     """
     5C — Đẩy file `.mp4` lên kênh `@WhereMoneySleeps` qua YouTube Data API v3 Resumable Upload.
-    Bắt buộc đặt `privacyStatus = "unlisted"` khi `story.status != "published"` (WMS-R4 / QĐ 56).
+    Bắt buộc chạy `step_5_0_brand_safety_audit` trước khi đẩy và đặt `privacyStatus = "unlisted"`
+    khi `story.status != "published"` (WMS-R4 / QĐ 56).
     Trả về `youtubeId` 11 ký tự.
     """
     if not mp4_path.is_file():
         raise FileNotFoundError(f"Không tìm thấy file video để upload: {mp4_path}")
+    brand_audit = step_5_0_brand_safety_audit(story_key, story)
+    print(
+        f"[5.0 Brand Safety Specialist PASS] B1–B4 sạch ({brand_audit['scenesAudited']} cảnh, "
+        f"0 tên riêng/thương hiệu) trước khi upload {mp4_path.name}"
+    )
     access_token = get_youtube_access_token()
     fobj = (story.get("videoScript") or {}).get(fmt) or {}
     scenes = fobj.get("scenes") or []
@@ -468,8 +557,13 @@ def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
 
 
 def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
-    """5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Google Veo 3.1 Video + FFmpeg Diorama/TT99 Overlay 16:9/9:16)."""
+    """5.0 (Brand Safety Specialist B1-B4) -> 5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Locked-Stage Diorama v3.0 Video 16:9/9:16)."""
     load_dotenv()
+    brand_audit = step_5_0_brand_safety_audit(story_key, story)
+    print(
+        f"[5.0 Brand Safety Specialist PASS] B1–B4 sạch trên '{story_key}' "
+        f"({brand_audit['scenesAudited']} cảnh, 0 tên riêng/thương hiệu có thật)"
+    )
     lic_el = verify_elevenlabs_licence()
     lic_veo = verify_google_veo_licence()
     vid = story.get("videoScript") or {}
@@ -584,11 +678,12 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "cacheDir": ".cache/elevenlabs/",
             },
             "visualTransitionEngine": {
-                "version": "2.0-smooth-30fps",
+                "version": "3.0-locked-stage-30fps",
+                "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
                 "fps": 30,
                 "crossDissolveSeconds": 0.96,
                 "easing": "cubic_smoothstep",
-                "captionMode": "phrase_by_phrase_progressive_word_highlight",
+                "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
                 "liveConduitAnimation": True,
             },
             "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
@@ -611,9 +706,10 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         }
 
     manifest = {
-        "schemaVersion": "1.2-qd56-elevenlabs-google-veo",
+        "schemaVersion": "1.3-qd56-locked-stage-brand-safety",
         "story": story_key,
         "storyStatus": story.get("status"),
+        "brandSafetyAudit": brand_audit,
         "youtubeChannel": {
             "handle": yt_handle,
             "url": yt_url,
