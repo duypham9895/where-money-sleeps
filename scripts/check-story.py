@@ -753,7 +753,7 @@ GOV_REQUIRED = [
     ".agents/hooks.json",
     "knowledge/finance-kb.json",
     "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
-    "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py",
+    "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
             "Bash(gh pr merge:*)", "Bash(rtk gh pr merge:*)", "Bash(gh release:*)", "Bash(rtk gh release:*)",
@@ -1062,6 +1062,36 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
             rep.add("FAIL", "C1", f"bài '{k}'", "khoá bài chỉ dùng a-z 0-9 _ (đi thẳng vào data-story=\"…\")")
         if not only or k == only:
             check_story(k, s, ctx, rep)
+    # C9f — LUẬT 9: Minh hoạ mặt cắt đan xen giữa các đoạn văn (Advance Organizer + 3-Layer Figure-Caption Contract)
+    if "const CHAP_FIGS" in src:
+        try:
+            chap_figs = extract(src, "CHAP_FIGS")
+        except ValueError as e:
+            rep.add("FAIL", "C9", f"{label} CHAP_FIGS", f"không đọc được CHAP_FIGS: {e}")
+            chap_figs = {}
+        for k in ( [only] if only and only in stories else list(stories.keys()) ):
+            figs = chap_figs.get(k)
+            if not isinstance(figs, list) or len(figs) < 5 or figs[0] is not None or any(not isinstance(figs[idx], dict) for idx in range(1, 5)):
+                rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS",
+                        "LUẬT 9: cần mảng phần tử [null, fig1, fig2, fig3, fig4, ...] (Chương 01 không chèn ảnh, Chương 02–05 mỗi chương 1 hình mặt cắt)")
+                continue
+            for idx in range(1, 5):
+                fg = figs[idx]
+                if not isinstance(fg, dict):
+                    rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]", "phải là object {file, beat, kicker, alt, title, desc}")
+                    continue
+                for req_k in ("file", "beat", "kicker", "alt", "title", "desc"):
+                    if req_k not in fg or (isinstance(fg[req_k], str) and not fg[req_k].strip()):
+                        rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]", f"thiếu trường '{req_k}'")
+                img_rel = f"public/brand/{fg.get('file', '')}"
+                if not (ROOT / img_rel).is_file():
+                    rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]", f"không thấy file ảnh trên đĩa: {img_rel}")
+                fig_hits = sorted({mt.group(0) for t in _walk(fg, []) for mt in BRAND_RE.finditer(t)})
+                if fig_hits:
+                    rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]",
+                            f"tên thương hiệu / nhãn hàng có thật (LUẬT 4): {', '.join(repr(h) for h in fig_hits[:5])}")
+            rep.add("PASS", "C9", f"bài '{k}' · CHAP_FIGS",
+                    "LUẬT 9 đạt: 4 hình mặt cắt 16:9 ở Chương 02–05 (Advance Organizer sau đoạn 1 + 3-Layer Figure-Caption)")
     if not only:
         meta_hits = sorted({mt.group(0) for t in _walk(gloss, []) + _walk(cats, []) for mt in BRAND_RE.finditer(t)})
         if meta_hits:

@@ -598,11 +598,22 @@ body.cms-on{padding-bottom:150px}
 .toc a::before{content:counter(toc,decimal-leading-zero);font:700 11px var(--mono);color:var(--clay);margin-right:7px}
 .toc a:hover,.toc a:focus-visible{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
 .pack-panel [id^="pk-"]{scroll-margin-top:170px}
-.chap{max-width:var(--read);margin:0 0 26px}
+.chap{max-width:min(52rem,100%);margin:0 0 28px}
+.chap h4,.chap .prose{max-width:var(--read)}
 .chap h4{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.55rem);line-height:1.25;margin:0 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
 .chap h4 span{font:700 11px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--clay);padding:4px 7px;border-radius:2px;transform:translateY(-3px)}
 .chap .prose p:first-child::first-letter{font-size:inherit;float:none;padding:0;color:inherit;font-family:inherit;line-height:inherit}
 .chap:first-of-type .prose p:first-child::first-letter{font-family:var(--serif);float:left;font-size:3.3em;line-height:.85;padding:.06em .1em 0 0;color:var(--clay)}
+/* LUẬT 9 — Minh hoạ mặt cắt đan xen giữa các đoạn văn (Advance Organizer + Spatial Contiguity + 3-Layer Figure-Caption Contract) */
+.chap-fig{margin:18px 0 22px;border:1.5px solid var(--ink);border-radius:6px;background:var(--card);box-shadow:4px 4px 0 var(--sh-2);overflow:hidden}
+.chap-fig img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#0e131e;border-bottom:1.5px solid var(--ink)}
+.chap-fig figcaption{padding:12px 16px 14px;display:grid;gap:6px;background:var(--card)}
+.chap-fig-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.chap-fig-kicker{font:700 10.5px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--paper);background:var(--clay);padding:3px 8px;border-radius:2px}
+.chap-fig-jump{font:600 11.5px var(--sans);color:var(--ink);background:var(--paper);border:1.5px solid var(--ink);border-radius:2px;padding:3px 9px;cursor:pointer;box-shadow:2px 2px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.chap-fig-jump:hover,.chap-fig-jump:focus-visible{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.chap-fig-title{font:700 clamp(.98rem,1.45vw,1.1rem)/1.35 var(--serif);color:var(--ink);margin:2px 0 0}
+.chap-fig-desc{font:400 .94rem/1.58 var(--serif);color:var(--ink-2);margin:0}
 .flow{list-style:none;margin:0;padding:0;display:grid;gap:0;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2)}
 .flow li{display:grid;grid-template-columns:2.4rem minmax(9rem,13rem) minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-bottom:1px dashed var(--rule-2);position:relative}
 .flow li:last-child{border-bottom:0}
@@ -3623,6 +3634,131 @@ function bindYtEmbed(scope, s, draft){
     };
   }
 }
+const CHAP_FIGS = {
+  card: [
+    null,
+    {
+      file: "card-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · GIẢI PHẪU BA TẦNG XỬ LÝ",
+      alt: "Mặt cắt dòng tiền lúc quẹt thẻ 10.000.000 đồng lúc 22:47: ngân hàng của bạn giữ chỗ hạn mức 10 triệu đồng, quán quen ghi phải thu TK 1388 và chờ quyết toán 9.780.000 đồng ở ngày T+2",
+      title: "Quẹt thẻ 10 triệu lúc 22:47: Lời nhắn chạy ngay trong vài giây, nhưng tiền thật chờ tới T+2",
+      desc: "Ngay giây đầu tiên chạm thẻ, [[Ngân hàng phát hành|issuer]] đặt một lệnh [[giữ chỗ hạn mức|hold]] 10.000.000 đ. Suốt đêm đó két của quán vẫn trống: kế toán quán chỉ ghi nhận một khoản phải thu từ ngân hàng của quán (Nợ TK 1388 / Có TK 511: 10.000.000 đ theo TT 99/2025), còn 9.780.000 đ tiền thật chỉ chảy về sau hai ngày làm việc ([[T+2|t2]])."
+    },
+    {
+      file: "card-fig-2.jpg",
+      beat: 2,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · ĐỔI CHÁC GIỮA 5 NGÔI NHÀ",
+      alt: "Mặt cắt phân vai 5 ngôi nhà trên hoá đơn 10.000.000 đồng: quán quen chịu phí MDR 220.000 đồng để thực nhận 9.780.000 đồng, ngân hàng phát hành ứng vốn trước và nhận 150.000 đồng phí Interchange",
+      title: "Vì sao quán chấp nhận mất 220.000 đ (2,2%) phí nhận thẻ trên hoá đơn 10.000.000 đ?",
+      desc: "Quán quen đổi 220.000 đ [[phí chấp nhận thẻ|mdr]] (2,2% ví dụ) để không đánh mất nhóm khách chi tiêu không tiền mặt và không phải giữ tiền mặt qua đêm. Ở chiều ngược lại, [[Ngân hàng của bạn|issuer]] bỏ vốn ứng trước 9.850.000 đ và gánh rủi ro tín dụng để nhận về 150.000 đ [[phí Interchange|interchange]]."
+    },
+    {
+      file: "card-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · GIẢI PHẪU 220.000 Đ & TIỀN HOÀN",
+      alt: "Mặt cắt chia 220.000 đồng phí nhận thẻ: 150.000 đồng về ngân hàng của bạn làm nguồn trả tiền hoàn 100.000 đồng, 60.000 đồng về ngân hàng của quán và 10.000 đồng về tổ chức thẻ",
+      title: "Chia 220.000 đ phí nhận thẻ: Nguồn tiền hoàn (Cashback) 100.000 đ thật ra đi từ đâu?",
+      desc: "Trong 220.000 đ phí quán chịu (Nợ TK 641), 150.000 đ chảy về ngân hàng phát hành thẻ ([[Interchange|interchange]]), 60.000 đ thuộc về [[ngân hàng của quán|acquirer]] và 10.000 đ trả cho [[tổ chức thẻ|scheme]]. Khoản [[tiền hoàn|cashback]] 1% (100.000 đ) bạn nhận lại được trích từ chính 150.000 đ này — và đã nằm sẵn trong giá món ăn trên thực đơn."
+    },
+    {
+      file: "card-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · HUỶ · HOÀN · KHIẾU NẠI",
+      alt: "Mặt cắt ba cơ chế đảo ngược giao dịch thẻ: huỷ trong ca Reversal khi chưa đối chiếu cuối ngày, hoàn tiền Refund sau khi đã quyết toán, và khiếu nại Chargeback",
+      title: "Huỷ trong ca (Reversal), Hoàn tiền (Refund) và Khiếu nại (Chargeback) khác nhau ở mốc quyết toán",
+      desc: "Khi nhân viên huỷ lệnh nhầm ngay trong ca ([[Reversal|reversal]]) trước lúc gửi danh sách [[đối chiếu cuối ngày|clearing]], lệnh giữ chỗ được nhả ngay mà không có đồng nào di chuyển; nhưng khi tiền đã [[quyết toán|settlement]], mọi lệnh [[hoàn tiền|refund]] hay [[khiếu nại đòi lại|chargeback]] đều phải chạy ngược qua sổ liên ngân hàng."
+    }
+  ],
+  pay: [
+    null,
+    {
+      file: "pay-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · LƯƠNG VỀ CÙNG NGÂN HÀNG (ON-US)",
+      alt: "Mặt cắt kỳ lương thực lĩnh 15.000.000 đồng từ lương gộp 17.000.000 đồng: ngân hàng trả lương sửa 2 dòng nợ phải trả trên cùng một cuốn sổ On-Us mà không có đồng tiền mặt nào rời toà nhà",
+      title: "Lương thực lĩnh 15 triệu báo ghi có: Vì sao không có một đồng tiền nào rời khỏi toà nhà ngân hàng?",
+      desc: "Từ lương gộp 17.000.000 đ (Nợ TK 642), công ty giữ lại 1.785.000 đ bảo hiểm (TK 338) và 215.000 đ thuế TNCN (TK 3335) để nộp thay, còn lại 15.000.000 đ thực lĩnh (TK 334). Khi chi lương [[cùng ngân hàng|onus]], ngân hàng chỉ sửa hai dòng nợ phải trả trên cùng cuốn sổ cái; chỉ khi nhận lương [[khác ngân hàng|offus]], tiền thật mới phải [[quyết toán|settlement]] liên ngân hàng."
+    },
+    {
+      file: "pay-fig-2.jpg",
+      beat: 2,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · BỂ VỐN KHÔNG KỲ HẠN (CASA)",
+      alt: "Mặt cắt bể vốn không kỳ hạn CASA của 500 đồng nghiệp: mỗi người để yên bình quân 5 triệu đồng tạo thành mức nền 2,5 tỷ đồng vốn rẻ với lãi suất chỉ khoảng 0,1 phần trăm một năm",
+      title: "500 đồng nghiệp cùng để yên bình quân 5 triệu: Ngân hàng có ngay bể vốn 2,5 tỷ đồng lãi ~0,1%/năm",
+      desc: "Một cá nhân để yên vài triệu đồng trong tài khoản thanh toán không tạo ra khác biệt lớn, nhưng cả bảng lương 500 người để lại bình quân 5.000.000 đ/người sẽ tạo ra mức nền [[tiền gửi không kỳ hạn|casa]] 2,5 tỷ đồng ổn định quanh năm với chi phí lãi chỉ khoảng 2,5 triệu đồng/năm."
+    },
+    {
+      file: "pay-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · GIÁ VỐN NỘI BỘ (FTP) & MẶC CẢ",
+      alt: "Mặt cắt định giá điều chuyển vốn nội bộ FTP: khối huy động nhận nguồn CASA 0,1 phần trăm một năm, bán vốn nội bộ để khối cho vay cấp tín dụng mua nhà khoảng 8,5 phần trăm một năm",
+      title: "Ba bên cùng hưởng lợi từ một bảng lương: Công ty, Khối Huy động và Khối Cho vay qua cơ chế FTP",
+      desc: "Công ty đổi việc đưa bảng lương 500 người về một mối để đối soát gọn trên một sao kê và đàm phán ưu đãi phí/lãi vay; trong khi đó, nguồn [[CASA|casa]] 0,1%/năm giúp hạ giá vốn bình quân nội bộ ([[FTP|ftp]]) để bộ phận tín dụng cho vay dài hạn (ví dụ ~8,5%/năm)."
+    },
+    {
+      file: "pay-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · DỰ TRỮ BẮT BUỘC & RỦI RO RÚT VỐN",
+      alt: "Mặt cắt biên chênh lệch giữa 0,1 phần trăm và 8,5 phần trăm: ngân hàng phải trích dự trữ bắt buộc tại ngân hàng trung ương, trang trải chi phí vận hành và gánh rủi ro kỳ hạn",
+      title: "Vì sao ngân hàng không thể đem 100% tiền lương nằm yên đi cho vay, và ai đang lặng lẽ trả?",
+      desc: "Trước khi cho vay, ngân hàng phải trích một phần tiền gửi làm [[dự trữ bắt buộc|reserve]] tại Ngân hàng Trung ương và gánh rủi ro biến nguồn vốn ngắn hạn (người nhận lương rút bất cứ lúc nào) thành khoản vay dài hạn nhiều năm — còn bạn đóng góp qua chính phần lãi suất không nhận trên số dư nằm yên."
+    },
+    null
+  ],
+  install: [
+    null,
+    {
+      file: "install-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · CHUYỂN GIAO HỢP ĐỒNG VAY",
+      alt: "Mặt cắt ký trả góp 0 phần trăm cho chiếc điện thoại 12.000.000 đồng: công ty tài chính duyệt hồ sơ và giữ hợp đồng vay 12 kỳ, cửa hàng ghi phải thu TK 1388 và nhận 11.400.000 đồng ở ngày T+1",
+      title: "Ký trả góp 0% cho máy 12 triệu tại quầy: Chủ nợ pháp lý của bạn là Công ty tài chính, không phải Cửa hàng",
+      desc: "Hồ sơ của bạn chạy thẳng từ quầy về [[công ty tài chính|fincomp]]; ngay giây phút hợp đồng vay 12 kỳ × 1.000.000 đ được duyệt, cửa hàng đóng sổ ghi khoản phải thu từ công ty tài chính (Nợ TK 1388 / Có TK 511: 12.000.000 đ) và nhận 11.400.000 đ tiền thật qua ngân hàng vào ngày làm việc kế tiếp ([[T+1|tplusone]])."
+    },
+    {
+      file: "install-fig-2.jpg",
+      beat: 2,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · GIẢI NGÂN HỤT 600.000 Đ (5%)",
+      alt: "Mặt cắt giải ngân T+1: công ty tài chính giữ lại 600.000 đồng phí hỗ trợ lãi suất 5 phần trăm và chuyển 11.400.000 đồng vào tài khoản ngân hàng của cửa hàng",
+      title: "Bán máy 12.000.000 đ nhưng cửa hàng chỉ thực nhận 11.400.000 đ: Khoản hụt 600.000 đ (5%) đi đâu?",
+      desc: "Cửa hàng chấp nhận đổi 600.000 đ (5% giá bán, ghi Nợ TK 641 hoặc TK 521 theo TT 99/2025) để chốt đơn hàng ngay, thu 11.400.000 đ về TK 112 sau một ngày và đẩy toàn bộ việc thu nợ 12 tháng sang [[công ty tài chính|fincomp]]."
+    },
+    {
+      file: "install-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · KHI TIỀN LÃI ĐỔI CHỖ ĐỨNG",
+      alt: "Mặt cắt dòng tiền chiết khấu 12 kỳ: nhận chiếc máy đáng giá 11.400.000 đồng hôm nay và trả 12 kỳ mỗi kỳ 1.000.000 đồng tương đương lãi suất thực tế khoảng 0,8 phần trăm một tháng hay 10 phần trăm một năm",
+      title: "Đặt dòng tiền lên trục thời gian: Nhận máy 11,4 triệu và trả 12 kỳ × 1 triệu tương đương lãi ~0,8%/tháng (~10%/năm)",
+      desc: "Tiền lãi không biến mất mà rời dòng lãi suất trên hợp đồng để ẩn vào giá bán: nếu trả thẳng một lần được giảm 600.000 đ (còn 11.400.000 đ), việc chọn trả góp 12.000.000 đ làm phát sinh [[lãi suất thực tế|eir]] khoảng 0,8%/tháng (~10%/năm tính theo dòng tiền chiết khấu)."
+    },
+    {
+      file: "install-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · KHI KẾ HOẠCH LỆCH: TRẢ MÁY & TRỄ HẠN",
+      alt: "Mặt cắt ba tình huống lệch kế hoạch: trả lại máy tại cửa hàng không tự động xoá hợp đồng vay ở công ty tài chính, trả trễ kỳ bị tính phí phạt và ghi lịch sử tín dụng",
+      title: "Khi kế hoạch lệch: Vì sao trả lại máy ở cửa hàng không tự động xoá được khoản vay trả góp của bạn?",
+      desc: "Vì hợp đồng mua bán hàng hoá (với cửa hàng) và hợp đồng tín dụng (với [[công ty tài chính|fincomp]]) là hai quan hệ pháp lý tách biệt: khi trả máy hoặc tất toán sớm, khoản vay trên sổ công ty tài chính chỉ khép lại khi hai bên hoàn tất bút toán đối trừ và thanh lý hợp đồng vay."
+    }
+  ]
+};
+function renderChapHTML(sKey, c, i){
+  const paras = Array.isArray(c.paras) ? c.paras : [];
+  const fig = CHAP_FIGS[sKey] && CHAP_FIGS[sKey][i];
+  const h4 = `<h4><span>Chương ${String(i+1).padStart(2,"0")}</span>${esc(c.h)}</h4>`;
+  if (!fig || paras.length < 2) {
+    return `<section class="chap">${h4}<div class="prose">${paras.map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
+  }
+  const figHTML = `<figure class="chap-fig" data-chap-fig="${i+1}">`
+    + `<img src="../public/brand/${esc(fig.file)}" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='public/brand/${esc(fig.file)}';}" width="1200" height="675" loading="lazy" decoding="async" alt="${esc(fig.alt)}">`
+    + `<figcaption>`
+    + `<div class="chap-fig-top"><span class="chap-fig-kicker">${esc(fig.kicker)}</span>`
+    + `<button type="button" class="chap-fig-jump" data-jump-beat="${fig.beat}">Xem nhịp này trên Mặt cắt Diorama ↑</button></div>`
+    + `<strong class="chap-fig-title">${esc(fig.title)}</strong>`
+    + `<p class="chap-fig-desc">${rich(fig.desc)}</p>`
+    + `</figcaption></figure>`;
+  return `<section class="chap">${h4}<div class="prose"><p>${rich(paras[0])}</p></div>${figHTML}<div class="prose">${paras.slice(1).map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
+}
 function renderPack(){
   const s = STORIES[S.story], a = s.article, v = s.videoScript, sec = $("#baiday");
   // bản nháp chỉ hiện ở chế độ duyệt (WMS-R4, advisory); dữ liệu schema cũ (thiếu long/short) ⇒ ẩn, không sập
@@ -3645,7 +3781,7 @@ function renderPack(){
     + `<p class="pack-sub" id="pk-lay-myths">1 · Lầm tưởng phổ biến và sự thật</p><div class="myths">`
     + arr(L.myths).map(m => `<div class="myth"><div class="m"><h5>Nhiều người nghĩ</h5><p>${rich(m.myth)}</p></div><div class="t"><h5>Điều thật sự xảy ra</h5><p>${rich(m.truth)}</p></div></div>`).join("")
     + `</div><p class="pack-sub" id="pk-lay-essay">2 · Bài khảo cứu toàn cảnh, từ đầu đến cuối</p>`
-    + arr(L.sections).map((c, i) => `<section class="chap"><h4><span>Chương ${String(i+1).padStart(2,"0")}</span>${esc(c.h)}</h4><div class="prose">${arr(c.paras).map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`).join("")
+    + arr(L.sections).map((c, i) => renderChapHTML(S.story, c, i)).join("")
     + `<p class="pack-sub" id="pk-lay-flow">3 · Sơ đồ dòng chảy — lời nhắn, tiền thật và ghi sổ</p>`
     + `<div class="flow-key">${["wire","pipe","book"].map(badge).join("")}</div><ol class="flow">`
     + arr(L.flowSummary).map((f, i) => `<li><span class="n">${i+1}</span><div class="who">${badge(f.channel)}<b>${esc(f.fromTo)}</b><span class="amt">${esc(f.amount)}</span></div>`
@@ -3666,6 +3802,13 @@ function renderPack(){
     + `<p class="pack-sub" id="pk-pro-jr">3 · Chuỗi bút toán kép, từ phát sinh tới tất toán</p><div class="journal">${arr(P.journal).map(journalHTML).join("")}</div>`
     + `<p class="pack-sub" id="pk-pro-edge">4 · Tình huống thực tế &amp; ngoại lệ</p><div class="edges">${arr(P.edgeCases).map(e => `<details><summary>${esc(e.h)}</summary><p>${rich(e.p)}</p></details>`).join("")}</div>${draft}`;
   bindYtEmbed("lay", s, draft);
+  $$("[data-jump-beat]", $("#pnl-lay")).forEach(btn => {
+    btn.onclick = () => {
+      const b = +btn.dataset.jumpBeat || 0;
+      go(S.story, b, 0, false);
+      $("#stage").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
+    };
+  });
   renderVid(s, draft);
   showTab(PK.tab, false);
 }
