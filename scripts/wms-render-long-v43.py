@@ -39,6 +39,8 @@ import subprocess
 import sys
 import tempfile
 import time
+import urllib.request
+import wave
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -1018,6 +1020,203 @@ LONG_STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "minpay": {
+        "house_nodes": [
+            ("BẠN", "Chủ thẻ"),
+            ("CỬA HÀNG", "Nơi bán máy"),
+            ("NGÂN HÀNG", "Cửa hàng"),
+            ("NGÂN HÀNG", "Phát hành thẻ"),
+            ("NGÂN HÀNG", "Tài khoản bạn"),
+        ],
+        "plates_pool": [
+            ("public/brand/card-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-4.jpg", (20, 780, 1060, 1625)),
+            ("public/brand/card-short-plate-4.jpg", (20, 460, 1060, 1305)),
+            ("public/brand/install-short-plate-1.jpg", (20, 420, 1060, 1265)),
+        ],
+        "scenes": [
+            # 0: Mode L-A (Mở đầu: Con số 500 nghìn dễ chịu trên sao kê 10 triệu)
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 3},
+                "flow": ("wire", 3, 0),
+                "kicker": "MỞ ĐẦU  ·  SAO KÊ 10 TRIỆU & NÚT BẤM TRẢ TỐI THIỂU 5%",
+                "stage_tag": "SAO KÊ THẺ TÍN DỤNG 10.000.000 Đ  ·  TỐI THIỂU 5% = 500.000 Đ",
+                "beats": [
+                    ("1. DƯ NỢ SAO KÊ KỲ ĐẦU", "10.000.000 đ  ·  Hạn thanh toán: Ngày 45"),
+                    ("2. LỰA CHỌN NHẸ TÊNH", "Trả tối thiểu 5% = 500.000 đ (Đúng hạn, 0 phí phạt)"),
+                    ("3. CÚ SỐC SAO KÊ KỲ SAU", "Dư nợ Ngày 60 vọt lên: 10.092.500 đ (+592.500 đ lãi)"),
+                    ("4. CÂU HỎI TRUNG TÂM", "Vì sao vừa trả 500.000 đ mà lại bị cộng 592.500 đ tiền lãi?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            # 1: Mode L-B (Ngày 01: Quẹt thẻ 10 triệu và lời hứa 45 ngày)
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1, 2, 3},
+                "flow": ("wire", 1, 2, 3),
+                "kicker": "NGÀY 01  ·  QUẸT THẺ 10 TRIỆU & LỜI HỨA 45 NGÀY",
+                "stage_tag": "GIỮ CHỖ HẠN MỨC 10.000.000 Đ  ·  0 ĐỒNG TIỀN THẬT DI CHUYỂN",
+                "scale_title": "GIÁ TRỊ GIAO DỊCH QUẸT THẺ NGÀY 01:",
+                "scale_val": 10_000_000,
+                "mech_type": "P2_CONTRACT",
+                "mech_left": "Cửa hàng (Quẹt máy POS)",
+                "mech_right": "Ngân hàng phát hành (Giữ hạn mức)",
+                "mech_badge": "GIỮ HẠN MỨC 10.000.000 Đ",
+                "ledger_title": "SỔ KẾ TOÁN DOANH NGHIỆP CHỦ THẺ (TT 99/2025):",
+                "debit_line": "Bên Nợ: TK 642 (Chi phí quản lý DN) = 10.000.000 đ",
+                "credit_line": "Bên Có: TK 338 (Phải trả khác — 3388) = 10.000.000 đ",
+                "rule": "CHƯA CÓ TIỀN RỜI TK 112  ·  MỞ KỲ ÂN HẠN TỐI ĐA 45 NGÀY",
+            },
+            # 2: Mode L-B (Ngày T+2: Ngân hàng đã bỏ tiền túi ứng trước)
+            {
+                "mode": "L-B",
+                "plate_idx": 2,
+                "active": {1, 2, 3},
+                "flow": ("pipe", 3, 2, 1),
+                "kicker": "NGÀY T+2  ·  NGÂN HÀNG PHÁT HÀNH BỎ TIỀN TÚI ỨNG TRƯỚC",
+                "stage_tag": "QUYẾT TOÁN LIÊN NGÂN HÀNG T+2  ·  CỬA HÀNG NHẬN 9.800.000 Đ",
+                "scale_title": "TIỀN THẬT NGÂN HÀNG ỨNG TRƯỚC TỪ T+2:",
+                "scale_val": 9_800_000,
+                "mech_type": "P1_SPLIT",
+                "split_left_lbl": "Cửa hàng thực nhận (98%): 9.800.000 đ",
+                "split_right_lbl": "MDR 2%: 200k",
+                "ledger_title": "VÌ SAO NGÂN HÀNG CÓ CĂN CỨ TÍNH LÃI TỪ ĐẦU KỲ?",
+                "debit_line": "Ngân hàng phát hành đã xuất tiền thật trả cửa hàng từ Ngày T+2",
+                "credit_line": "Miễn lãi 45 ngày là ưu đãi có điều kiện phải trả đủ 100% ở Ngày 45",
+                "rule": "SUỐT HƠN 1 THÁNG ĐÓ BẠN ĐANG TIÊU TIỀN NGÂN HÀNG ỨNG TRƯỚC",
+            },
+            # 3: Mode L-C (Ngày 30: Sao kê chốt sổ và hai con đường)
+            {
+                "mode": "L-C",
+                "plate_idx": 3,
+                "active": {0, 3},
+                "flow": ("wire", 3, 0),
+                "kicker": "NGÀY 30  ·  CHỐT SAO KÊ 10 TRIỆU & HAI CON ĐƯỜNG",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "HAI LỰA CHỌN TRÊN TỜ SAO KÊ CHO HẠN THANH TOÁN NGÀY 45",
+                "card1_title": "CON ĐƯỜNG A: TRẢ ĐỦ 100% DƯ NỢ SAO KÊ",
+                "card1_big": "Thanh toán 10.000.000 đ : Lãi = 0 đ",
+                "card1_sub": "Giữ trọn vẹn 45 ngày miễn lãi · Hạn mức thẻ khôi phục đầy đủ cho kỳ sau",
+                "card2_title": "CON ĐƯỜNG B: TRẢ TỐI THIỂU 5% DƯ NỢ",
+                "card2_big": "Thanh toán 500.000 đ : Mất 45 ngày miễn lãi",
+                "card2_sub": "Thoát phí phạt trễ hạn & không bị nợ quá hạn, nhưng bị tính lãi lùi về Ngày 01",
+                "rule": "ĐIỀU KIỆN MIỄN LÃI ĐÒI HỎI THANH TOÁN ĐỦ 100% DƯ NỢ SAO KÊ ĐÚNG HẠN",
+            },
+            # 4: Mode L-B (Ngày 45: Trả 500 nghìn — thoát phạt nhưng bật đồng hồ lãi lùi)
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {0, 3, 4},
+                "flow": ("pipe", 4, 3),
+                "kicker": "NGÀY 45  ·  TRẢ 500 NGHÌN & CÔNG TẮC HUỶ HỒI TỐ",
+                "stage_tag": "TRẢ 500.000 Đ ĐÚNG HẠN  ·  NỢ GỐC CÒN LẠI 9.500.000 Đ",
+                "scale_title": "SỐ TIỀN BẠN CHUYỂN TRẢ Ở NGÀY 45 (5%):",
+                "scale_val": 500_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Đạt được: Phí phạt trễ hạn = 0 đ · Giữ nhóm nợ tiêu chuẩn",
+                "mech_line2": "Đánh đổi: Mất trắng 45 ngày miễn lãi · Tính lãi lùi từ Ngày 01",
+                "ledger_title": "BÚT TOÁN TRẢ TỐI THIỂU TRÊN SỔ DOANH NGHIỆP (TT 99/2025):",
+                "debit_line": "Bên Nợ: TK 338 (Phải trả khác — giảm gốc thẻ) = 500.000 đ",
+                "credit_line": "Bên Có: TK 112 (Tiền gửi không kỳ hạn) = 500.000 đ",
+                "rule": "NỢ GỐC TRÊN TK 338 GIẢM CÒN 9.500.000 Đ NHƯNG ĐỒNG HỒ LÃI QUAY VỀ NGÀY 01",
+            },
+            # 5: Mode L-B (Ngày 60: Giải phẫu hai khúc tiền lãi 450.000 và 142.500)
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {0, 3},
+                "flow": ("wire", 3, 0),
+                "kicker": "NGÀY 60  ·  GIẢI PHẪU HAI KHÚC LÃI 450.000 Đ & 142.500 Đ",
+                "stage_tag": "DƯ NỢ BÌNH QUÂN NGÀY (ADB)  ·  TỔNG LÃI = 592.500 Đ",
+                "scale_title": "TỔNG TIỀN LÃI CỘNG VÀO SAO KÊ NGÀY 60:",
+                "scale_val": 592_500,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Khúc 1 (Ngày 01–45): 10.000.000 × 0,1%/ngày × 45 ngày = 450.000 đ",
+                "mech_line2": "Khúc 2 (Ngày 46–60): 9.500.000 × 0,1%/ngày × 15 ngày = 142.500 đ",
+                "ledger_title": "GHI NHẬN CHI PHÍ LÃI THẺ TÍN DỤNG KỲ 2 (TT 99/2025):",
+                "debit_line": "Bên Nợ: TK 635 (Chi phí tài chính — lãi thẻ) = 592.500 đ",
+                "credit_line": "Bên Có: TK 338 (Phải trả khác — cộng vào sao kê) = 592.500 đ",
+                "rule": "TỔNG DƯ NỢ MỚI TRÊN TK 338 = 9.500.000 + 592.500 = 10.092.500 Đ",
+            },
+            # 6: Mode L-C (Cái giá thật của 15 ngày giữ lại 9,5 triệu)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 3},
+                "flow": ("wire", 3, 0),
+                "kicker": "PHÂN TÍCH  ·  CÁI GIÁ THẬT CỦA 15 NGÀY TRÌ HOÃN",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "ĐỐI CHIẾU QUYẾT ĐỊNH KINH TẾ TẠI NGÀY 45 (VÍ DỤ LÃI 36%/NĂM)",
+                "card1_title": "CHI PHÍ BIÊN CỦA 15 NGÀY GIỮ LẠI 9.500.000 Đ",
+                "card1_big": "592.500 đ / 9.500.000 đ = 6,24%",
+                "card1_sub": "Bạn mất 592.500 đ tiền lãi chỉ để cầm 9.500.000 đ thêm đúng 15 ngày (Ngày 45–60)",
+                "card2_title": "LÃI SUẤT THỰC TẾ NĂM KHI LÃI NHẬP GỐC (EIR)",
+                "card2_big": "(1 + 3%)^12 − 1 ≈ 42,6% / năm",
+                "card2_sub": "Cao hơn đáng kể so với mức lãi suất danh nghĩa 36%/năm ghi trên biểu phí",
+                "rule": "TRẢ 500.000 Đ XONG, DƯ NỢ KỲ SAU (10.092.500 Đ) CAO HƠN LÚC CHƯA TRẢ 92.500 Đ",
+            },
+            # 7: Mode L-C (Khi giao dịch mới cũng mất quyền miễn lãi)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 1, 3},
+                "flow": ("wire", 1, 3),
+                "kicker": "HIỆU ỨNG DÂY CHUYỀN  ·  GIAO DỊCH MỚI MẤT QUYỀN MIỄN LÃI",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "ĐIỀU GÌ XẢY RA KHI BẠN QUẸT THÊM MÓN MỚI Ở KỲ THỨ HAI?",
+                "card1_title": "KHI THẺ LUÔN TRẢ ĐỦ 100% SAO KÊ",
+                "card1_big": "Món quẹt mới có 45 ngày miễn lãi",
+                "card1_sub": "Mỗi giao dịch mua hàng mới đều được cấp đường băng ân hạn miễn lãi riêng",
+                "card2_title": "KHI THẺ ĐANG CÒN DƯ NỢ CHUYỂN KỲ",
+                "card2_big": "Món quẹt mới chịu lãi 0,1%/ngày ngay lập tức",
+                "card2_sub": "Bộ đếm ân hạn miễn lãi bị khoá cho tới khi toàn bộ dư nợ sao kê về 0 đồng",
+                "rule": "KHÔNG NÊN QUẸT THÊM GIAO DỊCH MỚI TRÊN CHIẾC THẺ ĐANG TRẢ TỐI THIỂU",
+            },
+            # 8: Mode L-C (Thiếu 10.000 đồng số lẻ và bẫy rút tiền mặt)
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("wire", 3, 0),
+                "kicker": "NGOẠI LỆ  ·  3 TÌNH HUỐNG DỄ SẬP BẪY NHẤT KHI DÙNG THẺ",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "THIẾU 10.000 ĐỒNG SỐ LẺ, RÚT TIỀN MẶT ATM VÀ LÃI PHẦN ĐUÔI",
+                "col1_title": "1. TRẢ 9.990.000 Đ (THIẾU 10.000 Đ)",
+                "col1_big": "Vẫn mất 450.150 đ tiền lãi",
+                "col1_sub": "Trả thiếu 10.000 đ số lẻ vẫn làm huỷ 45 ngày miễn lãi trên toàn bộ 10.000.000 đ đầu kỳ",
+                "col2_title": "2. RÚT TIỀN MẶT TẠI CÂY ATM",
+                "col2_big": "Phí rút ~4% + Lãi ngày từ giây đầu",
+                "col2_sub": "Giao dịch rút tiền mặt thẻ tín dụng hoàn toàn không có bất kỳ ngày ân hạn miễn lãi nào",
+                "col3_title": "3. LÃI PHẦN ĐUÔI (TRAILING INTEREST)",
+                "col3_big": "Phát sinh từ Ngày 60 đến ngày trả",
+                "col3_sub": "Cần kiểm tra sao kê kỳ 3 để tất toán nốt tiền lãi của những ngày chờ thanh toán kỳ 2",
+                "rule": "LUÔN KIỂM TRA SỐ LẺ ĐẾN HÀNG ĐƠN VỊ ĐỒNG KHI THANH TOÁN SAO KÊ THẺ",
+            },
+            # 9: Mode L-A (Kết luận: Câu hỏi trước khi bấm nút trả tối thiểu)
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 4, 3),
+                "kicker": "KẾT LUẬN  ·  KHI NÀO DÙNG PHAO CỨU HỘ TRẢ TỐI THIỂU?",
+                "stage_tag": "TẤT TOÁN 100% DƯ NỢ SAO KÊ (10.092.500 Đ) ĐỂ KHÔI PHỤC 45 NGÀY MIỄN LÃI",
+                "beats": [
+                    ("1. BẢN CHẤT CỦA TRẢ TỐI THIỂU 5%", "Phao cứu hộ tránh phí phạt trễ hạn & nợ xấu khi kẹt tiền mặt thật sự"),
+                    ("2. CÁI GIÁ PHẢI ĐÁNH ĐỔI", "Mất trắng 45 ngày miễn lãi: trả 500.000 đ nhưng chịu 592.500 đ lãi lùi"),
+                    ("3. HẠCH TOÁN KẾ TOÁN TT 99/2025", "Ghi nhận chi phí lãi vào Debit TK 635 / Credit TK 338 (592.500 đ)"),
+                    ("4. CÁCH KHÔI PHỤC MIỄN LÃI", "Thanh toán dứt điểm 100% dư nợ sao kê để đưa TK 338 về 0 đồng"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
 }
 
 
@@ -1717,6 +1916,108 @@ def render_smooth_long_video(
         raise RuntimeError(f"FFmpeg failed with code {ret}:\n{stderr_out[-1200:]}")
 
 
+def ensure_long_continuous_tts(slug: str, scenes: list[dict], api_key: str) -> pathlib.Path:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    merged_cache = CACHE_DIR / f"{slug}_long_continuous_v3.json"
+    if merged_cache.is_file():
+        return merged_cache
+
+    split_idx = len(scenes) // 2
+    part1_text = "\n\n".join(s["vo"].strip() for s in scenes[:split_idx])
+    part2_text = "\n\n".join(s["vo"].strip() for s in scenes[split_idx:])
+
+    def call_tts_part(part_name: str, text: str) -> dict:
+        part_cache = CACHE_DIR / f"{slug}_long_{part_name}_v3.json"
+        if part_cache.is_file():
+            return json.loads(part_cache.read_text(encoding="utf-8"))
+        print(f"  [TTS Continuous Long {part_name}] Calling ElevenLabs eleven_v3 ({len(text)} chars)...")
+        url = "https://api.elevenlabs.io/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps"
+        payload = {
+            "text": text,
+            "model_id": "eleven_v3",
+            "voice_settings": {
+                "stability": 0.65,
+                "similarity_boost": 0.80,
+                "style": 0.20,
+                "use_speaker_boost": True,
+            },
+        }
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "xi-api-key": api_key,
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=240) as resp:
+            raw = resp.read().decode("utf-8")
+        part_cache.write_text(raw, encoding="utf-8")
+        return json.loads(raw)
+
+    d1 = call_tts_part("part1", part1_text)
+    d2 = call_tts_part("part2", part2_text)
+
+    with tempfile.TemporaryDirectory(prefix=f"wms_stitch_{slug}_") as tmp:
+        tmp_dir = pathlib.Path(tmp)
+        mp3_1 = tmp_dir / "p1.mp3"
+        mp3_2 = tmp_dir / "p2.mp3"
+        wav_1 = tmp_dir / "p1.wav"
+        wav_2 = tmp_dir / "p2.wav"
+        mp3_1.write_bytes(base64.b64decode(d1["audio_base64"]))
+        mp3_2.write_bytes(base64.b64decode(d2["audio_base64"]))
+        subprocess.run(["ffmpeg", "-y", "-i", str(mp3_1), "-ar", "44100", "-ac", "1", str(wav_1)], check=True, capture_output=True)
+        subprocess.run(["ffmpeg", "-y", "-i", str(mp3_2), "-ar", "44100", "-ac", "1", str(wav_2)], check=True, capture_output=True)
+
+        with wave.open(str(wav_1), "rb") as w1:
+            sr = w1.getframerate()
+            pcm1 = np.frombuffer(w1.readframes(w1.getnframes()), dtype=np.int16)
+        with wave.open(str(wav_2), "rb") as w2:
+            pcm2 = np.frombuffer(w2.readframes(w2.getnframes()), dtype=np.int16)
+
+        dur1 = len(pcm1) / sr
+        bridge_s = 0.40
+        bridge_samples = np.zeros(int(sr * bridge_s), dtype=np.int16)
+        merged_pcm = np.concatenate([pcm1, bridge_samples, pcm2])
+
+        merged_wav = tmp_dir / "merged.wav"
+        with wave.open(str(merged_wav), "wb") as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(sr)
+            wf.writeframes(merged_pcm.tobytes())
+
+        merged_mp3 = tmp_dir / "merged.mp3"
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", str(merged_wav), "-c:a", "libmp3lame", "-b:a", "192k", str(merged_mp3)],
+            check=True,
+            capture_output=True,
+        )
+        merged_b64 = base64.b64encode(merged_mp3.read_bytes()).decode("ascii")
+
+    a1 = d1["alignment"]
+    a2 = d2["alignment"]
+    offset = dur1 + bridge_s
+    merged_chars = list(a1["characters"]) + ["\n", "\n"] + list(a2["characters"])
+    merged_starts = list(a1["character_start_times_seconds"]) + [dur1, dur1 + 0.20] + [
+        round(t + offset, 4) for t in a2["character_start_times_seconds"]
+    ]
+    merged_ends = list(a1["character_end_times_seconds"]) + [dur1 + 0.20, offset] + [
+        round(t + offset, 4) for t in a2["character_end_times_seconds"]
+    ]
+    merged_obj = {
+        "audio_base64": merged_b64,
+        "alignment": {
+            "characters": merged_chars,
+            "character_start_times_seconds": merged_starts,
+            "character_end_times_seconds": merged_ends,
+        },
+    }
+    merged_cache.write_text(json.dumps(merged_obj, ensure_ascii=False), encoding="utf-8")
+    return merged_cache
+
+
 def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> None:
     story = stories[slug]
     brand_audit = wmp.step_5_0_brand_safety_audit(slug, story)
@@ -1724,9 +2025,9 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
     print(f"[0/3 Brand Safety Specialist PASS] B1–B4 sạch ({brand_audit['scenesAudited']} cảnh, 0 tên riêng/thương hiệu)")
     scenes = story["videoScript"]["long"]["scenes"]
 
-    cont_path = CACHE_DIR / f"{slug}_long_continuous_v3.json"
-    if not cont_path.is_file():
-        raise RuntimeError(f"Missing {cont_path}")
+    wmp.load_dotenv()
+    api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    cont_path = ensure_long_continuous_tts(slug, scenes, api_key)
     cont_data = json.loads(cont_path.read_text(encoding="utf-8"))
 
     with tempfile.TemporaryDirectory(prefix=f"wms_smooth_long_{slug}_") as tmp:
@@ -1742,14 +2043,14 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = load_cached_sfx()
 
-    target_slugs = ["install", "card", "pay"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug)
     return 0

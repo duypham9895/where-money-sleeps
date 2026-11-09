@@ -89,6 +89,14 @@ INSTALL_HOUSES = [
     ("NGÂN HÀNG", "Cửa hàng"),
 ]
 
+MINPAY_HOUSES = [
+    ("BẠN", "Chủ thẻ"),
+    ("CỬA HÀNG", "Nơi mua máy"),
+    ("NGÂN HÀNG", "Cửa hàng"),
+    ("NGÂN HÀNG", "Phát hành"),
+    ("NGÂN HÀNG", "Tài khoản"),
+]
+
 FIGURES_SPEC: dict[str, list[dict]] = {
     "card": [
         {
@@ -322,6 +330,84 @@ FIGURES_SPEC: dict[str, list[dict]] = {
                 ("3. Khách trả lại chiếc điện thoại", "Cửa hàng nhận máy và hoàn 11,4 triệu; chỉ Công ty tài chính mới xoá được hợp đồng vay của bạn.", "green"),
             ],
             "footer_eq": "Câu hỏi duy nhất trước khi ký trả góp 0%: “Nếu trả thẳng một lần thì giá bao nhiêu?”",
+        },
+    ],
+    "minpay": [
+        {
+            "out": "minpay-fig-1.jpg",
+            "plate": "public/brand/card-short-plate-1.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 01  ·  CHƯƠNG 02  ·  ĐIỀU KIỆN CỦA 45 NGÀY MIỄN LÃI",
+            "title": "Quẹt thẻ 10 triệu ở Ngày 01: Ngân hàng đã ứng tiền thật cho cửa hàng từ Ngày T+2",
+            "houses": MINPAY_HOUSES,
+            "active_houses": {0, 1, 2, 3},
+            "left_pills": [
+                (354, 72, "NGÀY T+2: NGÂN HÀNG PHÁT HÀNH ĐÃ ỨNG TIỀN THẬT CHO CỬA HÀNG", "amber"),
+                (354, 598, "45 NGÀY MIỄN LÃI: CHỈ HIỆU LỰC KHI TRẢ ĐỦ 100% DƯ NỢ SAO KÊ", "teal"),
+            ],
+            "steps": [
+                ("1. Ngày 01 · Quẹt thẻ 10.000.000 đ", "Bạn nhận thiết bị ngay; ngân hàng phát hành giữ hạn mức 10.000.000 đ và mở kỳ sao kê.", "amber"),
+                ("2. Ngày T+2 · Ngân hàng ứng tiền", "Ngân hàng phát hành chuyển tiền thật qua ngân hàng cửa hàng (cửa hàng nhận 9.800.000 đ sau phí 2%).", "green"),
+                ("3. Ngày 30 · Chốt sao kê kỳ 1", "Sao kê báo dư nợ 10.000.000 đ, hạn thanh toán Ngày 45: trả đủ 10 triệu (lãi 0 đ) hoặc tối thiểu 500.000 đ.", "clay"),
+            ],
+            "footer_eq": "Ngân hàng đã bỏ tiền túi ứng trước từ Ngày T+2 — miễn lãi 45 ngày là ưu đãi có điều kiện",
+        },
+        {
+            "out": "minpay-fig-2.jpg",
+            "plate": "public/brand/card-short-plate-2.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 02  ·  CHƯƠNG 03  ·  TÍNH LÃI LÙI VỀ NGÀY 01",
+            "title": "Trả tối thiểu 500.000 đ ở Ngày 45: Vì sao kỳ sau bị cộng tới 592.500 đ tiền lãi?",
+            "houses": MINPAY_HOUSES,
+            "active_houses": {0, 3, 4},
+            "left_pills": [
+                (354, 72, "KHÚC 1 (NGÀY 01–45): LÃI LÙI TRÊN CẢ 10.000.000 Đ = 450.000 Đ", "amber"),
+                (354, 598, "KHÚC 2 (NGÀY 46–60): LÃI TRÊN 9.500.000 Đ CÒN LẠI = 142.500 Đ", "clay"),
+            ],
+            "steps": [
+                ("Khúc 1 · 45 ngày đầu (10.000.000 đ)", "Do không trả đủ 100% ở Ngày 45, miễn lãi bị huỷ: 10.000.000 đ × 0,1%/ngày × 45 ngày = 450.000 đ.", "amber"),
+                ("Khúc 2 · 15 ngày sau (9.500.000 đ)", "Sau khi trừ 500.000 đ, gốc còn 9.500.000 đ chịu tiếp 15 ngày: 9.500.000 đ × 0,1%/ngày × 15 ngày = 142.500 đ.", "clay"),
+                ("Sao kê Ngày 60 · Dư nợ vọt lên", "Tổng lãi kỳ 2 là 450.000 + 142.500 = 592.500 đ; cộng gốc 9.500.000 đ thành 10.092.500 đ.", "green"),
+            ],
+            "footer_eq": "Trả 500.000 đ ở Ngày 45 nhưng chịu 592.500 đ tiền lãi ở Ngày 60 — dư nợ mới: 10.092.500 đ",
+        },
+        {
+            "out": "minpay-fig-3.jpg",
+            "plate": "public/brand/card-short-plate-4.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 03  ·  CHƯƠNG 04  ·  ĐỔI PHÍ PHẠT LẤY TIỀN LÃI",
+            "title": "500.000 đ trả tối thiểu giúp bạn mua được thứ gì — và đánh mất thứ gì?",
+            "houses": MINPAY_HOUSES,
+            "active_houses": {0, 3, 4},
+            "left_pills": [
+                (354, 72, "THỨ MUA ĐƯỢC: THOÁT PHÍ PHẠT TRỄ HẠN & GIỮ NHÓM TÍN DỤNG", "green"),
+                (354, 598, "THỨ ĐÁNH MẤT: 45 NGÀY MIỄN LÃI & MIỄN LÃI GIAO DỊCH MỚI", "amber"),
+            ],
+            "steps": [
+                ("1. Bảo vệ lịch sử tín dụng", "Trả đủ 5% (500.000 đ) trước hạn giúp bạn không bị phạt trễ hạn và không bị ghi nhận nợ quá hạn.", "green"),
+                ("2. Chi phí thực của 15 ngày trì hoãn", "Trả 592.500 đ lãi để giữ lại 9.500.000 đ thêm 15 ngày tương đương chi phí vốn ~6,24% chỉ trong nửa tháng.", "amber"),
+                ("3. Lây nhiễm sang giao dịch mới", "Khi thẻ còn dư nợ chuyển kỳ, mọi giao dịch quẹt mới ở kỳ sau đều bị tính lãi ngay từ ngày quẹt.", "clay"),
+            ],
+            "footer_eq": "Lãi danh nghĩa 36%/năm (3%/tháng) khi nhập gốc hàng tháng tương đương EIR ~42,6%/năm",
+        },
+        {
+            "out": "minpay-fig-4.jpg",
+            "plate": "public/brand/card-short-plate-3.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 04  ·  CHƯƠNG 05  ·  BẪY LÃI NGÀY & KHÔI PHỤC",
+            "title": "Vì sao thiếu 10.000 đ vẫn mất miễn lãi — và làm sao khôi phục lại 45 ngày ân hạn?",
+            "houses": MINPAY_HOUSES,
+            "active_houses": {0, 1, 2, 3, 4},
+            "left_pills": [
+                (354, 72, "TRẢ 9.990.000 Đ (THIẾU 10.000 Đ): VẪN MẤT TRẮNG 45 NGÀY MIỄN LÃI", "amber"),
+                (354, 598, "TẤT TOÁN 100% SAO KÊ KỲ SAU: KHÔI PHỤC LẠI ĐỒNG HỒ MIỄN LÃI", "teal"),
+            ],
+            "steps": [
+                ("1. Thiếu 10.000 đ trên sao kê 10 triệu", "Hệ thống vẫn huỷ miễn lãi 45 ngày đầu trên toàn bộ 10.000.000 đ (~450.000 đ tiền lãi lùi).", "amber"),
+                ("2. Rút tiền mặt tại cây ATM", "Không có ngày miễn lãi nào: thu phí rút ~4% ngay lập tức và tính lãi ngày từ giây tiền rời máy.", "clay"),
+                ("3. Cách cắt đứt vòng xoáy lãi ngày", "Tạm ngưng quẹt mới trên thẻ đang nợ và thanh toán dứt điểm 100% dư nợ sao kê (10.092.500 đ).", "green"),
+            ],
+            "footer_eq": "Chỉ khi dư nợ sao kê được trả đủ 100%, chiếc thẻ mới trở lại là công cụ miễn lãi 45 ngày",
         },
     ],
 }

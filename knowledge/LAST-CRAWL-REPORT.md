@@ -1,9 +1,9 @@
 # Báo cáo Crawl & Chắt lọc Tri thức Tài chính (`tai-chinh-reviewer`)
 
-- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-08T17:08:03+07:00`
+- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-09T22:23:42+07:00`
 - **Kho tri thức:** `knowledge/finance-kb.json` (Schema v1)
 - **Chính sách độ tươi (`freshnessPolicy`):** Tối đa `30` ngày · Lịch định kỳ khuyến nghị: `0 8 * * 1` (`Asia/Ho_Chi_Minh`)
-- **Tổng số nguồn chuẩn thức:** `5` nguồn · `5` quy tắc miền (`F1–F4`) · `3` hợp đồng bất biến bài viết ↔ video
+- **Tổng số nguồn chuẩn thức:** `5` nguồn · `6` quy tắc miền (`F1–F4`) · `4` hợp đồng bất biến bài viết ↔ video
 
 ## 1. Kiểm chứng Tài liệu Pháp lý & Học thuật Nội bộ (`legal/`)
 
@@ -11,13 +11,13 @@
 |---|---|---:|---|---|
 | `SRC-MOF-TT99-2025` | `legal/VanBanGoc_TT 99.2025-btc.pdf` | 1,603,054 | `357add90184f37e6…97c76036` | **VERIFIED_LOCAL** |
 | `SRC-MOF-TT99-2025` | `legal/tt99-phu-luc-ii.secondary.json` | 40,471 | `612a971a43479a3d…9844d918` | **VERIFIED_LOCAL** |
-| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 12,498 | `1681f2149a8994fb…e5da7260` | **VERIFIED_LOCAL** |
+| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 14,430 | `87c0c6aac7dbb633…88bff733` | **VERIFIED_LOCAL** |
 
 ## 2. Trạng thái Thăm dò Nguồn Pháp quy & Ngân hàng Công khai
 
 | Nguồn | URL chuẩn thức | HTTP | Trạng thái | Ghi chú |
 |---|---|---|---|---|
-| `SRC-MOF-TT99-2025` | `https://vbpl.vn/botaichinh/Pages/vbpq-toanvan.aspx?ItemID=180615` | `—` | **OFFLINE_OR_SANDBOX** | Chế độ cô lập mạng / ngoại tuyến (TimeoutError) — giữ nguyên bản chốt trong repo |
+| `SRC-MOF-TT99-2025` | `https://vbpl.vn/botaichinh/Pages/vbpq-toanvan.aspx?ItemID=180615` | `308` | **HTTP_RESPONSE** | HTTP 308 (cần trình duyệt thật nếu có tường chống bot) |
 | `SRC-MOF-TT99-2025` | `https://mof.gov.vn` | `200` | **LIVE_REACHABLE** | Cổng thông tin điện tử Bộ Tài Chính |
 | `SRC-MOF-TT99-2025` | `https://congbao.chinhphu.vn` | `200` | **LIVE_REACHABLE** | Công báo điện tử Nước CHXHCN Việt Nam |
 | `SRC-SBV-PAYMENT-CARD` | `https://www.sbv.gov.vn` | `200` | **LIVE_REACHABLE** | Trang Chủ - Ngân hàng Nhà nước Việt Nam |
@@ -34,3 +34,4 @@
 | `FIN-MECH-03` | **F1** | `income` | Chi lương cùng ngân hàng chỉ đổi tên chủ sở hữu trên sổ cái nội bộ của đúng ngân hàng đó (0 đồng tiền dự trữ rời kho, giữ trọn CASA). Về kế toán doanh nghiệp, chi phí lương ghi nhận theo lương gộp (Gross) vào TK 642/641/622 đối ứng TK 334; phần BHXH/BHYT/BHTN (10,5% lương đóng bảo hiểm) và thuế TNCN được khấu trừ từ TK 334 sang TK 338 và TK 3335 trước khi chi lương thực lĩnh (Net) qua TK 112. |
 | `FIN-MATH-01` | **F2** | `accounting` | Mọi bút toán kế toán trong cả Diorama (beats.ledger) và Bài chuyên sâu (article.pro.journal) phải thoả mãn Σ Nợ = Σ Có tuyệt đối tới từng đồng. Mọi phép quy đổi lãi suất thực tế (EIR) từ dòng tiền trả góp đều phải giải phương trình giá trị hiện tại: sum_{t=1..n} CF_t / (1 + r_m)^t = PV_eff, với EIR_năm = (1 + r_m)^12 - 1 (hoặc lãi danh nghĩa năm = 12 * r_m nêu rõ cách tính). |
 | `FIN-REG-01` | **F3** | `regulatory` | Từ 01/01/2026, tên và số hiệu tài khoản kế toán doanh nghiệp tuân theo Phụ lục II Thông tư 99/2025/TT-BTC (ví dụ TK 112 mang tên 'Tiền gửi không kỳ hạn', không còn gọi là 'Tiền gửi ngân hàng' như TT 200 cũ). Bài viết và video chỉ mô tả cơ chế vận hành ở ngôi thứ ba, tuyệt đối không đưa lời khuyên cá nhân ('bạn nên vay/mua/mở thẻ'). |
+| `FIN-MECH-04` | **F1** | `borrowing` | Thời gian ân hạn miễn lãi (45–55 ngày) của thẻ tín dụng là ưu đãi có điều kiện: chỉ hiệu lực khi chủ thẻ thanh toán đủ 100% dư nợ sao kê đúng hạn. Khi chỉ trả mức tối thiểu (ví dụ 5% = 500.000đ trên sao kê 10.000.000đ ở Ngày 45), chủ thẻ thoát phí phạt trễ hạn và nợ quá hạn nhưng mất toàn bộ thời gian miễn lãi: ngân hàng tính lãi lùi từ ngày giao dịch phát sinh (Ngày 01) trên toàn bộ 10.000.000đ cho 45 ngày đầu (450.000đ ở mức ví dụ 0,1%/ngày hay 3%/tháng) cộng lãi trên 9.500.000đ dư nợ còn lại cho 15 ngày tiếp theo (142.500đ), tổng cộng 592.500đ tiền lãi ở sao kê Ngày 60 (lớn hơn cả khoản trả tối thiểu 500.000đ, nâng dư nợ mới lên 10.092.500đ). |

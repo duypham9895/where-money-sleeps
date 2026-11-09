@@ -240,7 +240,8 @@ def main() -> int:
         if f"(hash: {payload['sourceHash']})" not in cur:
             print(f"FAIL  S0   wms-studio-data.js             Dữ liệu lệch với docs/prototype.html (cần chạy python3 -I scripts/wms-studio-sync.py)")
             return 1
-        print(f"PASS  S0   wms-studio-data.js             Đồng bộ 100% với docs/prototype.html (hash={payload['sourceHash']} · {len(payload['stories'])} bài · 6 sóng âm MP4 thật)")
+        mp4_count = sum(int(w.get("longExists", False)) + int(w.get("shortExists", False)) for w in payload["waveforms"].values())
+        print(f"PASS  S0   wms-studio-data.js             Đồng bộ 100% với docs/prototype.html (hash={payload['sourceHash']} · {len(payload['stories'])} bài · {mp4_count} sóng âm MP4 thật)")
         return 0
 
     OUT_JS.write_text(expected_js, encoding="utf-8")

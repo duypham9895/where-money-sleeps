@@ -361,6 +361,41 @@ def verify_story_finance(
                     f"r_tháng={r_m*100:.4f}% (xấp xỉ bài/video {p['statedMonthlyEIRApprox']}) · "
                     f"EIR_năm gộp={eir_comp*100:.2f}% / danh nghĩa={eir_nom*100:.2f}% (xấp xỉ bài/video {p['statedAnnualEIRApprox']})"
                 ))
+        elif story_key == "minpay":
+            bal = p["statementBalance"]
+            min_rate = p["minimumPaymentRate"]
+            min_amt = p["minimumPaymentAmount"]
+            rem_p = p["remainingPrincipal"]
+            r_day = p["dailyInterestRateExample"]
+            r_m = p["monthlyInterestRateExample"]
+            d1 = p["graceDaysLost"]
+            d2 = p["postDueDays"]
+            int1 = round(bal * r_day * d1)
+            int2 = round(rem_p * r_day * d2)
+            tot_int = int1 + int2
+            next_bal = rem_p + tot_int
+            eir_comp = (1.0 + r_m) ** 12 - 1.0
+            if (
+                round(bal * min_rate) != min_amt
+                or bal - min_amt != rem_p
+                or int1 != p["retroactiveInterestPart1"]
+                or int2 != p["postDueInterestPart2"]
+                or tot_int != p["totalInterestNextStatement"]
+                or next_bal != p["nextStatementTotalBalance"]
+                or abs(eir_comp - p["expectedAnnualEIRCompounded"]) > 1e-4
+            ):
+                rows.append((
+                    "FAIL", "F2", w,
+                    f"Toán lãi lùi trả tối thiểu thẻ tín dụng lệch: int1={int1}, int2={int2}, tot={tot_int}, next_bal={next_bal}"
+                ))
+                f2_ok = False
+            else:
+                rows.append((
+                    "PASS", "F2", w,
+                    f"Toán trả tối thiểu & lãi lùi ADB khớp tuyệt đối: Sao kê {bal:,}đ − Trả tối thiểu 5% ({min_amt:,}đ) = Gốc còn {rem_p:,}đ · "
+                    f"Lãi lùi 45 ngày đầu ({int1:,}đ) + Lãi 15 ngày sau ({int2:,}đ) = Tổng lãi {tot_int:,}đ → Dư nợ kỳ 2 = {next_bal:,}đ · "
+                    f"EIR_năm gộp={eir_comp*100:.2f}% (xấp xỉ bài/video {p['statedAnnualEIRApprox']})"
+                ))
     elif f2_ok:
         rows.append(("PASS", "F2", w, f"Toán cân đối {len(all_ledgers)} bút toán Σ Nợ = Σ Có hợp lệ"))
 

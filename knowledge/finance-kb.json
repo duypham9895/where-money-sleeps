@@ -3,7 +3,7 @@
   "kbId": "wms-financial-specialist-kb",
   "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
   "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
-  "lastCrawledAt": "2026-11-08T17:08:03+07:00",
+  "lastCrawledAt": "2026-11-09T22:23:42+07:00",
   "freshnessPolicy": {
     "maxAgeDays": 30,
     "recommendedCron": "0 8 * * 1",
@@ -167,6 +167,21 @@
         "Trích dẫn văn bản pháp luật đã hết hiệu lực hoặc đưa lời khuyên tài chính cá nhân"
       ],
       "sourceRefs": [
+        "SRC-MOF-TT99-2025"
+      ]
+    },
+    {
+      "ruleId": "FIN-MECH-04",
+      "checkCode": "F1",
+      "category": "borrowing",
+      "title": "Bản chất Trả Tối Thiểu Thẻ Tín Dụng (Minimum Payment): Mất Trắng Ân Hạn Miễn Lãi & Tính Lãi Lùi Từ Ngày Giao Dịch (Average Daily Balance)",
+      "distilledTruth": "Thời gian ân hạn miễn lãi (45–55 ngày) của thẻ tín dụng là ưu đãi có điều kiện: chỉ hiệu lực khi chủ thẻ thanh toán đủ 100% dư nợ sao kê đúng hạn. Khi chỉ trả mức tối thiểu (ví dụ 5% = 500.000đ trên sao kê 10.000.000đ ở Ngày 45), chủ thẻ thoát phí phạt trễ hạn và nợ quá hạn nhưng mất toàn bộ thời gian miễn lãi: ngân hàng tính lãi lùi từ ngày giao dịch phát sinh (Ngày 01) trên toàn bộ 10.000.000đ cho 45 ngày đầu (450.000đ ở mức ví dụ 0,1%/ngày hay 3%/tháng) cộng lãi trên 9.500.000đ dư nợ còn lại cho 15 ngày tiếp theo (142.500đ), tổng cộng 592.500đ tiền lãi ở sao kê Ngày 60 (lớn hơn cả khoản trả tối thiểu 500.000đ, nâng dư nợ mới lên 10.092.500đ).",
+      "forbiddenErrors": [
+        "Nói trả tối thiểu 5% thì chỉ bị tính lãi trên 95% dư nợ còn lại kể từ sau ngày đến hạn thanh toán",
+        "Nói trả tối thiểu giúp giữ nguyên quyền miễn lãi cho các giao dịch quẹt mới phát sinh ở kỳ sau"
+      ],
+      "sourceRefs": [
+        "SRC-SBV-CONSUMER-FINANCE",
         "SRC-MOF-TT99-2025"
       ]
     }
@@ -398,15 +413,124 @@
           ]
         ]
       }
+    },
+    "minpay": {
+      "storySlug": "minpay",
+      "category": "borrowing",
+      "mechanismType": "credit_card_minimum_payment_grace_forfeiture",
+      "parameters": {
+        "statementBalance": 10000000,
+        "minimumPaymentRate": 0.05,
+        "minimumPaymentAmount": 500000,
+        "remainingPrincipal": 9500000,
+        "dailyInterestRateExample": 0.001,
+        "monthlyInterestRateExample": 0.03,
+        "nominalAnnualRateExample": 0.36,
+        "graceDaysLost": 45,
+        "postDueDays": 15,
+        "retroactiveInterestPart1": 450000,
+        "postDueInterestPart2": 142500,
+        "totalInterestNextStatement": 592500,
+        "nextStatementTotalBalance": 10092500,
+        "expectedAnnualEIRCompounded": 0.4257609,
+        "statedAnnualEIRApprox": "42,6%"
+      },
+      "wireOnlyBeats": [
+        0,
+        2,
+        4
+      ],
+      "pipeMoneyBeats": [
+        1,
+        3
+      ],
+      "requiredAccounts": [
+        "642",
+        "338",
+        "112",
+        "635"
+      ],
+      "forbiddenAccounts": [
+        "131"
+      ],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "10.000.000",
+          "500.000",
+          "9.500.000",
+          "450.000",
+          "142.500",
+          "592.500",
+          "10.092.500",
+          "338",
+          "635"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "10 triệu",
+            "10.000.000",
+            "mười triệu"
+          ],
+          [
+            "500 nghìn",
+            "500.000",
+            "năm trăm nghìn"
+          ],
+          [
+            "9,5 triệu",
+            "9.500.000",
+            "chín triệu rưỡi",
+            "chín triệu năm trăm nghìn"
+          ],
+          [
+            "450 nghìn",
+            "450.000",
+            "bốn trăm năm mươi nghìn"
+          ],
+          [
+            "592.500",
+            "năm trăm chín mươi hai nghìn năm trăm"
+          ],
+          [
+            "10.092.500",
+            "mười triệu không trăm chín mươi hai nghìn năm trăm"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "10 triệu",
+            "10.000.000",
+            "mười triệu"
+          ],
+          [
+            "500 nghìn",
+            "500.000",
+            "năm trăm nghìn"
+          ],
+          [
+            "450 nghìn",
+            "450.000",
+            "bốn trăm năm mươi nghìn"
+          ],
+          [
+            "592.500",
+            "năm trăm chín mươi hai nghìn năm trăm"
+          ],
+          [
+            "10.092.500",
+            "mười triệu không trăm chín mươi hai nghìn năm trăm"
+          ]
+        ]
+      }
     }
   },
   "lastCrawlSummary": {
-    "crawledAt": "2026-11-08T17:08:03+07:00",
+    "crawledAt": "2026-11-09T22:23:42+07:00",
     "localArtifactsVerified": 3,
     "localArtifactsTotal": 3,
     "liveUrlsProbed": 7,
-    "liveUrlsReachable": 6,
-    "domainRulesCount": 5,
-    "storyInvariantsCount": 3
+    "liveUrlsReachable": 7,
+    "domainRulesCount": 6,
+    "storyInvariantsCount": 4
   }
 }
