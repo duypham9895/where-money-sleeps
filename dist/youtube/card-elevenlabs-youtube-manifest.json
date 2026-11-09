@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "l6kS579ozbQ",
+      "youtubeId": "fxpFvVJcpRA",
       "embedStatus": "uploaded_unlisted",
       "outputMp4": "dist/youtube/card-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -437,7 +437,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "NDJcFK1uVNU",
+      "youtubeId": "th6zR4gwV5c",
       "embedStatus": "uploaded_unlisted",
       "outputMp4": "dist/youtube/card-short-9x16.mp4",
       "youtubeUploadSpec": {

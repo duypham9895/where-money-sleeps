@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "v7Fe0Rx1He4",
+      "youtubeId": "l_8aVo538jo",
       "embedStatus": "uploaded_unlisted",
       "outputMp4": "dist/youtube/install-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -437,7 +437,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "DgO7F6D8jvs",
+      "youtubeId": "J3DmDP4KKRI",
       "embedStatus": "uploaded_unlisted",
       "outputMp4": "dist/youtube/install-short-9x16.mp4",
       "youtubeUploadSpec": {
