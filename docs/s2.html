@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where Money Sleeps — S2 Design (QĐ 1–58)</title>
+<title>Where Money Sleeps — S2 Design (QĐ 1–61)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
@@ -28,24 +28,25 @@
 <section>
   <div class="meta r"><span class="words">—</span><span>S2 · 2026-11-08 · Design + Writer + PM · chờ duyệt</span></div>
   <h1 class="r">Ngôn ngữ thiết kế Mặt cắt Risograph &amp; Chuyển động M1–M4.<br>Đã chạy thật trên Prototype &amp; Workflows — chờ anh duyệt sang S3.</h1>
-  <div class="tldr r"><p><strong>3 tính từ:</strong> <em>Giải phẫu · Ấm màu giấy lưu trữ · Chuyển động có quán tính vật lý</em>. <strong>3 thứ KHÔNG giống:</strong> <em>App ngân hàng xanh dương · Sách giáo khoa kế toán khô khan · Slide AI tím/xanh đại trà</em>. Toàn bộ 8 bề mặt đã dựng sống trên <code>docs/prototype.html</code> và <code>docs/workflows.html</code>, pass sạch 4/4 cổng <code>wms-check.sh</code>.</p></div>
+  <div class="tldr r"><p><strong>3 tính từ:</strong> <em>Giải phẫu · Ấm màu giấy · Chuyển động có quán tính vật lý</em>. <strong>3 thứ KHÔNG giống:</strong> <em>App ngân hàng xanh dương · Sách giáo khoa khô khan · Slide AI đại trà</em>. Toàn bộ 8 bề mặt đã dựng sống trên <code>docs/prototype.html</code> và <code>docs/workflows.html</code>, pass <code>wms-check.sh</code>.</p></div>
 </section>
 
 <section>
-  <h2 class="r">Gói hợp đồng S2 giao cho S3 Build</h2>
+  <h2 class="r">Gói hợp đồng S2 giao S3 Build</h2>
   <div class="g three r">
     <div class="k"><div class="n" data-to="8">8</div><div class="cap">Bề mặt tương tác</div></div>
-    <div class="k"><div class="n" data-to="12">12</div><div class="cap">Hình mặt cắt 16:9 (LUẬT 9)</div></div>
+    <div class="k"><div class="n" data-to="12">12</div><div class="cap">Hình 16:9 (LUẬT 9)</div></div>
     <div class="k"><div class="n" data-to="12">12</div><div class="cap">Phép kiểm Motion M0–M4</div></div>
   </div>
-  <div class="tw r" tabindex="0" role="region" aria-label="Bảng 6 file hợp đồng S2 Design"><table><thead><tr><th>File hợp đồng</th><th>Phụ trách</th><th>Nội dung cốt lõi</th></tr></thead>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng 8 file hợp đồng S2 Design"><table><thead><tr><th>File hợp đồng</th><th>Phụ trách</th><th>Nội dung cốt lõi</th></tr></thead>
   <tbody>
-    <tr><td><code>DESIGN-BRIEF.md</code></td><td>Design + PM</td><td>3 tính từ · 3 thứ không giống · hướng thiết kế đã chọn · trả lời kiểm chéo T2 &amp; T3</td></tr>
+    <tr><td><code>DESIGN-BRIEF.md</code></td><td>Design + PM</td><td>3 tính từ · 3 thứ không giống · hướng đã chọn · trả lời T2 &amp; T3</td></tr>
     <tr><td><code>TOKENS.md</code></td><td>Design</td><td>Bảng màu <em>Archival Paper</em> (<code>#f5efe3</code>) &amp; <em>Night-Watch</em> (<code>#0e1015</code>), 3 họ chữ, <code>tabular-nums</code></td></tr>
-    <tr><td><code>UI-STATES.md</code></td><td>Design + SWE</td><td>Ma trận trạng thái 8 bề mặt: <code>1A Split-Pill 48px</code>, Mục lục 2 cột <code>⌘K</code>, Diorama, Video <code>.yt-embed</code></td></tr>
-    <tr><td><code>A11Y.md</code></td><td>Design + QA</td><td>Tương phản WCAG 2.2 AA/AAA (<code>14.8:1</code>), vùng chạm <code>≥32px</code>, <code>CLS=0</code>, <code>prefers-reduced-motion</code></td></tr>
+    <tr><td><code>UI-STATES.md</code></td><td>Design + SWE</td><td>Ma trận 8 bề mặt: <code>1A Split-Pill 48px</code>, Mục lục <code>⌘K</code>, Diorama, Video <code>.yt-embed</code></td></tr>
+    <tr><td><code>A11Y.md</code></td><td>Design + QA</td><td>WCAG 2.2 AA/AAA (<code>14.8:1</code>), vùng chạm <code>≥32px</code>, <code>CLS=0</code>, <code>prefers-reduced-motion</code></td></tr>
     <tr><td><code>MICROCOPY.md</code></td><td>Writer</td><td>Từ điển chữ thật: 0 chữ <em>"sổ cái"</em> (QĐ 55), 0 tên riêng (<code>LUẬT 4</code>), 0 lộ đạo cụ (<code>LUẬT 7</code>)</td></tr>
-    <tr><td><code>STUDIO-RESEARCH-AND-SECURITY.md</code></td><td>PM + Security</td><td>Khảo sát 15 repo GitHub Studio + bảo mật ECC (QĐ 59) + bàn dựng <code>docs/studio.html</code></td></tr>
+    <tr><td><code>STUDIO-RESEARCH-AND-SECURITY.md</code></td><td>PM + Security</td><td>15 repo GitHub Studio + bảo mật ECC (QĐ 59–60) + bàn dựng <code>docs/studio.html</code></td></tr>
+    <tr><td><code>VIDEO-INFORMATION-LAYOUT-AND-ANIMATION-RESEARCH.md</code></td><td>PM + Motion</td><td>31 bài báo khoa học + 9 nguyên hàm hoạt cảnh <code>P1–P9</code> (QĐ 61)</td></tr>
     <tr><td><code>T3-RECONSTRUCTION.md</code></td><td>Subagent T3</td><td>Bản tái lập độc lập từ <code>ONE-PAGER.md</code> + <code>PRD.md</code> (Quy tắc 12)</td></tr>
   </tbody></table></div>
 </section>
@@ -57,7 +58,7 @@
     <tr><td><strong>Điều hướng 1A (<code>48px</code>)</strong></td><td>1 hàng duy nhất + Overlay Mục lục 2 cột nổi phủ (<code>0px</code> đẩy sân khấu)</td><td><code>docs/prototype.html</code></td></tr>
     <tr><td><strong>Mặt cắt Diorama v3.0</strong></td><td>5 ngôi nhà mở cửa cuốn, thông tin trên cao, tiền thật dưới ngầm, <code>cubic-bezier(0.22,1,0.36,1)</code></td><td><code>#stage</code> trong <code>prototype.html</code></td></tr>
     <tr><td><strong>Nhịp hình khảo cứu (<code>LUẬT 9</code>)</strong></td><td>Chương 01 thuần chữ; Chương 02–05 đan xen 4 hình <code>16:9</code> (<code>1200×675</code>) sau đoạn 1 + chú thích 3 tầng</td><td><code>#pk-lay-essay</code> trong <code>prototype.html</code></td></tr>
-    <tr><td><strong>Video Split-Stage (<code>LUẬT 8</code>)</strong></td><td>3 vùng không đè nhau (<code>STAGE_BOX</code> tách rời <code>CARD_BOX</code>), nền khoá tĩnh <code>0px pan</code></td><td>6 file <code>.mp4</code> &amp; <code>.yt-embed</code></td></tr>
+    <tr data-decision="61"><td><strong>Video Cinema v5.0 (<code>QĐ 61</code>)</strong></td><td>Safe-Zone Shorts (<code>x=48..868, y=268..1316</code>) &amp; Long (<code>y=44..828</code>), 9 nguyên hàm hoạt cảnh <code>P1–P9</code></td><td>6 file <code>.mp4</code> &amp; <code>.srt</code></td></tr>
     <tr><td><strong>Studio Review (<code>QĐ 59</code>)</strong></td><td>Tách độc giả khỏi bàn dựng 4 chế độ, sóng âm MP4 thật, CSP <code>connect-src 'none'</code></td><td><code>docs/studio.html</code></td></tr>
     <tr><td><strong>Sơ đồ Agent Realtime</strong></td><td>5 quy trình, hạt xung <code>&lt;animateMotion&gt;</code>, bộ lọc 6 nhà cung cấp, <code>LUẬT 10</code> 0 đè chữ</td><td><code>docs/workflows.html</code></td></tr>
   </tbody></table></div>

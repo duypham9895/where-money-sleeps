@@ -1,24 +1,33 @@
 #!/usr/bin/env python3
 """
-render_smooth_long_video.py — Bộ dựng Video Dài 16:9 (1920x1080, 30fps, Broadcast-Grade v4.3 Split-Stage)
-cho Where Money Sleeps (`install-long-16x9.mp4` — 11 cảnh, ~8m30s):
+wms-render-long-v43.py — Bộ dựng Video Dài 16:9 Chuẩn Điện Ảnh & Khoa Học Nhận Thức v5.0 (QĐ 61)
+cho Where Money Sleeps (`install-long-16x9.mp4`, `card-long-16x9.mp4`, `pay-long-16x9.mp4` — 1920x1080, 30fps):
 
-1. VOICE & AUDIO CONTINUITY:
-   - Sử dụng `install_long_continuous_v3.json` (Giọng Tâm `eleven_v3:JwqRvOqFdGeQNu7UjKjw`)
-   - Khoảng thở êm 0.36s giữa 11 cảnh + nền Analog Night-Watch Room Tone (-33 dBFS) + 11 điểm nhấn SFX (-22 dBFS), chuẩn hoá -14 LUFS.
+1. KIẾN TRÚC BỐ CỤC SAFE-ZONE YOUTUBE 16:9 NGHIÊM NGẶT (QĐ 61 · F2 · LUẬT 6b · LUẬT 8 · LUẬT 10):
+   - Khung an toàn: `SAFE_X = (64, 1856)` (rộng 1792px) và `SAFE_Y = (44, 828)` (cao 784px).
+   - Chừa trống hoàn toàn dải đáy `y = 830..1080` (250px) cho phụ đề `[CC]` của YouTube (`y = 850..960`)
+     và thanh tua / điều khiển Player (`y = 960..1080`) -> 0% chữ hay đồ thị bị đè!
+   - Xoá hoàn toàn bức tường chữ Karaoke 180–329 từ ở nửa phải (tránh hiệu ứng dư thừa Mayer 2021).
+   - Thanh định chế trên cùng: `ACTIVE_ACTOR_BAR = (64, 44, 1856, 124)` (1792x80px) hiển thị thanh tiến độ
+     11–12 cảnh + 5 định chế với đèn chiếu sáng chủ thể đang tương tác + hạt xung chạy giữa chúng.
 
-2. 16:9 3-ZONE SPLIT-STAGE (LUẬT 1–8 — Zero Stage Occlusion):
-   - ZONE 1 (Top Header & 5-House Conduit Bar, x=40..1880, y=24..242):
-     + HEADER_BOX = (40, 24, 1880, 102)
-     + CONDUIT_PARENT_BOX = (40, 114, 1880, 242) chứa 5 hộp con (HOUSE_BW=280, HOUSE_BH=36, HOUSE_GAP=80, lề trong ngang 60px, dọc 12px).
-   - ZONE 2 (Left Visual & Live 30fps Animation Stage, STAGE_BOX = (40, 256, 980, 1016), 940x760px):
-     + Hiển thị trọn vẹn mặt cắt kiến trúc + chuyển động hạt 30fps, bút toán TT 99/2025, thanh 12 kỳ trả góp, công thức EIR.
-   - ZONE 3 (Right Script & Equation Dock, CARD_BOX = (1000, 256, 1880, 1016), 880x760px):
-     + Tách biệt hoàn toàn bên phải STAGE_BOX (khoảng cách ngang 20px, chồng lấn 0px), hiển thị toàn bộ lời bình của cảnh + tô sáng từng từ.
+2. BA CHẾ ĐỘ SÂN KHẤU ĐỘNG (`Mode L-A`, `Mode L-B`, `Mode L-C`) & XÂY DỰNG TUẦN TỰ 4 NHỊP (`Beat 1..4`):
+   - `Mode L-A` (`Full-Stage Cinema`, cho cảnh Mở đầu, Chuyển cảnh thế giới và Kết luận):
+     + Trái (`64..1124`, 1060x688px): Mặt cắt kiến trúc Risograph 16:9 sắc nét + hạt 30fps + 1 nhãn neo không gian.
+     + Phải (`1148..1856`, 708x688px): 4 thẻ tiêu điểm xuất hiện tuần tự theo 4 câu giọng đọc (`Beat 1..4`).
+   - `Mode L-B` (`Asymmetric 55/45 Cutaway + 4-Beat Progressive Ledger & Mechanism Canvas`):
+     + Trái (`CUTAWAY_STAGE_BOX = (64, 140, 1020, 828)`, 956x688px): Mặt cắt cận cảnh riêng biệt (`F1`).
+     + Phải (`MECHANISM_CANVAS_BOX = (1044, 140, 1856, 828)`, 812x688px): Xây dựng tuần tự 4 nhịp
+       (`Beat 1: Quy mô gốc` -> `Beat 2: Nguyên hàm P1/P2/P3` -> `Beat 3: Sổ cái kép T-Account TT 99/2025 P4`
+       -> `Beat 4: Quy tắc chốt`).
+   - `Mode L-C` (`Full-Width Analytical Stage`, `(64, 140, 1856, 828)`, 1792x688px):
+     + Sân khấu phân tích định lượng toàn chiều ngang cho `P5` (Đường cong chiết khấu dòng tiền 12 kỳ & EIR),
+       `P6` (Lưới CASA & Cột 1:50), `P7` (So sánh song song 2 thế giới), và `P9` (Triptych 3 tình huống ngoại lệ).
 """
 
 from __future__ import annotations
 
+import argparse
 import base64
 import importlib.util
 import json
@@ -56,6 +65,10 @@ def smoothstep(edge0: float, edge1: float, x: float) -> float:
 
 def lerp(a: float, b: float, t: float) -> float:
     return a + (b - a) * t
+
+
+def fmt_vnd(val: float | int) -> str:
+    return f"{int(round(val)):,}".replace(",", ".") + " đ"
 
 
 def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -239,7 +252,20 @@ def build_timeline_and_master_audio(
 
     mix_pcm = vo_full + ambient
 
-    sfx_cycle = ["sfx_lamp_switch", "sfx_wire_pulse", "sfx_wire_pulse", "sfx_clock_tick", "sfx_pipe_flow", "sfx_clock_tick", "sfx_scale_chime", "sfx_scale_chime", "sfx_wire_pulse", "sfx_clock_tick", "sfx_shutter_close"]
+    sfx_cycle = [
+        "sfx_lamp_switch",
+        "sfx_wire_pulse",
+        "sfx_wire_pulse",
+        "sfx_clock_tick",
+        "sfx_pipe_flow",
+        "sfx_clock_tick",
+        "sfx_scale_chime",
+        "sfx_scale_chime",
+        "sfx_wire_pulse",
+        "sfx_clock_tick",
+        "sfx_shutter_close",
+        "sfx_shutter_close",
+    ]
     for idx, sm in enumerate(scene_meta):
         sfx_key = sfx_cycle[idx % len(sfx_cycle)]
         cue_t = 0.05 if idx == 0 else sm["win_t0"] - 0.35
@@ -292,151 +318,37 @@ def build_timeline_and_master_audio(
     return norm_wav, scene_meta, total_dur
 
 
-# ── CẤU HÌNH 11 CẢNH BÀI DÀI `install` (1920x1080 Split-Stage) ──────────────
+# ── HÌNH HỌC SAFE-ZONE YOUTUBE 16:9 (1920x1080) — QĐ 61 · LUẬT 6b · LUẬT 8 · LUẬT 10 ──
+# Chừa hoàn toàn dải đáy y = 890..1080 (190px) cho phụ đề [CC] YouTube và thanh tua Player!
+SAFE_X = (64, 1856)
+SAFE_Y = (36, 884)
 
-HOUSE_NODES = [
-    ("BẠN", "Người mua"),
-    ("CỬA HÀNG", "Nơi bán máy"),
-    ("CÔNG TY", "Tài chính"),
-    ("NGÂN HÀNG", "Của bạn"),
-    ("NGÂN HÀNG", "Cửa hàng"),
-]
+ACTIVE_ACTOR_BAR = (64, 36, 1856, 132)       # 1792 x 96 px (Thanh tiến độ + 5 định chế 2 dòng rõ nét)
+HOUSE_BW = 280
+HOUSE_BH = 56
+HOUSE_GAP = 72
+# 5 * 280 + 4 * 72 = 1688px trong khung 1792px -> lề trong 52px mỗi bên (116..1804)
+HOUSE_XS = [116 + HOUSE_BW // 2 + i * (HOUSE_BW + HOUSE_GAP) for i in range(5)]
+NODE_Y = 92
 
-LONG_SCENE_CONFIG = [
-    # (plate_idx, active_set, flow_spec, kicker, headline, stage_top_pill, stage_bot_pill)
-    (
-        0,
-        {0, 1},
-        ("wire", 0, 1),
-        "MỞ ĐẦU  ·  BÀI TOÁN 12 TRIỆU TRẢ GÓP 0%",
-        "Mua máy 12.000.000 đ  ·  12 kỳ × 1.000.000 đ  ·  Ai trả 600.000 đ tiền lãi?",
-        "MÁY 12.000.000 Đ  ·  TỜ RƠI GHI 0% TRONG 12 KỲ",
-        "CÂU HỎI TRUNG TÂM: AI TRẢ 600.000 Đ TIỀN LÃI SAU QUẦY?",
-    ),
-    (
-        0,
-        {0, 1, 2},
-        ("wire", 1, 2),
-        "BƯỚC 1  ·  GỬI HỒ SƠ ĐIỆN TỬ TẠI QUẦY",
-        "Hồ sơ trả góp gửi thẳng về Công ty tài chính  ·  Chưa có đồng tiền nào chạy",
-        "LUỒNG THÔNG TIN XÉT DUYỆT: 0 ĐỒNG TIỀN MẶT",
-        "ĐIỂM ĐẾN CỦA HỒ SƠ: CÔNG TY TÀI CHÍNH Ở CUỐI PHỐ",
-    ),
-    (
-        1,
-        {0, 1, 2},
-        ("wire", 2, 1, 0, 2),
-        "BƯỚC 2  ·  XÁC LẬP HỢP ĐỒNG TÍN DỤNG",
-        "Bạn ký nhận nợ 12.000.000 đ với Công ty tài chính, không phải Cửa hàng",
-        "CÔNG TY TÀI CHÍNH: CHỦ NỢ HỢP PHÁP CỦA BẠN",
-        "CỬA HÀNG CHỈ BÁN MÁY  ·  RỦI RO ĐÒI NỢ THUỘC CÔNG TY TÀI CHÍNH",
-    ),
-    (
-        1,
-        {1, 2},
-        ("none",),
-        "BƯỚC 3  ·  ĐÊM ĐẦU TIÊN TRONG SỔ KẾ TOÁN",
-        "Bút toán tại Cửa hàng: Debit 1388 / Credit 511 — 12.000.000 đ (Phải thu khác)",
-        "SỔ CỬA HÀNG (TT 99/2025): DEBIT 1388 / CREDIT 511 — 12.000.000 Đ",
-        "KÉT TIỀN TRỐNG: TIỀN MUA MÁY ĐANG NGỦ TRONG MỘT DÒNG SỔ",
-    ),
-    (
-        2,
-        {1, 2, 4},
-        ("pipe", 2, 4, 1),
-        "BƯỚC 4  ·  GIẢI NGÂN HỤT 600.000 Đ (T+1)",
-        "12.000.000 đ − 600.000 đ (hỗ trợ lãi suất 5%) = 11.400.000 đ thực nhận",
-        "CỬA HÀNG THỰC NHẬN: +11.400.000 Đ VÀO TÀI KHOẢN NGÂN HÀNG",
-        "KHOẢN HỤT 600.000 Đ (5%): CHI PHÍ HỖ TRỢ LÃI SUẤT CỬA HÀNG CHỊU",
-    ),
-    (
-        2,
-        {0, 2, 3},
-        ("pipe", 0, 3, 2),
-        "BƯỚC 5  ·  MƯỜI HAI KỲ TRẢ ĐỀU 1.000.000 Đ",
-        "12 tháng × 1.000.000 đ = 12.000.000 đ cho món hàng giá trả thẳng 11.400.000 đ",
-        "UỶ QUYỀN TRÍCH NỢ: 1.000.000 Đ / THÁNG × 12 KỲ = 12.000.000 Đ",
-        "CHÊNH LỆCH 600.000 Đ LÀM ĐÚNG NHIỆM VỤ CỦA TIỀN LÃI",
-    ),
-    (
-        2,
-        {0, 2, 3},
-        ("pipe", 0, 3, 2),
-        "BƯỚC 6  ·  QUY ĐỔI LÃI SUẤT THỰC TẾ (EIR / IRR)",
-        "11.400.000 = Σ 1.000.000 / (1 + r)^t  —  EIR ~0,8%/tháng (~10%/năm)",
-        "CÔNG THỨC CHIẾT KHẤU DÒNG TIỀN: r ≈ 0,80%/THÁNG (~10,0%/NĂM)",
-        "NẾU ĐÓNG KỲ ĐẦU NGAY LÚC MUA: EIR TĂNG LÊN ~0,95%/THÁNG (~12%/NĂM)",
-    ),
-    (
-        3,
-        {1, 2},
-        ("none",),
-        "BƯỚC 7  ·  AI THẬT SỰ TRẢ 600.000 Đ?",
-        "Trả thẳng rẻ hơn: bạn trả lãi  ·  Một giá chung: cửa hàng hoặc mọi người mua trả",
-        "QUẸT THẺ THƯỜNG (MDR 2,2%): MẤT 264.000 Đ  vs  TRẢ GÓP 0%: 600.000 Đ",
-        "NẾU MỘT GIÁ CHUNG: NGƯỜI MUA TRẢ THẲNG CŨNG GÓP PHẦN LÃI NÀY",
-    ),
-    (
-        3,
-        {0, 3},
-        ("wire", 0, 3),
-        "BƯỚC 8  ·  SO SÁNH TRẢ GÓP 0% QUA THẺ TÍN DỤNG",
-        "Phí chuyển đổi 3% (360.000 đ)  —  EIR ~5,8%/năm (hoặc ~17%/năm nếu mất giảm giá)",
-        "TRẢ GÓP QUA THẺ TÍN DỤNG: CHỦ NỢ LÀ NGÂN HÀNG PHÁT HÀNH THẺ",
-        "PHÍ CHUYỂN ĐỔI 3% = 360.000 Đ  ·  EIR ~0,47%/THÁNG (~5,8%/NĂM)",
-    ),
-    (
-        2,
-        {0, 1, 2, 3, 4},
-        ("pipe", 0, 3, 2),
-        "BƯỚC 9  ·  KHI KẾ HOẠCH LỆCH: TẤT TOÁN SỚM & TRỄ HẠN",
-        "Trả hết tháng 4: dư nợ 8.000.000 đ (EIR ~1,48%/tháng)  ·  Trễ kỳ 5: phạt 150.000 đ",
-        "TẤT TOÁN SỚM THÁNG 4: KHÔNG ĐƯỢC GIẢM 600.000 Đ ĐÃ KHẤU TRỪ ĐẦU KỲ",
-        "TRẢ LẠI MÁY: CỬA HÀNG KHÔNG TỰ XOÁ ĐƯỢC HỢP ĐỒNG VAY",
-    ),
-    (
-        3,
-        {0, 1, 2, 3, 4},
-        ("none",),
-        "KẾT LUẬN  ·  TIỀN LÃI CHỈ ĐỔI CHỖ ĐỨNG",
-        "12.000.000 đ vs 11.400.000 đ  —  Luôn hỏi: Trả thẳng thì giá bao nhiêu?",
-        "12.000.000 Đ (GHI BÁN)  −  11.400.000 Đ (THỰC NHẬN)  =  600.000 Đ TIỀN LÃI",
-        "CÂU HỎI DUY NHẤT TRƯỚC KHI KÝ: “TRẢ THẲNG THÌ GIÁ BAO NHIÊU?”",
-    ),
-]
+# Mode L-A (Full-Stage Cinema: 896px Trái Mặt cắt tỉ lệ 1.22:1 + 872px Phải 4 Thẻ Nhịp)
+LA_STAGE_BOX = (64, 148, 960, 884)            # 896 x 736 px (khớp tỉ lệ gốc 1040x845 = 1.23:1, 0 méo hình)
+LA_BEATS_BOX = (984, 148, 1856, 884)          # 872 x 736 px (rộng rãi cho 4 thẻ nhịp)
+
+# Mode L-B (Cutaway 896px + 4-Beat Progressive Ledger & Mechanism Canvas 872px)
+CUTAWAY_STAGE_BOX = (64, 148, 960, 884)       # 896 x 736 px
+MECHANISM_CANVAS_BOX = (984, 148, 1856, 884)  # 872 x 736 px
+
+# Mode L-C (Full-Width Analytical Stage: 1792 x 736 px)
+LC_FULL_BOX = (64, 148, 1856, 884)           # 1792 x 736 px
+
+STAGE_BOX = CUTAWAY_STAGE_BOX
+CARD_BOX = MECHANISM_CANVAS_BOX
 
 SLATE_LEAK_RE = re.compile(
     r"(\bCẢNH\s*\d|\bSCENE\s*\d|\bMỐC\s*\d|\bÝ\s*\d+\s*/\s*\d+|\bKỲ\s*\d+\s*/\s*\d+|Chữ\s+to|SFX\s*gợi\s*ý|dây\s+điện|dây\s+tín\s+hiệu|ống\s+ngầm|ống\s+quyết\s+toán|[→⇒➜➔←↔])",
     re.IGNORECASE,
 )
-
-NUMBER_RE = re.compile(
-    r"(\b(?:mười|một|hai|ba|bốn|năm|sáu|bảy|tám|chín|không|trăm|nghìn|triệu|tỷ|phần|trăm|phẩy|kỳ|tháng)\b|\d+[.,]?\d*%?)",
-    re.IGNORECASE,
-)
-
-# Bất biến Hình học 16:9 (1920x1080) — LUẬT 6b & LUẬT 8 (3 Vùng Không Chồng Lấn)
-HEADER_BOX = (40, 20, 1880, 96)
-CONDUIT_PARENT_BOX = (40, 108, 1880, 236)
-HOUSE_BW = 280
-HOUSE_BH = 36
-HOUSE_GAP = 80
-# 5 * 280 + 4 * 80 = 1720px trong khung cha 1840px (40..1880) -> lề trong 60px mỗi bên (100..1820)
-HOUSE_XS = [100 + HOUSE_BW // 2 + i * (HOUSE_BW + HOUSE_GAP) for i in range(5)]  # [240, 600, 960, 1320, 1680]
-WIRE_Y = 142
-NODE_Y = 172
-PIPE_Y = 202
-
-# ZONE 2 (Sân khấu Mặt cắt Trái) & ZONE 3 (Khung Script Phải) — Cách nhau 20px, 0px chồng lấn!
-STAGE_BOX = (40, 250, 980, 1018)
-CARD_BOX = (1000, 250, 1880, 1018)
-
-PLATE_CROP_WINDOWS = [
-    (0, 380, 1080, 1380),
-    (0, 380, 1080, 1380),
-    (0, 380, 1080, 1380),
-    (0, 820, 1080, 1820),
-]
 
 
 def assert_broadcast_overlay_clean(texts: list[str]) -> None:
@@ -448,229 +360,1135 @@ def assert_broadcast_overlay_clean(texts: list[str]) -> None:
             )
 
 
-def precompute_scene_layouts(
-    scene_meta: list[dict],
-    f_callout: ImageFont.FreeTypeFont,
-    f_vo: ImageFont.FreeTypeFont,
-    f_vo_bold: ImageFont.FreeTypeFont,
-    max_w: int,
-) -> None:
-    dummy = ImageDraw.Draw(Image.new("RGBA", (16, 16)))
-    space_w = max(8.5, dummy.textlength(" ", font=f_vo_bold) + 2.0)
-    line_h = 29
-    phrase_gap = 5
+# ── CẤU HÌNH BÀI DÀI 16:9 (`install`, `card`, `pay`) ─────────────────────────
 
-    overlay_audit_strings: list[str] = []
+LONG_STORY_CONFIGS: dict[str, dict] = {
+    "install": {
+        "house_nodes": [
+            ("BẠN", "Người mua"),
+            ("CỬA HÀNG", "Nơi bán máy"),
+            ("CÔNG TY", "Tài chính"),
+            ("NGÂN HÀNG", "Của bạn"),
+            ("NGÂN HÀNG", "Cửa hàng"),
+        ],
+        "plates_pool": [
+            ("public/brand/install-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-1.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/install-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-2.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/install-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-3.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/install-short-plate-4.jpg", (20, 780, 1060, 1625)),
+            ("public/brand/install-short-plate-4.jpg", (40, 790, 1040, 1615)),
+        ],
+        "scenes": [
+            # 0: Mode L-A (Mở đầu)
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 1},
+                "flow": ("wire", 0, 1),
+                "kicker": "MỞ ĐẦU  ·  BÀI TOÁN 12 TRIỆU TRẢ GÓP 0%",
+                "stage_tag": "QUẦY BÁN HÀNG  ·  MÁY NIÊM YẾT 12.000.000 Đ (0% × 12 KỲ)",
+                "beats": [
+                    ("1. GIÁ NIÊM YẾT TẠI QUẦY", "12.000.000 đ  ·  Chia đều 12 tháng × 1.000.000 đ"),
+                    ("2. LỜI HỨA TRÊN TỜ RƠI", "Lãi suất ghi trên hợp đồng: 0% / năm"),
+                    ("3. SỰ THẬT TẠI KÉT CỬA HÀNG", "Cửa hàng chỉ thực nhận về: 11.400.000 đ (Hụt 600.000 đ)"),
+                    ("4. CÂU HỎI TRUNG TÂM", "600.000 đ chênh lệch đi đâu và ai đang trả khoản này?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            # 1: Mode L-B (Bước 1 - Gửi hồ sơ điện tử)
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1, 2},
+                "flow": ("wire", 0, 1, 2),
+                "kicker": "BƯỚC 1  ·  GỬI HỒ SƠ ĐIỆN TỬ TẠI QUẦY",
+                "stage_tag": "LUỒNG HỒ SƠ XÉT DUYỆT  ·  0 ĐỒNG TIỀN MẶT DI CHUYỂN",
+                "scale_title": "GIÁ TRỊ HỒ SƠ VAY ĐƯỢC KHỞI TẠO:",
+                "scale_val": 12_000_000,
+                "mech_type": "P2_CONTRACT",
+                "mech_left": "Cửa hàng (Nơi lập hồ sơ)",
+                "mech_right": "Công ty tài chính (Xét duyệt)",
+                "mech_badge": "HỒ SƠ VAY 12.000.000 Đ",
+                "ledger_title": "TRẠNG THÁI SỔ KẾ TOÁN LÚC CHỜ DUYỆT (T+0):",
+                "debit_line": "Chưa phát sinh bút toán thu tiền mặt (Két = 0 đ)",
+                "credit_line": "Hồ sơ tín dụng đang định danh bạn với Công ty tài chính",
+                "rule": "CỬA HÀNG CHỈ LÀ ĐIỂM TIẾP NHẬN HỒ SƠ, KHÔNG PHẢI NGƯỜI CHO VAY",
+            },
+            # 2: Mode L-A (Bước 2 - Xác lập hợp đồng tín dụng)
+            {
+                "mode": "L-A",
+                "plate_idx": 2,
+                "active": {0, 1, 2},
+                "flow": ("wire", 1, 2),
+                "kicker": "BƯỚC 2  ·  XÁC LẬP HỢP ĐỒNG TÍN DỤNG",
+                "stage_tag": "CHỦ NỢ HỢP PHÁP CỦA BẠN LÀ CÔNG TY TÀI CHÍNH",
+                "beats": [
+                    ("1. BÊN BÁN HÀNG HÓA", "Cửa hàng giao chiếc máy 12.000.000 đ cho bạn đem về"),
+                    ("2. BÊN CHO VAY TIỀN", "Công ty tài chính đứng tên chủ nợ trên hợp đồng 12 kỳ"),
+                    ("3. TÁCH BIỆT NGHĨA VỤ", "Dù máy hỏng hay đổi trả, hợp đồng vay vẫn độc lập"),
+                    ("4. QUYỀN ĐÒI NỢ 12 THÁNG", "Nằm trọn tại Công ty tài chính ngay khi bạn ký tên"),
+                ],
+                "rule": "BẠN ĐANG NỢ CÔNG TY TÀI CHÍNH 12.000.000 Đ, KHÔNG NỢ CỬA HÀNG",
+            },
+            # 3: Mode L-B (Bước 3 - Đêm đầu tiên trong sổ kế toán)
+            {
+                "mode": "L-B",
+                "plate_idx": 3,
+                "active": {1, 2},
+                "flow": ("none",),
+                "kicker": "BƯỚC 3  ·  ĐÊM ĐẦU TIÊN TRONG SỔ KẾ TOÁN",
+                "stage_tag": "SỔ KẾ TOÁN CỬA HÀNG (TT 99/2025): GHI NHẬN PHẢI THU KHÁC",
+                "scale_title": "DOANH THU GHI NHẬN TRÊN HOÁ ĐƠN:",
+                "scale_val": 12_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Két tiền mặt / Ngân hàng (TK 111/112):  +0 đ",
+                "mech_line2": "Khoản phải thu khác (TK 1388):  +12.000.000 đ",
+                "ledger_title": "BÚT TOÁN KÉP TẠI CỬA HÀNG (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit 1388 (Phải thu khác): +12.000.000 đ",
+                "credit_line": "Credit 511 (Doanh thu bán hàng): +12.000.000 đ",
+                "rule": "Σ NỢ (12.000.000 Đ) = Σ CÓ (12.000.000 Đ)  ·  TIỀN ĐANG NGỦ TRONG SỔ",
+            },
+            # 4: Mode L-B (Bước 4 - Giải ngân hụt 600.000 đ)
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {1, 2, 4},
+                "flow": ("pipe", 2, 4, 1),
+                "kicker": "BƯỚC 4  ·  GIẢI NGÂN HỤT 600.000 Đ (T+1)",
+                "stage_tag": "GIẢI NGÂN QUA NGÂN HÀNG  ·  KHẤU TRỪ TẠI NGUỒN 5%",
+                "scale_title": "SỐ TIỀN THỰC TẾ CHUYỂN VỀ TÀI KHOẢN CỬA HÀNG:",
+                "scale_val": 11_400_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.95,
+                "split_left_lbl": "THỰC NHẬN (95%): 11.400.000 Đ",
+                "split_right_lbl": "PHÍ 5%: 600K",
+                "ledger_title": "BÚT TOÁN TẤT TOÁN CÔNG NỢ (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit 112: +11.400.000 đ  ·  Debit 641 (Phí 5%): +600.000 đ",
+                "credit_line": "Credit 1388 (Xoá phải thu khác): −12.000.000 đ",
+                "rule": "600.000 Đ ĐƯỢC HẠCH TOÁN VÀO CHI PHÍ BÁN HÀNG (TK 641) CỦA CỬA HÀNG",
+            },
+            # 5: Mode L-C (Bước 5 - 12 kỳ trả đều 1.000.000 đ)
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {0, 2, 3},
+                "flow": ("pipe", 0, 3, 2),
+                "kicker": "BƯỚC 5  ·  LỊCH TRẢ ĐỀU 12 KỲ × 1.000.000 Đ",
+                "lc_type": "P5_LADDER_12M",
+                "headline": "CÔNG TY TÀI CHÍNH BỎ RA 11.400.000 Đ NGÀY ĐẦU  ·  THU VỀ 12.000.000 Đ QUA 12 THÁNG",
+                "sub_left": "Vốn giải ngân thực tế (T+1): 11.400.000 đ",
+                "sub_right": "Tổng thu từ người mua (12 kỳ): 12.000.000 đ (+600.000 đ)",
+                "rule": "KHOẢN CHÊNH 600.000 Đ LÀ PHẦN BÙ ĐẮP GIÁ TRỊ THỜI GIAN CỦA TIỀN & RỦI RO TÍN DỤNG",
+            },
+            # 6: Mode L-C (Bước 6 - Quy đổi lãi suất thực tế EIR / IRR)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 2, 3},
+                "flow": ("pipe", 0, 3, 2),
+                "kicker": "BƯỚC 6  ·  QUY ĐỔI LÃI SUẤT HIỆU DỤNG (EIR / IRR)",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "PHƯƠNG TRÌNH CHIẾT KHẤU DÒNG TIỀN:  11.400.000 = Σ [ 1.000.000 / (1 + r)^t ]   (t = 1..12)",
+                "card1_title": "TRẢ CUỐI MỖI KỲ (ORDINARY ANNUITY)",
+                "card1_big": "r ≈ 0,80%/tháng  (EIR ≈ 10,0%/năm)",
+                "card1_sub": "Nhận 11,4 triệu hôm nay, trả 1 triệu vào cuối mỗi tháng từ T1 đến T12",
+                "card2_title": "ĐÓNG KỲ ĐẦU NGAY LÚC MUA (ANNUITY DUE)",
+                "card2_big": "r ≈ 0,95%/tháng  (EIR ≈ 12,0%/năm)",
+                "card2_sub": "Vì kỳ đầu trả ngay tại quầy nên vốn vay thực chất chỉ còn 10,4 triệu trong 11 tháng",
+                "rule": "LÃI SUẤT DANH NGHĨA 0% NHƯNG CHI PHÍ VỐN NGẦM TƯƠNG ĐƯƠNG ~10% – 12% / NĂM",
+            },
+            # 7: Mode L-B (Bước 7 - Ai thật sự trả 600.000 đ?)
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {0, 1, 2},
+                "flow": ("none",),
+                "kicker": "BƯỚC 7  ·  AI THẬT SỰ GÁNH 600.000 Đ?",
+                "stage_tag": "ĐẶT 2 KỊCH BẢN GIÁ BÁN LÊN BÀN CÂN TẠI QUẦY",
+                "scale_title": "CHI PHÍ HỖ TRỢ LÃI SUẤT 5% CẦN PHÂN BỔ:",
+                "scale_val": 600_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Kịch bản 1 (Trả thẳng giảm 600k): BẠN trả lãi",
+                "mech_line2": "Kịch bản 2 (Một giá chung 12tr): CỬA HÀNG chịu phí",
+                "ledger_title": "SO SÁNH VỚI QUẸT THẺ THÔNG THƯỜNG (MDR 2,2%):",
+                "debit_line": "Quẹt thẻ thường: Cửa hàng chỉ mất 264.000 đ (2,2%)",
+                "credit_line": "Trả góp 0%: Cửa hàng mất 600.000 đ (5,0% — gấp đôi)",
+                "rule": "NẾU MỘT GIÁ CHUNG, NGƯỜI MUA TRẢ THẲNG ĐANG PHỤ TRẢ PHÍ CHO NGƯỜI TRẢ GÓP",
+            },
+            # 8: Mode L-C (Bước 8 - So sánh trả góp qua Thẻ tín dụng)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 3},
+                "flow": ("wire", 0, 3),
+                "kicker": "BƯỚC 8  ·  SO SÁNH: CÔNG TY TÀI CHÍNH vs THẺ TÍN DỤNG",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "HAI CƠ CHẾ TRẢ GÓP 0% PHỔ BIẾN TRÊN THỊ TRƯỜNG",
+                "card1_title": "KÊNH 1: QUA CÔNG TY TÀI CHÍNH",
+                "card1_big": "Cửa hàng bị trừ 5% (600.000 đ)",
+                "card1_sub": "Hồ sơ vay mới · Chủ nợ là Công ty tài chính · EIR ngầm ~10%/năm",
+                "card2_title": "KÊNH 2: QUA THẺ TÍN DỤNG NGÂN HÀNG",
+                "card2_big": "Phí chuyển đổi 3% (360.000 đ)",
+                "card2_sub": "Trừ trên hạn mức thẻ sẵn có · EIR ~5,8%/năm (hoặc ~17%/năm nếu mất thêm giảm giá 600k)",
+                "rule": "LUÔN CỘNG CẢ “PHÍ CHUYỂN ĐỔI THẺ” LẪN “KHOẢN GIẢM GIÁ BỊ MẤT” ĐỂ RA CHI PHÍ THẬT",
+            },
+            # 9: Mode L-C (Bước 9 - 3 Tình huống ngoại lệ)
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 0, 3, 2),
+                "kicker": "BƯỚC 9  ·  3 TÌNH HUỐNG NGOẠI LỆ KHI KẾ HOẠCH LỆCH",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "ĐIỀU GÌ XẢY RA KHI BẠN TẤT TOÁN SỚM, TRỄ HẠN HOẶC ĐỔI TRẢ HÀNG?",
+                "col1_title": "1. TẤT TOÁN SỚM Ở THÁNG 4",
+                "col1_big": "Không hoàn lại 600.000 đ",
+                "col1_sub": "Vẫn phải trả đủ 8.000.000 đ gốc còn lại + phí tất toán sớm · EIR vọt lên ~1,48%/tháng",
+                "col2_title": "2. TRỄ HẠN THANH TOÁN KỲ 5",
+                "col2_big": "Phí phạt 150.000 đ + Lãi phạt",
+                "col2_sub": "Ưu đãi 0% chấm dứt ngay cho kỳ quá hạn và ảnh hưởng trực tiếp lịch sử tín dụng",
+                "col3_title": "3. ĐỔI TRẢ MÁY TẠI CỬA HÀNG",
+                "col3_big": "2 giao dịch hoàn toàn tách rời",
+                "col3_sub": "Cửa hàng phải hoàn tiền để thanh lý hợp đồng vay tại Công ty tài chính trước",
+                "rule": "ĐỌC KỸ ĐIỀU KHOẢN TẤT TOÁN SỚM & PHÍ TRỄ HẠN TRƯỚC KHI ĐẶT BÚT KÝ",
+            },
+            # 10: Mode L-A (Kết luận)
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("none",),
+                "kicker": "KẾT LUẬN  ·  TIỀN LÃI CHỈ ĐỔI CHỖ ĐỨNG",
+                "stage_tag": "12.000.000 Đ (GHI BÁN) − 11.400.000 Đ (THỰC NHẬN) = 600.000 Đ",
+                "beats": [
+                    ("1. BẢN CHẤT KẾ TOÁN", "Σ Nợ (11,4tr TK 112 + 600k TK 641) = Σ Có (12,0tr TK 511)"),
+                    ("2. KHI NÀO CÓ LỢI CHO BẠN?", "Khi giá trả thẳng & trả góp bằng hệt nhau và bạn trả đúng hạn 100%"),
+                    ("3. KHI NÀO THÀNH BẪY?", "Khi mất chiết khấu tiền mặt lớn hoặc cộng thêm phí chuyển đổi/bảo hiểm"),
+                    ("4. CÂU HỎI BỎ TÚI", "“Nếu trả thẳng một lần ngay bây giờ thì giá giảm còn bao nhiêu?”"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
+    "card": {
+        "house_nodes": [
+            ("BẠN", "Người mua"),
+            ("QUÁN QUEN", "Nơi ăn uống"),
+            ("NGÂN HÀNG", "Của quán"),
+            ("TỔ CHỨC THẺ", "Chuyển mạch"),
+            ("NGÂN HÀNG", "Của bạn"),
+        ],
+        "plates_pool": [
+            ("public/brand/card-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-1.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-2.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-3.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/card-short-plate-4.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-4.jpg", (40, 430, 1040, 1255)),
+        ],
+        "scenes": [
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 1, 4},
+                "flow": ("wire", 4, 0),
+                "kicker": "MỞ ĐẦU  ·  QUẸT THẺ 10 TRIỆU HOÀN TIỀN 100.000 Đ",
+                "stage_tag": "HOÁ ĐƠN 10.000.000 Đ  ·  HOÀN TIỀN +100.000 Đ  ·  QUÁN NHẬN 9.780.000 Đ",
+                "beats": [
+                    ("1. TRẢI NGHIỆM CỦA BẠN", "Chạm thẻ thanh toán 10.000.000 đ, nhận ngay +100.000 đ hoàn tiền (1%)"),
+                    ("2. THỰC TẾ TẠI QUÁN QUEN", "Hai ngày sau (T+2), tài khoản quán chỉ nhận về 9.780.000 đ"),
+                    ("3. KHOẢN HỤT 220.000 Đ", "Phí chấp nhận thẻ (MDR 2,2%) bị khấu trừ tự động tại nguồn"),
+                    ("4. CÂU HỎI TRUNG TÂM", "220.000 đ được chia cho những ai và liên quan gì tới 100.000 đ của bạn?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1, 3, 4},
+                "flow": ("wire", 1, 3, 4),
+                "kicker": "BƯỚC 1  ·  HAI GIÂY ĐẦU TIÊN SAU CÚ CHẠM THẺ (AUTH)",
+                "stage_tag": "BẢN TIN CẤP PHÉP (AUTHORIZATION)  ·  0 ĐỒNG TIỀN THẬT DI CHUYỂN",
+                "scale_title": "HẠN MỨC TÍN DỤNG TẠM KHOÁ (AUTH HOLD):",
+                "scale_val": 10_000_000,
+                "mech_type": "P2_CONTRACT",
+                "mech_left": "Máy POS Quán quen",
+                "mech_right": "Ngân hàng phát hành thẻ",
+                "mech_badge": "BẢN TIN GIỮ CHỖ 10.000.000 Đ",
+                "ledger_title": "TRẠNG THÁI LÚC QUẸT THẺ XONG (T+0):",
+                "debit_line": "Ngân hàng của bạn: Phong toả 10.000.000 đ hạn mức khả dụng",
+                "credit_line": "Két tiền Quán quen: +0 đ (Chỉ nhận tờ biên lai in nhiệt)",
+                "rule": "TIẾNG “BÍP” TẠI QUẦY CHỈ LÀ LỜI HỨA THANH TOÁN, CHƯA PHẢI TIỀN VỀ KÉT",
+            },
+            {
+                "mode": "L-A",
+                "plate_idx": 2,
+                "active": {1, 2, 3, 4},
+                "flow": ("wire", 1, 2, 3, 4),
+                "kicker": "BƯỚC 2  ·  ĐÊM ĐỐI SOÁT LÔ GIAO DỊCH (CLEARING)",
+                "stage_tag": "ĐỐI SOÁT CUỐI NGÀY QUA TỔ CHỨC THẺ CHUYỂN MẠCH",
+                "beats": [
+                    ("1. GOM LÔ CUỐI NGÀY (BATCH)", "Máy POS của quán gửi toàn bộ biên lai trong ngày về Ngân hàng của quán"),
+                    ("2. ĐỐI CHIẾU LIÊN NGÂN HÀNG", "Tổ chức thẻ chuyển mạch phân loại giao dịch theo từng ngân hàng phát hành"),
+                    ("3. SỔ KẾ TOÁN QUÁN ĐÊM ĐẦU", "Debit 1388 (Phải thu khác): 10.000.000 đ  |  Credit 511: 10.000.000 đ"),
+                    ("4. ĐỢI QUYẾT TOÁN T+2", "Tiền thật vẫn chưa chạy qua tài khoản ngân hàng của quán"),
+                ],
+                "rule": "TRONG 48 GIỜ ĐẦU, 10.000.000 Đ NẰM Ở MỤC PHẢI THU KHÁC (TK 1388)",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 3,
+                "active": {1, 2, 4},
+                "flow": ("pipe", 4, 2, 1),
+                "kicker": "BƯỚC 3  ·  QUYẾT TOÁN T+2 & KHẤU TRỪ PHÍ MDR 2,2%",
+                "stage_tag": "QUÁN THỰC NHẬN 9.780.000 Đ  ·  KHẤU TRỪ 220.000 Đ TẠI NGUỒN",
+                "scale_title": "SỐ TIỀN VỀ TÀI KHOẢN QUÁN QUEN (T+2):",
+                "scale_val": 9_780_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.978,
+                "split_left_lbl": "THỰC NHẬN (97,8%): 9.780.000 Đ",
+                "split_right_lbl": "MDR 2,2%: 220K",
+                "ledger_title": "BÚT TOÁN NHẬN TIỀN TẠI QUÁN (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit 112: +9.780.000 đ  ·  Debit 641 (Phí MDR): +220.000 đ",
+                "credit_line": "Credit 1388 (Xoá phải thu khác): −10.000.000 đ",
+                "rule": "Σ NỢ (9.780.000 + 220.000) = Σ CÓ (10.000.000 Đ) — CÂN BẰNG TUYỆT ĐỐI",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {2, 3, 4},
+                "flow": ("pipe", 2, 3, 4),
+                "kicker": "BƯỚC 4  ·  GIẢI PHẪU 220.000 Đ PHÍ MDR ĐI VỀ ĐÂU?",
+                "stage_tag": "CHIA PHÍ MDR 2,2% CHO 3 ĐỊNH CHẾ TRUNG GIAN",
+                "scale_title": "TỔNG PHÍ CHẤP NHẬN THẺ (MDR 2,2%):",
+                "scale_val": 220_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "1. Phí Interchange về Ngân hàng của bạn (1,50%): +150.000 đ",
+                "mech_line2": "2. Ngân hàng quán (0,60%): +60.000 đ  ·  Tổ chức thẻ (0,10%): +10.000 đ",
+                "ledger_title": "NGUỒN THU CỦA NGÂN HÀNG PHÁT HÀNH THẺ:",
+                "debit_line": "Ngân hàng của bạn nhận 150.000 đ (68% tổng phí MDR)",
+                "credit_line": "Trích 100.000 đ hoàn cho bạn  ·  Giữ lại +50.000 đ lãi thuần",
+                "rule": "TIỀN HOÀN 100.000 Đ ĐƯỢC TRÍCH TỪ 150.000 Đ PHÍ INTERCHANGE THU CỦA QUÁN",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {0, 4},
+                "flow": ("pipe", 4, 0),
+                "kicker": "BƯỚC 5  ·  CHU KỲ MIỄN LÃI 45 NGÀY & DÒNG TIỀN HOÀN",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "DÒNG TIỀN GIỮA BẠN VÀ NGÂN HÀNG PHÁT HÀNH THẺ Ở CUỐI KỲ SAO KÊ",
+                "card1_title": "NẾU BẠN TRẢ ĐỦ 100% DƯ NỢ ĐÚNG HẠN",
+                "card1_big": "Trả 10.000.000 đ  ·  Nhận hoàn +100.000 đ",
+                "card1_sub": "Chi phí thực của bạn = 9.900.000 đ + Tận dụng vốn miễn lãi tới 45 ngày",
+                "card2_title": "KẾT QUẢ CỦA NGÂN HÀNG PHÁT HÀNH THẺ",
+                "card2_big": "Thu 150.000 đ − Chi 100.000 đ = +50.000 đ",
+                "card2_sub": "Ngân hàng vẫn lãi ròng 50.000 đ trên giao dịch mà không tốn tiền túi",
+                "rule": "HOÀN TIỀN LÀ CƠ CHẾ CHIA SẺ PHÍ INTERCHANGE ĐỂ KHUYẾN KHÍCH BẠN QUẸT THẺ",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {2, 3, 4},
+                "flow": ("pipe", 4, 3, 2),
+                "kicker": "BƯỚC 6  ·  BÙ TRỪ ĐA PHƯƠNG LIÊN NGÂN HÀNG (NETTING)",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "VÌ SAO HÀNG TRIỆU GIAO DỊCH THẺ CHỈ CẦN MỘT LỆNH CHUYỂN TIỀN RÒNG CUỐI NGÀY?",
+                "card1_title": "NẾU CHUYỂN TỪNG GIAO DỊCH RIÊNG LẺ (GROSS)",
+                "card1_big": "Hàng triệu lệnh chuyển tiền chồng chéo",
+                "card1_sub": "Tốn thanh khoản dự trữ khổng lồ giữa các ngân hàng thương mại",
+                "card2_title": "CƠ CHẾ BÙ TRỪ RÒNG ĐA PHƯƠNG (MULTILATERAL NETTING)",
+                "card2_big": "Gom chênh lệch ròng 1 lần / ngày",
+                "card2_sub": "Chỉ phần chênh lệch ròng cuối ngày mới chạy qua tài khoản tại Ngân hàng Nhà nước",
+                "rule": "ĐÓ LÀ LÝ DO QUÁN QUEN PHẢI ĐỢI T+1 HOẶC T+2 MỚI NHẬN ĐƯỢC TIỀN THẬT",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {0, 1, 4},
+                "flow": ("none",),
+                "kicker": "BƯỚC 7  ·  VÒNG TRÒN GIÁ MÓN ĂN & TRỢ CẤP CHÉO",
+                "stage_tag": "KHI QUÁN QUEN CỘNG 2,2% PHÍ THẺ VÀO GIÁ THỰC ĐƠN CHUNG",
+                "scale_title": "PHÍ NHẬN THẺ NẰM TRONG HOÁ ĐƠN 10 TRIỆU:",
+                "scale_val": 220_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Khách quẹt thẻ: Chịu giá cao hơn nhưng được hoàn lại 100.000 đ (1%)",
+                "mech_line2": "Khách trả tiền mặt/chuyển khoản: Chịu cùng mức giá nhưng hoàn 0 đ",
+                "ledger_title": "HIỆU ỨNG TRỢ CẤP CHÉO TRONG BÁN LẺ:",
+                "debit_line": "Người trả tiền mặt đang gián tiếp tài trợ phí thẻ",
+                "credit_line": "Người dùng thẻ nhận lại một phần tiền của chính mình",
+                "rule": "KHÔNG CÓ KHOẢN HOÀN TIỀN NÀO TỪ TRÊN TRỜI RƠI XUỐNG",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 1, 2, 4},
+                "flow": ("wire", 0, 2, 1),
+                "kicker": "BƯỚC 8  ·  SO SÁNH: THẺ QUỐC TẾ vs THẺ NỘI ĐỊA NAPAS vs MÃ QR",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "VÌ SAO NHIỀU QUÁN NHỎ THÍCH NHẬN QUÉT MÃ QR CHUYỂN KHOẢN HƠN THẺ TÍN DỤNG?",
+                "card1_title": "QUẸT THẺ TÍN DỤNG (MDR ~1,8% – 2,5%)",
+                "card1_big": "Mất 220.000 đ / đơn 10 triệu  ·  Chờ T+2",
+                "card1_sub": "Đổi lại khách có hạn mức tín dụng 45 ngày và hoàn tiền 1% từ Interchange",
+                "card2_title": "CHUYỂN KHOẢN MÃ QR / THẺ NỘI ĐỊA (0% – 0,4%)",
+                "card2_big": "Phí cực thấp hoặc 0 đ  ·  Tiền về ngay T+0",
+                "card2_sub": "Không có nguồn phí Interchange 1,5% nên ngân hàng rất ít hoàn tiền mặt",
+                "rule": "MỨC HOÀN TIỀN CỦA THẺ TỶ LỆ THUẬN VỚI MỨC PHÍ MDR MÀ CỬA HÀNG PHẢI CHỊU",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 0, 4),
+                "kicker": "BƯỚC 9  ·  3 TÌNH HUỐNG NGOẠI LỆ: HOÀN ĐƠN, PHỤ THU & TRỄ HẠN",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "ĐIỀU GÌ XẢY RA KHI HOÀN HUỶ GIAO DỊCH, QUÁN THU PHỤ PHÍ, HOẶC BẠN CHỈ TRẢ TỐI THIỂU?",
+                "col1_title": "1. HOÀN ĐƠN HÀNG (REFUND)",
+                "col1_big": "Thu hồi 100.000 đ tiền hoàn",
+                "col1_sub": "Ngân hàng ghi nợ lại khoản Cashback đã cấp; quán thường không được hoàn lại toàn bộ phí xử lý",
+                "col2_title": "2. QUÁN THU PHỤ PHÍ QUẸT THẺ 2%",
+                "col2_big": "Lỗ ròng −120.000 đ",
+                "col2_sub": "Trả thêm 200.000 đ phụ phí chỉ để nhận 100.000 đ hoàn tiền là bài toán lỗ ngay tại quầy",
+                "col3_title": "3. CHỈ ĐÓNG TỐI THIỂU 5% CUỐI KỲ",
+                "col3_big": "Lãi thẻ 28%–36%/năm tính từ ngày quẹt",
+                "col3_sub": "Mất toàn bộ ân hạn miễn lãi; chỉ 1 tháng trả chậm sẽ nuốt sạch tiền hoàn của cả năm",
+                "rule": "THẺ HOÀN TIỀN CHỈ CÓ LỢI KHI KHÔNG BỊ PHỤ THU VÀ BẠN TRẢ ĐỦ 100% ĐÚNG HẠN",
+            },
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("none",),
+                "kicker": "KẾT LUẬN  ·  ĐỌC THẤU ĐƯỜNG ĐI CỦA 220.000 Đ",
+                "stage_tag": "10.000.000 Đ = 9.780.000 Đ (QUÁN NHẬN) + 100.000 Đ (HOÀN BẠN) + 120.000 Đ (PHÍ HỆ THỐNG)",
+                "beats": [
+                    ("1. BẢN CHẤT KẾ TOÁN", "Σ Nợ (9,78tr TK 112 + 220k TK 641) = Σ Có (10,0tr TK 511)"),
+                    ("2. NGUỒN GỐC CASHBACK", "Trích từ 150.000 đ phí Interchange mà ngân hàng của bạn thu từ quán"),
+                    ("3. KHI NÀO NÊN DÙNG?", "Khi quán niêm yết 1 giá duy nhất, không phụ thu thẻ, và bạn trả đủ 100% sao kê"),
+                    ("4. CÂU HỎI BỎ TÚI", "“Quẹt thẻ có phụ phí không, và trả tiền mặt có được chiết khấu không?”"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
+    "pay": {
+        "house_nodes": [
+            ("CÔNG TY", "Nơi trả lương"),
+            ("NGÂN HÀNG", "Trả lương"),
+            ("BẠN", "Người nhận"),
+            ("ĐỒNG NGHIỆP", "500 tài khoản"),
+            ("KHỐI CHO VAY", "Của ngân hàng"),
+        ],
+        "plates_pool": [
+            ("public/brand/pay-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-1.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 720, 1060, 1565)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-3.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/pay-short-plate-4.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-4.jpg", (40, 430, 1040, 1255)),
+        ],
+        "scenes": [
+            # Bài pay có 12 cảnh
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 1, 2},
+                "flow": ("wire", 0, 1, 2),
+                "kicker": "MỞ ĐẦU  ·  LƯƠNG VỀ 15 TRIỆU NHƯNG TIỀN ĐỨNG YÊN",
+                "stage_tag": "TIN NHẮN BÁO +15.000.000 Đ  ·  KÉT NGÂN HÀNG KHÔNG HỀ MỞ",
+                "beats": [
+                    ("1. TIN NHẮN LƯƠNG VỀ", "Điện thoại báo tài khoản tăng +15.000.000 đ ngay trong 1 giây"),
+                    ("2. YÊU CẦU NGÀY NHẬN VIỆC", "Phòng nhân sự đề nghị mọi nhân viên mở tài khoản cùng 1 ngân hàng"),
+                    ("3. SỰ THẬT DƯỚI HẦM KÉT", "Không một đồng tiền mặt hay dự trữ nào rời khỏi ngân hàng đó"),
+                    ("4. CÂU HỎI TRUNG TÂM", "Ngân hàng được lợi gì khi giữ cả công ty lẫn 500 nhân viên ở cùng một nơi?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1},
+                "flow": ("wire", 0, 1),
+                "kicker": "BƯỚC 1  ·  HẠCH TOÁN BẢNG LƯƠNG TẠI DOANH NGHIỆP",
+                "stage_tag": "SỔ KẾ TOÁN CÔNG TY (TT 99/2025): CHI PHÍ LƯƠNG & KHẤU TRỪ",
+                "scale_title": "TỔNG CHI PHÍ LƯƠNG GHI NHẬN (VÍ DỤ):",
+                "scale_val": 17_000_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.882,
+                "split_left_lbl": "THỰC LĨNH (TK 334): 15.000.000 Đ",
+                "split_right_lbl": "BHXH & THUẾ: 2TR",
+                "ledger_title": "BÚT TOÁN TÍNH LƯƠNG (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit 642 (Chi phí quản lý DN): +17.000.000 đ",
+                "credit_line": "Credit 334: 15.000.000 đ  ·  Credit 338/3335: 2.000.000 đ",
+                "rule": "TRƯỚC GIỜ BẤM NÚT CHI LƯƠNG, 15.000.000 Đ LÀ KHOẢN CÔNG TY ĐANG NỢ BẠN (TK 334)",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 2,
+                "active": {0, 1, 2},
+                "flow": ("wire", 0, 1, 2),
+                "kicker": "BƯỚC 2  ·  CƠ CHẾ CHUYỂN KHOẢN NỘI BỘ (ON-US BOOK TRANSFER)",
+                "stage_tag": "CÙNG MỘT NGÂN HÀNG: CHỈ ĐỔI TÊN CHỦ NỢ TRÊN SỔ CÁI",
+                "scale_title": "LỆNH CHI LƯƠNG THỰC LĨNH:",
+                "scale_val": 15_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Dòng 1 — TK Tiền gửi Công ty:  −15.000.000 đ (Ngân hàng bớt nợ Công ty)",
+                "mech_line2": "Dòng 2 — TK Tiền gửi Của bạn:  +15.000.000 đ (Ngân hàng tăng nợ Bạn)",
+                "ledger_title": "BÚT TOÁN TẤT TOÁN LƯƠNG TẠI CÔNG TY (TT 99/2025):",
+                "debit_line": "Debit 334 (Xoá nợ phải trả NLĐ): −15.000.000 đ",
+                "credit_line": "Credit 112 (Tiền gửi ngân hàng): −15.000.000 đ",
+                "rule": "TỔNG NGUỒN VỐN TRONG NGÂN HÀNG KHÔNG ĐỔI (HAO HỤT THANH KHOẢN = 0 Đ)",
+            },
+            {
+                "mode": "L-A",
+                "plate_idx": 3,
+                "active": {1, 2},
+                "flow": ("none",),
+                "kicker": "BƯỚC 3  ·  SỐ DƯ TRÊN ĐIỆN THOẠI THỰC CHẤT LÀ GÌ?",
+                "stage_tag": "ĐỐI XỨNG BẢNG CÂN ĐỐI KẾ TOÁN GIỮA BẠN VÀ NGÂN HÀNG",
+                "beats": [
+                    ("1. DƯỚI GÓC NHÌN CỦA BẠN", "15.000.000 đ trên màn hình là Tài sản thanh khoản (Tiền gửi không kỳ hạn)"),
+                    ("2. DƯỚI GÓC NHÌN NGÂN HÀNG", "15.000.000 đ đó nằm ở cột NỢ PHẢI TRẢ (Ngân hàng đang nợ bạn)"),
+                    ("3. KHÔNG PHẢI HỘP GIỮ HỘ", "Ngân hàng không cất riêng cọc tiền 15 triệu mang tên bạn trong két"),
+                    ("4. CAM KẾT THANH KHOẢN", "Ngân hàng cam kết trả tiền ngay khi bạn rút hoặc quét QR chuyển đi"),
+                ],
+                "rule": "SỐ DƯ TÀI KHOẢN LÀ KHOẢN NỢ KHÔNG KỲ HẠN MÀ NGÂN HÀNG ĐANG NỢ BẠN",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {1, 2, 3},
+                "flow": ("pipe", 3, 1),
+                "kicker": "BƯỚC 4  ·  500 ĐỒNG NGHIỆP TẠO THÀNH BỂ VỐN CASA 2,5 TỶ",
+                "stage_tag": "500 TÀI KHOẢN × 5.000.000 Đ SỐ DƯ BÌNH QUÂN = 2,5 TỶ ĐỒNG",
+                "scale_title": "QUY MÔ BỂ VỐN KHÔNG KỲ HẠN (CASA POOL):",
+                "scale_val": 2_500_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Mỗi cá nhân rút tiêu lẻ tẻ theo nhịp sinh hoạt khác nhau",
+                "mech_line2": "Phần đáy bể vốn bình quân (~5 triệu/người) luôn nằm yên trong ngân hàng",
+                "ledger_title": "CHI PHÍ TRẢ LÃI KHÔNG KỲ HẠN (CASA ~0,1%/NĂM):",
+                "debit_line": "Lãi trả cho mỗi tài khoản 5 triệu: ~5.000 đ / năm",
+                "credit_line": "Tổng lãi trả cho cả 500 tài khoản (2,5 tỷ): ~2.500.000 đ / năm",
+                "rule": "LUẬT SỐ ĐÔNG BIẾN TIỀN LƯƠNG NGẮN HẠN THÀNH NGUỒN VỐN ỔN ĐỊNH CHO NGÂN HÀNG",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {1, 3, 4},
+                "flow": ("pipe", 1, 4),
+                "kicker": "BƯỚC 5  ·  CHÊNH LỆCH CHI PHÍ VỐN 1 : 50 (CASA vs KỲ HẠN)",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "SO SÁNH CHI PHÍ NGÂN HÀNG HUY ĐỘNG 2,5 TỶ ĐỒNG TRONG 1 NĂM",
+                "card1_title": "NGUỒN 1: BỂ VỐN LƯƠNG KHÔNG KỲ HẠN (CASA 0,1%/NĂM)",
+                "card1_big": "Chi phí lãi: ~2.500.000 đ / năm",
+                "card1_sub": "Rẻ gấp 50 lần so với tiền gửi có kỳ hạn · Giúp ngân hàng hạ mạnh giá vốn đầu vào (COF)",
+                "card2_title": "NGUỒN 2: TIỀN GỬI TIẾT KIỆM CÓ KỲ HẠN (LÃI 5,0%/NĂM)",
+                "card2_big": "Chi phí lãi: ~125.000.000 đ / năm",
+                "card2_sub": "Đắt hơn 122.500.000 đ/năm cho cùng một quy mô vốn 2,5 tỷ đồng",
+                "rule": "TỶ LỆ CASA CAO LÀ CHÌA KHOÁ GIÚP NGÂN HÀNG TỐI ƯU BIÊN LÃI RÒNG (NIM)",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {1, 3, 4},
+                "flow": ("pipe", 1, 4),
+                "kicker": "BƯỚC 6  ·  BIÊN LÃI RÒNG (NIM) & DỰ TRỮ THANH KHOẢN",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "TỪ BỂ VỐN CASA 2,5 TỶ ĐỒNG ĐẾN KHOẢN CHO VAY TÍN DỤNG NGOÀI NỀN KINH TẾ",
+                "card1_title": "PHẦN GIỮ LẠI ĐỆM THANH KHOẢN (VÍ DỤ ~20%)",
+                "card1_big": "500.000.000 đ sẵn sàng đáp ứng rút tiền",
+                "card1_sub": "Đảm bảo bất kỳ lúc nào bạn quét QR hay rút ATM đều có tiền ngay lập tức",
+                "card2_title": "PHẦN PHÂN BỔ CHO VAY (VÍ DỤ 2,0 TỶ @ 9%/NĂM)",
+                "card2_big": "Thu lãi ~180tr − Trả CASA 2,5tr = +177,5tr",
+                "card2_sub": "Chênh lệch dùng bù đắp chi phí vận hành hệ thống 24/7 và dự phòng rủi ro tín dụng",
+                "rule": "TIỀN LƯƠNG NẰM YÊN CỦA BẠN ĐANG THỨC ĐỂ SINH LỜI TRONG CÁC KHOẢN VAY KHÁC",
+            },
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {0, 1, 4},
+                "flow": ("wire", 1, 0),
+                "kicker": "BƯỚC 7  ·  CUỘC MẶC CẢ GIỮA NGÂN HÀNG VÀ DOANH NGHIỆP",
+                "stage_tag": "ĐỔI TRỌN GÓI BẢNG LƯƠNG LẤY ƯU ĐÃI DỊCH VỤ & LÃI VAY",
+                "scale_title": "GIÁ TRỊ BỂ VỐN LƯƠNG DOANH NGHIỆP MANG LẠI:",
+                "scale_val": 2_500_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Ngân hàng nhận: Dòng tiền CASA 2,5 tỷ đều đặn + Tệp 500 khách hàng cá nhân",
+                "mech_line2": "Doanh nghiệp nhận: Miễn phí chi lương tự động + Ưu đãi lãi vay vốn lưu động",
+                "ledger_title": "VÌ SAO PHÒNG NHÂN SỰ CHỈ ĐỊNH 1 NGÂN HÀNG?",
+                "debit_line": "Giảm lỗi vận hành khi chạy bảng lương hàng trăm người",
+                "credit_line": "Tối ưu chi phí tài chính cho doanh nghiệp trong hợp đồng tổng thể",
+                "rule": "BẢNG LƯƠNG NHÂN VIÊN LÀ MỘT TÀI SẢN ĐÀM PHÁN GIỮA CÔNG TY VÀ NGÂN HÀNG",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 1, 2},
+                "flow": ("pipe", 0, 1, 2),
+                "kicker": "BƯỚC 8  ·  SO SÁNH: CHI LƯƠNG NỘI BỘ (ON-US) vs LIÊN NGÂN HÀNG (OFF-US)",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "ĐIỀU GÌ XẢY RA NẾU NHÂN VIÊN NHẬN LƯƠNG Ở MỘT NGÂN HÀNG KHÁC?",
+                "card1_title": "CÙNG NGÂN HÀNG (ON-US BOOK TRANSFER)",
+                "card1_big": "Hao hụt vốn của ngân hàng = 0 đ",
+                "card1_sub": "Chỉ đổi tên chủ nợ trên sổ nội bộ · Ngân hàng giữ trọn 100% số dư CASA",
+                "card2_title": "KHÁC NGÂN HÀNG (OFF-US INTERBANK)",
+                "card2_big": "Chảy máu thanh khoản thực sự ra ngoài",
+                "card2_sub": "Ngân hàng trả lương phải chuyển tiền dự trữ thật sang ngân hàng của bạn qua hệ thống bù trừ",
+                "rule": "GIỮ CHÂN NGƯỜI NHẬN LƯƠNG Ở LẠI LÀ MỤC TIÊU SỐNG CÒN CỦA NGÂN HÀNG CHI LƯƠNG",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {1, 2, 4},
+                "flow": ("wire", 1, 2),
+                "kicker": "BƯỚC 9  ·  BÁN CHÉO SẢN PHẨM TRÊN TỆP TÀI KHOẢN LƯƠNG",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "VÌ SAO NGÂN HÀNG BIẾT CHÍNH XÁC HẠN MỨC THẺ TÍN DỤNG & THẤU CHI CỦA BẠN?",
+                "card1_title": "DỮ LIỆU DÒNG TIỀN THU NHẬP THẬT (VERIFIED INCOME)",
+                "card1_big": "Lịch sử lương 6–12 tháng chính xác 100%",
+                "card1_sub": "Ngân hàng không cần thẩm định giấy tờ phức tạp vì nắm rõ ngày giờ và quy mô lương về",
+                "card2_title": "HỆ SINH THÁI BÁN CHÉO (CROSS-SELLING)",
+                "card2_big": "Thẻ tín dụng · Vay thấu chi · Vay mua nhà",
+                "card2_sub": "Chi phí tìm kiếm khách hàng (CAC) gần như bằng 0 nhờ gói trả lương doanh nghiệp",
+                "rule": "TÀI KHOẢN LƯƠNG LÀ CÁNH CỬA ĐẦU TIÊN ĐƯA BẠN VÀO HỆ SINH THÁI TÍN DỤNG",
+            },
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 2, 1),
+                "kicker": "BƯỚC 10  ·  3 TÌNH HUỐNG NGOẠI LỆ VỀ TÀI KHOẢN LƯƠNG",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "ĐIỀU GÌ XẢY RA KHI BẠN CHUYỂN TIỀN ĐI NGAY, NGHỈ VIỆC, HOẶC DÙNG THẤU CHI LƯƠNG?",
+                "col1_title": "1. CHUYỂN HẾT LƯƠNG SANG NGÂN HÀNG KHÁC",
+                "col1_big": "Bể vốn CASA giảm thực chất",
+                "col1_sub": "Ngân hàng chi lương mất nguồn vốn 0,1% ngay lập tức qua kênh chuyển mạch liên ngân hàng",
+                "col2_title": "2. KHI BẠN NGHỈ VIỆC / ĐỔI CÔNG TY",
+                "col2_big": "Tài khoản hết ưu đãi gói Payroll",
+                "col2_sub": "Các tài khoản không còn dòng lương đổ về có thể phát sinh phí duy trì nếu số dư thấp",
+                "col3_title": "3. VAY THẤU CHI QUA TÀI KHOẢN LƯƠNG",
+                "col3_big": "Vay lại chính bể vốn với lãi 12%–18%/năm",
+                "col3_sub": "Ngân hàng tự động khấu trừ gốc và lãi ngay giây đầu tiên khi kỳ lương tháng sau vừa báo về",
+                "rule": "HIỂU RÕ CƠ CHẾ ĐỂ CHỦ ĐỘNG QUẢN LÝ SỐ DƯ NGAY KHI LƯƠNG VỪA VỀ TÀI KHOẢN",
+            },
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("none",),
+                "kicker": "KẾT LUẬN  ·  ĐÁNH THỨC TIỀN LƯƠNG ĐANG NGỦ",
+                "stage_tag": "Σ NỢ (17,0TR TK 642) = Σ CÓ (15,0TR TK 334 + 2,0TR TK 338/3335) — TT 99/2025",
+                "beats": [
+                    ("1. BẢN CHẤT KẾ TOÁN", "Số dư trên điện thoại là khoản Nợ không kỳ hạn mà ngân hàng đang nợ bạn"),
+                    ("2. SỨC MẠNH CỦA SỐ ĐÔNG", "Hàng trăm tài khoản lương tạo nên bể vốn CASA 0,1%/năm rẻ gấp 50 lần kỳ hạn"),
+                    ("3. KHI NÀO CÓ LỢI CHO BẠN?", "Khi tận dụng miễn phí chuyển khoản 24/7 và tách riêng phần tiết kiệm sinh lời"),
+                    ("4. CÂU HỎI BỎ TÚI", "“Sau chi tiêu tháng này, bao nhiêu tiền lương đang ngủ ở mức 0,1%/năm?”"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
+}
 
-    for s_idx, sm in enumerate(scene_meta):
-        _, _, _, kicker, headline, top_pill, bot_pill = LONG_SCENE_CONFIG[s_idx]
-        overlay_audit_strings.extend([kicker, headline, top_pill, bot_pill])
-        sm["kicker"] = kicker
 
-        c_words = headline.split()
-        c_lines: list[str] = []
-        cur_c = ""
-        for w in c_words:
-            test = (cur_c + " " + w).strip()
-            if dummy.textlength(test, font=f_callout) <= max_w:
-                cur_c = test
-            else:
-                if cur_c:
-                    c_lines.append(cur_c)
-                cur_c = w
-        if cur_c:
-            c_lines.append(cur_c)
-        sm["callout_lines"] = c_lines[:2]
+def step_quantize(val: float, step: int = 100_000) -> int:
+    return int(round(val / step) * step)
 
-        cur_y = 0
-        for p_idx, phr in enumerate(sm["phrases"]):
-            lines: list[list[dict]] = []
-            cur_line: list[dict] = []
-            cur_w = 0.0
-            for wm in phr["words"]:
-                w_str = wm["word"]
-                overlay_audit_strings.append(w_str)
-                is_num = bool(NUMBER_RE.search(w_str))
-                w_font = f_vo_bold if is_num else f_vo
-                ww = dummy.textlength(w_str, font=w_font)
-                item = {
-                    "word": w_str,
-                    "w": ww,
-                    "t0": wm["t0"],
-                    "t1": wm["t1"],
-                    "is_num": is_num,
-                    "p_idx": p_idx,
-                }
-                if cur_line and (cur_w + space_w + ww > max_w - 22):
-                    lines.append(cur_line)
-                    cur_line = [item]
-                    cur_w = ww
-                else:
-                    if cur_line:
-                        cur_w += space_w + ww
-                    else:
-                        cur_w = ww
-                    cur_line.append(item)
-            if cur_line:
-                lines.append(cur_line)
 
-            phr["y0"] = cur_y
-            placed_words: list[dict] = []
-            for l_idx, ln in enumerate(lines):
-                rx = 18.0
-                ry = cur_y + l_idx * line_h
-                for item in ln:
-                    item_copy = dict(item)
-                    item_copy["rx"] = rx
-                    item_copy["ry"] = ry
-                    placed_words.append(item_copy)
-                    rx += item["w"] + space_w
-            phr["placed_words"] = placed_words
-            phr["y1"] = cur_y + len(lines) * line_h
-            cur_y = phr["y1"] + phrase_gap
+def compute_four_beat_progress(sm: dict, t: float) -> tuple[float, float, float, float]:
+    """Calm Editorial 4-Beat Choreography cho bài dài 16:9: chỉ chuyển động êm 0.45s đầu mỗi câu, sau đó đứng yên 100%."""
+    phrases = sm["phrases"]
+    t0 = sm["win_t0"]
+    t1 = sm["win_t1"]
+    dur = max(0.1, t1 - t0)
 
-    assert_broadcast_overlay_clean(overlay_audit_strings)
+    if len(phrases) >= 4:
+        starts = [phrases[0]["t0"], phrases[1]["t0"], phrases[2]["t0"], phrases[3]["t0"]]
+    elif len(phrases) == 3:
+        starts = [phrases[0]["t0"], phrases[1]["t0"], phrases[2]["t0"], t0 + dur * 0.75]
+    elif len(phrases) == 2:
+        starts = [phrases[0]["t0"], t0 + dur * 0.28, phrases[1]["t0"], t0 + dur * 0.74]
+    else:
+        starts = [t0, t0 + dur * 0.25, t0 + dur * 0.50, t0 + dur * 0.75]
+
+    b1 = smoothstep(starts[0], starts[0] + 0.45, t)
+    b2 = smoothstep(starts[1], starts[1] + 0.45, t)
+    b3 = smoothstep(starts[2], starts[2] + 0.45, t)
+    b4 = smoothstep(starts[3], starts[3] + 0.45, t)
+    return b1, b2, b3, b4
 
 
 def assert_parent_child_containment(
-    scene_meta: list[dict],
+    story_slug: str,
+    story_cfg: dict,
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
+    """Kiểm chứng tất định F2 (YouTube Long Safe-Zone y <= 828) + LUẬT 6b + LUẬT 8 + LUẬT 10."""
     dummy = ImageDraw.Draw(Image.new("RGBA", (16, 16)))
 
-    # Kiểm chứng LUẬT 8 trên khung 16:9: Zone 1 ở trên, Zone 2 (Trái) và Zone 3 (Phải) tách biệt hoàn toàn
-    if not (
-        HEADER_BOX[3] + 10 <= CONDUIT_PARENT_BOX[1]
-        and CONDUIT_PARENT_BOX[3] + 12 <= STAGE_BOX[1]
-        and CONDUIT_PARENT_BOX[3] + 12 <= CARD_BOX[1]
-        and STAGE_BOX[2] + 16 <= CARD_BOX[0]
+    for box_name, box in (
+        ("ACTIVE_ACTOR_BAR", ACTIVE_ACTOR_BAR),
+        ("LA_STAGE_BOX", LA_STAGE_BOX),
+        ("LA_BEATS_BOX", LA_BEATS_BOX),
+        ("CUTAWAY_STAGE_BOX", CUTAWAY_STAGE_BOX),
+        ("MECHANISM_CANVAS_BOX", MECHANISM_CANVAS_BOX),
+        ("LC_FULL_BOX", LC_FULL_BOX),
     ):
-        raise RuntimeError(
-            f"FAIL [LUẬT 8 16:9 Zone Overlap]: Các vùng giao diện chồng lấn nhau: "
-            f"Header={HEADER_BOX}, Conduit={CONDUIT_PARENT_BOX}, Stage={STAGE_BOX}, Card={CARD_BOX}"
-        )
+        if box[0] < SAFE_X[0] or box[2] > SAFE_X[1] or box[1] < SAFE_Y[0] or box[3] > SAFE_Y[1]:
+            raise RuntimeError(
+                f"FAIL [F2 YouTube 16:9 Safe-Zone]: {box_name}={box} tràn ngoài Safe Zone {SAFE_X}x{SAFE_Y} (y phải <= 828 để tránh [CC])"
+            )
 
-    px0, py0, px1, py1 = CONDUIT_PARENT_BOX
-    for i, hx in enumerate(HOUSE_XS):
-        cx0 = hx - HOUSE_BW // 2
-        cx1 = hx + HOUSE_BW // 2
-        cy0 = NODE_Y - HOUSE_BH // 2
-        cy1 = NODE_Y + HOUSE_BH // 2
-        if cx0 < px0 + 20 or cx1 > px1 - 20:
-            raise RuntimeError(f"FAIL [B4 Box Containment]: Hộp con thứ {i} tràn ngang khung cha")
-        if cy0 < WIRE_Y + 10 or cy1 > PIPE_Y - 10:
-            raise RuntimeError(f"FAIL [B4 Box Containment]: Hộp con thứ {i} tràn dọc vào đường luồng")
+    if not (
+        ACTIVE_ACTOR_BAR[3] + 14 <= CUTAWAY_STAGE_BOX[1]
+        and CUTAWAY_STAGE_BOX[2] + 20 <= MECHANISM_CANVAS_BOX[0]
+        and LA_STAGE_BOX[2] + 20 <= LA_BEATS_BOX[0]
+    ):
+        raise RuntimeError("FAIL [LUẬT 8 16:9 Zone Overlap]: Các khung giao diện chồng lấn nhau!")
 
-    card_x0, card_top, card_x1, card_bot = CARD_BOX
-    for s_idx, sm in enumerate(scene_meta):
-        kicker_w = int(dummy.textlength(sm["kicker"], font=fonts["badge"])) + 32
-        if card_x0 + 28 + kicker_w > card_x1 - 20:
-            raise RuntimeError(f"FAIL [B4 Box Containment]: Kicker cảnh {s_idx} tràn ngang khung Card")
-        cy = card_top + 68
-        for ln in sm["callout_lines"]:
-            lw = dummy.textlength(ln, font=fonts["callout"])
-            if card_x0 + 28 + lw > card_x1 - 20:
-                raise RuntimeError(f"FAIL [B4 Box Containment]: Callout cảnh {s_idx} tràn ngang khung Card")
-            cy += 30
-        div_y = cy + 6
-        base_wx = card_x0 + 28
-        base_wy = div_y + 10
-        for phr in sm["phrases"]:
-            for pw in phr["placed_words"]:
-                wx1 = base_wx + pw["rx"] + pw["w"] + 5
-                wy1 = base_wy + pw["ry"] + 24
-                if wx1 > card_x1 - 18:
-                    raise RuntimeError(
-                        f"FAIL [B4 Box Containment]: Từ '{pw['word']}' ở cảnh {s_idx} tràn ngang khung Card ({wx1:.1f} > {card_x1 - 18})"
-                    )
-                if wy1 > card_bot - 12:
-                    raise RuntimeError(
-                        f"FAIL [B4 Box Containment]: Từ '{pw['word']}' ở cảnh {s_idx} tràn đáy khung Card ({wy1:.1f} > {card_bot - 12})"
-                    )
+    audit_strings: list[str] = []
+    for l1, l2 in story_cfg["house_nodes"]:
+        audit_strings.extend([l1, l2])
+        if dummy.textlength(l1, font=fonts["actor"]) > HOUSE_BW - 24 or dummy.textlength(l2, font=fonts["small"]) > HOUSE_BW - 24:
+            raise RuntimeError(f"FAIL [LUẬT 6b Top Actor Bar]: {l1}/{l2} tràn hộp HOUSE_BW={HOUSE_BW}")
+
+    for s_i, sc in enumerate(story_cfg["scenes"]):
+        for k, v in sc.items():
+            if isinstance(v, str):
+                audit_strings.append(v)
+            elif isinstance(v, list):
+                for item in v:
+                    if isinstance(item, tuple):
+                        audit_strings.extend(str(x) for x in item)
+        mode = sc["mode"]
+        if mode == "L-A":
+            iw_la = (LA_BEATS_BOX[2] - LA_BEATS_BOX[0]) - 52
+            if dummy.textlength(sc["kicker"], font=fonts["badge"]) + 28 > iw_la - 16:
+                raise RuntimeError(f"FAIL [LUẬT 6b L-A kicker]: scene {s_i} {sc['kicker']!r}")
+            if dummy.textlength(sc["rule"], font=fonts["label"]) > iw_la - 28:
+                raise RuntimeError(f"FAIL [LUẬT 6b L-A rule]: scene {s_i} {sc['rule']!r}")
+            for bt, bd in sc["beats"]:
+                if dummy.textlength(bt, font=fonts["label"]) > iw_la - 36 or dummy.textlength(bd, font=fonts["val_bold"]) > iw_la - 36:
+                    raise RuntimeError(f"FAIL [LUẬT 6b L-A beat]: scene {s_i} {bt!r} / {bd!r}")
+        elif mode == "L-B":
+            iw_lb = (MECHANISM_CANVAS_BOX[2] - MECHANISM_CANVAS_BOX[0]) - 56
+            kw = dummy.textlength(sc["kicker"], font=fonts["badge"]) + 28
+            bw = dummy.textlength("NHỊP 4 / 4", font=fonts["badge"]) + 24
+            if kw + bw + 16 > iw_lb:
+                raise RuntimeError(f"FAIL [LUẬT 10 L-B header]: scene {s_i} kicker={sc['kicker']!r} ({kw:.0f}px) + badge ({bw:.0f}px) > {iw_lb}px")
+            if dummy.textlength(sc["rule"], font=fonts["label"]) > iw_lb - 32:
+                raise RuntimeError(f"FAIL [LUẬT 6b L-B rule]: scene {s_i} {sc['rule']!r} ({dummy.textlength(sc['rule'], font=fonts['label']):.0f}px > {iw_lb - 32}px)")
+            for k_line in ("debit_line", "credit_line", "mech_line1", "mech_line2"):
+                if k_line in sc and dummy.textlength(sc[k_line], font=fonts["val_bold"]) > iw_lb - 36:
+                    raise RuntimeError(f"FAIL [LUẬT 6b L-B {k_line}]: scene {s_i} {sc[k_line]!r}")
+        elif mode == "L-C":
+            iw_lc = (LC_FULL_BOX[2] - LC_FULL_BOX[0]) - 72
+            if dummy.textlength(sc["headline"], font=fonts["big_num"]) > iw_lc - 32:
+                raise RuntimeError(f"FAIL [LUẬT 6b L-C headline]: scene {s_i} {sc['headline']!r}")
+            if dummy.textlength(sc["rule"], font=fonts["label"]) > iw_lc - 32:
+                raise RuntimeError(f"FAIL [LUẬT 6b L-C rule]: scene {s_i} {sc['rule']!r}")
+
+    assert_broadcast_overlay_clean(audit_strings)
 
 
-def draw_stage_pill(
+def draw_centered_row_text(
     draw: ImageDraw.ImageDraw,
     cx: float,
-    cy: float,
+    y: float,
     text: str,
     font: ImageFont.FreeTypeFont,
-    fill_rgba: tuple[int, int, int, int],
-    outline_rgba: tuple[int, int, int, int],
-    text_rgba: tuple[int, int, int, int],
+    fill: tuple[int, int, int, int],
 ) -> None:
     tw = draw.textlength(text, font=font)
-    pw = tw + 26
-    ph = 34
-    x0 = max(STAGE_BOX[0] + 16, min(STAGE_BOX[2] - 16 - pw, cx - pw / 2))
-    y0 = max(STAGE_BOX[1] + 14, min(STAGE_BOX[3] - 14 - ph, cy - ph / 2))
-    draw.rounded_rectangle((x0, y0, x0 + pw, y0 + ph), radius=9, fill=fill_rgba, outline=outline_rgba, width=2)
-    draw.text((x0 + 13, y0 + 7), text, font=font, fill=text_rgba)
+    draw.text((cx - tw / 2.0, y), text, font=font, fill=fill)
 
 
-def draw_stage_live_animation_long(
+def draw_top_actor_bar(
     draw: ImageDraw.ImageDraw,
+    story_cfg: dict,
     s_idx: int,
-    t: float,
+    n_scenes: int,
     s_prog: float,
+    t: float,
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
-    f_tag = fonts["stage_tag"]
-    sx0, sy0, sx1, sy1 = STAGE_BOX
-    cx_mid = (sx0 + sx1) / 2.0
+    """ACTIVE_ACTOR_BAR = (64, 36, 1856, 132): Thanh tiến độ dịu mắt + 5 định chế trên nền phẳng trầm (0 hạt nhấp nháy, 0 tô đặc cam chói)."""
+    bx0, by0, bx1, by1 = ACTIVE_ACTOR_BAR
+    draw.rounded_rectangle(ACTIVE_ACTOR_BAR, radius=16, fill=(13, 19, 30), outline=(38, 48, 66), width=1)
 
-    _, _, _, _, _, top_pill, bot_pill = LONG_SCENE_CONFIG[s_idx]
+    seg_total_w = (bx1 - bx0) - 56
+    seg_gap = 6
+    seg_w = (seg_total_w - seg_gap * (n_scenes - 1)) / float(n_scenes)
+    for i in range(n_scenes):
+        sx0 = bx0 + 28 + i * (seg_w + seg_gap)
+        sx1 = sx0 + seg_w
+        if i < s_idx:
+            draw.rounded_rectangle((sx0, by0 + 8, sx1, by0 + 12), radius=2, fill=(186, 138, 62))
+        elif i == s_idx:
+            draw.rounded_rectangle((sx0, by0 + 8, sx1, by0 + 12), radius=2, fill=(32, 42, 60))
+            fill_x = sx0 + seg_w * s_prog
+            draw.rounded_rectangle((sx0, by0 + 8, max(sx0 + 6, fill_x), by0 + 12), radius=2, fill=(226, 168, 76))
+        else:
+            draw.rounded_rectangle((sx0, by0 + 8, sx1, by0 + 12), radius=2, fill=(24, 32, 46))
 
-    # Vẽ hạt chuyển động 30fps trên mặt cắt kiến trúc (tọa độ quy đổi trong STAGE_BOX 940x760)
-    if s_idx in (0, 1):
-        p0, p1 = (sx0 + 360, sy0 + 490), (sx0 + 450, sy0 + 195)
-        for off in (0.0, 0.33, 0.66):
-            u = smoothstep(0.0, 1.0, (t * 0.55 + off) % 1.0)
-            px, py = lerp(p0[0], p1[0], u), lerp(p0[1], p1[1], u)
-            draw.ellipse((px - 10, py - 10, px + 10, py + 10), fill=(245, 166, 35, 115))
-            draw.ellipse((px - 5, py - 5, px + 5, py + 5), fill=(255, 230, 150, 255))
-    elif s_idx in (2, 3, 8):
-        p0, p1 = (sx0 + 360, sy0 + 495), (sx0 + 600, sy0 + 260)
-        for off in (0.0, 0.33, 0.66):
-            u = smoothstep(0.0, 1.0, (t * 0.60 + off) % 1.0)
-            px, py = lerp(p0[0], p1[0], u), lerp(p0[1], p1[1], u)
-            draw.ellipse((px - 11, py - 11, px + 11, py + 11), fill=(245, 166, 35, 115))
-            draw.ellipse((px - 5, py - 5, px + 5, py + 5), fill=(255, 236, 160, 255))
-    elif s_idx in (4, 9):
-        p_vault, p_shop, p_fee = (sx0 + 580, sy0 + 230), (sx0 + 335, sy0 + 540), (sx0 + 510, sy0 + 505)
-        for off in (0.0, 0.33, 0.66):
-            u = smoothstep(0.0, 1.0, (t * 0.62 + off) % 1.0)
-            px, py = lerp(p_vault[0], p_shop[0], u), lerp(p_vault[1], p_shop[1], u)
-            draw.ellipse((px - 11, py - 11, px + 11, py + 11), fill=(72, 187, 120, 120))
-            draw.ellipse((px - 5, py - 5, px + 5, py + 5), fill=(154, 240, 180, 255))
-        u_f = smoothstep(0.0, 1.0, (t * 0.55) % 1.0)
-        fx, fy = lerp(p_vault[0], p_fee[0], u_f), lerp(p_vault[1], p_fee[1], u_f)
-        draw.ellipse((fx - 10, fy - 10, fx + 10, fy + 10), fill=(245, 166, 35, 130))
-        draw.ellipse((fx - 5, fy - 5, fx + 5, fy + 5), fill=(255, 215, 110, 255))
-    elif s_idx in (5, 6):
-        bar_x0, bar_y0, bar_x1, bar_y1 = sx0 + 24, sy0 + 62, sx1 - 24, sy0 + 114
-        draw.rounded_rectangle((bar_x0, bar_y0, bar_x1, bar_y1), radius=10, fill=(14, 20, 32, 232), outline=(245, 166, 35, 210), width=2)
-        active_months = min(12, max(1, int(s_prog * 13.0)))
-        cell_w = (bar_x1 - bar_x0 - 20) / 12.0
+    sc = story_cfg["scenes"][s_idx]
+    active_set = sc["active"]
+    flow_spec = sc["flow"]
+    flow_kind = flow_spec[0]
+
+    draw.line([(HOUSE_XS[0], NODE_Y), (HOUSE_XS[-1], NODE_Y)], fill=(38, 50, 68), width=2)
+
+    if flow_kind in ("wire", "pipe") and len(flow_spec) >= 3:
+        nodes_seq = flow_spec[1:]
+        line_c = (94, 184, 138) if flow_kind == "pipe" else (226, 168, 76)
+        for seg_i in range(len(nodes_seq) - 1):
+            p0 = (float(HOUSE_XS[nodes_seq[seg_i]]), float(NODE_Y))
+            p1 = (float(HOUSE_XS[nodes_seq[seg_i + 1]]), float(NODE_Y))
+            draw.line([p0, p1], fill=line_c, width=2)
+
+    house_nodes = story_cfg["house_nodes"]
+    for i, hx in enumerate(HOUSE_XS):
+        is_act = i in active_set
+        fill_col = (22, 31, 46) if is_act else (15, 22, 34)
+        out_col = (226, 168, 76) if is_act else None
+        txt1_col = (226, 168, 76) if is_act else (112, 126, 146)
+        txt2_col = (236, 231, 221) if is_act else (94, 108, 128)
+        draw.rounded_rectangle(
+            (hx - HOUSE_BW // 2, NODE_Y - HOUSE_BH // 2, hx + HOUSE_BW // 2, NODE_Y + HOUSE_BH // 2),
+            radius=10,
+            fill=fill_col,
+            outline=out_col,
+            width=1 if is_act else 0,
+        )
+        l1, l2 = house_nodes[i]
+        draw_centered_row_text(draw, float(hx), NODE_Y - 21, l1, fonts["actor"], txt1_col)
+        draw_centered_row_text(draw, float(hx), NODE_Y + 3, l2, fonts["small"], txt2_col)
+
+
+def paste_stage_plate(
+    canvas: Image.Image,
+    plate_img: Image.Image,
+    box: tuple[int, int, int, int],
+) -> None:
+    x0, y0, x1, y1 = box
+    w, h = x1 - x0, y1 - y0
+    resized = plate_img.resize((w, h), Image.Resampling.LANCZOS)
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, w - 1, h - 1), radius=20, fill=255)
+    canvas.paste(resized, (x0, y0), mask)
+
+
+def draw_cutaway_stage_decor(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[int, int, int, int],
+    story_cfg: dict,
+    sc: dict,
+    sm: dict,
+    s_idx: int,
+    t: float,
+    fonts: dict[str, ImageFont.FreeTypeFont],
+) -> None:
+    """
+    Chuẩn Calm Editorial Motion cho Mặt cắt 16:9:
+    - Giữ 90% bức tranh mặt cắt Risograph sạch bóng UI (0 hộp chữ đè lên tranh, 0 thẻ trượt lặp, 0 hạt nhấp nháy).
+    - Chỉ vẽ 1 đường mảnh 2px nối 2 tâm phòng trong 0.55s đầu cảnh rồi đứng yên tĩnh tại.
+    - 1 dải chú thích đáy không viền (borderless bottom scrim).
+    """
+    sx0, sy0, sx1, sy1 = box
+    sw, sh = sx1 - sx0, sy1 - sy0
+    draw.rounded_rectangle(box, radius=20, fill=None, outline=(38, 48, 66), width=1)
+
+    flow_spec = sc["flow"]
+    flow_kind = flow_spec[0]
+    p_src = (sx0 + sw * 0.40, sy0 + sh * 0.72)
+    p_dst = (sx0 + sw * 0.68, sy0 + sh * 0.30)
+
+    t_local = max(0.0, t - sm["win_t0"])
+    flow_once = smoothstep(0.05, 0.60, t_local)
+    p_cur = (lerp(p_src[0], p_dst[0], flow_once), lerp(p_src[1], p_dst[1], flow_once))
+
+    line_col = (94, 184, 138) if flow_kind == "pipe" else (226, 168, 76)
+    draw.line([p_src, p_cur], fill=line_col, width=2)
+
+    for pt, c_dot in ((p_src, (226, 168, 76)), (p_dst, (94, 184, 138))):
+        draw.ellipse((pt[0] - 7, pt[1] - 7, pt[0] + 7, pt[1] + 7), fill=(13, 19, 30), outline=c_dot, width=2)
+        draw.ellipse((pt[0] - 3, pt[1] - 3, pt[0] + 3, pt[1] + 3), fill=c_dot)
+
+    tag_txt = sc.get("stage_tag", "")
+    if tag_txt:
+        tw = draw.textlength(tag_txt, font=fonts["stage_tag"])
+        pw = min(sw - 40, tw + 40)
+        ph = 42
+        px0 = (sx0 + sx1 - pw) / 2.0
+        py0 = sy1 - 16 - ph
+        draw.rounded_rectangle((px0, py0, px0 + pw, py0 + ph), radius=10, fill=(10, 14, 22))
+        draw_centered_row_text(draw, (sx0 + sx1) / 2.0, py0 + 11, tag_txt, fonts["stage_tag"], (236, 231, 221))
+
+
+def render_mode_la(
+    draw: ImageDraw.ImageDraw,
+    sc: dict,
+    beats_prog: tuple[float, float, float, float],
+    fonts: dict[str, ImageFont.FreeTypeFont],
+) -> None:
+    """Mode L-A (Calm Editorial v6.0): Trái = Mặt cắt 1060x688; Phải = 4 Dải Nhịp Tonal (không đóng khung lồng nhau)."""
+    bx0, by0, bx1, by1 = LA_BEATS_BOX
+    draw.rounded_rectangle(LA_BEATS_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
+
+    ix0, ix1 = bx0 + 26, bx1 - 26
+    icx = (ix0 + ix1) / 2.0
+
+    kicker = sc["kicker"]
+    kw = draw.textlength(kicker, font=fonts["badge"]) + 28
+    draw.rounded_rectangle((ix0, by0 + 20, ix0 + kw, by0 + 50), radius=6, fill=(226, 168, 76))
+    draw.text((ix0 + 14, by0 + 25), kicker, font=fonts["badge"], fill=(10, 14, 22))
+
+    cards = sc["beats"]
+    cy = by0 + 68
+    for idx_b, (c_title, c_desc) in enumerate(cards[:4]):
+        prog_b = beats_prog[idx_b]
+        is_green = idx_b in (2, 3)
+        bar_c = (94, 184, 138) if is_green else (226, 168, 76)
+        surf_c = (21, 29, 43) if prog_b > 0.05 else (13, 19, 29)
+        title_c = (138, 212, 174) if (is_green and prog_b > 0.05) else ((226, 168, 76) if prog_b > 0.05 else (92, 104, 122))
+        desc_c = (236, 231, 221) if prog_b > 0.05 else (104, 116, 134)
+
+        draw.rounded_rectangle((ix0, cy, ix1, cy + 112), radius=10, fill=surf_c)
+        if prog_b > 0.05:
+            draw.rounded_rectangle((ix0, cy + 12, ix0 + 3, cy + 100), radius=1, fill=bar_c)
+        draw.text((ix0 + 18, cy + 18), c_title, font=fonts["label"], fill=title_c)
+        draw.text((ix0 + 18, cy + 54), c_desc, font=fonts["val_bold"], fill=desc_c)
+        cy += 126
+
+    # Dải quy tắc chốt ở đáy (Tonal strip + Hairline 1px)
+    draw.line([(ix0, by1 - 84), (ix1, by1 - 84)], fill=(44, 56, 76), width=1)
+    draw.rounded_rectangle((ix0, by1 - 74, ix1, by1 - 18), radius=8, fill=(21, 29, 43))
+    draw_centered_row_text(draw, icx, by1 - 55, sc["rule"], fonts["label"], (226, 168, 76))
+
+
+def render_mode_lb(
+    draw: ImageDraw.ImageDraw,
+    sc: dict,
+    beats_prog: tuple[float, float, float, float],
+    fonts: dict[str, ImageFont.FreeTypeFont],
+) -> None:
+    """
+    Mode L-B (Calm Editorial v6.0): Phải = MECHANISM_CANVAS_BOX (1044, 140, 1856, 828) (812x688px)
+    Không vẽ các khung neon lồng nhau; dùng 4 dải Tonal Surface + 3px Left Accent Bar + 1px Hairline.
+    """
+    cx0, cy0, cx1, cy1 = MECHANISM_CANVAS_BOX
+    draw.rounded_rectangle(MECHANISM_CANVAS_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
+
+    ix0, ix1 = cx0 + 28, cx1 - 28
+    iw = ix1 - ix0
+    icx = (ix0 + ix1) / 2.0
+    b1, b2, b3, b4 = beats_prog
+
+    kicker = sc["kicker"]
+    kw = draw.textlength(kicker, font=fonts["badge"]) + 28
+    draw.rounded_rectangle((ix0, cy0 + 20, ix0 + kw, cy0 + 50), radius=6, fill=(226, 168, 76))
+    draw.text((ix0 + 14, cy0 + 25), kicker, font=fonts["badge"], fill=(10, 14, 22))
+
+    # DẢI 1 (cy0 + 66..190): Quy mô gốc & Số tiền bước nhảy tròn (Step-Quantized)
+    s1_y0, s1_y1 = cy0 + 66, cy0 + 190
+    draw.rounded_rectangle((ix0, s1_y0, ix1, s1_y1), radius=10, fill=(21, 29, 43))
+    draw.rounded_rectangle((ix0, s1_y0 + 14, ix0 + 3, s1_y1 - 14), radius=1, fill=(226, 168, 76))
+    draw_centered_row_text(draw, icx, s1_y0 + 16, sc["scale_title"], fonts["label"], (148, 160, 178))
+    val_anim = step_quantize(float(sc["scale_val"]) * max(0.2, b1), 100_000) if b1 < 0.98 else int(sc["scale_val"])
+    draw_centered_row_text(draw, icx, s1_y0 + 54, fmt_vnd(val_anim), fonts["hero_num"], (236, 231, 221))
+
+    # DẢI 2 (cy0 + 204..382): Nguyên hàm Cơ chế (P1_SPLIT / P2_CONTRACT / P3_FLIP)
+    s2_on = b2 > 0.05
+    s2_y0, s2_y1 = cy0 + 204, cy0 + 382
+    draw.rounded_rectangle((ix0, s2_y0, ix1, s2_y1), radius=10, fill=(21, 29, 43) if s2_on else (13, 19, 29))
+    if s2_on:
+        draw.rounded_rectangle((ix0, s2_y0 + 14, ix0 + 3, s2_y1 - 14), radius=1, fill=(94, 184, 138))
+
+    c_lbl2 = (148, 160, 178) if s2_on else (88, 100, 118)
+    c_val2 = (236, 231, 221) if s2_on else (102, 114, 132)
+    c_acc2 = (226, 168, 76) if s2_on else (102, 114, 132)
+    c_grn2 = (138, 212, 174) if s2_on else (92, 112, 104)
+
+    m_type = sc["mech_type"]
+    if m_type == "P1_SPLIT":
+        draw_centered_row_text(draw, icx, s2_y0 + 14, "TÁCH DÒNG TIỀN TỶ LỆ THẬT TẠI NGUỒN:", fonts["label"], c_lbl2)
+        u_sp = b2 if s2_on else 0.0
+        gap_px = lerp(0.0, 12.0, u_sp)
+        w_left = (iw - 36 - gap_px) * 0.76
+        bx_bar0 = ix0 + 18
+        bx_bar1 = ix1 - 18
+        by_bar0, by_bar1 = s2_y0 + 52, s2_y0 + 120
+        draw.rounded_rectangle((bx_bar0, by_bar0, bx_bar0 + w_left, by_bar1), radius=8, fill=(32, 88, 68) if s2_on else (18, 28, 34))
+        draw.rounded_rectangle((bx_bar0 + w_left + gap_px, by_bar0, bx_bar1, by_bar1), radius=8, fill=(116, 78, 32) if s2_on else (28, 26, 24))
+        draw_centered_row_text(draw, bx_bar0 + w_left / 2.0, by_bar0 + 23, sc["split_left_lbl"], fonts["val_bold"], c_val2)
+        draw_centered_row_text(draw, (bx_bar0 + w_left + gap_px + bx_bar1) / 2.0, by_bar0 + 23, sc["split_right_lbl"], fonts["label"], c_acc2)
+        draw_centered_row_text(draw, icx, s2_y0 + 138, "Khoản khấu trừ được giữ lại tự động trước khi tiền về tài khoản", fonts["sub"], c_lbl2)
+
+    elif m_type == "P2_CONTRACT":
+        draw.text((ix0 + 20, s2_y0 + 16), f"1. {sc['mech_left']}", font=fonts["label"], fill=c_lbl2)
+        r_txt = f"2. {sc['mech_right']}"
+        rw = draw.textlength(r_txt, font=fonts["label"])
+        draw.text((ix1 - 20 - rw, s2_y0 + 16), r_txt, font=fonts["label"], fill=c_acc2)
+        rail_x0, rail_x1 = ix0 + 140, ix1 - 140
+        rail_y = s2_y0 + 94
+        draw.line([(rail_x0, rail_y), (rail_x1, rail_y)], fill=(56, 72, 96), width=2)
+        cx_card = lerp(rail_x0, rail_x1, b2 if s2_on else 0.0)
+        cw_b, ch_b = 276, 48
+        draw.rounded_rectangle((cx_card - cw_b / 2, rail_y - ch_b / 2, cx_card + cw_b / 2, rail_y + ch_b / 2), radius=8, fill=(226, 168, 76) if s2_on else (44, 56, 74))
+        draw_centered_row_text(draw, cx_card, rail_y - 10, sc["mech_badge"], fonts["badge"], (10, 14, 22) if s2_on else (148, 160, 178))
+        draw_centered_row_text(draw, icx, s2_y0 + 138, "Bản tin / Hợp đồng điện tử xác lập nghĩa vụ pháp lý", fonts["sub"], c_lbl2)
+
+    else:  # P3_FLIP
+        draw_centered_row_text(draw, icx, s2_y0 + 16, "ĐỐI CHIẾU HAI VẾ TRÊN SỔ KẾ TOÁN:", fonts["label"], c_lbl2)
+        draw.rounded_rectangle((ix0 + 18, s2_y0 + 50, ix1 - 18, s2_y0 + 102), radius=8, fill=(15, 21, 32))
+        draw_centered_row_text(draw, icx, s2_y0 + 65, sc["mech_line1"], fonts["val_bold"], c_acc2)
+        draw.rounded_rectangle((ix0 + 18, s2_y0 + 112, ix1 - 18, s2_y0 + 164), radius=8, fill=(15, 21, 32))
+        draw_centered_row_text(draw, icx, s2_y0 + 127, sc["mech_line2"], fonts["val_bold"], c_grn2)
+
+    # DẢI 3 (cy0 + 396..576): Bảng Bút toán Kép T-Account TT 99/2025/TT-BTC
+    s3_on = b3 > 0.05
+    s3_y0, s3_y1 = cy0 + 396, cy0 + 576
+    draw.rounded_rectangle((ix0, s3_y0, ix1, s3_y1), radius=10, fill=(21, 29, 43) if s3_on else (13, 19, 29))
+    if s3_on:
+        draw.rounded_rectangle((ix0, s3_y0 + 14, ix0 + 3, s3_y1 - 14), radius=1, fill=(94, 184, 138))
+    c_lbl3 = (148, 160, 178) if s3_on else (88, 100, 118)
+    c_deb3 = (226, 168, 76) if s3_on else (102, 114, 132)
+    c_crd3 = (138, 212, 174) if s3_on else (92, 112, 104)
+
+    draw_centered_row_text(draw, icx, s3_y0 + 14, sc["ledger_title"], fonts["label"], c_lbl3)
+    draw.line([(ix0 + 24, s3_y0 + 46), (ix1 - 24, s3_y0 + 46)], fill=(38, 50, 68), width=1)
+    draw_centered_row_text(draw, icx, s3_y0 + 62, sc["debit_line"], fonts["val_bold"], c_deb3)
+    draw_centered_row_text(draw, icx, s3_y0 + 104, sc["credit_line"], fonts["val_bold"], c_crd3)
+    draw_centered_row_text(draw, icx, s3_y0 + 144, "Nguyên tắc bút toán kép: Σ Phát sinh Nợ = Σ Phát sinh Có", fonts["sub"], c_lbl3)
+
+    # DẢI 4 (cy0 + 592..666): Quy tắc chốt ở đáy hộp
+    s4_on = b4 > 0.05
+    s4_y0, s4_y1 = cy0 + 592, cy0 + 666
+    draw.line([(ix0, s4_y0 - 6), (ix1, s4_y0 - 6)], fill=(44, 56, 76), width=1)
+    draw.rounded_rectangle((ix0, s4_y0, ix1, s4_y1), radius=8, fill=(21, 29, 43) if s4_on else (13, 19, 29))
+    draw_centered_row_text(draw, icx, s4_y0 + 26, sc["rule"], fonts["label"], (226, 168, 76) if s4_on else (104, 116, 134))
+
+
+def render_mode_lc(
+    draw: ImageDraw.ImageDraw,
+    sc: dict,
+    beats_prog: tuple[float, float, float, float],
+    fonts: dict[str, ImageFont.FreeTypeFont],
+) -> None:
+    """Mode L-C (Calm Editorial v6.0): Sân khấu phân tích định lượng toàn chiều ngang LC_FULL_BOX = (64, 140, 1856, 828)."""
+    fx0, fy0, fx1, fy1 = LC_FULL_BOX
+    draw.rounded_rectangle(LC_FULL_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
+
+    ix0, ix1 = fx0 + 36, fx1 - 36
+    iw = ix1 - ix0
+    icx = (ix0 + ix1) / 2.0
+    b1, b2, b3, b4 = beats_prog
+
+    kicker = sc["kicker"]
+    kw = draw.textlength(kicker, font=fonts["badge"]) + 32
+    draw.rounded_rectangle((ix0, fy0 + 22, ix0 + kw, fy0 + 52), radius=6, fill=(226, 168, 76))
+    draw.text((ix0 + 16, fy0 + 27), kicker, font=fonts["badge"], fill=(10, 14, 22))
+
+    draw_centered_row_text(draw, icx, fy0 + 74, sc["headline"], fonts["big_num"], (236, 231, 221))
+
+    lc_type = sc["lc_type"]
+    if lc_type == "P5_LADDER_12M":
+        # Biểu đồ 12 cột dòng tiền trả góp 1.000.000 đ/tháng + chiết khấu giá trị hiện tại PV (không viền rối mắt)
+        chart_y0, chart_y1 = fy0 + 132, fy0 + 472
+        draw.rounded_rectangle((ix0, chart_y0, ix1, chart_y1), radius=12, fill=(21, 29, 43))
+        active_m = min(12, max(1, int(round(lerp(1.0, 12.0, max(b1 * 0.5, b2, b3))))))
+        col_w = (iw - 64) / 12.0
         for m_i in range(12):
-            cx0 = bar_x0 + 10 + m_i * cell_w + 2
-            cx1 = cx0 + cell_w - 4
-            is_paid = m_i < active_months
-            c_fill = (72, 187, 120, 235) if is_paid else (38, 50, 72, 190)
-            draw.rounded_rectangle((cx0, bar_y0 + 10, cx1, bar_y1 - 10), radius=5, fill=c_fill)
-            m_lbl = f"T{m_i+1}"
-            mw = draw.textlength(m_lbl, font=fonts["node_sub"])
-            draw.text(((cx0 + cx1 - mw) / 2, bar_y0 + 17), m_lbl, font=fonts["node_sub"], fill=(12, 18, 28, 255) if is_paid else (175, 188, 205, 220))
+            cx_a = ix0 + 32 + m_i * col_w + 8
+            cx_b = cx_a + col_w - 16
+            is_on = m_i < active_m
+            pv_ratio = 1.0 / ((1.0 + 0.008) ** (m_i + 1))
+            full_h = 210
+            pv_h = int(full_h * pv_ratio)
+            by_bot = chart_y1 - 54
+            by_top_nom = by_bot - full_h
+            by_top_pv = by_bot - pv_h
+            draw.rounded_rectangle((cx_a, by_top_nom, cx_b, by_bot), radius=6, fill=(32, 44, 62))
+            if is_on:
+                draw.rounded_rectangle((cx_a, by_top_pv, cx_b, by_bot), radius=6, fill=(52, 124, 96))
+            draw_centered_row_text(draw, (cx_a + cx_b) / 2.0, by_top_nom - 26, "1,0tr", fonts["small"], (226, 168, 76))
+            draw_centered_row_text(draw, (cx_a + cx_b) / 2.0, by_bot + 14, f"Kỳ {m_i+1}", fonts["label"], (236, 231, 221) if is_on else (112, 124, 142))
 
-    draw_stage_pill(draw, cx_mid, sy0 + 34, top_pill, f_tag, (14, 20, 32, 236), (245, 166, 35, 235), (255, 209, 102, 255))
-    draw_stage_pill(draw, cx_mid, sy1 - 34, bot_pill, f_tag, (14, 20, 32, 236), (72, 187, 120, 235), (154, 240, 180, 255))
+        # 2 dải Tonal đối xứng dưới biểu đồ
+        sub_y0, sub_y1 = fy0 + 490, fy0 + 584
+        half_w = (iw - 24) / 2.0
+        draw.rounded_rectangle((ix0, sub_y0, ix0 + half_w, sub_y1), radius=10, fill=(21, 29, 43))
+        draw.rounded_rectangle((ix0, sub_y0 + 14, ix0 + 3, sub_y1 - 14), radius=1, fill=(94, 184, 138))
+        draw_centered_row_text(draw, ix0 + half_w / 2.0, sub_y0 + 34, sc["sub_left"], fonts["val_bold"], (138, 212, 174))
+
+        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0, ix1, sub_y1), radius=10, fill=(21, 29, 43))
+        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0 + 14, ix0 + half_w + 27, sub_y1 - 14), radius=1, fill=(226, 168, 76))
+        draw_centered_row_text(draw, ix0 + half_w + 24 + half_w / 2.0, sub_y0 + 34, sc["sub_right"], fonts["val_bold"], (226, 168, 76))
+
+    elif lc_type in ("P5_EIR_FORMULA", "P7_TWOWORLD_COMPARE"):
+        half_w = (iw - 28) / 2.0
+        c1_x0, c1_x1 = ix0, ix0 + half_w
+        c2_x0, c2_x1 = ix0 + half_w + 28, ix1
+        cy_top, cy_bot = fy0 + 138, fy0 + 576
+
+        draw.rounded_rectangle((c1_x0, cy_top, c1_x1, cy_bot), radius=14, fill=(21, 29, 43))
+        draw.rounded_rectangle((c1_x0, cy_top + 20, c1_x0 + 4, cy_bot - 20), radius=2, fill=(226, 168, 76))
+        draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 48, sc["card1_title"], fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 144, sc["card1_big"], fonts["hero_num"], (236, 231, 221))
+        draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 258, sc["card1_sub"], fonts["sub"], (148, 160, 178))
+
+        s2_on = b2 > 0.05
+        draw.rounded_rectangle((c2_x0, cy_top, c2_x1, cy_bot), radius=14, fill=(21, 29, 43) if s2_on else (13, 19, 29))
+        if s2_on:
+            draw.rounded_rectangle((c2_x0, cy_top + 20, c2_x0 + 4, cy_bot - 20), radius=2, fill=(94, 184, 138))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 48, sc["card2_title"], fonts["label"], (138, 212, 174) if s2_on else (96, 112, 128))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 144, sc["card2_big"], fonts["hero_num"], (138, 212, 174) if s2_on else (104, 116, 134))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 258, sc["card2_sub"], fonts["sub"], (148, 160, 178) if s2_on else (88, 100, 118))
+
+    else:  # P9_TRIPTYCH (3 cột Triptych không viền rối mắt)
+        col_w = (iw - 48) / 3.0
+        cy_top, cy_bot = fy0 + 138, fy0 + 576
+        cols_data = [
+            (sc["col1_title"], sc["col1_big"], sc["col1_sub"], b1, (226, 168, 76)),
+            (sc["col2_title"], sc["col2_big"], sc["col2_sub"], b2, (214, 118, 92)),
+            (sc["col3_title"], sc["col3_big"], sc["col3_sub"], b3, (94, 184, 138)),
+        ]
+        for idx_c, (ctitle, cbig, csub, cprog, rgb_c) in enumerate(cols_data):
+            cx_a = ix0 + idx_c * (col_w + 24)
+            cx_b = cx_a + col_w
+            ccx = (cx_a + cx_b) / 2.0
+            c_on = cprog > 0.05
+            draw.rounded_rectangle((cx_a, cy_top, cx_b, cy_bot), radius=12, fill=(21, 29, 43) if c_on else (13, 19, 29))
+            if c_on:
+                draw.rounded_rectangle((cx_a + 20, cy_top, cx_b - 20, cy_top + 3), radius=1, fill=rgb_c)
+            draw_centered_row_text(draw, ccx, cy_top + 44, ctitle, fonts["label"], rgb_c if c_on else (96, 110, 128))
+            draw_centered_row_text(draw, ccx, cy_top + 134, cbig, fonts["big_num"], (236, 231, 221) if c_on else (104, 116, 134))
+            words_s = csub.split()
+            mid_w = len(words_s) // 2
+            l_a = " ".join(words_s[:mid_w])
+            l_b = " ".join(words_s[mid_w:])
+            draw_centered_row_text(draw, ccx, cy_top + 236, l_a, fonts["sub"], (148, 160, 178) if c_on else (88, 100, 118))
+            draw_centered_row_text(draw, ccx, cy_top + 272, l_b, fonts["sub"], (148, 160, 178) if c_on else (88, 100, 118))
+
+    # Dải quy tắc chốt ở đáy sân khấu L-C
+    draw.line([(ix0, fy1 - 86), (ix1, fy1 - 86)], fill=(44, 56, 76), width=1)
+    draw.rounded_rectangle((ix0, fy1 - 76, ix1, fy1 - 18), radius=8, fill=(21, 29, 43))
+    draw_centered_row_text(draw, icx, fy1 - 57, sc["rule"], fonts["label"], (226, 168, 76))
 
 
 def render_single_scene_frame(
+    story_cfg: dict,
     s_idx: int,
     t: float,
     scene_meta: list[dict],
-    locked_stage_bgs: list[Image.Image],
+    scene_bgs: list[Image.Image],
     fonts: dict[str, ImageFont.FreeTypeFont],
     W: int,
     H: int,
@@ -678,174 +1496,30 @@ def render_single_scene_frame(
     sm = scene_meta[s_idx]
     s_dur = max(0.01, sm["win_t1"] - sm["win_t0"])
     s_prog = max(0.0, min(1.0, (t - sm["win_t0"]) / s_dur))
+    beats_prog = compute_four_beat_progress(sm, t)
 
-    p_idx, active_set, flow_spec, kicker, _, _, _ = LONG_SCENE_CONFIG[s_idx]
-    frame_rgba = locked_stage_bgs[p_idx].copy()
+    sc = story_cfg["scenes"][min(s_idx, len(story_cfg["scenes"]) - 1)]
+    mode = sc["mode"]
 
-    dyn = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(dyn)
+    base_rgb = scene_bgs[s_idx].copy()
+    draw = ImageDraw.Draw(base_rgb)
 
-    f_node_top = fonts["node_top"]
-    f_node_sub = fonts["node_sub"]
-    f_badge = fonts["badge"]
-    f_callout = fonts["callout"]
-    f_vo = fonts["vo"]
-    f_vo_bold = fonts["vo_bold"]
+    draw_top_actor_bar(draw, story_cfg, s_idx, len(scene_meta), s_prog, t, fonts)
 
-    house_xs = HOUSE_XS
-    wire_y = WIRE_Y
-    node_y = NODE_Y
-    pipe_y = PIPE_Y
+    if mode == "L-A":
+        draw_cutaway_stage_decor(draw, LA_STAGE_BOX, story_cfg, sc, sm, s_idx, t, fonts)
+        render_mode_la(draw, sc, beats_prog, fonts)
+    elif mode == "L-B":
+        draw_cutaway_stage_decor(draw, CUTAWAY_STAGE_BOX, story_cfg, sc, sm, s_idx, t, fonts)
+        render_mode_lb(draw, sc, beats_prog, fonts)
+    else:
+        render_mode_lc(draw, sc, beats_prog, fonts)
 
-    draw.line([(house_xs[0], wire_y), (house_xs[-1], wire_y)], fill=(245, 166, 35, 125), width=3)
-    draw.line([(house_xs[0], pipe_y), (house_xs[-1], pipe_y)], fill=(72, 187, 120, 135), width=4)
-
-    flow_kind = flow_spec[0]
-    if flow_kind in ("wire", "pipe") and len(flow_spec) >= 3:
-        nodes_seq = flow_spec[1:]
-        y_line = wire_y if flow_kind == "wire" else pipe_y
-        outer_c = (245, 166, 35, 95) if flow_kind == "wire" else (72, 187, 120, 95)
-        inner_c = (255, 224, 130, 245) if flow_kind == "wire" else (154, 240, 180, 245)
-        n_segs = len(nodes_seq) - 1
-        for offset in (0.0, 0.33, 0.66):
-            p_cyc = (t * 0.72 + offset) % 1.0
-            seg_f = p_cyc * n_segs
-            seg_i = min(n_segs - 1, int(math.floor(seg_f)))
-            seg_u = smoothstep(0.0, 1.0, seg_f - seg_i)
-            px = lerp(house_xs[nodes_seq[seg_i]], house_xs[nodes_seq[seg_i + 1]], seg_u)
-            draw.ellipse((px - 9, y_line - 9, px + 9, y_line + 9), fill=outer_c)
-            draw.ellipse((px - 4, y_line - 4, px + 4, y_line + 4), fill=inner_c)
-
-    for i, hx in enumerate(house_xs):
-        is_act = i in active_set
-        fill_col = (245, 166, 35, 248) if is_act else (22, 31, 46, 215)
-        out_col = (255, 224, 140, 255) if is_act else (90, 108, 135, 210)
-        top_col = (14, 20, 32, 255) if is_act else (232, 238, 246, 245)
-        sub_col = (28, 38, 56, 240) if is_act else (164, 178, 198, 225)
-        bw, bh = HOUSE_BW, HOUSE_BH
-        draw.rounded_rectangle(
-            (hx - bw // 2, node_y - bh // 2, hx + bw // 2, node_y + bh // 2),
-            radius=10,
-            fill=fill_col,
-            outline=out_col,
-            width=2,
-        )
-        line1, line2 = HOUSE_NODES[i]
-        combined = f"{line1} · {line2}"
-        tw = draw.textlength(combined, font=f_node_top)
-        draw.text((hx - tw / 2, node_y - 10), combined, font=f_node_top, fill=top_col if is_act else (232, 238, 246, 245))
-
-    draw_stage_live_animation_long(draw, s_idx, t, s_prog, fonts)
-
-    card_x0, card_top, card_x1, card_bot = CARD_BOX
-    draw.rounded_rectangle(
-        (card_x0, card_top, card_x1, card_bot),
-        radius=22,
-        fill=(12, 18, 30, 242),
-        outline=(245, 166, 35, 215),
-        width=3,
-    )
-
-    n_scenes = len(scene_meta)
-    seg_total_w = (card_x1 - card_x0) - 56
-    seg_gap = 6
-    seg_w = (seg_total_w - seg_gap * (n_scenes - 1)) / float(n_scenes)
-    for s_i in range(n_scenes):
-        sx0 = card_x0 + 28 + s_i * (seg_w + seg_gap)
-        sx1 = sx0 + seg_w
-        if s_i < s_idx:
-            draw.rounded_rectangle((sx0, card_top + 14, sx1, card_top + 19), radius=2, fill=(245, 166, 35, 235))
-        elif s_i == s_idx:
-            draw.rounded_rectangle((sx0, card_top + 14, sx1, card_top + 19), radius=2, fill=(65, 80, 105, 180))
-            fill_x = sx0 + seg_w * s_prog
-            draw.rounded_rectangle((sx0, card_top + 14, max(sx0 + 6, fill_x), card_top + 19), radius=2, fill=(255, 209, 102, 255))
-        else:
-            draw.rounded_rectangle((sx0, card_top + 14, sx1, card_top + 19), radius=2, fill=(65, 80, 105, 145))
-
-    phrases = sm["phrases"]
-    active_p_float = 0.0
-    active_p_idx = 0
-    for p_i, phr in enumerate(phrases):
-        if t >= phr["t0"] - 0.25:
-            active_p_idx = p_i
-            trans_w = smoothstep(phr["t0"] - 0.25, phr["t0"] + 0.12, t) if p_i > 0 else 1.0
-            active_p_float = (p_i - 1) + trans_w if p_i > 0 else 0.0
-
-    kicker_w = int(draw.textlength(kicker, font=f_badge)) + 32
-    draw.rounded_rectangle((card_x0 + 28, card_top + 28, card_x0 + 28 + kicker_w, card_top + 60), radius=8, fill=(245, 166, 35, 245))
-    draw.text((card_x0 + 44, card_top + 35), kicker, font=f_badge, fill=(14, 20, 32, 255))
-
-    cy = card_top + 68
-    for ln in sm["callout_lines"]:
-        draw.text((card_x0 + 28, cy), ln, font=f_callout, fill=(255, 209, 102, 255))
-        cy += 30
-
-    div_y = cy + 6
-    draw.line([(card_x0 + 28, div_y), (card_x1 - 28, div_y)], fill=(245, 166, 35, 110), width=2)
-
-    base_wx = card_x0 + 28
-    base_wy = div_y + 10
-
-    p_low = int(math.floor(active_p_float))
-    p_high = min(len(phrases) - 1, p_low + 1)
-    p_frac = active_p_float - p_low
-    bar_y0 = base_wy + lerp(phrases[p_low]["y0"], phrases[p_high]["y0"], p_frac)
-    bar_y1 = base_wy + lerp(phrases[p_low]["y1"], phrases[p_high]["y1"], p_frac) - 4
-    draw.rounded_rectangle((base_wx, bar_y0 + 2, base_wx + 5, max(bar_y0 + 12, bar_y1)), radius=2, fill=(255, 209, 102, 255))
-
-    for p_i, phr in enumerate(phrases):
-        if p_i == active_p_idx:
-            p_focus = 1.0
-        elif p_i < active_p_idx:
-            p_focus = 0.84
-        else:
-            p_focus = lerp(0.60, 1.0, smoothstep(phr["t0"] - 0.35, phr["t0"] + 0.05, t))
-
-        for pw in phr["placed_words"]:
-            wx = base_wx + pw["rx"]
-            wy = base_wy + pw["ry"]
-            w_t0 = pw["t0"]
-            w_t1 = pw["t1"]
-            ww = pw["w"]
-            w_str = pw["word"]
-            is_num = pw["is_num"]
-
-            use_font = f_vo_bold if is_num else f_vo
-
-            ramp_in = smoothstep(w_t0 - 0.07, w_t0 + 0.01, t)
-            ramp_out = smoothstep(w_t1 - 0.01, w_t1 + 0.11, t)
-            w_act = max(0.0, min(1.0, ramp_in * (1.0 - ramp_out)))
-            w_spoken = ramp_in
-
-            if w_act > 0.02:
-                pad_x, pad_y = 4, 2
-                pill_alpha = int(68 * w_act)
-                draw.rounded_rectangle(
-                    (wx - pad_x, wy - pad_y, wx + ww + pad_x, wy + 23 + pad_y),
-                    radius=6,
-                    fill=(245, 166, 35, pill_alpha),
-                )
-
-            unspoken_r, unspoken_g, unspoken_b = 195 * p_focus, 192 * p_focus, 184 * p_focus
-            if is_num:
-                spoken_r, spoken_g, spoken_b = 255 * p_focus, 209 * p_focus, 102 * p_focus
-            else:
-                spoken_r, spoken_g, spoken_b = 244 * p_focus, 239 * p_focus, 230 * p_focus
-
-            base_r = lerp(unspoken_r, spoken_r, w_spoken)
-            base_g = lerp(unspoken_g, spoken_g, w_spoken)
-            base_b = lerp(unspoken_b, spoken_b, w_spoken)
-
-            final_r = int(lerp(base_r, 255.0, w_act))
-            final_g = int(lerp(base_g, 222.0, w_act))
-            final_b = int(lerp(base_b, 128.0, w_act))
-
-            draw.text((wx, wy), w_str, font=use_font, fill=(final_r, final_g, final_b, 255))
-
-    return Image.alpha_composite(frame_rgba, dyn).convert("RGB")
+    return base_rgb
 
 
 def render_smooth_long_video(
+    story_slug: str,
     story: dict,
     scene_meta: list[dict],
     total_dur: float,
@@ -856,64 +1530,41 @@ def render_smooth_long_video(
     FPS = 30
     total_frames = int(round(total_dur * FPS))
 
-    plate_paths = [
-        ROOT / "public/brand/install-short-plate-1.jpg",
-        ROOT / "public/brand/install-short-plate-2.jpg",
-        ROOT / "public/brand/install-short-plate-3.jpg",
-        ROOT / "public/brand/install-short-plate-4.jpg",
-    ]
-    sx0, sy0, sx1, sy1 = STAGE_BOX
-    stage_w, stage_h = sx1 - sx0, sy1 - sy0
+    story_cfg = LONG_STORY_CONFIGS[story_slug]
+    plates_loaded: list[Image.Image] = []
+    for rel_path, crop_box in story_cfg["plates_pool"]:
+        if "fig-" in rel_path:
+            raise RuntimeError(f"FAIL [Zero Baked-In Text]: Cấm dùng ảnh fig có chữ nướng sẵn: {rel_path}")
+        pp = ROOT / rel_path
+        im_src = Image.open(pp).convert("RGBA").resize((1080, 1920), Image.Resampling.LANCZOS)
+        plates_loaded.append(im_src.crop(crop_box))
 
-    stage_mask = Image.new("L", (stage_w, stage_h), 0)
-    ImageDraw.Draw(stage_mask).rounded_rectangle((0, 0, stage_w - 1, stage_h - 1), radius=22, fill=255)
-
-    stage_plates: list[Image.Image] = []
-    for p_i, pp in enumerate(plate_paths):
-        im_full = Image.open(pp).convert("RGBA").resize((1080, 1920), Image.Resampling.LANCZOS)
-        crop_box = PLATE_CROP_WINDOWS[p_i]
-        im_stage = im_full.crop(crop_box).resize((stage_w, stage_h), Image.Resampling.LANCZOS)
-        stage_plates.append(im_stage)
+    # Pre-bake nền cảnh RGB cho từng scene trước vòng lặp để tăng tốc >5x (không tốn alpha_composite mỗi frame)
+    scene_bgs: list[Image.Image] = []
+    for s_idx in range(len(scene_meta)):
+        sc = story_cfg["scenes"][min(s_idx, len(story_cfg["scenes"]) - 1)]
+        mode = sc["mode"]
+        plate_img = plates_loaded[sc["plate_idx"] % len(plates_loaded)]
+        bg_c = Image.new("RGBA", (W, H), (10, 14, 22, 255))
+        if mode == "L-A":
+            paste_stage_plate(bg_c, plate_img, LA_STAGE_BOX)
+        elif mode == "L-B":
+            paste_stage_plate(bg_c, plate_img, CUTAWAY_STAGE_BOX)
+        scene_bgs.append(bg_c.convert("RGB"))
 
     fonts = {
-        "brand": get_font(17, bold=True),
-        "title": get_font(25, bold=True),
-        "node_top": get_font(15, bold=True),
-        "node_sub": get_font(13, bold=False),
-        "pipe_lbl": get_font(14, bold=True),
-        "stage_tag": get_font(16, bold=True),
+        "actor": get_font(16, bold=True),
+        "stage_tag": get_font(17, bold=True),
         "badge": get_font(16, bold=True),
-        "callout": get_font(22, bold=True),
-        "vo": get_font(20, bold=False),
-        "vo_bold": get_font(20, bold=True),
-        "footer": get_font(17, bold=False),
+        "label": get_font(17, bold=True),
+        "sub": get_font(18, bold=False),
+        "val_bold": get_font(20, bold=True),
+        "big_num": get_font(25, bold=True),
+        "hero_num": get_font(34, bold=True),
+        "small": get_font(15, bold=True),
     }
 
-    card_inner_w = (CARD_BOX[2] - CARD_BOX[0]) - 56
-    precompute_scene_layouts(scene_meta, fonts["callout"], fonts["vo"], fonts["vo_bold"], card_inner_w)
-    assert_parent_child_containment(scene_meta, fonts)
-
-    static_chrome = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    sv_draw = ImageDraw.Draw(static_chrome)
-
-    sv_draw.rounded_rectangle(HEADER_BOX, radius=16, fill=(14, 20, 32, 235), outline=(245, 166, 35, 160), width=2)
-    sv_draw.text((64, 30), "WHERE MONEY SLEEPS  ·  MẶT CẮT DÒNG TIỀN 5 NGÔI NHÀ (BẢN PHÂN TÍCH ĐẦY ĐỦ)", font=fonts["brand"], fill=(245, 166, 35, 255))
-    long_title = story["videoScript"]["long"]["title"]
-    sv_draw.text((64, 55), long_title, font=fonts["title"], fill=(244, 239, 230, 255))
-
-    sv_draw.rounded_rectangle(CONDUIT_PARENT_BOX, radius=16, fill=(12, 18, 29, 232), outline=(80, 102, 132, 135), width=2)
-    sv_draw.text((64, 115), "LUỒNG HỒ SƠ & HỢP ĐỒNG (CHỈ LÀ THÔNG TIN · 0 ĐỒNG)", font=fonts["pipe_lbl"], fill=(245, 166, 35, 220))
-    sv_draw.text((64, 212), "LUỒNG TIỀN GIẢI NGÂN & TRẢ GÓP (TIỀN THẬT QUA NGÂN HÀNG)", font=fonts["pipe_lbl"], fill=(72, 187, 120, 225))
-
-    sv_draw.rounded_rectangle(STAGE_BOX, radius=22, fill=None, outline=(245, 166, 35, 150), width=2)
-    sv_draw.text((48, H - 42), "WHERE MONEY SLEEPS  ·  ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  SỐ LIỆU VÍ DỤ MINH HOẠ CƠ CHẾ", font=fonts["footer"], fill=(165, 175, 190, 210))
-
-    locked_stage_bgs: list[Image.Image] = []
-    for sp in stage_plates:
-        bg_canvas = Image.new("RGBA", (W, H), (9, 13, 22, 255))
-        bg_canvas.paste(sp, (sx0, sy0), stage_mask)
-        bg_canvas = Image.alpha_composite(bg_canvas, static_chrome)
-        locked_stage_bgs.append(bg_canvas)
+    assert_parent_child_containment(story_slug, story_cfg, fonts)
 
     out_mp4.parent.mkdir(parents=True, exist_ok=True)
     ffmpeg_cmd = [
@@ -951,9 +1602,9 @@ def render_smooth_long_video(
     proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
     assert proc.stdin is not None
 
-    TRANS_HALF = 0.48
+    TRANS_HALF = 0.45
     t0_wall = time.time()
-    black_rgb = Image.new("RGB", (W, H), (10, 14, 23))
+    black_rgb = Image.new("RGB", (W, H), (8, 12, 20))
 
     for f_idx in range(total_frames):
         t = f_idx / FPS
@@ -963,8 +1614,8 @@ def render_smooth_long_video(
             b_t = scene_meta[b_idx]["win_t1"]
             if (b_t - TRANS_HALF) <= t <= (b_t + TRANS_HALF):
                 alpha = smoothstep(b_t - TRANS_HALF, b_t + TRANS_HALF, t)
-                img_a = render_single_scene_frame(b_idx, t, scene_meta, locked_stage_bgs, fonts, W, H)
-                img_b = render_single_scene_frame(b_idx + 1, t, scene_meta, locked_stage_bgs, fonts, W, H)
+                img_a = render_single_scene_frame(story_cfg, b_idx, t, scene_meta, scene_bgs, fonts, W, H)
+                img_b = render_single_scene_frame(story_cfg, b_idx + 1, t, scene_meta, scene_bgs, fonts, W, H)
                 blended_rgb = Image.blend(img_a, img_b, alpha)
                 break
 
@@ -974,7 +1625,7 @@ def render_smooth_long_video(
                 if sm["win_t0"] <= t <= sm["win_t1"] or idx == len(scene_meta) - 1:
                     cur_s_idx = idx
                     break
-            blended_rgb = render_single_scene_frame(cur_s_idx, t, scene_meta, locked_stage_bgs, fonts, W, H)
+            blended_rgb = render_single_scene_frame(story_cfg, cur_s_idx, t, scene_meta, scene_bgs, fonts, W, H)
 
         if t < 0.35:
             blended_rgb = Image.blend(black_rgb, blended_rgb, smoothstep(0.0, 0.35, t))
@@ -986,7 +1637,7 @@ def render_smooth_long_video(
         if (f_idx + 1) % 900 == 0 or f_idx == total_frames - 1:
             elapsed = time.time() - t0_wall
             fps_actual = (f_idx + 1) / max(0.01, elapsed)
-            print(f"  -> [install.long] Rendered frame {f_idx + 1}/{total_frames} ({t:.1f}s / {total_dur:.1f}s, {fps_actual:.1f} fps)")
+            print(f"  -> [{story_slug}.long] Rendered frame {f_idx + 1}/{total_frames} ({t:.1f}s / {total_dur:.1f}s, {fps_actual:.1f} fps)")
 
     proc.stdin.close()
     stderr_out = proc.stderr.read().decode("utf-8", errors="replace") if proc.stderr else ""
@@ -995,30 +1646,41 @@ def render_smooth_long_video(
         raise RuntimeError(f"FFmpeg failed with code {ret}:\n{stderr_out[-1200:]}")
 
 
-def main() -> int:
-    wmp = load_pipeline_module()
-    stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
-    story = stories["install"]
-    brand_audit = wmp.step_5_0_brand_safety_audit("install", story)
-    print(f"=== [INSTALL.LONG 16:9 — Broadcast-Grade v4.3 Split-Stage] ===")
+def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> None:
+    story = stories[slug]
+    brand_audit = wmp.step_5_0_brand_safety_audit(slug, story)
+    print(f"\n=== [{slug.upper()}.LONG 16:9 — Broadcast-Grade v5.0 3-Mode Cinema (QĐ 61)] ===")
     print(f"[0/3 Brand Safety Specialist PASS] B1–B4 sạch ({brand_audit['scenesAudited']} cảnh, 0 tên riêng/thương hiệu)")
     scenes = story["videoScript"]["long"]["scenes"]
 
-    cont_path = CACHE_DIR / "install_long_continuous_v3.json"
+    cont_path = CACHE_DIR / f"{slug}_long_continuous_v3.json"
     if not cont_path.is_file():
         raise RuntimeError(f"Missing {cont_path}")
     cont_data = json.loads(cont_path.read_text(encoding="utf-8"))
-    sfx_map = load_cached_sfx()
 
-    with tempfile.TemporaryDirectory(prefix="wms_smooth_long_") as tmp:
+    with tempfile.TemporaryDirectory(prefix=f"wms_smooth_long_{slug}_") as tmp:
         tmp_dir = pathlib.Path(tmp)
         master_wav, scene_meta, total_dur = build_timeline_and_master_audio(scenes, cont_data, sfx_map, tmp_dir)
-        print(f"  -> Master audio ready: {total_dur:.2f}s (-14 LUFS, 11 scenes)")
-        out_mp4 = DIST_DIR / "install-long-16x9.mp4"
+        print(f"  -> Master audio ready: {total_dur:.2f}s (-14 LUFS, {len(scene_meta)} scenes)")
+        out_mp4 = DIST_DIR / f"{slug}-long-16x9.mp4"
         print(f"[2/3] Rendering 30fps 16:9 video ({int(round(total_dur * 30))} frames) -> {out_mp4} ...")
-        render_smooth_long_video(story, scene_meta, total_dur, master_wav, out_mp4)
+        render_smooth_long_video(slug, story, scene_meta, total_dur, master_wav, out_mp4)
 
     print(f"[3/3] Done! Output saved to {out_mp4} ({out_mp4.stat().st_size:,} bytes)")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "all"])
+    args = parser.parse_args()
+
+    wmp = load_pipeline_module()
+    stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
+    sfx_map = load_cached_sfx()
+
+    target_slugs = ["install", "card", "pay"] if args.story == "all" else [args.story]
+    for slug in target_slugs:
+        run_for_story(wmp, stories, sfx_map, slug)
     return 0
 
 
