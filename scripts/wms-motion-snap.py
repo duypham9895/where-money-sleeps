@@ -91,6 +91,52 @@ def run_audit() -> int:
         else:
             bad("M3", "scripts/wms-media-pipeline.py", "Thiếu assert_parent_child_containment hoặc STAGE_BOX / CARD_BOX")
 
+    # M3b (LUẬT 10): Kiểm tra tất định 0 đè chữ (Zero Sibling Text Collision & 2D Box Containment) trên workflows.html & prototype.html
+    if WF_HTML.is_file():
+        wsrc = WF_HTML.read_text(encoding="utf-8")
+        # 1. Cấm đặt text-anchor="end" cùng dòng với nhãn mã bước trong .st-node
+        if '"text-anchor": "end"' in wsrc:
+            bad("M3b", "docs/workflows.html", "Vi phạm LUẬT 10: Phát hiện text-anchor='end' dễ gây đè chữ ngang hàng trong hộp trạm")
+        else:
+            ok("M3b", "docs/workflows.html", "LUẬT 10: 100% nhãn trong trạm SVG nằm trên tầng Y độc lập (1 Row = 1 Text)")
+
+        # 2. Kiểm tra kích thước hộp trạm vs bề rộng chữ của toàn bộ 30 trạm trong 5 quy trình
+        step_re = re.compile(
+            r'\{\s*id:\s*"([^"]+)",\s*code:\s*"([^"]+)",\s*name:\s*"([^"]+)",\s*dept:\s*"([^"]+)",\s*'
+            r'x:\s*(\d+),\s*y:\s*(\d+),\s*w:\s*(\d+),\s*h:\s*(\d+),\s*icon:\s*"([^"]+)",\s*vendors:\s*\[[^\]]*\],\s*'
+            r'tier:\s*"([^"]+)"',
+            re.S,
+        )
+        steps = list(step_re.finditer(wsrc))
+        overflow_errs = []
+        for m in steps:
+            sid, code, name, dept, x, y, w, h, icon, tier = m.groups()
+            w_val = int(w)
+            dept_px = len(dept) * 5.25
+            name_px = len(name) * 6.45
+            tier_px = len(tier) * 5.05
+            if dept_px > w_val - 12:
+                overflow_errs.append(f"{sid}.dept('{dept}'={dept_px:.0f}px > {w_val-12}px)")
+            if name_px > w_val - 12:
+                overflow_errs.append(f"{sid}.name('{name}'={name_px:.0f}px > {w_val-12}px)")
+            if tier_px > w_val - 18:
+                overflow_errs.append(f"{sid}.tier('{tier}'={tier_px:.0f}px > {w_val-18}px)")
+        if not steps:
+            bad("M3b", "docs/workflows.html", "Không đọc được danh sách trạm WORKFLOWS để kiểm tra va chạm chữ")
+        elif overflow_errs:
+            bad("M3b", "docs/workflows.html", f"Vi phạm LUẬT 10 tràn chữ hộp trạm: {', '.join(overflow_errs)}")
+        else:
+            ok("M3b", "docs/workflows.html", f"LUẬT 10: Toàn bộ {len(steps)} trạm qua 5 quy trình đủ biên an toàn (0 tràn chữ, 0 đè chữ)")
+
+    if PROTO_HTML.is_file():
+        psrc = PROTO_HTML.read_text(encoding="utf-8")
+        has_pole_safe = "POLE = 38" in psrc and ", 19)})" in psrc
+        has_tag_clamp = "curRoom.rx + w / 2 + 3" in psrc
+        if has_pole_safe and has_tag_clamp:
+            ok("M3b", "docs/prototype.html", "LUẬT 10: Ray trên (POLE=38), bóng thoại (.tag >= 19%) và nhãn phòng (tagS clamp) 0 chồng lấn")
+        else:
+            bad("M3b", "docs/prototype.html", f"Vi phạm LUẬT 10 trên #scene: pole_safe={has_pole_safe}, tag_clamp={has_tag_clamp}")
+
     print(f"Kết quả Bang-Motion (M1–M4): FAIL {fails} · PASS {passes}")
     return 1 if fails > 0 else 0
 

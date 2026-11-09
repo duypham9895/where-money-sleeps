@@ -2847,13 +2847,13 @@ const CATEGORIES = [
 /*SCENEJS:START — dùng chung với bản xem nhanh 450px (Diorama v4.0 Architectural Cutaway & Dual Financial Rails).
   Scene.build(svg, houses, {viewBox, noPlates}) · Scene.setBeat(beat) · Scene.tagPoint(i) */
 const Scene = (() => {
-  const NS = "http://www.w3.org/2000/svg", W = 1200, H = 560, G = 400, PIPE = 504, POLE = 84;
+  const NS = "http://www.w3.org/2000/svg", W = 1200, H = 560, G = 400, PIPE = 504, POLE = 38;
   const XS = [130, 365, 600, 835, 1070], PX = [247.5, 482.5, 717.5, 952.5];
   const INK = "#141824";
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let svg, L = {}, B = [], seed = 11, rafs = [], vb = {x: 0, y: 0, w: W, h: H}, opts = {}, fxNow = W / 2, fxRaf = 0;
   // nhà đang dựng: cho phép một bài đổi chữ biển hiệu (h.sign) và chữ nhãn đạo cụ (h.fxText[fx]) mà không đổi hình
-  let curH = {};
+  let curH = {}, curRoom = null;
 
   const E = (t, a, p) => { const e = document.createElementNS(NS, t); if (a) for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
   const T = (p, x, y, s, cls, a) => { const t = E("text", Object.assign({x, y, class: cls}, a || {}), p); t.textContent = s; return t; };
@@ -2944,21 +2944,21 @@ const Scene = (() => {
   }
   function wires() {
     const g = E("g", null, svg);
-    // Thanh ray kiến trúc phía trên (Top Contract & Signal Conduit)
-    R(g, 42, POLE - 10, W - 84, 20, "#10192b", {rx: 10, stroke: "#785c2a", "stroke-width": 1.6, opacity: .92});
+    // Thanh ray kiến trúc phía trên (Top Contract & Signal Conduit — đặt ở y=38 để tách biệt hoàn toàn với vùng bóng thoại .tag bên dưới)
+    R(g, 42, POLE - 9, W - 84, 18, "#10192b", {rx: 9, stroke: "#785c2a", "stroke-width": 1.6, opacity: .92});
     Ln(g, 56, POLE, W - 56, POLE, {stroke: "#e0b75a", "stroke-width": 1.5, "stroke-dasharray": "5 6", opacity: .8});
     // Cổng tín hiệu rẽ xuống từng mặt cắt định chế
     B.forEach((b, i) => {
-      const x = XS[i], wy = Math.max(b.wy - 8, POLE + 18);
-      Ln(g, x, POLE + 10, x, wy, {stroke: "#c89d42", "stroke-width": 1.4, "stroke-dasharray": "3 4", opacity: .72});
-      C(g, x, POLE, 5.5, "#17223b", {stroke: "#f5a524", "stroke-width": 1.7});
-      C(g, x, POLE, 2.2, "#fde68a");
-      C(g, x, wy, 4, "#17223b", {stroke: "#e0b75a", "stroke-width": 1.4});
+      const x = XS[i], wy = Math.max(b.wy - 8, POLE + 16);
+      Ln(g, x, POLE + 9, x, wy, {stroke: "#c89d42", "stroke-width": 1.4, "stroke-dasharray": "3 4", opacity: .62});
+      C(g, x, POLE, 5.2, "#17223b", {stroke: "#f5a524", "stroke-width": 1.7});
+      C(g, x, POLE, 2.1, "#fde68a");
+      C(g, x, wy, 3.8, "#17223b", {stroke: "#e0b75a", "stroke-width": 1.4});
     });
-    // Nhãn Ray Thông tin & Hợp đồng
-    R(g, 42, POLE - 33, 520, 19, "#10192b", {rx: 4, stroke: "#8a682d", "stroke-width": 1});
-    C(g, 54, POLE - 23.5, 3.5, "#f5a524");
-    T(g, 64, POLE - 19.5, "LUỒNG HỒ SƠ & HỢP ĐỒNG — CHỈ GỬI TÍN HIỆU XÁC NHẬN, 0 ĐỒNG DI CHUYỂN", "wWireLbl");
+    // Nhãn Ray Thông tin & Hợp đồng nằm gọn trên dải đỉnh y=6..24 (0px chồng lấn với .tag)
+    R(g, 42, 6, 520, 18, "#10192b", {rx: 4, stroke: "#8a682d", "stroke-width": 1});
+    C(g, 54, 15, 3.5, "#f5a524");
+    T(g, 64, 19, "LUỒNG HỒ SƠ & HỢP ĐỒNG — CHỈ GỬI TÍN HIỆU XÁC NHẬN, 0 ĐỒNG DI CHUYỂN", "wWireLbl");
   }
   function wirePath(i, j) {
     const yi = Math.max(B[i].wy - 8, POLE + 18), yj = Math.max(B[j].wy - 8, POLE + 18);
@@ -2990,8 +2990,10 @@ const Scene = (() => {
   function tagS(p, txt, fx, x, y) {
     txt = (curH.fxText && curH.fxText[fx]) || txt;          // đổi chữ TRƯỚC khi tính bề rộng nền nhãn
     const g = E("g", {"data-fx": fx, class: "wTag"}, p), w = txt.length * 6.4 + 14;
-    R(g, x - w / 2, y - 12, w, 18, "#fbf6ea", K({"stroke-width": 1.1, rx: 3, stroke: "#b8862e"}));
-    T(g, x, y + 1, txt, "wTiny", {"text-anchor": "middle"});
+    // LUẬT 10 Measure-and-Clamp: kẹp tâm nhãn nằm gọn trong biên phòng [rx + 3 .. rx + rw - 3] để không bao giờ bị clipPath cắt chữ
+    const cx = curRoom ? Math.max(curRoom.rx + w / 2 + 3, Math.min(x, curRoom.rx + curRoom.rw - w / 2 - 3)) : x;
+    R(g, cx - w / 2, y - 12, w, 18, "#fbf6ea", K({"stroke-width": 1.1, rx: 3, stroke: "#b8862e"}));
+    T(g, cx, y + 1, txt, "wTiny", {"text-anchor": "middle"});
     return g;
   }
   function person(p, x, y, shirt) { C(p, x, y - 22, 5.5, "#3b2f2a", K({"stroke-width": 1})); P(p, `M${x - 9} ${y}q0 -14 9 -16q9 2 9 16z`, shirt, K({"stroke-width": 1})); }
@@ -2999,6 +3001,7 @@ const Scene = (() => {
   /* ── vỏ một ngôi nhà mặt cắt xuyên thấu (Persistent Open Cutaway): KHÔNG đóng cửa cuốn che phòng ── */
   function shell(g, cx, w, rh) {
     const x0 = cx - w / 2, x1 = cx + w / 2, ry = G - 6 - rh, rx = x0 + 8, rw = w - 16, id = "wclip" + B.length;
+    curRoom = {rx, rw, ry, rh};
     R(E("clipPath", {id}, g), rx, ry, rw, rh, "#000");
     const room = E("g", {"clip-path": `url(#${id})`}, g);
     const a = E("g", null, room), t = E("g", null, room);
@@ -3133,45 +3136,45 @@ const Scene = (() => {
     tagS(t, "→ Interchange", "split", x + 92, y + 62); tagS(t, "giữ lại", "split", x + 152, y + 84);
     s.light(); s.shutter("#8a93a3", "");
     const st = E("g", null, g); s.section(st);
-    const top = y - 8 - 104;
-    R(st, s.x0, top, s.w, 104, "#3b506b", K({"stroke-width": 1.6})); R(st, s.x0 - 4, top - 8, s.w + 8, 8, "#2c3d55", K());
-    [0, 1, 2].forEach(k => win(st, s.x0 + 18 + k * 60 + (k === 1 ? 3 : 0), top + 14 + (k === 2 ? 2 : 0), 44, 40, k !== 1));
-    R(st, s.x0 + 12, top + 76, s.w - 24, 19, "#1e293b", K());
+    const top = y - 8 - 88;
+    R(st, s.x0, top, s.w, 88, "#3b506b", K({"stroke-width": 1.6})); R(st, s.x0 - 4, top - 8, s.w + 8, 8, "#2c3d55", K());
+    [0, 1, 2].forEach(k => win(st, s.x0 + 18 + k * 60 + (k === 1 ? 3 : 0), top + 12 + (k === 2 ? 2 : 0), 44, 34, k !== 1));
+    R(st, s.x0 + 12, top + 64, s.w - 24, 18, "#1e293b", K());
     tank(st, s.x1 - 40, top - 8);
     s.drum();
-    T(g, cx, top + 90, "NGÂN HÀNG", "wSign", {"text-anchor": "middle", fill: "#fbf6ea"});
-    return finish(s, top - 40, top + 16);
+    T(g, cx, top + 77, "NGÂN HÀNG", "wSign", {"text-anchor": "middle", fill: "#fbf6ea"});
+    return finish(s, top - 24, top + 14);
   }
 
   /* ── TRẠM TÍN HIỆU THẺ (Tổ chức thẻ): chỉ có cáp và tủ chuyển mạch — KHÔNG có két ── */
   function scheme(g, cx) {
-    const s = shell(g, cx, 118, 260), x = s.rx, y = s.ry, w = s.rw, h = s.rh, a = s.a, t = s.t;
+    const s = shell(g, cx, 118, 210), x = s.rx, y = s.ry, w = s.rw, h = s.rh, a = s.a, t = s.t;
     R(a, x, y, w, h, "#172036");
-    for (let k = 1; k < 4; k++) R(a, x, y + k * 65 - 4, w, 4, "url(#wHatch)");
+    for (let k = 1; k < 4; k++) R(a, x, y + k * 52 - 4, w, 4, "url(#wHatch)");
     const cs = [x + w / 2 - 8, x + w / 2, x + w / 2 + 8];
     cs.forEach(c => Ln(a, c, y, c, y + h, {stroke: "#334155", "stroke-width": 3}));
     cs.forEach((c, i) => Ln(t, c, y, c, y + h, {stroke: "#ffd98a", "stroke-width": 2, "stroke-dasharray": "6 18", "stroke-dashoffset": i * 8, "data-fx": "wire", class: "wDash"}));
     for (let k = 0; k < 4; k++) {
-      const fy = y + k * 65, racks = k === 3 ? [x + 6] : [x + 6, x + w - 32];
+      const fy = y + k * 52, racks = k === 3 ? [x + 6] : [x + 6, x + w - 32];
       racks.forEach(rx2 => {
-        R(a, rx2, fy + 12, 26, 46, "#24304c", K());
-        for (let r = 0; r < 4; r++) { R(a, rx2 + 3, fy + 16 + r * 10, 20, 6, "#0f172a");
-          C(t, rx2 + 19, fy + 19 + r * 10, 1.6, (r + k) % 2 ? "#ffc861" : "#34d399", {class: "wBlinkAlways", style: `animation-delay:${(r * .37 + k * .21).toFixed(2)}s`}); }
+        R(a, rx2, fy + 8, 26, 38, "#24304c", K());
+        for (let r = 0; r < 4; r++) { R(a, rx2 + 3, fy + 11 + r * 8, 20, 5, "#0f172a");
+          C(t, rx2 + 19, fy + 13.5 + r * 8, 1.5, (r + k) % 2 ? "#ffc861" : "#34d399", {class: "wBlinkAlways", style: `animation-delay:${(r * .37 + k * .21).toFixed(2)}s`}); }
       });
     }
-    R(t, x + w - 28, y + h - 36, 24, 26, "none", {stroke: "#d8c8a8", "stroke-width": 1.4, "stroke-dasharray": "4 3", rx: 3});
-    Ln(t, x + w - 28, y + h - 10, x + w - 4, y + h - 36, {stroke: "#e07a5f", "stroke-width": 1.6});
-    R(t, x + 4, y + h - 62, w - 8, 18, "#0b101b", {opacity: .9, rx: 2});
-    T(t, x + w / 2, y + h - 49, "không cho vay", "wTinyL", {"text-anchor": "middle"});
+    R(t, x + w - 28, y + h - 34, 24, 24, "none", {stroke: "#d8c8a8", "stroke-width": 1.4, "stroke-dasharray": "4 3", rx: 3});
+    Ln(t, x + w - 28, y + h - 10, x + w - 4, y + h - 34, {stroke: "#e07a5f", "stroke-width": 1.6});
+    R(t, x + 4, y + h - 54, w - 8, 18, "#0b101b", {opacity: .9, rx: 2});
+    T(t, x + w / 2, y + h - 41, "không cho vay", "wTinyL", {"text-anchor": "middle"});
     s.light(); s.shutter("#3e4868", "");
     const st = E("g", null, g); s.section(st);
     const top = y - 8 - 18;
     R(st, s.x0 + 6, top, s.w - 12, 18, "#293552", K());
-    Ln(st, cx, top, cx, top - 26, {"stroke-width": 2}); Ln(st, cx - 10, top - 14, cx + 10, top - 14, {"stroke-width": 1.4});
+    Ln(st, cx, top, cx, top - 16, {"stroke-width": 2}); Ln(st, cx - 10, top - 9, cx + 10, top - 9, {"stroke-width": 1.4});
     s.drum();
-    C(g, cx, top - 28, 3.2, "#f5a524", {class: "wRed"});
+    C(g, cx, top - 18, 3.2, "#f5a524", {class: "wRed"});
     T(g, cx, top + 13, "TỔ CHỨC THẺ", "wSign", {"text-anchor": "middle", fill: "#ffd98a"});
-    return finish(s, top - 30, top - 16);
+    return finish(s, top - 20, top - 12);
   }
 
   /* ── NGÂN HÀNG CỦA BẠN (Issuer) / NGÂN HÀNG TRẢ LƯƠNG — cùng một kiến trúc cổ điển ── */
@@ -3198,30 +3201,30 @@ const Scene = (() => {
       tagS(t, "tạm giữ 10.000.000", "hold", vx - 32, vy - 38);
       tagS(t, "dư nợ thẻ: về 0", "release", vx - 26, vy - 38);
     } else {
-      R(a, x + 10, y + 12, 118, 58, "#f4ecda", K()); Ln(a, x + 10, y + 30, x + 128, y + 30, {"stroke-width": 1});
-      T(t, x + 69, y + 25, "SỔ CỦA NGÂN HÀNG", "wTiny", {"text-anchor": "middle"});
+      R(a, x + 6, y + 12, 130, 58, "#f4ecda", K()); Ln(a, x + 6, y + 30, x + 136, y + 30, {"stroke-width": 1});
+      T(t, x + 71, y + 25, "SỔ CỦA NGÂN HÀNG", "wTiny", {"text-anchor": "middle"});
       const two = E("g", {"data-fx": "two"}, t);
-      T(two, x + 15, y + 46, "nợ công ty", "wTiny", {fill: "#a3401f"}); T(two, x + 124, y + 46, "−15 triệu", "wTiny", {fill: "#a3401f", "text-anchor": "end"});
-      T(two, x + 15, y + 63, "nợ bạn", "wTiny", {fill: "#356043"}); T(two, x + 124, y + 63, "+15 triệu", "wTiny", {fill: "#356043", "text-anchor": "end"});
+      T(two, x + 11, y + 46, "nợ công ty", "wTiny", {fill: "#a3401f"}); T(two, x + 131, y + 46, "−15 triệu", "wTiny", {fill: "#a3401f", "text-anchor": "end"});
+      T(two, x + 11, y + 63, "nợ bạn", "wTiny", {fill: "#356043"}); T(two, x + 131, y + 63, "+15 triệu", "wTiny", {fill: "#356043", "text-anchor": "end"});
       person(a, x + 40, y + h - 46, "#4f7d6b"); R(a, x + 8, y + h - 46, 76, 38, "#6b4128", K());
-      const vx = x + w - 40;
-      R(a, vx - 26, y + 52, 52, 80, "#8d8a80", K({"stroke-width": 2})); R(a, vx - 20, y + 58, 40, 68, "#3b3832", K({"stroke-width": 1.2}));
+      const vx = x + w - 34;
+      R(a, vx - 24, y + 52, 48, 80, "#8d8a80", K({"stroke-width": 2})); R(a, vx - 18, y + 58, 36, 68, "#3b3832", K({"stroke-width": 1.2}));
       const pool = E("g", {"data-fx": "pool"}, t);
-      R(pool, vx - 20, y + 92, 40, 34, "#e7b85c"); for (let k = 0; k < 4; k++) Ln(pool, vx - 20, y + 98 + k * 7, vx + 20, y + 98 + k * 7, {stroke: "#b8862e", "stroke-width": 1});
+      R(pool, vx - 18, y + 92, 36, 34, "#e7b85c"); for (let k = 0; k < 4; k++) Ln(pool, vx - 18, y + 98 + k * 7, vx + 18, y + 98 + k * 7, {stroke: "#b8862e", "stroke-width": 1});
       tagS(t, "vốn gộp chung", "pool", vx - 8, y + 86);
     }
     s.light(); s.shutter("#6f7480", "");
     const st = E("g", null, g); s.section(st);
-    const top = y - 8 - 88;
-    R(st, s.x0, top, s.w, 88, "#d8c8a8", K({"stroke-width": 1.6}));
+    const top = y - 8 - 80;
+    R(st, s.x0, top, s.w, 80, "#d8c8a8", K({"stroke-width": 1.6}));
     const gap = (s.w - 36 - 14) / 3;
-    for (let k = 0; k < 4; k++) R(st, s.x0 + 18 + k * gap, top + 8, 14, 76, "#e8dcc4", K({"stroke-width": 1.2}));
-    for (let k = 0; k < 3; k++) win(st, s.x0 + 40 + k * gap, top + 18, 26, 46, k !== 2);
+    for (let k = 0; k < 4; k++) R(st, s.x0 + 18 + k * gap, top + 8, 14, 68, "#e8dcc4", K({"stroke-width": 1.2}));
+    for (let k = 0; k < 3; k++) win(st, s.x0 + 40 + k * gap, top + 16, 26, 40, k !== 2);
     R(st, s.x0 - 8, top - 4, s.w + 16, 8, "#cdbd9c", K());
-    P(st, `M${s.x0 - 8} ${top - 4}L${cx} ${top - 38}L${s.x1 + 8} ${top - 4}Z`, "#e3d5b8", K({"stroke-width": 1.6}));
+    P(st, `M${s.x0 - 8} ${top - 4}L${cx} ${top - 32}L${s.x1 + 8} ${top - 4}Z`, "#e3d5b8", K({"stroke-width": 1.6}));
     s.drum();
-    T(g, cx, top - 12, "NGÂN HÀNG", "wSign", {"text-anchor": "middle", fill: "#3b3326"});
-    return finish(s, top - 38, top - 28);
+    T(g, cx, top - 10, "NGÂN HÀNG", "wSign", {"text-anchor": "middle", fill: "#3b3326"});
+    return finish(s, top - 32, top - 24);
   }
 
   /* ── VĂN PHÒNG: công ty (bảng lương) hoặc bên cho vay (khoản vay mua nhà) ── */
@@ -3252,10 +3255,10 @@ const Scene = (() => {
     }
     s.light(); s.shutter(co ? "#7d8590" : "#857565", "");
     const st = E("g", null, g); s.section(st);
-    const uh = co ? 136 : 116, top = y - 8 - uh;
+    const uh = co ? 104 : 96, top = y - 8 - uh;
     R(st, s.x0, top, s.w, uh, co ? "#4b5c73" : "#785f47", K({"stroke-width": 1.6}));
-    for (let r = 0; r < (co ? 3 : 2); r++) for (let c = 0; c < 3; c++)
-      win(st, s.x0 + 20 + c * ((s.w - 40) / 3) + rnd() * 4, top + 16 + r * 40 + rnd() * 3, 34, 22);
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 3; c++)
+      win(st, s.x0 + 20 + c * ((s.w - 40) / 3) + rnd() * 4, top + 14 + r * 38 + rnd() * 3, 34, 22);
     if (co) tank(st, s.x0 + 34, top);
     R(st, cx - 44, top - 20, 88, 18, "#1e293b", K());
     s.drum();
@@ -3265,7 +3268,7 @@ const Scene = (() => {
 
   /* ── CHUNG CƯ 500 ĐỒNG NGHIỆP: mặt cắt nhiều phòng, mỗi phòng một hũ số dư nằm yên ── */
   function crowd(g, cx) {
-    const s = shell(g, cx, 212, 224), x = s.rx, y = s.ry, w = s.rw, h = s.rh, a = s.a, t = s.t;
+    const s = shell(g, cx, 212, 198), x = s.rx, y = s.ry, w = s.rw, h = s.rh, a = s.a, t = s.t;
     R(a, x, y, w, h, "#2d2638");
     const cw = w / 3, chh = h / 3, walls = ["#e6c48a", "#d9a77c", "#c9b48a", "#e2b98f", "#d6c39a", "#e8cf9c", "#cfa27a", "#e0bf86", "#d4b08a"];
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
@@ -3404,8 +3407,8 @@ const Scene = (() => {
     // trả về chữ của các nhãn đang hiện bên trong nhà — để trang chép ra danh sách đọc được trên mobile
     return [...svg.querySelectorAll(".wTag.on")].map(g => ({i: +g.closest(".wB").dataset.i, txt: g.textContent}));
   }
-  // thẻ ghim ngay trên mái; nhà quá cao (tháp tín hiệu) thì ghim thấp xuống để thẻ không bị cắt ở mép khung
-  const tagPoint = i => ({x: (XS[i] - vb.x) / vb.w * 100, y: Math.max((B[i].top - 12 - vb.y) / vb.h * 100, 12)});
+  // thẻ ghim ngay trên mái; kẹp tối thiểu y >= 19% (y >= 106px) để đỉnh thẻ (cao ~52px) luôn nằm dưới Ray trên (y=29..47) >= 7px
+  const tagPoint = i => ({x: (XS[i] - vb.x) / vb.w * 100, y: Math.max((B[i].top - 8 - vb.y) / vb.h * 100, 19)});
   return {build, setBeat, tagPoint, types: Object.keys(TYPES)};
 })();
 /*SCENEJS:END*/
