@@ -1005,6 +1005,7 @@ body.cms-on{padding-bottom:150px}
     </div>
     <div class="pack-panel" role="tabpanel" id="pnl-lay" aria-labelledby="tab-lay" tabindex="0"></div>
     <div class="pack-panel" role="tabpanel" id="pnl-pro" aria-labelledby="tab-pro" tabindex="0" hidden></div>
+    <div id="lessonQuizWrap" style="padding:18px 20px;border-top:1.5px solid var(--ink);background:var(--paper-2)" aria-label="Câu hỏi kiểm chứng cơ chế & Lưu tiến độ"></div>
     <div class="handoff" id="nextHandoff" aria-label="Trạm đọc kế tiếp"></div>
   </div>
 </section>
@@ -3874,6 +3875,7 @@ function renderPack(){
   const fullLink = $("#openFullStudioLink"), navLink = $("#studioNavLink");
   if (fullLink) fullLink.href = `studio.html?story=${encodeURIComponent(S.story)}`;
   if (navLink) navLink.href = `studio.html?story=${encodeURIComponent(S.story)}`;
+  if (typeof renderLessonQuizAndProgress === "function") renderLessonQuizAndProgress(S.story);
 }
 function renderVid(s, draft){
   const v = s.videoScript, f = {...v[PK.fmt], scenes:Array.isArray(v[PK.fmt].scenes) ? v[PK.fmt].scenes : []}, st = vstat(f), short = PK.fmt === "short";
@@ -4520,6 +4522,308 @@ function applyTheme(){
 }
 $$("[data-theme-set]").forEach(b => b.onclick = () => { try { localStorage.setItem("wms-theme", b.dataset.themeSet); } catch(_){} applyTheme(); });
 mq.addEventListener("change", applyTheme);
+
+/* ── S3 BUILD: Thẻ Trắc nghiệm Cuối bài (Quiz Cards), Lưu Tiến độ Cục bộ (IndexedDB + localStorage + persist) & Hợp đồng Đo lường Chống trùng (TRACKING-PLAN R1–R6) ── */
+window.__wmsTelemetryLog = window.__wmsTelemetryLog || [];
+const WMS_QUIZ_BANK = {
+  card: [
+    {
+      id: "card-q1.v1",
+      q: "Khi bạn chạm thẻ 10.000.000 đ tại quán quen lúc 22:47 tối và nhận thông báo hoàn tiền 100.000 đ, ngay trong đêm đó két tiền hoặc tài khoản ngân hàng của quán nhận được bao nhiêu tiền thật?",
+      opts: [
+        "0 đ — Tiếng “bíp” chỉ là bản tin giữ hạn mức; quán mới ghi nhận khoản phải thu (Debit TK 1388: 10.000.000 đ) và đợi kỳ quyết toán T+2 mới thực nhận 9.780.000 đ.",
+        "10.000.000 đ — Tiền chạy thẳng từ ngân hàng của bạn sang tài khoản ngân hàng của quán ngay lúc chạm thẻ.",
+        "9.900.000 đ — Ngân hàng chuyển ngay sau khi giữ lại 100.000 đ tiền thưởng hoàn cho bạn."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Đêm T+0 chỉ có lời hứa thanh toán chạy qua luồng thông tin. Quán ghi Debit TK 1388 / Credit TK 511 (10.000.000 đ), còn tiền thật chỉ về TK 112 sau kỳ quyết toán liên ngân hàng T+2."
+    },
+    {
+      id: "card-q2.v1",
+      q: "Khoản hoàn tiền 100.000 đ (1%) mà ngân hàng phát hành thưởng cho bạn trong giao dịch 10.000.000 đ được lấy từ nguồn nào?",
+      opts: [
+        "Trích từ khoản phí chiết khấu thương nhân (MDR 2,2% = 220.000 đ) mà quán quen bị khấu trừ (Debit TK 641) khi quyết toán.",
+        "Ngân hàng tự bỏ tiền riêng không liên quan tới phí giao dịch của cửa hàng.",
+        "Tổ chức chuyển mạch thẻ tự cộng thêm tiền mới vào hệ thống."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Quán chịu phí MDR 220.000 đ (2,2% doanh thu, hạch toán vào Debit TK 641 Chi phí bán hàng); từ 220.000 đ này, ngân hàng của bạn nhận phí chia sẻ (150.000 đ) rồi trích 100.000 đ hoàn lại cho bạn."
+    }
+  ],
+  pay: [
+    {
+      id: "pay-q1.v1",
+      q: "Với mức lương gộp (Gross) 17.000.000 đ trên hợp đồng, vì sao tài khoản cá nhân của bạn thực nhận (Net) 15.000.000 đ?",
+      opts: [
+        "Doanh nghiệp có nghĩa vụ khấu trừ tại nguồn 2.000.000 đ (gồm bảo hiểm bắt buộc 10,5% = 1.785.000 đ vào TK 338 và thuế TNCN 215.000 đ vào TK 3335) trước khi chi lương thực nhận (TK 334).",
+        "Ngân hàng thu phí chuyển khoản bảng lương 2.000.000 đ trên mỗi lệnh chi.",
+        "Doanh nghiệp tự ý giữ lại 2.000.000 đ làm quỹ nội bộ của công ty."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Chi phí nhân sự của công ty là Debit TK 642: 17.000.000 đ, tách thành lương thực lĩnh (15.000.000 đ) và khoản khấu trừ tại nguồn nộp hộ người lao động (2.000.000 đ)."
+    },
+    {
+      id: "pay-q2.v1",
+      q: "Khi 15.000.000 đ tiền lương nằm yên trong tài khoản thanh toán của bạn qua đêm, bản chất kế toán của số dư này trên sổ sách ngân hàng là gì?",
+      opts: [
+        "Là khoản nợ phải trả không kỳ hạn (CASA) mà ngân hàng đang nợ bạn — ngân hàng dùng nguồn vốn giá rẻ này để cho vay sinh lời qua đêm.",
+        "Là những tờ tiền giấy có số seri riêng được cất trong một ngăn két sắt mang tên bạn.",
+        "Là vốn góp cổ phần của bạn tại ngân hàng đó."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Số dư tiền gửi thanh toán là tài sản của bạn nhưng là Nợ phải trả không kỳ hạn (CASA, lãi suất ~0,1%/năm) trên bảng cân đối kế toán của ngân hàng."
+    }
+  ],
+  install: [
+    {
+      id: "install-q1.v1",
+      q: "Khi bạn mua chiếc máy 12.000.000 đ trả góp lãi suất 0% trong 12 tháng (1.000.000 đ/tháng), vì sao cửa hàng chỉ thực nhận 11.400.000 đ vào tài khoản ngân hàng (TK 112)?",
+      opts: [
+        "Công ty tài chính khấu trừ tại nguồn 600.000 đ (5% phí hỗ trợ lãi suất — cửa hàng ghi Debit TK 641 Chi phí bán hàng) trước khi giải ngân.",
+        "Người mua phải đóng thêm 600.000 đ tiền mặt ngoài hợp đồng cho thu ngân.",
+        "Cửa hàng để quên 600.000 đ tiền mặt tại quầy chưa nộp vào ngân hàng."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Ngày T+1 khi giải ngân, cửa hàng ghi Debit TK 112 (11.400.000 đ) + Debit TK 641 (600.000 đ) = Credit TK 1388 (12.000.000 đ)."
+    },
+    {
+      id: "install-q2.v1",
+      q: "Công ty tài chính bỏ ra 11.400.000 đ ban đầu và thu về đều đặn 1.000.000 đ mỗi tháng suốt 12 kỳ từ người mua; mức lãi suất thực tế (EIR/IRR) của dòng tiền này là bao nhiêu?",
+      opts: [
+        "Khoảng 0,8%/tháng, tương đương lãi suất hiệu dụng năm (EIR) khoảng 10%/năm (chính xác 10,01%/năm tính gộp).",
+        "Bằng đúng 0%/năm cho cả ba bên vì hợp đồng ghi lãi suất 0%.",
+        "Bằng 5%/năm vì 600.000 đ chia cho 12.000.000 đ là 5%."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Vì gốc nợ giảm dần sau mỗi tháng trả 1.000.000 đ chứ bạn không giữ trọn 11.400.000 đ suốt cả năm, nghiệm IRR tháng đạt 0,7981%/tháng (EIR năm = 10,01%/năm)."
+    }
+  ]
+};
+
+const WMS_PROG_KEY = "wms.progress.v1";
+function defaultWmsProgress(){
+  return {
+    completed: {},
+    cards: {},
+    selfDeclared: false,
+    persisted: false,
+    tel: { lesson_completed: {}, card_answered: {}, pdf_opened: {}, sync_created: {} }
+  };
+}
+function loadWmsProgress(){
+  try {
+    const raw = localStorage.getItem(WMS_PROG_KEY);
+    if (!raw) return defaultWmsProgress();
+    const p = JSON.parse(raw);
+    const d = defaultWmsProgress();
+    return {
+      completed: (p && typeof p.completed === "object" && p.completed) || {},
+      cards: (p && typeof p.cards === "object" && p.cards) || {},
+      selfDeclared: !!(p && p.selfDeclared),
+      persisted: !!(p && p.persisted),
+      tel: {
+        lesson_completed: (p && p.tel && p.tel.lesson_completed) || d.tel.lesson_completed,
+        card_answered: (p && p.tel && p.tel.card_answered) || d.tel.card_answered,
+        pdf_opened: (p && p.tel && p.tel.pdf_opened) || d.tel.pdf_opened,
+        sync_created: (p && p.tel && p.tel.sync_created) || d.tel.sync_created
+      }
+    };
+  } catch (_) { return defaultWmsProgress(); }
+}
+function saveWmsProgress(prog){
+  try { localStorage.setItem(WMS_PROG_KEY, JSON.stringify(prog)); } catch (_) {}
+  try {
+    if (window.indexedDB) {
+      const req = indexedDB.open("wms_local_db", 1);
+      req.onupgradeneeded = e => { const db = e.target.result; if (!db.objectStoreNames.contains("kv")) db.createObjectStore("kv"); };
+      req.onsuccess = e => {
+        try {
+          const db = e.target.result, tx = db.transaction("kv", "readwrite");
+          tx.objectStore("kv").put(prog, WMS_PROG_KEY);
+        } catch (_) {}
+      };
+    }
+  } catch (_) {}
+}
+let WMS_PROG = loadWmsProgress();
+
+/* Quy tắc R1–R6 từ TRACKING-PLAN.md: ghi khoá tel trước khi gọi sendBeacon đúng 1 lần */
+function emitWmsTelemetry(eventName, payload, dedupeKey){
+  if (eventName === "lesson_completed") {
+    if (WMS_PROG.selfDeclared) {
+      WMS_PROG.tel.lesson_completed[dedupeKey] = "suppressed";
+      saveWmsProgress(WMS_PROG);
+      return false;
+    }
+    if (WMS_PROG.tel.lesson_completed[dedupeKey]) return false;
+    WMS_PROG.tel.lesson_completed[dedupeKey] = "sent";
+  } else if (eventName === "card_answered") {
+    if (WMS_PROG.tel.card_answered[dedupeKey]) return false;
+    WMS_PROG.tel.card_answered[dedupeKey] = "sent";
+  } else if (eventName === "pdf_opened") {
+    if (WMS_PROG.tel.pdf_opened[dedupeKey]) return false;
+    WMS_PROG.tel.pdf_opened[dedupeKey] = "sent";
+  } else if (eventName === "sync_created") {
+    if (WMS_PROG.tel.sync_created[dedupeKey]) return false;
+    WMS_PROG.tel.sync_created[dedupeKey] = "sent";
+  }
+  saveWmsProgress(WMS_PROG);
+  const bodyObj = { event: eventName, ...payload };
+  window.__wmsTelemetryLog.push({ ...bodyObj, ts: new Date().toISOString() });
+  try {
+    if (navigator.sendBeacon) {
+      const blob = new Blob([JSON.stringify(bodyObj)], { type: "application/json" });
+      navigator.sendBeacon("/api/event", blob);
+    }
+  } catch (_) {}
+  return true;
+}
+
+function encodeSyncToken(){
+  const clean = {
+    completed: WMS_PROG.completed,
+    cards: WMS_PROG.cards,
+    selfDeclared: WMS_PROG.selfDeclared,
+    tel: WMS_PROG.tel
+  };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(clean))));
+}
+function restoreFromSyncToken(tokenStr, method){
+  try {
+    const cleanStr = String(tokenStr || "").trim().replace(/^.*#sync=/, "");
+    if (!cleanStr) return false;
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(cleanStr))));
+    if (!parsed || typeof parsed !== "object") return false;
+    WMS_PROG.completed = (parsed.completed && typeof parsed.completed === "object") ? parsed.completed : {};
+    WMS_PROG.cards = (parsed.cards && typeof parsed.cards === "object") ? parsed.cards : {};
+    WMS_PROG.selfDeclared = !!parsed.selfDeclared;
+    if (parsed.tel && typeof parsed.tel === "object") {
+      WMS_PROG.tel = {
+        lesson_completed: parsed.tel.lesson_completed || {},
+        card_answered: parsed.tel.card_answered || {},
+        pdf_opened: parsed.tel.pdf_opened || {},
+        sync_created: parsed.tel.sync_created || {}
+      };
+    } else {
+      /* R4: Bản sao lưu cũ không có tel => mọi bài đã xong ghi suppressed */
+      Object.keys(WMS_PROG.completed).forEach(k => { WMS_PROG.tel.lesson_completed[k] = "suppressed"; });
+    }
+    saveWmsProgress(WMS_PROG);
+    emitWmsTelemetry("progress_restored", { method: method === "link" ? "link" : "code" }, "");
+    return true;
+  } catch (_) { return false; }
+}
+
+function renderLessonQuizAndProgress(storyKey){
+  const wrap = $("#lessonQuizWrap");
+  if (!wrap) return;
+  const cards = WMS_QUIZ_BANK[storyKey] || [];
+  const isDone = !!WMS_PROG.completed[storyKey];
+  const doneCount = Object.keys(WMS_PROG.completed).filter(k => WMS_PROG.completed[k]).length;
+
+  let html = `<div style="max-width:52rem;margin:0 auto;display:grid;gap:14px">`
+    + `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-bottom:1.5px solid var(--ink);padding-bottom:8px">`
+    + `<div><span style="font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--clay)">Kiểm chứng cơ chế (Trả lời ≥ 1 câu để hoàn thành bài)</span>`
+    + `<h4 style="margin:2px 0 0;font:700 1.15rem/1.3 var(--serif)">Thẻ Trắc Nghiệm Tự Soi &amp; Tiến Độ Cục Bộ</h4></div>`
+    + `<span id="quizLessonBadge" style="font:700 11.5px var(--mono);padding:4px 10px;border:1.5px solid var(--ink);border-radius:3px;background:${isDone ? "color-mix(in srgb,var(--moss) 16%,var(--paper))" : "var(--card)"};color:${isDone ? "var(--moss)" : "var(--ink)"}">${isDone ? "✓ Đã hoàn thành bài này" : "Chưa hoàn thành"} · Đã xong ${doneCount}/3 bài mẫu</span>`
+    + `</div>`;
+
+  cards.forEach((c, idx) => {
+    const saved = WMS_PROG.cards[c.id];
+    html += `<article class="quiz-card" data-card-id="${esc(c.id)}" style="border:1.5px solid var(--ink);border-radius:5px;padding:12px 14px;background:var(--card);box-shadow:3px 3px 0 var(--sh-2);display:grid;gap:8px">`
+      + `<div style="font:700 11px var(--mono);color:var(--ink-2)">CÂU HỎI ${idx + 1}/${cards.length} · MÃ THẺ: ${esc(c.id)}</div>`
+      + `<p style="margin:0;font:600 1rem/1.45 var(--serif);color:var(--ink)">${esc(c.q)}</p>`
+      + `<div style="display:grid;gap:6px">`;
+    c.opts.forEach((optTxt, oIdx) => {
+      const picked = saved && saved.choice === oIdx;
+      const isRight = oIdx === c.ans;
+      let bg = "var(--paper)", bd = "var(--ink)";
+      if (saved) {
+        if (isRight) { bg = "color-mix(in srgb,var(--moss) 15%,var(--paper))"; bd = "var(--moss)"; }
+        else if (picked) { bg = "color-mix(in srgb,var(--clay) 14%,var(--paper))"; bd = "var(--clay)"; }
+      }
+      html += `<button type="button" data-quiz-pick="${esc(c.id)}" data-quiz-idx="${oIdx}" style="text-align:left;padding:9px 12px;border:1.5px solid ${bd};border-radius:4px;background:${bg};color:var(--ink);font:500 .92rem/1.45 var(--sans);cursor:pointer">`
+        + `<b>${String.fromCharCode(65 + oIdx)}.</b> ${esc(optTxt)}</button>`;
+    });
+    html += `</div>`;
+    if (saved) {
+      html += `<div style="padding:8px 10px;border-left:3px solid ${saved.correct ? "var(--moss)" : "var(--clay)"};background:var(--paper-2);font:500 .88rem/1.5 var(--sans)">`
+        + `<b>${saved.correct ? "✓ Chính xác:" : "✕ Chưa khớp cơ chế:"}</b> ${esc(c.explain)}</div>`;
+    }
+    html += `</article>`;
+  });
+
+  html += `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1.5px dashed var(--rule);border-radius:4px;background:var(--card)">`
+    + `<div style="font:500 .84rem/1.45 var(--sans);color:var(--ink-2)"><b>Tiến độ lưu 100% trên thiết bị của bạn</b> (không tài khoản, không định danh). Bạn có thể tạo mã sao lưu <code>#sync</code> hoặc bật giữ bộ nhớ bền vững.</div>`
+    + `<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">`
+    + `<button type="button" id="btnPersistStorage" class="ab-btn" style="padding:5px 10px;font-size:11.5px">${WMS_PROG.persisted ? "✓ Đã khoá giữ bộ nhớ (persist)" : "Giữ tiến độ bền vững (persist)"}</button>`
+    + `<button type="button" id="btnCreateSyncCode" class="ab-btn" style="padding:5px 10px;font-size:11.5px">Tạo mã sao lưu</button>`
+    + `<button type="button" id="btnCreateSyncLink" class="ab-btn" style="padding:5px 10px;font-size:11.5px">Sao chép link #sync</button>`
+    + `<button type="button" id="btnRestoreSyncCode" class="ab-btn" style="padding:5px 10px;font-size:11.5px">Khôi phục từ mã</button>`
+    + `</div>`
+    + `<output id="syncStatusMsg" aria-live="polite" style="width:100%;font:600 11.5px var(--mono);color:var(--moss)"></output>`
+    + `</div></div>`;
+
+  wrap.innerHTML = html;
+
+  $$("[data-quiz-pick]", wrap).forEach(btn => {
+    btn.onclick = () => {
+      const cid = btn.dataset.quizPick, choiceIdx = +btn.dataset.quizIdx;
+      const cardObj = cards.find(x => x.id === cid);
+      if (!cardObj) return;
+      const isCorrect = choiceIdx === cardObj.ans;
+      WMS_PROG.cards[cid] = { choice: choiceIdx, correct: isCorrect };
+      /* Bắn card_answered lần đầu tiên của thẻ trắc nghiệm (R1 + QĐ 25d) */
+      emitWmsTelemetry("card_answered", { card: cid, correct: isCorrect ? "true" : "false" }, cid);
+      /* Bài chuyển chưa xong -> xong ngay trong cùng một chạm với card_answered đầu tiên (QĐ 24, QĐ 38, QĐ 39, F4) */
+      if (!WMS_PROG.completed[storyKey]) {
+        WMS_PROG.completed[storyKey] = true;
+        const fromStart = (storyKey === "card" || !!WMS_PROG.completed["card"]) ? "true" : "false";
+        emitWmsTelemetry("lesson_completed", { lesson: storyKey, from_start: fromStart }, storyKey);
+      } else {
+        saveWmsProgress(WMS_PROG);
+      }
+      renderLessonQuizAndProgress(storyKey);
+    };
+  });
+
+  const btnP = $("#btnPersistStorage", wrap);
+  if (btnP) btnP.onclick = async () => {
+    const out = $("#syncStatusMsg", wrap);
+    try {
+      const ok = (navigator.storage && navigator.storage.persist) ? await navigator.storage.persist() : false;
+      WMS_PROG.persisted = !!ok;
+      saveWmsProgress(WMS_PROG);
+      if (out) out.textContent = ok ? "Trình duyệt đã cấp quyền lưu trữ bền vững (persist)." : "Trình duyệt giữ chế độ lưu tiêu chuẩn — hãy dùng mã sao lưu khi đổi máy.";
+    } catch (_) {}
+  };
+  const btnCode = $("#btnCreateSyncCode", wrap);
+  if (btnCode) btnCode.onclick = async () => {
+    const tok = encodeSyncToken(), out = $("#syncStatusMsg", wrap);
+    emitWmsTelemetry("sync_created", { method: "code" }, "code");
+    try { await navigator.clipboard.writeText(tok); } catch (_) {}
+    if (out) out.textContent = `Mã sao lưu của bạn (đã chép): ${tok.slice(0, 28)}…`;
+  };
+  const btnLink = $("#btnCreateSyncLink", wrap);
+  if (btnLink) btnLink.onclick = async () => {
+    const tok = encodeSyncToken(), url = `${location.origin}${location.pathname}#sync=${tok}`, out = $("#syncStatusMsg", wrap);
+    emitWmsTelemetry("sync_created", { method: "link" }, "link");
+    try { await navigator.clipboard.writeText(url); } catch (_) {}
+    if (out) out.textContent = "Đã sao chép đường dẫn khôi phục #sync vào bộ nhớ tạm.";
+  };
+  const btnRest = $("#btnRestoreSyncCode", wrap);
+  if (btnRest) btnRest.onclick = () => {
+    const code = prompt("Dán mã sao lưu hoặc đường dẫn #sync của bạn vào đây:");
+    if (!code) return;
+    const ok = restoreFromSyncToken(code, code.includes("#sync=") ? "link" : "code");
+    renderLessonQuizAndProgress(storyKey);
+    const out = $("#syncStatusMsg", wrap);
+    if (out) out.textContent = ok ? "Đã khôi phục tiến độ học thành công." : "Mã sao lưu không hợp lệ.";
+  };
+}
+if (location.hash.startsWith("#sync=")) {
+  restoreFromSyncToken(location.hash.slice(6), "link");
+}
 
 /* ── khởi động ─────────────────────────────── */
 // bài mở đầu: "card" nếu người đọc này được thấy nó, không thì bài đầu tiên theo thứ tự danh mục
