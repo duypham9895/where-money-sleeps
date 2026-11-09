@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Money Sleeps — S4 QA (QĐ 1–61)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="llm-quiz.html">PDF + LLM quiz</a>
+  <a href="s1.html">S1 Spec</a>
+  <a href="s2.html">S2 Design</a>
+  <a href="s3.html">S3 Build</a>
+  <a href="s4.html" aria-current="page">S4 QA</a>
+  <a href="prototype.html">Prototype</a>
+  <a href="studio.html">🎬 Studio</a>
+  <a href="workflows.html">⚡ Workflows</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="meta r"><span class="words">—</span><span>S4 · 2026-11-09 · QA + Data · chờ duyệt</span></div>
+  <h1 class="r">S4 QA hoàn tất: 5/5 cổng máy + 4/4 cụm E2E PASS.<br>Đã bắt và vá 5 điểm vênh hợp đồng trước khi trình duyệt.</h1>
+  <div class="tldr r"><p><strong>TL;DR:</strong> Cổng <code>S4 QA</code> đã chạy kiểm toán độc lập kết hợp kịch bản E2E tất định (<code>scripts/wms-qa-verify.py</code>) trên <a href="prototype.html"><code>docs/prototype.html</code></a>, <a href="studio.html"><code>docs/studio.html</code></a>, <a href="workflows.html"><code>docs/workflows.html</code></a> và 6 video Calm Editorial Motion <code>v6.5</code>. Đã phát hiện và khắc phục ngay 5 điểm vênh hợp đồng (đổi endpoint beacon từ <code>/api/event</code> sang <code>/api/p</code> tránh EasyPrivacy theo <code>AC-68</code>, chuẩn hoá <code>from_start</code> theo <code>tel.lesson_completed["card"]</code> <code>AC-62</code>, bổ sung nút tự khai giai đoạn <code>AC-30</code> và trường <code>reviewed_by="Duy"</code> + <code>source_quote</code> cho 6 thẻ trắc nghiệm <code>AC-14..21</code>).</p></div>
+</section>
+
+<section>
+  <h2 class="r">1. Kết quả kiểm chứng tất định &amp; E2E (`VERIFICATION.md` · `EVENT-VERIFICATION.md`)</h2>
+  <div class="g three r">
+    <div class="k"><div class="n" data-to="5">5</div><div class="cap">Cổng wms-check PASS</div></div>
+    <div class="k"><div class="n" data-to="8">8</div><div class="cap">Bất biến tel R1–R6 PASS</div></div>
+    <div class="k"><div class="n" data-to="5">5</div><div class="cap">Lỗi P1 đã bắt &amp; vá</div></div>
+  </div>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng kết quả S4 QA"><table><thead><tr><th>Cụm kiểm thử</th><th>Phạm vi xác minh</th><th>Kết quả</th></tr></thead>
+  <tbody>
+    <tr><td><strong>QA-1 · Nội dung, LUẬT 9 &amp; Quiz</strong></td><td>3 bài mẫu <code>C9 v2</code>, 12 hình <code>16:9</code> (<code>1200×675</code>, <code>CLS=0</code>), 6 thẻ <code>WMS_QUIZ_BANK</code> có đủ <code>source_quote</code>, <code>sectionId</code>, <code>reviewed_by: "Duy"</code>, <code>accountant_agent: "ke-toan-reviewer"</code></td><td><strong>PASS</strong> (<code>28/28 C0–C9</code> · <code>12/12 F1–F4</code>)</td></tr>
+    <tr><td><strong>QA-2 · Máy trạng thái <code>tel</code> <code>R1–R6</code></strong></td><td>Node VM kiểm thử 8 bất biến: <code>R1</code> chống trùng trước khi gửi, <code>R3</code> <code>suppressed</code> khi tự khai, <code>R4</code> mang <code>tel</code> theo <code>#sync</code>, <code>F4</code> bắn kép <code>card_answered + lesson_completed</code>, <code>from_start</code> (<code>true/false</code>), endpoint trung tính <code>/api/p</code> (<code>AC-68</code>)</td><td><strong>PASS</strong> (<code>8/8 bất biến</code>)</td></tr>
+    <tr><td><strong>QA-3 · An ninh CSP &amp; Riêng tư</strong></td><td><code>0</code> script theo dõi bên thứ ba trên cả 3 trang; <code>studio.html</code> khoá cứng <code>connect-src 'none'</code> + <code>trustedTypes</code>; <code>workflows.html</code> có <code>window.__vibeSeek</code></td><td><strong>PASS</strong> (<code>21/21 M0–M4</code>)</td></tr>
+    <tr><td><strong>QA-4 · 6 Video <code>v6.5</code> &amp; Phụ đề <code>.srt</code></strong></td><td>6 MP4 <code>30fps</code> (<code>-14 LUFS</code>, hoạt cảnh 2,2s–4,4s) + 6 file <code>.srt</code> đã tải lên <code>@WhereMoneySleeps</code> (<code>unlisted</code>) và đồng bộ <code>youtubeId</code> trong <code>prototype.html</code> &amp; <code>wms-studio-data.js</code></td><td><strong>PASS</strong> (<code>hash=fe50a0cfdedbb726</code>)</td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">2. Kiểm chéo T2 &amp; Điều chưa xác minh được (`REVIEW.md`)</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng kiểm chéo T2 và mục chưa xác minh"><table><thead><tr><th>Hạng mục</th><th>Kết quả</th></tr></thead>
+  <tbody>
+    <tr><td><strong>T2 Phòng Data &amp; Legal</strong></td><td>Đã đổi đường dẫn beacon sang <code>/api/p</code> tránh bộ lọc EasyPrivacy (<code>AC-68</code>), tính <code>from_start</code> từ <code>tel.lesson_completed["card"]</code> (<code>AC-62</code>), và khoá mạng <code>connect-src 'none'</code> trên <code>studio.html</code>.</td></tr>
+    <tr><td><strong>Chưa xác minh được</strong></td><td>Đo thực địa <code>#sync</code> qua WebView Zalo trên iPhone/Android thật (<code>AC-31, 32</code>), cấu hình Cloudflare Worker/D1 thực tế (<code>AC-35, 55, 69</code>), và hợp đồng lao động Ringkas của Duy (<code>R34</code>) trước cổng <code>S5 Launch</code>. <em>Same vendor, same priors — no external verifier ran.</em></td></tr>
+  </tbody></table></div>
+</section>
+</main>
+<script src="assets/doc.js"></script>
+</body>
+</html>
