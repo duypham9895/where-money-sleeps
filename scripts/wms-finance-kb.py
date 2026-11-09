@@ -396,6 +396,37 @@ def verify_story_finance(
                     f"Lãi lùi 45 ngày đầu ({int1:,}đ) + Lãi 15 ngày sau ({int2:,}đ) = Tổng lãi {tot_int:,}đ → Dư nợ kỳ 2 = {next_bal:,}đ · "
                     f"EIR_năm gộp={eir_comp*100:.2f}% (xấp xỉ bài/video {p['statedAnnualEIRApprox']})"
                 ))
+        elif story_key == "qr":
+            cup = p["singleCupAmount"]
+            gross10m = p["batch200CupsGross"]
+            mdr_rate = p["cardMdrRateExample"]
+            mdr_fee = p["cardMdrFeeOn10M"]
+            card_net = p["cardNetReceiptOn10M"]
+            dyn_rate = p["dynamicQrFeeRateExample"]
+            dyn_fee = p["dynamicQrFeeOn10M"]
+            dyn_net = p["dynamicQrNetReceiptOn10M"]
+            overpaid = p["overpaidTransferExample"]
+            refund_liab = p["overpaidRefundLiability338"]
+            if (
+                cup * 200 != gross10m
+                or round(gross10m * mdr_rate) != mdr_fee
+                or gross10m - mdr_fee != card_net
+                or round(gross10m * dyn_rate) != dyn_fee
+                or gross10m - dyn_fee != dyn_net
+                or overpaid - cup != refund_liab
+            ):
+                rows.append((
+                    "FAIL", "F2", w,
+                    f"Toán đối chiếu QR vs Thẻ lệch: gross={gross10m}, mdr_fee={mdr_fee}, dyn_fee={dyn_fee}, refund_liab={refund_liab}"
+                ))
+                f2_ok = False
+            else:
+                rows.append((
+                    "PASS", "F2", w,
+                    f"Toán thanh toán đẩy QR 24/7 vs Thẻ khớp tuyệt đối: 200 ly × {cup:,}đ = {gross10m:,}đ · "
+                    f"QR tĩnh thực nhận {gross10m:,}đ (phí 0đ) vs Thẻ trừ MDR 2,2% ({mdr_fee:,}đ, còn {card_net:,}đ) · "
+                    f"QR động trừ 0,2% ({dyn_fee:,}đ, còn {dyn_net:,}đ) · Chuyển nhầm {overpaid:,}đ treo TK 338 {refund_liab:,}đ"
+                ))
     elif f2_ok:
         rows.append(("PASS", "F2", w, f"Toán cân đối {len(all_ledgers)} bút toán Σ Nợ = Σ Có hợp lệ"))
 

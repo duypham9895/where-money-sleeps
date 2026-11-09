@@ -97,6 +97,14 @@ MINPAY_HOUSES = [
     ("NGÂN HÀNG", "Tài khoản"),
 ]
 
+QR_HOUSES = [
+    ("BẠN", "Người mua"),
+    ("QUÁN QUEN", "Cà phê"),
+    ("NGÂN HÀNG", "Của bạn"),
+    ("TỔ CHỨC", "Chuyển mạch"),
+    ("NGÂN HÀNG", "Của quán"),
+]
+
 FIGURES_SPEC: dict[str, list[dict]] = {
     "card": [
         {
@@ -408,6 +416,84 @@ FIGURES_SPEC: dict[str, list[dict]] = {
                 ("3. Cách cắt đứt vòng xoáy lãi ngày", "Tạm ngưng quẹt mới trên thẻ đang nợ và thanh toán dứt điểm 100% dư nợ sao kê (10.092.500 đ).", "green"),
             ],
             "footer_eq": "Chỉ khi dư nợ sao kê được trả đủ 100%, chiếc thẻ mới trở lại là công cụ miễn lãi 45 ngày",
+        },
+    ],
+    "qr": [
+        {
+            "out": "qr-fig-1.jpg",
+            "plate": "public/brand/card-short-plate-1.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 01  ·  CHƯƠNG 02  ·  THANH TOÁN ĐẨY VS KÉO",
+            "title": "Quét mã QR 50.000 đ (Push) vs Quẹt thẻ (Pull): Tiêu tiền CASA có sẵn nên không mất 2,2% phí",
+            "houses": QR_HOUSES,
+            "active_houses": {0, 1, 2},
+            "left_pills": [
+                (354, 72, "QUÉT MÃ QR: BẠN CHỦ ĐỘNG ĐẨY LỆNH TỪ SỐ DƯ CASA (0% PHÍ)", "green"),
+                (354, 598, "QUẸT THẺ: MÁY POS KÉO TIỀN QUA 4 BÊN (CHỊU MDR 2,2%)", "amber"),
+            ],
+            "steps": [
+                ("1. Bảng mã QR đứng yên (Thụ động)", "Bảng nhựa trên quầy chỉ chứa số tài khoản của quán, không phát lệnh đi vòng qua 4 bên như máy POS.", "teal"),
+                ("2. Bạn chủ động đẩy lệnh (Push)", "Bạn xác thực sinh trắc học trên ứng dụng ngân hàng để trích thẳng 50.000 đ từ số dư CASA đang có sẵn.", "green"),
+                ("3. Không ai ứng vốn vay 45 ngày", "Vì không có ngân hàng nào phải ứng vốn hay chịu rủi ro bùng nợ, quán không bị thu 2,2% phí MDR.", "amber"),
+            ],
+            "footer_eq": "Thanh toán đẩy (Push) trừ thẳng tiền CASA có sẵn — 0 đồng ứng vốn nên 0% phí MDR",
+        },
+        {
+            "out": "qr-fig-2.jpg",
+            "plate": "public/brand/card-short-plate-2.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 02  ·  CHƯƠNG 03  ·  GHI CÓ 3 GIÂY & BÙ TRỪ RÒNG",
+            "title": "Ba giây trên mặt quầy và phiên bù trừ ròng (Net Settlement) giữa hai ngân hàng",
+            "houses": QR_HOUSES,
+            "active_houses": {0, 1, 2, 3, 4},
+            "left_pills": [
+                (354, 72, "GIÂY 03: BẢN TIN 24/7 BẢO CHỨNG · GHI CÓ NGAY +50.000 Đ", "green"),
+                (354, 598, "CUỐI PHIÊN: HAI NGÂN HÀNG BÙ TRỪ RÒNG TẠI NGÂN HÀNG TRUNG ƯƠNG", "teal"),
+            ],
+            "steps": [
+                ("1. Bản tin 24/7 có bảo chứng (3 giây)", "Ngân hàng bạn trừ 50.000 đ và gửi bản tin qua tổ chức chuyển mạch; ngân hàng quán ghi Có ngay cho quán.", "green"),
+                ("2. Sổ của quán (TT 99/2025)", "Ghi Nợ TK 112 (Tiền gửi không kỳ hạn: 50.000 đ) / Có TK 511 (Doanh thu: 50.000 đ) ngay tại T+0.", "amber"),
+                ("3. Quyết toán ròng cuối phiên", "Hàng triệu lệnh hai chiều được cộng bù trừ (ví dụ 100 tỷ − 96 tỷ = chỉ chuyển 4 tỷ phần chênh).", "clay"),
+            ],
+            "footer_eq": "Tách bản tin ghi Có tức thời (T+0) khỏi phiên quyết toán ròng liên ngân hàng tại NHTW",
+        },
+        {
+            "out": "qr-fig-3.jpg",
+            "plate": "public/brand/pay-short-plate-2.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 03  ·  CHƯƠNG 04  ·  ĐỔI PHÍ 0 Đ LẤY VỐN CASA",
+            "title": "Vì sao ngân hàng chịu miễn phí 0 đồng? Để giữ tiền mặt nằm lại trong bể vốn CASA ~0,1%/năm",
+            "houses": QR_HOUSES,
+            "active_houses": {1, 2, 4},
+            "left_pills": [
+                (354, 72, "MIỄN PHÍ CHUYỂN KHOẢN QR: TIỀN KHÔNG RỜI HỆ THỐNG NGÂN HÀNG", "amber"),
+                (354, 598, "200 LY/NGÀY = 10 TRIỆU ĐỒNG NẰM TRONG BỂ VỐN CASA ~0,1%/NĂM", "green"),
+            ],
+            "steps": [
+                ("1. Chặn rò rỉ tiền mặt tại cây ATM", "50.000 đ chỉ nhảy từ tài khoản CASA của bạn sang tài khoản CASA của quán, giảm chi phí kiểm đếm tiền giấy.", "teal"),
+                ("2. Giữ trọn 220.000 đ/ngày cho quán", "Với 200 ly/ngày (10.000.000 đ), quét QR giúp quán giữ lại 220.000 đ/ngày (6,6 triệu/tháng) so với quẹt thẻ.", "green"),
+                ("3. Ngân hàng thu lợi ở cửa sau", "Số dư doanh thu nằm lại trong TK 112 (lãi ~0,1%/năm) làm nguồn vốn rẻ để ngân hàng cho vay ~8,5%/năm.", "amber"),
+            ],
+            "footer_eq": "Ngân hàng miễn phí chuyển khoản lẻ ở cửa trước để giữ bể vốn CASA giá rẻ ở cửa sau",
+        },
+        {
+            "out": "qr-fig-4.jpg",
+            "plate": "public/brand/card-short-plate-3.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 04  ·  CHƯƠNG 05  ·  MÃ QR ĐỘNG & CHARGEBACK",
+            "title": "Mã QR tĩnh (0 đ) vs Mã QR động tự gạch nợ (~0,2%) — và lưu ý khi mua hàng từ xa",
+            "houses": QR_HOUSES,
+            "active_houses": {0, 1, 2, 4},
+            "left_pills": [
+                (354, 72, "MÃ QR ĐỘNG: KHOÁ SỐ TIỀN + TỰ GẠCH NỢ ĐƠN HÀNG (PHÍ ~0,2%)", "teal"),
+                (354, 598, "LƯU Ý NGƯỜI MUA: CHUYỂN KHOẢN QR KHÔNG CÓ QUYỀN CHARGEBACK", "clay"),
+            ],
+            "steps": [
+                ("1. Mã QR tĩnh cá nhân (Phí 0 đ)", "Rẻ nhưng thu ngân phải nhìn màn hình bằng mắt thường (dễ bị biên lai giả) và kế toán phải dò sao kê tay.", "amber"),
+                ("2. Mã QR động thương mại (Phí ~0,2%)", "Trên 10.000.000 đ doanh thu chỉ tốn ~20.000 đ (Nợ TK 641), tự động khớp đơn và rẻ hơn 11 lần so với thẻ.", "green"),
+                ("3. Không có lá chắn Chargeback", "Vì chính bạn đẩy tiền đi như trao tiền mặt, ngân hàng không thể tự động thu hồi nếu người bán từ xa gian lận.", "clay"),
+            ],
+            "footer_eq": "Tại quầy quen: Quét QR giữ 99,8%–100% cho quán  ·  Mua từ xa: Lưu ý QR không có Chargeback",
         },
     ],
 }
