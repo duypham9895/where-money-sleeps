@@ -991,6 +991,25 @@ body.cms-on{padding-bottom:150px}
       <div class="bars" aria-hidden="true"></div>
     </div>
   </div>
+  <div class="try" id="tryMin" hidden>
+    <div>
+      <p class="tryhint">Kéo để đổi dư nợ sao kê Ngày 30 và tỉ lệ bạn trả ở Ngày 45 (từ mức tối thiểu 5% đến 100%). Lãi suất 36%/năm (0,1%/ngày) là <b>số ví dụ</b> để thấy cơ chế mất ân hạn miễn lãi.</p>
+      <div class="field"><label for="mpBal">Dư nợ sao kê Ngày 30 <output id="mpBalOut" class="num"></output></label>
+        <input type="range" id="mpBal" min="2000000" max="50000000" step="1000000" value="10000000"></div>
+      <div class="field"><label for="mpPct">Tỉ lệ bạn trả ở Ngày 45 <output id="mpPctOut" class="num"></output></label>
+        <input type="range" id="mpPct" min="5" max="100" step="5" value="5"></div>
+    </div>
+    <div class="receipt">
+      <h4>Sao kê kỳ kế tiếp (Ngày 60)</h4>
+      <p class="sub">Quẹt Ngày 01 · Hạn trả Ngày 45 · Lãi 0,1%/ngày <span class="ex">ví dụ</span></p>
+      <div class="row"><span>Tiền bạn trả ở Ngày 45</span><span class="num" id="mpPaid"></span></div>
+      <div class="row"><span>Lãi lùi 45 ngày đầu (trên toàn bộ sao kê)</span><span class="num minus" id="mpInt1"></span></div>
+      <div class="row"><span>Lãi 15 ngày sau (trên gốc còn lại)</span><span class="num minus" id="mpInt2"></span></div>
+      <div class="row total"><span>Dư nợ mới trên sao kê Ngày 60</span><span class="num" id="mpNewBal"></span></div>
+      <p class="note" id="mpNote"></p>
+      <div class="bars" aria-hidden="true"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
@@ -1128,7 +1147,11 @@ const GLOSS = {
   amortization:{"t": "Effective-interest amortization", "en": "phân bổ theo lãi suất thực tế", "d": "Cách bên cho vay chia tiền lãi ra từng kỳ: mỗi kỳ ghi nhận dư nợ đầu kỳ nhân lãi suất thực tế, nên kỳ đầu nhiều, kỳ cuối ít."},
   latefee:{"t": "Late payment fee", "en": "phí trễ hạn", "d": "Khoản phạt bên cho vay thu khi một kỳ trả đến muộn. Có hay không, bao nhiêu, tuỳ hợp đồng."},
   creditrisk:{"t": "Credit risk", "en": "rủi ro tín dụng", "d": "Rủi ro người vay không trả đủ hoặc trả không đúng hạn; bên cho vay gánh phần thiệt hại đó."},
-  tplusone:{"t": "T+1", "en": "ngày giao dịch cộng một ngày làm việc", "d": "Tiền về sau đúng một ngày làm việc kể từ ngày giao dịch. Trong bài đây là số ví dụ."}
+  tplusone:{"t": "T+1", "en": "ngày giao dịch cộng một ngày làm việc", "d": "Tiền về sau đúng một ngày làm việc kể từ ngày giao dịch. Trong bài đây là số ví dụ."},
+  graceperiod:{"t": "Grace period", "en": "thời gian ân hạn miễn lãi", "d": "Khoảng thời gian từ ngày quẹt thẻ đến hạn thanh toán trên sao kê (thường tối đa 45 hoặc 55 ngày). Ngân hàng chỉ miễn lãi trong khoảng này nếu đến hạn bạn trả đủ 100% dư nợ sao kê."},
+  minpayment:{"t": "Minimum payment", "en": "khoản thanh toán tối thiểu", "d": "Số tiền nhỏ nhất (thường 2%–5% dư nợ sao kê) bạn phải trả đúng hạn để thẻ không bị tính phí phạt trễ hạn và không bị ghi nhận nợ quá hạn; nhưng trả mức này đồng nghĩa mất quyền miễn lãi."},
+  revolving:{"t": "Revolving credit", "en": "tín dụng tuần hoàn", "d": "Cơ chế hạn mức thẻ tín dụng: trả được bao nhiêu thì hạn mức mở lại bấy nhiêu, còn phần dư nợ chưa trả hết sẽ tự động chuyển sang kỳ sau và chịu lãi tính theo ngày."},
+  adb:{"t": "Average daily balance", "en": "dư nợ bình quân ngày", "d": "Cách ngân hàng tính lãi thẻ tín dụng khi bạn không trả đủ 100% sao kê: lấy số dư nợ của từng ngày kể từ ngày giao dịch được ghi vào sổ nhân với lãi suất ngày rồi cộng toàn bộ lại."}
 };
 
 const STORIES = {
@@ -2826,6 +2849,506 @@ const STORIES = {
        msgs:[[0,3],[3,2,"money"]],fx:["phone","loan","iledger"],
        life:"Trước khi chọn trả góp 0%, hỏi một câu: trả thẳng thì giá bao nhiêu? Chênh lệch ấy là tiền lãi bạn đang trả.",
        sys:"Lãi suất thực tế tính từ dòng tiền: nhận món hàng đáng 11.400.000 hôm nay, trả 1.000.000 vào cuối mỗi tháng trong 12 tháng ⇒ 0,8%/tháng, 9,6%/năm nếu nhân thẳng, 10%/năm nếu tính lãi chồng lãi. Nếu kỳ đầu phải trả ngay lúc mua: 0,95%/tháng, chừng 12%/năm.",ledger:null}
+    ]},
+
+  minpay:{
+    name:"Chuyện trả tối thiểu: 500 nghìn trên sao kê 10 triệu",
+    title:"Trả tối thiểu 5% (500.000 đồng) trên sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau bạn mất trắng 45 ngày miễn lãi và bị cộng thêm 592.500 đồng tiền lãi?",
+    teaser:"Một giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.",
+    category:"c3", status:"review",
+    approvedBy:"", approvedAt:"",
+    review:{ketoan:"Tổng: PASS 8 · FAIL 0 · UNVERIFIED 1 · FLAG 4", ketoanAt:"2026-11-09", draftedBy:"agent", draftedAt:"2026-11-09"},
+    article:{
+ "lay": {
+  "myths": [
+   {
+    "myth": "Mình đã trả đúng hạn 500.000 đồng (mức tối thiểu 5%) ở ngày thứ 45, nên 10.000.000 đồng vẫn được miễn lãi suốt 45 ngày đầu; từ ngày 46 trở đi ngân hàng chỉ tính lãi trên 9.500.000 đồng còn nợ.",
+    "truth": "Quyền [[miễn lãi 45 ngày|graceperiod]] là một ưu đãi có điều kiện: chỉ có hiệu lực khi bạn trả đủ 100% dư nợ sao kê đúng hạn. Trả thiếu dù chỉ một phần, toàn bộ 45 ngày miễn lãi bị huỷ và lãi bị tính lùi về tận Ngày 01 trên cả 10.000.000 đồng."
+   },
+   {
+    "myth": "Trả 500.000 đồng vào thẻ thì tháng sau số tiền mình nợ ngân hàng chắc chắn phải giảm xuống dưới 10.000.000 đồng.",
+    "truth": "Trong ví dụ lãi suất 36%/năm (tức 3%/tháng hay 0,1%/ngày), tiền lãi của 45 ngày đầu (450.000 đồng) cộng với 15 ngày tiếp theo (142.500 đồng) lên tới 592.500 đồng — lớn hơn cả 500.000 đồng bạn vừa trả, đẩy dư nợ sao kê kỳ sau vọt lên 10.092.500 đồng."
+   },
+   {
+    "myth": "Ngân hàng phát hành thẻ chưa hề mất đồng tiền nào cho tới ngày mình trả sao kê, nên việc tính lãi lùi từ ngày quẹt thẻ là vô lý.",
+    "truth": "Ngay từ Ngày [[T+2|t2]] sau khi bạn quẹt thẻ, [[ngân hàng phát hành|issuer]] đã phải lấy tiền thật của mình ra quyết toán cho phía cửa hàng (ví dụ 9.850.000 đồng). Suốt hơn một tháng đó bạn đang tiêu tiền ngân hàng ứng trước."
+   },
+   {
+    "myth": "Kỳ này mình mới trả tối thiểu 500.000 đồng, nhưng sang kỳ sau nếu mình quẹt thêm một món mới thì món mới đó vẫn được hưởng 45 ngày miễn lãi như bình thường.",
+    "truth": "Khi thẻ đang còn dư nợ gốc chuyển từ kỳ trước sang, bộ đếm ân hạn miễn lãi của thẻ bị khoá: mọi giao dịch mua hàng mới phát sinh trong kỳ sau đều bị tính lãi ngày ngay từ giây chạm thẻ."
+   }
+  ],
+  "sections": [
+   {
+    "h": "Con số 500.000 đồng dễ chịu trên tờ sao kê 10 triệu",
+    "paras": [
+     "Giả sử vào Ngày 01 đầu kỳ sao kê, bạn (hoặc bộ phận hành chính của một văn phòng nhỏ) chạm thẻ tín dụng tại cửa hàng thiết bị để mua một chiếc máy làm việc giá 10.000.000 đồng. Máy POS kêu một tiếng bíp gọn. Điện thoại báo hạn mức khả dụng giảm 10 triệu, bạn xách máy về dùng ngay mà tài khoản thanh toán chưa vơi đi một đồng tiền mặt nào.",
+     "Đúng Ngày 30, ngân hàng phát hành thẻ khoá sổ và gửi thông báo sao kê kỳ đầu tiên. Trên màn hình hiện song song hai con số đặt cạnh nhau: tổng dư nợ sao kê là 10.000.000 đồng, còn [[khoản thanh toán tối thiểu|minpayment]] (ở ví dụ này là 5%) chỉ vỏn vẹn 500.000 đồng, kèm hạn thanh toán vào Ngày 45. Giữa một bên là 10 triệu đồng phải rút khỏi tài khoản ngay và một bên chỉ là 500.000 đồng nhẹ tênh mà vẫn được ngân hàng xác nhận là trả đúng hạn, rất nhiều người chọn phương án thứ hai với suy nghĩ giản đơn: mình trả trước 500.000 đồng, còn 9.500.000 đồng để nửa tháng nữa có lương trả nốt thì đáng bao nhiêu tiền lãi đâu."
+    ]
+   },
+   {
+    "h": "Lời hứa có điều kiện: Vì sao ngân hàng cho bạn 45 ngày miễn lãi?",
+    "paras": [
+     "Để hiểu vì sao chiếc đồng hồ tính lãi lại quay ngược về Ngày 01, trước hết phải nhìn xuống đường đi của tiền thật ở tầng quyết toán liên ngân hàng. Khi bạn quẹt thẻ lúc Ngày 01, chỉ có bản tin cấp phép và lệnh [[giữ chỗ hạn mức|hold]] chạy trên luồng thông tin. Nhưng chỉ hai ngày làm việc sau (Ngày [[T+2|t2]]), [[ngân hàng phát hành|issuer]] đã phải xuất tiền thật từ quỹ của mình chuyển qua [[ngân hàng của cửa hàng|acquirer]] để thanh toán cho cửa hàng (cửa hàng thực nhận 9.800.000 đồng sau khi trừ phí nhận thẻ [[MDR|mdr]] ví dụ 2% là 200.000 đồng). Nói cách khác, từ Ngày T+2 đến Ngày 45, ngân hàng phát hành đã bỏ tiền túi ra cho bạn mượn.",
+     "Vì sao họ chấp nhận bỏ tiền túi ra ứng trước suốt 45 ngày mà không đòi bạn một đồng lãi nào nếu bạn trả đủ? Bởi vì ở giao dịch quẹt thẻ đầu tiên ấy, ngân hàng phát hành đã thu được một phần phí trao đổi ([[Interchange|interchange]], ví dụ 150.000 đồng trích từ 200.000 đồng phí của cửa hàng) và họ muốn khuyến khích bạn dùng thẻ thay tiền mặt. Nhưng lời hứa [[miễn lãi 45 ngày|graceperiod]] ấy đi kèm một điều kiện tuyệt đối trong hợp đồng mở thẻ: đến hạn Ngày 45, chủ thẻ phải hoàn trả đủ 100% dư nợ sao kê (đúng 10.000.000 đồng). Chỉ cần trả thiếu dù một đồng, khoản ứng trước từ đầu kỳ lập tức cởi bỏ chiếc áo ưu đãi miễn lãi và trở về đúng bản chất gốc của nó: một khoản vay [[tín dụng tuần hoàn|revolving]] tính lãi theo từng ngày."
+    ]
+   },
+   {
+    "h": "Phép tính lùi từ Ngày 01: Trả 500.000 đồng nhưng bị cộng 592.500 đồng tiền lãi",
+    "paras": [
+     "Đến Ngày 45, bạn ra lệnh trích 500.000 đồng từ tài khoản thanh toán của mình chuyển sang ngân hàng phát hành thẻ. Tiền thật đã chạy vào ngân hàng đúng hạn. Bạn hoàn toàn không bị phạt phí trễ hạn, và trên hệ thống thông tin tín dụng, khoản nợ của bạn vẫn nằm ở nhóm tiêu chuẩn (nhóm 1). Nhưng ngay tại thời điểm đồng hồ bước qua 24 giờ đêm Ngày 45 mà dư nợ sao kê 10.000.000 đồng vẫn còn thiếu 9.500.000 đồng, cỗ máy tính lãi theo [[dư nợ bình quân ngày|adb]] của ngân hàng bắt đầu chạy lùi về Ngày 01.",
+     "Hãy đặt con số lên bàn tính với mức lãi suất thẻ tín dụng phổ biến trên thị trường trong ví dụ này là 36%/năm — tương đương 3%/tháng hay 0,1%/ngày (tính theo quy ước 30 ngày một tháng để bạn dễ nhẩm). Tiền lãi trên tờ sao kê kế tiếp (chốt vào Ngày 60) được ghép từ hai khúc rõ rệt: Khúc thứ nhất là 45 ngày đầu tiên (từ Ngày 01 đến Ngày 45), lúc bạn đang cầm trọn 10.000.000 đồng của ngân hàng: 10.000.000 đồng nhân 0,1%/ngày nhân 45 ngày bằng đúng 450.000 đồng. Khúc thứ hai là 15 ngày tiếp theo (từ Ngày 46 đến Ngày 60), sau khi bạn đã trả được 500.000 đồng và chỉ còn nợ gốc 9.500.000 đồng: 9.500.000 đồng nhân 0,1%/ngày nhân 15 ngày bằng 142.500 đồng.",
+     "Cộng hai khúc lại, tổng tiền lãi dội vào sao kê Ngày 60 là 450.000 cộng 142.500 bằng 592.500 đồng (nếu ngân hàng chia theo chuẩn 365 ngày một năm thì con số này là 584.384 đồng). Kết quả thật sự gây choáng váng cho người mới dùng thẻ: dù không quẹt thêm bất kỳ món hàng nào mới, và dù đã bỏ ra 500.000 đồng trả ngân hàng ở Ngày 45, tổng dư nợ trên sao kê Ngày 60 của bạn là 9.500.000 đồng gốc cộng 592.500 đồng lãi, vọt lên thành 10.092.500 đồng — nhiều hơn cả lúc bạn chưa trả đồng nào đúng 92.500 đồng."
+    ]
+   },
+   {
+    "h": "500.000 đồng mua được thứ gì — và cái giá thật của 15 ngày trì hoãn",
+    "paras": [
+     "Nếu trả tối thiểu khiến dư nợ tăng vọt như vậy, tại sao chức năng [[thanh toán tối thiểu|minpayment]] lại tồn tại? Câu trả lời nằm ở sự phân tách giữa hai khoản thu của ngân hàng: phí phạt vi phạm nghĩa vụ thanh toán ([[phí trễ hạn|latefee]]) và tiền lãi sử dụng vốn. Khi bạn gặp biến cố dòng tiền đột xuất ở Ngày 45 và chưa gom đủ 10 triệu đồng, việc trả 500.000 đồng là tấm vé bảo hiểm giúp bạn không bị phạt trễ hạn (thường từ 4%–6% trên số tiền chậm trả tối thiểu) và quan trọng nhất là không bị ghi nhận lịch sử nợ quá hạn.",
+     "Thế nhưng cái giá để đổi lấy tấm vé ấy đắt hơn rất nhiều so với con số 36%/năm ghi trên biểu phí. Hãy nhìn vào quyết định kinh tế ở Ngày 45: nếu trả đủ 10.000.000 đồng thì lãi bằng 0; vì muốn giữ lại 9.500.000 đồng trong túi thêm 15 ngày (từ Ngày 45 đến Ngày 60), bạn phải gánh không chỉ 142.500 đồng lãi của 15 ngày đó mà còn bị phạt mất 450.000 đồng ưu đãi miễn lãi của 45 ngày trước. Tổng cộng bạn mất 592.500 đồng chỉ để dùng 9.500.000 đồng thêm nửa tháng — tương đương tỷ lệ chi phí 6,24% chỉ trong 15 ngày. Và nếu bạn tiếp tục duy trì dư nợ sang các tháng sau ở mức lãi 3%/tháng nhập gốc, [[lãi suất thực tế|eir]] tính theo năm sẽ leo lên khoảng 42,6%/năm."
+    ]
+   },
+   {
+    "h": "Hiệu ứng lây nhiễm sang giao dịch mới và cách khôi phục lại 45 ngày miễn lãi",
+    "paras": [
+     "Cạm bẫy thứ hai ít ai để ý nằm ở những lần quẹt thẻ tiếp theo. Ở trạng thái bình thường khi bạn luôn trả đủ 100% sao kê, mỗi giao dịch quẹt mới đều được cấp một đường băng miễn lãi riêng từ ngày quẹt tới hạn thanh toán kỳ đó. Nhưng một khi bạn chỉ trả tối thiểu ở Ngày 45 và để 9.500.000 đồng dư nợ gốc chảy sang kỳ thứ hai, chiếc thẻ của bạn đã chuyển sang trạng thái đang có dư nợ [[tín dụng tuần hoàn|revolving]]. Tại đa số ngân hàng phát hành, mọi giao dịch mua sắm mới bạn quẹt thêm từ Ngày 46 trở đi sẽ mất luôn quyền miễn lãi và bị tính lãi 0,1%/ngày ngay từ giây chạm thẻ tại quầy.",
+     "Thậm chí, có một kịch bản còn cay đắng hơn: giả sử vào Ngày 45 bạn chuyển khoản trả 9.990.000 đồng — tức đã trả tới 99,9% sao kê và chỉ thiếu đúng 10.000 đồng do quên số lẻ. Vì điều kiện miễn lãi đòi hỏi thanh toán đủ 100% dư nợ sao kê, việc thiếu 10.000 đồng ấy vẫn làm sập toàn bộ ưu đãi 45 ngày đầu, khiến ngân hàng quay lại tính lãi lùi trên toàn bộ 10.000.000 đồng của 45 ngày trước (450.000 đồng) cộng với vài chục đồng lãi của 10.000 đồng trong 15 ngày sau. Cách duy nhất để đóng lại cỗ máy tính lãi ngày và khôi phục nguyên vẹn 45 ngày ân hạn miễn lãi là thanh toán dứt điểm 100% tổng dư nợ trên tờ sao kê hiện tại (10.092.500 đồng) và kiểm tra lại sao kê kỳ kế tiếp xem còn dòng lãi ngày phát sinh nốt trong những ngày chờ thanh toán hay không."
+    ]
+   }
+  ],
+  "flowSummary": [
+   {
+    "step": "Bước 1 · Ngày 01: Quẹt thẻ 10.000.000 đồng — giữ hạn mức, mở kỳ ân hạn",
+    "channel": "wire",
+    "fromTo": "Cửa hàng → Ngân hàng của cửa hàng → Ngân hàng phát hành thẻ",
+    "amount": "0 đồng (giữ chỗ 10.000.000 đ)",
+    "essence": "Bản tin cấp phép khoá 10.000.000 đồng hạn mức thẻ. Chưa có tiền thật di chuyển; nếu là thẻ doanh nghiệp, kế toán ghi Nợ TK 642 / Có TK 338 (10.000.000 đồng)."
+   },
+   {
+    "step": "Bước 2 · Ngày T+2: Ngân hàng phát hành ứng tiền thật quyết toán cho cửa hàng",
+    "channel": "pipe",
+    "fromTo": "Ngân hàng phát hành thẻ → Ngân hàng của cửa hàng → Cửa hàng",
+    "amount": "9.800.000 đồng thực nhận (ví dụ)",
+    "essence": "Ngân hàng phát hành bỏ tiền thật ra ứng trước từ Ngày T+2 (sau khi giữ phí Interchange; cửa hàng nhận 9.800.000 đồng sau phí MDR 2%). Đây là căn cứ kinh tế để ngân hàng tính lãi từ đầu kỳ nếu bạn không trả đủ."
+   },
+   {
+    "step": "Bước 3 · Ngày 30: Chốt sao kê kỳ 1 — thông báo dư nợ 10 triệu & mức tối thiểu 5%",
+    "channel": "wire",
+    "fromTo": "Ngân hàng phát hành thẻ → Bạn",
+    "amount": "Sao kê 10.000.000 đ · Tối thiểu 500.000 đ",
+    "essence": "Ngân hàng gửi sao kê kèm hai lựa chọn cho hạn thanh toán Ngày 45: trả đủ 10.000.000 đồng để hưởng lãi 0 đồng, hoặc trả tối thiểu 500.000 đồng để không bị phạt trễ hạn."
+   },
+   {
+    "step": "Bước 4 · Ngày 45: Trả tối thiểu 500.000 đồng — thoát phí phạt, mất trắng 45 ngày miễn lãi",
+    "channel": "pipe",
+    "fromTo": "Ngân hàng tài khoản của bạn → Ngân hàng phát hành thẻ",
+    "amount": "500.000 đồng tiền thật",
+    "essence": "Tiền thật chuyển sang ngân hàng phát hành giúp giảm gốc xuống 9.500.000 đồng (Nợ TK 338 / Có TK 112: 500.000 đồng), nhưng vì không trả đủ 100%, điều kiện miễn lãi 45 ngày đầu bị huỷ bỏ."
+   },
+   {
+    "step": "Bước 5 · Ngày 60: Chốt sao kê kỳ 2 — cộng lãi lùi 450.000 đ + lãi mới 142.500 đ",
+    "channel": "book",
+    "fromTo": "Sổ Ngân hàng phát hành thẻ & Sổ chủ thẻ",
+    "amount": "+592.500 đ lãi → Dư nợ mới 10.092.500 đ",
+    "essence": "Ngân hàng ghi nhận 450.000 đồng lãi của 45 ngày đầu (trên 10 triệu) cộng 142.500 đồng lãi của 15 ngày sau (trên 9,5 triệu), tổng 592.500 đồng (Nợ TK 635 / Có TK 338), đẩy dư nợ sao kê kỳ 2 lên 10.092.500 đồng."
+   }
+  ],
+  "roles": [
+   {
+    "who": "Bạn",
+    "pays": "500.000 đồng trả tối thiểu ở Ngày 45, cộng thêm 592.500 đồng tiền lãi phát sinh trên sao kê Ngày 60 (ví dụ lãi 36%/năm).",
+    "gains": "Giữ lại được 9.500.000 đồng tiền mặt trong 15 ngày mà không bị thu phí phạt trễ hạn và không bị ghi nhận nợ quá hạn.",
+    "risk": "Mất trắng 45 ngày miễn lãi của cả giao dịch cũ lẫn giao dịch mới; dư nợ kỳ sau (10.092.500 đồng) cao hơn cả lúc chưa trả."
+   },
+   {
+    "who": "Cửa hàng",
+    "pays": "200.000 đồng phí nhận thẻ MDR (ví dụ 2% trên đơn hàng 10.000.000 đồng).",
+    "gains": "Chốt xong đơn hàng 10 triệu từ Ngày 01 và nhận về 9.800.000 đồng tiền thật vào Ngày T+2, hoàn toàn không liên quan tới việc bạn trả đủ hay trả tối thiểu.",
+    "risk": "Không chịu rủi ro tín dụng khi bạn trả chậm cho ngân hàng; chỉ chịu rủi ro nếu giao dịch phát sinh khiếu nại gian lận thẻ."
+   },
+   {
+    "who": "Ngân hàng của cửa hàng",
+    "pays": "Chia phần phí Interchange (ví dụ 150.000 đồng) cho ngân hàng phát hành thẻ và phí mạng lưới cho tổ chức thẻ.",
+    "gains": "Giữ lại phần chênh lệch phí dịch vụ thanh toán (ví dụ 40.000–50.000 đồng) để vận hành hệ thống máy POS và đối soát cho cửa hàng.",
+    "risk": "Chịu trách nhiệm thẩm định cửa hàng và xử lý hoàn tiền hoặc khiếu nại giao dịch nếu cửa hàng vi phạm cam kết."
+   },
+   {
+    "who": "Ngân hàng phát hành thẻ",
+    "pays": "Ứng trước 9.850.000 đồng tiền thật từ Ngày T+2 để quyết toán cho phía cửa hàng và chịu chi phí vốn trong thời gian ân hạn.",
+    "gains": "Thu phí Interchange từ giao dịch quẹt thẻ VÀ thu thêm 592.500 đồng tiền lãi tín dụng tuần hoàn khi chủ thẻ chỉ trả mức tối thiểu.",
+    "risk": "Gánh toàn bộ rủi ro tín dụng không tài sản bảo đảm nếu sau đó chủ thẻ mất khả năng thanh toán phần dư nợ 10.092.500 đồng."
+   },
+   {
+    "who": "Ngân hàng tài khoản của bạn",
+    "pays": "Thực hiện lệnh chuyển 500.000 đồng tiền thật ở Ngày 45 (và 10.092.500 đồng khi tất toán) sang ngân hàng phát hành thẻ.",
+    "gains": "Giữ được số dư tiền gửi không kỳ hạn (CASA) 9.500.000 đồng của bạn trong tài khoản thêm 15 ngày trước khi bạn chuyển đi tất toán.",
+    "risk": "Rủi ro vận hành nếu đến ngày trích nợ tự động mà số dư tài khoản thanh toán của bạn không đủ 500.000 đồng dẫn tới lệnh trích thất bại."
+   }
+  ],
+  "whenHelps": [
+   "Khi bạn luôn thanh toán đủ 100% dư nợ sao kê (10.000.000 đồng) vào hoặc trước Ngày 45: bạn được sử dụng vốn của ngân hàng suốt 45 ngày với đúng 0 đồng tiền lãi.",
+   "Khi gặp sự cố dòng tiền bất khả kháng đúng ngày đến hạn mà chưa kịp xoay đủ 10 triệu: trả tối thiểu 500.000 đồng giúp bảo vệ lịch sử tín dụng không bị rơi vào nhóm nợ quá hạn và tránh phí phạt trễ hạn.",
+   "Khi doanh nghiệp dùng thẻ tín dụng doanh nghiệp để tách bạch chi phí công tác, vật tư trên một sao kê tập trung và cài lệnh trích nợ tự động 100% dư nợ mỗi kỳ."
+  ],
+  "whenTraps": [
+   "Khi bạn có sẵn tiền trong tài khoản nhưng chọn trả tối thiểu 500.000 đồng vì nghĩ chỉ mất chút lãi trên 9.500.000 đồng trong vài ngày: bạn mất ngay 450.000 đồng lãi lùi của 45 ngày đầu tiên.",
+   "Khi bạn chuyển khoản trả 9.990.000 đồng và bỏ sót 10.000 đồng số lẻ trên sao kê 10 triệu: hệ thống vẫn huỷ toàn bộ 45 ngày miễn lãi và tính lãi lùi trên cả 10.000.000 đồng từ Ngày 01.",
+   "Khi bạn vừa trả tối thiểu kỳ trước vừa tiếp tục dùng chính chiếc thẻ đó để quẹt chi tiêu hàng ngày ở kỳ sau: mọi giao dịch mới đều bị tính lãi ngày ngay lập tức từ lúc chạm thẻ."
+  ],
+  "takeaways": [
+   "Mở ứng dụng ngân hàng và kiểm tra cài đặt trích nợ tự động của thẻ tín dụng: đang để chế độ trích 100% dư nợ sao kê hay chỉ trích 5% tối thiểu?",
+   "Nếu kỳ này buộc phải trả tối thiểu để giữ lịch sử tín dụng, bạn có chiếc thẻ thứ hai hoặc thẻ ghi nợ khác cho các chi tiêu mới để tránh bị tính lãi ngay từ ngày quẹt không?",
+   "Trước khi bấm chuyển khoản thanh toán sao kê, bạn đã kiểm tra đến từng hàng đơn vị đồng để không bị mất trắng 45 ngày miễn lãi chỉ vì thiếu vài nghìn đồng số lẻ chưa?",
+   "Sau khi vừa tất toán hết một khoản nợ thẻ từng trả tối thiểu, bạn có nhớ kiểm tra sao kê kỳ kế tiếp để trả nốt phần lãi ngày phát sinh giữa ngày chốt sao kê và ngày tiền về (trailing interest) không?"
+  ]
+ },
+ "pro": {
+  "mechanics": [
+   {
+    "h": "Phương pháp Dư nợ bình quân ngày (Average Daily Balance — ADB) và cơ chế huỷ ân hạn hồi tố",
+    "p": "Trên hệ thống lõi thẻ (Card Management System), mỗi giao dịch mua hàng phát sinh ở Ngày 01 được gắn một cờ trạng thái ân hạn có điều kiện (Conditional Grace Flag). Trong suốt chu kỳ sao kê 30 ngày đầu và 15 ngày ân hạn thanh toán tiếp theo, hệ thống vẫn chạy ngầm bộ tích luỹ lãi theo ngày (Shadow Interest Accrual) nhưng tạm thời nhân với hệ số 0 nếu chờ thanh toán đủ. Ngay khi qua thời điểm cắt sổ (Cut-off time) của Ngày 45 mà tổng tiền thanh toán ghi có vào tài khoản thẻ nhỏ hơn 100% dư nợ sao kê (Statement Balance), cờ ân hạn bị huỷ hồi tố (Retroactive Grace Forfeiture). Khi đó, tiền lãi của kỳ sao kê thứ hai (chốt ở Ngày 60) được tính bằng tổng tích số dư nợ cuối mỗi ngày nhân với lãi suất ngày: I = sum_{d=1..60} Balance_d × (r_năm / cơ_sở_ngày). Trong ví dụ minh hoạ với quy ước 30 ngày/tháng và lãi suất 36%/năm (tức 0,1%/ngày): từ Ngày 01 đến Ngày 45 (45 ngày), dư nợ tính lãi là 10.000.000 đồng, sinh ra 10.000.000 × 0,001 × 45 = 450.000 đồng; từ Ngày 46 đến Ngày 60 (15 ngày), sau khi trừ 500.000 đồng trả tối thiểu, dư nợ gốc còn 9.500.000 đồng, sinh ra 9.500.000 × 0,001 × 15 = 142.500 đồng. Tổng lãi ghi vào sao kê Ngày 60 là 592.500 đồng. Nếu tính theo quy ước Actual/365 phổ biến tại nhiều ngân hàng thương mại (36%/365 ≈ 0,0986301%/ngày), hai khúc lãi lần lượt là 443.836 đồng và 140.548 đồng, tổng cộng 584.384 đồng — trong cả hai cách tính, tiền lãi một kỳ đều lớn hơn khoản thanh toán tối thiểu 500.000 đồng."
+   },
+   {
+    "h": "Định giá chi phí vốn ngắn hạn (Marginal Cost of Delay) và Lãi suất thực tế năm (EIR)",
+    "p": "Dưới góc nhìn tài chính doanh nghiệp và cá nhân, quyết định trả tối thiểu 500.000 đồng thay vì trả đủ 10.000.000 đồng tại Ngày 45 là một quyết định vay 9.500.000 đồng trong 15 ngày (từ Ngày 45 đến Ngày 60). Tuy nhiên, chi phí biên (Marginal Cost) của quyết định này không chỉ là phần lãi của 15 ngày đó (142.500 đồng), mà bao gồm cả khoản phạt mất ưu đãi miễn lãi của 45 ngày trước (450.000 đồng). Do đó, để giữ lại 9.500.000 đồng tiền mặt trong 15 ngày, chủ thẻ phải trả tổng chi phí tài chính là 592.500 đồng, tức tỷ lệ chi phí vốn cho 15 ngày lên tới 592.500 / 9.500.000 = 6,2368% (nếu quy đổi danh nghĩa theo năm 360 ngày là 6,2368% × 24 ≈ 149,68%/năm). Ở các kỳ tiếp theo, khi không còn hiệu ứng nhảy bậc của 45 ngày đầu, khoản dư nợ chuyển kỳ chịu lãi suất 3%/tháng nhập gốc hàng tháng, tương đương [[lãi suất thực tế|eir]] năm theo lãi kép là (1 + 0,03)^12 − 1 = 42,576%/năm (xấp xỉ 42,6%/năm)."
+   },
+   {
+    "h": "Thứ tự ưu tiên phân bổ khoản thanh toán (Payment Allocation Hierarchy) trên sổ ngân hàng",
+    "p": "Khi chủ thẻ chuyển 500.000 đồng vào Ngày 45 (hoặc các khoản thanh toán ở những kỳ đã phát sinh lãi và phí), hệ thống hạch toán của ngân hàng phát hành không trừ thẳng toàn bộ vào nợ gốc mua hàng theo ý muốn của người trả, mà phân bổ theo thứ tự ưu tiên quy định trong điều khoản thẻ. Thông thường, tiền thanh toán được ưu tiên thu theo thứ tự: (1) Các khoản phí và lệ phí đã lên sao kê (phí thường niên, phí phạt trễ hạn, phí rút tiền mặt); (2) Tiền lãi quá hạn và tiền lãi trong hạn đã kết chuyển lên sao kê; (3) Các khoản dư nợ gốc có lãi suất cao hoặc phát sinh ở kỳ sao kê trước (rút tiền mặt, mua hàng kỳ trước); (4) Cuối cùng mới trừ vào dư nợ gốc mua hàng phát sinh trong kỳ hiện tại. Ở Ngày 45 của kỳ đầu tiên, vì chưa có lãi và phí trên sao kê kỳ 1, cả 500.000 đồng được trừ thẳng vào gốc 10.000.000 đồng (còn 9.500.000 đồng). Nhưng từ kỳ sao kê thứ hai trở đi (khi đã có 592.500 đồng tiền lãi), nếu chủ thẻ tiếp tục chỉ trả mức tối thiểu mới (ví dụ 5% của 10.092.500 đồng là 504.625 đồng), gần như toàn bộ số tiền trả vào chỉ vừa đủ trang trải tiền lãi, khiến nợ gốc 9.500.000 đồng gần như đứng yên."
+   },
+   {
+    "h": "Lãi phát sinh phần đuôi (Trailing / Residual Interest) sau khi đã trả 100% sao kê kỳ 2",
+    "p": "Một cơ chế kỹ thuật khiến nhiều kế toán và chủ thẻ bất ngờ là hiện tượng lãi phần đuôi (Trailing Interest). Giả sử vào Ngày 60, sao kê kỳ 2 chốt số dư 10.092.500 đồng (gồm 9.500.000 đồng gốc và 592.500 đồng lãi), và chủ thẻ đợi thêm 10 ngày nữa (đến Ngày 70, vẫn trước hạn thanh toán Ngày 75 của kỳ 2) mới chuyển khoản trả đủ 10.092.500 đồng. Vì thẻ đang ở trạng thái mất ân hạn miễn lãi từ kỳ trước, trong 10 ngày từ Ngày 61 đến Ngày 70, phần dư nợ gốc 9.500.000 đồng vẫn tiếp tục chạy lãi ngày (9.500.000 × 0,1%/ngày × 10 ngày = 95.000 đồng). Khoản 95.000 đồng này chưa xuất hiện trên tờ sao kê Ngày 60 mà chỉ lộ diện khi ngân hàng chốt sao kê kỳ 3 vào Ngày 90. Nếu chủ thẻ nghĩ mình đã trả dứt điểm ở Ngày 70 và không mở sao kê Ngày 90, khoản 95.000 đồng bị bỏ quên ấy sẽ tiếp tục sinh phí trễ hạn mới."
+   }
+  ],
+  "accountingNotes": [
+   "Trên sổ kế toán doanh nghiệp sử dụng thẻ tín dụng doanh nghiệp (Corporate Credit Card) theo Thông tư 99/2025/TT-BTC: khi quẹt thẻ mua vật tư, dịch vụ quản lý ở Ngày 01 (10.000.000 đồng), doanh nghiệp đã nhận hàng hoá/dịch vụ nhưng chưa chi tiền, kế toán ghi tăng chi phí (Nợ TK 642 — Chi phí quản lý doanh nghiệp, hoặc TK 641, 152, 156 tuỳ mục đích; bỏ qua thuế GTGT trong ví dụ này) và ghi nhận nghĩa vụ phải trả ngân hàng phát hành thẻ tại TK 338 (Phải trả, phải nộp khác — chi tiết TK 3388 theo dõi dư nợ thẻ tín dụng). Một số doanh nghiệp phân loại hạn mức thẻ tín dụng vào TK 341 (Vay và nợ thuê tài chính) nếu hợp đồng thẻ mang bản chất hạn mức tín dụng ngắn hạn; cần nhất quán theo chính sách kế toán doanh nghiệp.",
+   "Tại Ngày 45 khi doanh nghiệp trích tiền gửi thanh toán mức tối thiểu 500.000 đồng: kế toán ghi giảm nợ phải trả thẻ tín dụng (Nợ TK 338: 500.000 đồng) và ghi giảm tiền gửi ngân hàng (Có TK 112 — Tiền gửi không kỳ hạn: 500.000 đồng). Lưu ý theo Phụ lục II Thông tư 99/2025/TT-BTC, TK 112 mang tên chuẩn là “Tiền gửi không kỳ hạn” (không dùng tên cũ của chế độ trước). Sau bút toán này, số dư Có trên TK 338 còn lại đúng 9.500.000 đồng.",
+   "Tại Ngày 60 khi nhận sao kê kỳ thứ hai có cộng 592.500 đồng tiền lãi thẻ tín dụng (gồm 450.000 đồng lãi lùi của 45 ngày đầu và 142.500 đồng lãi của 15 ngày sau): bản chất kinh tế của khoản này là chi phí đi vay do sử dụng tín dụng tuần hoàn, nên kế toán hạch toán vào Nợ TK 635 (Chi phí tài chính: 592.500 đồng) đối ứng Có TK 338 (Phải trả, phải nộp khác: 592.500 đồng). Nếu kỳ báo cáo tài chính khoá sổ vào cuối tháng (ví dụ Ngày 45 hoặc Ngày 50) trước khi có sao kê Ngày 60, theo nguyên tắc cơ sở dồn tích, kế toán phải trích trước phần lãi thẻ tín dụng đã phát sinh vào Nợ TK 635 / Có TK 335 (Chi phí phải trả).",
+   "Đối chiếu với sổ kế toán của phía Cửa hàng bán thiết bị ở Ngày 01 và Ngày T+2: Cửa hàng hoàn toàn tách biệt khỏi quan hệ vay trả tối thiểu giữa chủ thẻ và ngân hàng phát hành. Tại Ngày 01, Cửa hàng ghi Nợ TK 1388 (Phải thu khác: 10.000.000 đồng) / Có TK 511 (Doanh thu bán hàng và cung cấp dịch vụ: 10.000.000 đồng); đến Ngày T+2 khi nhận tiền giải ngân sau phí MDR 2% (200.000 đồng), Cửa hàng ghi Nợ TK 112 (9.800.000 đồng), Nợ TK 641 (200.000 đồng) / Có TK 1388 (10.000.000 đồng). Việc bạn trả tối thiểu ở Ngày 45 chỉ làm phát sinh bút toán giữa sổ của bạn và sổ của Ngân hàng phát hành thẻ."
+  ],
+  "journal": [
+   {
+    "step": "Bước 1 · Ngày 01 (Quẹt thẻ mua thiết bị/dịch vụ văn phòng 10.000.000 đồng)",
+    "book": "Sổ của doanh nghiệp chủ thẻ (TT 99/2025)",
+    "assume": "Giả định doanh nghiệp dùng thẻ tín dụng doanh nghiệp mua dịch vụ/công cụ quản lý dùng ngay trong kỳ 10.000.000 đồng; bỏ qua thuế GTGT để nhìn rõ dòng gốc và lãi thẻ.",
+    "rows": [
+     [
+      "Nợ",
+      "642",
+      "Chi phí quản lý doanh nghiệp",
+      "chi phí thiết bị, dịch vụ văn phòng mua qua thẻ tín dụng",
+      "Ghi nhận chi phí mua thiết bị/dịch vụ ngày 01",
+      10000000
+     ],
+     [
+      "Có",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: dư nợ sao kê thẻ tín dụng tại ngân hàng phát hành",
+      "Khoản nợ thẻ tín dụng chờ thanh toán",
+      10000000
+     ]
+    ],
+    "note": "Chưa có tiền rời TK 112 của doanh nghiệp ở Ngày 01. Nếu doanh nghiệp hạch toán thẻ tín dụng như khoản vay ngắn hạn thì dùng TK 341 (Vay và nợ thuê tài chính) thay cho TK 338.",
+    "lifeNote": "Bạn đã mang món đồ 10 triệu về dùng, còn trên sổ đã treo một khoản nợ 10 triệu chờ ngày sao kê."
+   },
+   {
+    "step": "Bước 2 · Ngày 45 (Chuyển khoản trả mức tối thiểu 5% = 500.000 đồng đúng hạn)",
+    "book": "Sổ của doanh nghiệp chủ thẻ (TT 99/2025)",
+    "assume": "Đến hạn thanh toán Ngày 45, doanh nghiệp chỉ trích chuyển 500.000 đồng (5% dư nợ sao kê) từ tài khoản tiền gửi không kỳ hạn sang ngân hàng phát hành thẻ.",
+    "rows": [
+     [
+      "Nợ",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: trả một phần dư nợ gốc sao kê thẻ tín dụng",
+      "Giảm bớt 500.000 đồng nợ gốc thẻ",
+      500000
+     ],
+     [
+      "Có",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "chuyển khoản thanh toán tối thiểu thẻ tín dụng",
+      "Tiền thật rời tài khoản thanh toán",
+      500000
+     ]
+    ],
+    "note": "Sau bút toán này, số dư Có TK 338 giảm từ 10.000.000 đồng xuống 9.500.000 đồng. Tuy nhiên, việc không trả đủ 100% làm mất điều kiện miễn lãi 45 ngày đầu.",
+    "lifeNote": "500.000 đồng tiền thật đã rời ví của bạn, nợ gốc còn lại 9.500.000 đồng — nhưng đồng hồ tính lãi vừa bị kích hoạt lùi về Ngày 01."
+   },
+   {
+    "step": "Bước 3 · Ngày 60 (Nhận sao kê kỳ 2 — Ghi nhận 592.500 đồng lãi tính lùi từ Ngày 01)",
+    "book": "Sổ của doanh nghiệp chủ thẻ (TT 99/2025)",
+    "assume": "Lãi suất thẻ tín dụng ví dụ 36%/năm (0,1%/ngày): gồm 450.000 đồng lãi của 45 ngày đầu trên 10.000.000 đồng cộng 142.500 đồng lãi của 15 ngày tiếp theo trên 9.500.000 đồng.",
+    "rows": [
+     [
+      "Nợ",
+      "635",
+      "Chi phí tài chính",
+      "chi phí lãi thẻ tín dụng do mất ân hạn miễn lãi (450.000 + 142.500)",
+      "Tiền lãi thẻ tín dụng bị cộng vào kỳ 2",
+      592500
+     ],
+     [
+      "Có",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: lãi nhập vào dư nợ sao kê thẻ tín dụng kỳ 2",
+      "Dư nợ thẻ tăng thêm 592.500 đồng",
+      592500
+     ]
+    ],
+    "note": "Tổng số dư Có trên TK 338 lúc này là 9.500.000 (gốc còn lại) + 592.500 (lãi) = 10.092.500 đồng — cao hơn dư nợ ban đầu 92.500 đồng.",
+    "lifeNote": "Tiền lãi phát sinh (592.500 đồng) còn lớn hơn cả số tiền tối thiểu bạn vừa trả (500.000 đồng)."
+   },
+   {
+    "step": "Bước 4 · Ngày 60 (Tất toán dứt điểm 100% dư nợ sao kê kỳ 2 = 10.092.500 đồng)",
+    "book": "Sổ của doanh nghiệp chủ thẻ (TT 99/2025)",
+    "assume": "Doanh nghiệp chuyển khoản thanh toán toàn bộ 10.092.500 đồng ngay trong Ngày 60 khi nhận sao kê kỳ 2 để dừng phát sinh lãi ngày và khôi phục ân hạn miễn lãi.",
+    "rows": [
+     [
+      "Nợ",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: tất toán toàn bộ gốc 9.500.000 và lãi 592.500",
+      "Xoá sạch dư nợ sao kê thẻ tín dụng",
+      10092500
+     ],
+     [
+      "Có",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "chuyển khoản tất toán 100% sao kê thẻ tín dụng",
+      "Tiền thật rời tài khoản để trả dứt điểm",
+      10092500
+     ]
+    ],
+    "note": "Tổng tiền mặt doanh nghiệp đã chi qua hai lần (Bước 2 + Bước 4) là 500.000 + 10.092.500 = 10.592.500 đồng cho món hàng gốc 10.000.000 đồng.",
+    "lifeNote": "Chỉ khi dòng nợ trên sổ về 0 hoàn toàn, chiếc thẻ mới được mở lại quyền miễn lãi 45 ngày cho các kỳ sau."
+   }
+  ],
+  "edgeCases": [
+   {
+    "h": "1 · Thanh toán thiếu đúng 10.000 đồng số lẻ trên sao kê 10.000.000 đồng",
+    "p": "Giả sử vào Ngày 45, chủ thẻ chuyển khoản trả 9.990.000 đồng và vô tình bỏ sót 10.000 đồng số lẻ. Vì điều kiện hưởng [[thời gian ân hạn miễn lãi|graceperiod]] đòi hỏi dư nợ sao kê phải được thanh toán đủ 100% đúng hạn, việc còn thiếu 10.000 đồng làm điều kiện miễn lãi bị phá vỡ. Tại đa số ngân hàng phát hành thẻ, hệ thống vẫn tính lãi lùi từ Ngày 01 đến Ngày 45 trên toàn bộ 10.000.000 đồng (450.000 đồng trong ví dụ 0,1%/ngày), cộng với lãi từ Ngày 46 đến Ngày 60 trên 10.000 đồng còn nợ (10.000 × 0,1% × 15 = 150 đồng), tổng cộng 450.150 đồng tiền lãi chỉ vì quên 10.000 đồng. Một số ít ngân hàng có chính sách miễn trừ số lẻ rất nhỏ (Small Balance Tolerance) hoặc cho phép chủ thẻ gọi tổng đài xin miễn giảm lãi lần đầu (Goodwill Waiver) nếu có lịch sử trả đủ tốt, nhưng về mặt hợp đồng tự động, máy tính sẽ thu đủ."
+   },
+   {
+    "h": "2 · Rút tiền mặt từ thẻ tín dụng (Cash Advance) tại cây ATM",
+    "p": "Khác hoàn toàn với giao dịch quẹt thẻ mua hàng tại cửa hàng (Retail Purchase), giao dịch rút tiền mặt từ hạn mức thẻ tín dụng không có bất kỳ ngày ân hạn miễn lãi nào, kể cả khi chủ thẻ luôn trả đủ 100% sao kê đúng hạn. Ngay tại giây tiền mặt rời khe máy ATM, ngân hàng phát hành lập tức thu phí rút tiền mặt (thường khoảng 4% số tiền rút, ví dụ rút 10.000.000 đồng mất ngay 400.000 đồng phí) VÀ kích hoạt đồng hồ tính lãi ngày (0,1%/ngày) ngay từ ngày rút cho tới ngày toàn bộ số tiền rút cùng lãi được hoàn trả hết. Do đó, dùng thẻ tín dụng để rút tiền mặt luôn chịu kép cả phí rút đầu kỳ lẫn lãi ngày tức thời."
+   },
+   {
+    "h": "3 · Trả hàng hoàn tiền (Merchant Refund) sau ngày chốt sao kê có thay thế được khoản trả tối thiểu không?",
+    "p": "Giả sử bạn quẹt 10.000.000 đồng ở Ngày 01, sao kê chốt ở Ngày 30 báo mức trả tối thiểu 500.000 đồng trước Ngày 45. Đến Ngày 35, bạn trả lại một món phụ kiện trị giá 1.000.000 đồng tại cửa hàng và cửa hàng thực hiện lệnh [[hoàn tiền|refund]] về thẻ. Nhiều chủ thẻ nghĩ rằng khoản hoàn 1.000.000 đồng ấy đã lớn hơn mức tối thiểu 500.000 đồng nên không cần chuyển tiền trả nữa. Tuy nhiên, tại nhiều ngân hàng phát hành, giao dịch hoàn tiền từ người bán (Merchant Credit/Refund) chỉ làm giảm tổng dư nợ gốc cho kỳ sau chứ không được hệ thống tính là một khoản thanh toán của chủ thẻ (Qualifying Payment) để thoả mãn nghĩa vụ trả tối thiểu của kỳ sao kê đã chốt. Nếu không tự chuyển khoản ít nhất 500.000 đồng (hoặc phần dư nợ thực tế còn lại nếu trả hết), chủ thẻ vẫn có nguy cơ bị hệ thống tự động tính phí trễ hạn."
+   }
+  ]
+ }
+},
+    videoScript: {
+  "long": {
+   "title": "Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?",
+   "hookNote": "Mở bằng tờ sao kê thẻ tín dụng 10.000.000 đồng với nút bấm nhẹ tênh “Trả tối thiểu 5%: 500.000 đồng”; đặt câu hỏi vì sao trả đúng hạn 500.000 đồng mà sao kê tháng sau lại vọt lên 10.092.500 đồng.",
+   "youtubeId": "",
+   "embedStatus": "pending_upload",
+   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+   "scenes": [
+    {
+     "time": "0:00 – 0:42",
+     "beat": null,
+     "chapter": "Con số 500 nghìn dễ chịu trên sao kê 10 triệu",
+     "visual": "Khung 16:9 đêm Risograph ấm. Máy quay cận tờ sao kê thẻ tín dụng đặt trên bàn gỗ nhà Bạn: dòng chữ trên cùng ghi “Dư nợ sao kê: 10.000.000 đồng”, ngay bên dưới là ô sáng màu vàng ấm “Thanh toán tối thiểu 5%: 500.000 đồng”. Cạnh tờ sao kê, một chiếc đồng hồ cát bắt đầu chảy ngược.",
+     "vo": "Giả sử đầu tháng bạn quẹt thẻ tín dụng mua một món đồ mười triệu đồng. Cuối tháng, ngân hàng gửi sao kê về điện thoại. Trên màn hình có hai lựa chọn đặt cạnh nhau: một là trả đủ mười triệu đồng, hai là chỉ cần trả mức tối thiểu năm phần trăm, tức năm trăm nghìn đồng, là đã được tính đúng hạn, không bị phạt trễ hạn, không bị ghi nợ xấu. Năm trăm nghìn đồng nghe nhẹ tênh. Bạn bấm chuyển khoản năm trăm nghìn, đinh ninh rằng mình chỉ còn nợ chín triệu rưỡi và chỉ chịu một chút tiền lãi cho nửa tháng tiếp theo. Nhưng khi tờ sao kê tháng sau mở ra, số tiền bạn đang nợ không phải chín triệu rưỡi, mà vọt lên thành mười triệu không trăm chín mươi hai nghìn năm trăm đồng. Vì sao bạn vừa trả năm trăm nghìn đồng mà lại bị cộng thêm tới năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi?",
+     "onScreen": "“Sao kê: 10.000.000 đ · Trả tối thiểu 5%: 500.000 đ” · “Kỳ sau: Dư nợ vọt lên 10.092.500 đ (+592.500 đ lãi)” · SFX gợi ý: tiếng thông báo điện thoại & tiếng đồng hồ tích tắc (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "0:42 – 1:32",
+     "beat": 0,
+     "chapter": "Ngày 01: Quẹt thẻ 10 triệu và lời hứa 45 ngày",
+     "visual": "Toàn cảnh năm ngôi nhà trên phố đêm. Nhà Bạn, Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ bật sáng (lit 0,1,2,3). Máy POS tại Cửa hàng nháy xanh (fx pos), luồng thông tin xác nhận chạy qua lại giữa Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ (msgs 1→2, 2→3, 3→2, 2→1). Chốt giữ hạn mức tại Ngân hàng phát hành thẻ gạt xuống (fx hold).",
+     "vo": "Để thấy chiếc bẫy nằm ở đâu, hãy quay lại ngày số không một của kỳ sao kê. Hôm đó bạn bước vào cửa hàng thiết bị, chạm thẻ tín dụng mười triệu đồng. Trong vài giây đầu tiên, luồng thông tin xác nhận chạy từ máy quẹt thẻ qua ngân hàng của cửa hàng tới ngân hàng phát hành thẻ của bạn. Ngân hàng phát hành gạt chốt giữ chỗ mười triệu đồng trên hạn mức thẻ, rồi báo đồng ý. Lúc này, chưa có một đồng tiền thật nào rời tài khoản của bạn. Nếu đây là chiếc thẻ tín dụng của một doanh nghiệp nhỏ mua thiết bị văn phòng, kế toán chỉ vừa ghi tăng chi phí mười triệu đồng và treo một khoản phải trả mười triệu đồng trên sổ. Bạn cầm món đồ về dùng ngay, cùng lời hứa quen thuộc: có tối đa bốn mươi lăm ngày miễn lãi.",
+     "onScreen": "“Ngày 01: Quẹt thẻ 10.000.000 đ” · “Giữ chỗ hạn mức · 0 đồng tiền thật di chuyển” · “Sổ DN: Debit 642 · Credit 338 — 10.000.000 đ” · SFX gợi ý: tiếng máy POS bíp (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "1:32 – 2:24",
+     "beat": 1,
+     "chapter": "Ngày T+2: Ngân hàng đã bỏ tiền túi ứng trước",
+     "visual": "Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ sáng (lit 1,2,3). Luồng quyết toán liên ngân hàng bên dưới phát sáng xanh ngọc: tiền thật chảy từ Ngân hàng phát hành thẻ sang Ngân hàng của cửa hàng rồi vào Cửa hàng (msgs 3→2 money, 2→1 money). Phễu chia phí tại Ngân hàng của cửa hàng giữ 200.000 đồng (fx split), sổ Cửa hàng hiện “+9.800.000” (fx paid).",
+     "vo": "Nhiều người thắc mắc: mình chưa trả tiền cho tới ngày bốn mươi lăm, vậy tại sao ngân hàng lại đòi tính lãi lùi về tận ngày số không một? Câu trả lời nằm ở ngày làm việc thứ hai sau khi bạn quẹt thẻ. Cửa hàng không hề chờ bạn bốn mươi lăm ngày. Ngay ở ngày tê cộng hai, ngân hàng phát hành thẻ đã phải lấy tiền thật từ quỹ của chính họ để quyết toán cho ngân hàng của cửa hàng. Trong ví dụ phí nhận thẻ hai phần trăm, cửa hàng thực nhận chín triệu tám trăm nghìn đồng tiền tươi vào tài khoản. Nghĩa là từ ngày thứ hai trở đi, người đang bỏ tiền túi ra cho bạn tiêu chính là ngân hàng phát hành thẻ. Họ chỉ đồng ý miễn tiền lãi của bốn mươi lăm ngày ứng vốn ấy dưới một điều kiện duy nhất: đến ngày bốn mươi lăm, bạn phải trả lại đủ một trăm phần trăm.",
+     "onScreen": "“Ngày T+2: Ngân hàng phát hành ứng tiền thật” · “Cửa hàng thực nhận: 9.800.000 đ (sau phí 2% ví dụ)” · “Miễn lãi 45 ngày = Ưu đãi có điều kiện” · SFX gợi ý: tiếng chuyển khoản liên ngân hàng (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "2:24 – 3:14",
+     "beat": 2,
+     "chapter": "Ngày 30: Sao kê chốt sổ và hai con đường",
+     "visual": "Nhà Bạn và Ngân hàng phát hành thẻ sáng (lit 0,3). Một thông báo sao kê gửi từ Ngân hàng phát hành thẻ về nhà Bạn (msgs 3→0). Điện thoại nhà Bạn rung lên (fx phone), bàn sổ tại Ngân hàng phát hành thẻ sáng đèn (fx iledger). Hai thẻ hiện lên trên khung: “Trả đủ 10.000.000 → Lãi 0 đ” và “Trả tối thiểu 500.000 → Mất miễn lãi”.",
+     "vo": "Đến ngày thứ ba mươi, ngân hàng phát hành thẻ khoá sổ kỳ sao kê đầu tiên và gửi thông báo về điện thoại của bạn. Từ ngày ba mươi đến ngày bốn mươi lăm là mười lăm ngày ân hạn để bạn thu xếp tiền thanh toán. Tờ sao kê đặt trước mặt bạn hai con đường rất rõ. Con đường thứ nhất: thanh toán đủ mười triệu đồng vào hoặc trước ngày bốn mươi lăm, toàn bộ bốn mươi lăm ngày ngân hàng ứng vốn cho bạn sẽ có giá đúng bằng không đồng. Con đường thứ hai: thanh toán mức tối thiểu năm phần trăm, tức năm trăm nghìn đồng. Con số năm trăm nghìn đồng này được thiết kế vừa đủ nhỏ để ai đang kẹt tiền mặt cũng bấm trả được ngay, nhưng hầu hết mọi người không đọc dòng chữ nhỏ đi kèm: trả mức tối thiểu đồng nghĩa từ bỏ toàn bộ bốn mươi lăm ngày miễn lãi.",
+     "onScreen": "“Ngày 30: Chốt sao kê 10.000.000 đ” · “Hạn thanh toán: Ngày 45” · “Lựa chọn A: Trả 10.000.000 đ (Lãi 0 đ) · Lựa chọn B: Trả tối thiểu 500.000 đ” · SFX gợi ý: tiếng lật giấy sao kê (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "3:14 – 4:08",
+     "beat": 3,
+     "chapter": "Ngày 45: Trả 500 nghìn — thoát phạt nhưng bật đồng hồ lãi lùi",
+     "visual": "Nhà Bạn, Ngân hàng phát hành thẻ và Ngân hàng tài khoản của bạn sáng (lit 0,3,4). Lệnh thanh toán đi từ nhà Bạn sang Ngân hàng tài khoản của bạn (msgs 0→4), rồi 500.000 đồng tiền thật chảy sang Ngân hàng phát hành thẻ (msgs 4→3 money). Đạo cụ két tiền tại Ngân hàng tài khoản của bạn hiện “trích 500.000 (5%)” (fx pool).",
+     "vo": "Ngày thứ bốn mươi lăm, bạn chọn bấm chuyển năm trăm nghìn đồng từ ngân hàng tài khoản thanh toán của mình sang ngân hàng phát hành thẻ. Tiền thật đã đi qua hệ thống thanh toán và giảm nợ gốc của bạn từ mười triệu xuống còn chín triệu năm trăm nghìn đồng. Trên sổ kế toán doanh nghiệp, khoản phải trả thẻ tín dụng giảm năm trăm nghìn đồng, tiền gửi không kỳ hạn giảm năm trăm nghìn đồng. Nhờ năm trăm nghìn đồng đến đúng hạn này, bạn không bị thu phí phạt trễ hạn, và hồ sơ tín dụng của bạn vẫn sạch đẹp. Nhưng ngay khi đồng hồ điểm qua nửa đêm ngày bốn mươi lăm mà chín triệu năm trăm nghìn đồng kia vẫn chưa về, chiếc công tắc miễn lãi trong hệ thống ngân hàng lập tức gạt sang chế độ huỷ hồi tố.",
+     "onScreen": "“Ngày 45: Trả tối thiểu 500.000 đ tiền thật” · “Dư nợ gốc còn lại: 9.500.000 đ” · “Sổ DN: Debit 338 · Credit 112 — 500.000 đ” · SFX gợi ý: tiếng gạt công tắc cơ khí (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "4:08 – 5:12",
+     "beat": 4,
+     "chapter": "Ngày 60: Giải phẫu hai khúc tiền lãi 450.000 và 142.500",
+     "visual": "Nhà Bạn và Ngân hàng phát hành thẻ sáng rực (lit 0,3). Tờ sao kê kỳ 2 gửi từ Ngân hàng phát hành thẻ về nhà Bạn (msgs 3→0). Bàn sổ tại Ngân hàng phát hành thẻ (fx iledger, release) tách thành hai thanh ngang màu hổ phách và đất nung: Khúc 1 (Ngày 01–45: 10.000.000 × 0,1% × 45 = 450.000 đ) và Khúc 2 (Ngày 46–60: 9.500.000 × 0,1% × 15 = 142.500 đ), ghép lại thành 592.500 đồng.",
+     "vo": "Hãy nhìn cách máy tính của ngân hàng cộng tiền lãi vào ngày thứ sáu mươi, kỳ sao kê thứ hai. Giả sử lãi suất thẻ tín dụng của bạn là ba mươi sáu phần trăm một năm, tức khoảng ba phần trăm một tháng hay không phẩy một phần trăm một ngày để dễ nhẩm. Máy tính không hề tính lãi từ ngày bốn mươi sáu. Nó quay ngược kim đồng hồ về đúng ngày số không một. Khúc thứ nhất, từ ngày một đến ngày bốn mươi lăm: suốt bốn mươi lăm ngày đó, bạn nợ trọn mười triệu đồng. Mười triệu nhân không phẩy một phần trăm một ngày nhân bốn mươi lăm ngày bằng bốn trăm năm mươi nghìn đồng. Khúc thứ hai, từ ngày bốn mươi sáu đến ngày sáu mươi: sau khi trừ năm trăm nghìn bạn đã trả, nợ gốc còn chín triệu rưỡi, nằm thêm mười lăm ngày. Chín triệu rưỡi nhân không phẩy một phần trăm nhân mười lăm ngày bằng một trăm bốn mươi hai nghìn năm trăm đồng. Cộng hai khúc lại: bốn trăm năm mươi nghìn cộng một trăm bốn mươi hai nghìn năm trăm bằng đúng năm trăm chín mươi hai nghìn năm trăm đồng.",
+     "onScreen": "“Khúc 1 (45 ngày đầu): 10.000.000 × 0,1%/ngày × 45 = 450.000 đ” · “Khúc 2 (15 ngày sau): 9.500.000 × 0,1%/ngày × 15 = 142.500 đ” · “Tổng lãi kỳ 2 = 592.500 đ → Dư nợ mới: 10.092.500 đ” · SFX gợi ý: tiếng máy tính cộng dồn (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "5:12 – 6:04",
+     "beat": null,
+     "chapter": "Cái giá thật của 15 ngày giữ lại 9,5 triệu",
+     "visual": "Trên nền mặt cắt Ngân hàng phát hành thẻ, hai cột số đặt lên bàn cân: bên trái là “Tiền giữ lại thêm 15 ngày: 9.500.000 đ”, bên phải là “Tiền lãi phải trả: 592.500 đ (6,24% trong 15 ngày)”. Phía dưới hiện dòng đối chiếu lãi kép 12 tháng: “36%/năm danh nghĩa ≈ 42,6%/năm EIR”.",
+     "vo": "Đặt các con số cạnh nhau, bạn sẽ thấy nghịch lý của khoản trả tối thiểu. Ở ngày bốn mươi lăm, bạn bỏ ra năm trăm nghìn đồng để trả cho ngân hàng. Đến ngày sáu mươi, ngân hàng cộng thêm năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi vào gốc chín triệu rưỡi, biến tổng dư nợ mới thành mười triệu không trăm chín mươi hai nghìn năm trăm đồng. Nghĩa là sau khi trả tiền, bạn lại nợ nhiều hơn lúc chưa trả chín mươi hai nghìn năm trăm đồng. Và nếu nhìn vào bản chất kinh tế: để giữ lại chín triệu rưỡi trong túi thêm đúng mười lăm ngày, bạn đã phải trả cái giá năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi, tức hơn sáu phẩy hai phần trăm chỉ trong nửa tháng. Còn nếu cứ để dư nợ ấy cuốn chiếu từ tháng này sang tháng khác ở mức ba phần trăm một tháng nhập gốc, lãi suất thực tế một năm sẽ lên tới khoảng bốn mươi hai phẩy sáu phần trăm.",
+     "onScreen": "“Giữ lại 9.500.000 đ thêm 15 ngày → Tốn 592.500 đ tiền lãi (≈ 6,24% trong 15 ngày)” · “Lãi kép 12 tháng: 36%/năm danh nghĩa ≈ 42,6%/năm EIR (ví dụ)” · SFX gợi ý: tiếng đặt quả cân (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "6:04 – 6:56",
+     "beat": null,
+     "chapter": "Khi giao dịch mới cũng mất quyền miễn lãi",
+     "visual": "Quay lại cảnh nhà Bạn và Cửa hàng (lit 0,1,3). Bạn quẹt thêm một giao dịch mới ở Ngày 50. Ngay giây chạm thẻ, đồng hồ tính lãi tại Ngân hàng phát hành thẻ bật sáng đỏ ngay lập tức, không còn vùng đệm 45 ngày màu xanh như kỳ đầu.",
+     "vo": "Chưa hết, chiếc thẻ đang trả tối thiểu còn kéo theo một hiệu ứng dây chuyền sang các giao dịch mới. Ở kỳ đầu tiên, khi thẻ của bạn chưa có nợ cũ, mỗi lần quẹt thẻ đều được tặng một đường băng miễn lãi cho tới ngày hẹn thanh toán. Nhưng một khi bạn chỉ trả tối thiểu năm trăm nghìn ở ngày bốn mươi lăm và để chín triệu rưỡi chảy sang kỳ thứ hai, chiếc thẻ của bạn đã bước vào trạng thái tín dụng tuần hoàn đang có dư nợ. Từ giây phút đó, nếu bạn cầm chính chiếc thẻ ấy đi siêu thị hay đổ xăng thêm bất kỳ món nào mới, món mới đó thường mất luôn quyền miễn lãi và bị tính lãi không phẩy một phần trăm một ngày ngay từ giây chạm thẻ tại quầy.",
+     "onScreen": "“Thẻ đang còn dư nợ chuyển kỳ → Giao dịch quẹt mới mất luôn 45 ngày miễn lãi” · “Lãi ngày chạy ngay từ giây chạm thẻ” · SFX gợi ý: tiếng chuông cảnh báo trầm (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "6:56 – 7:44",
+     "beat": null,
+     "chapter": "Thiếu 10.000 đồng số lẻ và bẫy rút tiền mặt",
+     "visual": "Khung hình chia ba tình huống ngoại lệ trên mặt cắt: (1) Trả 9.990.000 đ (thiếu 10.000 đ) → vẫn mất 450.000 đ lãi 45 ngày đầu; (2) Rút tiền mặt ATM → thu phí 4% + tính lãi ngay ngày đầu; (3) Lãi phần đuôi (Trailing Interest) sau khi trả sao kê kỳ 2.",
+     "vo": "Trong thực tế còn ba tình huống rất dễ làm người dùng thẻ sập bẫy. Thứ nhất: giả sử ở ngày bốn mươi lăm bạn chuyển khoản trả chín triệu chín trăm chín mươi nghìn đồng, tức chỉ thiếu đúng mười nghìn đồng số lẻ do gõ nhầm. Vì chưa trả đủ một trăm phần trăm sao kê, hệ thống máy tính vẫn huỷ toàn bộ bốn mươi lăm ngày miễn lãi và thu bốn trăm năm mươi nghìn đồng tiền lãi của giai đoạn đầu. Thứ hai: nếu bạn dùng thẻ tín dụng rút tiền mặt tại cây rút tiền tự động, giao dịch đó không có bất kỳ ngày miễn lãi nào, vừa mất ngay khoảng bốn phần trăm phí rút tiền vừa bị tính lãi ngày từ giây tiền rời máy. Thứ ba: ngay cả khi sang kỳ hai bạn trả đủ mười triệu không trăm chín mươi hai nghìn năm trăm đồng, những ngày chờ từ lúc chốt sao kê kỳ hai đến lúc bạn bấm trả vẫn tiếp tục đẻ ra một khoản lãi phần đuôi ở kỳ thứ ba.",
+     "onScreen": "“Trả 9.990.000 đ (thiếu 10.000 đ) → Vẫn mất 450.000 đ lãi lùi (ví dụ)” · “Rút tiền mặt ATM: 0 ngày miễn lãi + phí ~4%” · “Lưu ý lãi phần đuôi (Trailing Interest) ở kỳ kế tiếp” · SFX gợi ý: tiếng lật thẻ (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "7:44 – 8:20",
+     "beat": null,
+     "chapter": "Câu hỏi trước khi bấm nút trả tối thiểu",
+     "visual": "Máy quay lùi ra toàn cảnh năm ngôi nhà về đêm. Luồng quyết toán từ Ngân hàng tài khoản của bạn chạy sang Ngân hàng phát hành thẻ số tiền 10.092.500 đồng, xoá sạch dư nợ trên sổ về 0. Đèn chiếc đồng hồ miễn lãi 45 ngày bật xanh trở lại.",
+     "vo": "Vậy con số thanh toán tối thiểu năm phần trăm không phải là món quà giảm giá, mà là một chiếc phao cứu hộ khẩn cấp để bạn không bị phạt trễ hạn và không bị ghi nhận nợ quá hạn khi kẹt dòng tiền thật sự. Đổi lại, bạn phải trả tiền thuê vốn cho cả quãng thời gian bốn mươi lăm ngày ngân hàng đã ứng tiền trước đó. Lần tới khi nhìn thấy nút thanh toán tối thiểu năm trăm nghìn đồng nằm cạnh con số mười triệu trên màn hình, chỉ cần nhớ một phép tính nhẩm: trả năm trăm nghìn hôm nay, kỳ sau tiền lãi cộng vào đã là năm trăm chín mươi hai nghìn năm trăm đồng. Và chỉ khi nào bạn trả đủ một trăm phần trăm dư nợ sao kê, chiếc đồng hồ bốn mươi lăm ngày miễn lãi mới thật sự quay trở lại.",
+     "onScreen": "“Trả tối thiểu 500.000 đ = Thoát phí trễ hạn, nhưng chịu 592.500 đ lãi lùi” · “Trả đủ 100% sao kê → Khôi phục 45 ngày miễn lãi” · SFX gợi ý: tiếng khoá sổ nhẹ (cần giấy phép trước khi dùng)"
+    }
+   ]
+  },
+  "short": {
+   "title": "Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?",
+   "angle": "Trả tối thiểu 5% (500.000 đồng) giúp bạn thoát phí phạt trễ hạn nhưng làm mất trắng 45 ngày miễn lãi: ngân hàng tính lãi lùi từ Ngày 01 trên cả 10 triệu (450.000 đồng) cộng 15 ngày tiếp theo trên 9,5 triệu (142.500 đồng), tổng cộng 592.500 đồng tiền lãi.",
+   "youtubeId": "",
+   "embedStatus": "pending_upload",
+   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+   "scenes": [
+    {
+     "time": "0:00 – 0:11",
+     "beat": null,
+     "visual": "9:16, cận tờ sao kê thẻ tín dụng 10.000.000 đồng trên điện thoại; nút “Trả tối thiểu 5%: 500.000 đồng” sáng vàng.",
+     "vo": "Sao kê thẻ tín dụng báo mười triệu đồng, kèm lựa chọn trả tối thiểu năm trăm nghìn đồng là đúng hạn. Bạn bấm trả năm trăm nghìn... vì sao tháng sau dư nợ lại vọt lên hơn mười triệu chín mươi hai nghìn?",
+     "onScreen": "Chữ to: “Sao kê 10.000.000 đ · Trả 500.000 đ → Kỳ sau nợ 10.092.500 đ?” · SFX gợi ý: tiếng thông báo điện thoại (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "0:11 – 0:23",
+     "beat": 1,
+     "visual": "9:16, mặt cắt Ngân hàng phát hành thẻ ứng tiền thật 9.800.000 đồng cho Cửa hàng từ Ngày T+2 (lit 1,2,3; msgs 3→2 money, 2→1 money).",
+     "vo": "Bởi vì chỉ hai ngày sau lúc quẹt thẻ, ngân hàng phát hành đã lấy tiền túi ra trả cho cửa hàng. Bốn mươi lăm ngày miễn lãi chỉ giữ được nếu đến hạn bạn trả đủ một trăm phần trăm.",
+     "onScreen": "“Ngày T+2: Ngân hàng đã ứng tiền thật cho cửa hàng” · “Miễn lãi 45 ngày = Phải trả đủ 100%” · SFX gợi ý: tiếng chuyển khoản (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "0:23 – 0:36",
+     "beat": 3,
+     "visual": "9:16, Ngày 45: 500.000 đồng chuyển từ Ngân hàng tài khoản của bạn sang Ngân hàng phát hành thẻ (lit 0,3,4; msgs 4→3 money); đồng hồ miễn lãi bị gạch chéo.",
+     "vo": "Ở ngày bốn mươi lăm, khi chỉ trả năm trăm nghìn đồng, bạn thoát được phí phạt trễ hạn và nợ xấu, nhưng toàn bộ bốn mươi lăm ngày miễn lãi lập tức bị huỷ bỏ.",
+     "onScreen": "“Ngày 45: Trả 500.000 đ → Thoát phí phạt, nhưng mất trắng 45 ngày miễn lãi” · SFX gợi ý: tiếng gạt công tắc (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "0:36 – 0:51",
+     "beat": 4,
+     "visual": "9:16, bảng sổ tại Ngân hàng phát hành thẻ hiện hai khúc lãi: 450.000 đồng (45 ngày đầu trên 10 triệu) + 142.500 đồng (15 ngày sau trên 9,5 triệu) = 592.500 đồng.",
+     "vo": "Với mức lãi ví dụ không phẩy một phần trăm một ngày, ngân hàng tính lùi từ ngày đầu: bốn trăm năm mươi nghìn đồng cho bốn mươi lăm ngày đầu trên mười triệu, cộng một trăm bốn mươi hai nghìn năm trăm đồng cho mười lăm ngày sau trên chín triệu rưỡi.",
+     "onScreen": "“450.000 đ (45 ngày đầu) + 142.500 đ (15 ngày sau) = 592.500 đ tiền lãi” · SFX gợi ý: tiếng máy tính cộng dồn (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "0:51 – 1:02",
+     "beat": null,
+     "visual": "9:16, đặt cạnh nhau: “Tiền vừa trả: 500.000 đ” và “Tiền lãi bị cộng: 592.500 đ” → “Dư nợ mới: 10.092.500 đ”.",
+     "vo": "Tổng lãi lên tới năm trăm chín mươi hai nghìn năm trăm đồng, lớn hơn cả năm trăm nghìn vừa trả, đẩy dư nợ mới lên mười triệu không trăm chín mươi hai nghìn năm trăm đồng.",
+     "onScreen": "“Trả 500.000 đ · Bị cộng 592.500 đ lãi → Nợ mới 10.092.500 đ” · SFX gợi ý: tiếng đặt quả cân (cần giấy phép trước khi dùng)"
+    },
+    {
+     "time": "1:02 – 1:12",
+     "beat": null,
+     "visual": "9:16, nút cài đặt trích nợ tự động gạt từ “5% tối thiểu” sang “100% dư nợ sao kê”, đèn 45 ngày miễn lãi bật xanh.",
+     "vo": "Trả tối thiểu chỉ là phao cứu hộ khi kẹt dòng tiền. Khi có đủ số dư, trả trọn một trăm phần trăm sao kê mới giữ được bốn mươi lăm ngày miễn lãi.",
+     "onScreen": "“Trả đủ 100% sao kê = Giữ trọn 45 ngày miễn lãi” · SFX gợi ý: tiếng khoá sổ (cần giấy phép trước khi dùng)"
+    }
+   ]
+  }
+ },
+    houses:[
+      {type:"home",label:"Bạn",fxText:{phone:"sao kê: 10.000.000"}},
+      {type:"shop",label:"Cửa hàng",sign:"THIẾT BỊ",fxText:{recv:"sổ: phải thu 10tr",paid:"sổ: +9.800.000"}},
+      {type:"acq",label:"Ngân hàng của cửa hàng",fxText:{split:"MDR 2%: 200.000"}},
+      {type:"iss",label:"Ngân hàng phát hành thẻ",fxText:{hold:"ứng trước 9.850.000",release:"dư nợ mới: 10.092.500"}},
+      {type:"pbank",label:"Ngân hàng tài khoản của bạn",fxText:{pool:"trích 500.000 (5%)"}}],
+    beats:[
+      {when:"Ngày 01",sub:"đầu kỳ sao kê",title:"Quẹt thẻ 10 triệu — mở kỳ 45 ngày miễn lãi",
+       say:["Đầu kỳ sao kê, bạn chạm thẻ tín dụng ở cửa hàng mua một chiếc máy làm việc giá 10.000.000 đồng — số ví dụ.",
+            "Máy báo thành công. [[Ngân hàng phát hành|issuer]] đặt một lệnh [[giữ chỗ hạn mức|hold]] 10 triệu đồng; lúc này mới chỉ có lời nhắn xác nhận, chưa có đồng tiền thật nào rời túi bạn.",
+            "Bạn mang máy về dùng cùng lời hứa quen thuộc: có tối đa [[45 ngày miễn lãi|graceperiod]]."],
+       lit:[0,1,2,3],tags:{1:["bán thiết bị 10.000.000","plain"],3:["giữ chỗ hạn mức 10.000.000","minus"]},
+       msgs:[[1,2],[2,3],[3,2],[2,1]],fx:["pos","hold","phone"],
+       life:"Bạn đã có máy dùng ngay ở Ngày 01 mà chưa phải chi tiền mặt. Nhưng 45 ngày miễn lãi là một lời hứa kèm điều kiện trả đủ 100% ở ngày đến hạn.",
+       sys:"Trên sổ doanh nghiệp dùng thẻ tín dụng doanh nghiệp (TT 99/2025), giao dịch quẹt thẻ mua thiết bị/dịch vụ quản lý ghi tăng chi phí và tăng khoản phải trả ngân hàng phát hành thẻ.",
+       ledger:{book:"Sổ của doanh nghiệp chủ thẻ",assume:"Giả sử văn phòng bạn dùng thẻ tín dụng doanh nghiệp mua thiết bị/dịch vụ quản lý 10.000.000 đồng dùng ngay; bỏ qua thuế GTGT để nhìn rõ phần gốc và lãi.",
+         rows:[["Nợ","642","Chi phí quản lý doanh nghiệp","chi phí thiết bị, dịch vụ mua bằng thẻ tín dụng","Chi phí thiết bị văn phòng Ngày 01",10000000],
+               ["Có","338","Phải trả, phải nộp khác","chi tiết 3388: dư nợ thẻ tín dụng phải trả ngân hàng phát hành","Khoản nợ trên thẻ tín dụng chờ sao kê",10000000]],
+         note:"Chưa có tiền rời TK 112. Một số doanh nghiệp ghi vào TK 341 (Vay và nợ thuê tài chính) tuỳ điều khoản hợp đồng thẻ doanh nghiệp.",
+         lifeNote:"Món hàng 10 triệu đã về nhà bạn, còn trên sổ thẻ vừa treo một khoản nợ 10 triệu chờ ngày chốt sao kê."}},
+      {when:"Ngày T+2",sub:"hai ngày làm việc sau, ví dụ",title:"Ngân hàng phát hành đã bỏ tiền túi ứng trước",
+       say:["Cửa hàng không hề đợi bạn 45 ngày. Chỉ hai ngày làm việc sau ([[T+2|t2]]), ngân hàng phát hành thẻ đã phải xuất tiền thật để [[quyết toán|settlement]] cho phía cửa hàng.",
+            "Sau khi trừ phí nhận thẻ [[MDR|mdr]] ví dụ 2% (200.000 đồng), cửa hàng thực nhận 9.800.000 đồng tiền thật vào tài khoản.",
+            "Nghĩa là suốt hơn một tháng tiếp theo, người đang bỏ tiền túi ra cho bạn tiêu chính là ngân hàng phát hành thẻ."],
+       lit:[1,2,3],tags:{3:["ứng tiền thật quyết toán","minus"],1:["+ 9.800.000 vào tài khoản","plus"]},
+       msgs:[[3,2,"money"],[2,1,"money"]],fx:["paid","split","iledger"],
+       life:"Hiểu bước T+2 này sẽ giải đáp thắc mắc lớn nhất: vì sao khi bạn không trả đủ ở Ngày 45, ngân hàng lại đòi tính lãi lùi về tận đầu kỳ? Vì họ đã ứng tiền thật cho cửa hàng từ đầu kỳ.",
+       sys:"Tiền thật chảy qua luồng quyết toán liên ngân hàng từ Ngân hàng phát hành thẻ sang Ngân hàng của cửa hàng từ Ngày T+2. Thời gian ân hạn miễn lãi là khoảng thời gian ngân hàng phát hành tạm chịu chi phí vốn thay chủ thẻ.",ledger:null},
+      {when:"Ngày 30",sub:"chốt sao kê kỳ 1",title:"Sao kê 10 triệu và con số “tối thiểu 500.000”",
+       say:["Đúng Ngày 30, ngân hàng phát hành khoá sổ kỳ sao kê đầu tiên và gửi thông báo về điện thoại của bạn.",
+            "Sao kê ghi rõ hai lựa chọn cho hạn thanh toán Ngày 45: trả toàn bộ 10.000.000 đồng để hưởng lãi 0 đồng, hoặc trả [[tối thiểu 5%|minpayment]] — tức 500.000 đồng.",
+            "Con số 500.000 đồng nhìn nhẹ tênh và được cam kết không phạt trễ hạn, khiến rất nhiều người bấm chọn mà không để ý điều kiện đánh đổi phía sau."],
+       lit:[0,3],tags:{0:["nhận sao kê 10.000.000","plain"],3:["hạn Ngày 45: trả 10tr hoặc 500k","plain"]},
+       msgs:[[3,0]],fx:["phone","iledger"],
+       life:"Sao kê cho bạn thêm 15 ngày (từ Ngày 30 đến Ngày 45) để chuẩn bị tiền. Ở Ngày 30 này, tiền lãi trên sao kê vẫn đang bằng 0.",
+       sys:"Ngày chốt sao kê (Statement Closing Date) chỉ khóa danh sách giao dịch của kỳ 1 và thông báo nghĩa vụ thanh toán; chưa phát sinh bút toán chi phí lãi nếu chủ thẻ vẫn đang trong thời gian ân hạn.",ledger:null},
+      {when:"Ngày 45",sub:"hạn thanh toán",title:"Trả 500.000 đồng — thoát phạt, mất trắng 45 ngày miễn lãi",
+       say:["Đến Ngày 45, bạn trích 500.000 đồng từ tài khoản thanh toán chuyển sang ngân hàng phát hành thẻ. Dư nợ gốc giảm xuống còn 9.500.000 đồng.",
+            "Nhờ trả đúng mức tối thiểu trước hạn, bạn không bị thu [[phí trễ hạn|latefee]] và không bị ghi nhận nợ quá hạn.",
+            "Nhưng vì bạn không trả đủ 100% sao kê, toàn bộ 45 ngày miễn lãi lập tức bị huỷ: ngân hàng bật đồng hồ [[tín dụng tuần hoàn|revolving]] tính lãi lùi về tận Ngày 01."],
+       lit:[0,3,4],tags:{4:["− 500.000 tiền thật","minus"],3:["gốc còn 9.500.000 · huỷ miễn lãi","plain"]},
+       msgs:[[0,4],[4,3,"money"]],fx:["phone","pool","iledger"],
+       life:"Nhiều người tưởng trả 500.000 đồng xong thì chỉ bị tính lãi trên 9.500.000 đồng từ Ngày 46 trở đi. Sự thật là bạn vừa đánh mất quyền miễn lãi của cả 45 ngày đầu tiên.",
+       sys:"Khoản thanh toán 500.000 đồng đi qua luồng tiền thật, làm giảm số dư nợ gốc trên TK 338 từ 10.000.000 đồng xuống 9.500.000 đồng, đồng thời kích hoạt cơ chế tính lãi theo dư nợ bình quân ngày (ADB) từ Ngày 01.",
+       ledger:{book:"Sổ của doanh nghiệp chủ thẻ",assume:"Giả sử đến hạn Ngày 45, doanh nghiệp chỉ chuyển khoản trả mức tối thiểu 5% (500.000 đồng) từ tài khoản tiền gửi không kỳ hạn.",
+         rows:[["Nợ","338","Phải trả, phải nộp khác","chi tiết 3388: trả tối thiểu 5% dư nợ sao kê thẻ tín dụng","Giảm nợ gốc thẻ tín dụng 500.000 đồng",500000],
+               ["Có","112","Tiền gửi không kỳ hạn","chuyển khoản sang ngân hàng phát hành thẻ","Tiền thật rời tài khoản thanh toán",500000]],
+         note:"Số dư Có TK 338 còn lại 9.500.000 đồng. Theo TT 99/2025, TK 112 mang tên Tiền gửi không kỳ hạn.",
+         lifeNote:"500.000 đồng tiền thật đã rời tài khoản của bạn. Nợ gốc còn 9.500.000 đồng, nhưng chiếc đồng hồ tính lãi vừa quay ngược về Ngày 01."}},
+      {when:"Ngày 60",sub:"sao kê kỳ kế tiếp, ví dụ",title:"Trả 500.000 đồng nhưng bị cộng 592.500 đồng tiền lãi",
+       say:["Ngày 60, sao kê kỳ thứ hai gửi về. Ở mức lãi ví dụ 36%/năm (tức 3%/tháng hay 0,1%/ngày), tiền lãi được cộng từ hai khúc: 45 ngày đầu trên 10.000.000 đồng là 450.000 đồng, cộng 15 ngày tiếp theo trên 9.500.000 đồng là 142.500 đồng.",
+            "Tổng tiền lãi phát sinh là 592.500 đồng — lớn hơn cả 500.000 đồng bạn vừa trả ở Ngày 45.",
+            "Cộng với 9.500.000 đồng nợ gốc còn lại, tổng dư nợ trên sao kê Ngày 60 vọt lên 10.092.500 đồng — cao hơn cả lúc bạn chưa trả đồng nào."],
+       lit:[0,3],tags:{3:["+ 592.500 tiền lãi (450k + 142,5k)","plus"],0:["dư nợ mới: 10.092.500","minus"]},
+       msgs:[[3,0]],fx:["phone","iledger","release"],
+       life:"Đó là cú sốc của trả tối thiểu: trả 500.000 đồng xong, tháng sau lại nợ 10.092.500 đồng. Để dừng vòng xoáy này, cách duy nhất là thanh toán đủ 100% dư nợ sao kê.",
+       sys:"Phương pháp [[dư nợ bình quân ngày|adb]] (ADB): Khúc 1 (Ngày 01–45) = 10.000.000 × 0,1%/ngày × 45 ngày = 450.000 đồng; Khúc 2 (Ngày 46–60) = 9.500.000 × 0,1%/ngày × 15 ngày = 142.500 đồng. Tổng lãi = 592.500 đồng (nếu tính theo chuẩn 365 ngày/năm ở mức 36%/năm thì tổng lãi là 584.384 đồng).",
+       ledger:{book:"Sổ của doanh nghiệp chủ thẻ",assume:"Sao kê Ngày 60 ghi nhận tiền lãi thẻ tín dụng 592.500 đồng (450.000 đồng của 45 ngày đầu + 142.500 đồng của 15 ngày sau, ở mức ví dụ 0,1%/ngày).",
+         rows:[["Nợ","635","Chi phí tài chính","lãi thẻ tín dụng do mất 45 ngày miễn lãi (450.000 + 142.500)","Chi phí lãi thẻ tín dụng kỳ 2",592500],
+               ["Có","338","Phải trả, phải nộp khác","chi tiết 3388: lãi nhập vào dư nợ sao kê thẻ tín dụng","Cộng vào dư nợ thẻ phải trả (tổng mới 10.092.500)",592500]],
+         note:"Sau bút toán này, tổng số dư Có TK 338 là 9.500.000 + 592.500 = 10.092.500 đồng.",
+         lifeNote:"Tiền lãi một kỳ (592.500 đồng) đã nuốt trọn khoản trả tối thiểu (500.000 đồng) và làm tổng nợ tăng thêm 92.500 đồng."}}
     ]}
 };
 
@@ -2845,7 +3368,7 @@ const CATEGORIES = [
     {t:"Hoàn tiền một giao dịch thẻ: tiền quay về bằng đường nào?",status:"upcoming"}]},
   {id:"c3",name:"Vay nợ & Lãi suất thực",c:"#5c5a2e",topics:[
     {story:"install"},
-    {t:"Trả tối thiểu thẻ tín dụng: lãi tính trên số nào?",status:"upcoming"},
+    {story:"minpay"},
     {t:"Vay mua nhà: hết ưu đãi thì lãi thả nổi là bao nhiêu?",status:"upcoming"}]},
   {id:"c4",name:"Doanh nghiệp, Hoá đơn & Thuế",c:"#6a3f55",topics:[
     {t:"Vì sao công ty có lãi vẫn có thể hết tiền?",status:"upcoming"},
@@ -3796,6 +4319,41 @@ const CHAP_FIGS = {
       title: "Khi kế hoạch lệch: Vì sao trả lại máy ở cửa hàng không tự động xoá được khoản vay trả góp của bạn?",
       desc: "Vì hợp đồng mua bán hàng hoá (với cửa hàng) và hợp đồng tín dụng (với [[công ty tài chính|fincomp]]) là hai quan hệ pháp lý tách biệt: khi trả máy hoặc tất toán sớm, khoản vay trên sổ công ty tài chính chỉ khép lại khi hai bên hoàn tất bút toán đối trừ và thanh lý hợp đồng vay."
     }
+  ],
+  minpay: [
+    null,
+    {
+      file: "minpay-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · ĐIỀU KIỆN CỦA 45 NGÀY MIỄN LÃI",
+      alt: "Mặt cắt kiến trúc năm ngôi nhà cho thấy ngân hàng phát hành thẻ đã ứng tiền thật quyết toán cho cửa hàng từ Ngày T+2, nên 45 ngày miễn lãi chỉ là ưu đãi có điều kiện khi trả đủ 100 phần trăm sao kê",
+      title: "Quẹt thẻ 10.000.000 đ ở Ngày 01: Ngân hàng phát hành đã bỏ tiền túi ứng trước cho cửa hàng từ Ngày T+2",
+      desc: "Ngay từ Ngày [[T+2|t2]], [[ngân hàng phát hành|issuer]] đã xuất tiền thật quyết toán cho phía cửa hàng (cửa hàng nhận 9.800.000 đ sau phí [[MDR|mdr]] 2%). Lời hứa [[miễn lãi 45 ngày|graceperiod]] chỉ giữ hiệu lực nếu đến hạn Ngày 45 bạn hoàn trả đủ 100% dư nợ sao kê (10.000.000 đ)."
+    },
+    {
+      file: "minpay-fig-2.jpg",
+      beat: 4,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · ĐỒNG HỒ TÍNH LÃI QUAY NGƯỢC VỀ NGÀY 01",
+      alt: "Mặt cắt giải phẫu hai khúc tiền lãi khi trả tối thiểu 500.000 đồng ở Ngày 45: khúc 1 gồm 45 ngày đầu trên 10 triệu bằng 450.000 đồng, khúc 2 gồm 15 ngày sau trên 9,5 triệu bằng 142.500 đồng, tổng cộng 592.500 đồng",
+      title: "Giải phẫu 592.500 đ tiền lãi ở Ngày 60: 450.000 đ lãi lùi của 45 ngày đầu cộng 142.500 đ lãi của 15 ngày tiếp theo",
+      desc: "Khi chỉ trả [[tối thiểu 5%|minpayment]] (500.000 đ) ở Ngày 45, ưu đãi miễn lãi bị huỷ hồi tố: ngân hàng tính lãi theo [[dư nợ bình quân ngày|adb]] từ Ngày 01 trên cả 10.000.000 đ (450.000 đ) cộng 15 ngày sau trên 9.500.000 đ còn lại (142.500 đ), ghi Nợ TK 635 / Có TK 338: 592.500 đ."
+    },
+    {
+      file: "minpay-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · ĐỔI PHÍ PHẠT LẤY TIỀN LÃI",
+      alt: "Mặt cắt so sánh những gì khoản trả tối thiểu 500.000 đồng mua được (thoát phí trễ hạn, giữ nhóm tín dụng) và những gì đánh mất (mất 45 ngày miễn lãi, chịu chi phí vốn ngắn hạn 6,24 phần trăm trong 15 ngày)",
+      title: "Trả 500.000 đ để giữ lại 9.500.000 đ thêm 15 ngày: Bạn thoát phí phạt trễ hạn nhưng chịu 592.500 đ chi phí lãi",
+      desc: "Khoản [[thanh toán tối thiểu|minpayment]] 500.000 đ giúp chủ thẻ không bị phạt [[phí trễ hạn|latefee]] và giữ nguyên nhóm tín dụng, nhưng đánh đổi bằng tỷ lệ chi phí vốn 6,24% chỉ trong 15 ngày trì hoãn (và [[lãi suất thực tế|eir]] năm khoảng 42,6%/năm nếu duy trì dư nợ lãi kép 3%/tháng)."
+    },
+    {
+      file: "minpay-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · BẪY LÃI NGÀY & CÁCH KHÔI PHỤC",
+      alt: "Mặt cắt ba tình huống thực tế: trả thiếu 10.000 đồng số lẻ vẫn mất trắng 45 ngày miễn lãi, giao dịch quẹt mới bị tính lãi ngay, và cách tất toán 100 phần trăm sao kê để khôi phục ân hạn",
+      title: "Vì sao trả thiếu 10.000 đ vẫn mất trắng 45 ngày miễn lãi — và làm sao mở lại đồng hồ ân hạn?",
+      desc: "Khi thẻ đang có dư nợ [[tín dụng tuần hoàn|revolving]] chuyển kỳ, cả giao dịch cũ lẫn giao dịch quẹt mới đều mất quyền miễn lãi. Chỉ khi thanh toán dứt điểm 100% dư nợ sao kê (10.092.500 đ, ghi Nợ TK 338 / Có TK 112), đồng hồ 45 ngày miễn lãi mới được khôi phục."
+    }
   ]
 };
 function renderChapHTML(sKey, c, i){
@@ -4025,8 +4583,8 @@ function renderAll(){
   renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
-  $("#tryInst").hidden = S.story!=="install";
-  $("#thu").hidden = !["card","pay","install"].includes(S.story);   // bài mới chưa có khối "thử với con số" thì ẩn cả mục
+  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay";
+  $("#thu").hidden = !["card","pay","install","minpay"].includes(S.story);
   $("#stageTitle").textContent = STORIES[S.story].title;
   $("#draftNote").hidden = STORIES[S.story].status === "published";
   renderCMS();
@@ -4163,8 +4721,21 @@ function calcInst(){
   $("#iEir").textContent = `${pct(r)}/tháng · ~${pct(ear)}/năm`;
   $("#iNote").textContent = `Nhân thẳng 12 tháng là ${pct(r * 12)}/năm; tính lãi chồng lãi là ${pct(ear)}. Chỉ đúng nếu giá trả thẳng thật sự thấp hơn.`;
 }
+function calcMin(){
+  const bal = +$("#mpBal").value, pct = +$("#mpPct").value / 100, paid = Math.round(bal * pct), rem = bal - paid;
+  $("#mpBalOut").textContent = vnd(bal); $("#mpPctOut").textContent = Math.round(pct * 100) + "%";
+  $("#mpPaid").textContent = vnd(paid);
+  if (rem <= 0){
+    $("#mpInt1").textContent = "0 đồng"; $("#mpInt2").textContent = "0 đồng"; $("#mpNewBal").textContent = "0 đồng";
+    $("#mpNote").textContent = "Bạn đã trả đủ 100% dư nợ sao kê ở Ngày 45: toàn bộ 45 ngày miễn lãi được giữ nguyên vẹn.";
+    return;
+  }
+  const int1 = Math.round(bal * 0.001 * 45), int2 = Math.round(rem * 0.001 * 15), totInt = int1 + int2, newBal = rem + totInt;
+  $("#mpInt1").textContent = "+" + vnd(int1); $("#mpInt2").textContent = "+" + vnd(int2); $("#mpNewBal").textContent = vnd(newBal);
+  $("#mpNote").textContent = `Vì chưa trả đủ 100%, bạn mất trắng 45 ngày miễn lãi đầu (${vnd(int1)}) cộng 15 ngày tiếp theo (${vnd(int2)}), tổng lãi ${vnd(totInt)}.`;
+}
 $("#amt").oninput = calcCard; $("#sal").oninput = calcPay; $("#keep").oninput = calcPay;
-$("#ip").oninput = calcInst; $("#ic").oninput = calcInst;
+$("#ip").oninput = calcInst; $("#ic").oninput = calcInst; $("#mpBal").oninput = calcMin; $("#mpPct").oninput = calcMin;
 
 /* ── Thanh 1 hàng 48px (Layout 1A: Split-Pill + Overlay Mục lục 2 cột + ⌘K + Trạm cuối bài) ── */
 function renderNav(){
@@ -4621,6 +5192,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Chuẩn xác: Vì gốc nợ giảm dần sau mỗi tháng trả 1.000.000 đ chứ bạn không giữ trọn 11.400.000 đ suốt cả năm, nghiệm IRR tháng đạt 0,7981%/tháng (EIR năm = 10,01%/năm)."
     }
+  ],
+  minpay: [
+    {
+      id: "minpay-q1.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Khi chỉ trả [[tối thiểu 5%|minpayment]] (500.000 đ) ở Ngày 45, ưu đãi miễn lãi bị huỷ hồi tố: ngân hàng tính lãi theo [[dư nợ bình quân ngày|adb]] từ Ngày 01 trên cả 10.000.000 đ (450.000 đ) cộng 15 ngày sau trên 9.500.000 đ còn lại (142.500 đ), ghi Nợ TK 635 / Có TK 338: 592.500 đ.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Bạn quẹt thẻ tín dụng 10.000.000 đ vào Ngày 01, đến hạn Ngày 45 bạn trả đúng mức tối thiểu 5% (500.000 đ). Ở ví dụ lãi suất 0,1%/ngày (36%/năm), tiền lãi trên sao kê Ngày 60 được tính trên con số nào?",
+      opts: [
+        "Tính lùi từ Ngày 01 trên toàn bộ 10.000.000 đ suốt 45 ngày đầu (450.000 đ) cộng 15 ngày tiếp theo trên 9.500.000 đ còn lại (142.500 đ) = 592.500 đ.",
+        "Chỉ tính trên 9.500.000 đ còn nợ trong 15 ngày từ Ngày 46 đến Ngày 60 (= 142.500 đ), vì 45 ngày đầu vẫn được miễn lãi.",
+        "Bằng 0 đ vì bạn đã thanh toán đúng hạn mức tối thiểu ngân hàng yêu cầu."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: 45 ngày miễn lãi chỉ áp dụng khi trả đủ 100% dư nợ sao kê. Trả 500.000 đ giúp thoát phí phạt trễ hạn nhưng làm mất ân hạn miễn lãi, khiến lãi bị tính lùi từ Ngày 01 (tổng 592.500 đ, đẩy dư nợ mới lên 10.092.500 đ)."
+    },
+    {
+      id: "minpay-q2.v1",
+      sectionId: "pk-pro-jr",
+      source_quote: "Tại Ngày 60 khi nhận sao kê kỳ thứ hai có cộng 592.500 đồng tiền lãi thẻ tín dụng (gồm 450.000 đồng lãi lùi của 45 ngày đầu và 142.500 đồng lãi của 15 ngày sau): bản chất kinh tế của khoản này là chi phí đi vay do sử dụng tín dụng tuần hoàn, nên kế toán hạch toán vào Nợ TK 635 (Chi phí tài chính: 592.500 đồng) đối ứng Có TK 338 (Phải trả, phải nộp khác: 592.500 đồng).",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Theo Thông tư 99/2025/TT-BTC, khi doanh nghiệp chỉ trả tối thiểu 500.000 đ ở Ngày 45 và bị ngân hàng phát hành thẻ cộng thêm 592.500 đ tiền lãi vào sao kê Ngày 60, kế toán hạch toán khoản lãi 592.500 đ này như thế nào?",
+      opts: [
+        "Ghi Debit TK 635 (Chi phí tài chính: 592.500 đ) / Credit TK 338 (Phải trả, phải nộp khác: 592.500 đ), nâng tổng dư nợ phải trả thẻ lên 10.092.500 đ.",
+        "Ghi giảm doanh thu bán hàng (Debit TK 521: 592.500 đ).",
+        "Không cần ghi sổ kế toán vì tiền lãi tự động biến mất ở kỳ sau."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Tiền lãi phát sinh do sử dụng tín dụng tuần hoàn là chi phí đi vay, ghi Debit TK 635 (Chi phí tài chính) đối ứng Credit TK 338 (hoặc TK 341 tuỳ chính sách phân loại thẻ doanh nghiệp)."
+    }
   ]
 };
 
@@ -4908,7 +5511,7 @@ window.__wmsQA = { loadWmsProgress, saveWmsProgress, emitWmsTelemetry, answerQui
 /* ── khởi động ─────────────────────────────── */
 // bài mở đầu: "card" nếu người đọc này được thấy nó, không thì bài đầu tiên theo thứ tự danh mục
 if (!visible(S.story) && order().length) S.story = order()[0];
-applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst();
+applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin();
 setTimeout(()=>{ $("#sms").classList.add("in"); $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);
 </script>
 </body>

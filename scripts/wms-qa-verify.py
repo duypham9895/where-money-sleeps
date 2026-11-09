@@ -35,8 +35,8 @@ EXPECTED_YT_IDS = {
 
 def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     errors = []
-    # Check 12 CHAP_FIGS images on disk and attributes
-    for sid in ("card", "pay", "install"):
+    # Check 16 CHAP_FIGS images on disk and attributes across all 4 lessons
+    for sid in ("card", "pay", "install", "minpay"):
         for idx in (1, 2, 3, 4):
             fig_path = ROOT / "public" / "brand" / f"{sid}-fig-{idx}.jpg"
             if not fig_path.is_file() or fig_path.stat().st_size < 10_000:
@@ -44,8 +44,8 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     if 'width="1200" height="675"' not in proto_text or 'loading="lazy"' not in proto_text:
         errors.append("prototype.html thiếu thuộc tính CLS=0 (width=1200 height=675 loading=lazy) cho CHAP_FIGS")
 
-    # Check WMS_QUIZ_BANK 6 cards
-    for cid in ("card-q1.v1", "card-q2.v1", "pay-q1.v1", "pay-q2.v1", "install-q1.v1", "install-q2.v1"):
+    # Check WMS_QUIZ_BANK 8 cards across all 4 lessons
+    for cid in ("card-q1.v1", "card-q2.v1", "pay-q1.v1", "pay-q2.v1", "install-q1.v1", "install-q2.v1", "minpay-q1.v1", "minpay-q2.v1"):
         if cid not in proto_text:
             errors.append(f"WMS_QUIZ_BANK thiếu card trắc nghiệm: {cid}")
     if 'reviewed_by: "Duy"' not in proto_text or 'accountant_agent: "ke-toan-reviewer"' not in proto_text:
@@ -275,7 +275,7 @@ def main() -> int:
     print("wms-qa-verify — Kiểm thử E2E tất định S4 QA (where-money-sleeps)\n")
 
     e1 = verify_qa1_content_and_quiz(proto_text)
-    print(f"[QA-1] Nội dung, 12 hình LUẬT 9 (CLS=0) & 6 thẻ trắc nghiệm WMS_QUIZ_BANK: {'PASS' if not e1 else 'FAIL'}")
+    print(f"[QA-1] Nội dung, 16 hình LUẬT 9 (CLS=0) & 8 thẻ trắc nghiệm WMS_QUIZ_BANK: {'PASS' if not e1 else 'FAIL'}")
     for err in e1:
         print(f"  ✗ {err}")
 
