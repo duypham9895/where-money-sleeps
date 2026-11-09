@@ -1373,7 +1373,7 @@ html, body {
 
     const vid = $("#studioVideo");
     const ytMount = $("#ytIframeMount");
-    const localMp4 = `../dist/youtube/${encodeURIComponent(ST.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
+    const localMp4 = `../dist/youtube/${encodeURIComponent(ST.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4?v=65`;
     const ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
 
     if (ST.srcMode === "yt" && ytId) {

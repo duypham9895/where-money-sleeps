@@ -3714,8 +3714,8 @@ window.WMS_STUDIO_DATA = {
       ],
       "longExists": true,
       "shortExists": true,
-      "longSizeMb": 31.3,
-      "shortSizeMb": 10.5
+      "longSizeMb": 35.8,
+      "shortSizeMb": 12.0
     },
     "pay": {
       "long": [
@@ -3980,8 +3980,8 @@ window.WMS_STUDIO_DATA = {
       ],
       "longExists": true,
       "shortExists": true,
-      "longSizeMb": 29.2,
-      "shortSizeMb": 9.1
+      "longSizeMb": 33.5,
+      "shortSizeMb": 10.3
     },
     "install": {
       "long": [
@@ -4246,8 +4246,8 @@ window.WMS_STUDIO_DATA = {
       ],
       "longExists": true,
       "shortExists": true,
-      "longSizeMb": 30.9,
-      "shortSizeMb": 10.9
+      "longSizeMb": 35.6,
+      "shortSizeMb": 12.4
     }
   },
   "subtitles": {

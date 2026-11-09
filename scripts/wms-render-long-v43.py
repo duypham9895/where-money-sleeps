@@ -63,8 +63,31 @@ def smoothstep(edge0: float, edge1: float, x: float) -> float:
     return t * t * (3.0 - 2.0 * t)
 
 
+def ease_out_cubic(x: float) -> float:
+    t = max(0.0, min(1.0, x))
+    return 1.0 - (1.0 - t) ** 3
+
+
+def ease_in_out_sine(x: float) -> float:
+    t = max(0.0, min(1.0, x))
+    return 0.5 * (1.0 - math.cos(math.pi * t))
+
+
 def lerp(a: float, b: float, t: float) -> float:
     return a + (b - a) * t
+
+
+def blend_rgb(
+    c0: tuple[int, int, int],
+    c1: tuple[int, int, int],
+    u: float,
+) -> tuple[int, int, int]:
+    t = max(0.0, min(1.0, u))
+    return (
+        int(round(lerp(c0[0], c1[0], t))),
+        int(round(lerp(c0[1], c1[1], t))),
+        int(round(lerp(c0[2], c1[2], t))),
+    )
 
 
 def fmt_vnd(val: float | int) -> str:
@@ -1003,25 +1026,29 @@ def step_quantize(val: float, step: int = 100_000) -> int:
 
 
 def compute_four_beat_progress(sm: dict, t: float) -> tuple[float, float, float, float]:
-    """Calm Editorial 4-Beat Choreography cho bài dài 16:9: chỉ chuyển động êm 0.45s đầu mỗi câu, sau đó đứng yên 100%."""
+    """
+    Chuẩn Hoạt Cảnh 4 Nhịp Rõ Ràng (v6.5) cho bài dài 16:9:
+    - Nhịp 1 bắt đầu ở `t0 + 0.40s` (ngay sau khi cross-dissolve mở ra).
+    - Mỗi nhịp (`b1, b2, b3, b4`) chuyển động mượt trong `2.40s` (72 frames) thay vì 0.45s.
+    """
     phrases = sm["phrases"]
     t0 = sm["win_t0"]
     t1 = sm["win_t1"]
     dur = max(0.1, t1 - t0)
 
     if len(phrases) >= 4:
-        starts = [phrases[0]["t0"], phrases[1]["t0"], phrases[2]["t0"], phrases[3]["t0"]]
+        starts = [max(t0 + 0.40, phrases[0]["t0"]), phrases[1]["t0"], phrases[2]["t0"], phrases[3]["t0"]]
     elif len(phrases) == 3:
-        starts = [phrases[0]["t0"], phrases[1]["t0"], phrases[2]["t0"], t0 + dur * 0.75]
+        starts = [max(t0 + 0.40, phrases[0]["t0"]), phrases[1]["t0"], phrases[2]["t0"], t0 + dur * 0.72]
     elif len(phrases) == 2:
-        starts = [phrases[0]["t0"], t0 + dur * 0.28, phrases[1]["t0"], t0 + dur * 0.74]
+        starts = [max(t0 + 0.40, phrases[0]["t0"]), t0 + dur * 0.28, phrases[1]["t0"], t0 + dur * 0.72]
     else:
-        starts = [t0, t0 + dur * 0.25, t0 + dur * 0.50, t0 + dur * 0.75]
+        starts = [t0 + 0.40, t0 + dur * 0.26, t0 + dur * 0.50, t0 + dur * 0.74]
 
-    b1 = smoothstep(starts[0], starts[0] + 0.45, t)
-    b2 = smoothstep(starts[1], starts[1] + 0.45, t)
-    b3 = smoothstep(starts[2], starts[2] + 0.45, t)
-    b4 = smoothstep(starts[3], starts[3] + 0.45, t)
+    b1 = ease_out_cubic((t - starts[0]) / 2.20)
+    b2 = ease_out_cubic((t - starts[1]) / 2.40)
+    b3 = ease_out_cubic((t - starts[2]) / 2.40)
+    b4 = ease_out_cubic((t - starts[3]) / 2.40)
     return b1, b2, b3, b4
 
 
@@ -1142,6 +1169,7 @@ def draw_top_actor_bar(
     active_set = sc["active"]
     flow_spec = sc["flow"]
     flow_kind = flow_spec[0]
+    u_sig = ease_in_out_sine((t / 3.6) % 1.0)
 
     draw.line([(HOUSE_XS[0], NODE_Y), (HOUSE_XS[-1], NODE_Y)], fill=(38, 50, 68), width=2)
 
@@ -1152,6 +1180,11 @@ def draw_top_actor_bar(
             p0 = (float(HOUSE_XS[nodes_seq[seg_i]]), float(NODE_Y))
             p1 = (float(HOUSE_XS[nodes_seq[seg_i + 1]]), float(NODE_Y))
             draw.line([p0, p1], fill=line_c, width=2)
+            sig_x = lerp(p0[0], p1[0], u_sig)
+            tail_x = lerp(p0[0], p1[0], max(0.0, u_sig - 0.18))
+            draw.line([(tail_x, NODE_Y), (sig_x, NODE_Y)], fill=line_c, width=4)
+            draw.ellipse((sig_x - 8, NODE_Y - 8, sig_x + 8, NODE_Y + 8), fill=(18, 28, 42), outline=line_c, width=2)
+            draw.ellipse((sig_x - 3, NODE_Y - 3, sig_x + 3, NODE_Y + 3), fill=line_c)
 
     house_nodes = story_cfg["house_nodes"]
     for i, hx in enumerate(HOUSE_XS):
@@ -1196,10 +1229,10 @@ def draw_cutaway_stage_decor(
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
     """
-    Chuẩn Calm Editorial Motion cho Mặt cắt 16:9:
-    - Giữ 90% bức tranh mặt cắt Risograph sạch bóng UI (0 hộp chữ đè lên tranh, 0 thẻ trượt lặp, 0 hạt nhấp nháy).
-    - Chỉ vẽ 1 đường mảnh 2px nối 2 tâm phòng trong 0.55s đầu cảnh rồi đứng yên tĩnh tại.
-    - 1 dải chú thích đáy không viền (borderless bottom scrim).
+    Chuẩn Calm Editorial Motion v6.5 cho Mặt cắt 16:9:
+    - Giữ 90% bức tranh mặt cắt Risograph sạch bóng UI (0 hộp chữ đè lên tranh).
+    - Đường mảnh 2px tự vẽ trong 1.8s nối 2 tâm phòng + hạt sáng (Glowing Flow Orb + đuôi sao băng) lướt êm theo chu kỳ 3.6s.
+    - 1 dải chú thích đáy không viền kèm thanh quét nhịp.
     """
     sx0, sy0, sx1, sy1 = box
     sw, sh = sx1 - sx0, sy1 - sy0
@@ -1211,15 +1244,30 @@ def draw_cutaway_stage_decor(
     p_dst = (sx0 + sw * 0.68, sy0 + sh * 0.30)
 
     t_local = max(0.0, t - sm["win_t0"])
-    flow_once = smoothstep(0.05, 0.60, t_local)
-    p_cur = (lerp(p_src[0], p_dst[0], flow_once), lerp(p_src[1], p_dst[1], flow_once))
+    line_u = ease_out_cubic((t_local - 0.30) / 1.80)
+    p_cur = (lerp(p_src[0], p_dst[0], line_u), lerp(p_src[1], p_dst[1], line_u))
 
     line_col = (94, 184, 138) if flow_kind == "pipe" else (226, 168, 76)
-    draw.line([p_src, p_cur], fill=line_col, width=2)
+    dim_line = (46, 88, 70) if flow_kind == "pipe" else (112, 84, 42)
+    if line_u > 0.01:
+        draw.line([p_src, p_cur], fill=dim_line, width=2)
 
-    for pt, c_dot in ((p_src, (226, 168, 76)), (p_dst, (94, 184, 138))):
-        draw.ellipse((pt[0] - 7, pt[1] - 7, pt[0] + 7, pt[1] + 7), fill=(13, 19, 30), outline=c_dot, width=2)
-        draw.ellipse((pt[0] - 3, pt[1] - 3, pt[0] + 3, pt[1] + 3), fill=c_dot)
+    u_orb = ease_in_out_sine((max(0.0, t_local - 0.35) / 3.6) % 1.0)
+    u_tail = max(0.0, u_orb - 0.16)
+    orb_pt = (lerp(p_src[0], p_dst[0], u_orb), lerp(p_src[1], p_dst[1], u_orb))
+    tail_pt = (lerp(p_src[0], p_dst[0], u_tail), lerp(p_src[1], p_dst[1], u_tail))
+    draw.line([tail_pt, orb_pt], fill=line_col, width=4)
+
+    for idx_pt, (pt, c_dot) in enumerate(((p_src, (226, 168, 76)), (p_dst, (94, 184, 138)))):
+        ripple = (1.0 - u_orb * 3.0) if (idx_pt == 0 and u_orb < 0.33) else ((u_orb - 0.67) * 3.0 if (idx_pt == 1 and u_orb > 0.67) else 0.0)
+        if ripple > 0.02:
+            r_rip = 9.0 + 9.0 * ripple
+            draw.ellipse((pt[0] - r_rip, pt[1] - r_rip, pt[0] + r_rip, pt[1] + r_rip), outline=c_dot, width=2)
+        draw.ellipse((pt[0] - 8, pt[1] - 8, pt[0] + 8, pt[1] + 8), fill=(13, 19, 30), outline=c_dot, width=2)
+        draw.ellipse((pt[0] - 4, pt[1] - 4, pt[0] + 4, pt[1] + 4), fill=c_dot)
+
+    draw.ellipse((orb_pt[0] - 11, orb_pt[1] - 11, orb_pt[0] + 11, orb_pt[1] + 11), outline=line_col, width=2)
+    draw.ellipse((orb_pt[0] - 5, orb_pt[1] - 5, orb_pt[0] + 5, orb_pt[1] + 5), fill=(248, 244, 232))
 
     tag_txt = sc.get("stage_tag", "")
     if tag_txt:
@@ -1229,6 +1277,9 @@ def draw_cutaway_stage_decor(
         px0 = (sx0 + sx1 - pw) / 2.0
         py0 = sy1 - 16 - ph
         draw.rounded_rectangle((px0, py0, px0 + pw, py0 + ph), radius=10, fill=(10, 14, 22))
+        sweep_w = (pw - 24) * line_u
+        if sweep_w > 4:
+            draw.rounded_rectangle((px0 + 12, py0 + ph - 3, px0 + 12 + sweep_w, py0 + ph - 1), radius=1, fill=line_col)
         draw_centered_row_text(draw, (sx0 + sx1) / 2.0, py0 + 11, tag_txt, fonts["stage_tag"], (236, 231, 221))
 
 
@@ -1238,11 +1289,12 @@ def render_mode_la(
     beats_prog: tuple[float, float, float, float],
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
-    """Mode L-A (Calm Editorial v6.0): Trái = Mặt cắt 1060x688; Phải = 4 Dải Nhịp Tonal (không đóng khung lồng nhau)."""
+    """Mode L-A (Calm Editorial v6.5): Trái = Mặt cắt 1060x688; Phải = 4 Dải Nhịp Tonal mở sáng tuần tự 2.4s/nhịp."""
     bx0, by0, bx1, by1 = LA_BEATS_BOX
     draw.rounded_rectangle(LA_BEATS_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
 
     ix0, ix1 = bx0 + 26, bx1 - 26
+    iw = ix1 - ix0
     icx = (ix0 + ix1) / 2.0
 
     kicker = sc["kicker"]
@@ -1256,20 +1308,24 @@ def render_mode_la(
         prog_b = beats_prog[idx_b]
         is_green = idx_b in (2, 3)
         bar_c = (94, 184, 138) if is_green else (226, 168, 76)
-        surf_c = (21, 29, 43) if prog_b > 0.05 else (13, 19, 29)
-        title_c = (138, 212, 174) if (is_green and prog_b > 0.05) else ((226, 168, 76) if prog_b > 0.05 else (92, 104, 122))
-        desc_c = (236, 231, 221) if prog_b > 0.05 else (104, 116, 134)
+        surf_c = blend_rgb((13, 19, 29), (21, 29, 43), prog_b)
+        title_c = blend_rgb((92, 104, 122), (138, 212, 174) if is_green else (226, 168, 76), prog_b)
+        desc_c = blend_rgb((104, 116, 134), (236, 231, 221), prog_b)
 
         draw.rounded_rectangle((ix0, cy, ix1, cy + 112), radius=10, fill=surf_c)
-        if prog_b > 0.05:
-            draw.rounded_rectangle((ix0, cy + 12, ix0 + 3, cy + 100), radius=1, fill=bar_c)
+        if prog_b > 0.02:
+            bar_h = max(6.0, 88.0 * prog_b)
+            draw.rounded_rectangle((ix0, cy + 12, ix0 + 4, cy + 12 + bar_h), radius=2, fill=bar_c)
+            sweep_w = (iw - 36.0) * prog_b
+            if sweep_w > 6.0:
+                draw.rounded_rectangle((ix0 + 18, cy + 105, ix0 + 18 + sweep_w, cy + 108), radius=1, fill=blend_rgb((21, 29, 43), bar_c, 0.55 * prog_b))
         draw.text((ix0 + 18, cy + 18), c_title, font=fonts["label"], fill=title_c)
         draw.text((ix0 + 18, cy + 54), c_desc, font=fonts["val_bold"], fill=desc_c)
         cy += 126
 
     # Dải quy tắc chốt ở đáy (Tonal strip + Hairline 1px)
     draw.line([(ix0, by1 - 84), (ix1, by1 - 84)], fill=(44, 56, 76), width=1)
-    draw.rounded_rectangle((ix0, by1 - 74, ix1, by1 - 18), radius=8, fill=(21, 29, 43))
+    draw.rounded_rectangle((ix0, by1 - 74, ix1, by1 - 18), radius=8, fill=blend_rgb((13, 19, 29), (21, 29, 43), beats_prog[3]))
     draw_centered_row_text(draw, icx, by1 - 55, sc["rule"], fonts["label"], (226, 168, 76))
 
 
@@ -1280,8 +1336,8 @@ def render_mode_lb(
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
     """
-    Mode L-B (Calm Editorial v6.0): Phải = MECHANISM_CANVAS_BOX (1044, 140, 1856, 828) (812x688px)
-    Không vẽ các khung neon lồng nhau; dùng 4 dải Tonal Surface + 3px Left Accent Bar + 1px Hairline.
+    Mode L-B (Calm Editorial v6.5): Phải = MECHANISM_CANVAS_BOX (1044, 140, 1856, 828) (812x688px)
+    4 dải Tonal Surface mở sáng tuần tự 2.4s/nhịp + thanh tách/trượt/bút toán động mượt mà.
     """
     cx0, cy0, cx1, cy1 = MECHANISM_CANVAS_BOX
     draw.rounded_rectangle(MECHANISM_CANVAS_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
@@ -1296,39 +1352,42 @@ def render_mode_lb(
     draw.rounded_rectangle((ix0, cy0 + 20, ix0 + kw, cy0 + 50), radius=6, fill=(226, 168, 76))
     draw.text((ix0 + 14, cy0 + 25), kicker, font=fonts["badge"], fill=(10, 14, 22))
 
-    # DẢI 1 (cy0 + 66..190): Quy mô gốc & Số tiền bước nhảy tròn (Step-Quantized)
+    # DẢI 1 (cy0 + 66..190): Quy mô gốc & Số tiền đếm mượt 2.2s
     s1_y0, s1_y1 = cy0 + 66, cy0 + 190
     draw.rounded_rectangle((ix0, s1_y0, ix1, s1_y1), radius=10, fill=(21, 29, 43))
-    draw.rounded_rectangle((ix0, s1_y0 + 14, ix0 + 3, s1_y1 - 14), radius=1, fill=(226, 168, 76))
+    bar1_h = max(8.0, (s1_y1 - s1_y0 - 28.0) * max(0.15, b1))
+    draw.rounded_rectangle((ix0, s1_y0 + 14, ix0 + 4, s1_y0 + 14 + bar1_h), radius=2, fill=(226, 168, 76))
     draw_centered_row_text(draw, icx, s1_y0 + 16, sc["scale_title"], fonts["label"], (148, 160, 178))
-    val_anim = step_quantize(float(sc["scale_val"]) * max(0.2, b1), 100_000) if b1 < 0.98 else int(sc["scale_val"])
+    val_anim = step_quantize(float(sc["scale_val"]) * max(0.08, b1), 100_000) if b1 < 0.99 else int(sc["scale_val"])
     draw_centered_row_text(draw, icx, s1_y0 + 54, fmt_vnd(val_anim), fonts["hero_num"], (236, 231, 221))
 
     # DẢI 2 (cy0 + 204..382): Nguyên hàm Cơ chế (P1_SPLIT / P2_CONTRACT / P3_FLIP)
-    s2_on = b2 > 0.05
+    s2_u = max(0.0, min(1.0, b2))
     s2_y0, s2_y1 = cy0 + 204, cy0 + 382
-    draw.rounded_rectangle((ix0, s2_y0, ix1, s2_y1), radius=10, fill=(21, 29, 43) if s2_on else (13, 19, 29))
-    if s2_on:
-        draw.rounded_rectangle((ix0, s2_y0 + 14, ix0 + 3, s2_y1 - 14), radius=1, fill=(94, 184, 138))
+    draw.rounded_rectangle((ix0, s2_y0, ix1, s2_y1), radius=10, fill=blend_rgb((13, 19, 29), (21, 29, 43), s2_u))
+    if s2_u > 0.02:
+        bar2_h = max(8.0, (s2_y1 - s2_y0 - 28.0) * s2_u)
+        draw.rounded_rectangle((ix0, s2_y0 + 14, ix0 + 4, s2_y0 + 14 + bar2_h), radius=2, fill=(94, 184, 138))
 
-    c_lbl2 = (148, 160, 178) if s2_on else (88, 100, 118)
-    c_val2 = (236, 231, 221) if s2_on else (102, 114, 132)
-    c_acc2 = (226, 168, 76) if s2_on else (102, 114, 132)
-    c_grn2 = (138, 212, 174) if s2_on else (92, 112, 104)
+    c_lbl2 = blend_rgb((88, 100, 118), (148, 160, 178), s2_u)
+    c_val2 = blend_rgb((102, 114, 132), (236, 231, 221), s2_u)
+    c_acc2 = blend_rgb((102, 114, 132), (226, 168, 76), s2_u)
+    c_grn2 = blend_rgb((92, 112, 104), (138, 212, 174), s2_u)
 
     m_type = sc["mech_type"]
     if m_type == "P1_SPLIT":
         draw_centered_row_text(draw, icx, s2_y0 + 14, "TÁCH DÒNG TIỀN TỶ LỆ THẬT TẠI NGUỒN:", fonts["label"], c_lbl2)
-        u_sp = b2 if s2_on else 0.0
-        gap_px = lerp(0.0, 12.0, u_sp)
-        w_left = (iw - 36 - gap_px) * 0.76
+        u_sp = max(0.15 * b1, s2_u)
+        gap_px = lerp(2.0, 14.0, s2_u)
+        w_left = (iw - 36 - gap_px) * lerp(0.95, 0.74, s2_u)
         bx_bar0 = ix0 + 18
         bx_bar1 = ix1 - 18
         by_bar0, by_bar1 = s2_y0 + 52, s2_y0 + 120
-        draw.rounded_rectangle((bx_bar0, by_bar0, bx_bar0 + w_left, by_bar1), radius=8, fill=(32, 88, 68) if s2_on else (18, 28, 34))
-        draw.rounded_rectangle((bx_bar0 + w_left + gap_px, by_bar0, bx_bar1, by_bar1), radius=8, fill=(116, 78, 32) if s2_on else (28, 26, 24))
+        draw.rounded_rectangle((bx_bar0, by_bar0, bx_bar0 + w_left, by_bar1), radius=8, fill=blend_rgb((20, 38, 34), (32, 88, 68), u_sp))
+        draw.rounded_rectangle((bx_bar0 + w_left + gap_px, by_bar0, bx_bar1, by_bar1), radius=8, fill=blend_rgb((28, 26, 24), (146, 98, 36), s2_u))
         draw_centered_row_text(draw, bx_bar0 + w_left / 2.0, by_bar0 + 23, sc["split_left_lbl"], fonts["val_bold"], c_val2)
-        draw_centered_row_text(draw, (bx_bar0 + w_left + gap_px + bx_bar1) / 2.0, by_bar0 + 23, sc["split_right_lbl"], fonts["label"], c_acc2)
+        if s2_u > 0.12:
+            draw_centered_row_text(draw, (bx_bar0 + w_left + gap_px + bx_bar1) / 2.0, by_bar0 + 23, sc["split_right_lbl"], fonts["label"], c_acc2)
         draw_centered_row_text(draw, icx, s2_y0 + 138, "Khoản khấu trừ được giữ lại tự động trước khi tiền về tài khoản", fonts["sub"], c_lbl2)
 
     elif m_type == "P2_CONTRACT":
@@ -1339,41 +1398,49 @@ def render_mode_lb(
         rail_x0, rail_x1 = ix0 + 140, ix1 - 140
         rail_y = s2_y0 + 94
         draw.line([(rail_x0, rail_y), (rail_x1, rail_y)], fill=(56, 72, 96), width=2)
-        cx_card = lerp(rail_x0, rail_x1, b2 if s2_on else 0.0)
+        u_rail = max(0.25 * b1, s2_u)
+        cx_card = lerp(rail_x0, rail_x1, u_rail)
+        draw.line([(rail_x0, rail_y), (cx_card, rail_y)], fill=(226, 168, 76), width=4)
         cw_b, ch_b = 276, 48
-        draw.rounded_rectangle((cx_card - cw_b / 2, rail_y - ch_b / 2, cx_card + cw_b / 2, rail_y + ch_b / 2), radius=8, fill=(226, 168, 76) if s2_on else (44, 56, 74))
-        draw_centered_row_text(draw, cx_card, rail_y - 10, sc["mech_badge"], fonts["badge"], (10, 14, 22) if s2_on else (148, 160, 178))
+        draw.rounded_rectangle((cx_card - cw_b / 2, rail_y - ch_b / 2, cx_card + cw_b / 2, rail_y + ch_b / 2), radius=8, fill=blend_rgb((64, 72, 86), (226, 168, 76), u_rail))
+        draw_centered_row_text(draw, cx_card, rail_y - 10, sc["mech_badge"], fonts["badge"], (10, 14, 22))
         draw_centered_row_text(draw, icx, s2_y0 + 138, "Bản tin / Hợp đồng điện tử xác lập nghĩa vụ pháp lý", fonts["sub"], c_lbl2)
 
     else:  # P3_FLIP
         draw_centered_row_text(draw, icx, s2_y0 + 16, "ĐỐI CHIẾU HAI VẾ TRÊN SỔ KẾ TOÁN:", fonts["label"], c_lbl2)
         draw.rounded_rectangle((ix0 + 18, s2_y0 + 50, ix1 - 18, s2_y0 + 102), radius=8, fill=(15, 21, 32))
-        draw_centered_row_text(draw, icx, s2_y0 + 65, sc["mech_line1"], fonts["val_bold"], c_acc2)
+        w_f1 = (iw - 44) * max(0.15 * b1, s2_u)
+        draw.rounded_rectangle((ix0 + 22, s2_y0 + 96, ix0 + 22 + w_f1, s2_y0 + 99), radius=1, fill=(226, 168, 76))
+        draw_centered_row_text(draw, icx, s2_y0 + 63, sc["mech_line1"], fonts["val_bold"], c_acc2)
         draw.rounded_rectangle((ix0 + 18, s2_y0 + 112, ix1 - 18, s2_y0 + 164), radius=8, fill=(15, 21, 32))
-        draw_centered_row_text(draw, icx, s2_y0 + 127, sc["mech_line2"], fonts["val_bold"], c_grn2)
+        draw.rounded_rectangle((ix0 + 22, s2_y0 + 158, ix0 + 22 + w_f1, s2_y0 + 161), radius=1, fill=(94, 184, 138))
+        draw_centered_row_text(draw, icx, s2_y0 + 125, sc["mech_line2"], fonts["val_bold"], c_grn2)
 
     # DẢI 3 (cy0 + 396..576): Bảng Bút toán Kép T-Account TT 99/2025/TT-BTC
-    s3_on = b3 > 0.05
+    s3_u = max(0.0, min(1.0, b3))
     s3_y0, s3_y1 = cy0 + 396, cy0 + 576
-    draw.rounded_rectangle((ix0, s3_y0, ix1, s3_y1), radius=10, fill=(21, 29, 43) if s3_on else (13, 19, 29))
-    if s3_on:
-        draw.rounded_rectangle((ix0, s3_y0 + 14, ix0 + 3, s3_y1 - 14), radius=1, fill=(94, 184, 138))
-    c_lbl3 = (148, 160, 178) if s3_on else (88, 100, 118)
-    c_deb3 = (226, 168, 76) if s3_on else (102, 114, 132)
-    c_crd3 = (138, 212, 174) if s3_on else (92, 112, 104)
+    draw.rounded_rectangle((ix0, s3_y0, ix1, s3_y1), radius=10, fill=blend_rgb((13, 19, 29), (21, 29, 43), s3_u))
+    if s3_u > 0.02:
+        bar3_h = max(8.0, (s3_y1 - s3_y0 - 28.0) * s3_u)
+        draw.rounded_rectangle((ix0, s3_y0 + 14, ix0 + 4, s3_y0 + 14 + bar3_h), radius=2, fill=(94, 184, 138))
+    c_lbl3 = blend_rgb((88, 100, 118), (148, 160, 178), s3_u)
+    c_deb3 = blend_rgb((102, 114, 132), (226, 168, 76), s3_u)
+    c_crd3 = blend_rgb((92, 112, 104), (138, 212, 174), s3_u)
 
     draw_centered_row_text(draw, icx, s3_y0 + 14, sc["ledger_title"], fonts["label"], c_lbl3)
     draw.line([(ix0 + 24, s3_y0 + 46), (ix1 - 24, s3_y0 + 46)], fill=(38, 50, 68), width=1)
+    if s3_u > 0.02:
+        draw.line([(ix0 + 24, s3_y0 + 46), (ix0 + 24 + (iw - 48) * s3_u, s3_y0 + 46)], fill=(94, 184, 138), width=2)
     draw_centered_row_text(draw, icx, s3_y0 + 62, sc["debit_line"], fonts["val_bold"], c_deb3)
     draw_centered_row_text(draw, icx, s3_y0 + 104, sc["credit_line"], fonts["val_bold"], c_crd3)
     draw_centered_row_text(draw, icx, s3_y0 + 144, "Nguyên tắc bút toán kép: Σ Phát sinh Nợ = Σ Phát sinh Có", fonts["sub"], c_lbl3)
 
     # DẢI 4 (cy0 + 592..666): Quy tắc chốt ở đáy hộp
-    s4_on = b4 > 0.05
+    s4_u = max(0.0, min(1.0, b4))
     s4_y0, s4_y1 = cy0 + 592, cy0 + 666
     draw.line([(ix0, s4_y0 - 6), (ix1, s4_y0 - 6)], fill=(44, 56, 76), width=1)
-    draw.rounded_rectangle((ix0, s4_y0, ix1, s4_y1), radius=8, fill=(21, 29, 43) if s4_on else (13, 19, 29))
-    draw_centered_row_text(draw, icx, s4_y0 + 26, sc["rule"], fonts["label"], (226, 168, 76) if s4_on else (104, 116, 134))
+    draw.rounded_rectangle((ix0, s4_y0, ix1, s4_y1), radius=8, fill=blend_rgb((13, 19, 29), (21, 29, 43), s4_u))
+    draw_centered_row_text(draw, icx, s4_y0 + 26, sc["rule"], fonts["label"], blend_rgb((104, 116, 134), (226, 168, 76), s4_u))
 
 
 def render_mode_lc(
@@ -1382,7 +1449,7 @@ def render_mode_lc(
     beats_prog: tuple[float, float, float, float],
     fonts: dict[str, ImageFont.FreeTypeFont],
 ) -> None:
-    """Mode L-C (Calm Editorial v6.0): Sân khấu phân tích định lượng toàn chiều ngang LC_FULL_BOX = (64, 140, 1856, 828)."""
+    """Mode L-C (Calm Editorial v6.5): Sân khấu phân tích định lượng toàn chiều ngang LC_FULL_BOX = (64, 140, 1856, 828)."""
     fx0, fy0, fx1, fy1 = LC_FULL_BOX
     draw.rounded_rectangle(LC_FULL_BOX, radius=18, fill=(15, 21, 32), outline=(44, 56, 76), width=1)
 
@@ -1400,36 +1467,36 @@ def render_mode_lc(
 
     lc_type = sc["lc_type"]
     if lc_type == "P5_LADDER_12M":
-        # Biểu đồ 12 cột dòng tiền trả góp 1.000.000 đ/tháng + chiết khấu giá trị hiện tại PV (không viền rối mắt)
+        # Biểu đồ 12 cột dòng tiền trả góp 1.000.000 đ/tháng + chiết khấu giá trị hiện tại PV mọc tuần tự
         chart_y0, chart_y1 = fy0 + 132, fy0 + 472
         draw.rounded_rectangle((ix0, chart_y0, ix1, chart_y1), radius=12, fill=(21, 29, 43))
-        active_m = min(12, max(1, int(round(lerp(1.0, 12.0, max(b1 * 0.5, b2, b3))))))
+        u_12 = max(b1 * 0.45, b2, b3)
         col_w = (iw - 64) / 12.0
         for m_i in range(12):
             cx_a = ix0 + 32 + m_i * col_w + 8
             cx_b = cx_a + col_w - 16
-            is_on = m_i < active_m
+            col_u = max(0.0, min(1.0, u_12 * 12.0 - m_i))
             pv_ratio = 1.0 / ((1.0 + 0.008) ** (m_i + 1))
             full_h = 210
-            pv_h = int(full_h * pv_ratio)
+            pv_h = int(full_h * pv_ratio * max(0.15, col_u))
             by_bot = chart_y1 - 54
             by_top_nom = by_bot - full_h
             by_top_pv = by_bot - pv_h
             draw.rounded_rectangle((cx_a, by_top_nom, cx_b, by_bot), radius=6, fill=(32, 44, 62))
-            if is_on:
+            if col_u > 0.02:
                 draw.rounded_rectangle((cx_a, by_top_pv, cx_b, by_bot), radius=6, fill=(52, 124, 96))
             draw_centered_row_text(draw, (cx_a + cx_b) / 2.0, by_top_nom - 26, "1,0tr", fonts["small"], (226, 168, 76))
-            draw_centered_row_text(draw, (cx_a + cx_b) / 2.0, by_bot + 14, f"Kỳ {m_i+1}", fonts["label"], (236, 231, 221) if is_on else (112, 124, 142))
+            draw_centered_row_text(draw, (cx_a + cx_b) / 2.0, by_bot + 14, f"Kỳ {m_i+1}", fonts["label"], (236, 231, 221) if col_u > 0.4 else (112, 124, 142))
 
         # 2 dải Tonal đối xứng dưới biểu đồ
         sub_y0, sub_y1 = fy0 + 490, fy0 + 584
         half_w = (iw - 24) / 2.0
-        draw.rounded_rectangle((ix0, sub_y0, ix0 + half_w, sub_y1), radius=10, fill=(21, 29, 43))
-        draw.rounded_rectangle((ix0, sub_y0 + 14, ix0 + 3, sub_y1 - 14), radius=1, fill=(94, 184, 138))
+        draw.rounded_rectangle((ix0, sub_y0, ix0 + half_w, sub_y1), radius=10, fill=blend_rgb((13, 19, 29), (21, 29, 43), max(0.2, b2)))
+        draw.rounded_rectangle((ix0, sub_y0 + 14, ix0 + 4, sub_y0 + 14 + (sub_y1 - sub_y0 - 28) * max(0.2, b2)), radius=2, fill=(94, 184, 138))
         draw_centered_row_text(draw, ix0 + half_w / 2.0, sub_y0 + 34, sc["sub_left"], fonts["val_bold"], (138, 212, 174))
 
-        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0, ix1, sub_y1), radius=10, fill=(21, 29, 43))
-        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0 + 14, ix0 + half_w + 27, sub_y1 - 14), radius=1, fill=(226, 168, 76))
+        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0, ix1, sub_y1), radius=10, fill=blend_rgb((13, 19, 29), (21, 29, 43), max(0.2, b3)))
+        draw.rounded_rectangle((ix0 + half_w + 24, sub_y0 + 14, ix0 + half_w + 28, sub_y0 + 14 + (sub_y1 - sub_y0 - 28) * max(0.2, b3)), radius=2, fill=(226, 168, 76))
         draw_centered_row_text(draw, ix0 + half_w + 24 + half_w / 2.0, sub_y0 + 34, sc["sub_right"], fonts["val_bold"], (226, 168, 76))
 
     elif lc_type in ("P5_EIR_FORMULA", "P7_TWOWORLD_COMPARE"):
@@ -1438,25 +1505,28 @@ def render_mode_lc(
         c2_x0, c2_x1 = ix0 + half_w + 28, ix1
         cy_top, cy_bot = fy0 + 138, fy0 + 576
 
-        draw.rounded_rectangle((c1_x0, cy_top, c1_x1, cy_bot), radius=14, fill=(21, 29, 43))
-        draw.rounded_rectangle((c1_x0, cy_top + 20, c1_x0 + 4, cy_bot - 20), radius=2, fill=(226, 168, 76))
+        u1 = max(0.15, b1)
+        draw.rounded_rectangle((c1_x0, cy_top, c1_x1, cy_bot), radius=14, fill=blend_rgb((13, 19, 29), (21, 29, 43), u1))
+        draw.rounded_rectangle((c1_x0, cy_top + 20, c1_x0 + 4, cy_top + 20 + (cy_bot - cy_top - 40) * u1), radius=2, fill=(226, 168, 76))
+        draw.rounded_rectangle((c1_x0 + 24, cy_bot - 6, c1_x0 + 24 + (half_w - 48) * u1, cy_bot - 2), radius=2, fill=blend_rgb((21, 29, 43), (226, 168, 76), 0.55 * u1))
         draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 48, sc["card1_title"], fonts["label"], (226, 168, 76))
         draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 144, sc["card1_big"], fonts["hero_num"], (236, 231, 221))
         draw_centered_row_text(draw, (c1_x0 + c1_x1) / 2.0, cy_top + 258, sc["card1_sub"], fonts["sub"], (148, 160, 178))
 
-        s2_on = b2 > 0.05
-        draw.rounded_rectangle((c2_x0, cy_top, c2_x1, cy_bot), radius=14, fill=(21, 29, 43) if s2_on else (13, 19, 29))
-        if s2_on:
-            draw.rounded_rectangle((c2_x0, cy_top + 20, c2_x0 + 4, cy_bot - 20), radius=2, fill=(94, 184, 138))
-        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 48, sc["card2_title"], fonts["label"], (138, 212, 174) if s2_on else (96, 112, 128))
-        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 144, sc["card2_big"], fonts["hero_num"], (138, 212, 174) if s2_on else (104, 116, 134))
-        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 258, sc["card2_sub"], fonts["sub"], (148, 160, 178) if s2_on else (88, 100, 118))
+        u2 = max(0.0, min(1.0, max(b2, b3)))
+        draw.rounded_rectangle((c2_x0, cy_top, c2_x1, cy_bot), radius=14, fill=blend_rgb((13, 19, 29), (21, 29, 43), u2))
+        if u2 > 0.02:
+            draw.rounded_rectangle((c2_x0, cy_top + 20, c2_x0 + 4, cy_top + 20 + (cy_bot - cy_top - 40) * u2), radius=2, fill=(94, 184, 138))
+            draw.rounded_rectangle((c2_x0 + 24, cy_bot - 6, c2_x0 + 24 + (half_w - 48) * u2, cy_bot - 2), radius=2, fill=blend_rgb((21, 29, 43), (94, 184, 138), 0.55 * u2))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 48, sc["card2_title"], fonts["label"], blend_rgb((96, 112, 128), (138, 212, 174), u2))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 144, sc["card2_big"], fonts["hero_num"], blend_rgb((104, 116, 134), (138, 212, 174), u2))
+        draw_centered_row_text(draw, (c2_x0 + c2_x1) / 2.0, cy_top + 258, sc["card2_sub"], fonts["sub"], blend_rgb((88, 100, 118), (148, 160, 178), u2))
 
-    else:  # P9_TRIPTYCH (3 cột Triptych không viền rối mắt)
+    else:  # P9_TRIPTYCH (3 cột Triptych mở sáng tuần tự b1 -> b2 -> b3)
         col_w = (iw - 48) / 3.0
         cy_top, cy_bot = fy0 + 138, fy0 + 576
         cols_data = [
-            (sc["col1_title"], sc["col1_big"], sc["col1_sub"], b1, (226, 168, 76)),
+            (sc["col1_title"], sc["col1_big"], sc["col1_sub"], max(0.15, b1), (226, 168, 76)),
             (sc["col2_title"], sc["col2_big"], sc["col2_sub"], b2, (214, 118, 92)),
             (sc["col3_title"], sc["col3_big"], sc["col3_sub"], b3, (94, 184, 138)),
         ]
@@ -1464,22 +1534,23 @@ def render_mode_lc(
             cx_a = ix0 + idx_c * (col_w + 24)
             cx_b = cx_a + col_w
             ccx = (cx_a + cx_b) / 2.0
-            c_on = cprog > 0.05
-            draw.rounded_rectangle((cx_a, cy_top, cx_b, cy_bot), radius=12, fill=(21, 29, 43) if c_on else (13, 19, 29))
-            if c_on:
-                draw.rounded_rectangle((cx_a + 20, cy_top, cx_b - 20, cy_top + 3), radius=1, fill=rgb_c)
-            draw_centered_row_text(draw, ccx, cy_top + 44, ctitle, fonts["label"], rgb_c if c_on else (96, 110, 128))
-            draw_centered_row_text(draw, ccx, cy_top + 134, cbig, fonts["big_num"], (236, 231, 221) if c_on else (104, 116, 134))
+            cu = max(0.0, min(1.0, cprog))
+            draw.rounded_rectangle((cx_a, cy_top, cx_b, cy_bot), radius=12, fill=blend_rgb((13, 19, 29), (21, 29, 43), cu))
+            if cu > 0.02:
+                bar_cw = (col_w - 40) * cu
+                draw.rounded_rectangle((ccx - bar_cw / 2.0, cy_top, ccx + bar_cw / 2.0, cy_top + 4), radius=2, fill=rgb_c)
+            draw_centered_row_text(draw, ccx, cy_top + 44, ctitle, fonts["label"], blend_rgb((96, 110, 128), rgb_c, cu))
+            draw_centered_row_text(draw, ccx, cy_top + 134, cbig, fonts["big_num"], blend_rgb((104, 116, 134), (236, 231, 221), cu))
             words_s = csub.split()
             mid_w = len(words_s) // 2
             l_a = " ".join(words_s[:mid_w])
             l_b = " ".join(words_s[mid_w:])
-            draw_centered_row_text(draw, ccx, cy_top + 236, l_a, fonts["sub"], (148, 160, 178) if c_on else (88, 100, 118))
-            draw_centered_row_text(draw, ccx, cy_top + 272, l_b, fonts["sub"], (148, 160, 178) if c_on else (88, 100, 118))
+            draw_centered_row_text(draw, ccx, cy_top + 236, l_a, fonts["sub"], blend_rgb((88, 100, 118), (148, 160, 178), cu))
+            draw_centered_row_text(draw, ccx, cy_top + 272, l_b, fonts["sub"], blend_rgb((88, 100, 118), (148, 160, 178), cu))
 
     # Dải quy tắc chốt ở đáy sân khấu L-C
     draw.line([(ix0, fy1 - 86), (ix1, fy1 - 86)], fill=(44, 56, 76), width=1)
-    draw.rounded_rectangle((ix0, fy1 - 76, ix1, fy1 - 18), radius=8, fill=(21, 29, 43))
+    draw.rounded_rectangle((ix0, fy1 - 76, ix1, fy1 - 18), radius=8, fill=blend_rgb((13, 19, 29), (21, 29, 43), max(0.2, b4)))
     draw_centered_row_text(draw, icx, fy1 - 57, sc["rule"], fonts["label"], (226, 168, 76))
 
 
