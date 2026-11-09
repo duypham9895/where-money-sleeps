@@ -1,0 +1,37 @@
+---
+status: pass
+stage: 02-design
+date: 2026-11-08
+owner: writer
+blocked_on: []
+---
+
+# MICROCOPY — Hợp đồng Chữ trên Giao diện, Hình minh hoạ & Video (`Where Money Sleeps`)
+
+> Phòng Writer + Design + PM đồng sở hữu. Toàn bộ chuỗi chữ trong `docs/prototype.html` và `docs/workflows.html` đều là **microcopy tiếng Việt thật**, không dùng *lorem ipsum* (QĐ 59 PIPELINE Log 2026-10-24).
+
+## 1. Bốn luật chữ bất khả xâm phạm (`QĐ 55` · `LUẬT 4` · `LUẬT 7` · `VOICE-AND-PROSODY-SPEC`)
+
+| Luật | Cấm tuyệt đối | Bắt buộc dùng thay thế | Kiểm bằng |
+|---|---|---|---|
+| **QĐ 55 — Khử chữ `"sổ cái"`** | Không xuất hiện cụm từ `"sổ cái"` ở bất kỳ nhãn UI, tagline hay bài viết nào (tránh gây nhầm sang tiền mã hoá / blockchain) | • Điều hướng kho bài: **`"Mục lục"`**<br>• Góc nhìn kế toán: **`"Sổ kế toán (TT 99/2025)"`**<br>• Bản chất ngân hàng: **`"sổ sách ngân hàng"`** | Quét Unicode NFC trong `scripts/check-story.py` |
+| **LUẬT 4 — Không Tên Riêng (`B1–B4`)** | Cấm mọi tên ngân hàng, mạng thẻ, ví điện tử, cửa hàng, tác giả sách hoặc công cụ AI hậu trường (`Visa`, `Mastercard`, `NAPAS`, `VietQR`, `MoMo`, `ElevenLabs`, `Google`, `Veo`, `Hermanson`, `Quán Nhà Liên`...) trong bài học và khung hình video | Dùng 5 danh từ chung hệ thống:<br>• `Bạn / Người mua / Người lao động`<br>• `Cửa hàng / Quán quen / Doanh nghiệp`<br>• `Ngân hàng của quán / Ngân hàng công ty`<br>• `Tổ chức thẻ / Hệ thống chuyển mạch liên ngân hàng`<br>• `Ngân hàng của bạn / Công ty tài chính` | `scripts/check-story.py` (`C9 BRAND_RE`) + `brand-safety-reviewer` |
+| **LUẬT 7 — Không Lộ Ẩn Dụ Đạo Cụ** | Cấm viết các câu chỉ đạo sân khấu như `"Nhìn lên dây điện trên cao"`, `"ống ngầm mới sáng đèn"`, `"dây tín hiệu"`, `"ống quyết toán"` trong lời bình, phụ đề và văn bản đọc | Dùng ngôn ngữ nghiệp vụ tài chính tự nhiên: **`"luồng hồ sơ & hợp đồng"`**, **`"luồng thông tin xét duyệt"`**, **`"giải ngân qua ngân hàng"`**, **`"luồng quyết toán liên ngân hàng"`** | `scripts/wms-media-pipeline.py` (`FORBIDDEN_STAGE_PROP_RE`) |
+| **Tiêu đề 3 Điểm Neo & Giọng đọc Sóng** | Cấm tiêu đề cụt thiếu mốc tiền gốc (`"0% nhưng cửa hàng chỉ nhận 11,4 triệu"`) và cấm đuôi câu cụt `", ví dụ."` ở cuối câu lời bình | Tiêu đề đủ 3 vế: **`[1. Hành động + Giá gốc] → [2. Cơ chế bề mặt] → [3. Sự thật hệ thống / số thực nhận]`**; mở đầu giả định tự nhiên bằng `"Giả sử..."` / `"Trong ví dụ này..."` | `scripts/check-story.py` (`C9`) |
+
+## 2. Từ điển Microcopy trên các bề mặt chính (`docs/prototype.html`)
+
+| Vị trí giao diện | Chuỗi chữ chuẩn tiếng Việt | Ghi chú ngữ cảnh |
+|---|---|---|
+| **Tagline bắt buộc (QĐ 22 + QĐ 55)** | *"Từ tin báo “ghi có” tới sổ sách ngân hàng: tiền của bạn đi qua những đâu."* | Luôn đi kèm tên `Where Money Sleeps` để không bị hiểu nhầm thành trang gửi tiết kiệm |
+| **Thanh điều hướng `1A` (`48px`)** | • Giữa: `Danh mục {k}/{N}: {Tên} ▾` │ `Bài {m}/{M}: {Tiêu đề ngắn} ▾`<br>• Phải: `⌕ Mục lục & Tìm ⌘K` · `Chế độ duyệt bài` | Gọn trong 1 hàng duy nhất, không dùng icon hamburger cạnh logo |
+| **Nút gạt 2 góc nhìn (`Dual-Lens`)** | • `👤 Góc nhìn Cá nhân (Túi tiền & Phí ngầm)`<br>• `⚙️ Sổ kế toán (Bút toán TT 99/2025)` | Đặt ngay trên thanh điều khiển nhịp của Mặt cắt Diorama |
+| **3 ô số tổng kết trên Diorama** | • Ô 1: `Số tiền giao dịch gốc`<br>• Ô 2: `Phí / Khấu trừ phát sinh`<br>• Ô 3: `Số tiền thực nhận cuối cùng` | Số nhảy bằng `animateMoneyText()` với `tabular-nums`; con số giả định gắn nhãn `<span class="ex">ví dụ</span>` |
+| **Chú thích 3 tầng của Hình mặt cắt `16:9` (`LUẬT 9`)** | • Tầng 1 (`kicker` + nút nhảy): `HÌNH MẶT CẮT 0{i}/04 · CHƯƠNG 0{c}` + `↗ Xem trên Mặt cắt Diorama · Nhịp {b}/5`<br>• Tầng 2 (`title`): Câu kết luận hành động đầy đủ (Action Thesis Title)<br>• Tầng 3 (`desc`): 2 câu giải thích cơ chế có gắn thuật ngữ `[[nhãn\|khoá]]` | Giúp người đọc quét lướt (*F-pattern*) chỉ đọc chú thích hình cũng nắm được 80% cốt lõi chương |
+| **3 Tab nội dung sâu dưới sân khấu** | • Tab A: `A · Bài khảo cứu toàn cảnh (Dành cho mọi người)`<br>• Tab B: `B · Phân tích chuyên sâu & Sổ kế toán TT 99/2025`<br>• Tab C: `C · Studio Kịch bản & Video (YouTube 16:9 & Shorts 9:16)` | Phân tầng rõ ràng để người mới không bị ngợp bởi bảng định khoản kế toán |
+| **Dòng minh bạch AI & Kiểm duyệt (QĐ 41 · Legal R20)** | *"Soạn với hỗ trợ AI · Con số và tên tài khoản được một agent AI soát (`K1–K4 · F1–F4 · B1–B4 · M1–M4`); {approvedBy} ký duyệt."* | **Cấm tuyệt đối 4 từ** `"kế toán"`, `"accountant"`, `"chuyên gia"`, `"expert"` trong dòng minh bạch công khai và trường `reviewed_by` (theo đúng QĐ 41 & Legal R20 do T3 phát hiện) |
+
+## 3. Chưa xác minh được
+
+- Bản dịch tiếng Anh (`EN`) của toàn bộ 3 bài khảo cứu chuẩn `C9 v2` (mùa 1 ưu tiên hoàn thiện và duyệt bản tiếng Việt trước theo `QĐ 14` & `QĐ 43`).
+- Cross-vendor model review (Claude ↔ Gemini) — no human external verifier ran.

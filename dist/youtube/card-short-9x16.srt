@@ -1,0 +1,63 @@
+1
+00:00:00,000 --> 00:00:03,990
+Giả sử bạn quẹt thẻ tín dụng mười triệu và vừa nhận một trăm nghìn tiền hoàn.
+
+2
+00:00:03,990 --> 00:00:05,180
+Nghe như một món quà...
+
+3
+00:00:05,180 --> 00:00:07,000
+nhưng thật ra ai đang trả khoản đó?
+
+4
+00:00:07,000 --> 00:00:14,960
+Lùi lại giây bạn chạm thẻ trả hoá đơn mười triệu: lúc đó chưa có đồng nào chạy, ngân hàng của bạn chỉ giữ chỗ trên hạn mức.
+
+5
+00:00:14,960 --> 00:00:16,190
+Hoá đơn đã in ra...
+
+6
+00:00:16,190 --> 00:00:18,000
+nhưng tiền thật vẫn nằm yên.
+
+7
+00:00:18,000 --> 00:00:22,560
+Trong ví dụ này, phải hai ngày làm việc sau ngân hàng mới quyết toán để tiền thật chảy về quán.
+
+8
+00:00:22,560 --> 00:00:25,300
+Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn...
+
+9
+00:00:25,300 --> 00:00:29,000
+vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.
+
+10
+00:00:29,000 --> 00:00:36,040
+Nhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange.
+
+11
+00:00:36,040 --> 00:00:40,000
+Ngân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho tổ chức thẻ.
+
+12
+00:00:40,000 --> 00:00:46,660
+Cuối kỳ, bạn trả đủ mười triệu cho ngân hàng của mình và nhận lại một trăm nghìn tiền hoàn.
+
+13
+00:00:46,660 --> 00:00:55,000
+Chính khoản interchange một trăm năm mươi nghìn thu từ quán là nguồn để ngân hàng trích trả bạn một trăm nghìn ấy.
+
+14
+00:00:55,000 --> 00:01:01,050
+Mà nhiều quán đã cộng sẵn phí nhận thẻ vào giá món ăn trên thực đơn.
+
+15
+00:01:01,050 --> 00:01:02,560
+Nên rất có thể...
+
+16
+00:01:02,560 --> 00:01:08,000
+tiền hoàn bạn nhận chính là tiền của bạn vừa đi hết một vòng.

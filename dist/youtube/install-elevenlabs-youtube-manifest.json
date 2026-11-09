@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "install",
+  "storyStatus": "review",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 17,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (zero_percent_installment_merchant_subsidy)",
+      "Toán dòng tiền IRR/EIR khớp tuyệt đối: PV_eff=11,400,000đ, CF=1,000,000đ×12 kỳ → r_tháng=0.7981% (xấp xỉ bài/video 0,8%) · EIR_năm gộp=10.01% / danh nghĩa=9.58% (xấp xỉ bài/video 10%)",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 1388, 511, 521, 641)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Mua trả góp 12 triệu lãi suất 0%: ai đang trả 600 nghìn tiền lãi thay bạn?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/install_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "l_8aVo538jo",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/install-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Mua trả góp 12 triệu lãi suất 0%: ai đang trả 600 nghìn tiền lãi thay bạn?\n0:31 Đoạn 1\n1:11 Đoạn 2\n1:50 Đoạn 3\n2:32 Đoạn 4\n3:30 Đoạn 5\n4:20 Đoạn 5\n5:19 Cảnh 8\n6:09 Cảnh 9\n7:05 Cảnh 10\n7:57 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:31",
+          "beat": null,
+          "sha256CacheKey": "a447f6c6ab15777da85ff34369bd4bd13a13bbced59566615e51e2644bd68f5b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9632406b960e3fd0e9417bd8e8f860b3bc9804573472f13be4dbf02adbfe2435",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh mặt cắt Diorama năm nhà, mọi cửa cuốn đóng, đèn tối. Máy quay lướt chậm từ nhà Bạn sang Cửa hàng; biển ĐIỆN THOẠI sáng lên trước tiên. Dây điện trên cao và ống ngầm dưới đất đều tắt.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông cửa tiệm nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 102
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:31 – 1:11",
+          "beat": 0,
+          "sha256CacheKey": "7b10d8b65d5ac02053db808da90a8a6d39da1b9764a5f252e990ebfae68d9078",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "19f76113d3366ff2d48cf40120d0e7286adc0f4091fd0590584e65a3701368c1",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn nhà Bạn và Cửa hàng kéo lên (lit 0,1). Đạo cụ điện thoại và máy tính bảng ở quầy sáng (fx phone, pos). Một lời nhắn chạy trên dây điện trên cao từ Cửa hàng sang Công ty tài chính (msgs 1→2); ống ngầm vẫn tắt. Thẻ trên Cửa hàng: “gửi hồ sơ trả góp”. Máy quay bám theo lời nhắn tới cuối phố.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chạm màn hình (cần giấy phép trước khi dùng)",
+          "voWords": 126
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:11 – 1:50",
+          "beat": 1,
+          "sha256CacheKey": "606a74497a59ab299b3c0d34acd55897f24f6e76ec1644238665262f246f86a6",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "456b47f66b1f2e42f4beea5967a9cfae559abbaf2d3bba890dee13e774769050",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn Công ty tài chính kéo lên (lit 0,1,2). Hai lời nhắn trên dây điện: “duyệt” từ Công ty tài chính về Cửa hàng (msgs 2→1), hợp đồng từ Bạn sang Công ty tài chính (msgs 0→2). Đạo cụ điện thoại nhà Bạn sáng (fx phone). Thẻ trên Công ty tài chính: “duyệt”; thẻ trên nhà Bạn: “nợ công ty tài chính 12.000.000”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng ký bút (cần giấy phép trước khi dùng)",
+          "voWords": 135
+        },
+        {
+          "sceneIndex": 3,
+          "time": "1:50 – 2:32",
+          "beat": 2,
+          "sha256CacheKey": "1b30f605a951e129a55d2e84fa83fe1e487fd487655c7cbd9d53d0b5681c247d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7be842f9e8022adacafcbdb2ed7e951d7a84fe7fc835dda7dfb92025d18d324d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Chỉ Cửa hàng và Công ty tài chính sáng (lit 1,2); nhà Bạn tối dần. Không có lời nhắn hay dòng tiền nào chạy: dây im, ống tối. Cận cảnh cuốn sổ trong Cửa hàng (fx recv) hiện chữ “sổ: phải thu 12tr”; két tiền mở ra, trống. Thẻ trên Cửa hàng: “+ Phải thu 12.000.000”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật trang sổ (cần giấy phép trước khi dùng)",
+          "voWords": 141
+        },
+        {
+          "sceneIndex": 4,
+          "time": "2:32 – 3:30",
+          "beat": 3,
+          "sha256CacheKey": "f67f56287658a1fced73ec6657f45a52df67c8e0fa6496bd0a065e7382b5569c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "d771d40b14c03017e350a987d248d9158f239c755ee3c9ed29371e3ecfae800f",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa hàng, Công ty tài chính và Ngân hàng của cửa hàng sáng (lit 1,2,4); cửa cuốn Ngân hàng của cửa hàng kéo lên. Lần đầu ống quyết toán ngầm phát sáng: tiền thật chảy từ Công ty tài chính xuống Ngân hàng của cửa hàng (msgs 2→4 money) rồi vào Cửa hàng (msgs 4→1 money). Sổ Cửa hàng đổi thành “sổ: +11.400.000” (fx paid). Thẻ trên Cửa hàng: “+ 11.400.000 vào tài khoản”; thẻ trên Công ty tài chính: “giữ 600.000 làm lãi”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuyển khoản, nhỏ (cần giấy phép trước khi dùng)",
+          "voWords": 182
+        },
+        {
+          "sceneIndex": 5,
+          "time": "3:30 – 4:20",
+          "beat": 4,
+          "sha256CacheKey": "642e33188a0a1777ac6be63c054d399209bd1d6d7b14e16cf20689beb03c0fef",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "5c65739550613af8bfeeba91cb3efb3cb885bc58d53916fea24b99910a355593",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bạn, Công ty tài chính và Ngân hàng của bạn sáng (lit 0,2,3). Đạo cụ điện thoại nhà Bạn sáng mỗi tháng (fx phone). Mỗi tháng một lệnh trích đi trên dây từ Bạn sang Ngân hàng của bạn (msgs 0→3), rồi tiền thật chạy trong ống ngầm từ Ngân hàng của bạn sang Công ty tài chính (msgs 3→2 money). Bộ đếm tại Công ty tài chính: “thu 12 kỳ × 1.000.000” (fx loan); bảng sổ nhỏ hiện lên (fx iledger). Thẻ nhà Bạn: “−1.000.000 mỗi tháng”; thẻ Công ty tài chính: “dư nợ của bạn giảm dần”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tích tắc đồng hồ nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 157
+        },
+        {
+          "sceneIndex": 6,
+          "time": "4:20 – 5:19",
+          "beat": 4,
+          "sha256CacheKey": "46e5d3d077f85a2144b5550d6882c343c7e563e32b701bf0d239f084c4128dbc",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fd27b291b12d30003602a5a2f473ea882cff74039312d61b6b9ba83975a8574e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Giữ lit 0,2,3; máy quay hạ xuống ống ngầm giữa Ngân hàng của bạn và Công ty tài chính (msgs 3→2 money), mười hai giọt tiền nối đuôi nhau. Mỗi giọt co nhỏ dần theo khoảng cách thời gian, rồi cả mười hai giọt trượt ngược về đầu trục thời gian tại Công ty tài chính, chồng lại thành một cột cao đúng bằng 11.400.000. Bảng sổ nhỏ (fx iledger) hiện công thức.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bấm máy tính (cần giấy phép trước khi dùng)",
+          "voWords": 185
+        },
+        {
+          "sceneIndex": 7,
+          "time": "5:19 – 6:09",
+          "beat": null,
+          "sha256CacheKey": "97a5e3b28e034dbf8a87e9ffbd761e5b8986cde26fa1afbc575c9d3f40911078",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4b16ef0072d7331d9d6ba2dfac4799a2ee9956f3b4b16ff92f6ff39715f816da",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Quay lại cảnh giải ngân (lit 1,2,4): ống ngầm chảy lại từ Công ty tài chính qua Ngân hàng của cửa hàng vào Cửa hàng (msgs 2→4 money, 4→1 money), sổ hiện “+11.400.000” (fx paid). Màn hình chia đôi trên nền Cửa hàng: bên trái bảng giá có dòng “trả thẳng −600.000”, bên phải bảng giá không có dòng ấy. Cuối cảnh, một tia phí nhỏ 264.000 đặt cạnh khối 600.000 để so.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân lên đĩa cân (cần giấy phép trước khi dùng)",
+          "voWords": 159
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:09 – 7:05",
+          "beat": null,
+          "sha256CacheKey": "be48c2b9ebc6d80165a2fbb37dea79ab71cf4292102b7c503937e03d78272d11",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "d5a6ff047b874e09f6a0b633f85bbc40e8e811bb25af9b04a233fe0624cc4b04",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cảnh giả định: Công ty tài chính mờ đi; Ngân hàng của bạn sáng lên với vai Issuer, cửa cuốn kéo lên, đạo cụ thẻ tín dụng trên quầy. Một lời nhắn “chuyển đổi trả góp” chạy trên dây từ nhà Bạn sang Ngân hàng của bạn. Tem phí “3% = 360.000 (ví dụ)” rơi xuống nhà Bạn. Mỗi tháng một lệnh trích chạy trên dây từ nhà Bạn sang Ngân hàng của bạn, mười hai nhịp; ống ngầm tắt vì tài khoản và thẻ cùng một ngân hàng — chỉ một nhãn “sổ nội bộ” nhấp nháy trong nhà Ngân hàng của bạn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng quẹt thẻ (cần giấy phép trước khi dùng)",
+          "voWords": 178
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:05 – 7:57",
+          "beat": null,
+          "sha256CacheKey": "646d727303ab7198d2e2624f5d7dd8383e430a8b7068ed9d7dabb52ff44bb553",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b0a9609cfc1d7d54ddb26bf05ae4bb40c7de963a220500f8110ae2f0f870af70",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Lit 0,1,2,3,4. Ba khung nhỏ nối tiếp: (1) tháng 4, ống ngầm từ Ngân hàng của bạn sang Công ty tài chính phụt một khối lớn “8.000.000”; (2) tháng 5, ống tắt một nhịp, tem đỏ “trễ hạn · phạt 150.000 (ví dụ)” dán lên nhà Bạn; (3) chiếc điện thoại được đẩy ngược từ nhà Bạn về Cửa hàng, ống ngầm chảy ngược từ Cửa hàng qua Ngân hàng của cửa hàng sang Công ty tài chính.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng còi báo nhỏ (cần giấy phép trước khi dùng)",
+          "voWords": 169
+        },
+        {
+          "sceneIndex": 10,
+          "time": "7:57 – 8:30",
+          "beat": null,
+          "sha256CacheKey": "b44e8c61dddf5f9afee989d126ebc9bc740f481369e17f51a9244182634716e8",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "54c22139780c834ff03604eef0f9912927536be6eeef0f2badd1ae49704d51e4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay lùi ra toàn cảnh năm nhà; dây và ống mờ dần. Chỉ còn hai con số đặt cạnh nhau trên nền phố: 12.000.000 và 11.400.000, khoảng chênh giữa chúng sáng lên. Cửa cuốn lần lượt hạ xuống, Cửa hàng hạ cuối cùng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng cửa cuốn hạ (cần giấy phép trước khi dùng)",
+          "voWords": 104
+        }
+      ]
+    },
+    "short": {
+      "title": "Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/install_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "J3DmDP4KKRI",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/install-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?\n0:08 Đoạn 2\n0:20 Đoạn 4\n0:34 Đoạn 5\n0:48 Cảnh 5\n1:00 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:08",
+          "beat": null,
+          "sha256CacheKey": "7baf144d14cc277b4705184ab9c85a1ad92c47240a6035e99007322104afc6bd",
+          "cached": true,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "0123f77a4dbf657f85895012743935088ffd141e154a40ff9c9ec9a8c59716c6",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cận tờ rơi “0% · 12 kỳ” dán trên quầy Cửa hàng; biển ĐIỆN THOẠI nháy sáng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bật đèn (cần giấy phép trước khi dùng)",
+          "voWords": 39
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:08 – 0:20",
+          "beat": 1,
+          "sha256CacheKey": "2ef58aae7c71723c5509080edb8a96ecb6b8f561e637d946bc2a60538ad9f5e1",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "65037c883bdf2c3c1495e69325117625c298f3b4e65b4aa92fb41dad4f455382",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cắt dọc nhà Bạn, Cửa hàng và Công ty tài chính (lit 0,1,2); hai lời nhắn chạy trên dây: “duyệt” (msgs 2→1) và hợp đồng (msgs 0→2). Ống ngầm tối.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng ký bút (cần giấy phép trước khi dùng)",
+          "voWords": 48
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:20 – 0:34",
+          "beat": 3,
+          "sha256CacheKey": "7bfd19b948a97257ce13686a58199160ff769e6963fe640fcb35b001782686f7",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "81d24cc294684afb02bfcf65fdafa127f88c29d1580ef919e48c49b77d96d2d0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cắt dọc ống ngầm (lit 1,2,4): tiền chảy từ Công ty tài chính qua Ngân hàng của cửa hàng vào Cửa hàng (msgs 2→4 money, 4→1 money); sổ Cửa hàng hiện “+11.400.000” (fx paid).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuyển khoản (cần giấy phép trước khi dùng)",
+          "voWords": 49
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:34 – 0:48",
+          "beat": 4,
+          "sha256CacheKey": "d9ed9b5d0eda1805683c7672f413cbae34e569058b0c8a66c9f1bc0bd293d44d",
+          "cached": true,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "e40cee72bcb350e99b705831d046f19f266bbcef27787c6a1914e25cf55de120",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, nhà Bạn ở trên, Công ty tài chính ở dưới (lit 0,2,3); lệnh trích trên dây (msgs 0→3), mười hai giọt tiền trong ống (msgs 3→2 money); bộ đếm “thu 12 kỳ × 1.000.000” (fx loan).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tích tắc (cần giấy phép trước khi dùng)",
+          "voWords": 54
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:48 – 1:00",
+          "beat": null,
+          "sha256CacheKey": "7fe5b90e318f7612d1483e798d92efb35f67e140517741946a74ffb584123f25",
+          "cached": true,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "2da74a37cb0cc23329f36f842b82494ba42a1094944051c66519a5883472ce2e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, chia đôi khung trên nền Cửa hàng: trên là bảng giá có dòng “trả thẳng −600.000”, dưới là bảng giá không có dòng ấy; khối 600.000 trượt từ bảng dưới về phía quầy.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân (cần giấy phép trước khi dùng)",
+          "voWords": 42
+        },
+        {
+          "sceneIndex": 5,
+          "time": "1:00 – 1:10",
+          "beat": null,
+          "sha256CacheKey": "56d1c73c82d2f7db7816b023bc28b5abeb352559bdcf1a8e5788403b9278a86b",
+          "cached": true,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b9a865f8e20471b2d1d876f75a75e944f118d7185612537029786f9f08655383",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, hai con số 12.000.000 và 11.400.000 xếp chồng, khoảng chênh sáng lên; cửa cuốn Cửa hàng hạ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng cửa cuốn hạ (cần giấy phép trước khi dùng)",
+          "voWords": 26
+        }
+      ]
+    }
+  }
+}

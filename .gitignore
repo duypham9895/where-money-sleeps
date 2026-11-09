@@ -1,0 +1,21 @@
+# where-money-sleeps .gitignore
+.DS_Store
+.env
+.env.*
+!.env.example
+.secrets/
+*client_secret*.json
+*youtube_token*.json
+__pycache__/
+*.py[cod]
+.cache/
+node_modules/
+.claude/settings.local.json
+dist/youtube/*.mp4
+dist/youtube/*.mp3
+public/media/**/*.mp3
+public/media/**/*.mp4
+*.swp
+*.swo
+*~
+*.bak

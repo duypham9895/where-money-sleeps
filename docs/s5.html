@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Money Sleeps — S5 Launch (QĐ 1–61)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="llm-quiz.html">PDF + LLM quiz</a>
+  <a href="s1.html">S1 Spec</a>
+  <a href="s2.html">S2 Design</a>
+  <a href="s3.html">S3 Build</a>
+  <a href="s4.html">S4 QA</a>
+  <a href="s5.html" aria-current="page">S5 Launch</a>
+  <a href="prototype.html">Prototype</a>
+  <a href="studio.html">🎬 Studio</a>
+  <a href="workflows.html">⚡ Workflows</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="meta r"><span class="words">—</span><span>S5 · 2026-11-09 · Ops + Marketing + Legal · chờ duyệt</span></div>
+  <h1 class="r">S5 Launch hoàn tất: Hồ sơ sẵn sàng ra mắt, Đường gỡ 72h &amp; Định vị 6 video v6.5.</h1>
+  <div class="tldr r"><p><strong>TL;DR:</strong> Cổng <code>S5 Launch</code> (<code>gates/05-launch/LAUNCH-READINESS.md</code> &amp; <code>POSITIONING.md</code>) đã khoá trọn bộ hồ sơ phòng thủ pháp lý, quy trình đường gỡ khẩn cấp 72 giờ (<code>AC-61, R33, R37</code>), định vị tagline bắt buộc (<code>AC-39</code>) và danh mục 6 video Calm Editorial Motion <code>v6.5</code> trên <code>@WhereMoneySleeps</code> (đang ở chế độ <code>unlisted</code> an toàn). Toàn bộ <code>5/5</code> cổng <code>wms-check.sh</code> và <code>4/4</code> cụm E2E <code>wms-qa-verify.py</code> đạt <code>PASS</code>.</p></div>
+</section>
+
+<section>
+  <h2 class="r">1. Trạng thái sẵn sàng ra mắt &amp; Đường gỡ 72 giờ (`LAUNCH-READINESS.md`)</h2>
+  <div class="g three r">
+    <div class="k"><div class="n" data-to="6">6</div><div class="cap">Video v6.5 sẵn sàng</div></div>
+    <div class="k"><div class="n" data-to="72">72</div><div class="cap">Giờ cam kết đường gỡ</div></div>
+    <div class="k"><div class="n" data-to="4">4</div><div class="cap">Mục chờ Duy ký mở public</div></div>
+  </div>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng kiểm tra S5 Launch"><table><thead><tr><th>Hạng mục</th><th>Cơ chế vận hành &amp; Bằng chứng</th><th>Trạng thái</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Đường gỡ 72 giờ (<code>AC-61</code>)</strong></td><td><code>≤ 24h</code>: chuyển bài về <code>status: "draft"</code> trong <a href="prototype.html"><code>prototype.html</code></a> &amp; chuyển video YouTube về <code>Private</code> · <code>≤ 48h</code>: chạy lại 4 chuyên gia <code>K/F/B/M</code> · <code>≤ 72h</code>: ghi vết <code>PIPELINE.md</code> + phản hồi.</td><td><strong>Sẵn sàng</strong></td></tr>
+    <tr><td><strong>Định vị &amp; Tagline (<code>POSITIONING.md</code>)</strong></td><td>Tagline bắt buộc: <em>"Từ tin báo “ghi có” tới sổ sách ngân hàng: tiền của bạn đi qua những đâu."</em>; tiêu đề đủ 3 điểm neo; <code>0</code> tên thương hiệu thật (<code>B1–B4</code>).</td><td><strong>PASS</strong></td></tr>
+    <tr><td><strong>An ninh &amp; Quyền riêng tư</strong></td><td><code>0</code> script CDN bên thứ ba; <code>studio.html</code> khoá <code>connect-src 'none'</code>; đo lường không định danh qua <code>/api/p</code> (<code>AC-68</code>); lưu tiến độ 100% cục bộ.</td><td><strong>PASS</strong></td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">2. Bốn việc chỉ Duy quyết trước khi mở `public` (`Human Gate`)</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng 4 việc của Duy trước khi mở public"><table><thead><tr><th>Mã</th><th>Việc cần Duy xác nhận</th><th>Trạng thái hiện tại</th></tr></thead>
+  <tbody>
+    <tr><td><strong>H1 · Hợp đồng Ringkas (<code>R34</code>)</strong></td><td>Đọc hợp đồng lao động trước khi công khai email khiếu nại hoặc tên cá nhân trên trang liên hệ.</td><td>Chờ Duy kiểm trước khi mở <code>public</code></td></tr>
+    <tr><td><strong>H2 · Đo WebView Zalo (<code>AC-31</code>)</strong></td><td>Chạm thử link <code>#sync</code> trên iPhone/Android thật (đã dựng sẵn cả nút <em>Tạo mã sao lưu</em> Base64 dự phòng nếu Zalo cắt <code>#</code>).</td><td>Giao diện đã sẵn sàng cả 2 chế độ</td></tr>
+    <tr><td><strong>H3 · Cloudflare D1 (<code>AC-35, 55</code>)</strong></td><td>Nối Worker <code>/api/p</code>, tắt <code>Workers Logs</code> (<code>observability.enabled=false</code>) và ẩn ô <code>n &lt; 5</code> khi trỏ tên miền.</td><td>Client đã bắn chuẩn <code>/api/p</code></td></tr>
+    <tr><td><strong>H4 · Ký mở <code>public</code> (<code>QĐ 56</code>)</strong></td><td>Chuyển 3 bài mẫu (<code>card, pay, install</code>) và 6 video <code>v6.5</code> trên <code>@WhereMoneySleeps</code> từ <code>unlisted</code> sang <code>public</code>.</td><td>Đang khoá an toàn ở <code>unlisted</code></td></tr>
+  </tbody></table></div>
+</section>
+</main>
+<script src="assets/doc.js"></script>
+</body>
+</html>

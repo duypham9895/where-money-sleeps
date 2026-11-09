@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "card",
+  "storyStatus": "published",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 17,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (card_4party_5house_settlement)",
+      "Toán thanh toán thẻ khớp tuyệt đối: Gross 10,000,000đ − MDR 220,000đ (2.2%) = Thực nhận 9,780,000đ",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 1388, 511, 521, 641)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Quẹt thẻ tín dụng 10 triệu ở nhà hàng: đêm nay tiền thật đang ngủ ở đâu?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/card_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "fxpFvVJcpRA",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/card-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "public",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Quẹt thẻ tín dụng 10 triệu ở nhà hàng: đêm nay tiền thật đang ngủ ở đâu?\n0:37 Đoạn 1\n1:22 Đoạn 2\n2:09 Đoạn 3\n2:50 Cảnh 5\n3:36 Đoạn 4\n4:19 Đoạn 4\n5:04 Cảnh 8\n5:55 Đoạn 5\n6:41 Cảnh 10\n7:30 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:37",
+          "beat": null,
+          "sha256CacheKey": "46cc215fb23a69445f4baf7e8231c040c3f8974fbfd6cb0ffcf610d79e0cc22d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "06d5aaf57e218299d499a9913ee67a0add3d7b49b5ddfb2cd90eb35a9ffd16a5",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh mặt cắt Diorama v3.0 lúc đêm, năm nhà khép cửa cuốn (wShutter hạ); máy quay lia chậm dọc con phố từ Ngân hàng của bạn về nhà Bạn. Dây trên cao và ống ngầm đều tối.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tít máy cà thẻ (SFX chung; cần nêu giấy phép trước khi dùng)",
+          "voWords": 124
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:37 – 1:22",
+          "beat": 0,
+          "sha256CacheKey": "cb4cb81a18c592df534fe5fa5f8782e20ec0248c253e624af8c414d76098f34e",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "2a6ac628924a2a45b6c112c89e3a40ad6dedd97daa534aae709c5b12378e0736",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn nhà Bạn và Ngân hàng của bạn kéo lên (lit 0, 4). Đạo cụ điện thoại sáng ở nhà Bạn, đạo cụ giữ chỗ sáng ở Ngân hàng của bạn. Không dây nào sáng, ống ngầm tối — chưa có lời nhắn hay tiền nào chạy giữa các nhà.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng rung điện thoại (SFX chung)",
+          "voWords": 143
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:22 – 2:09",
+          "beat": 1,
+          "sha256CacheKey": "588e6c3d497930ebd39b5ac462bceacb69c543a57bc2493bad65bdf25652ff8d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "2c3b52fee2fe684ea43b85ffeecec2745e77a73ee6c47ef30ba41e2f4d74af73",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn Quán quen, Ngân hàng của quán, Tổ chức thẻ, Ngân hàng của bạn kéo lên (lit 1–4). Đạo cụ máy POS sáng ở quán, bảng điều phối sáng ở nhà tổ chức thẻ. Dây trên cao sáng lần lượt: Quán → Ngân hàng của quán → Tổ chức thẻ → Ngân hàng của bạn, rồi dây trả lời từ Ngân hàng của bạn về Quán. Ống ngầm vẫn tối.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tín hiệu nhẹ (SFX chung)",
+          "voWords": 155
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:09 – 2:50",
+          "beat": 2,
+          "sha256CacheKey": "b9031c6f0e3bb39de2d94b855a2e24dfbd9822a7d70c16b436200f43d9e23da4",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "794a6ab3d294ae07cbed654740506a7ed4c24c76b442e167729cf3c05a29fd1e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Chỉ cửa cuốn Quán quen mở (lit 1); các nhà khác khép, dây và ống tối. Đạo cụ két trống mở ra, cuốn sổ phải thu sáng lên một dòng mới; máy quay đẩy sát vào trang sổ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng kéo ngăn két rỗng (SFX chung)",
+          "voWords": 132
+        },
+        {
+          "sceneIndex": 4,
+          "time": "2:50 – 3:36",
+          "beat": null,
+          "sha256CacheKey": "912f4cd5b1b31df84cd6512ec17d46d67dbfd0cd86d21dcd1672ecaa2af93c0d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7b020c0820bee36bfeab7390ee472644a4193fd5ba5b268f173b3a95061662a8",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Vẫn đêm đó. Quán quen sáng mờ; một tờ danh sách dài trượt từ quán sang Ngân hàng của quán, rồi đi trên dây tới Tổ chức thẻ và Ngân hàng của bạn (minh hoạ Clearing, ngoài dữ liệu đoạn 3 — đánh dấu là cảnh giải thích). Ống ngầm tối.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy in hoá đơn kéo dài (SFX chung)",
+          "voWords": 152
+        },
+        {
+          "sceneIndex": 5,
+          "time": "3:36 – 4:19",
+          "beat": 3,
+          "sha256CacheKey": "edb2bfd6ea9e6f2acb8af50932921e383d9d68b9c3c39ba056a541d334a9287d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4d8a1f598da31cdc5205715429cb1eed391933d4f8761e4c5dd7871629e91cc1",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn lit 1–4 kéo lên. Dây trên cao tối; ống ngầm sáng: Ngân hàng của bạn → Ngân hàng của quán, rồi Ngân hàng của quán → Quán quen và Ngân hàng của quán → Tổ chức thẻ. Đạo cụ tiền về sáng ở quán, đạo cụ chia phí sáng ở Ngân hàng của quán, sổ Interchange sáng ở Ngân hàng của bạn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuyển khoản (SFX chung)",
+          "voWords": 144
+        },
+        {
+          "sceneIndex": 6,
+          "time": "4:19 – 5:04",
+          "beat": 3,
+          "sha256CacheKey": "ad445adea1697215765d0887aa9c63fcd6becc78b5dbe4321385cf4d39052f40",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1297a8ba2f204620e92d72b05f7735799a66bf77bfa50fa9f2c0538bfeb8d53b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đóng băng khung T+2; máy quay hạ xuống dưới mặt đất. Một đồng xu lớn 220.000 tách thành ba mảnh trôi theo ống: mảnh lớn về Ngân hàng của bạn, mảnh nhỏ về Tổ chức thẻ, mảnh vừa ở lại Ngân hàng của quán.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng xu tách rời (SFX chung)",
+          "voWords": 142
+        },
+        {
+          "sceneIndex": 7,
+          "time": "5:04 – 5:55",
+          "beat": null,
+          "sha256CacheKey": "919a63d23e5dec9967bc36d8b840e58c6ba61e33d764d48c7406597c8776885a",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9e1c164469504ce895c149a3f8b5684990b15fd8e744e20f2717ffff50962d5e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cảnh giải thích, không theo đoạn nào: toàn cảnh con phố nhìn từ dưới lòng đất; nhiều ống mảnh từ hai chiều nhập lại; mỗi ngân hàng chỉ còn một ống ròng nối vào tài khoản quyết toán dưới nhà Tổ chức thẻ, không ống nào nối thẳng hai ngân hàng. Nhãn ống: “ròng · qua tài khoản quyết toán”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chốt phiên quyết toán (SFX chung)",
+          "voWords": 171
+        },
+        {
+          "sceneIndex": 8,
+          "time": "5:55 – 6:41",
+          "beat": 4,
+          "sha256CacheKey": "3823b6d0c5e07bee661e94e0d29de235a3ca9b31e53468335aeb35d36fb93ada",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "e5f1e8641ea06dd95c94551c77689c19575a2212079be0f4b9c38600e17005dd",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa cuốn nhà Bạn và Ngân hàng của bạn kéo lên (lit 0, 4). Dây trên cao tối. Ống ngầm sáng từ nhà Bạn → Ngân hàng của bạn: tiền thật trả nợ thẻ chạy dưới đất. Đạo cụ điện thoại sáng ở nhà Bạn, đạo cụ nhả nợ sáng ở Ngân hàng của bạn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng thông báo tin nhắn (SFX chung)",
+          "voWords": 151
+        },
+        {
+          "sceneIndex": 9,
+          "time": "6:41 – 7:30",
+          "beat": null,
+          "sha256CacheKey": "596ad0e87d0e30fee4f7885d746ad6c3e324b7f41d778a7aa700ec65057895a7",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "d5f47ceb27c26ccf3a195554f0ab8e372897116bd5359156c31e54cb42a48b3a",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cảnh giải thích: ba lần chiếu lại nhanh trên cùng con phố. Một: lời nhắn huỷ chạy trên dây, ống tối. Hai: một dòng tiền nhỏ chạy ngược trong ống từ Ngân hàng của quán về Ngân hàng của bạn. Ba: từ Ngân hàng của bạn một lời nhắn khiếu nại đi trên dây sang Ngân hàng của quán, rồi tiền chạy ngược trong ống.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tua ngược băng (SFX chung)",
+          "voWords": 161
+        },
+        {
+          "sceneIndex": 10,
+          "time": "7:30 – 8:01",
+          "beat": null,
+          "sha256CacheKey": "799062487cab1e2657db87c40d17559decb3733168a432fe28fad50486318784",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "ff3d537cf76f9d78d8b58eba523b600ffe21079b982826ebec239cc7ed0b365d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay lùi ra toàn cảnh; năm cửa cuốn hạ dần từ phải sang trái, dây và ống tắt lần lượt, chỉ còn cuốn sổ ở Quán quen sáng mờ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "một tiếng tít khẽ, rồi im (SFX chung)",
+          "voWords": 100
+        }
+      ]
+    },
+    "short": {
+      "title": "Quẹt thẻ 10 triệu được hoàn 100 nghìn: vì sao tiền hoàn ấy có thể lấy từ chính giá món hàng?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/card_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "th6zR4gwV5c",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/card-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "public",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Quẹt thẻ 10 triệu được hoàn 100 nghìn: vì sao tiền hoàn ấy có thể lấy từ chính giá món hàng?\n0:07 Đoạn 1\n0:18 Đoạn 4\n0:29 Đoạn 4\n0:40 Đoạn 5\n0:55 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:07",
+          "beat": null,
+          "sha256CacheKey": "e26e4bcff4d027bd0deafa2257226c91ba0e0a97920785c126ef95b01fff1db7",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "67e14397caeeb9cb689011da749c936bbfc9c4aec3649d1f53e1caa7c783a783",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Khung dọc 9:16, cận nhà Bạn: điện thoại sáng dòng “+100.000 tiền hoàn”. Cửa cuốn kéo lên nhanh.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng thông báo (SFX chung)",
+          "voWords": 30
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:07 – 0:18",
+          "beat": 0,
+          "sha256CacheKey": "89406566c8f1a9e3b747b46a53b8dee4c51789bd04afc7a1b4e58b5172694988",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "0b035c1e14a6a53eba452591509f9b495fdaa40b0bd89dafa50269f45090e2a0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cắt dọc nhà Bạn và Ngân hàng của bạn (lit 0, 4); đạo cụ giữ chỗ sáng; dây và ống tối.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tít (SFX chung)",
+          "voWords": 39
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:18 – 0:29",
+          "beat": 3,
+          "sha256CacheKey": "8649e74b339a1782ab011349ad27cf42d2983b33538e2616e50de12f38604ae4",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "c67d1564e28bf41045ce956a7a932cf915d69ce90bb7679e386157e89b98609d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận ống ngầm dưới Ngân hàng của quán: đồng xu 220.000 tách ba mảnh; mảnh lớn chạy về Ngân hàng của bạn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "xu tách (SFX chung)",
+          "voWords": 50
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:29 – 0:40",
+          "beat": 3,
+          "sha256CacheKey": "4b2892046310d58bcc079df4250c8a1f6b8dd1d785a337adf6aebbd25fb11741",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7f571d5fc5250769ca878c158240b75860e8cd34d0ae022f14b847132dd4c6e5",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận nhà Ngân hàng của bạn: sổ Interchange sáng “+150.000 · ví dụ”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu (SFX chung)",
+          "voWords": 44
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:40 – 0:55",
+          "beat": 4,
+          "sha256CacheKey": "8579c1ee11338ab353c5b68676ee294b147ef582678872c6e15ade793eb1cf5c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "ff9b8a7bbe28ea1b47e84600f431699d12ac1f8e83badbcff1bfd7e80fcdcb16",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ống ngầm từ nhà Bạn → Ngân hàng của bạn sáng; điện thoại hiện lại dòng tiền hoàn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng nước chảy (SFX chung)",
+          "voWords": 43
+        },
+        {
+          "sceneIndex": 5,
+          "time": "0:55 – 1:08",
+          "beat": null,
+          "sha256CacheKey": "817b5815c490e4efc495604db6443990f68d0e485bfe5259950df3596a44f98e",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "eda2a9951da9f2e78d78d66e1eae44adb958b3358a25c70683d47e0ba9a5938a",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận thực đơn của Quán quen; giá món sáng lên, một dải nhỏ “phí thẻ” hiện trong giá.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "một tiếng tít khẽ (SFX chung)",
+          "voWords": 34
+        }
+      ]
+    }
+  }
+}

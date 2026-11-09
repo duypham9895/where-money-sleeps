@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Money Sleeps — S3 Build (QĐ 1–61)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="llm-quiz.html">PDF + LLM quiz</a>
+  <a href="s1.html">S1 Spec</a>
+  <a href="s2.html">S2 Design</a>
+  <a href="s3.html">S3 Build</a>
+  <a href="prototype.html">Prototype</a>
+  <a href="studio.html">🎬 Studio</a>
+  <a href="workflows.html">⚡ Workflows</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="meta r"><span class="words">—</span><span>S3 · 2026-11-09 · SWE + Data + Legal · chờ duyệt</span></div>
+  <h1 class="r">4 lát cắt dọc S3 Build đã hoàn tất.<br>6 video Calm Editorial v6.0 đã lên YouTube unlisted &amp; nhúng sống.</h1>
+  <div class="tldr r"><p><strong>TL;DR:</strong> Toàn bộ 4 lát cắt dọc của <code>S3 Build</code> đã chạy sống trên <a href="prototype.html"><code>docs/prototype.html</code></a>, <a href="studio.html"><code>docs/studio.html</code></a> và <a href="workflows.html"><code>docs/workflows.html</code></a>: (1) Mặt cắt Diorama v3.0 + điều hướng <code>1A 48px</code> + 12 hình <code>16:9</code> <code>LUẬT 9</code>; (2) 6 thẻ trắc nghiệm cuối bài (<code>WMS_QUIZ_BANK</code>) + lưu tiến độ <code>IndexedDB/localStorage</code> + <code>persist()</code> + sao lưu <code>#sync</code>; (3) Máy đo lường chống trùng <code>tel</code> (<code>R1–R6</code>); (4) 6 video Calm Editorial <code>v6.0</code> đã upload lên <code>@WhereMoneySleeps</code> (<code>unlisted</code>) và nhúng thẳng vào bài viết.</p></div>
+</section>
+
+<section>
+  <h2 class="r">1. Bốn lát cắt dọc đã xuất xưởng (`SLICE-LOG.md`)</h2>
+  <div class="g three r">
+    <div class="k"><div class="n" data-to="4">4</div><div class="cap">Lát cắt dọc PASS</div></div>
+    <div class="k"><div class="n" data-to="6">6</div><div class="cap">Video v6.0 trên YouTube</div></div>
+    <div class="k"><div class="n" data-to="4">4</div><div class="cap">Sự kiện tel R1–R6</div></div>
+  </div>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng 4 lát cắt S3 Build"><table><thead><tr><th>Lát cắt</th><th>Hạng mục đã đóng gói</th><th>Kiểm chứng hợp đồng</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Slice 1 · Diorama &amp; Khảo cứu</strong></td><td>Điều hướng <code>1A Split-Pill 48px</code>, Mục lục <code>⌘K</code>, 12 hình <code>16:9</code> (<code>CLS=0</code>), bàn duyệt <code>studio.html</code></td><td><code>wms-motion-snap.py</code> PASS 21/21 · <code>check-story.py</code> 0 lỗi chặn</td></tr>
+    <tr><td><strong>Slice 2 · Quiz &amp; Tiến độ cục bộ</strong></td><td>6 thẻ trắc nghiệm (<code>card-q1.v1..install-q2.v1</code>), lưu <code>localStorage</code> + <code>IndexedDB</code>, nút <code>persist()</code> và mã/link <code>#sync</code></td><td>Trả lời thẻ đầu tiên chuyển bài sang hoàn thành (<code>QĐ 24, 38</code>)</td></tr>
+    <tr><td><strong>Slice 3 · Đo lường <code>tel</code> <code>R1–R6</code></strong></td><td><code>emitWmsTelemetry()</code> bắn <code>lesson_completed</code>, <code>card_answered</code>, <code>sync_created</code>, <code>progress_restored</code> qua <code>sendBeacon</code></td><td>Ghi khoá <code>tel</code> trước khi gửi (<code>R1</code>), mang <code>tel</code> theo <code>#sync</code> (<code>R4</code>), có <code>window.__wmsTelemetryLog</code></td></tr>
+    <tr><td><strong>Slice 4 · Video v6.5 &amp; YouTube</strong></td><td>6 file MP4 Calm Editorial <code>v6.5</code> + 6 file <code>.srt</code> đã đẩy lên <code>@WhereMoneySleeps</code> (<code>unlisted</code>) và nhúng vào <code>prototype.html</code></td><td><code>card</code>: <code>fxpFvVJcpRA</code> / <code>th6zR4gwV5c</code> · <code>pay</code>: <code>3NqEha4j53k</code> / <code>XnMsbH0E_xo</code> · <code>install</code>: <code>l_8aVo538jo</code> / <code>J3DmDP4KKRI</code></td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">2. Kiểm chéo T2 &amp; Điều chưa xác minh được</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng kiểm chéo T2 và mục chưa xác minh"><table><thead><tr><th>Hạng mục</th><th>Kết quả</th></tr></thead>
+  <tbody>
+    <tr><td><strong>T2 Phòng Data &amp; Legal</strong></td><td>Khoá <code>tel</code> được ghi vào bộ nhớ trước khi gọi <code>sendBeacon</code> (<code>0</code> đếm đôi); <code>0</code> tên thương hiệu thật (<code>LUẬT 4</code>), <code>0</code> script CDN bên thứ ba.</td></tr>
+    <tr><td><strong>Chưa xác minh được</strong></td><td>Hành vi khôi phục <code>#sync</code> trong trình duyệt встроен của ứng dụng nhắn tin trên iPhone/Android thật (sẽ kiểm ở <code>S4 QA</code>). <em>Same vendor, same priors — no external verifier ran.</em></td></tr>
+  </tbody></table></div>
+</section>
+</main>
+<script src="assets/doc.js"></script>
+</body>
+</html>
