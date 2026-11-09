@@ -16,19 +16,23 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 2
 cd "$ROOT" || exit 2
 
 rc=0
-echo "════ [1/4] check-story.py ════"
+echo "════ [1/5] check-story.py ════"
 python3 -I scripts/check-story.py "$@" || rc=1
 
 echo
-echo "════ [2/4] wms-finance-kb.py (tai-chinh-reviewer F1–F4) ════"
+echo "════ [2/5] wms-finance-kb.py (tai-chinh-reviewer F1–F4) ════"
 python3 -I scripts/wms-finance-kb.py --verify || rc=1
 
 echo
-echo "════ [3/4] wms-motion-snap.py (bang-motion M1–M4) ════"
+echo "════ [3/5] wms-motion-snap.py (bang-motion M1–M4) ════"
 python3 -I scripts/wms-motion-snap.py || rc=1
 
 echo
-echo "════ [4/4] vibe-check.sh (xưởng cha) ════"
+echo "════ [4/5] wms-studio-sync.py (Studio Data & Waveform Sync QĐ 59) ════"
+python3 -I scripts/wms-studio-sync.py --verify || rc=1
+
+echo
+echo "════ [5/5] vibe-check.sh (xưởng cha) ════"
 if [ -f ../scripts/vibe-check.sh ]; then
   bash ../scripts/vibe-check.sh . || rc=1
 else

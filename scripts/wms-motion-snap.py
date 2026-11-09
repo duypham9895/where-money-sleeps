@@ -16,6 +16,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PROTO_HTML = ROOT / "docs" / "prototype.html"
 WF_HTML = ROOT / "docs" / "workflows.html"
+STUDIO_HTML = ROOT / "docs" / "studio.html"
 MEDIA_PY = ROOT / "scripts" / "wms-media-pipeline.py"
 LICENCES_JSON = ROOT / "legal" / "licences.json"
 
@@ -43,7 +44,7 @@ def run_audit() -> int:
     else:
         bad("M0", "legal/licences.json", "Thiếu mục bangtutorial-bang-motion-skill (MIT License) trong legal/licences.json")
 
-    for html_path in (PROTO_HTML, WF_HTML):
+    for html_path in (PROTO_HTML, WF_HTML, STUDIO_HTML):
         rel = str(html_path.relative_to(ROOT))
         if not html_path.is_file():
             bad("M1", rel, "Không tìm thấy file HTML")
@@ -51,7 +52,7 @@ def run_audit() -> int:
         src = html_path.read_text(encoding="utf-8")
 
         # M1: Anti-PPT & Persistent World (cubic-bezier + persistent stage)
-        if "cubic-bezier" in src and (".diorama" in src or ".hierarchy-stage" in src):
+        if "cubic-bezier" in src and (".diorama" in src or ".hierarchy-stage" in src or ".workbench" in src):
             ok("M1", rel, "Persistent World + đường cong quán tính vật lý cubic-bezier đạt chuẩn Anti-PPT")
         else:
             bad("M1", rel, "Thiếu đường cong quán tính cubic-bezier hoặc vùng Persistent World")
@@ -136,6 +137,16 @@ def run_audit() -> int:
             ok("M3b", "docs/prototype.html", "LUẬT 10: Ray trên (POLE=38), bóng thoại (.tag >= 19%) và nhãn phòng (tagS clamp) 0 chồng lấn")
         else:
             bad("M3b", "docs/prototype.html", f"Vi phạm LUẬT 10 trên #scene: pole_safe={has_pole_safe}, tag_clamp={has_tag_clamp}")
+
+    if STUDIO_HTML.is_file():
+        ssrc = STUDIO_HTML.read_text(encoding="utf-8")
+        svg_y_vals = [int(y) for y in re.findall(r'<text\b[^>]*\by="(\d+)"', ssrc)]
+        has_unique_rows = len(svg_y_vals) == len(set(svg_y_vals)) and len(svg_y_vals) >= 7
+        has_csp_lock = "connect-src 'none'" in ssrc
+        if has_unique_rows and has_csp_lock:
+            ok("M3b", "docs/studio.html", f"LUẬT 10 & Bảo mật: {len(svg_y_vals)} nhãn SVG Safe-Zone nằm trên các tầng Y riêng biệt + CSP connect-src 'none'")
+        else:
+            bad("M3b", "docs/studio.html", f"Vi phạm LUẬT 10 hoặc CSP trên studio.html: unique_y={has_unique_rows}, csp={has_csp_lock}")
 
     print(f"Kết quả Bang-Motion (M1–M4): FAIL {fails} · PASS {passes}")
     return 1 if fails > 0 else 0

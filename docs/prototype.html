@@ -789,6 +789,7 @@ body.cms-on{padding-bottom:150px}
         <span class="ab-badge" id="abSum"></span>
         <kbd class="ab-kbd">⌘K</kbd>
       </button>
+      <a href="studio.html" class="ab-btn" id="studioNavLink" style="text-decoration:none" title="Mở Studio Duyệt Nội dung &amp; Video Toàn Màn Hình (Side-by-Side Inspector)">🎬 Studio Review</a>
       <a href="workflows.html" class="ab-btn" style="text-decoration:none" title="Mở Trung tâm Điều phối Agent &amp; 5 Quy trình Realtime">⚡ Sơ đồ Agent</a>
       <button type="button" class="ab-btn cmsbtn" id="cmsBtn" aria-pressed="false">Chế độ duyệt bài</button>
     </div>
@@ -992,21 +993,36 @@ body.cms-on{padding-bottom:150px}
   </div>
 </section>
 
-<!-- ── Bài viết đầy đủ & Kịch bản dựng Video (C9): sinh từ STORIES[k].article + videoScript ── -->
+<!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
 <section class="sec" id="baiday" aria-labelledby="pack-h">
   <div class="pack">
     <div class="pack-head">
-      <div><p class="eyebrow">Bài viết đầy đủ &amp; Kịch bản dựng Video</p><h3 id="pack-h"></h3></div>
-      <div class="pack-tabs" role="tablist" aria-label="Ba phần của bài đầy đủ">
-        <button role="tab" id="tab-lay" aria-controls="pnl-lay" aria-selected="true"><b>A</b>Không cần biết kế toán</button>
-        <button role="tab" id="tab-pro" aria-controls="pnl-pro" aria-selected="false" tabindex="-1"><b>B</b>Góc nhìn chuyên sâu</button>
-        <button role="tab" id="tab-vid" aria-controls="pnl-vid" aria-selected="false" tabindex="-1"><b>C</b>Kịch bản Video</button>
+      <div><p class="eyebrow">Bài khảo cứu toàn cảnh &amp; Đối chiếu sổ kế toán</p><h3 id="pack-h"></h3></div>
+      <div class="pack-tabs" role="tablist" aria-label="Hai góc nhìn của bài khảo cứu">
+        <button role="tab" id="tab-lay" aria-controls="pnl-lay" aria-selected="true"><b>A</b>Góc nhìn Đời thường</button>
+        <button role="tab" id="tab-pro" aria-controls="pnl-pro" aria-selected="false" tabindex="-1"><b>B</b>Sổ kế toán &amp; Cơ chế TT 99/2025</button>
       </div>
     </div>
     <div class="pack-panel" role="tabpanel" id="pnl-lay" aria-labelledby="tab-lay" tabindex="0"></div>
     <div class="pack-panel" role="tabpanel" id="pnl-pro" aria-labelledby="tab-pro" tabindex="0" hidden></div>
-    <div class="pack-panel" role="tabpanel" id="pnl-vid" aria-labelledby="tab-vid" tabindex="0" hidden></div>
     <div class="handoff" id="nextHandoff" aria-label="Trạm đọc kế tiếp"></div>
+  </div>
+</section>
+
+<!-- ── Ngăn Kịch bản & Hậu trường dựng Video (Tách biệt khỏi luồng đọc của User theo QĐ 59 — chỉ hiện khi bật Chế độ duyệt bài hoặc mở Studio) ── -->
+<section class="sec" id="studioScriptSec" aria-labelledby="studio-script-h" hidden>
+  <div class="pack" style="border-color:var(--clay);box-shadow:5px 5px 0 color-mix(in srgb,var(--clay) 28%,transparent)">
+    <div class="pack-head" style="background:color-mix(in srgb,var(--clay) 8%,var(--paper-2))">
+      <div>
+        <p class="eyebrow" style="color:var(--clay)">🎬 Studio Hậu trường · Dành riêng cho Biên tập &amp; Duyệt bài (Ẩn với người đọc cuối)</p>
+        <h3 id="studio-script-h">Kịch bản dựng Video &amp; Kiểm định Kỹ thuật</h3>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <a href="studio.html" id="openFullStudioLink" class="ab-btn" style="text-decoration:none;background:var(--ink);color:var(--paper);border-color:var(--ink);padding:7px 12px;font-weight:700">🎬 Mở Studio Toàn Màn Hình (studio.html) →</a>
+        <button type="button" class="ab-btn" id="closeStudioDrawerBtn" style="padding:7px 10px">Thu gọn ngăn kịch bản ✕</button>
+      </div>
+    </div>
+    <div class="pack-panel in" id="pnl-vid" tabindex="0"></div>
   </div>
 </section>
 
@@ -3597,11 +3613,11 @@ function renderYtEmbedHTML(s, fmt, scope){
     + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">`
     + `<div class="yt-facade"><h4>${esc(f.title || s.title)}</h4>`
     + `<p data-yt-preview="${scope}">${ytId
-        ? `Video minh hoạ (${esc(ytId)}) kết hợp giọng đọc thu âm và mặt cắt Diorama v3.0. Bấm phát hoặc chọn chương bên dưới để xem ngay trong bài.`
-        : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Đang chờ bước 5A–5D (wms-media-pipeline.py) dựng video và tải lên kênh.")}`}</p>`
+        ? `Video minh hoạ (${esc(ytId)}) kết hợp giọng đọc thu âm và mặt cắt Diorama. Bấm phát hoặc chọn chương bên dưới để xem ngay trong bài.`
+        : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Bấm phát bên dưới để xem video minh hoạ cho bài viết này.")}`}</p>`
     + (ytId
-        ? `<button type="button" class="yt-play" data-yt-load="0">▶ Phát Video minh hoạ (${isShort ? "Khung dọc 9:16" : "Khung ngang 16:9"})</button>`
-        : `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-local="0">▶ Phát bản MP4 30fps đã dựng (${isShort ? "9:16" : "16:9"})</button><button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Mở Studio Kịch bản (${sc.length} cảnh)</button></div>`)
+        ? `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-load="0">▶ Phát Video minh hoạ (${isShort ? "Khung dọc 9:16" : "Khung ngang 16:9"})</button>${CMS.on && scope !== "vid" ? `<button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : ""}</div>`
+        : `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-local="0">▶ Phát Video minh hoạ 30fps (${isShort ? "9:16" : "16:9"})</button>${CMS.on && scope !== "vid" ? `<button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : ""}</div>`)
     + `</div></div>`
     + `<div class="yt-chaps"><b>Chương Video:</b>${chaps}</div>${cmsBar}</div></section>`;
 }
@@ -3849,7 +3865,15 @@ function renderPack(){
     };
   });
   renderVid(s, draft);
+  if (PK.tab === "vid") PK.tab = "lay";
   showTab(PK.tab, false);
+  const stSec = $("#studioScriptSec");
+  if (stSec) stSec.hidden = !(CMS.on || S.studioDrawer);
+  const stH = $("#studio-script-h");
+  if (stH) stH.textContent = `Kịch bản Video & Hậu trường Kỹ thuật — ${s.title}`;
+  const fullLink = $("#openFullStudioLink"), navLink = $("#studioNavLink");
+  if (fullLink) fullLink.href = `studio.html?story=${encodeURIComponent(S.story)}`;
+  if (navLink) navLink.href = `studio.html?story=${encodeURIComponent(S.story)}`;
 }
 function renderVid(s, draft){
   const v = s.videoScript, f = {...v[PK.fmt], scenes:Array.isArray(v[PK.fmt].scenes) ? v[PK.fmt].scenes : []}, st = vstat(f), short = PK.fmt === "short";
@@ -3915,31 +3939,18 @@ function exportVO(k){
       scenes}; };
   const data = {story:k, articleTitle:s.title, status:s.status, language:"vi", wordsPerMinute:WPM,
     pipeline:{
-      decidedBy:"QĐ 52 · QĐ 53 · C9 v2 · QĐ 56 (2026-11-08)",
+      decidedBy:"QĐ 52 · QĐ 53 · C9 v2 · QĐ 56 · QĐ 59 (2026-11-09)",
       youtubeChannel:{
         handle:"@WhereMoneySleeps",
         url:"https://www.youtube.com/@WhereMoneySleeps"
       },
-      elevenlabs:{
-        role:"5A Audio (Voiceover + Word-level Timestamps + Sound Effects)",
-        ttsEndpoint:"POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
-        sfxEndpoint:"POST https://api.elevenlabs.io/v1/sound-generation",
-        requiredScopes:["Text to Speech", "Sound Effects", "Voices (Read)", "Pronunciation Dictionaries"],
-        modelId:"eleven_flash_v2_5",
-        cachePattern:".cache/elevenlabs/{sha256}.json",
-        licenceRef:"legal/licences.json#elevenlabs-commercial-tts-sfx"
-      },
-      googleVeo:{
-        role:"5B Video (Cinematic Night-Cutaway Risograph 16:9 & 9:16 via Google AI Ultra quota)",
-        sdkMethod:"google.genai.Client().models.generate_videos",
-        heroModelId:"veo-3.1-generate-preview",
-        bodyModelId:"veo-3.1-fast-generate-preview",
-        referenceImages:["public/brand/youtube-banner-2560x1440-safezone.jpg", "public/brand/youtube-avatar-1024x1024.png"],
-        cachePattern:".cache/google-veo/{sha256}.mp4",
-        licenceRef:"legal/licences.json#google-veo-video-generation"
+      audioSpec:{
+        role:"5A Audio (Giọng Tâm Signature Voice + Word-level Timestamps + Room Tone -33 dBFS + SFX -22 dBFS)",
+        targetLoudnessLufs:-14,
+        breathBridgeSeconds:0.36
       },
       videoRender:{
-        engine:"Google Veo 3.1 + Diorama v3.0 SVG/TT99 Overlay + FFmpeg (loudnorm=-14 LUFS)",
+        engine:"WMS Locked-Stage 30fps Compositor v4.3 + Diorama v3.0 SVG/TT99 Overlay + FFmpeg (loudnorm=-14 LUFS)",
         outputs:[`dist/youtube/${k}-long-16x9.mp4`, `dist/youtube/${k}-short-9x16.mp4`, `public/media/${k}/beats.mp3`]
       },
       youtubeGate:"Mặc định upload ở privacyStatus='private' (hoặc 'unlisted'); chỉ Duy duyệt và chuyển sang 'public' (WMS-R4)."
@@ -3951,12 +3962,28 @@ function exportVO(k){
   $("#vidMsg").textContent = `Đã xuất gói kịch bản video: wms-${k}-voiceover.json (dài + ngắn).`;
 }
 function showTab(t, focus){
+  if (t === "vid") {
+    S.studioDrawer = true;
+    const stSec = $("#studioScriptSec");
+    if (stSec) {
+      stSec.hidden = false;
+      if (focus) stSec.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
+    }
+    return;
+  }
   PK.tab = t;
-  ["lay","pro","vid"].forEach(x => { const on = x === t, b = $("#tab-" + x), p = $("#pnl-" + x);
+  ["lay","pro"].forEach(x => { const on = x === t, b = $("#tab-" + x), p = $("#pnl-" + x);
+    if (!b || !p) return;
     b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; p.hidden = !on;
     if (on){ p.classList.remove("in"); void p.offsetWidth; p.classList.add("in"); } });
-  if (focus) $("#tab-" + t).focus();
+  if (focus && $("#tab-" + t)) $("#tab-" + t).focus();
 }
+const closeStBtn = $("#closeStudioDrawerBtn");
+if (closeStBtn) closeStBtn.onclick = () => {
+  S.studioDrawer = false;
+  const stSec = $("#studioScriptSec");
+  if (stSec) stSec.hidden = true;
+};
 $$(".pack-tabs [role=tab]").forEach((b, i, all) => {
   b.onclick = () => showTab(b.id.slice(4), false);
   b.onkeydown = e => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
@@ -4419,6 +4446,8 @@ function gateC9(s){
 function renderCMS(){
   document.body.classList.toggle("cms-on", CMS.on);
   $("#cms").hidden = !CMS.on; $("#cmsBtn").setAttribute("aria-pressed", CMS.on);
+  const stSec = $("#studioScriptSec");
+  if (stSec) stSec.hidden = !(CMS.on || S.studioDrawer);
   if (!CMS.on) return;
   const ks = Object.keys(STORIES), byQ = q => ks.filter(k => STORIES[k].status === q);
   const [tr, tp] = $$("#cmsTabs button");
