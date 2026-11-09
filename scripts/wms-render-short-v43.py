@@ -554,8 +554,8 @@ WIRE_Y = 222
 NODE_Y = 267
 PIPE_Y = 312
 
-STAGE_BOX = (48, 368, 1032, 1280)
-CARD_BOX = (48, 1294, 1032, 1734)
+STAGE_BOX = (48, 368, 1032, 1548)
+CARD_BOX = (48, 1564, 1032, 1734)
 
 
 def assert_parent_child_containment(
@@ -609,21 +609,8 @@ def assert_parent_child_containment(
             if 80 + lw > card_x1 - 24:
                 raise RuntimeError(f"FAIL [B4 Box Containment]: Callout cảnh {s_idx} tràn ngang khung Card ({80 + lw:.1f} > {card_x1 - 24})")
             cy += 36
-        div_y = cy + 6
-        base_wx = 80
-        base_wy = div_y + 12
-        for phr in sm["phrases"]:
-            for pw in phr["placed_words"]:
-                wx1 = base_wx + pw["rx"] + pw["w"] + 6
-                wy1 = base_wy + pw["ry"] + 30
-                if wx1 > card_x1 - 20:
-                    raise RuntimeError(
-                        f"FAIL [B4 Box Containment]: Từ '{pw['word']}' ở cảnh {s_idx} tràn ngang khung Card ({wx1:.1f} > {card_x1 - 20})"
-                    )
-                if wy1 > card_bot - 14:
-                    raise RuntimeError(
-                        f"FAIL [B4 Box Containment]: Từ '{pw['word']}' ở cảnh {s_idx} tràn đáy khung Card ({wy1:.1f} > {card_bot - 14})"
-                    )
+        if cy > card_bot - 10:
+            raise RuntimeError(f"FAIL [B4 Box Containment]: Callout cảnh {s_idx} tràn đáy khung Card ({cy} > {card_bot - 10})")
 
 
 def draw_stage_pill(
@@ -773,6 +760,70 @@ def draw_stage_live_animation(
             draw_stage_pill(draw, 540, 412, "SỐ DƯ TRÊN ĐIỆN THOẠI = KHOẢN NGÂN HÀNG ĐANG NỢ BẠN", f_tag, (14, 20, 32, 238), (245, 166, 35, 245), (255, 209, 102, 255))
             draw_stage_pill(draw, 540, 1205, "ĐÊM NAY, SỐ DƯ NẰM YÊN CỦA BẠN ĐANG LÀM VIỆC CHO AI?", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
 
+    # KINETIC LEDGER & MONEY-FLOW BAR IN EXPANDED ZONE 2 (y=1246..1524 — QĐ 59 Phương án B)
+    k_ease = smoothstep(0.0, 0.72, s_prog)
+    panel_x0, panel_y0, panel_x1, panel_y1 = sx0 + 28, 1246, sx1 - 28, 1524
+    draw.rounded_rectangle(
+        (panel_x0, panel_y0, panel_x1, panel_y1),
+        radius=18,
+        fill=(11, 16, 26, 238),
+        outline=(245, 166, 35, 200),
+        width=2,
+    )
+
+    if story_slug == "install":
+        led_specs = [
+            ("MẶT CẮT GIÁ BÁN & TRẢ GÓP (T+0)", 12_000_000, 1.0, "Giá niêm yết máy", "Nợ TK 1388 (Phải thu CTTC): +12.000.000 đ", "Có TK 511 (Doanh thu bán hàng): +12.000.000 đ"),
+            ("CHUYỂN GIAO HỢP ĐỒNG NỢ (T+0)", 12_000_000, 1.0, "Dư nợ gốc 12 kỳ", "Bên mua nhận máy · Cửa hàng chuyển quyền thu nợ", "Công ty tài chính nắm hợp đồng 12.000.000 đ"),
+            ("GIẢI NGÂN KHẤU TRỪ TẠI NGUỒN (T+1)", 11_400_000, 0.95, "Thực nhận 95% (Trừ 600k phí)", "Nợ TK 112 (Tiền gửi NH): +11.400.000 đ", "Nợ TK 641 (Phí hỗ trợ lãi 5%): +600.000 đ  |  Có TK 1388: 12tr"),
+            ("THU HỒI DÒNG TIỀN 12 KỲ (T+30..T+360)", int(round(1_000_000 * min(12, max(1, int(s_prog * 12 + 1))))), min(1.0, max(0.08, s_prog)), "Thu 1.000.000 đ × 12 tháng", "Mỗi kỳ thu gốc: 1.000.000 đ  ·  Tổng thu 12 kỳ: 12.000.000 đ", "Chênh lệch thực thu so với vốn giải ngân: +600.000 đ"),
+            ("ĐỐI CHIẾU TOÁN TÀI CHÍNH (IRR / EIR)", 600_000, 0.85, "Vốn 11,4tr → Thu 12tr (EIR ~10%/năm)", "Chi phí vốn thực tế ẩn trong giá bán: 600.000 đ (5%)", "Lãi suất hiệu dụng năm (EIR): ~10,01% / năm"),
+            ("BẢN CHẤT KẾ TOÁN TT 99/2025", 11_400_000, 0.95, "12,0tr ghi bán − 600k phí = 11,4tr", " Σ Nợ (11,4tr TK 112 + 600k TK 641) = Σ Có (12,0tr TK 511)", "Không có khoản vay 0% miễn phí — lãi nằm ở TK 641 / 521"),
+        ]
+    elif story_slug == "card":
+        led_specs = [
+            ("QUẸT THẺ 10 TRIỆU & HOÀN TIỀN 1% (T+0)", 10_000_000, 1.0, "Hoá đơn quẹt thẻ 10.000.000 đ", "Nợ TK 1388 (Phải thu NH thanh toán): +10.000.000 đ", "Có TK 511 (Doanh thu quán): +10.000.000 đ"),
+            ("PHONG TOẢ HẠN MỨC TẠM GIỮ (T+0)", 10_000_000, 1.0, "Giữ chỗ 10tr · Quán nhận 0 đ tiền mặt", "Ngân hàng phát hành khoá hạn mức: −10.000.000 đ", "Chưa có dòng tiền thật chảy sang két của Quán"),
+            ("QUYẾT TOÁN T+2 & KHẤU TRỪ MDR 2,2%", 9_780_000, 0.978, "Thực nhận 97,8% (Trừ 220k phí MDR)", "Nợ TK 112 (Tiền gửi NH): +9.780.000 đ", "Nợ TK 641 (Phí nhận thẻ 2,2%): +220.000 đ  |  Có TK 1388: 10tr"),
+            ("CHIA PHÍ MDR 220.000 Đ GIỮA 3 BÊN", 220_000, 0.88, "Interchange 150k · Acquirer 60k · Mạng thẻ 10k", "NH của bạn nhận: +150.000 đ (1,5%)", "NH của quán giữ: +60.000 đ (0,6%) · Tổ chức thẻ: +10.000 đ"),
+            ("NGUỒN GỐC 100.000 Đ TIỀN HOÀN (CASHBACK)", 100_000, 0.67, "Trích 100k từ 150k phí Interchange", "NH của bạn thu 150.000 đ phí → Trả lại bạn 100.000 đ", "Ngân hàng vẫn giữ lại phần dư ròng: +50.000 đ"),
+            ("BẢN CHẤT DÒNG TIỀN QUẸT THẺ", 9_780_000, 0.978, "10,0tr − 220k MDR = 9,78tr thực nhận", "Σ Nợ (9,78tr TK 112 + 220k TK 641) = Σ Có (10,0tr TK 511)", "Phí nhận thẻ 2,2% được quán tính gộp vào giá bán chung"),
+        ]
+    else:
+        led_specs = [
+            ("BÁO CÓ LƯƠNG ĐÊM T+0 (ON-US)", 15_000_000, 1.0, "Lương thực lĩnh +15.000.000 đ", "Nợ TK 334 (Phải trả người lao động): 15.000.000 đ", "Có TK 112 (Tiền gửi NH công ty): 15.000.000 đ"),
+            ("BÚT TOÁN NỘI BỘ CÙNG NGÂN HÀNG", 15_000_000, 1.0, "Đổi tên chủ nợ trên sổ ngân hàng", "Tài khoản Công ty: −15.000.000 đ  →  Tài khoản Bạn: +15.000.000 đ", "Tổng tiền mặt trong két ngân hàng không đổi (0 đ rời két)"),
+            ("BỂ VỐN KHÔNG KỲ HẠN (CASA 500 NGƯỜI)", 2_500_000_000, 0.92, "500 người × 5tr = 2,5 tỷ đồng CASA", "Số dư nằm yên trên tài khoản thanh toán: 2.500.000.000 đ", "Lãi suất không kỳ hạn (CASA): ~0,1% / năm"),
+            ("SO SÁNH CHI PHÍ HUY ĐỘNG VỐN (1 NĂM)", 2_500_000, 0.35, "CASA 2,5tr/năm vs Kỳ hạn 125tr/năm", "Trả lãi CASA (0,1%/năm): ~2.500.000 đ / năm", "Nếu huy động kỳ hạn (5%/năm): ~125.000.000 đ / năm (Đắt gấp 50 lần)"),
+            ("KHẤU TRỪ LƯƠNG GROSS 17 TRIỆU (TT 99/2025)", 15_000_000, 0.882, "Gross 17tr − (BHXH 1,785tr + Thuế 215k) = 15tr", "Nợ TK 642: 17.000.000 đ  |  Có TK 338 (BHXH 10,5%): 1.785.000 đ", "Có TK 3335 (Thuế TNCN): 215.000 đ  |  Có TK 334 (Net): 15.000.000 đ"),
+            ("BẢN CHẤT SỐ DƯ TÀI KHOẢN THANH TOÁN", 15_000_000, 1.0, "Số dư điện thoại = Ngân hàng nợ bạn", "Σ Nợ (17,0tr Chi phí lương) = Σ Có (15,0tr Net + 2,0tr Khấu trừ)", "Bảng lương giúp ngân hàng giữ bể vốn CASA rẻ suốt năm"),
+        ]
+
+    hdr_lbl, target_val, bar_ratio, bar_caption, row1_txt, row2_txt = led_specs[min(s_idx, len(led_specs) - 1)]
+    anim_val = int(round(target_val * k_ease))
+    anim_val_str = f"{anim_val:,}".replace(",", ".") + " Đ"
+
+    # Dòng 1: Tiêu đề bảng động + Con số tiền nhảy Kinetic (tabular-nums)
+    draw.text((panel_x0 + 24, panel_y0 + 18), f"SỔ KẾ TOÁN & DÒNG TIỀN ĐỘNG  ·  {hdr_lbl}", font=fonts["pipe_lbl"], fill=(245, 166, 35, 255))
+    val_w = draw.textlength(anim_val_str, font=fonts["stage_tag"])
+    draw.text((panel_x1 - 24 - val_w, panel_y0 + 16), anim_val_str, font=fonts["stage_tag"], fill=(154, 240, 180, 255))
+
+    # Dòng 2: Thanh tiến trình dòng tiền Kinetic Bar
+    bx0, by0, bx1, by1 = panel_x0 + 24, panel_y0 + 54, panel_x1 - 24, panel_y0 + 96
+    draw.rounded_rectangle((bx0, by0, bx1, by1), radius=10, fill=(24, 34, 52, 235), outline=(75, 95, 125, 190), width=2)
+    fill_w = max(18, int((bx1 - bx0) * bar_ratio * k_ease))
+    draw.rounded_rectangle((bx0, by0, bx0 + fill_w, by1), radius=10, fill=(42, 138, 98, 235))
+    draw.text((bx0 + 16, by0 + 11), bar_caption, font=fonts["badge"], fill=(255, 255, 255, 255))
+
+    # Dòng 3 & 4: Hai vế bút toán TT 99/2025 trượt mượt theo nhịp cảnh
+    r1_alpha = int(255 * smoothstep(0.02, 0.20, s_prog))
+    r2_alpha = int(255 * smoothstep(0.10, 0.30, s_prog))
+    draw.rounded_rectangle((bx0, panel_y0 + 112, bx1, panel_y0 + 178), radius=10, fill=(18, 26, 40, r1_alpha), outline=(56, 189, 248, int(r1_alpha * 0.85)), width=2)
+    draw.text((bx0 + 16, panel_y0 + 135), row1_txt, font=fonts["stage_tag"], fill=(224, 242, 254, r1_alpha))
+
+    draw.rounded_rectangle((bx0, panel_y0 + 190, bx1, panel_y0 + 256), radius=10, fill=(18, 26, 40, r2_alpha), outline=(72, 187, 120, int(r2_alpha * 0.85)), width=2)
+    draw.text((bx0 + 16, panel_y0 + 213), row2_txt, font=fonts["stage_tag"], fill=(209, 250, 229, r2_alpha))
+
 
 def render_single_scene_frame(
     story_slug: str,
@@ -886,72 +937,14 @@ def render_single_scene_frame(
     draw.rounded_rectangle((80, card_top + 30, 80 + kicker_w, card_top + 64), radius=9, fill=(245, 166, 35, 245))
     draw.text((97, card_top + 37), kicker, font=f_badge, fill=(14, 20, 32, 255))
 
-    cy = card_top + 74
+    cc_hint = "CC: BẬT PHỤ ĐỀ YOUTUBE ĐỂ ĐỌC LỜI BÌNH"
+    cc_w = draw.textlength(cc_hint, font=f_node_sub)
+    draw.text((W - 80 - cc_w, card_top + 40), cc_hint, font=f_node_sub, fill=(164, 178, 198, 225))
+
+    cy = card_top + 78
     for ln in sm["callout_lines"]:
         draw.text((80, cy), ln, font=f_callout, fill=(255, 209, 102, 255))
-        cy += 36
-
-    div_y = cy + 6
-    draw.line([(80, div_y), (W - 80, div_y)], fill=(245, 166, 35, 110), width=2)
-
-    base_wx = 80
-    base_wy = div_y + 12
-
-    p_low = int(math.floor(active_p_float))
-    p_high = min(len(phrases) - 1, p_low + 1)
-    p_frac = active_p_float - p_low
-    bar_y0 = base_wy + lerp(phrases[p_low]["y0"], phrases[p_high]["y0"], p_frac)
-    bar_y1 = base_wy + lerp(phrases[p_low]["y1"], phrases[p_high]["y1"], p_frac) - 5
-    draw.rounded_rectangle((base_wx, bar_y0 + 2, base_wx + 6, max(bar_y0 + 14, bar_y1)), radius=3, fill=(255, 209, 102, 255))
-
-    for p_i, phr in enumerate(phrases):
-        if p_i == active_p_idx:
-            p_focus = 1.0
-        elif p_i < active_p_idx:
-            p_focus = 0.84
-        else:
-            p_focus = lerp(0.60, 1.0, smoothstep(phr["t0"] - 0.35, phr["t0"] + 0.05, t))
-
-        for pw in phr["placed_words"]:
-            wx = base_wx + pw["rx"]
-            wy = base_wy + pw["ry"]
-            w_t0 = pw["t0"]
-            w_t1 = pw["t1"]
-            ww = pw["w"]
-            w_str = pw["word"]
-            is_num = pw["is_num"]
-
-            use_font = f_vo_bold if is_num else f_vo
-
-            ramp_in = smoothstep(w_t0 - 0.07, w_t0 + 0.01, t)
-            ramp_out = smoothstep(w_t1 - 0.01, w_t1 + 0.11, t)
-            w_act = max(0.0, min(1.0, ramp_in * (1.0 - ramp_out)))
-            w_spoken = ramp_in
-
-            if w_act > 0.02:
-                pad_x, pad_y = 5, 2
-                pill_alpha = int(68 * w_act)
-                draw.rounded_rectangle(
-                    (wx - pad_x, wy - pad_y, wx + ww + pad_x, wy + 28 + pad_y),
-                    radius=7,
-                    fill=(245, 166, 35, pill_alpha),
-                )
-
-            unspoken_r, unspoken_g, unspoken_b = 195 * p_focus, 192 * p_focus, 184 * p_focus
-            if is_num:
-                spoken_r, spoken_g, spoken_b = 255 * p_focus, 209 * p_focus, 102 * p_focus
-            else:
-                spoken_r, spoken_g, spoken_b = 244 * p_focus, 239 * p_focus, 230 * p_focus
-
-            base_r = lerp(unspoken_r, spoken_r, w_spoken)
-            base_g = lerp(unspoken_g, spoken_g, w_spoken)
-            base_b = lerp(unspoken_b, spoken_b, w_spoken)
-
-            final_r = int(lerp(base_r, 255.0, w_act))
-            final_g = int(lerp(base_g, 222.0, w_act))
-            final_b = int(lerp(base_b, 128.0, w_act))
-
-            draw.text((wx, wy), w_str, font=use_font, fill=(final_r, final_g, final_b, 255))
+        cy += 38
 
     return Image.alpha_composite(frame_rgba, dyn).convert("RGB")
 

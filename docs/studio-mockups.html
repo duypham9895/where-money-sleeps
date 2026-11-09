@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="vi" data-tier="reference" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
+<title>So sánh 3 Phương Án UI/UX — WMS Review Studio (Mockup Trực Quan)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── 1. Bảng màu dịu mắt (Warm Paper & Warm Charcoal — Không màu neon chói) ── */
+:root, [data-theme="paper"] {
+  --bg-page: #ede6d6;
+  --bg-surface: #f7f2e7;
+  --bg-card: #ffffff;
+  --bg-subtle: #e5dec9;
+  --ink-1: #1c1917;
+  --ink-2: #57534e;
+  --ink-3: #78716c;
+  --border: #d6cfc2;
+  --border-strong: #a8a29e;
+  --accent: #b83a22;
+  --accent-soft: rgba(184, 58, 34, 0.10);
+  --ok: #1c5d4b;
+  --ok-soft: rgba(28, 93, 75, 0.12);
+  --warn: #9a5b13;
+  --warn-soft: rgba(154, 91, 19, 0.12);
+  --shadow: 0 8px 24px rgba(28, 25, 23, 0.07);
+}
+[data-theme="charcoal"] {
+  --bg-page: #141312;
+  --bg-surface: #1c1b19;
+  --bg-card: #242220;
+  --bg-subtle: #2d2a27;
+  --ink-1: #f2ece1;
+  --ink-2: #b8b0a4;
+  --ink-3: #857e74;
+  --border: #33302c;
+  --border-strong: #4a453f;
+  --accent: #d97757;
+  --accent-soft: rgba(217, 119, 87, 0.14);
+  --ok: #34a885;
+  --ok-soft: rgba(52, 168, 133, 0.15);
+  --warn: #d49b4b;
+  --warn-soft: rgba(212, 155, 75, 0.15);
+  --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-page);
+  color: var(--ink-1);
+  font-family: "Be Vietnam Pro", -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.mono, .tabular {
+  font-family: "JetBrains Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Thanh chọn Mockup cố định trên cùng (Switcher Bar) ── */
+.mockup-switcher {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #181615;
+  color: #f5efe3;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #d97757;
+}
+.ms-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ms-badge {
+  background: #d97757;
+  color: #181615;
+  font: 700 11px "JetBrains Mono", monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.ms-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ms-tab {
+  border: 1px solid #3f3b37;
+  background: #252220;
+  color: #d6cfc2;
+  padding: 7px 13px;
+  border-radius: 6px;
+  font: 600 12.5px "Be Vietnam Pro", sans-serif;
+  cursor: pointer;
+  transition: all 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ms-tab:hover {
+  border-color: #78716c;
+  color: #ffffff;
+}
+.ms-tab[aria-selected="true"] {
+  background: #f5efe3;
+  color: #181615;
+  border-color: #f5efe3;
+  font-weight: 700;
+}
+.ms-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-btn {
+  border: 1px solid #4a453f;
+  background: #252220;
+  color: #f5efe3;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font: 600 12px "Be Vietnam Pro", sans-serif;
+  cursor: pointer;
+}
+
+/* ── Khung chứa từng phương án ── */
+.mockup-container {
+  max-width: 1380px;
+  margin: 20px auto 48px;
+  padding: 0 20px;
+}
+.option-banner {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.option-banner h2 {
+  margin: 0 0 2px;
+  font: 700 16px "Fraunces", serif;
+  color: var(--ink-1);
+}
+.option-banner p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.verdict-tag {
+  font: 700 11px "JetBrains Mono", monospace;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  white-space: nowrap;
+}
+.verdict-tag.warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MÔ PHỎNG VIDEO MỚI (CÂU 1 — PHƯƠNG ÁN B: BỎ ZONE 3 SCRIPT, MỞ RỘNG ZONE 2 80%)
+   ══════════════════════════════════════════════════════════════════════ */
+.phone-frame {
+  width: 320px;
+  aspect-ratio: 9 / 16;
+  background: #12151c;
+  border-radius: 18px;
+  border: 3px solid var(--border-strong);
+  box-shadow: var(--shadow);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  color: #f5efe3;
+  margin: 0 auto;
+}
+.pf-zone1 {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(245,239,227,0.14);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.pf-kicker {
+  font: 700 9px "JetBrains Mono", monospace;
+  color: #e2a84b;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pf-title {
+  font: 700 11.5px/1.3 "Fraunces", serif;
+  color: #f5efe3;
+  margin-top: 2px;
+}
+/* ZONE 2 MỞ RỘNG 80% KHUNG HÌNH — CÓ HOẠT HOẠ DÒNG TIỀN & BÚT TOÁN ĐỘNG */
+.pf-zone2 {
+  flex: 1;
+  margin: 8px 0;
+  background: #181c26;
+  border: 1px solid rgba(226, 168, 75, 0.35);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.pf-stage-label {
+  display: flex;
+  justify-content: space-between;
+  font: 600 9.5px "JetBrains Mono", monospace;
+  color: #94a3b8;
+}
+.pf-cutaway-svg {
+  width: 100%;
+  height: 210px;
+  display: block;
+}
+/* Hộp Bút toán Nợ/Có động nằm gọn trong Zone 2 */
+.pf-live-ledger {
+  background: rgba(15, 19, 26, 0.92);
+  border: 1px solid rgba(245, 239, 227, 0.18);
+  border-radius: 7px;
+  padding: 7px 9px;
+  font: 500 10px/1.45 "JetBrains Mono", monospace;
+}
+.pf-live-ledger-head {
+  color: #e2a84b;
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.pf-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+}
+.pf-row .dr { color: #38bdf8; }
+.pf-row .cr { color: #34d399; }
+
+/* Thanh công thức số 1 dòng gọn (<= 8 từ, thay cho hộp script Zone 3 cũ) */
+.pf-formula-pill {
+  background: #232834;
+  border: 1px solid #e2a84b;
+  border-radius: 8px;
+  padding: 7px 10px;
+  text-align: center;
+  font: 700 11px "JetBrains Mono", monospace;
+  color: #f5efe3;
+}
+/* Phụ đề YouTube CC (Chỉ hiện khi người xem bật nút CC trên YouTube) */
+.pf-yt-cc {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 54px;
+  background: rgba(0, 0, 0, 0.82);
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font: 500 10.5px/1.35 "Be Vietnam Pro", sans-serif;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHƯƠNG ÁN A (KHUYẾN NGHỊ): CALM SINGLE-FOCUS (2 VÙNG THOÁNG, 1 CẢNH ĐANG PHÁT)
+   ══════════════════════════════════════════════════════════════════════ */
+.calm-shell {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+/* Thanh đỉnh 48px gọn theo chuẩn Layout 1A của prototype.html */
+.calm-topbar {
+  height: 52px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg-card);
+}
+.calm-pill-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-1);
+}
+.calm-gate-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 99px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  font: 700 11.5px "JetBrains Mono", monospace;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.calm-body {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 28px;
+  padding: 24px 28px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .calm-body { grid-template-columns: 1fr; }
+}
+/* Cột phải Phương án A: Chỉ 1 Thẻ Cảnh Đang Phát (Active Scene Card) thoáng đãng */
+.calm-focus-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 680px;
+}
+.calm-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.calm-dot {
+  padding: 6px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--ink-2);
+  font: 600 12px "JetBrains Mono", monospace;
+  cursor: pointer;
+}
+.calm-dot[aria-current="true"] {
+  background: var(--ink-1);
+  color: var(--bg-card);
+  border-color: var(--ink-1);
+}
+.calm-dot.done {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.calm-active-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 26px;
+  box-shadow: var(--shadow);
+}
+.cac-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.cac-time {
+  font: 700 13px "JetBrains Mono", monospace;
+  color: var(--accent);
+}
+.cac-wpm {
+  font: 600 11.5px "JetBrains Mono", monospace;
+  color: var(--ok);
+  background: var(--ok-soft);
+  padding: 3px 9px;
+  border-radius: 99px;
+}
+.cac-label {
+  font: 700 11px "JetBrains Mono", monospace;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.cac-vo {
+  font: 500 18px/1.65 "Fraunces", serif;
+  color: var(--ink-1);
+  margin: 0 0 18px;
+}
+.cac-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg-surface);
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 12.5px;
+}
+.cac-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-pass {
+  background: var(--ok);
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font: 600 13px "Be Vietnam Pro", sans-serif;
+  cursor: pointer;
+}
+.btn-flag {
+  background: var(--bg-surface);
+  color: var(--ink-1);
+  border: 1px solid var(--border-strong);
+  padding: 9px 16px;
+  border-radius: 8px;
+  font: 600 13px "Be Vietnam Pro", sans-serif;
+  cursor: pointer;
+}
+.calm-Note-inp {
+  flex: 1;
+  min-width: 200px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--ink-1);
+  font: 400 13px "Be Vietnam Pro", sans-serif;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHƯƠNG ÁN B: STEP-BY-STEP WIZARD (TÁCH 3 MÀN HÌNH NỐI TIẾP)
+   ══════════════════════════════════════════════════════════════════════ */
+.wizard-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.wiz-step {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--ink-2);
+  font-weight: 600;
+  cursor: pointer;
+}
+.wiz-step[aria-current="true"] {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.wiz-stage {
+  padding: 28px;
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PHƯƠNG ÁN C: GIỮ 3 CỘT NHƯNG ĐỔI NỀN GIẤY SÁNG
+   ══════════════════════════════════════════════════════════════════════ */
+.three-col-grid {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) 290px;
+  min-height: 600px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.tc-pane {
+  padding: 14px;
+  border-right: 1px solid var(--border);
+}
+.tc-pane:last-child { border-right: none; }
+.tc-mini-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+/* ── Chế độ 4: Đặt 3 phương án cạnh nhau (Overview) ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 1100px) {
+  .overview-grid { grid-template-columns: 1fr; }
+}
+.ov-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ov-card.recommended {
+  border-color: var(--ok);
+  box-shadow: 0 12px 28px rgba(28, 93, 75, 0.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="mockup-switcher" aria-label="Thanh chuyển đổi 3 phương án Mockup">
+  <div class="ms-left">
+    <span class="ms-badge">Bản Mockup So Sánh</span>
+    <div class="ms-tabs" role="tablist">
+      <button type="button" class="ms-tab" role="tab" data-opt="A" aria-selected="true">★ Phương án A (Khuyến nghị): Calm Single-Focus</button>
+      <button type="button" class="ms-tab" role="tab" data-opt="B" aria-selected="false">Phương án B: Step-by-Step 3 Bước</button>
+      <button type="button" class="ms-tab" role="tab" data-opt="C" aria-selected="false">Phương án C: 3 Cột Nền Giấy Sáng</button>
+      <button type="button" class="ms-tab" role="tab" data-opt="ALL" aria-selected="false">👁️ So sánh cả 3 cạnh nhau</button>
+    </div>
+  </div>
+  <div class="ms-right">
+    <button type="button" class="theme-btn" id="ccToggleBtn" aria-pressed="false">💬 Phụ đề YouTube CC: Đang TẮT</button>
+    <button type="button" class="theme-btn" id="themeToggleBtn">🌙 Đổi nền: Giấy kem ấm ⇄ Than dịu</button>
+  </div>
+</header>
+
+<main class="mockup-container">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VIEW A: PHƯƠNG ÁN A — CALM SINGLE-FOCUS (KHUYẾN NGHỊ)
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="view-A">
+    <div class="option-banner">
+      <div>
+        <h2>Phương án A (Khuyến nghị) — Calm Single-Focus (2 vùng thoáng: Video ⇄ 1 Thẻ Cảnh Đang Phát)</h2>
+        <p>Xoá bỏ cột trái, xoá hộp TL;DR, tắt lưới neon mặc định và giấu bảng dài 11 cảnh. Màn hình chỉ hiển thị <b>Video (với Zone 2 mở rộng 80% chạy hoạt hoạ thật)</b> đặt cạnh <b>đúng 1 Thẻ Cảnh Đang Phát</b>.</p>
+      </div>
+      <span class="verdict-tag">★ KHUYẾN NGHỊ · DỊU MẮT NHẤT</span>
+    </div>
+
+    <div class="calm-shell">
+      <!-- Topbar 1 hàng 52px -->
+      <div class="calm-topbar">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="calm-pill-picker">📂 Bài 03/03: Mua trả góp 12 triệu lãi suất 0% (Chờ duyệt) ▾</span>
+          <span class="calm-pill-picker" style="font-size:12px">📱 Shorts 9:16 ⇄ 16:9</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button type="button" class="calm-gate-pill" id="gateDrawerBtn">✓ 5/5 Cổng Chuyên Gia Đạt (K·F·B·M) ▾</button>
+          <button type="button" class="btn-pass" style="padding:6px 14px;font-size:12px">💾 Lưu Biên Bản Review</button>
+        </div>
+      </div>
+
+      <!-- Ngăn kéo 5 cổng chuyên gia (Mặc định đóng gọn để không rối mắt) -->
+      <div id="gateDrawerBox" hidden style="padding:12px 24px;background:var(--bg-subtle);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);gap:10px;font-size:12px">
+        <div class="tc-mini-card"><b>C0–C9 Hợp đồng:</b> PASS (Đủ 4 hình LUẬT 9)</div>
+        <div class="tc-mini-card"><b>K1–K4 Kế toán:</b> PASS (Σ Nợ = Σ Có = 12tr)</div>
+        <div class="tc-mini-card"><b>F1–F4 Tài chính:</b> PASS (EIR = 10,01%/năm)</div>
+        <div class="tc-mini-card"><b>B1–B4 Brand:</b> PASS (0 tên riêng/secret)</div>
+        <div class="tc-mini-card"><b>M1–M4 Motion:</b> PASS (Zone 2 Kinetic + .srt)</div>
+      </div>
+
+      <!-- Thân 2 vùng thoáng: Trái là Video (Zone 2 mở rộng 80%), Phải là 1 Thẻ Cảnh Đang Phát -->
+      <div class="calm-body">
+        <!-- Cột Trái: Khung Video Mới (Câu 1 — Phương án B) -->
+        <div>
+          <div class="phone-frame">
+            <div class="pf-zone1">
+              <div class="pf-kicker">CẢNH 3/6 · ĐOẠN 2 · TỐI T+0</div>
+              <div class="pf-title">Mua hàng 12 triệu trả góp 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?</div>
+            </div>
+
+            <!-- ZONE 2 MỞ RỘNG 80%: HOẠT HOẠ DÒNG TIỀN & BÚT TOÁN ĐỘNG -->
+            <div class="pf-zone2">
+              <div class="pf-stage-label">
+                <span>ZONE 2 · MẶT CẮT ĐỘNG (80% KHUNG)</span>
+                <span style="color:#34d399">● 30fps Kinetic</span>
+              </div>
+
+              <svg class="pf-cutaway-svg" viewBox="0 0 280 190" aria-label="Hoạt hoạ dòng tiền trong Zone 2">
+                <!-- Ray thông tin trên -->
+                <line x1="20" y1="28" x2="260" y2="28" stroke="#e2a84b" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <text x="140" y="18" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="8">LUỒNG HỢP ĐỒNG · KHẤU TRỪ PHÍ 5% (600.000Đ)</text>
+                <!-- 3 phòng mặt cắt -->
+                <rect x="14" y="42" width="74" height="84" rx="5" fill="#232938" stroke="#64748b" stroke-width="1.5"/>
+                <text x="51" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">Bạn</text>
+                <text x="51" y="92" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">Nhận máy</text>
+                <text x="51" y="106" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="8.5" font-weight="700">12.000.000đ</text>
+
+                <rect x="103" y="42" width="74" height="84" rx="5" fill="#2b2620" stroke="#e2a84b" stroke-width="2"/>
+                <text x="140" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">Cửa hàng</text>
+                <text x="140" y="90" text-anchor="middle" fill="#f43f5e" font-family="JetBrains Mono" font-size="8">−600.000đ phí</text>
+                <text x="140" y="106" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono" font-size="8.5" font-weight="700">+11.400.000đ</text>
+
+                <rect x="192" y="42" width="74" height="84" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                <text x="229" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">CT Tài chính</text>
+                <text x="229" y="92" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">Giải ngân T+1</text>
+                <text x="229" y="106" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8.5" font-weight="700">11.400.000đ</text>
+
+                <!-- Ray quyết toán ngầm + hạt tiền chạy -->
+                <line x1="140" y1="152" x2="230" y2="152" stroke="#34d399" stroke-width="2.5"/>
+                <circle r="5" fill="#34d399">
+                  <animateMotion dur="2.2s" repeatCount="indefinite" path="M 230 152 L 140 152"/>
+                </circle>
+                <text x="140" y="174" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono" font-size="8.5" font-weight="700">LUỒNG TIỀN THẬT: GIẢI NGÂN 11.400.000Đ</text>
+              </svg>
+
+              <!-- Bút toán kép trượt trực tiếp trong Zone 2 -->
+              <div class="pf-live-ledger">
+                <div class="pf-live-ledger-head">
+                  <span>SỔ KẾ TOÁN CỬA HÀNG (TT 99/2025)</span>
+                  <span>Σ = 12,0tr</span>
+                </div>
+                <div class="pf-row"><span class="dr">Nợ TK 112 (Tiền gửi NH)</span><span>11.400.000đ</span></div>
+                <div class="pf-row"><span class="dr">Nợ TK 641 (Phí trả góp 5%)</span><span>600.000đ</span></div>
+                <div class="pf-row"><span class="cr">Có TK 1388 (Phải thu CTTC)</span><span>12.000.000đ</span></div>
+              </div>
+            </div>
+
+            <!-- Phụ đề YouTube CC (Mặc định tắt — bật khi người xem bấm CC) -->
+            <div class="pf-yt-cc" id="ytCcOverlay" hidden>
+              [CC YouTube .srt] Hôm sau, công ty tài chính chỉ chuyển về cửa hàng đúng 11,4 triệu đồng.
+            </div>
+
+            <!-- Thanh công thức số gọn <= 8 từ (Thay cho hộp kịch bản Zone 3 cũ) -->
+            <div class="pf-formula-pill">
+              12.000.000đ − 600.000đ phí = 11.400.000đ thực nhận
+            </div>
+          </div>
+        </div>
+
+        <!-- Cột Phải: CHỈ 1 THẺ CẢNH ĐANG PHÁT (Không bày bảng 11 cảnh gây nhức mắt) -->
+        <div class="calm-focus-col">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <div class="calm-stepper" role="tablist" aria-label="Chọn nhanh cảnh trong video">
+              <button type="button" class="calm-dot done" data-scene-idx="0">C1 ✓</button>
+              <button type="button" class="calm-dot done" data-scene-idx="1">C2 ✓</button>
+              <button type="button" class="calm-dot" data-scene-idx="2" aria-current="true">● Cảnh 3 (0:20–0:34)</button>
+              <button type="button" class="calm-dot" data-scene-idx="3">C4</button>
+              <button type="button" class="calm-dot" data-scene-idx="4">C5</button>
+              <button type="button" class="calm-dot" data-scene-idx="5">C6</button>
+            </div>
+            <span class="mono" style="font-size:12px;color:var(--ink-3)">Tiến độ duyệt: <b>2/6 cảnh Đạt</b></span>
+          </div>
+
+          <article class="calm-active-card" id="activeSceneCard">
+            <div class="cac-head">
+              <div>
+                <span class="cac-time" id="cacTime">CẢNH 3 / 6 · 0:20 – 0:34 (Đoạn 3: Cửa hàng chịu phí 600.000đ)</span>
+              </div>
+              <span class="cac-wpm" id="cacWpm">46 từ · 197 từ/phút (Chuẩn)</span>
+            </div>
+
+            <div class="cac-label">Lời bình Giọng Tâm (Đã xuất kèm file phụ đề .srt cho YouTube CC)</div>
+            <p class="cac-vo" id="cacVo">
+              “Hôm sau, công ty tài chính chuyển tiền hàng cho cửa hàng, nhưng chỉ chuyển mười một triệu bốn trăm nghìn đồng. Sáu trăm nghìn đồng bị giữ lại ngay tại nguồn chính là phí trợ giá lãi suất mà cửa hàng phải gánh.”
+            </p>
+
+            <div class="cac-meta-grid">
+              <div>
+                <div class="cac-label">Thanh công thức trên Video (≤ 8 từ)</div>
+                <div class="mono" style="font-weight:700;color:var(--accent)" id="cacFormula">12.000.000đ − 600.000đ phí = 11.400.000đ thực nhận</div>
+              </div>
+              <div>
+                <div class="cac-label">Hoạt hoạ Zone 2 (80% khung hình)</div>
+                <div style="color:var(--ink-2)" id="cacVis">Hạt tiền 11,4 triệu chảy từ Công ty tài chính sang Cửa hàng + Bút toán Nợ TK 112 / Nợ TK 641 / Có TK 1388.</div>
+              </div>
+            </div>
+
+            <div class="cac-actions">
+              <div style="display:flex;gap:8px">
+                <button type="button" class="btn-pass">✓ Đạt cảnh này ( Phím → )</button>
+                <button type="button" class="btn-flag">⚑ Cần sửa</button>
+              </div>
+              <input type="text" class="calm-Note-inp" placeholder="Ghi chú cho cảnh 3 (nếu cần sửa)...">
+            </div>
+          </article>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;color:var(--ink-3);font-size:12.5px">
+            <span>💡 <b>Mẹo:</b> Bấm phím <code>Space</code> để nghe/dừng, phím <code>← / →</code> để qua cảnh kế tiếp.</span>
+            <button type="button" class="btn-flag" style="padding:5px 11px;font-size:12px" id="toggleFullScriptDrawer">📄 Mở bảng toàn văn 6 cảnh (Ngăn kéo)</button>
+          </div>
+
+          <div id="fullScriptDrawer" hidden style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px">
+            <b>Bảng toàn văn 6 cảnh (chỉ hiện khi bấm mở ngăn kéo):</b>
+            <ol style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
+              <li><b>0:00–0:08:</b> Cầm chiếc máy 12 triệu về ngay mà ví vẫn nguyên...</li>
+              <li><b>0:08–0:20:</b> Ngay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng...</li>
+              <li><b>0:20–0:34:</b> Hôm sau, công ty tài chính chuyển tiền hàng cho cửa hàng, nhưng chỉ chuyển 11,4 triệu...</li>
+              <li><b>0:34–0:48:</b> Đổi lại, công ty tài chính nắm quyền thu của bạn 1 triệu mỗi tháng suốt 12 kỳ...</li>
+              <li><b>0:48–1:00:</b> Vì sao họ làm vậy? Đặt dòng tiền lên bàn cân tài chính, bỏ ra 11,4 triệu để thu về 12 triệu...</li>
+              <li><b>1:00–1:08:</b> Không có khoản vay nào thực sự miễn phí...</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VIEW B: PHƯƠNG ÁN B — STEP-BY-STEP WIZARD (3 MÀN HÌNH TÁCH RỜI)
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="view-B" hidden>
+    <div class="option-banner">
+      <div>
+        <h2>Phương án B — Step-by-Step Wizard (Tách thành 3 bước toàn màn hình nối tiếp nhau)</h2>
+        <p>Mỗi bước chỉ hiện đúng 1 khu vực: <b>Bước 1 (Chỉ xem Video)</b> → <b>Bước 2 (Chỉ đọc bảng Kịch bản)</b> → <b>Bước 3 (Chỉ xem Cổng kiểm &amp; Xuất file)</b>. Nhược điểm: Đang ở Bước 2 muốn nhìn lại hình Video ở Bước 1 phải bấm lùi tab.</p>
+      </div>
+      <span class="verdict-tag warn">NHƯỢC ĐIỂM: MẤT ĐỐI CHIẾU SONG SONG</span>
+    </div>
+
+    <div class="calm-shell">
+      <div class="wizard-bar">
+        <button type="button" class="wiz-step" data-wiz="1" aria-current="true">Bước 1/3 · Chỉ Xem Video</button>
+        <button type="button" class="wiz-step" data-wiz="2" aria-current="false">Bước 2/3 · Chỉ Đọc Bảng Kịch Bản</button>
+        <button type="button" class="wiz-step" data-wiz="3" aria-current="false">Bước 3/3 · Cổng Kiểm &amp; Ký Duyệt</button>
+      </div>
+      <div class="wiz-stage" id="wizStage1">
+        <div style="text-align:center;margin-bottom:14px;color:var(--ink-2)">
+          Ở Bước 1, màn hình chỉ có đúng khung Video ở giữa (không thấy chữ lời bình kịch bản bên cạnh):
+        </div>
+        <div class="phone-frame" style="height:440px;width:248px">
+          <div class="pf-zone1"><div class="pf-kicker">BƯỚC 1 · CHỈ XEM VIDEO</div><div class="pf-title">Mua hàng 12 triệu trả góp 0%</div></div>
+          <div class="pf-zone2" style="justify-content:center;align-items:center;text-align:center">
+            <div style="font:700 12px 'JetBrains Mono';color:#e2a84b">ZONE 2 · HOẠT HOẠ 80%</div>
+            <p style="font-size:11px;color:#94a3b8">Muốn đọc hoặc sửa kịch bản của cảnh này, anh phải bấm chuyển sang màn hình <b>Bước 2/3</b>.</p>
+          </div>
+          <div class="pf-formula-pill">12tr − 600k phí = 11,4tr</div>
+        </div>
+      </div>
+      <div class="wiz-stage" id="wizStage2" hidden>
+        <div style="max-width:720px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px">
+          <h3 style="margin-top:0">Bước 2/3 · Bảng Kịch Bản (Không thấy Video khi đang ở màn hình này)</h3>
+          <p style="color:var(--ink-2)">Cảnh 1 (0:00–0:08): Cầm chiếc máy mười hai triệu về ngay mà ví vẫn nguyên...</p>
+          <p style="color:var(--ink-2)">Cảnh 2 (0:08–0:20): Ngay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng...</p>
+          <p style="color:var(--ink-2)">Cảnh 3 (0:20–0:34): Hôm sau, công ty tài chính chuyển tiền hàng cho cửa hàng, nhưng chỉ chuyển 11,4 triệu...</p>
+        </div>
+      </div>
+      <div class="wiz-stage" id="wizStage3" hidden>
+        <div style="max-width:520px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center">
+          <h3 style="margin-top:0">Bước 3/3 · Cổng Kiểm 4 Chuyên Gia &amp; Lưu Biên Bản</h3>
+          <p style="color:var(--ok);font-weight:700">✓ C0–C9 PASS · ✓ K1–K4 PASS · ✓ F1–F4 PASS · ✓ B1–B4 PASS · ✓ M1–M4 PASS</p>
+          <button type="button" class="btn-pass">💾 Lưu Biên Bản Review (.json)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VIEW C: PHƯƠNG ÁN C — GIỮ BỐ CỤC 3 CỘT NHƯNG ĐỔI NỀN GIẤY SÁNG
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="view-C" hidden>
+    <div class="option-banner">
+      <div>
+        <h2>Phương án C — Giữ nguyên bố cục 3 cột + bảng dài, chỉ đổi sang nền Giấy kem sáng (#f5efe3)</h2>
+        <p>Đỡ chói mắt hơn nền đen neon cũ, nhưng <b>mật độ hộp và chữ trên cùng một màn hình vẫn rất dày</b> (vẫn còn cột trái + cột giữa + bảng kịch bản + 5 thẻ chuyên gia bên phải cùng lúc).</p>
+      </div>
+      <span class="verdict-tag warn">NHƯỢC ĐIỂM: VẪN NHIỀU HỘP CÙNG LÚC</span>
+    </div>
+
+    <div class="three-col-grid">
+      <div class="tc-pane">
+        <div class="cac-label">1. Cột Trái (Danh sách bài &amp; 5 đoạn)</div>
+        <div class="tc-mini-card"><b>CARD:</b> Đêm nay 10 triệu vừa quẹt...</div>
+        <div class="tc-mini-card"><b>PAY:</b> Vì sao công ty bảo bạn mở...</div>
+        <div class="tc-mini-card" style="border-color:var(--accent)"><b>INSTALL (Đang chọn):</b> Mua trả góp 12 triệu 0%...</div>
+        <div class="cac-label" style="margin-top:14px">Nhảy theo đoạn</div>
+        <div class="tc-mini-card">Đoạn 1 · Đoạn 2 · Đoạn 3 · Đoạn 4 · Đoạn 5</div>
+      </div>
+      <div class="tc-pane">
+        <div class="cac-label">2. Cột Giữa (Video + Sóng âm + Bảng toàn bộ 6 cảnh bên dưới)</div>
+        <div style="background:#181c26;color:#f5efe3;padding:24px;border-radius:8px;text-align:center;margin-bottom:10px">
+          [Khung Video 9:16 + Thanh sóng âm 120 cột bên dưới]
+        </div>
+        <div class="tc-mini-card"><b>Cảnh 1 (0:00–0:08):</b> Cầm chiếc máy 12 triệu về ngay... [✓ Đạt] [⚑ Sửa]</div>
+        <div class="tc-mini-card"><b>Cảnh 2 (0:08–0:20):</b> Ngay lúc bạn ký, hợp đồng trả góp... [✓ Đạt] [⚑ Sửa]</div>
+        <div class="tc-mini-card"><b>Cảnh 3 (0:20–0:34):</b> Hôm sau, công ty tài chính chuyển... [✓ Đạt] [⚑ Sửa]</div>
+        <div class="tc-mini-card"><b>Cảnh 4 (0:34–0:48):</b> Đổi lại, công ty tài chính nắm quyền... [✓ Đạt] [⚑ Sửa]</div>
+      </div>
+      <div class="tc-pane">
+        <div class="cac-label">3. Cột Phải (5 Hộp Cổng Kiểm Chuyên Gia)</div>
+        <div class="tc-mini-card"><b>C0–C9 Hợp đồng:</b> PASS (3 dòng chi tiết...)</div>
+        <div class="tc-mini-card"><b>K1–K4 Kế toán:</b> PASS (2 dòng chi tiết...)</div>
+        <div class="tc-mini-card"><b>F1–F4 Tài chính:</b> PASS (3 dòng chi tiết...)</div>
+        <div class="tc-mini-card"><b>B1–B4 Brand:</b> PASS (2 dòng chi tiết...)</div>
+        <div class="tc-mini-card"><b>M1–M4 Motion:</b> PASS (3 dòng chi tiết...)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       VIEW ALL: SO SÁNH CẢ 3 PHƯƠNG ÁN CẠNH NHAU
+       ═══════════════════════════════════════════════════════════════ -->
+  <section id="view-ALL" hidden>
+    <div class="overview-grid">
+      <div class="ov-card recommended">
+        <div>
+          <span class="verdict-tag">★ PHƯƠNG ÁN A (KHUYẾN NGHỊ)</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">Calm Single-Focus (2 Vùng Thoáng)</h3>
+          <p style="font-size:13px;color:var(--ink-2)">
+            Chỉ giữ <b>Video (Trái)</b> và <b>1 Thẻ Cảnh Đang Phát (Phải)</b>. Thanh chọn bài thu lên 1 pill `48px` trên đỉnh; 5 cổng chuyên gia gom vào 1 nút `✓ 5/5 Cổng Đạt`.
+          </p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Số khối trên màn hình:</b> Giảm từ 14 khối xuống <b>3 khối</b>.</li>
+            <li><b>Mắt nhìn:</b> Chỉ tập trung vào đúng câu Giọng Tâm đang đọc và hoạt hoạ `Zone 2`.</li>
+            <li><b>Bảng màu:</b> Giấy kem ấm (`#f5efe3`) hoặc Than ấm dịu (`#141312`), 0 viền neon.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-pass" data-jump-opt="A" style="width:100%;margin-top:12px">Xem chi tiết Phương án A</button>
+      </div>
+
+      <div class="ov-card">
+        <div>
+          <span class="verdict-tag warn">PHƯƠNG ÁN B</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">Step-by-Step 3 Bước Tách Rời</h3>
+          <p style="font-size:13px;color:var(--ink-2)">
+            Tách hẳn Video (Bước 1), Bảng kịch bản (Bước 2) và Cổng kiểm (Bước 3) thành 3 tab màn hình riêng.
+          </p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Ưu điểm:</b> Mỗi màn hình cực kỳ ít chữ.</li>
+            <li><b>Nhược điểm lớn:</b> Khi đang đọc chữ ở Bước 2 thì <b>không nhìn thấy Video</b>; muốn đối chiếu hình/tiếng phải bấm qua lại liên tục.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-flag" data-jump-opt="B" style="width:100%;margin-top:12px">Xem chi tiết Phương án B</button>
+      </div>
+
+      <div class="ov-card">
+        <div>
+          <span class="verdict-tag warn">PHƯƠNG ÁN C</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">Giữ 3 Cột + Đổi Nền Giấy Sáng</h3>
+          <p style="font-size:13px;color:var(--ink-2)">
+            Giữ nguyên bố cục 3 cột + bảng toàn văn + 5 hộp chuyên gia như bản cũ, chỉ thay màu nền sang giấy kem sáng.
+          </p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Ưu điểm:</b> Không phải mở ngăn kéo khi muốn xem cả 11 cảnh.</li>
+            <li><b>Nhược điểm lớn:</b> Vẫn bày 14 khối thông tin lên màn hình cùng lúc, chưa giải quyết tận gốc sự rối rắm.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-flag" data-jump-opt="C" style="width:100%;margin-top:12px">Xem chi tiết Phương án C</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  const SCENES_DEMO = [
+    {
+      time: "CẢNH 1 / 6 · 0:00 – 0:08 (Mở đầu Hook)",
+      wpm: "26 từ · 195 từ/phút (Chuẩn)",
+      vo: "“Cầm chiếc máy mười hai triệu về ngay mà ví vẫn nguyên. Trong ví dụ này, tờ rơi ghi trả góp không phần trăm trên mười hai kỳ... nhưng có ai cho vay cả năm mà không lấy lãi?”",
+      formula: "Mua máy 12.000.000đ · Trả góp 0% × 12 kỳ",
+      vis: "Mặt cắt Cửa hàng sáng đèn; tờ hợp đồng 12.000.000đ trượt từ Cửa hàng sang phòng Bạn."
+    },
+    {
+      time: "CẢNH 2 / 6 · 0:08 – 0:20 (Chuyển giao hợp đồng vay)",
+      wpm: "42 từ · 210 từ/phút (Chuẩn)",
+      vo: "“Ngay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng, mà chuyển thẳng về một công ty tài chính. Từ giây phút đó, người bạn mắc nợ mỗi tháng là công ty tài chính.”",
+      formula: "Hợp đồng nợ 12.000.000đ → Chuyển sang CT Tài chính",
+      vis: "Tia hợp đồng chạy trên ray thông tin từ Cửa hàng sang Công ty tài chính; ghi nhận khoản phải thu 12 triệu."
+    },
+    {
+      time: "CẢNH 3 / 6 · 0:20 – 0:34 (Cửa hàng chịu phí 600.000đ)",
+      wpm: "46 từ · 197 từ/phút (Chuẩn)",
+      vo: "“Hôm sau, công ty tài chính chuyển tiền hàng cho cửa hàng, nhưng chỉ chuyển mười một triệu bốn trăm nghìn đồng. Sáu trăm nghìn đồng bị giữ lại ngay tại nguồn chính là phí trợ giá lãi suất mà cửa hàng phải gánh.”",
+      formula: "12.000.000đ − 600.000đ phí = 11.400.000đ thực nhận",
+      vis: "Hạt tiền 11,4 triệu chảy từ Công ty tài chính sang Cửa hàng + Bút toán Nợ TK 112 / Nợ TK 641 / Có TK 1388."
+    },
+    {
+      time: "CẢNH 4 / 6 · 0:34 – 0:48 (Thu hồi 12 kỳ × 1.000.000đ)",
+      wpm: "44 từ · 188 từ/phút (Chuẩn)",
+      vo: "“Đổi lại, công ty tài chính nắm quyền thu của bạn đúng một triệu đồng mỗi tháng suốt mười hai kỳ, tổng cộng thu đủ mười hai triệu đồng.”",
+      formula: "Thu 1.000.000đ/tháng × 12 kỳ = 12.000.000đ",
+      vis: "12 nhịp thu tiền định kỳ chảy từ phòng Bạn về két của Công ty tài chính."
+    },
+    {
+      time: "CẢNH 5 / 6 · 0:48 – 1:00 (Lãi suất thực EIR ~10%/năm)",
+      wpm: "42 từ · 210 từ/phút (Chuẩn)",
+      vo: "“Vì sao họ làm vậy? Đặt dòng tiền lên bàn cân tài chính: chỉ bỏ ra mười một triệu bốn trăm nghìn mà thu về mười hai triệu sau mười hai tháng, khoản chênh sáu trăm nghìn giúp công ty tài chính đạt lãi suất thực khoảng mười phần trăm một năm.”",
+      formula: "Vốn 11,4tr → Thu 12tr · Lãi thực EIR ≈ 10%/năm",
+      vis: "Cân dòng tiền IRR/EIR: PV = 11.400.000đ ⇄ CF = 1.000.000đ × 12 kỳ → EIR = 10,01%/năm."
+    },
+    {
+      time: "CẢNH 6 / 6 · 1:00 – 1:08 (Kết luận cơ chế)",
+      wpm: "28 từ · 210 từ/phút (Chuẩn)",
+      vo: "“Không có khoản vay nào thực sự miễn phí — tiền lãi chỉ đổi tên thành phí dịch vụ và ẩn vào giá bán ngay từ đầu.”",
+      formula: "Lãi 0% bề mặt = Phí 600.000đ ẩn trong giá bán",
+      vis: "Tổng kết mặt cắt 3 nhà: Bạn trả 12tr · Cửa hàng nhận 11,4tr · Công ty tài chính hưởng chênh lệch 600k."
+    }
+  ];
+
+  function selectOpt(opt) {
+    $$("[data-opt]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.opt === opt)));
+    ["A", "B", "C", "ALL"].forEach(k => {
+      const el = $("#view-" + k);
+      if (el) el.hidden = (k !== opt);
+    });
+  }
+
+  $$("[data-opt]").forEach(b => {
+    b.onclick = () => selectOpt(b.dataset.opt);
+  });
+  $$("[data-jump-opt]").forEach(b => {
+    b.onclick = () => selectOpt(b.dataset.jumpOpt);
+  });
+
+  $("#themeToggleBtn").onclick = () => {
+    const cur = document.documentElement.getAttribute("data-theme") || "paper";
+    const next = cur === "paper" ? "charcoal" : "paper";
+    document.documentElement.setAttribute("data-theme", next);
+  };
+
+  $("#ccToggleBtn").onclick = () => {
+    const cc = $("#ytCcOverlay");
+    const on = cc.hidden;
+    cc.hidden = !on;
+    $("#ccToggleBtn").setAttribute("aria-pressed", String(on));
+    $("#ccToggleBtn").textContent = on ? "💬 Phụ đề YouTube CC: Đang BẬT" : "💬 Phụ đề YouTube CC: Đang TẮT";
+  };
+
+  const gateBtn = $("#gateDrawerBtn");
+  if (gateBtn) {
+    gateBtn.onclick = () => {
+      const box = $("#gateDrawerBox");
+      box.hidden = !box.hidden;
+    };
+  }
+
+  const fullBtn = $("#toggleFullScriptDrawer");
+  if (fullBtn) {
+    fullBtn.onclick = () => {
+      const dr = $("#fullScriptDrawer");
+      dr.hidden = !dr.hidden;
+    };
+  }
+
+  $$("[data-scene-idx]").forEach(btn => {
+    btn.onclick = () => {
+      const idx = +btn.dataset.sceneIdx;
+      const sc = SCENES_DEMO[idx] || SCENES_DEMO[0];
+      $$("[data-scene-idx]").forEach((d, i) => d.setAttribute("aria-current", String(i === idx)));
+      $("#cacTime").textContent = sc.time;
+      $("#cacWpm").textContent = sc.wpm;
+      $("#cacVo").textContent = sc.vo;
+      $("#cacFormula").textContent = sc.formula;
+      $("#cacVis").textContent = sc.vis;
+    };
+  });
+
+  $$("[data-wiz]").forEach(btn => {
+    btn.onclick = () => {
+      const step = btn.dataset.wiz;
+      $$("[data-wiz]").forEach(b => b.setAttribute("aria-current", String(b.dataset.wiz === step)));
+      ["1", "2", "3"].forEach(s => {
+        const el = $("#wizStage" + s);
+        if (el) el.hidden = (s !== step);
+      });
+    };
+  });
+
+  window.__vibeSeek = function(opts = {}) {
+    if (opts.opt) selectOpt(opts.opt);
+    if (opts.theme) document.documentElement.setAttribute("data-theme", opts.theme);
+    return { opt: opts.opt || "A", theme: document.documentElement.getAttribute("data-theme") };
+  };
+
+  const urlParams = new URLSearchParams(location.search);
+  if (urlParams.get("opt") && ["A", "B", "C", "ALL"].includes(urlParams.get("opt"))) {
+    selectOpt(urlParams.get("opt"));
+  }
+  if (urlParams.get("theme") && ["paper", "charcoal"].includes(urlParams.get("theme"))) {
+    document.documentElement.setAttribute("data-theme", urlParams.get("theme"));
+  }
+})();
+</script>
+</body>
+</html>

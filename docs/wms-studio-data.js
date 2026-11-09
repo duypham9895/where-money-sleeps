@@ -4247,7 +4247,2395 @@ window.WMS_STUDIO_DATA = {
       "longExists": true,
       "shortExists": true,
       "longSizeMb": 53.5,
-      "shortSizeMb": 10.6
+      "shortSizeMb": 11.0
+    }
+  },
+  "subtitles": {
+    "card": {
+      "short": {
+        "srtFile": "dist/youtube/card-short-9x16.srt",
+        "cueCount": 16,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 3.99,
+            "text": "Giả sử bạn quẹt thẻ tín dụng mười triệu và vừa nhận một trăm nghìn tiền hoàn."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 3.99,
+            "t1": 5.18,
+            "text": "Nghe như một món quà..."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 0,
+            "t0": 5.18,
+            "t1": 7.0,
+            "text": "nhưng thật ra ai đang trả khoản đó?"
+          },
+          {
+            "index": 4,
+            "sceneIndex": 1,
+            "t0": 7.0,
+            "t1": 14.96,
+            "text": "Lùi lại giây bạn chạm thẻ trả hoá đơn mười triệu: lúc đó chưa có đồng nào chạy, ngân hàng của bạn chỉ giữ chỗ trên hạn mức."
+          },
+          {
+            "index": 5,
+            "sceneIndex": 1,
+            "t0": 14.96,
+            "t1": 16.19,
+            "text": "Hoá đơn đã in ra..."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 1,
+            "t0": 16.19,
+            "t1": 18.0,
+            "text": "nhưng tiền thật vẫn nằm yên."
+          },
+          {
+            "index": 7,
+            "sceneIndex": 2,
+            "t0": 18.0,
+            "t1": 22.56,
+            "text": "Trong ví dụ này, phải hai ngày làm việc sau ngân hàng mới quyết toán để tiền thật chảy về quán."
+          },
+          {
+            "index": 8,
+            "sceneIndex": 2,
+            "t0": 22.56,
+            "t1": 25.3,
+            "text": "Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn..."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 2,
+            "t0": 25.3,
+            "t1": 29.0,
+            "text": "vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 3,
+            "t0": 29.0,
+            "t1": 36.04,
+            "text": "Nhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 3,
+            "t0": 36.04,
+            "t1": 40.0,
+            "text": "Ngân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho tổ chức thẻ."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 4,
+            "t0": 40.0,
+            "t1": 46.66,
+            "text": "Cuối kỳ, bạn trả đủ mười triệu cho ngân hàng của mình và nhận lại một trăm nghìn tiền hoàn."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 4,
+            "t0": 46.66,
+            "t1": 55.0,
+            "text": "Chính khoản interchange một trăm năm mươi nghìn thu từ quán là nguồn để ngân hàng trích trả bạn một trăm nghìn ấy."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 5,
+            "t0": 55.0,
+            "t1": 61.05,
+            "text": "Mà nhiều quán đã cộng sẵn phí nhận thẻ vào giá món ăn trên thực đơn."
+          },
+          {
+            "index": 15,
+            "sceneIndex": 5,
+            "t0": 61.05,
+            "t1": 62.56,
+            "text": "Nên rất có thể..."
+          },
+          {
+            "index": 16,
+            "sceneIndex": 5,
+            "t0": 62.56,
+            "t1": 68.0,
+            "text": "tiền hoàn bạn nhận chính là tiền của bạn vừa đi hết một vòng."
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:03,990\nGiả sử bạn quẹt thẻ tín dụng mười triệu và vừa nhận một trăm nghìn tiền hoàn.\n\n2\n00:00:03,990 --> 00:00:05,180\nNghe như một món quà...\n\n3\n00:00:05,180 --> 00:00:07,000\nnhưng thật ra ai đang trả khoản đó?\n\n4\n00:00:07,000 --> 00:00:14,960\nLùi lại giây bạn chạm thẻ trả hoá đơn mười triệu: lúc đó chưa có đồng nào chạy, ngân hàng của bạn chỉ giữ chỗ trên hạn mức.\n\n5\n00:00:14,960 --> 00:00:16,190\nHoá đơn đã in ra...\n\n6\n00:00:16,190 --> 00:00:18,000\nnhưng tiền thật vẫn nằm yên.\n\n7\n00:00:18,000 --> 00:00:22,560\nTrong ví dụ này, phải hai ngày làm việc sau ngân hàng mới quyết toán để tiền thật chảy về quán.\n\n8\n00:00:22,560 --> 00:00:25,300\nNhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn...\n\n9\n00:00:25,300 --> 00:00:29,000\nvì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.\n\n10\n00:00:29,000 --> 00:00:36,040\nNhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange.\n\n11\n00:00:36,040 --> 00:00:40,000\nNgân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho tổ chức thẻ.\n\n12\n00:00:40,000 --> 00:00:46,660\nCuối kỳ, bạn trả đủ mười triệu cho ngân hàng của mình và nhận lại một trăm nghìn tiền hoàn.\n\n13\n00:00:46,660 --> 00:00:55,000\nChính khoản interchange một trăm năm mươi nghìn thu từ quán là nguồn để ngân hàng trích trả bạn một trăm nghìn ấy.\n\n14\n00:00:55,000 --> 00:01:01,050\nMà nhiều quán đã cộng sẵn phí nhận thẻ vào giá món ăn trên thực đơn.\n\n15\n00:01:01,050 --> 00:01:02,560\nNên rất có thể...\n\n16\n00:01:02,560 --> 00:01:08,000\ntiền hoàn bạn nhận chính là tiền của bạn vừa đi hết một vòng.\n"
+      },
+      "long": {
+        "srtFile": "dist/youtube/card-long-16x9.srt",
+        "cueCount": 93,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 2.07,
+            "text": "Mười giờ bốn mươi bảy phút tối."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 2.07,
+            "t1": 5.88,
+            "text": "Cả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 0,
+            "t0": 5.88,
+            "t1": 11.57,
+            "text": "Bạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu."
+          },
+          {
+            "index": 4,
+            "sceneIndex": 0,
+            "t0": 11.57,
+            "t1": 13.24,
+            "text": "Mọi người đứng dậy ra về."
+          },
+          {
+            "index": 5,
+            "sceneIndex": 0,
+            "t0": 13.24,
+            "t1": 17.39,
+            "text": "Nhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 0,
+            "t0": 17.39,
+            "t1": 22.21,
+            "text": "Không phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán."
+          },
+          {
+            "index": 7,
+            "sceneIndex": 0,
+            "t0": 22.21,
+            "t1": 25.02,
+            "text": "Vậy đêm nay, mười triệu ấy đang ngủ ở đâu?"
+          },
+          {
+            "index": 8,
+            "sceneIndex": 0,
+            "t0": 25.02,
+            "t1": 37.0,
+            "text": "Để trả lời, mình sẽ đi dọc một con phố có năm ngôi nhà, và nhìn ba tầng vận hành nối chúng: luồng thông tin cấp phép, luồng quyết toán tiền thật, và cuốn sổ kế toán trong mỗi nhà."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 1,
+            "t0": 37.0,
+            "t1": 38.98,
+            "text": "Quay lại đúng giây chạm thẻ."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 1,
+            "t0": 38.98,
+            "t1": 46.12,
+            "text": "Thứ vừa giảm trên điện thoại không phải tiền trong túi bạn, mà là hạn mức thẻ tín dụng còn được tiêu."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 1,
+            "t0": 46.12,
+            "t1": 52.2,
+            "text": "Ngân hàng của bạn, nơi đã phát hành tấm thẻ, chỉ tạm khoá mười triệu trong hạn mức ấy."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 1,
+            "t0": 52.2,
+            "t1": 56.44,
+            "text": "Người trong nghề gọi đó là lệnh giữ chỗ, authorization hold."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 1,
+            "t0": 56.44,
+            "t1": 63.65,
+            "text": "Hãy hình dung một tờ giấy ghi chú dán lên hạn mức: khoản này đã có người hứa chi, đừng cho tiêu trùng."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 1,
+            "t0": 63.65,
+            "t1": 66.05,
+            "text": "Tờ giấy ấy chưa phải một bút toán."
+          },
+          {
+            "index": 15,
+            "sceneIndex": 1,
+            "t0": 66.05,
+            "t1": 68.66,
+            "text": "Dư nợ thẻ của bạn chưa tăng đồng nào."
+          },
+          {
+            "index": 16,
+            "sceneIndex": 1,
+            "t0": 68.66,
+            "t1": 70.57,
+            "text": "Và bạn cũng chưa trả ai cả."
+          },
+          {
+            "index": 17,
+            "sceneIndex": 1,
+            "t0": 70.57,
+            "t1": 77.35,
+            "text": "Bạn sẽ trả ngân hàng của mình sau, trước hạn thanh toán ghi trên sao kê, có khi là vài tuần nữa."
+          },
+          {
+            "index": 18,
+            "sceneIndex": 1,
+            "t0": 77.35,
+            "t1": 82.0,
+            "text": "Nếu cả nhóm huỷ bữa ngay lúc ấy, ngân hàng chỉ việc gỡ tờ giấy ra."
+          },
+          {
+            "index": 19,
+            "sceneIndex": 2,
+            "t0": 82.0,
+            "t1": 87.91,
+            "text": "Trong vài giây sau cú chạm, một bản tin xét duyệt chạy một vòng qua hệ thống thanh toán."
+          },
+          {
+            "index": 20,
+            "sceneIndex": 2,
+            "t0": 87.91,
+            "t1": 93.95,
+            "text": "Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer."
+          },
+          {
+            "index": 21,
+            "sceneIndex": 2,
+            "t0": 93.95,
+            "t1": 99.12,
+            "text": "Lời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer."
+          },
+          {
+            "index": 22,
+            "sceneIndex": 2,
+            "t0": 99.12,
+            "t1": 106.24,
+            "text": "Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không."
+          },
+          {
+            "index": 23,
+            "sceneIndex": 2,
+            "t0": 106.24,
+            "t1": 110.34,
+            "text": "Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép."
+          },
+          {
+            "index": 24,
+            "sceneIndex": 2,
+            "t0": 110.34,
+            "t1": 113.97,
+            "text": "Để ý điều này: tổ chức thẻ không cho bạn vay đồng nào."
+          },
+          {
+            "index": 25,
+            "sceneIndex": 2,
+            "t0": 113.97,
+            "t1": 123.71,
+            "text": "Họ vận hành mạng lưới và giữ luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng."
+          },
+          {
+            "index": 26,
+            "sceneIndex": 2,
+            "t0": 123.71,
+            "t1": 129.0,
+            "text": "Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ."
+          },
+          {
+            "index": 27,
+            "sceneIndex": 3,
+            "t0": 129.0,
+            "t1": 129.97,
+            "text": "Quán đóng cửa."
+          },
+          {
+            "index": 28,
+            "sceneIndex": 3,
+            "t0": 129.97,
+            "t1": 134.9,
+            "text": "Trong két không có mười triệu của bạn, tài khoản của quán cũng chưa có."
+          },
+          {
+            "index": 29,
+            "sceneIndex": 3,
+            "t0": 134.9,
+            "t1": 139.07,
+            "text": "Thứ quán đang giữ là một lời hứa: ngân hàng của quán sẽ trả."
+          },
+          {
+            "index": 30,
+            "sceneIndex": 3,
+            "t0": 139.07,
+            "t1": 143.93,
+            "text": "Kế toán của quán ghi lời hứa ấy thành một dòng sổ, một khoản phải thu."
+          },
+          {
+            "index": 31,
+            "sceneIndex": 3,
+            "t0": 143.93,
+            "t1": 148.03,
+            "text": "Và để ý: phải thu từ ngân hàng của quán, không phải từ bạn."
+          },
+          {
+            "index": 32,
+            "sceneIndex": 3,
+            "t0": 148.03,
+            "t1": 151.64,
+            "text": "Bạn đã trả bằng thẻ, bạn không còn nợ quán đồng nào."
+          },
+          {
+            "index": 33,
+            "sceneIndex": 3,
+            "t0": 151.64,
+            "t1": 158.45,
+            "text": "Trong sổ, bên trái ghi tăng một khoản phải thu mười triệu, bên phải ghi tăng doanh thu mười triệu."
+          },
+          {
+            "index": 34,
+            "sceneIndex": 3,
+            "t0": 158.45,
+            "t1": 159.84,
+            "text": "Hai dòng, bằng nhau."
+          },
+          {
+            "index": 35,
+            "sceneIndex": 3,
+            "t0": 159.84,
+            "t1": 166.37,
+            "text": "Vậy câu trả lời đầu tiên cho câu hỏi của mình là: đêm nay, tiền của bạn ngủ trong một dòng sổ."
+          },
+          {
+            "index": 36,
+            "sceneIndex": 3,
+            "t0": 166.37,
+            "t1": 170.0,
+            "text": "Với quán, quẹt thẻ nghĩa là phải chờ, và bị trừ phí."
+          },
+          {
+            "index": 37,
+            "sceneIndex": 4,
+            "t0": 170.0,
+            "t1": 173.42,
+            "text": "Nhưng trước khi đi ngủ, quán còn một việc: chốt ca."
+          },
+          {
+            "index": 38,
+            "sceneIndex": 4,
+            "t0": 173.42,
+            "t1": 183.43,
+            "text": "Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành."
+          },
+          {
+            "index": 39,
+            "sceneIndex": 4,
+            "t0": 183.43,
+            "t1": 186.32,
+            "text": "Bước này gọi là clearing, tức là đối chiếu."
+          },
+          {
+            "index": 40,
+            "sceneIndex": 4,
+            "t0": 186.32,
+            "t1": 190.68,
+            "text": "Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch."
+          },
+          {
+            "index": 41,
+            "sceneIndex": 4,
+            "t0": 190.68,
+            "t1": 194.31,
+            "text": "Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu."
+          },
+          {
+            "index": 42,
+            "sceneIndex": 4,
+            "t0": 194.31,
+            "t1": 201.36,
+            "text": "Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn."
+          },
+          {
+            "index": 43,
+            "sceneIndex": 4,
+            "t0": 201.36,
+            "t1": 208.55,
+            "text": "Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này."
+          },
+          {
+            "index": 44,
+            "sceneIndex": 4,
+            "t0": 208.55,
+            "t1": 212.24,
+            "text": "Danh sách ấy vẫn chỉ là dữ liệu đối chiếu giữa các bên."
+          },
+          {
+            "index": 45,
+            "sceneIndex": 4,
+            "t0": 212.24,
+            "t1": 216.0,
+            "text": "Luồng quyết toán tiền thật vẫn chưa chuyển một đồng nào."
+          },
+          {
+            "index": 46,
+            "sceneIndex": 5,
+            "t0": 216.0,
+            "t1": 223.55,
+            "text": "Hai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — phiên quyết toán liên ngân hàng mới thực sự chạy."
+          },
+          {
+            "index": 47,
+            "sceneIndex": 5,
+            "t0": 223.55,
+            "t1": 229.68,
+            "text": "Tiền thật bắt đầu chuyển đi, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn."
+          },
+          {
+            "index": 48,
+            "sceneIndex": 5,
+            "t0": 229.68,
+            "t1": 240.46,
+            "text": "Ngân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ."
+          },
+          {
+            "index": 49,
+            "sceneIndex": 5,
+            "t0": 240.46,
+            "t1": 246.01,
+            "text": "Ngân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn."
+          },
+          {
+            "index": 50,
+            "sceneIndex": 5,
+            "t0": 246.01,
+            "t1": 255.63,
+            "text": "Trên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn."
+          },
+          {
+            "index": 51,
+            "sceneIndex": 5,
+            "t0": 255.63,
+            "t1": 257.7,
+            "text": "Lời hứa đêm qua đã thành tiền..."
+          },
+          {
+            "index": 52,
+            "sceneIndex": 5,
+            "t0": 257.7,
+            "t1": 259.0,
+            "text": "thiếu đúng phần phí."
+          },
+          {
+            "index": 53,
+            "sceneIndex": 6,
+            "t0": 259.0,
+            "t1": 261.79,
+            "text": "Vậy hai trăm hai mươi nghìn ấy đi đâu?"
+          },
+          {
+            "index": 54,
+            "sceneIndex": 6,
+            "t0": 261.79,
+            "t1": 267.0,
+            "text": "Đó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm."
+          },
+          {
+            "index": 55,
+            "sceneIndex": 6,
+            "t0": 267.0,
+            "t1": 269.57,
+            "text": "Nó không biến mất, nó được chia ba."
+          },
+          {
+            "index": 56,
+            "sceneIndex": 6,
+            "t0": 269.57,
+            "t1": 277.13,
+            "text": "Khoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange."
+          },
+          {
+            "index": 57,
+            "sceneIndex": 6,
+            "t0": 277.13,
+            "t1": 281.61,
+            "text": "Đây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn."
+          },
+          {
+            "index": 58,
+            "sceneIndex": 6,
+            "t0": 281.61,
+            "t1": 288.88,
+            "text": "Một phần nhỏ trả phí cho tổ chức thẻ; câu chuyện không có con số này, mình giả sử ví dụ mười nghìn."
+          },
+          {
+            "index": 59,
+            "sceneIndex": 6,
+            "t0": 288.88,
+            "t1": 293.43,
+            "text": "Phần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán."
+          },
+          {
+            "index": 60,
+            "sceneIndex": 6,
+            "t0": 293.43,
+            "t1": 299.67,
+            "text": "Ba bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn."
+          },
+          {
+            "index": 61,
+            "sceneIndex": 6,
+            "t0": 299.67,
+            "t1": 304.0,
+            "text": "Con số thật khác nhau theo loại thẻ, loại quán và hợp đồng."
+          },
+          {
+            "index": 62,
+            "sceneIndex": 7,
+            "t0": 304.0,
+            "t1": 307.02,
+            "text": "Có một chi tiết làm con số thật khó nhìn thấy."
+          },
+          {
+            "index": 63,
+            "sceneIndex": 7,
+            "t0": 307.02,
+            "t1": 309.97,
+            "text": "Ngân hàng không chuyển tiền cho từng hoá đơn."
+          },
+          {
+            "index": 64,
+            "sceneIndex": 7,
+            "t0": 309.97,
+            "t1": 317.91,
+            "text": "Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ."
+          },
+          {
+            "index": 65,
+            "sceneIndex": 7,
+            "t0": 317.91,
+            "t1": 322.77,
+            "text": "Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn."
+          },
+          {
+            "index": 66,
+            "sceneIndex": 7,
+            "t0": 322.77,
+            "t1": 335.63,
+            "text": "Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn."
+          },
+          {
+            "index": 67,
+            "sceneIndex": 7,
+            "t0": 335.63,
+            "t1": 340.68,
+            "text": "Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày."
+          },
+          {
+            "index": 68,
+            "sceneIndex": 7,
+            "t0": 340.68,
+            "t1": 345.54,
+            "text": "Nên không ai tách riêng từng tờ mười triệu của bạn trên luồng chuyển tiền."
+          },
+          {
+            "index": 69,
+            "sceneIndex": 7,
+            "t0": 345.54,
+            "t1": 347.57,
+            "text": "Nó tan vào một dòng chảy chung."
+          },
+          {
+            "index": 70,
+            "sceneIndex": 7,
+            "t0": 347.57,
+            "t1": 355.0,
+            "text": "Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình."
+          },
+          {
+            "index": 71,
+            "sceneIndex": 8,
+            "t0": 355.0,
+            "t1": 356.26,
+            "text": "Cuối kỳ, sao kê về."
+          },
+          {
+            "index": 72,
+            "sceneIndex": 8,
+            "t0": 356.26,
+            "t1": 360.72,
+            "text": "Trước hạn thanh toán, bạn chuyển cho ngân hàng của mình mười triệu."
+          },
+          {
+            "index": 73,
+            "sceneIndex": 8,
+            "t0": 360.72,
+            "t1": 367.91,
+            "text": "Đây là bước thanh toán cuối cùng, từ tài khoản của bạn về ngân hàng phát hành thẻ, và khoản bạn nợ về không."
+          },
+          {
+            "index": 74,
+            "sceneIndex": 8,
+            "t0": 367.91,
+            "t1": 372.77,
+            "text": "Rồi bạn thấy một dòng tiền hoàn một phần trăm, ví dụ một trăm nghìn đồng."
+          },
+          {
+            "index": 75,
+            "sceneIndex": 8,
+            "t0": 372.77,
+            "t1": 374.23,
+            "text": "Tiền hoàn ấy có nguồn."
+          },
+          {
+            "index": 76,
+            "sceneIndex": 8,
+            "t0": 374.23,
+            "t1": 381.89,
+            "text": "Interchange, tức phần phí quán đã trả, là một nguồn, bên cạnh phí thường niên và tiền lãi của những người trả chậm."
+          },
+          {
+            "index": 77,
+            "sceneIndex": 8,
+            "t0": 381.89,
+            "t1": 392.08,
+            "text": "Chỉ nhìn giao dịch này, ngân hàng của bạn nhận một trăm năm mươi nghìn, trả lại bạn một trăm nghìn, phần còn lại chưa trừ phí tổ chức thẻ và chi phí vốn."
+          },
+          {
+            "index": 78,
+            "sceneIndex": 8,
+            "t0": 392.08,
+            "t1": 395.28,
+            "text": "Mà nhiều quán tính chi phí nhận thẻ vào giá món."
+          },
+          {
+            "index": 79,
+            "sceneIndex": 8,
+            "t0": 395.28,
+            "t1": 401.0,
+            "text": "Nên rất có thể, một phần tiền hoàn của bạn là tiền của chính bạn, vừa đi hết một vòng."
+          },
+          {
+            "index": 80,
+            "sceneIndex": 9,
+            "t0": 401.0,
+            "t1": 402.76,
+            "text": "Còn khi có chuyện thì sao?"
+          },
+          {
+            "index": 81,
+            "sceneIndex": 9,
+            "t0": 402.76,
+            "t1": 406.56,
+            "text": "Có ba con đường, và chúng khác nhau ở chỗ ai khởi xướng."
+          },
+          {
+            "index": 82,
+            "sceneIndex": 9,
+            "t0": 406.56,
+            "t1": 418.01,
+            "text": "Nếu nhân viên bấm nhầm số tiền rồi huỷ ngay trong ca, đó là reversal: giao dịch chưa vào danh sách cuối ngày, ngân hàng của bạn nhả lệnh giữ chỗ, không có đồng nào chạy."
+          },
+          {
+            "index": 83,
+            "sceneIndex": 9,
+            "t0": 418.01,
+            "t1": 428.79,
+            "text": "Nếu hôm sau quán đồng ý giảm giá cho một món ra sai và hoàn qua thẻ, đó là refund, do quán khởi xướng: một lệnh hoàn tiền thật sẽ chạy ngược lại qua ngân hàng."
+          },
+          {
+            "index": 84,
+            "sceneIndex": 9,
+            "t0": 428.79,
+            "t1": 435.7,
+            "text": "Còn nếu bạn bị trừ hai lần mà quán không hoàn, bạn khiếu nại với ngân hàng của mình, đó là chargeback."
+          },
+          {
+            "index": 85,
+            "sceneIndex": 9,
+            "t0": 435.7,
+            "t1": 440.72,
+            "text": "Ngân hàng của quán trừ lại tiền của quán trong lúc hai bên đưa bằng chứng."
+          },
+          {
+            "index": 86,
+            "sceneIndex": 9,
+            "t0": 440.72,
+            "t1": 443.91,
+            "text": "Tiền đã về tài khoản rồi vẫn có thể bị lấy lại."
+          },
+          {
+            "index": 87,
+            "sceneIndex": 9,
+            "t0": 443.91,
+            "t1": 450.0,
+            "text": "Quán có được trả lại phần phí nhận thẻ hay không, thì tuỳ hợp đồng với ngân hàng của quán."
+          },
+          {
+            "index": 88,
+            "sceneIndex": 10,
+            "t0": 450.0,
+            "t1": 454.7,
+            "text": "Vậy đêm nay, mười triệu ấy ngủ trong một dòng sổ phải thu của quán."
+          },
+          {
+            "index": 89,
+            "sceneIndex": 10,
+            "t0": 454.7,
+            "t1": 464.31,
+            "text": "Hai ngày sau, theo ví dụ, ngân hàng của bạn ứng tiền thật ra trước, quán nhận thiếu hai trăm hai mươi nghìn, và khoản đó chia cho ba bên."
+          },
+          {
+            "index": 90,
+            "sceneIndex": 10,
+            "t0": 464.31,
+            "t1": 469.5,
+            "text": "Vài tuần sau, bạn trả lại ngân hàng của mình, và nhận về một ít tiền hoàn."
+          },
+          {
+            "index": 91,
+            "sceneIndex": 10,
+            "t0": 469.5,
+            "t1": 472.17,
+            "text": "Thẻ tín dụng không miễn phí với ai cả."
+          },
+          {
+            "index": 92,
+            "sceneIndex": 10,
+            "t0": 472.17,
+            "t1": 475.4,
+            "text": "Chỉ là người trả phí không đứng trước mặt bạn."
+          },
+          {
+            "index": 93,
+            "sceneIndex": 10,
+            "t0": 475.4,
+            "t1": 481.0,
+            "text": "Lần tới chạm thẻ, bạn thử tự hỏi: trong giá món ăn này, ai đã tính sẵn phần phí?"
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:02,070\nMười giờ bốn mươi bảy phút tối.\n\n2\n00:00:02,070 --> 00:00:05,880\nCả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng.\n\n3\n00:00:05,880 --> 00:00:11,570\nBạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu.\n\n4\n00:00:11,570 --> 00:00:13,240\nMọi người đứng dậy ra về.\n\n5\n00:00:13,240 --> 00:00:17,390\nNhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả.\n\n6\n00:00:17,390 --> 00:00:22,210\nKhông phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán.\n\n7\n00:00:22,210 --> 00:00:25,020\nVậy đêm nay, mười triệu ấy đang ngủ ở đâu?\n\n8\n00:00:25,020 --> 00:00:37,000\nĐể trả lời, mình sẽ đi dọc một con phố có năm ngôi nhà, và nhìn ba tầng vận hành nối chúng: luồng thông tin cấp phép, luồng quyết toán tiền thật, và cuốn sổ kế toán trong mỗi nhà.\n\n9\n00:00:37,000 --> 00:00:38,980\nQuay lại đúng giây chạm thẻ.\n\n10\n00:00:38,980 --> 00:00:46,120\nThứ vừa giảm trên điện thoại không phải tiền trong túi bạn, mà là hạn mức thẻ tín dụng còn được tiêu.\n\n11\n00:00:46,120 --> 00:00:52,200\nNgân hàng của bạn, nơi đã phát hành tấm thẻ, chỉ tạm khoá mười triệu trong hạn mức ấy.\n\n12\n00:00:52,200 --> 00:00:56,440\nNgười trong nghề gọi đó là lệnh giữ chỗ, authorization hold.\n\n13\n00:00:56,440 --> 00:01:03,650\nHãy hình dung một tờ giấy ghi chú dán lên hạn mức: khoản này đã có người hứa chi, đừng cho tiêu trùng.\n\n14\n00:01:03,650 --> 00:01:06,050\nTờ giấy ấy chưa phải một bút toán.\n\n15\n00:01:06,050 --> 00:01:08,660\nDư nợ thẻ của bạn chưa tăng đồng nào.\n\n16\n00:01:08,660 --> 00:01:10,570\nVà bạn cũng chưa trả ai cả.\n\n17\n00:01:10,570 --> 00:01:17,350\nBạn sẽ trả ngân hàng của mình sau, trước hạn thanh toán ghi trên sao kê, có khi là vài tuần nữa.\n\n18\n00:01:17,350 --> 00:01:22,000\nNếu cả nhóm huỷ bữa ngay lúc ấy, ngân hàng chỉ việc gỡ tờ giấy ra.\n\n19\n00:01:22,000 --> 00:01:27,910\nTrong vài giây sau cú chạm, một bản tin xét duyệt chạy một vòng qua hệ thống thanh toán.\n\n20\n00:01:27,910 --> 00:01:33,950\nMáy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer.\n\n21\n00:01:33,950 --> 00:01:39,120\nLời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer.\n\n22\n00:01:39,120 --> 00:01:46,240\nNgân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không.\n\n23\n00:01:46,240 --> 00:01:50,340\nRồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép.\n\n24\n00:01:50,340 --> 00:01:53,970\nĐể ý điều này: tổ chức thẻ không cho bạn vay đồng nào.\n\n25\n00:01:53,970 --> 00:02:03,710\nHọ vận hành mạng lưới và giữ luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng.\n\n26\n00:02:03,710 --> 00:02:09,000\nNgười cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.\n\n27\n00:02:09,000 --> 00:02:09,970\nQuán đóng cửa.\n\n28\n00:02:09,970 --> 00:02:14,900\nTrong két không có mười triệu của bạn, tài khoản của quán cũng chưa có.\n\n29\n00:02:14,900 --> 00:02:19,070\nThứ quán đang giữ là một lời hứa: ngân hàng của quán sẽ trả.\n\n30\n00:02:19,070 --> 00:02:23,930\nKế toán của quán ghi lời hứa ấy thành một dòng sổ, một khoản phải thu.\n\n31\n00:02:23,930 --> 00:02:28,030\nVà để ý: phải thu từ ngân hàng của quán, không phải từ bạn.\n\n32\n00:02:28,030 --> 00:02:31,640\nBạn đã trả bằng thẻ, bạn không còn nợ quán đồng nào.\n\n33\n00:02:31,640 --> 00:02:38,450\nTrong sổ, bên trái ghi tăng một khoản phải thu mười triệu, bên phải ghi tăng doanh thu mười triệu.\n\n34\n00:02:38,450 --> 00:02:39,840\nHai dòng, bằng nhau.\n\n35\n00:02:39,840 --> 00:02:46,370\nVậy câu trả lời đầu tiên cho câu hỏi của mình là: đêm nay, tiền của bạn ngủ trong một dòng sổ.\n\n36\n00:02:46,370 --> 00:02:50,000\nVới quán, quẹt thẻ nghĩa là phải chờ, và bị trừ phí.\n\n37\n00:02:50,000 --> 00:02:53,420\nNhưng trước khi đi ngủ, quán còn một việc: chốt ca.\n\n38\n00:02:53,420 --> 00:03:03,430\nLúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành.\n\n39\n00:03:03,430 --> 00:03:06,320\nBước này gọi là clearing, tức là đối chiếu.\n\n40\n00:03:06,320 --> 00:03:10,680\nMỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch.\n\n41\n00:03:10,680 --> 00:03:14,310\nHai phía so từng dòng, và tính xem ai nợ ai bao nhiêu.\n\n42\n00:03:14,310 --> 00:03:21,360\nChỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn.\n\n43\n00:03:21,360 --> 00:03:28,550\nNhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này.\n\n44\n00:03:28,550 --> 00:03:32,240\nDanh sách ấy vẫn chỉ là dữ liệu đối chiếu giữa các bên.\n\n45\n00:03:32,240 --> 00:03:36,000\nLuồng quyết toán tiền thật vẫn chưa chuyển một đồng nào.\n\n46\n00:03:36,000 --> 00:03:43,550\nHai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — phiên quyết toán liên ngân hàng mới thực sự chạy.\n\n47\n00:03:43,550 --> 00:03:49,680\nTiền thật bắt đầu chuyển đi, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn.\n\n48\n00:03:49,680 --> 00:04:00,460\nNgân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ.\n\n49\n00:04:00,460 --> 00:04:06,010\nNgân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn.\n\n50\n00:04:06,010 --> 00:04:15,630\nTrên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn.\n\n51\n00:04:15,630 --> 00:04:17,700\nLời hứa đêm qua đã thành tiền...\n\n52\n00:04:17,700 --> 00:04:19,000\nthiếu đúng phần phí.\n\n53\n00:04:19,000 --> 00:04:21,790\nVậy hai trăm hai mươi nghìn ấy đi đâu?\n\n54\n00:04:21,790 --> 00:04:27,000\nĐó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm.\n\n55\n00:04:27,000 --> 00:04:29,570\nNó không biến mất, nó được chia ba.\n\n56\n00:04:29,570 --> 00:04:37,130\nKhoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange.\n\n57\n00:04:37,130 --> 00:04:41,610\nĐây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn.\n\n58\n00:04:41,610 --> 00:04:48,880\nMột phần nhỏ trả phí cho tổ chức thẻ; câu chuyện không có con số này, mình giả sử ví dụ mười nghìn.\n\n59\n00:04:48,880 --> 00:04:53,430\nPhần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán.\n\n60\n00:04:53,430 --> 00:04:59,670\nBa bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn.\n\n61\n00:04:59,670 --> 00:05:04,000\nCon số thật khác nhau theo loại thẻ, loại quán và hợp đồng.\n\n62\n00:05:04,000 --> 00:05:07,020\nCó một chi tiết làm con số thật khó nhìn thấy.\n\n63\n00:05:07,020 --> 00:05:09,970\nNgân hàng không chuyển tiền cho từng hoá đơn.\n\n64\n00:05:09,970 --> 00:05:17,910\nVí dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ.\n\n65\n00:05:17,910 --> 00:05:22,770\nSau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn.\n\n66\n00:05:22,770 --> 00:05:35,630\nThay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn.\n\n67\n00:05:35,630 --> 00:05:40,680\nThực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày.\n\n68\n00:05:40,680 --> 00:05:45,540\nNên không ai tách riêng từng tờ mười triệu của bạn trên luồng chuyển tiền.\n\n69\n00:05:45,540 --> 00:05:47,570\nNó tan vào một dòng chảy chung.\n\n70\n00:05:47,570 --> 00:05:55,000\nVà đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình.\n\n71\n00:05:55,000 --> 00:05:56,260\nCuối kỳ, sao kê về.\n\n72\n00:05:56,260 --> 00:06:00,720\nTrước hạn thanh toán, bạn chuyển cho ngân hàng của mình mười triệu.\n\n73\n00:06:00,720 --> 00:06:07,910\nĐây là bước thanh toán cuối cùng, từ tài khoản của bạn về ngân hàng phát hành thẻ, và khoản bạn nợ về không.\n\n74\n00:06:07,910 --> 00:06:12,770\nRồi bạn thấy một dòng tiền hoàn một phần trăm, ví dụ một trăm nghìn đồng.\n\n75\n00:06:12,770 --> 00:06:14,230\nTiền hoàn ấy có nguồn.\n\n76\n00:06:14,230 --> 00:06:21,890\nInterchange, tức phần phí quán đã trả, là một nguồn, bên cạnh phí thường niên và tiền lãi của những người trả chậm.\n\n77\n00:06:21,890 --> 00:06:32,080\nChỉ nhìn giao dịch này, ngân hàng của bạn nhận một trăm năm mươi nghìn, trả lại bạn một trăm nghìn, phần còn lại chưa trừ phí tổ chức thẻ và chi phí vốn.\n\n78\n00:06:32,080 --> 00:06:35,280\nMà nhiều quán tính chi phí nhận thẻ vào giá món.\n\n79\n00:06:35,280 --> 00:06:41,000\nNên rất có thể, một phần tiền hoàn của bạn là tiền của chính bạn, vừa đi hết một vòng.\n\n80\n00:06:41,000 --> 00:06:42,760\nCòn khi có chuyện thì sao?\n\n81\n00:06:42,760 --> 00:06:46,560\nCó ba con đường, và chúng khác nhau ở chỗ ai khởi xướng.\n\n82\n00:06:46,560 --> 00:06:58,010\nNếu nhân viên bấm nhầm số tiền rồi huỷ ngay trong ca, đó là reversal: giao dịch chưa vào danh sách cuối ngày, ngân hàng của bạn nhả lệnh giữ chỗ, không có đồng nào chạy.\n\n83\n00:06:58,010 --> 00:07:08,790\nNếu hôm sau quán đồng ý giảm giá cho một món ra sai và hoàn qua thẻ, đó là refund, do quán khởi xướng: một lệnh hoàn tiền thật sẽ chạy ngược lại qua ngân hàng.\n\n84\n00:07:08,790 --> 00:07:15,700\nCòn nếu bạn bị trừ hai lần mà quán không hoàn, bạn khiếu nại với ngân hàng của mình, đó là chargeback.\n\n85\n00:07:15,700 --> 00:07:20,720\nNgân hàng của quán trừ lại tiền của quán trong lúc hai bên đưa bằng chứng.\n\n86\n00:07:20,720 --> 00:07:23,910\nTiền đã về tài khoản rồi vẫn có thể bị lấy lại.\n\n87\n00:07:23,910 --> 00:07:30,000\nQuán có được trả lại phần phí nhận thẻ hay không, thì tuỳ hợp đồng với ngân hàng của quán.\n\n88\n00:07:30,000 --> 00:07:34,700\nVậy đêm nay, mười triệu ấy ngủ trong một dòng sổ phải thu của quán.\n\n89\n00:07:34,700 --> 00:07:44,310\nHai ngày sau, theo ví dụ, ngân hàng của bạn ứng tiền thật ra trước, quán nhận thiếu hai trăm hai mươi nghìn, và khoản đó chia cho ba bên.\n\n90\n00:07:44,310 --> 00:07:49,500\nVài tuần sau, bạn trả lại ngân hàng của mình, và nhận về một ít tiền hoàn.\n\n91\n00:07:49,500 --> 00:07:52,170\nThẻ tín dụng không miễn phí với ai cả.\n\n92\n00:07:52,170 --> 00:07:55,400\nChỉ là người trả phí không đứng trước mặt bạn.\n\n93\n00:07:55,400 --> 00:08:01,000\nLần tới chạm thẻ, bạn thử tự hỏi: trong giá món ăn này, ai đã tính sẵn phần phí?\n"
+      }
+    },
+    "pay": {
+      "short": {
+        "srtFile": "dist/youtube/pay-short-9x16.srt",
+        "cueCount": 16,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 1.44,
+            "text": "Điện thoại báo lương về mười lăm triệu..."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 1.44,
+            "t1": 4.0,
+            "text": "nhưng giữa các ngân hàng, không một đồng tiền nào thực sự phải chuyển đi."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 1,
+            "t0": 4.0,
+            "t1": 9.34,
+            "text": "Vì công ty và bạn mở tài khoản ở cùng một ngân hàng, tiền không hề rời toà nhà."
+          },
+          {
+            "index": 4,
+            "sceneIndex": 1,
+            "t0": 9.34,
+            "t1": 14.14,
+            "text": "Ngân hàng chỉ sửa hai dòng sổ: bớt khoản nợ công ty, tăng khoản nợ bạn."
+          },
+          {
+            "index": 5,
+            "sceneIndex": 1,
+            "t0": 14.14,
+            "t1": 18.0,
+            "text": "Số dư trên màn hình chính là khoản ngân hàng đang nợ bạn."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 2,
+            "t0": 18.0,
+            "t1": 24.43,
+            "text": "Phần lương chưa tiêu hết nằm yên trong tài khoản gọi là CASA — trong ví dụ này lãi chỉ không phẩy một phần trăm một năm."
+          },
+          {
+            "index": 7,
+            "sceneIndex": 2,
+            "t0": 24.43,
+            "t1": 27.48,
+            "text": "Giả sử năm trăm đồng nghiệp mỗi người để yên năm triệu..."
+          },
+          {
+            "index": 8,
+            "sceneIndex": 2,
+            "t0": 27.48,
+            "t1": 30.0,
+            "text": "ngân hàng có ngay hai phẩy năm tỷ đồng nằm chờ."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 3,
+            "t0": 30.0,
+            "t1": 36.48,
+            "text": "Cho cả khối hai phẩy năm tỷ đó, ngân hàng chỉ trả chừng hai triệu rưỡi tiền lãi một năm."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 3,
+            "t0": 36.48,
+            "t1": 47.24,
+            "text": "Nếu phải huy động bằng tiền gửi có kỳ hạn năm phần trăm, họ sẽ tốn một trăm hai mươi lăm triệu — đắt gấp năm mươi lần, chưa tính chi phí vận hành."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 3,
+            "t0": 47.24,
+            "t1": 51.0,
+            "text": "Chênh lệch ấy là lý do họ muốn giữ trọn bảng lương."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 4,
+            "t0": 51.0,
+            "t1": 56.25,
+            "text": "Đổi lại, công ty có thể nhận ưu đãi phí chi lương hoặc lãi vay..."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 4,
+            "t0": 56.25,
+            "t1": 59.0,
+            "text": "tuỳ theo thoả thuận từng hợp đồng."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 5,
+            "t0": 59.0,
+            "t1": 62.44,
+            "text": "Vậy đêm nay tiền lương của bạn ngủ ở đâu?"
+          },
+          {
+            "index": 15,
+            "sceneIndex": 5,
+            "t0": 62.44,
+            "t1": 65.21,
+            "text": "Trong sổ kế toán của ngân hàng..."
+          },
+          {
+            "index": 16,
+            "sceneIndex": 5,
+            "t0": 65.21,
+            "t1": 70.0,
+            "text": "và số dư nằm yên ấy đang âm thầm làm việc cho người khác."
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:01,440\nĐiện thoại báo lương về mười lăm triệu...\n\n2\n00:00:01,440 --> 00:00:04,000\nnhưng giữa các ngân hàng, không một đồng tiền nào thực sự phải chuyển đi.\n\n3\n00:00:04,000 --> 00:00:09,340\nVì công ty và bạn mở tài khoản ở cùng một ngân hàng, tiền không hề rời toà nhà.\n\n4\n00:00:09,340 --> 00:00:14,140\nNgân hàng chỉ sửa hai dòng sổ: bớt khoản nợ công ty, tăng khoản nợ bạn.\n\n5\n00:00:14,140 --> 00:00:18,000\nSố dư trên màn hình chính là khoản ngân hàng đang nợ bạn.\n\n6\n00:00:18,000 --> 00:00:24,430\nPhần lương chưa tiêu hết nằm yên trong tài khoản gọi là CASA — trong ví dụ này lãi chỉ không phẩy một phần trăm một năm.\n\n7\n00:00:24,430 --> 00:00:27,480\nGiả sử năm trăm đồng nghiệp mỗi người để yên năm triệu...\n\n8\n00:00:27,480 --> 00:00:30,000\nngân hàng có ngay hai phẩy năm tỷ đồng nằm chờ.\n\n9\n00:00:30,000 --> 00:00:36,480\nCho cả khối hai phẩy năm tỷ đó, ngân hàng chỉ trả chừng hai triệu rưỡi tiền lãi một năm.\n\n10\n00:00:36,480 --> 00:00:47,240\nNếu phải huy động bằng tiền gửi có kỳ hạn năm phần trăm, họ sẽ tốn một trăm hai mươi lăm triệu — đắt gấp năm mươi lần, chưa tính chi phí vận hành.\n\n11\n00:00:47,240 --> 00:00:51,000\nChênh lệch ấy là lý do họ muốn giữ trọn bảng lương.\n\n12\n00:00:51,000 --> 00:00:56,250\nĐổi lại, công ty có thể nhận ưu đãi phí chi lương hoặc lãi vay...\n\n13\n00:00:56,250 --> 00:00:59,000\ntuỳ theo thoả thuận từng hợp đồng.\n\n14\n00:00:59,000 --> 00:01:02,440\nVậy đêm nay tiền lương của bạn ngủ ở đâu?\n\n15\n00:01:02,440 --> 00:01:05,210\nTrong sổ kế toán của ngân hàng...\n\n16\n00:01:05,210 --> 00:01:10,000\nvà số dư nằm yên ấy đang âm thầm làm việc cho người khác.\n"
+      },
+      "long": {
+        "srtFile": "dist/youtube/pay-long-16x9.srt",
+        "cueCount": 85,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 4.13,
+            "text": "Tối qua điện thoại của bạn báo ghi có mười lăm triệu đồng."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 4.13,
+            "t1": 6.27,
+            "text": "Bạn biết con số ấy từ đâu đến."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 0,
+            "t0": 6.27,
+            "t1": 12.97,
+            "text": "Nhưng bạn có biết, trong suốt chặng đường đó, không một đồng tiền nào thực sự di chuyển không?"
+          },
+          {
+            "index": 4,
+            "sceneIndex": 0,
+            "t0": 12.97,
+            "t1": 16.25,
+            "text": "Và đêm nay, tiền lương của bạn đang ngủ ở đâu?"
+          },
+          {
+            "index": 5,
+            "sceneIndex": 0,
+            "t0": 16.25,
+            "t1": 28.65,
+            "text": "Trong vài phút tới, mình đi theo một tháng lương qua năm ngôi nhà trên một con phố: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và một bên bạn hiếm khi nghĩ tới."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 0,
+            "t0": 28.65,
+            "t1": 33.0,
+            "text": "Câu chuyện bắt đầu từ một tờ giấy bạn ký vào ngày đầu đi làm."
+          },
+          {
+            "index": 7,
+            "sceneIndex": 1,
+            "t0": 33.0,
+            "t1": 40.13,
+            "text": "Ngày đầu đi làm, phòng nhân sự đưa bạn một tờ giấy: mở tài khoản ở đúng ngân hàng này để nhận lương."
+          },
+          {
+            "index": 8,
+            "sceneIndex": 1,
+            "t0": 40.13,
+            "t1": 42.84,
+            "text": "Chuyển khoản khác ngân hàng không khó."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 1,
+            "t0": 42.84,
+            "t1": 46.55,
+            "text": "Một file chi lương vẫn trả được cho nhiều ngân hàng."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 1,
+            "t0": 46.55,
+            "t1": 59.81,
+            "text": "Nhưng khi cả công ty dùng chung một ngân hàng, công ty có thể tốn ít phí hơn, tiền về sớm hơn, ít lệnh bị trả lại hơn, và việc đối soát, tức so sổ của mình với sao kê ngân hàng, gọn hơn."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 1,
+            "t0": 59.81,
+            "t1": 68.79,
+            "text": "Tờ giấy ấy là thông tin đăng ký đầu tiên gửi sang ngân hàng: công ty báo có thêm một nhân sự, ngân hàng mở thêm một tài khoản."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 1,
+            "t0": 68.79,
+            "t1": 70.5,
+            "text": "Chưa đồng nào di chuyển."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 1,
+            "t0": 70.5,
+            "t1": 75.0,
+            "text": "Nhưng từ hôm nay, tháng nào cũng có tiền chảy vào tài khoản đó."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 2,
+            "t0": 75.0,
+            "t1": 80.49,
+            "text": "Ngày lương, công ty gửi cho ngân hàng một file: tên, số tài khoản, số tiền."
+          },
+          {
+            "index": 15,
+            "sceneIndex": 2,
+            "t0": 80.49,
+            "t1": 83.71,
+            "text": "File ấy là một lời nhắn, không chở đồng nào."
+          },
+          {
+            "index": 16,
+            "sceneIndex": 2,
+            "t0": 83.71,
+            "t1": 89.05,
+            "text": "Vì công ty và bạn cùng một ngân hàng, ngân hàng không gửi tiền đi đâu cả."
+          },
+          {
+            "index": 17,
+            "sceneIndex": 2,
+            "t0": 89.05,
+            "t1": 98.13,
+            "text": "Họ chỉ sửa hai dòng trong cùng một cuốn sổ: bớt khoản đang nợ công ty mười lăm triệu, thêm khoản đang nợ bạn mười lăm triệu."
+          },
+          {
+            "index": 18,
+            "sceneIndex": 2,
+            "t0": 98.13,
+            "t1": 101.5,
+            "text": "Người trong nghề gọi kiểu chuyển này là On-Us."
+          },
+          {
+            "index": 19,
+            "sceneIndex": 2,
+            "t0": 101.5,
+            "t1": 105.53,
+            "text": "Rồi lời nhắn thứ hai bay về điện thoại của bạn: ghi có."
+          },
+          {
+            "index": 20,
+            "sceneIndex": 2,
+            "t0": 105.53,
+            "t1": 111.75,
+            "text": "Chữ ghi có ấy là một dòng Credit trong sổ của ngân hàng, không phải trong sổ của bạn."
+          },
+          {
+            "index": 21,
+            "sceneIndex": 2,
+            "t0": 111.75,
+            "t1": 116.0,
+            "text": "Số dư của bạn, hoá ra, là một khoản ngân hàng đang nợ bạn."
+          },
+          {
+            "index": 22,
+            "sceneIndex": 3,
+            "t0": 116.0,
+            "t1": 118.64,
+            "text": "Lùi lại một bước, vào sổ của công ty."
+          },
+          {
+            "index": 23,
+            "sceneIndex": 3,
+            "t0": 118.64,
+            "t1": 124.71,
+            "text": "Với công ty, lương của bạn không phải mười lăm triệu mà là mười bảy triệu, lương gộp."
+          },
+          {
+            "index": 24,
+            "sceneIndex": 3,
+            "t0": 124.71,
+            "t1": 131.5,
+            "text": "Cuối tháng, công ty ghi mười bảy triệu là chi phí, và ghi rằng mình đang nợ bạn mười bảy triệu."
+          },
+          {
+            "index": 25,
+            "sceneIndex": 3,
+            "t0": 131.5,
+            "t1": 145.0,
+            "text": "Rồi công ty giữ lại một triệu bảy trăm tám mươi lăm nghìn đồng bảo hiểm, tính theo giả định mười phẩy năm phần trăm, chỉ là ví dụ, và hai trăm mười lăm nghìn đồng thuế, một con số minh hoạ."
+          },
+          {
+            "index": 26,
+            "sceneIndex": 3,
+            "t0": 145.0,
+            "t1": 149.21,
+            "text": "Hai triệu này vẫn là tiền của bạn; công ty giữ để nộp thay."
+          },
+          {
+            "index": 27,
+            "sceneIndex": 3,
+            "t0": 149.21,
+            "t1": 154.21,
+            "text": "Ngày lương, mười lăm triệu rời tài khoản công ty bằng một dòng Credit."
+          },
+          {
+            "index": 28,
+            "sceneIndex": 3,
+            "t0": 154.21,
+            "t1": 164.0,
+            "text": "Cùng chữ Credit với tin nhắn của bạn, nhưng khác sổ, khác chiều: ở ngân hàng nó làm tăng một khoản nợ, ở công ty nó làm giảm một tài sản."
+          },
+          {
+            "index": 29,
+            "sceneIndex": 4,
+            "t0": 164.0,
+            "t1": 168.71,
+            "text": "Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng."
+          },
+          {
+            "index": 30,
+            "sceneIndex": 4,
+            "t0": 168.71,
+            "t1": 177.7,
+            "text": "Lệnh đi qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch liên ngân hàng, hoặc một kênh thanh toán liên ngân hàng khác."
+          },
+          {
+            "index": 31,
+            "sceneIndex": 4,
+            "t0": 177.7,
+            "t1": 182.84,
+            "text": "Lời nhắn đi trước, nên ngân hàng của bạn có thể báo ghi có gần như ngay."
+          },
+          {
+            "index": 32,
+            "sceneIndex": 4,
+            "t0": 182.84,
+            "t1": 192.4,
+            "text": "Tiền thật đi sau: hai ngân hàng quyết toán với nhau trên tài khoản thanh toán của họ, có khi gộp nhiều lệnh rồi chỉ chuyển phần chênh."
+          },
+          {
+            "index": 33,
+            "sceneIndex": 4,
+            "t0": 192.4,
+            "t1": 195.25,
+            "text": "Người trong nghề gọi kiểu này là Off-Us."
+          },
+          {
+            "index": 34,
+            "sceneIndex": 4,
+            "t0": 195.25,
+            "t1": 201.24,
+            "text": "Trong khoảng giữa lời nhắn và tiền, ngân hàng của bạn đang tin ngân hàng kia sẽ trả."
+          },
+          {
+            "index": 35,
+            "sceneIndex": 4,
+            "t0": 201.24,
+            "t1": 207.73,
+            "text": "Và chỉ trong trường hợp này, tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương."
+          },
+          {
+            "index": 36,
+            "sceneIndex": 4,
+            "t0": 207.73,
+            "t1": 213.0,
+            "text": "Với công ty, mỗi lệnh như vậy có thể tốn phí, ví dụ ba nghìn ba trăm đồng."
+          },
+          {
+            "index": 37,
+            "sceneIndex": 5,
+            "t0": 213.0,
+            "t1": 214.77,
+            "text": "Bạn tiêu dần trong tháng."
+          },
+          {
+            "index": 38,
+            "sceneIndex": 5,
+            "t0": 214.77,
+            "t1": 220.8,
+            "text": "Nhưng hiếm ai rút hết ngay, nên một phần lương cứ nằm yên trong tài khoản thanh toán."
+          },
+          {
+            "index": 39,
+            "sceneIndex": 5,
+            "t0": 220.8,
+            "t1": 225.91,
+            "text": "Nó nằm yên vì bạn cần nó sẵn sàng: tiền nhà, tiền ăn, một khoản bất ngờ."
+          },
+          {
+            "index": 40,
+            "sceneIndex": 5,
+            "t0": 225.91,
+            "t1": 229.24,
+            "text": "Người trong nghề gọi loại tiền gửi này là CASA."
+          },
+          {
+            "index": 41,
+            "sceneIndex": 5,
+            "t0": 229.24,
+            "t1": 233.5,
+            "text": "Lãi của nó rất thấp, ví dụ không phẩy một phần trăm một năm."
+          },
+          {
+            "index": 42,
+            "sceneIndex": 5,
+            "t0": 233.5,
+            "t1": 238.75,
+            "text": "Mười triệu đồng nằm yên cả năm chỉ sinh ra chừng mười nghìn đồng tiền lãi."
+          },
+          {
+            "index": 43,
+            "sceneIndex": 5,
+            "t0": 238.75,
+            "t1": 244.36,
+            "text": "Đây không phải lời khuyên chuyển tiền đi đâu, chỉ là một con số để thấy cơ chế."
+          },
+          {
+            "index": 44,
+            "sceneIndex": 5,
+            "t0": 244.36,
+            "t1": 251.38,
+            "text": "Giờ nhìn sang bên cạnh: năm trăm đồng nghiệp cũng đang để yên một phần lương, ở cùng một ngân hàng."
+          },
+          {
+            "index": 45,
+            "sceneIndex": 5,
+            "t0": 251.38,
+            "t1": 256.0,
+            "text": "Ví dụ mỗi người năm triệu, cả bảng lương là hai phẩy năm tỷ đồng."
+          },
+          {
+            "index": 46,
+            "sceneIndex": 6,
+            "t0": 256.0,
+            "t1": 260.15,
+            "text": "Với ngân hàng, hai phẩy năm tỷ ấy là nguồn vốn rẻ, và dính."
+          },
+          {
+            "index": 47,
+            "sceneIndex": 6,
+            "t0": 260.15,
+            "t1": 267.89,
+            "text": "Lương về đều đặn mỗi tháng, người nhận ít khi đổi ngân hàng, và hiếm khi năm trăm người rút sạch cùng một lúc."
+          },
+          {
+            "index": 48,
+            "sceneIndex": 6,
+            "t0": 267.89,
+            "t1": 273.87,
+            "text": "Trả lãi không phẩy một phần trăm, cả bảng lương chỉ tốn chừng hai triệu rưỡi một năm."
+          },
+          {
+            "index": 49,
+            "sceneIndex": 6,
+            "t0": 273.87,
+            "t1": 281.12,
+            "text": "Huy động cùng số ấy bằng tiền gửi có kỳ hạn, ví dụ ở năm phần trăm, sẽ tốn một trăm hai mươi lăm triệu."
+          },
+          {
+            "index": 50,
+            "sceneIndex": 6,
+            "t0": 281.12,
+            "t1": 284.78,
+            "text": "Ngân hàng không đem đúng tờ tiền của bạn đi cho vay."
+          },
+          {
+            "index": 51,
+            "sceneIndex": 6,
+            "t0": 284.78,
+            "t1": 289.64,
+            "text": "Vốn được gộp chung, và nguồn rẻ như CASA kéo giá vốn bình quân xuống."
+          },
+          {
+            "index": 52,
+            "sceneIndex": 6,
+            "t0": 289.64,
+            "t1": 300.0,
+            "text": "Ở tầng trên, giả sử bên cho vay giải ngân mua nhà với lãi quanh tám phẩy năm phần trăm một năm — chênh lệch ấy bắt đầu từ chính phần lương nằm yên."
+          },
+          {
+            "index": 53,
+            "sceneIndex": 7,
+            "t0": 300.0,
+            "t1": 304.23,
+            "text": "Vậy ai trong ngân hàng được ghi công cho khoản vốn rẻ ấy?"
+          },
+          {
+            "index": 54,
+            "sceneIndex": 7,
+            "t0": 304.23,
+            "t1": 307.35,
+            "text": "Câu trả lời là một giá nội bộ, gọi là FTP."
+          },
+          {
+            "index": 55,
+            "sceneIndex": 7,
+            "t0": 307.35,
+            "t1": 316.4,
+            "text": "Bộ phận quản lý vốn mua tiền gửi từ bên huy động, ví dụ ở bốn phẩy năm phần trăm, rồi bán cho bên cho vay ở sáu phần trăm."
+          },
+          {
+            "index": 56,
+            "sceneIndex": 7,
+            "t0": 316.4,
+            "t1": 320.78,
+            "text": "Bên huy động trả bạn không phẩy một, giữ bốn phẩy bốn điểm."
+          },
+          {
+            "index": 57,
+            "sceneIndex": 7,
+            "t0": 320.78,
+            "t1": 326.86,
+            "text": "Bộ phận quản lý vốn giữ một phẩy năm điểm, để gánh rủi ro thanh khoản và lãi suất."
+          },
+          {
+            "index": 58,
+            "sceneIndex": 7,
+            "t0": 326.86,
+            "t1": 331.39,
+            "text": "Bên cho vay thu tám phẩy năm, trả sáu, giữ hai phẩy năm điểm."
+          },
+          {
+            "index": 59,
+            "sceneIndex": 7,
+            "t0": 331.39,
+            "t1": 337.4,
+            "text": "Cộng lại tám phẩy bốn, đúng bằng khoảng cách giữa tám phẩy năm và không phẩy một."
+          },
+          {
+            "index": 60,
+            "sceneIndex": 7,
+            "t0": 337.4,
+            "t1": 344.0,
+            "text": "Và đó là trước khi trả lương nhân viên, chạy hệ thống, hay gánh khoản vay không đòi được."
+          },
+          {
+            "index": 61,
+            "sceneIndex": 8,
+            "t0": 344.0,
+            "t1": 346.13,
+            "text": "Còn một phần nữa bị khoá lại."
+          },
+          {
+            "index": 62,
+            "sceneIndex": 8,
+            "t0": 346.13,
+            "t1": 355.63,
+            "text": "Theo nguyên tắc, ngân hàng phải giữ một tỉ lệ tiền gửi tại ngân hàng trung ương làm dự trữ bắt buộc, phần này không cho vay được."
+          },
+          {
+            "index": 63,
+            "sceneIndex": 8,
+            "t0": 355.63,
+            "t1": 365.71,
+            "text": "Lấy ví dụ ba phần trăm: trong hai phẩy năm tỷ, bảy mươi lăm triệu nằm ở dự trữ, chỉ hai tỷ bốn trăm hai mươi lăm triệu được tính giá vốn."
+          },
+          {
+            "index": 64,
+            "sceneIndex": 8,
+            "t0": 365.71,
+            "t1": 371.23,
+            "text": "Tỉ lệ thật do ngân hàng trung ương quy định; con số này chỉ để thấy cơ chế."
+          },
+          {
+            "index": 65,
+            "sceneIndex": 8,
+            "t0": 371.23,
+            "t1": 378.22,
+            "text": "Ngân hàng đứng giữa người gửi muốn rút lúc nào cũng được và người vay muốn trả trong nhiều năm."
+          },
+          {
+            "index": 66,
+            "sceneIndex": 8,
+            "t0": 378.22,
+            "t1": 385.0,
+            "text": "Số dư nằm yên của người làm lương là một trong những nguồn ổn định nhất cho cái lệch pha đó."
+          },
+          {
+            "index": 67,
+            "sceneIndex": 9,
+            "t0": 385.0,
+            "t1": 386.86,
+            "text": "Còn sếp của bạn được gì?"
+          },
+          {
+            "index": 68,
+            "sceneIndex": 9,
+            "t0": 386.86,
+            "t1": 391.67,
+            "text": "Mang cả bảng lương về một ngân hàng, công ty có thứ để mặc cả."
+          },
+          {
+            "index": 69,
+            "sceneIndex": 9,
+            "t0": 391.67,
+            "t1": 399.81,
+            "text": "Ngân hàng có thể đổi gói chi lương lấy ưu đãi cho doanh nghiệp, có thể là phí dịch vụ, có thể là lãi vay."
+          },
+          {
+            "index": 70,
+            "sceneIndex": 9,
+            "t0": 399.81,
+            "t1": 405.08,
+            "text": "Mỗi hợp đồng một khác, và bài này chưa xác minh điều khoản thật nào."
+          },
+          {
+            "index": 71,
+            "sceneIndex": 9,
+            "t0": 405.08,
+            "t1": 411.91,
+            "text": "Bạn không trả phí trực tiếp, nhưng số dư nằm yên của bạn là một phần của cuộc mặc cả ấy."
+          },
+          {
+            "index": 72,
+            "sceneIndex": 9,
+            "t0": 411.91,
+            "t1": 420.05,
+            "text": "Nhìn lại cả con phố: công ty được gói ưu đãi, ngân hàng được nguồn vốn rẻ, bên cho vay có vốn để cho vay."
+          },
+          {
+            "index": 73,
+            "sceneIndex": 9,
+            "t0": 420.05,
+            "t1": 425.09,
+            "text": "Còn bạn được sự tiện: lương về trong ngày, rút lúc nào cũng được."
+          },
+          {
+            "index": 74,
+            "sceneIndex": 9,
+            "t0": 425.09,
+            "t1": 432.0,
+            "text": "Cái bạn bỏ ra là phần lãi mà số dư ấy không sinh ra, và không ai gửi hoá đơn cho phần đó."
+          },
+          {
+            "index": 75,
+            "sceneIndex": 10,
+            "t0": 432.0,
+            "t1": 433.89,
+            "text": "Ba chuyện có thể trục trặc."
+          },
+          {
+            "index": 76,
+            "sceneIndex": 10,
+            "t0": 433.89,
+            "t1": 444.6,
+            "text": "Sai số tài khoản, lệnh lương bị trả lại: công ty lại nợ bạn mười lăm triệu cho tới khi chuyển lại thành công, còn chi phí lương của tháng thì giữ nguyên."
+          },
+          {
+            "index": 77,
+            "sceneIndex": 10,
+            "t0": 444.6,
+            "t1": 451.74,
+            "text": "Ngày lương rơi vào ngày nghỉ: lệnh On-Us vẫn có thể ghi ngay, lệnh Off-Us thì chờ lịch liên ngân hàng."
+          },
+          {
+            "index": 78,
+            "sceneIndex": 10,
+            "t0": 451.74,
+            "t1": 459.23,
+            "text": "Và nếu công ty chuyển cả bảng lương sang ngân hàng khác, hai phẩy năm tỷ số dư nằm yên rời đi cùng một lúc."
+          },
+          {
+            "index": 79,
+            "sceneIndex": 10,
+            "t0": 459.23,
+            "t1": 467.0,
+            "text": "Đó mới là điều ngân hàng trả lương sợ nhất: bộ phận quản lý vốn phải tìm nguồn khác, đắt hơn, để lấp chỗ trống."
+          },
+          {
+            "index": 80,
+            "sceneIndex": 11,
+            "t0": 467.0,
+            "t1": 470.26,
+            "text": "Vậy đêm nay, tiền lương của bạn ngủ ở đâu?"
+          },
+          {
+            "index": 81,
+            "sceneIndex": 11,
+            "t0": 470.26,
+            "t1": 473.52,
+            "text": "Không phải trong một ngăn tủ mang tên bạn."
+          },
+          {
+            "index": 82,
+            "sceneIndex": 11,
+            "t0": 473.52,
+            "t1": 479.18,
+            "text": "Nó ngủ trong sổ của ngân hàng, dưới dạng một khoản ngân hàng đang nợ bạn."
+          },
+          {
+            "index": 83,
+            "sceneIndex": 11,
+            "t0": 479.18,
+            "t1": 484.92,
+            "text": "Bạn cho ngân hàng vay mỗi tháng, mà có lẽ chưa bao giờ nghĩ về nó như vậy."
+          },
+          {
+            "index": 84,
+            "sceneIndex": 11,
+            "t0": 484.92,
+            "t1": 490.5,
+            "text": "Đổi lại, bạn là một chủ nợ, và bảo hiểm tiền gửi chỉ bù tới một hạn mức."
+          },
+          {
+            "index": 85,
+            "sceneIndex": 11,
+            "t0": 490.5,
+            "t1": 497.0,
+            "text": "Và câu còn lại để bạn tự hỏi: số dư nằm yên của mình, mỗi tháng, đang có ích cho ai?"
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:04,130\nTối qua điện thoại của bạn báo ghi có mười lăm triệu đồng.\n\n2\n00:00:04,130 --> 00:00:06,270\nBạn biết con số ấy từ đâu đến.\n\n3\n00:00:06,270 --> 00:00:12,970\nNhưng bạn có biết, trong suốt chặng đường đó, không một đồng tiền nào thực sự di chuyển không?\n\n4\n00:00:12,970 --> 00:00:16,250\nVà đêm nay, tiền lương của bạn đang ngủ ở đâu?\n\n5\n00:00:16,250 --> 00:00:28,650\nTrong vài phút tới, mình đi theo một tháng lương qua năm ngôi nhà trên một con phố: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và một bên bạn hiếm khi nghĩ tới.\n\n6\n00:00:28,650 --> 00:00:33,000\nCâu chuyện bắt đầu từ một tờ giấy bạn ký vào ngày đầu đi làm.\n\n7\n00:00:33,000 --> 00:00:40,130\nNgày đầu đi làm, phòng nhân sự đưa bạn một tờ giấy: mở tài khoản ở đúng ngân hàng này để nhận lương.\n\n8\n00:00:40,130 --> 00:00:42,840\nChuyển khoản khác ngân hàng không khó.\n\n9\n00:00:42,840 --> 00:00:46,550\nMột file chi lương vẫn trả được cho nhiều ngân hàng.\n\n10\n00:00:46,550 --> 00:00:59,810\nNhưng khi cả công ty dùng chung một ngân hàng, công ty có thể tốn ít phí hơn, tiền về sớm hơn, ít lệnh bị trả lại hơn, và việc đối soát, tức so sổ của mình với sao kê ngân hàng, gọn hơn.\n\n11\n00:00:59,810 --> 00:01:08,790\nTờ giấy ấy là thông tin đăng ký đầu tiên gửi sang ngân hàng: công ty báo có thêm một nhân sự, ngân hàng mở thêm một tài khoản.\n\n12\n00:01:08,790 --> 00:01:10,500\nChưa đồng nào di chuyển.\n\n13\n00:01:10,500 --> 00:01:15,000\nNhưng từ hôm nay, tháng nào cũng có tiền chảy vào tài khoản đó.\n\n14\n00:01:15,000 --> 00:01:20,490\nNgày lương, công ty gửi cho ngân hàng một file: tên, số tài khoản, số tiền.\n\n15\n00:01:20,490 --> 00:01:23,710\nFile ấy là một lời nhắn, không chở đồng nào.\n\n16\n00:01:23,710 --> 00:01:29,050\nVì công ty và bạn cùng một ngân hàng, ngân hàng không gửi tiền đi đâu cả.\n\n17\n00:01:29,050 --> 00:01:38,130\nHọ chỉ sửa hai dòng trong cùng một cuốn sổ: bớt khoản đang nợ công ty mười lăm triệu, thêm khoản đang nợ bạn mười lăm triệu.\n\n18\n00:01:38,130 --> 00:01:41,500\nNgười trong nghề gọi kiểu chuyển này là On-Us.\n\n19\n00:01:41,500 --> 00:01:45,530\nRồi lời nhắn thứ hai bay về điện thoại của bạn: ghi có.\n\n20\n00:01:45,530 --> 00:01:51,750\nChữ ghi có ấy là một dòng Credit trong sổ của ngân hàng, không phải trong sổ của bạn.\n\n21\n00:01:51,750 --> 00:01:56,000\nSố dư của bạn, hoá ra, là một khoản ngân hàng đang nợ bạn.\n\n22\n00:01:56,000 --> 00:01:58,640\nLùi lại một bước, vào sổ của công ty.\n\n23\n00:01:58,640 --> 00:02:04,710\nVới công ty, lương của bạn không phải mười lăm triệu mà là mười bảy triệu, lương gộp.\n\n24\n00:02:04,710 --> 00:02:11,500\nCuối tháng, công ty ghi mười bảy triệu là chi phí, và ghi rằng mình đang nợ bạn mười bảy triệu.\n\n25\n00:02:11,500 --> 00:02:25,000\nRồi công ty giữ lại một triệu bảy trăm tám mươi lăm nghìn đồng bảo hiểm, tính theo giả định mười phẩy năm phần trăm, chỉ là ví dụ, và hai trăm mười lăm nghìn đồng thuế, một con số minh hoạ.\n\n26\n00:02:25,000 --> 00:02:29,210\nHai triệu này vẫn là tiền của bạn; công ty giữ để nộp thay.\n\n27\n00:02:29,210 --> 00:02:34,210\nNgày lương, mười lăm triệu rời tài khoản công ty bằng một dòng Credit.\n\n28\n00:02:34,210 --> 00:02:44,000\nCùng chữ Credit với tin nhắn của bạn, nhưng khác sổ, khác chiều: ở ngân hàng nó làm tăng một khoản nợ, ở công ty nó làm giảm một tài sản.\n\n29\n00:02:44,000 --> 00:02:48,710\nNếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng.\n\n30\n00:02:48,710 --> 00:02:57,700\nLệnh đi qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch liên ngân hàng, hoặc một kênh thanh toán liên ngân hàng khác.\n\n31\n00:02:57,700 --> 00:03:02,840\nLời nhắn đi trước, nên ngân hàng của bạn có thể báo ghi có gần như ngay.\n\n32\n00:03:02,840 --> 00:03:12,400\nTiền thật đi sau: hai ngân hàng quyết toán với nhau trên tài khoản thanh toán của họ, có khi gộp nhiều lệnh rồi chỉ chuyển phần chênh.\n\n33\n00:03:12,400 --> 00:03:15,250\nNgười trong nghề gọi kiểu này là Off-Us.\n\n34\n00:03:15,250 --> 00:03:21,240\nTrong khoảng giữa lời nhắn và tiền, ngân hàng của bạn đang tin ngân hàng kia sẽ trả.\n\n35\n00:03:21,240 --> 00:03:27,730\nVà chỉ trong trường hợp này, tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương.\n\n36\n00:03:27,730 --> 00:03:33,000\nVới công ty, mỗi lệnh như vậy có thể tốn phí, ví dụ ba nghìn ba trăm đồng.\n\n37\n00:03:33,000 --> 00:03:34,770\nBạn tiêu dần trong tháng.\n\n38\n00:03:34,770 --> 00:03:40,800\nNhưng hiếm ai rút hết ngay, nên một phần lương cứ nằm yên trong tài khoản thanh toán.\n\n39\n00:03:40,800 --> 00:03:45,910\nNó nằm yên vì bạn cần nó sẵn sàng: tiền nhà, tiền ăn, một khoản bất ngờ.\n\n40\n00:03:45,910 --> 00:03:49,240\nNgười trong nghề gọi loại tiền gửi này là CASA.\n\n41\n00:03:49,240 --> 00:03:53,500\nLãi của nó rất thấp, ví dụ không phẩy một phần trăm một năm.\n\n42\n00:03:53,500 --> 00:03:58,750\nMười triệu đồng nằm yên cả năm chỉ sinh ra chừng mười nghìn đồng tiền lãi.\n\n43\n00:03:58,750 --> 00:04:04,360\nĐây không phải lời khuyên chuyển tiền đi đâu, chỉ là một con số để thấy cơ chế.\n\n44\n00:04:04,360 --> 00:04:11,380\nGiờ nhìn sang bên cạnh: năm trăm đồng nghiệp cũng đang để yên một phần lương, ở cùng một ngân hàng.\n\n45\n00:04:11,380 --> 00:04:16,000\nVí dụ mỗi người năm triệu, cả bảng lương là hai phẩy năm tỷ đồng.\n\n46\n00:04:16,000 --> 00:04:20,150\nVới ngân hàng, hai phẩy năm tỷ ấy là nguồn vốn rẻ, và dính.\n\n47\n00:04:20,150 --> 00:04:27,890\nLương về đều đặn mỗi tháng, người nhận ít khi đổi ngân hàng, và hiếm khi năm trăm người rút sạch cùng một lúc.\n\n48\n00:04:27,890 --> 00:04:33,870\nTrả lãi không phẩy một phần trăm, cả bảng lương chỉ tốn chừng hai triệu rưỡi một năm.\n\n49\n00:04:33,870 --> 00:04:41,120\nHuy động cùng số ấy bằng tiền gửi có kỳ hạn, ví dụ ở năm phần trăm, sẽ tốn một trăm hai mươi lăm triệu.\n\n50\n00:04:41,120 --> 00:04:44,780\nNgân hàng không đem đúng tờ tiền của bạn đi cho vay.\n\n51\n00:04:44,780 --> 00:04:49,640\nVốn được gộp chung, và nguồn rẻ như CASA kéo giá vốn bình quân xuống.\n\n52\n00:04:49,640 --> 00:05:00,000\nỞ tầng trên, giả sử bên cho vay giải ngân mua nhà với lãi quanh tám phẩy năm phần trăm một năm — chênh lệch ấy bắt đầu từ chính phần lương nằm yên.\n\n53\n00:05:00,000 --> 00:05:04,230\nVậy ai trong ngân hàng được ghi công cho khoản vốn rẻ ấy?\n\n54\n00:05:04,230 --> 00:05:07,350\nCâu trả lời là một giá nội bộ, gọi là FTP.\n\n55\n00:05:07,350 --> 00:05:16,400\nBộ phận quản lý vốn mua tiền gửi từ bên huy động, ví dụ ở bốn phẩy năm phần trăm, rồi bán cho bên cho vay ở sáu phần trăm.\n\n56\n00:05:16,400 --> 00:05:20,780\nBên huy động trả bạn không phẩy một, giữ bốn phẩy bốn điểm.\n\n57\n00:05:20,780 --> 00:05:26,860\nBộ phận quản lý vốn giữ một phẩy năm điểm, để gánh rủi ro thanh khoản và lãi suất.\n\n58\n00:05:26,860 --> 00:05:31,390\nBên cho vay thu tám phẩy năm, trả sáu, giữ hai phẩy năm điểm.\n\n59\n00:05:31,390 --> 00:05:37,400\nCộng lại tám phẩy bốn, đúng bằng khoảng cách giữa tám phẩy năm và không phẩy một.\n\n60\n00:05:37,400 --> 00:05:44,000\nVà đó là trước khi trả lương nhân viên, chạy hệ thống, hay gánh khoản vay không đòi được.\n\n61\n00:05:44,000 --> 00:05:46,130\nCòn một phần nữa bị khoá lại.\n\n62\n00:05:46,130 --> 00:05:55,630\nTheo nguyên tắc, ngân hàng phải giữ một tỉ lệ tiền gửi tại ngân hàng trung ương làm dự trữ bắt buộc, phần này không cho vay được.\n\n63\n00:05:55,630 --> 00:06:05,710\nLấy ví dụ ba phần trăm: trong hai phẩy năm tỷ, bảy mươi lăm triệu nằm ở dự trữ, chỉ hai tỷ bốn trăm hai mươi lăm triệu được tính giá vốn.\n\n64\n00:06:05,710 --> 00:06:11,230\nTỉ lệ thật do ngân hàng trung ương quy định; con số này chỉ để thấy cơ chế.\n\n65\n00:06:11,230 --> 00:06:18,220\nNgân hàng đứng giữa người gửi muốn rút lúc nào cũng được và người vay muốn trả trong nhiều năm.\n\n66\n00:06:18,220 --> 00:06:25,000\nSố dư nằm yên của người làm lương là một trong những nguồn ổn định nhất cho cái lệch pha đó.\n\n67\n00:06:25,000 --> 00:06:26,860\nCòn sếp của bạn được gì?\n\n68\n00:06:26,860 --> 00:06:31,670\nMang cả bảng lương về một ngân hàng, công ty có thứ để mặc cả.\n\n69\n00:06:31,670 --> 00:06:39,810\nNgân hàng có thể đổi gói chi lương lấy ưu đãi cho doanh nghiệp, có thể là phí dịch vụ, có thể là lãi vay.\n\n70\n00:06:39,810 --> 00:06:45,080\nMỗi hợp đồng một khác, và bài này chưa xác minh điều khoản thật nào.\n\n71\n00:06:45,080 --> 00:06:51,910\nBạn không trả phí trực tiếp, nhưng số dư nằm yên của bạn là một phần của cuộc mặc cả ấy.\n\n72\n00:06:51,910 --> 00:07:00,050\nNhìn lại cả con phố: công ty được gói ưu đãi, ngân hàng được nguồn vốn rẻ, bên cho vay có vốn để cho vay.\n\n73\n00:07:00,050 --> 00:07:05,090\nCòn bạn được sự tiện: lương về trong ngày, rút lúc nào cũng được.\n\n74\n00:07:05,090 --> 00:07:12,000\nCái bạn bỏ ra là phần lãi mà số dư ấy không sinh ra, và không ai gửi hoá đơn cho phần đó.\n\n75\n00:07:12,000 --> 00:07:13,890\nBa chuyện có thể trục trặc.\n\n76\n00:07:13,890 --> 00:07:24,600\nSai số tài khoản, lệnh lương bị trả lại: công ty lại nợ bạn mười lăm triệu cho tới khi chuyển lại thành công, còn chi phí lương của tháng thì giữ nguyên.\n\n77\n00:07:24,600 --> 00:07:31,740\nNgày lương rơi vào ngày nghỉ: lệnh On-Us vẫn có thể ghi ngay, lệnh Off-Us thì chờ lịch liên ngân hàng.\n\n78\n00:07:31,740 --> 00:07:39,230\nVà nếu công ty chuyển cả bảng lương sang ngân hàng khác, hai phẩy năm tỷ số dư nằm yên rời đi cùng một lúc.\n\n79\n00:07:39,230 --> 00:07:47,000\nĐó mới là điều ngân hàng trả lương sợ nhất: bộ phận quản lý vốn phải tìm nguồn khác, đắt hơn, để lấp chỗ trống.\n\n80\n00:07:47,000 --> 00:07:50,260\nVậy đêm nay, tiền lương của bạn ngủ ở đâu?\n\n81\n00:07:50,260 --> 00:07:53,520\nKhông phải trong một ngăn tủ mang tên bạn.\n\n82\n00:07:53,520 --> 00:07:59,180\nNó ngủ trong sổ của ngân hàng, dưới dạng một khoản ngân hàng đang nợ bạn.\n\n83\n00:07:59,180 --> 00:08:04,920\nBạn cho ngân hàng vay mỗi tháng, mà có lẽ chưa bao giờ nghĩ về nó như vậy.\n\n84\n00:08:04,920 --> 00:08:10,500\nĐổi lại, bạn là một chủ nợ, và bảo hiểm tiền gửi chỉ bù tới một hạn mức.\n\n85\n00:08:10,500 --> 00:08:17,000\nVà câu còn lại để bạn tự hỏi: số dư nằm yên của mình, mỗi tháng, đang có ích cho ai?\n"
+      }
+    },
+    "install": {
+      "short": {
+        "srtFile": "dist/youtube/install-short-9x16.srt",
+        "cueCount": 20,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 2.56,
+            "text": "Cầm chiếc máy mười hai triệu về ngay mà ví vẫn nguyên."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 2.56,
+            "t1": 5.92,
+            "text": "Trong ví dụ này, tờ rơi hứa trả góp không phần trăm suốt mười hai kỳ..."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 0,
+            "t0": 5.92,
+            "t1": 8.0,
+            "text": "nhưng có ai cho vay cả năm mà không lấy lãi?"
+          },
+          {
+            "index": 4,
+            "sceneIndex": 1,
+            "t0": 8.0,
+            "t1": 13.74,
+            "text": "Ngay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng, mà chuyển thẳng về một công ty tài chính."
+          },
+          {
+            "index": 5,
+            "sceneIndex": 1,
+            "t0": 13.74,
+            "t1": 15.77,
+            "text": "Từ giây đó, chủ nợ của bạn là họ..."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 1,
+            "t0": 15.77,
+            "t1": 20.0,
+            "text": "còn lúc này mới chỉ có hồ sơ được duyệt, chưa có đồng tiền nào chuyển đi."
+          },
+          {
+            "index": 7,
+            "sceneIndex": 2,
+            "t0": 20.0,
+            "t1": 27.45,
+            "text": "Qua hôm sau, công ty tài chính mới giải ngân về cửa hàng, nhưng nhìn kỹ mà xem: chỉ có mười một triệu bốn trăm nghìn."
+          },
+          {
+            "index": 8,
+            "sceneIndex": 2,
+            "t0": 27.45,
+            "t1": 30.12,
+            "text": "Sáu trăm nghìn bị giữ lại lúc giải ngân..."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 2,
+            "t0": 30.12,
+            "t1": 34.0,
+            "text": "chính là năm phần trăm hỗ trợ lãi suất cửa hàng trả thay bạn."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 3,
+            "t0": 34.0,
+            "t1": 37.26,
+            "text": "Đổi lại, mỗi tháng bạn trả đều một triệu, đủ mười hai triệu."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 3,
+            "t0": 37.26,
+            "t1": 43.12,
+            "text": "Nếu trả thẳng được bớt sáu trăm nghìn, tức bạn đang trả mười hai triệu cho món hàng đáng mười một triệu bốn."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 3,
+            "t0": 43.12,
+            "t1": 46.43,
+            "text": "Lãi suất thực tế khoảng không phẩy tám phần trăm một tháng..."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 3,
+            "t0": 46.43,
+            "t1": 48.0,
+            "text": "chừng mười phần trăm một năm."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 4,
+            "t0": 48.0,
+            "t1": 50.77,
+            "text": "Còn nếu trả thẳng hay trả góp đều một giá?"
+          },
+          {
+            "index": 15,
+            "sceneIndex": 4,
+            "t0": 50.77,
+            "t1": 53.47,
+            "text": "Ở ví dụ này, bạn không chịu đồng lãi nào."
+          },
+          {
+            "index": 16,
+            "sceneIndex": 4,
+            "t0": 53.47,
+            "t1": 56.5,
+            "text": "Sáu trăm nghìn kia hoặc do cửa hàng tự gánh..."
+          },
+          {
+            "index": 17,
+            "sceneIndex": 4,
+            "t0": 56.5,
+            "t1": 60.0,
+            "text": "hoặc đã nằm sẵn trong giá niêm yết của mọi người mua."
+          },
+          {
+            "index": 18,
+            "sceneIndex": 5,
+            "t0": 60.0,
+            "t1": 66.78,
+            "text": "Lần tới gặp chữ không phần trăm, chỉ cần hỏi một câu: trả thẳng thì giá bao nhiêu?"
+          },
+          {
+            "index": 19,
+            "sceneIndex": 5,
+            "t0": 66.78,
+            "t1": 68.52,
+            "text": "Khoảng chênh lộ ra..."
+          },
+          {
+            "index": 20,
+            "sceneIndex": 5,
+            "t0": 68.52,
+            "t1": 70.0,
+            "text": "chính là tiền lãi."
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:02,560\nCầm chiếc máy mười hai triệu về ngay mà ví vẫn nguyên.\n\n2\n00:00:02,560 --> 00:00:05,920\nTrong ví dụ này, tờ rơi hứa trả góp không phần trăm suốt mười hai kỳ...\n\n3\n00:00:05,920 --> 00:00:08,000\nnhưng có ai cho vay cả năm mà không lấy lãi?\n\n4\n00:00:08,000 --> 00:00:13,740\nNgay lúc bạn ký, hợp đồng trả góp không nằm lại cửa hàng, mà chuyển thẳng về một công ty tài chính.\n\n5\n00:00:13,740 --> 00:00:15,770\nTừ giây đó, chủ nợ của bạn là họ...\n\n6\n00:00:15,770 --> 00:00:20,000\ncòn lúc này mới chỉ có hồ sơ được duyệt, chưa có đồng tiền nào chuyển đi.\n\n7\n00:00:20,000 --> 00:00:27,450\nQua hôm sau, công ty tài chính mới giải ngân về cửa hàng, nhưng nhìn kỹ mà xem: chỉ có mười một triệu bốn trăm nghìn.\n\n8\n00:00:27,450 --> 00:00:30,120\nSáu trăm nghìn bị giữ lại lúc giải ngân...\n\n9\n00:00:30,120 --> 00:00:34,000\nchính là năm phần trăm hỗ trợ lãi suất cửa hàng trả thay bạn.\n\n10\n00:00:34,000 --> 00:00:37,260\nĐổi lại, mỗi tháng bạn trả đều một triệu, đủ mười hai triệu.\n\n11\n00:00:37,260 --> 00:00:43,120\nNếu trả thẳng được bớt sáu trăm nghìn, tức bạn đang trả mười hai triệu cho món hàng đáng mười một triệu bốn.\n\n12\n00:00:43,120 --> 00:00:46,430\nLãi suất thực tế khoảng không phẩy tám phần trăm một tháng...\n\n13\n00:00:46,430 --> 00:00:48,000\nchừng mười phần trăm một năm.\n\n14\n00:00:48,000 --> 00:00:50,770\nCòn nếu trả thẳng hay trả góp đều một giá?\n\n15\n00:00:50,770 --> 00:00:53,470\nỞ ví dụ này, bạn không chịu đồng lãi nào.\n\n16\n00:00:53,470 --> 00:00:56,500\nSáu trăm nghìn kia hoặc do cửa hàng tự gánh...\n\n17\n00:00:56,500 --> 00:01:00,000\nhoặc đã nằm sẵn trong giá niêm yết của mọi người mua.\n\n18\n00:01:00,000 --> 00:01:06,780\nLần tới gặp chữ không phần trăm, chỉ cần hỏi một câu: trả thẳng thì giá bao nhiêu?\n\n19\n00:01:06,780 --> 00:01:08,520\nKhoảng chênh lộ ra...\n\n20\n00:01:08,520 --> 00:01:10,000\nchính là tiền lãi.\n"
+      },
+      "long": {
+        "srtFile": "dist/youtube/install-long-16x9.srt",
+        "cueCount": 104,
+        "cues": [
+          {
+            "index": 1,
+            "sceneIndex": 0,
+            "t0": 0.0,
+            "t1": 4.1,
+            "text": "Giả sử bạn mua một chiếc điện thoại giá mười hai triệu đồng."
+          },
+          {
+            "index": 2,
+            "sceneIndex": 0,
+            "t0": 4.1,
+            "t1": 9.97,
+            "text": "Trên quầy, tờ rơi ghi trả góp không phần trăm, chia đều mười hai kỳ, mỗi kỳ một triệu."
+          },
+          {
+            "index": 3,
+            "sceneIndex": 0,
+            "t0": 9.97,
+            "t1": 14.82,
+            "text": "Bạn ký tên, cầm máy về, và có vẻ không ai thu của bạn một đồng lãi nào."
+          },
+          {
+            "index": 4,
+            "sceneIndex": 0,
+            "t0": 14.82,
+            "t1": 17.89,
+            "text": "Nhưng cho vay suốt cả năm mà không lấy lãi..."
+          },
+          {
+            "index": 5,
+            "sceneIndex": 0,
+            "t0": 17.89,
+            "t1": 19.05,
+            "text": "thì không ai làm."
+          },
+          {
+            "index": 6,
+            "sceneIndex": 0,
+            "t0": 19.05,
+            "t1": 21.99,
+            "text": "Vậy ai đang trả tiền lãi cho khoản vay này?"
+          },
+          {
+            "index": 7,
+            "sceneIndex": 0,
+            "t0": 21.99,
+            "t1": 27.93,
+            "text": "Trong tám phút tới, mình lần theo từng lời nhắn, từng dòng sổ và từng đồng tiền thật..."
+          },
+          {
+            "index": 8,
+            "sceneIndex": 0,
+            "t0": 27.93,
+            "t1": 31.0,
+            "text": "để tìm sáu trăm nghìn đồng đang nằm sau quầy."
+          },
+          {
+            "index": 9,
+            "sceneIndex": 1,
+            "t0": 31.0,
+            "t1": 35.86,
+            "text": "Thứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại."
+          },
+          {
+            "index": 10,
+            "sceneIndex": 1,
+            "t0": 35.86,
+            "t1": 44.26,
+            "text": "Chiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu."
+          },
+          {
+            "index": 11,
+            "sceneIndex": 1,
+            "t0": 44.26,
+            "t1": 49.12,
+            "text": "Nhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi."
+          },
+          {
+            "index": 12,
+            "sceneIndex": 1,
+            "t0": 49.12,
+            "t1": 54.35,
+            "text": "Trên luồng thông tin xét duyệt: thứ vừa gửi đi chỉ là bộ hồ sơ điện tử."
+          },
+          {
+            "index": 13,
+            "sceneIndex": 1,
+            "t0": 54.35,
+            "t1": 56.27,
+            "text": "Nó chưa chở đồng tiền nào."
+          },
+          {
+            "index": 14,
+            "sceneIndex": 1,
+            "t0": 56.27,
+            "t1": 63.93,
+            "text": "Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một ngôi nhà khác ở cuối phố."
+          },
+          {
+            "index": 15,
+            "sceneIndex": 1,
+            "t0": 63.93,
+            "t1": 71.0,
+            "text": "Giữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?"
+          },
+          {
+            "index": 16,
+            "sceneIndex": 2,
+            "t0": 71.0,
+            "t1": 74.52,
+            "text": "Ngôi nhà cuối phố là một công ty tài chính tiêu dùng."
+          },
+          {
+            "index": 17,
+            "sceneIndex": 2,
+            "t0": 74.52,
+            "t1": 79.83,
+            "text": "Họ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại thông báo xác nhận: duyệt."
+          },
+          {
+            "index": 18,
+            "sceneIndex": 2,
+            "t0": 79.83,
+            "t1": 87.26,
+            "text": "Rồi một bản hợp đồng điện tử được xác lập thẳng giữa bạn và công ty tài chính: đó là cam kết nhận nợ bạn vừa ký."
+          },
+          {
+            "index": 19,
+            "sceneIndex": 2,
+            "t0": 87.26,
+            "t1": 94.22,
+            "text": "Hợp đồng là một lời hứa trả tiền, nên lúc này mới chỉ có thông tin được ghi nhận, chưa có tiền giải ngân."
+          },
+          {
+            "index": 20,
+            "sceneIndex": 2,
+            "t0": 94.22,
+            "t1": 100.06,
+            "text": "Từ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng."
+          },
+          {
+            "index": 21,
+            "sceneIndex": 2,
+            "t0": 100.06,
+            "t1": 103.18,
+            "text": "Nếu bạn trả chậm một kỳ, người tính phạt là họ."
+          },
+          {
+            "index": 22,
+            "sceneIndex": 2,
+            "t0": 103.18,
+            "t1": 104.64,
+            "text": "Cửa hàng chỉ bán hàng."
+          },
+          {
+            "index": 23,
+            "sceneIndex": 2,
+            "t0": 104.64,
+            "t1": 110.0,
+            "text": "Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về ngôi nhà cuối phố."
+          },
+          {
+            "index": 24,
+            "sceneIndex": 3,
+            "t0": 110.0,
+            "t1": 110.99,
+            "text": "Bạn cầm máy về."
+          },
+          {
+            "index": 25,
+            "sceneIndex": 3,
+            "t0": 110.99,
+            "t1": 112.63,
+            "text": "Tối đó, cửa hàng đóng sổ."
+          },
+          {
+            "index": 26,
+            "sceneIndex": 3,
+            "t0": 112.63,
+            "t1": 115.59,
+            "text": "Nếu mở két, bạn sẽ không thấy mười hai triệu."
+          },
+          {
+            "index": 27,
+            "sceneIndex": 3,
+            "t0": 115.59,
+            "t1": 119.27,
+            "text": "Nếu mở tài khoản ngân hàng của cửa hàng, cũng chưa thấy."
+          },
+          {
+            "index": 28,
+            "sceneIndex": 3,
+            "t0": 119.27,
+            "t1": 123.28,
+            "text": "Chưa có lệnh chuyển khoản nào chạy, ngân hàng chưa giải ngân."
+          },
+          {
+            "index": 29,
+            "sceneIndex": 3,
+            "t0": 123.28,
+            "t1": 125.45,
+            "text": "Không có đồng tiền nào di chuyển."
+          },
+          {
+            "index": 30,
+            "sceneIndex": 3,
+            "t0": 125.45,
+            "t1": 128.67,
+            "text": "Vậy đêm nay, tiền mua chiếc điện thoại ngủ ở đâu?"
+          },
+          {
+            "index": 31,
+            "sceneIndex": 3,
+            "t0": 128.67,
+            "t1": 130.31,
+            "text": "Nó ngủ trong một dòng sổ."
+          },
+          {
+            "index": 32,
+            "sceneIndex": 3,
+            "t0": 130.31,
+            "t1": 138.53,
+            "text": "Kế toán của cửa hàng ghi một khoản phải thu mười hai triệu đồng, và ghi rõ: phải thu từ công ty tài chính, không phải từ bạn."
+          },
+          {
+            "index": 33,
+            "sceneIndex": 3,
+            "t0": 138.53,
+            "t1": 146.88,
+            "text": "Trong hệ thống tài khoản kế toán doanh nghiệp, dòng phải thu ấy nằm ở tài khoản phải thu khác, không nằm ở phải thu khách hàng."
+          },
+          {
+            "index": 34,
+            "sceneIndex": 3,
+            "t0": 146.88,
+            "t1": 150.56,
+            "text": "Còn bạn đã có điện thoại trong tay mà chưa trả đồng nào."
+          },
+          {
+            "index": 35,
+            "sceneIndex": 3,
+            "t0": 150.56,
+            "t1": 152.0,
+            "text": "Đó chính là khoản vay."
+          },
+          {
+            "index": 36,
+            "sceneIndex": 4,
+            "t0": 152.0,
+            "t1": 158.32,
+            "text": "Sáng hôm sau, ví dụ là một ngày làm việc, lệnh giải ngân liên ngân hàng mới thực sự chạy."
+          },
+          {
+            "index": 37,
+            "sceneIndex": 4,
+            "t0": 158.32,
+            "t1": 165.28,
+            "text": "Tiền thật chuyển từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng."
+          },
+          {
+            "index": 38,
+            "sceneIndex": 4,
+            "t0": 165.28,
+            "t1": 169.33,
+            "text": "Nhưng nhìn kỹ con số: mười một triệu bốn trăm nghìn đồng."
+          },
+          {
+            "index": 39,
+            "sceneIndex": 4,
+            "t0": 169.33,
+            "t1": 171.18,
+            "text": "Không phải mười hai triệu."
+          },
+          {
+            "index": 40,
+            "sceneIndex": 4,
+            "t0": 171.18,
+            "t1": 173.45,
+            "text": "Sáu trăm nghìn còn thiếu đi đâu?"
+          },
+          {
+            "index": 41,
+            "sceneIndex": 4,
+            "t0": 173.45,
+            "t1": 183.46,
+            "text": "Đó là khoản hỗ trợ lãi suất, ví dụ năm phần trăm giá bán, mà cửa hàng trả cho công ty tài chính để hợp đồng của bạn được ghi không phần trăm."
+          },
+          {
+            "index": 42,
+            "sceneIndex": 4,
+            "t0": 183.46,
+            "t1": 188.29,
+            "text": "Họ cấn trừ thẳng lúc giải ngân, nên cửa hàng chỉ thấy tiền về thiếu."
+          },
+          {
+            "index": 43,
+            "sceneIndex": 4,
+            "t0": 188.29,
+            "t1": 197.66,
+            "text": "Trong sổ, khoản phải thu mười hai triệu tối qua được xoá: mười một triệu bốn là tiền đã về, sáu trăm nghìn là chi phí cửa hàng chịu."
+          },
+          {
+            "index": 44,
+            "sceneIndex": 4,
+            "t0": 197.66,
+            "t1": 199.51,
+            "text": "Vì sao cửa hàng chấp nhận?"
+          },
+          {
+            "index": 45,
+            "sceneIndex": 4,
+            "t0": 199.51,
+            "t1": 206.47,
+            "text": "Vì tờ rơi không phần trăm kéo người mua tới quầy, và tiền về sau một ngày, không phải sau một năm."
+          },
+          {
+            "index": 46,
+            "sceneIndex": 4,
+            "t0": 206.47,
+            "t1": 207.53,
+            "text": "Vậy lãi vẫn có."
+          },
+          {
+            "index": 47,
+            "sceneIndex": 4,
+            "t0": 207.53,
+            "t1": 210.0,
+            "text": "Chỉ là người trả lãi đứng sau quầy."
+          },
+          {
+            "index": 48,
+            "sceneIndex": 5,
+            "t0": 210.0,
+            "t1": 213.24,
+            "text": "Mười hai tháng tiếp theo là phần việc của bạn."
+          },
+          {
+            "index": 49,
+            "sceneIndex": 5,
+            "t0": 213.24,
+            "t1": 217.96,
+            "text": "Mỗi cuối tháng, bạn gửi một lệnh thanh toán tới ngân hàng của mình."
+          },
+          {
+            "index": 50,
+            "sceneIndex": 5,
+            "t0": 217.96,
+            "t1": 220.01,
+            "text": "Đó là lệnh uỷ quyền trích nợ."
+          },
+          {
+            "index": 51,
+            "sceneIndex": 5,
+            "t0": 220.01,
+            "t1": 226.85,
+            "text": "Ngay sau đó, một triệu đồng tiền thật rời ngân hàng của bạn, chuyển khoản sang công ty tài chính."
+          },
+          {
+            "index": 52,
+            "sceneIndex": 5,
+            "t0": 226.85,
+            "t1": 231.08,
+            "text": "Đủ mười hai lần là mười hai triệu đồng, đúng như tờ rơi hứa."
+          },
+          {
+            "index": 53,
+            "sceneIndex": 5,
+            "t0": 231.08,
+            "t1": 233.9,
+            "text": "Không một đồng lãi nào hiện trên sao kê."
+          },
+          {
+            "index": 54,
+            "sceneIndex": 5,
+            "t0": 233.9,
+            "t1": 236.65,
+            "text": "Nhưng giờ thử đặt hai con số cạnh nhau."
+          },
+          {
+            "index": 55,
+            "sceneIndex": 5,
+            "t0": 236.65,
+            "t1": 243.63,
+            "text": "Giả sử ai trả thẳng thì được giảm sáu trăm nghìn, tức món hàng hôm nay chỉ đáng mười một triệu bốn."
+          },
+          {
+            "index": 56,
+            "sceneIndex": 5,
+            "t0": 243.63,
+            "t1": 247.3,
+            "text": "Bạn thì trả dần mười hai triệu cho cùng món hàng ấy."
+          },
+          {
+            "index": 57,
+            "sceneIndex": 5,
+            "t0": 247.3,
+            "t1": 255.76,
+            "text": "Phần chênh không mang tên lãi, nhưng nó làm đúng việc của tiền lãi: trả cho việc bạn được dùng hàng trước, trả tiền sau."
+          },
+          {
+            "index": 58,
+            "sceneIndex": 5,
+            "t0": 255.76,
+            "t1": 260.0,
+            "text": "Câu hỏi còn lại là: lãi ấy đắt hay rẻ, nếu quy ra phần trăm?"
+          },
+          {
+            "index": 59,
+            "sceneIndex": 6,
+            "t0": 260.0,
+            "t1": 267.54,
+            "text": "Để quy ra phần trăm, người ta dùng một ý rất cũ: một đồng nhận hôm nay đáng hơn một đồng nhận sau một năm."
+          },
+          {
+            "index": 60,
+            "sceneIndex": 6,
+            "t0": 267.54,
+            "t1": 275.3,
+            "text": "Vậy mỗi kỳ một triệu trả ở tháng thứ nhất, thứ hai, cho tới tháng mười hai, phải được quy về giá trị hôm nay."
+          },
+          {
+            "index": 61,
+            "sceneIndex": 6,
+            "t0": 275.3,
+            "t1": 280.57,
+            "text": "Cách quy là chia mỗi kỳ cho một cộng lãi suất tháng, mũ số tháng phải chờ."
+          },
+          {
+            "index": 62,
+            "sceneIndex": 6,
+            "t0": 280.57,
+            "t1": 289.18,
+            "text": "Cộng mười hai kết quả lại, rồi tìm lãi suất nào làm tổng đúng bằng mười một triệu bốn, giá trị món hàng bạn nhận hôm nay."
+          },
+          {
+            "index": 63,
+            "sceneIndex": 6,
+            "t0": 289.18,
+            "t1": 293.95,
+            "text": "Trong ví dụ này, kết quả khoảng không phẩy tám phần trăm một tháng."
+          },
+          {
+            "index": 64,
+            "sceneIndex": 6,
+            "t0": 293.95,
+            "t1": 298.43,
+            "text": "Nhân thẳng mười hai được chừng chín phẩy sáu phần trăm một năm."
+          },
+          {
+            "index": 65,
+            "sceneIndex": 6,
+            "t0": 298.43,
+            "t1": 302.13,
+            "text": "Tính lãi chồng lãi thì chừng mười phần trăm một năm."
+          },
+          {
+            "index": 66,
+            "sceneIndex": 6,
+            "t0": 302.13,
+            "t1": 305.62,
+            "text": "Đó là lãi suất thực tế của khoản không phần trăm."
+          },
+          {
+            "index": 67,
+            "sceneIndex": 6,
+            "t0": 305.62,
+            "t1": 319.0,
+            "text": "Và nếu kỳ đầu phải trả ngay lúc cầm máy, con số nhảy lên khoảng không phẩy chín lăm phần trăm một tháng, chừng mười hai phần trăm một năm, vì bạn trả sớm hơn mà món hàng vẫn đáng chừng ấy."
+          },
+          {
+            "index": 68,
+            "sceneIndex": 7,
+            "t0": 319.0,
+            "t1": 321.02,
+            "text": "Quay lại sáu trăm nghìn đồng."
+          },
+          {
+            "index": 69,
+            "sceneIndex": 7,
+            "t0": 321.02,
+            "t1": 322.27,
+            "text": "Ai thật sự trả nó?"
+          },
+          {
+            "index": 70,
+            "sceneIndex": 7,
+            "t0": 322.27,
+            "t1": 327.7,
+            "text": "Câu trả lời tuỳ vào một câu hỏi rất đời thường: trả thẳng thì có rẻ hơn không."
+          },
+          {
+            "index": 71,
+            "sceneIndex": 7,
+            "t0": 327.7,
+            "t1": 329.02,
+            "text": "Trường hợp một: có."
+          },
+          {
+            "index": 72,
+            "sceneIndex": 7,
+            "t0": 329.02,
+            "t1": 333.62,
+            "text": "Người trả thẳng được giảm sáu trăm nghìn, người trả góp thì không."
+          },
+          {
+            "index": 73,
+            "sceneIndex": 7,
+            "t0": 333.62,
+            "t1": 337.8,
+            "text": "Khi đó chính bạn trả tiền lãi, qua khoản giảm giá bạn bỏ lỡ."
+          },
+          {
+            "index": 74,
+            "sceneIndex": 7,
+            "t0": 337.8,
+            "t1": 340.79,
+            "text": "Trường hợp hai: giá như nhau cho mọi người."
+          },
+          {
+            "index": 75,
+            "sceneIndex": 7,
+            "t0": 340.79,
+            "t1": 348.24,
+            "text": "Khi đó hoặc cửa hàng gánh thật, bớt lời trên mỗi máy, hoặc cửa hàng đã tính sẵn khoản này vào giá niêm yết."
+          },
+          {
+            "index": 76,
+            "sceneIndex": 7,
+            "t0": 348.24,
+            "t1": 354.72,
+            "text": "Ở kịch bản sau, người trả thẳng cũng đang góp tiền lãi cho người trả góp, dù họ chẳng vay ai."
+          },
+          {
+            "index": 77,
+            "sceneIndex": 7,
+            "t0": 354.72,
+            "t1": 364.82,
+            "text": "Một phép so sánh cho thấy cái giá: giả sử khách quẹt thẻ bình thường với phí hai phẩy hai phần trăm, cửa hàng chỉ mất hai trăm sáu mươi tư nghìn."
+          },
+          {
+            "index": 78,
+            "sceneIndex": 7,
+            "t0": 364.82,
+            "t1": 369.0,
+            "text": "Trả góp không phần trăm tốn sáu trăm nghìn, gấp hơn hai lần."
+          },
+          {
+            "index": 79,
+            "sceneIndex": 8,
+            "t0": 369.0,
+            "t1": 374.53,
+            "text": "Có một con đường khác dẫn tới cùng chữ không phần trăm: trả góp qua thẻ tín dụng."
+          },
+          {
+            "index": 80,
+            "sceneIndex": 8,
+            "t0": 374.53,
+            "t1": 378.35,
+            "text": "Lần này bạn quẹt thẻ mười hai triệu như mua bình thường."
+          },
+          {
+            "index": 81,
+            "sceneIndex": 8,
+            "t0": 378.35,
+            "t1": 383.75,
+            "text": "Sau đó bạn đề nghị ngân hàng phát hành thẻ chia giao dịch ấy thành mười hai kỳ."
+          },
+          {
+            "index": 82,
+            "sceneIndex": 8,
+            "t0": 383.75,
+            "t1": 388.46,
+            "text": "Người cho vay giờ là ngân hàng của bạn, không phải công ty tài chính."
+          },
+          {
+            "index": 83,
+            "sceneIndex": 8,
+            "t0": 388.46,
+            "t1": 394.2,
+            "text": "Lãi kỳ góp có thể ghi không phần trăm, nhưng chủ thẻ có thể phải trả phí chuyển đổi."
+          },
+          {
+            "index": 84,
+            "sceneIndex": 8,
+            "t0": 394.2,
+            "t1": 399.73,
+            "text": "Lấy ví dụ ba phần trăm, tức ba trăm sáu mươi nghìn đồng, thu ngay lúc chuyển đổi."
+          },
+          {
+            "index": 85,
+            "sceneIndex": 8,
+            "t0": 399.73,
+            "t1": 404.72,
+            "text": "Bạn thực nhận mười một triệu sáu trăm bốn mươi nghìn, trả mười hai triệu."
+          },
+          {
+            "index": 86,
+            "sceneIndex": 8,
+            "t0": 404.72,
+            "t1": 420.09,
+            "text": "Trong ví dụ này, lãi suất thực tế khoảng không phẩy bốn bảy phần trăm một tháng, chừng năm phẩy tám phần trăm một năm — và nếu người trả thẳng còn được giảm sáu trăm nghìn nữa, con số ấy lên khoảng mười bảy phần trăm một năm."
+          },
+          {
+            "index": 87,
+            "sceneIndex": 8,
+            "t0": 420.09,
+            "t1": 421.93,
+            "text": "Cùng chữ không phần trăm..."
+          },
+          {
+            "index": 88,
+            "sceneIndex": 8,
+            "t0": 421.93,
+            "t1": 425.0,
+            "text": "nhưng khác người cho vay, khác người trả lãi."
+          },
+          {
+            "index": 89,
+            "sceneIndex": 9,
+            "t0": 425.0,
+            "t1": 427.88,
+            "text": "Giờ thử làm lệch kế hoạch trong ví dụ này."
+          },
+          {
+            "index": 90,
+            "sceneIndex": 9,
+            "t0": 427.88,
+            "t1": 432.13,
+            "text": "Lệch thứ nhất: giả sử bạn muốn trả hết ngay cuối tháng thứ tư."
+          },
+          {
+            "index": 91,
+            "sceneIndex": 9,
+            "t0": 432.13,
+            "t1": 437.68,
+            "text": "Hợp đồng ghi không phần trăm, nên dư nợ còn lại đúng bằng tám kỳ, tám triệu đồng."
+          },
+          {
+            "index": 92,
+            "sceneIndex": 9,
+            "t0": 437.68,
+            "t1": 440.35,
+            "text": "Không có phần lãi tương lai nào để bớt."
+          },
+          {
+            "index": 93,
+            "sceneIndex": 9,
+            "t0": 440.35,
+            "t1": 453.57,
+            "text": "Và nếu người trả thẳng được giảm sáu trăm nghìn, kết quả ngược trực giác: cùng khoản lãi ấy, giờ dồn vào bốn tháng, nên lãi suất thực tế của bạn lên khoảng một phẩy bốn tám phần trăm một tháng."
+          },
+          {
+            "index": 94,
+            "sceneIndex": 9,
+            "t0": 453.57,
+            "t1": 463.23,
+            "text": "Lệch thứ hai: giả sử bạn trễ kỳ thứ năm một tháng và hợp đồng phạt một trăm năm mươi nghìn, lãi suất thực tế lên gần một phần trăm một tháng."
+          },
+          {
+            "index": 95,
+            "sceneIndex": 9,
+            "t0": 463.23,
+            "t1": 465.22,
+            "text": "Lệch thứ ba: bạn trả lại máy."
+          },
+          {
+            "index": 96,
+            "sceneIndex": 9,
+            "t0": 465.22,
+            "t1": 468.65,
+            "text": "Cửa hàng nhận máy, nhưng không xoá được khoản vay."
+          },
+          {
+            "index": 97,
+            "sceneIndex": 9,
+            "t0": 468.65,
+            "t1": 477.0,
+            "text": "Chỉ công ty tài chính làm được việc đó, và sáu trăm nghìn hỗ trợ có được hoàn hay không tuỳ hợp đồng giữa họ với cửa hàng."
+          },
+          {
+            "index": 98,
+            "sceneIndex": 10,
+            "t0": 477.0,
+            "t1": 478.74,
+            "text": "Vậy tờ rơi không nói dối."
+          },
+          {
+            "index": 99,
+            "sceneIndex": 10,
+            "t0": 478.74,
+            "t1": 482.58,
+            "text": "Lãi suất trên hợp đồng của bạn đúng là không phần trăm."
+          },
+          {
+            "index": 100,
+            "sceneIndex": 10,
+            "t0": 482.58,
+            "t1": 485.09,
+            "text": "Chỉ có điều tiền lãi không biến mất."
+          },
+          {
+            "index": 101,
+            "sceneIndex": 10,
+            "t0": 485.09,
+            "t1": 495.14,
+            "text": "Nó đổi chỗ đứng, từ dòng lãi suất trên hợp đồng sang khoảng chênh giữa mười hai triệu cửa hàng ghi bán và mười một triệu bốn cửa hàng thực nhận."
+          },
+          {
+            "index": 102,
+            "sceneIndex": 10,
+            "t0": 495.14,
+            "t1": 500.65,
+            "text": "Lần tới thấy chữ không phần trăm, thử hỏi một câu: trả thẳng thì giá bao nhiêu?"
+          },
+          {
+            "index": 103,
+            "sceneIndex": 10,
+            "t0": 500.65,
+            "t1": 502.6,
+            "text": "Khoảng chênh ấy là tiền lãi."
+          },
+          {
+            "index": 104,
+            "sceneIndex": 10,
+            "t0": 502.6,
+            "t1": 510.0,
+            "text": "Và câu hỏi còn lại chỉ bạn trả lời được: người trả nó là ai, cửa hàng, người mua trả thẳng, hay chính bạn?"
+          }
+        ],
+        "srtText": "1\n00:00:00,000 --> 00:00:04,100\nGiả sử bạn mua một chiếc điện thoại giá mười hai triệu đồng.\n\n2\n00:00:04,100 --> 00:00:09,970\nTrên quầy, tờ rơi ghi trả góp không phần trăm, chia đều mười hai kỳ, mỗi kỳ một triệu.\n\n3\n00:00:09,970 --> 00:00:14,820\nBạn ký tên, cầm máy về, và có vẻ không ai thu của bạn một đồng lãi nào.\n\n4\n00:00:14,820 --> 00:00:17,890\nNhưng cho vay suốt cả năm mà không lấy lãi...\n\n5\n00:00:17,890 --> 00:00:19,050\nthì không ai làm.\n\n6\n00:00:19,050 --> 00:00:21,990\nVậy ai đang trả tiền lãi cho khoản vay này?\n\n7\n00:00:21,990 --> 00:00:27,930\nTrong tám phút tới, mình lần theo từng lời nhắn, từng dòng sổ và từng đồng tiền thật...\n\n8\n00:00:27,930 --> 00:00:31,000\nđể tìm sáu trăm nghìn đồng đang nằm sau quầy.\n\n9\n00:00:31,000 --> 00:00:35,860\nThứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại.\n\n10\n00:00:35,860 --> 00:00:44,260\nChiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu.\n\n11\n00:00:44,260 --> 00:00:49,120\nNhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi.\n\n12\n00:00:49,120 --> 00:00:54,350\nTrên luồng thông tin xét duyệt: thứ vừa gửi đi chỉ là bộ hồ sơ điện tử.\n\n13\n00:00:54,350 --> 00:00:56,270\nNó chưa chở đồng tiền nào.\n\n14\n00:00:56,270 --> 00:01:03,930\nVà để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một ngôi nhà khác ở cuối phố.\n\n15\n00:01:03,930 --> 00:01:11,000\nGiữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?\n\n16\n00:01:11,000 --> 00:01:14,520\nNgôi nhà cuối phố là một công ty tài chính tiêu dùng.\n\n17\n00:01:14,520 --> 00:01:19,830\nHọ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại thông báo xác nhận: duyệt.\n\n18\n00:01:19,830 --> 00:01:27,260\nRồi một bản hợp đồng điện tử được xác lập thẳng giữa bạn và công ty tài chính: đó là cam kết nhận nợ bạn vừa ký.\n\n19\n00:01:27,260 --> 00:01:34,220\nHợp đồng là một lời hứa trả tiền, nên lúc này mới chỉ có thông tin được ghi nhận, chưa có tiền giải ngân.\n\n20\n00:01:34,220 --> 00:01:40,060\nTừ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng.\n\n21\n00:01:40,060 --> 00:01:43,180\nNếu bạn trả chậm một kỳ, người tính phạt là họ.\n\n22\n00:01:43,180 --> 00:01:44,640\nCửa hàng chỉ bán hàng.\n\n23\n00:01:44,640 --> 00:01:50,000\nRủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về ngôi nhà cuối phố.\n\n24\n00:01:50,000 --> 00:01:50,990\nBạn cầm máy về.\n\n25\n00:01:50,990 --> 00:01:52,630\nTối đó, cửa hàng đóng sổ.\n\n26\n00:01:52,630 --> 00:01:55,590\nNếu mở két, bạn sẽ không thấy mười hai triệu.\n\n27\n00:01:55,590 --> 00:01:59,270\nNếu mở tài khoản ngân hàng của cửa hàng, cũng chưa thấy.\n\n28\n00:01:59,270 --> 00:02:03,280\nChưa có lệnh chuyển khoản nào chạy, ngân hàng chưa giải ngân.\n\n29\n00:02:03,280 --> 00:02:05,450\nKhông có đồng tiền nào di chuyển.\n\n30\n00:02:05,450 --> 00:02:08,670\nVậy đêm nay, tiền mua chiếc điện thoại ngủ ở đâu?\n\n31\n00:02:08,670 --> 00:02:10,310\nNó ngủ trong một dòng sổ.\n\n32\n00:02:10,310 --> 00:02:18,530\nKế toán của cửa hàng ghi một khoản phải thu mười hai triệu đồng, và ghi rõ: phải thu từ công ty tài chính, không phải từ bạn.\n\n33\n00:02:18,530 --> 00:02:26,880\nTrong hệ thống tài khoản kế toán doanh nghiệp, dòng phải thu ấy nằm ở tài khoản phải thu khác, không nằm ở phải thu khách hàng.\n\n34\n00:02:26,880 --> 00:02:30,560\nCòn bạn đã có điện thoại trong tay mà chưa trả đồng nào.\n\n35\n00:02:30,560 --> 00:02:32,000\nĐó chính là khoản vay.\n\n36\n00:02:32,000 --> 00:02:38,320\nSáng hôm sau, ví dụ là một ngày làm việc, lệnh giải ngân liên ngân hàng mới thực sự chạy.\n\n37\n00:02:38,320 --> 00:02:45,280\nTiền thật chuyển từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng.\n\n38\n00:02:45,280 --> 00:02:49,330\nNhưng nhìn kỹ con số: mười một triệu bốn trăm nghìn đồng.\n\n39\n00:02:49,330 --> 00:02:51,180\nKhông phải mười hai triệu.\n\n40\n00:02:51,180 --> 00:02:53,450\nSáu trăm nghìn còn thiếu đi đâu?\n\n41\n00:02:53,450 --> 00:03:03,460\nĐó là khoản hỗ trợ lãi suất, ví dụ năm phần trăm giá bán, mà cửa hàng trả cho công ty tài chính để hợp đồng của bạn được ghi không phần trăm.\n\n42\n00:03:03,460 --> 00:03:08,290\nHọ cấn trừ thẳng lúc giải ngân, nên cửa hàng chỉ thấy tiền về thiếu.\n\n43\n00:03:08,290 --> 00:03:17,660\nTrong sổ, khoản phải thu mười hai triệu tối qua được xoá: mười một triệu bốn là tiền đã về, sáu trăm nghìn là chi phí cửa hàng chịu.\n\n44\n00:03:17,660 --> 00:03:19,510\nVì sao cửa hàng chấp nhận?\n\n45\n00:03:19,510 --> 00:03:26,470\nVì tờ rơi không phần trăm kéo người mua tới quầy, và tiền về sau một ngày, không phải sau một năm.\n\n46\n00:03:26,470 --> 00:03:27,530\nVậy lãi vẫn có.\n\n47\n00:03:27,530 --> 00:03:30,000\nChỉ là người trả lãi đứng sau quầy.\n\n48\n00:03:30,000 --> 00:03:33,240\nMười hai tháng tiếp theo là phần việc của bạn.\n\n49\n00:03:33,240 --> 00:03:37,960\nMỗi cuối tháng, bạn gửi một lệnh thanh toán tới ngân hàng của mình.\n\n50\n00:03:37,960 --> 00:03:40,010\nĐó là lệnh uỷ quyền trích nợ.\n\n51\n00:03:40,010 --> 00:03:46,850\nNgay sau đó, một triệu đồng tiền thật rời ngân hàng của bạn, chuyển khoản sang công ty tài chính.\n\n52\n00:03:46,850 --> 00:03:51,080\nĐủ mười hai lần là mười hai triệu đồng, đúng như tờ rơi hứa.\n\n53\n00:03:51,080 --> 00:03:53,900\nKhông một đồng lãi nào hiện trên sao kê.\n\n54\n00:03:53,900 --> 00:03:56,650\nNhưng giờ thử đặt hai con số cạnh nhau.\n\n55\n00:03:56,650 --> 00:04:03,630\nGiả sử ai trả thẳng thì được giảm sáu trăm nghìn, tức món hàng hôm nay chỉ đáng mười một triệu bốn.\n\n56\n00:04:03,630 --> 00:04:07,300\nBạn thì trả dần mười hai triệu cho cùng món hàng ấy.\n\n57\n00:04:07,300 --> 00:04:15,760\nPhần chênh không mang tên lãi, nhưng nó làm đúng việc của tiền lãi: trả cho việc bạn được dùng hàng trước, trả tiền sau.\n\n58\n00:04:15,760 --> 00:04:20,000\nCâu hỏi còn lại là: lãi ấy đắt hay rẻ, nếu quy ra phần trăm?\n\n59\n00:04:20,000 --> 00:04:27,540\nĐể quy ra phần trăm, người ta dùng một ý rất cũ: một đồng nhận hôm nay đáng hơn một đồng nhận sau một năm.\n\n60\n00:04:27,540 --> 00:04:35,300\nVậy mỗi kỳ một triệu trả ở tháng thứ nhất, thứ hai, cho tới tháng mười hai, phải được quy về giá trị hôm nay.\n\n61\n00:04:35,300 --> 00:04:40,570\nCách quy là chia mỗi kỳ cho một cộng lãi suất tháng, mũ số tháng phải chờ.\n\n62\n00:04:40,570 --> 00:04:49,180\nCộng mười hai kết quả lại, rồi tìm lãi suất nào làm tổng đúng bằng mười một triệu bốn, giá trị món hàng bạn nhận hôm nay.\n\n63\n00:04:49,180 --> 00:04:53,950\nTrong ví dụ này, kết quả khoảng không phẩy tám phần trăm một tháng.\n\n64\n00:04:53,950 --> 00:04:58,430\nNhân thẳng mười hai được chừng chín phẩy sáu phần trăm một năm.\n\n65\n00:04:58,430 --> 00:05:02,130\nTính lãi chồng lãi thì chừng mười phần trăm một năm.\n\n66\n00:05:02,130 --> 00:05:05,620\nĐó là lãi suất thực tế của khoản không phần trăm.\n\n67\n00:05:05,620 --> 00:05:19,000\nVà nếu kỳ đầu phải trả ngay lúc cầm máy, con số nhảy lên khoảng không phẩy chín lăm phần trăm một tháng, chừng mười hai phần trăm một năm, vì bạn trả sớm hơn mà món hàng vẫn đáng chừng ấy.\n\n68\n00:05:19,000 --> 00:05:21,020\nQuay lại sáu trăm nghìn đồng.\n\n69\n00:05:21,020 --> 00:05:22,270\nAi thật sự trả nó?\n\n70\n00:05:22,270 --> 00:05:27,700\nCâu trả lời tuỳ vào một câu hỏi rất đời thường: trả thẳng thì có rẻ hơn không.\n\n71\n00:05:27,700 --> 00:05:29,020\nTrường hợp một: có.\n\n72\n00:05:29,020 --> 00:05:33,620\nNgười trả thẳng được giảm sáu trăm nghìn, người trả góp thì không.\n\n73\n00:05:33,620 --> 00:05:37,800\nKhi đó chính bạn trả tiền lãi, qua khoản giảm giá bạn bỏ lỡ.\n\n74\n00:05:37,800 --> 00:05:40,790\nTrường hợp hai: giá như nhau cho mọi người.\n\n75\n00:05:40,790 --> 00:05:48,240\nKhi đó hoặc cửa hàng gánh thật, bớt lời trên mỗi máy, hoặc cửa hàng đã tính sẵn khoản này vào giá niêm yết.\n\n76\n00:05:48,240 --> 00:05:54,720\nỞ kịch bản sau, người trả thẳng cũng đang góp tiền lãi cho người trả góp, dù họ chẳng vay ai.\n\n77\n00:05:54,720 --> 00:06:04,820\nMột phép so sánh cho thấy cái giá: giả sử khách quẹt thẻ bình thường với phí hai phẩy hai phần trăm, cửa hàng chỉ mất hai trăm sáu mươi tư nghìn.\n\n78\n00:06:04,820 --> 00:06:09,000\nTrả góp không phần trăm tốn sáu trăm nghìn, gấp hơn hai lần.\n\n79\n00:06:09,000 --> 00:06:14,530\nCó một con đường khác dẫn tới cùng chữ không phần trăm: trả góp qua thẻ tín dụng.\n\n80\n00:06:14,530 --> 00:06:18,350\nLần này bạn quẹt thẻ mười hai triệu như mua bình thường.\n\n81\n00:06:18,350 --> 00:06:23,750\nSau đó bạn đề nghị ngân hàng phát hành thẻ chia giao dịch ấy thành mười hai kỳ.\n\n82\n00:06:23,750 --> 00:06:28,460\nNgười cho vay giờ là ngân hàng của bạn, không phải công ty tài chính.\n\n83\n00:06:28,460 --> 00:06:34,200\nLãi kỳ góp có thể ghi không phần trăm, nhưng chủ thẻ có thể phải trả phí chuyển đổi.\n\n84\n00:06:34,200 --> 00:06:39,730\nLấy ví dụ ba phần trăm, tức ba trăm sáu mươi nghìn đồng, thu ngay lúc chuyển đổi.\n\n85\n00:06:39,730 --> 00:06:44,720\nBạn thực nhận mười một triệu sáu trăm bốn mươi nghìn, trả mười hai triệu.\n\n86\n00:06:44,720 --> 00:07:00,090\nTrong ví dụ này, lãi suất thực tế khoảng không phẩy bốn bảy phần trăm một tháng, chừng năm phẩy tám phần trăm một năm — và nếu người trả thẳng còn được giảm sáu trăm nghìn nữa, con số ấy lên khoảng mười bảy phần trăm một năm.\n\n87\n00:07:00,090 --> 00:07:01,930\nCùng chữ không phần trăm...\n\n88\n00:07:01,930 --> 00:07:05,000\nnhưng khác người cho vay, khác người trả lãi.\n\n89\n00:07:05,000 --> 00:07:07,880\nGiờ thử làm lệch kế hoạch trong ví dụ này.\n\n90\n00:07:07,880 --> 00:07:12,130\nLệch thứ nhất: giả sử bạn muốn trả hết ngay cuối tháng thứ tư.\n\n91\n00:07:12,130 --> 00:07:17,680\nHợp đồng ghi không phần trăm, nên dư nợ còn lại đúng bằng tám kỳ, tám triệu đồng.\n\n92\n00:07:17,680 --> 00:07:20,350\nKhông có phần lãi tương lai nào để bớt.\n\n93\n00:07:20,350 --> 00:07:33,570\nVà nếu người trả thẳng được giảm sáu trăm nghìn, kết quả ngược trực giác: cùng khoản lãi ấy, giờ dồn vào bốn tháng, nên lãi suất thực tế của bạn lên khoảng một phẩy bốn tám phần trăm một tháng.\n\n94\n00:07:33,570 --> 00:07:43,230\nLệch thứ hai: giả sử bạn trễ kỳ thứ năm một tháng và hợp đồng phạt một trăm năm mươi nghìn, lãi suất thực tế lên gần một phần trăm một tháng.\n\n95\n00:07:43,230 --> 00:07:45,220\nLệch thứ ba: bạn trả lại máy.\n\n96\n00:07:45,220 --> 00:07:48,650\nCửa hàng nhận máy, nhưng không xoá được khoản vay.\n\n97\n00:07:48,650 --> 00:07:57,000\nChỉ công ty tài chính làm được việc đó, và sáu trăm nghìn hỗ trợ có được hoàn hay không tuỳ hợp đồng giữa họ với cửa hàng.\n\n98\n00:07:57,000 --> 00:07:58,740\nVậy tờ rơi không nói dối.\n\n99\n00:07:58,740 --> 00:08:02,580\nLãi suất trên hợp đồng của bạn đúng là không phần trăm.\n\n100\n00:08:02,580 --> 00:08:05,090\nChỉ có điều tiền lãi không biến mất.\n\n101\n00:08:05,090 --> 00:08:15,140\nNó đổi chỗ đứng, từ dòng lãi suất trên hợp đồng sang khoảng chênh giữa mười hai triệu cửa hàng ghi bán và mười một triệu bốn cửa hàng thực nhận.\n\n102\n00:08:15,140 --> 00:08:20,650\nLần tới thấy chữ không phần trăm, thử hỏi một câu: trả thẳng thì giá bao nhiêu?\n\n103\n00:08:20,650 --> 00:08:22,600\nKhoảng chênh ấy là tiền lãi.\n\n104\n00:08:22,600 --> 00:08:30,000\nVà câu hỏi còn lại chỉ bạn trả lời được: người trả nó là ai, cửa hàng, người mua trả thẳng, hay chính bạn?\n"
+      }
     }
   }
 };

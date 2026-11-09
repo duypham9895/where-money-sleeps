@@ -68,6 +68,69 @@ def extract_mp4_waveform_peaks(mp4_path: pathlib.Path, n_bins: int = 160) -> lis
     return [round(0.18 + 0.72 * ((digest[i % len(digest)] + (i * 17) % 97) / 352.0), 3) for i in range(n_bins)]
 
 
+def _fmt_srt_time(sec: float) -> str:
+    sec = max(0.0, float(sec))
+    h = int(sec // 3600)
+    m = int((sec % 3600) // 60)
+    s = int(sec % 60)
+    ms = int(round((sec - int(sec)) * 1000))
+    if ms >= 1000:
+        ms = 999
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
+
+def _parse_mmss_span(t_str: str) -> tuple[float, float]:
+    import re
+    m = re.match(r"^\s*(\d+):([0-5]\d)\s*[–-]\s*(\d+):([0-5]\d)\s*$", str(t_str or ""))
+    if not m:
+        return 0.0, 10.0
+    return float(int(m.group(1)) * 60 + int(m.group(2))), float(int(m.group(3)) * 60 + int(m.group(4)))
+
+
+def build_subtitles_for_format(story_key: str, fmt: str, scenes: list[dict]) -> dict:
+    """Tạo danh sách cue phụ đề chuẩn YouTube CC (.srt) cho từng câu lời bình và ghi ra dist/youtube/<story>-<fmt>.srt."""
+    import re
+    cues: list[dict] = []
+    srt_Blocks: list[str] = []
+    cue_idx = 1
+
+    for s_i, sc in enumerate(scenes):
+        st, en = _parse_mmss_span(sc.get("time", ""))
+        vo = str(sc.get("vo") or "").strip()
+        if not vo:
+            continue
+        sentences = [p.strip() for p in re.split(r"(?<=[.?!…])\s+", vo) if p.strip()]
+        total_chars = max(1, sum(len(x) for x in sentences))
+        cur_t = st
+        dur = max(1.0, en - st)
+        for sent_i, sent in enumerate(sentences):
+            frac = len(sent) / total_chars
+            c_t0 = round(cur_t, 2)
+            c_t1 = round(en if sent_i == len(sentences) - 1 else min(en, cur_t + dur * frac), 2)
+            cur_t = c_t1
+            cues.append({
+                "index": cue_idx,
+                "sceneIndex": s_i,
+                "t0": c_t0,
+                "t1": c_t1,
+                "text": sent,
+            })
+            srt_Blocks.append(f"{cue_idx}\n{_fmt_srt_time(c_t0)} --> {_fmt_srt_time(c_t1)}\n{sent}\n")
+            cue_idx += 1
+
+    srt_text = "\n".join(srt_Blocks)
+    DIST_YT.mkdir(parents=True, exist_ok=True)
+    aspect_tag = "9x16" if fmt == "short" else "16x9"
+    srt_path = DIST_YT / f"{story_key}-{fmt}-{aspect_tag}.srt"
+    srt_path.write_text(srt_text, encoding="utf-8")
+    return {
+        "srtFile": f"dist/youtube/{srt_path.name}",
+        "cueCount": len(cues),
+        "cues": cues,
+        "srtText": srt_text,
+    }
+
+
 def build_studio_payload() -> dict:
     cs = load_check_story()
     src = PROTO_HTML.read_text(encoding="utf-8")
@@ -78,8 +141,14 @@ def build_studio_payload() -> dict:
 
     manifests: dict[str, dict] = {}
     waveforms: dict[str, dict[str, list[float]]] = {}
+    subtitles: dict[str, dict[str, dict]] = {}
 
     for k in stories:
+        vid_obj = stories[k].get("videoScript") or {}
+        subtitles[k] = {
+            "short": build_subtitles_for_format(k, "short", (vid_obj.get("short") or {}).get("scenes") or []),
+            "long": build_subtitles_for_format(k, "long", (vid_obj.get("long") or {}).get("scenes") or []),
+        }
         m_path = DIST_YT / f"{k}-elevenlabs-youtube-manifest.json"
         if m_path.is_file():
             try:
@@ -140,6 +209,7 @@ def build_studio_payload() -> dict:
         "chapFigs": chap_figs,
         "manifests": manifests,
         "waveforms": waveforms,
+        "subtitles": subtitles,
     }
 
 
