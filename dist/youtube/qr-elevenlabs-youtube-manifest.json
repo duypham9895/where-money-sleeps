@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "qr",
+  "storyStatus": "review",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 16,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-09T23:23:09+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (qr_push_payment_247_vs_card_pull_mdr)",
+      "Toán thanh toán đẩy QR 24/7 vs Thẻ khớp tuyệt đối: 200 ly × 50,000đ = 10,000,000đ · QR tĩnh thực nhận 10,000,000đ (phí 0đ) vs Thẻ trừ MDR 2,2% (220,000đ, còn 9,780,000đ) · QR động trừ 0,2% (20,000đ, còn 9,980,000đ) · Chuyển nhầm 500,000đ treo TK 338 450,000đ",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 338, 511, 641)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 50 nghìn ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/qr_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "d_WpGSjBR-4",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/qr-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 50 nghìn ngay lập tức mà không mất 2,2% phí như quẹt thẻ?\n0:42 Đoạn 1\n1:32 Đoạn 2\n2:24 Đoạn 3\n3:16 Đoạn 4\n4:10 Đoạn 5\n5:04 Cảnh 7\n5:58 Cảnh 8\n6:50 Cảnh 9\n7:40 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:42",
+          "beat": null,
+          "sha256CacheKey": "524f0b9742e8f33ad8f9b0d29518bc16718603b1dce9fc5dcd61ce470e9a727e",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "2a0574fecf65bc3dc74f7a193ccda059d43a6453d9683b0d3d10b57b502df833",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Khung 16:9 đêm Risograph ấm. Trên quầy gỗ của Quán quen, một bên là chiếc máy POS quẹt thẻ nằm yên, một bên là tấm bảng mã QR chuyển khoản kèm chiếc loa nhỏ. Bạn đưa điện thoại lên quét mã 50.000 đồng; chỉ 3 giây sau chiếc loa phát sáng xanh ngọc báo “Đã nhận 50.000 đồng”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy ảnh quét mã & tiếng loa báo tiền về (cần giấy phép trước khi dùng)",
+          "voWords": 172
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:42 – 1:32",
+          "beat": 0,
+          "sha256CacheKey": "9f857df8773e531a10bd8814798c5d298e24db01420875780f67b2ea345c907f",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "bd3808a2c91353f9362ff9149031a2cf209ab7cd1ebe14ffe446bf0a1511550b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh năm ngôi nhà trên phố đêm. Nhà Bạn, Quán quen và Ngân hàng của bạn bật sáng (lit 0,1,2). Từ nhà Bạn, một luồng lệnh chủ động chạy thẳng sang Ngân hàng của bạn (msgs 0→2), khác hẳn luồng máy POS của quán phát lệnh đi vòng qua 4 bên khi quẹt thẻ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng mở khoá sinh trắc học nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 142
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:32 – 2:24",
+          "beat": 1,
+          "sha256CacheKey": "39fa3f56ae733b29ca50506426b575371f8cdc595209b3c2b1f7d2c2dd08d918",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "8a3ab9de2a2c4aa4ed922d7058673135775b3150199dd477e489402c1607c9d2",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhà Bạn và Ngân hàng của bạn sáng (lit 0,2). Trong Ngân hàng của bạn, két tiền gửi không kỳ hạn CASA giảm ngay 50.000 đồng (fx hold, iledger). Bảng đối chiếu hiện rõ: “Không ứng vốn 45 ngày · Không rủi ro bùng nợ · Không trích 1% tiền hoàn”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng gạt sổ gọn (cần giấy phép trước khi dùng)",
+          "voWords": 162
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:24 – 3:16",
+          "beat": 2,
+          "sha256CacheKey": "b9e68675daf12e2a3786c63c2c2213fa63683893321eef3d0ae82c83ee6b745d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "5160343e3d05e3778ea75a5e1a107c6db7582e922b2d3f5fa979de8dd3e32ac9",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhà Bạn, Quán quen, Ngân hàng của bạn, Tổ chức chuyển mạch và Ngân hàng của quán cùng sáng (lit 0,1,2,3,4). Luồng thông tin trên cao chạy cực nhanh từ Ngân hàng của bạn qua Tổ chức chuyển mạch sang Ngân hàng của quán rồi báo về Quán quen (msgs 2→3, 3→4, 4→1). Sổ của Quán quen bật sáng dòng Nợ 112 / Có 511: 50.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng xung tín hiệu nhanh & tiếng chuông báo Có (cần giấy phép trước khi dùng)",
+          "voWords": 167
+        },
+        {
+          "sceneIndex": 4,
+          "time": "3:16 – 4:10",
+          "beat": 3,
+          "sha256CacheKey": "6639212d858e92ed3a74f75c32b32ce051b1262699bea1a7f003452127ac2f63",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "c45a65575868db4e6fd6d21dfe163b1b427455750948bcf9acfb21b70f4b11dc",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ngân hàng của bạn, Tổ chức chuyển mạch và Ngân hàng của quán sáng (lit 2,3,4). Trên cao là hàng trăm tia sáng nhỏ chạy qua lại hai chiều; bên dưới lòng đất, luồng quyết toán tiền thật chỉ chạy một khối gọn từ Ngân hàng của bạn sang Ngân hàng của quán (msgs 2→3, 3→4, 2→4 money) kèm nhãn “Bù trừ ròng cuối phiên”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khớp khóa cơ khí trầm (cần giấy phép trước khi dùng)",
+          "voWords": 167
+        },
+        {
+          "sceneIndex": 5,
+          "time": "4:10 – 5:04",
+          "beat": 4,
+          "sha256CacheKey": "ae57a04f43d49433ec9e4c301759102c832d6927fd77bc973c24cb36b14f3d50",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "badc0a1e266bc935bfea0da327ccbc4869cd8b14e0f81d2f3aa3fa311d827a52",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Quán quen và Ngân hàng của quán sáng (lit 1,4). Hai cuốn sổ kế toán đặt song song trên màn hình cho cùng doanh thu 200 ly cà phê (= 10.000.000 đồng): Sổ Quẹt Thẻ (Treo TK 1388 2 ngày, mất 220.000 đ vào TK 641, thực nhận 9.780.000 đ) đối chiếu với Sổ Quét QR (Nhận thẳng TK 112: 10.000.000 đ ngay trong ngày, phí TK 641 = 0 đ).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật sổ kế toán (cần giấy phép trước khi dùng)",
+          "voWords": 183
+        },
+        {
+          "sceneIndex": 6,
+          "time": "5:04 – 5:58",
+          "beat": null,
+          "sha256CacheKey": "2f834c981d4bb3c86fe236c6c0a4766a92d2b219f22fdf78b06dcfa373f9db30",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "19798a71ffe3aa2e47cbaa3a5b0eb8c156fcab817450051b3096724163c7daa1",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ngân hàng của bạn và Ngân hàng của quán sáng rực. Giữa hai ngân hàng là bể vốn CASA khổng lồ màu vàng ấm: tiền 50.000 đồng nhảy từ bể CASA của người mua sang bể CASA của chủ quán, không một tờ tiền giấy nào rơi ra ngoài qua khe máy ATM.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng dòng nước chảy êm (cần giấy phép trước khi dùng)",
+          "voWords": 175
+        },
+        {
+          "sceneIndex": 7,
+          "time": "5:58 – 6:50",
+          "beat": null,
+          "sha256CacheKey": "d5b4ec79afb69112a30093927351d4e88ca7d54490245466bf4fcdddebbcb6e0",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1540836869b950205f40011726edca2f57071ac4f869cdeaafa9602279a698eb",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Trên mặt cắt Quán quen hiện hai loại bảng mã: bên trái là Mã QR tĩnh dán giấy (0 đồng phí, thu ngân phải nhìn màn hình điện thoại khách), bên phải là Mã QR động trên màn hình máy POS kèm loa báo (tự gắn số tiền 50.000 đ + mã đơn HD1024, phí dịch vụ đối soát ~0,2%).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bíp khớp đơn hàng (cần giấy phép trước khi dùng)",
+          "voWords": 185
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:50 – 7:40",
+          "beat": null,
+          "sha256CacheKey": "1c5d8f993b24cd95f837db4694e904f09d973b3ec66f718d7fa3440d840ab269",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "c4bc8b7b4b1a53ccc9108374daa6a00dc273d45a5e68f0731ca6cc55fd0cc381",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ba khung cảnh ngoại lệ trên mặt cắt: (1) Màn hình khách báo trừ tiền nhưng loa quán chưa kêu do nghẽn phiên; (2) Khách gõ thừa một số 0 thành 500.000 đ → quán hạch toán TK 338 trả lại 450.000 đ; (3) Mua hàng xa qua QR không có quyền khiếu nại đòi lại tiền (Chargeback) như thẻ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông nhắc nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 183
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:40 – 8:16",
+          "beat": null,
+          "sha256CacheKey": "cc1fbaf829d80b0dc596a7c8e1598df1c343672ea2ecb79ef5500db7b8684dee",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "d5854f55388ed75bbf4cd887b0e653a9e4b53dc8f4cf81e6c66682e5617912ac",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh năm ngôi nhà về đêm. Hai luồng sáng đặt cạnh nhau: luồng Push Payment (QR — nhanh 3 giây, 0% phí cho quán quen) và luồng Pull Payment (Thẻ — có 45 ngày ân hạn và lá chắn Chargeback nhưng quán chịu 2,2% phí).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "một nốt chuông ấm khép lại (cần giấy phép trước khi dùng)",
+          "voWords": 135
+        }
+      ]
+    },
+    "short": {
+      "title": "Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/qr_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "WpwLZw3ytwU",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/qr-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?\n0:11 Đoạn 1\n0:23 Đoạn 3\n0:36 Đoạn 4\n0:49 Đoạn 5\n1:00 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:11",
+          "beat": null,
+          "sha256CacheKey": "3555823666f88867b3949f7c79db7cdf98bfdb222fd098dacf520dad37170870",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b85a0131e8b06f0ee39552f5a65026125b02890da6a6ed251ace43a865fe3710",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, trên mặt quầy cà phê đặt bảng mã QR cạnh máy POS; điện thoại quét mã 50.000 đồng, loa báo “Đã nhận 50.000 đồng” sau 3 giây.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng loa báo tiền về (cần giấy phép trước khi dùng)",
+          "voWords": 52
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:11 – 0:23",
+          "beat": 0,
+          "sha256CacheKey": "b02820fb681d72d8b619a7da9cb4920f75f911c68ffda0eaded8b2d158cb2cd7",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7c60835f698c699a585119dc1fb9242819e308d9d6084ef4aef3ef44b0cde43f",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, so sánh luồng Pull Payment (máy POS kéo tiền qua 4 bên) và Push Payment (bạn chủ động đẩy tiền từ CASA).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng gạt sổ (cần giấy phép trước khi dùng)",
+          "voWords": 52
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:23 – 0:36",
+          "beat": 2,
+          "sha256CacheKey": "ea93542397bda5b00a4067c08c2b07344f41cf558d99cee35a1f57e67dc1be93",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "452d722e07c9fc5f889094bf69b4bbd088a31e110c30a40cc48c5f1851fd1934",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, bản tin 24/7 chạy qua Tổ chức chuyển mạch trong 3 giây (lit 0,1,2,3,4; msgs 2→3, 3→4, 4→1); sổ quán ghi Nợ 112 / Có 511: 50.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng xung tín hiệu (cần giấy phép trước khi dùng)",
+          "voWords": 43
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:36 – 0:49",
+          "beat": 3,
+          "sha256CacheKey": "f791b46e8d0d3f6a0e9b6784edc71d14c7fc83103d822df9337548ee87d63c97",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "079c123626a128bb5fd9dbe67ac6b58f0200c3f1c165215f4703664b60a4704e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, dưới lòng đất: hai ngân hàng gom hàng triệu lệnh trong ngày để bù trừ ròng (100 tỷ − 96 tỷ = chuyển 4 tỷ phần chênh).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khớp khóa (cần giấy phép trước khi dùng)",
+          "voWords": 33
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:49 – 1:00",
+          "beat": 4,
+          "sha256CacheKey": "4285db48301d169daa647a5afeee565176a4a7e3d159cf4e5448d1ecb117a615",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "e2e31b01166eb01db1a14ad9608b9e7d78c52ea32a3cbce77479b7514949aad4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, bể vốn CASA ~0,1%/năm sáng lên tại hai ngân hàng; quán tiết kiệm 220.000 đồng trên mỗi 10 triệu doanh thu (nhận đủ 10.000.000 đ thay vì 9.780.000 đ).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 36
+        },
+        {
+          "sceneIndex": 5,
+          "time": "1:00 – 1:10",
+          "beat": null,
+          "sha256CacheKey": "7a7596128a1b039467f76cf77947d1fee594d0fe61d0d7fc7f0148023c70feae",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fa2b4e13db901b0a45a611e176b4a6819ded5ee32e9884b2c15c9600cfaa6c7f",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, bảng tổng kết: Mua tại quầy quen dùng QR (giữ 100% cho quán), mua hàng xa dùng thẻ (có quyền khiếu nại Chargeback).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá sổ (cần giấy phép trước khi dùng)",
+          "voWords": 41
+        }
+      ]
+    }
+  }
+}

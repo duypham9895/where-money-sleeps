@@ -1217,6 +1217,205 @@ LONG_STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "qr": {
+        "house_nodes": [
+            ("BẠN", "Người mua"),
+            ("QUÁN QUEN", "Cà phê 50k"),
+            ("NGÂN HÀNG", "Của bạn"),
+            ("CHUYỂN MẠCH", "Liên NH 24/7"),
+            ("NGÂN HÀNG", "Của quán"),
+        ],
+        "plates_pool": [
+            ("public/brand/card-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-1.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-4.jpg", (20, 460, 1060, 1305)),
+        ],
+        "scenes": [
+            # 0: Mode L-A (Mở đầu: Tấm bảng mã QR và chiếc máy quẹt thẻ nằm cạnh nhau)
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 1},
+                "flow": ("wire", 0, 1),
+                "kicker": "MỞ ĐẦU  ·  LY CÀ PHÊ 50 NGHÌN VÀ CHIẾC LOA TRÊN QUẦY",
+                "stage_tag": "QUÉT MÃ QR 50.000 Đ  ·  3 GIÂY SAU QUÁN NHẬN ĐỦ 100%",
+                "beats": [
+                    ("1. TẠI QUẦY CÀ PHÊ SÁNG THỨ HAI", "Ly cà phê 50.000 đ · Bảng mã QR đặt cạnh máy POS"),
+                    ("2. NẾU CHẠM THẺ TÍN DỤNG", "Quán bị trừ ~2,2% phí MDR và phải đợi T+2 mới nhận tiền"),
+                    ("3. KHI QUÉT MÃ QR CHUYỂN KHOẢN", "Chỉ 3 giây sau loa báo quán nhận đủ 100% (50.000 đ)"),
+                    ("4. CÂU HỎI TRUNG TÂM", "Vì sao quét mã QR lại miễn phí 0 đồng và về tiền ngay tức khắc?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            # 1: Mode L-B (Beat 0 - Thanh toán Đẩy Push vs Thanh toán Kéo Pull)
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1, 2},
+                "flow": ("wire", 0, 2),
+                "kicker": "BƯỚC 1  ·  THANH TOÁN ĐẨY (PUSH) vs THANH TOÁN KÉO (PULL)",
+                "stage_tag": "BẢNG MÃ QR ĐỨNG YÊN  ·  BẠN CHỦ ĐỘNG ĐẨY LỆNH TỪ ĐIỆN THOẠI",
+                "scale_title": "SỐ TIỀN BẠN CHỦ ĐỘNG PHÁT LỆNH CHUYỂN ĐI:",
+                "scale_val": 50_000,
+                "mech_type": "P2_CONTRACT",
+                "mech_left": "Điện thoại của bạn (Xác thực)",
+                "mech_right": "Ngân hàng của bạn (Nhận lệnh)",
+                "mech_badge": "LỆNH PUSH 50.000 Đ",
+                "ledger_title": "ĐỐI CHIẾU CHIỀU ĐI CỦA MỆNH LỆNH:",
+                "debit_line": "Quẹt thẻ (Pull): Máy POS của quán phát lệnh đi vòng qua 4 bên",
+                "credit_line": "Quét QR (Push): Chính bạn mở khoá và đẩy lệnh từ ngân hàng bạn",
+                "rule": "TẤM BẢNG MÃ QR NHỰA KHÔNG NỐI MẠNG — NÓ CHỈ CHỨA SỐ TÀI KHOẢN CỦA QUÁN",
+            },
+            # 2: Mode L-B (Beat 1 - Tiêu tiền có sẵn CASA nên không ai thu phí ứng vốn)
+            {
+                "mode": "L-B",
+                "plate_idx": 2,
+                "active": {0, 2},
+                "flow": ("wire", 0, 2),
+                "kicker": "BƯỚC 2  ·  TIÊU TIỀN CÓ SẴN (CASA) — 0 ĐỒNG PHÍ ỨNG VỐN",
+                "stage_tag": "TRỪ THẲNG SỐ DƯ CASA CỦA BẠN  ·  KHÔNG AI PHẢI ỨNG VỐN 45 NGÀY",
+                "scale_title": "SỐ DƯ TIỀN GỬI KHÔNG KỲ HẠN (CASA) BỊ TRỪ NGAY:",
+                "scale_val": 50_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Thẻ tín dụng: Ngân hàng ứng vốn 45 ngày nên thu MDR 2,2%",
+                "mech_line2": "Chuyển khoản QR: Tiêu tiền CASA có sẵn nên phí MDR = 0 đ",
+                "ledger_title": "TRÊN SỔ NGÂN HÀNG CỦA BẠN (ORIGINATING BANK):",
+                "debit_line": "Debit TK Tiền gửi không kỳ hạn của bạn: −50.000 đ",
+                "credit_line": "Credit TK Phải trả liên ngân hàng qua chuyển mạch: +50.000 đ",
+                "rule": "KHÔNG ỨNG VỐN · KHÔNG RỦI RO BÙNG NỢ · KHÔNG TRÍCH 1% HOÀN TIỀN = 0% MDR",
+            },
+            # 3: Mode L-B (Beat 2 - 3 giây trên mặt đất: Bản tin chuyển mạch 24/7)
+            {
+                "mode": "L-B",
+                "plate_idx": 3,
+                "active": {1, 2, 3, 4},
+                "flow": ("wire", 2, 3, 4),
+                "kicker": "BƯỚC 3  ·  3 GIÂY TRÊN MẶT ĐẤT: BẢN TIN CHUYỂN MẠCH 24/7",
+                "stage_tag": "BẢN TIN CÓ QUỸ BẢO CHỨNG  ·  QUÁN NHẬN ĐỦ 50.000 Đ TẠI T+0",
+                "scale_title": "TIỀN THỰC NHẬN VÀO TÀI KHOẢN CỦA QUÁN SAU 3 GIÂY:",
+                "scale_val": 50_000,
+                "mech_type": "P2_CONTRACT",
+                "mech_left": "Tổ chức chuyển mạch 24/7",
+                "mech_right": "Ngân hàng của quán (Ghi Có)",
+                "mech_badge": "BẢN TIN BẢO CHỨNG +50K",
+                "ledger_title": "BÚT TOÁN TẠI SỔ CỦA QUÁN (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 112 (Tiền gửi không kỳ hạn): +50.000 đ ngay tại T+0",
+                "credit_line": "Credit TK 511 (Doanh thu bán hàng): +50.000 đ (Không treo TK 1388)",
+                "rule": "NHỜ QUỸ BẢO CHỨNG THANH KHOẢN, NGÂN HÀNG QUÁN GHI CÓ NGAY TRONG 3 GIÂY",
+            },
+            # 4: Mode L-B (Beat 3 - Dưới lòng đất: Phiên bù trừ ròng Net Settlement)
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {2, 3, 4},
+                "flow": ("pipe", 2, 3, 4),
+                "kicker": "BƯỚC 4  ·  DƯỚI LÒNG ĐẤT: BÙ TRỪ RÒNG (NET SETTLEMENT)",
+                "stage_tag": "GOM HÀNG TRIỆU LỆNH 2 CHIỀU  ·  CHỈ CHUYỂN PHẦN CHÊNH LỆCH RÒNG",
+                "scale_title": "VÍ DỤ CHÊNH LỆCH RÒNG QUYẾT TOÁN CUỐI PHIÊN (100 TỶ − 96 TỶ):",
+                "scale_val": 4_000_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Chiều NH A sang NH B: 100 tỷ đ  |  Chiều NH B về NH A: 96 tỷ đ",
+                "mech_line2": "Quyết toán ròng tại NH Trung ương: NH A chỉ chuyển 4 tỷ đ",
+                "ledger_title": "TẤT TOÁN CÔNG NỢ LIÊN NGÂN HÀNG CUỐI PHIÊN:",
+                "debit_line": "Xoá toàn bộ hàng triệu khoản phải thu / phải trả lẻ trong ngày",
+                "credit_line": "Trích 4 tỷ đ trên TK Tiền gửi thanh toán tại Ngân hàng Trung ương",
+                "rule": "LỜI NHẮN CHẠY TỪNG GIÂY TRÊN MẶT ĐẤT  ·  TIỀN DỰ TRỮ CHỈ CHUYỂN PHẦN CHÊNH",
+            },
+            # 5: Mode L-B (Beat 4 - So sổ kế toán 10 triệu đồng: Quét QR giữ lại 220.000 đ)
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {1, 4},
+                "flow": ("pipe", 2, 4),
+                "kicker": "BƯỚC 5  ·  SO SỔ 200 LY CÀ PHÊ (= 10.000.000 Đ DOANH THU)",
+                "stage_tag": "CÙNG 10 TRIỆU DOANH THU: QUÉT QR GIỮ LẠI CHO QUÁN 220.000 Đ",
+                "scale_title": "DOANH THU 200 LY CÀ PHÊ TRONG NGÀY (200 × 50.000 Đ):",
+                "scale_val": 10_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Nếu quẹt thẻ (MDR 2,2%): Thực nhận 9.780.000 đ ở T+2 (−220k)",
+                "mech_line2": "Khi quét QR tĩnh (Phí 0%): Thực nhận đủ 10.000.000 đ ở T+0",
+                "ledger_title": "BÚT TOÁN 200 LY QUA MÃ QR TĨNH (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 112 (Tiền gửi không kỳ hạn): +10.000.000 đ (TK 641 = 0 đ)",
+                "credit_line": "Credit TK 511 (Doanh thu bán hàng): +10.000.000 đ",
+                "rule": "MỖI THÁNG 30 NGÀY, TẤM BẢNG MÃ QR GIỮ LẠI CHO QUÁN ~6.600.000 Đ TIỀN MẶT",
+            },
+            # 6: Mode L-C (Vì sao ngân hàng chịu miễn phí 0 đồng? Bài toán giữ bể vốn CASA)
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {2, 4},
+                "flow": ("pipe", 2, 4),
+                "kicker": "PHÂN TÍCH  ·  VÌ SAO NGÂN HÀNG VUI VẺ MIỄN PHÍ 0 ĐỒNG?",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "ĐỔI PHÍ CHUYỂN KHOẢN LẺ LẤY BỂ VỐN KHÔNG KỲ HẠN (CASA) KHỔNG LỒ",
+                "card1_title": "TRƯỚC KHI CÓ MÃ QR MIỄN PHÍ",
+                "card1_big": "Tiền giấy rút khỏi cây ATM",
+                "card1_sub": "Tiền mặt rời khỏi hệ thống ngân hàng · Tốn chi phí in ấn, tiếp quỹ, vận chuyển và kiểm đếm",
+                "card2_title": "KHI MIỄN PHÍ CHUYỂN KHOẢN QR 24/7",
+                "card2_big": "Tiền nằm lại bể CASA ~0,1%/năm",
+                "card2_sub": "50.000 đ chỉ nhảy từ CASA của bạn sang CASA của quán · Ngân hàng có vốn rẻ cho vay ~8,5%/năm",
+                "rule": "ĐỒNG TIỀN KHÔNG RỜI HỆ THỐNG NGÂN HÀNG — ĐÓ LÀ MÓN LỜI LỚN HƠN MỌI PHÍ LẺ",
+            },
+            # 7: Mode L-C (Mã QR tĩnh 0 đồng vs Mã QR động tự động đối soát)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 1, 4},
+                "flow": ("wire", 4, 1),
+                "kicker": "SO SÁNH  ·  MÃ QR TĨNH DÁN GIẤY vs MÃ QR ĐỘNG TÍCH HỢP MÁY POS",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "HAI LOẠI MÃ QR TRÊN QUẦY THU NGÂN VÀ BÀI TOÁN ĐỐI SOÁT (TRÊN 10 TRIỆU)",
+                "card1_title": "1. MÃ QR TĨNH (STATIC QR — QUÁN NHỎ)",
+                "card1_big": "Phí 0 đ  (Thực nhận 10.000.000 đ)",
+                "card1_sub": "Khách tự nhập tiền · Thu ngân nhìn màn hình bằng mắt · Dễ bị ảnh biên lai giả & phải dò sao kê tay",
+                "card2_title": "2. MÃ QR ĐỘNG (DYNAMIC QR — CHUỖI LỚN)",
+                "card2_big": "Phí ~0,2% = 20.000 đ (Nhận 9.980.000 đ)",
+                "card2_sub": "Khóa sẵn số tiền + mã đơn · Tự gạch nợ hoá đơn & phát loa · Rẻ hơn 11 lần so với 220.000 đ phí thẻ",
+                "rule": "SỔ QUÁN DÙNG QR ĐỘNG: DEBIT 112 (9.980.000) + DEBIT 641 (20.000) = CREDIT 511 (10.000.000)",
+            },
+            # 8: Mode L-C (Ba tình huống thực tế: Nghẽn mạng, chuyển nhầm và mất quyền Chargeback)
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("wire", 0, 2, 3, 4),
+                "kicker": "NGOẠI LỆ  ·  3 TÌNH HUỐNG THỰC TẾ CẦN NHỚ KHI QUÉT MÃ QR",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "GIAO DỊCH TREO GIỜ CAO ĐIỂM, GÕ THỪA SỐ 0 VÀ RỦI RO MUA HÀNG TỪ XA",
+                "col1_title": "1. ĐÃ TRỪ TIỀN NHƯNG LOA IM LÌM",
+                "col1_big": "Treo đối soát liên ngân hàng",
+                "col1_sub": "Bản tin bị nghẽn (Time-out) lúc cao điểm · Tiền nằm ở TK trung gian chờ phiên tra soát hoàn về",
+                "col2_title": "2. GÕ NHẦM 50.000 Đ THÀNH 500.000 Đ",
+                "col2_big": "Treo 450.000 đ vào TK 338",
+                "col2_sub": "Quán ghi Có TK 511 (50.000 đ) + Có TK 338 (450.000 đ phải trả khác) rồi chuyển trả lại 450.000 đ",
+                "col3_title": "3. MUA HÀNG TỪ XA QUA MÃ QR",
+                "col3_big": "Không có quyền Chargeback",
+                "col3_sub": "Vì chính bạn đẩy lệnh chuyển tiền mặt đi nên không thể yêu cầu ngân hàng cưỡng chế thu hồi như thẻ",
+                "rule": "KHÔNG DÙNG CHUYỂN KHOẢN QR TRẢ TRƯỚC CHO ĐƠN HÀNG LỚN Ở NƠI CHƯA KIỂM CHỨNG",
+            },
+            # 9: Mode L-A (Kết luận: Khi nào quét mã QR, khi nào chạm thẻ?)
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("wire", 0, 2, 3, 4, 1),
+                "kicker": "KẾT LUẬN  ·  CHỌN ĐÚNG CÔNG CỤ CHO TỪNG GIAO DỊCH",
+                "stage_tag": "TẠI QUẦY QUEN DÙNG QR GIỮ 100% CHO QUÁN  ·  MUA TỪ XA DÙNG THẺ",
+                "beats": [
+                    ("1. BẢN CHẤT CỦA MÃ QR 24/7", "Thanh toán đẩy (Push) từ tiền CASA có sẵn: 0 đồng phí ứng vốn"),
+                    ("2. LỢI ÍCH CHO QUÁN QUEN TẠI QUẦY", "Tiền vào thẳng TK 112 sau 3 giây, giữ lại 220.000 đ trên mỗi 10 triệu"),
+                    ("3. LỢI ÍCH CHO HỆ THỐNG NGÂN HÀNG", "Giữ trọn dòng tiền nằm lại trong bể vốn CASA lãi ~0,1%/năm"),
+                    ("4. NGUYÊN TẮC BẢO VỆ VÍ CỦA BẠN", "Cầm hàng tại quầy: Quét QR · Đặt hàng xa cần bảo vệ: Dùng thẻ"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
 }
 
 
@@ -2043,14 +2242,14 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = load_cached_sfx()
 
-    target_slugs = ["install", "card", "pay", "minpay"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay", "qr"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug)
     return 0

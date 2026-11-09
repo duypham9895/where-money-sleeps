@@ -1010,6 +1010,25 @@ body.cms-on{padding-bottom:150px}
       <div class="bars" aria-hidden="true"></div>
     </div>
   </div>
+  <div class="try" id="tryQr" hidden>
+    <div>
+      <p class="tryhint">Kéo để đổi doanh thu một ngày của quán và chế độ mã QR quán đang dùng. Đặt cạnh mức phí quẹt thẻ <button class="term" data-term="mdr">MDR</button> 2,2% <span class="ex">ví dụ</span> để thấy số tiền quán giữ lại được mỗi ngày và mỗi tháng.</p>
+      <div class="field"><label for="qrRev">Doanh thu quán mỗi ngày <output id="qrRevOut" class="num"></output></label>
+        <input type="range" id="qrRev" min="500000" max="50000000" step="500000" value="10000000"></div>
+      <div class="field"><label for="qrFeePct">Phí dịch vụ <button class="term" data-term="dynamicqr">mã QR động</button> (0% nếu dùng QR tĩnh) <output id="qrFeePctOut" class="num"></output></label>
+        <input type="range" id="qrFeePct" min="0" max="0.5" step="0.1" value="0"></div>
+    </div>
+    <div class="receipt">
+      <h4>So sổ cuối ngày của quán (TK 112)</h4>
+      <p class="sub">Quét QR về ngay T+0 · Quẹt thẻ chờ T+2 (MDR 2,2% <span class="ex">ví dụ</span>)</p>
+      <div class="row"><span>Thực nhận ngay nếu khách quét QR</span><span class="num plus" id="qrNet"></span></div>
+      <div class="row"><span>Thực nhận ở T+2 nếu khách quẹt thẻ</span><span class="num" id="qrCardNet"></span></div>
+      <div class="row"><span>Tiền phí quán giữ lại được mỗi ngày</span><span class="num plus" id="qrSavedDay"></span></div>
+      <div class="row total"><span>Quán giữ lại sau 30 ngày</span><span class="num plus" id="qrSavedMonth"></span></div>
+      <p class="note" id="qrNote"></p>
+      <div class="bars" aria-hidden="true"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
@@ -1151,7 +1170,11 @@ const GLOSS = {
   graceperiod:{"t": "Grace period", "en": "thời gian ân hạn miễn lãi", "d": "Khoảng thời gian từ ngày quẹt thẻ đến hạn thanh toán trên sao kê (thường tối đa 45 hoặc 55 ngày). Ngân hàng chỉ miễn lãi trong khoảng này nếu đến hạn bạn trả đủ 100% dư nợ sao kê."},
   minpayment:{"t": "Minimum payment", "en": "khoản thanh toán tối thiểu", "d": "Số tiền nhỏ nhất (thường 2%–5% dư nợ sao kê) bạn phải trả đúng hạn để thẻ không bị tính phí phạt trễ hạn và không bị ghi nhận nợ quá hạn; nhưng trả mức này đồng nghĩa mất quyền miễn lãi."},
   revolving:{"t": "Revolving credit", "en": "tín dụng tuần hoàn", "d": "Cơ chế hạn mức thẻ tín dụng: trả được bao nhiêu thì hạn mức mở lại bấy nhiêu, còn phần dư nợ chưa trả hết sẽ tự động chuyển sang kỳ sau và chịu lãi tính theo ngày."},
-  adb:{"t": "Average daily balance", "en": "dư nợ bình quân ngày", "d": "Cách ngân hàng tính lãi thẻ tín dụng khi bạn không trả đủ 100% sao kê: lấy số dư nợ của từng ngày kể từ ngày giao dịch được ghi vào sổ nhân với lãi suất ngày rồi cộng toàn bộ lại."}
+  adb:{"t": "Average daily balance", "en": "dư nợ bình quân ngày", "d": "Cách ngân hàng tính lãi thẻ tín dụng khi bạn không trả đủ 100% sao kê: lấy số dư nợ của từng ngày kể từ ngày giao dịch được ghi vào sổ nhân với lãi suất ngày rồi cộng toàn bộ lại."},
+  pushpayment:{"t": "Push payment", "en": "thanh toán đẩy — người mua chủ động chuyển", "d": "Giao dịch do chính người trả tiền khởi tạo từ ứng dụng ngân hàng của mình (như quét mã QR chuyển khoản). Tiền trừ thẳng từ số dư hiện có nên chi phí trung gian rất thấp."},
+  pullpayment:{"t": "Pull payment", "en": "thanh toán kéo — người bán phát lệnh thu qua thẻ", "d": "Giao dịch do máy quẹt thẻ của người bán phát lệnh kéo tiền từ hạn mức thẻ của khách qua mạng lưới 4 bên, đi kèm phí chiết khấu MDR và thời gian chờ quyết toán."},
+  interbank247:{"t": "Fast payment 24/7", "en": "chuyển tiền nhanh liên ngân hàng 24/7", "d": "Hạ tầng chuyển mạch cho phép bản tin chuyển khoản và ghi Có cho người nhận diễn ra tức thời trong vài giây bất kể ngày đêm, trong khi hai ngân hàng quyết toán phần chênh lệch ròng theo phiên."},
+  dynamicqr:{"t": "Dynamic QR", "en": "mã QR động gắn từng đơn hàng", "d": "Mã QR được tạo riêng cho mỗi hoá đơn với số tiền và mã đơn cố định, giúp hệ thống của quán tự động đối soát và phát loa báo ngay khi tiền về mà không cần chụp màn hình."}
 };
 
 const STORIES = {
@@ -3349,7 +3372,537 @@ const STORIES = {
                ["Có","338","Phải trả, phải nộp khác","chi tiết 3388: lãi nhập vào dư nợ sao kê thẻ tín dụng","Cộng vào dư nợ thẻ phải trả (tổng mới 10.092.500)",592500]],
          note:"Sau bút toán này, tổng số dư Có TK 338 là 9.500.000 + 592.500 = 10.092.500 đồng.",
          lifeNote:"Tiền lãi một kỳ (592.500 đồng) đã nuốt trọn khoản trả tối thiểu (500.000 đồng) và làm tổng nợ tăng thêm 92.500 đồng."}}
+    ]},
+  /* Bài 5 — Đợt 1 (#2): Mã QR chuyển khoản 24/7 vs Quẹt thẻ (status "review"). */
+  qr:{
+    name:"Chuyện mã QR: ly cà phê 50 nghìn",
+    title:"Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: vì sao quán nhận đủ 50 nghìn ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+    teaser:"Một bảng mã QR đứng trên quầy, tiếng loa báo tiền về ngay trong 3 giây, và sự khác biệt giữa lệnh bạn tự đẩy tiền đi (Push) với lệnh quán kéo tiền về (Pull).",
+    category:"c2", status:"review",
+    approvedBy:"", approvedAt:"",
+    review:{ketoan:"Tổng: PASS 10 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 5 · FLAG 0", ketoanAt:"2026-11-09", draftedBy:"agent", draftedAt:"2026-11-09"},
+    article:{
+ "lay": {
+  "myths": [
+   {
+    "myth": "Quét mã QR ở quầy cũng giống hệt chạm thẻ tín dụng vào máy POS — quán đều bị ngân hàng trừ khoảng 2% phí giao dịch.",
+    "truth": "Quét mã QR chuyển khoản là giao dịch [[thanh toán đẩy|pushpayment]] trừ thẳng vào tiền gửi hiện có của bạn, không ai ứng vốn cho vay nên với mã QR chuyển khoản dân sự phổ thông, quán nhận đủ 100% (50.000 đồng trọn 50.000 đồng, ví dụ)."
+   },
+   {
+    "myth": "Khi chiếc loa trên quầy đọc “Đã nhận 50.000 đồng” sau 3 giây, một tờ 50.000 đồng vừa chạy thẳng từ két ngân hàng bạn sang két ngân hàng của quán.",
+    "truth": "Trong 3 giây đó mới chỉ có bản tin [[chuyển tiền nhanh 24/7|interbank247]] được bảo chứng đi qua [[tổ chức chuyển mạch|scheme]] để ngân hàng của quán ghi Có ngay cho quán; còn tiền thật giữa hai ngân hàng được gom lại để [[bù trừ ròng|netting]] theo phiên trên sổ tại Ngân hàng Trung ương."
+   },
+   {
+    "myth": "Vì chuyển khoản QR miễn phí cho cả người mua lẫn người bán, các ngân hàng hoàn toàn chịu lỗ mà không thu được lợi ích gì.",
+    "truth": "Miễn phí chuyển khoản QR giúp ngân hàng giữ tiền mặt của hàng triệu người nằm lại trong tài khoản [[CASA|casa]] lãi suất ~0,1%/năm (ví dụ) thay vì bị rút ra tiền giấy — tạo bể vốn rẻ khổng lồ để ngân hàng cho vay."
+   },
+   {
+    "myth": "Mọi bảng mã QR đặt ở quầy đều giống nhau: chỉ cần khách giơ màn hình báo “chuyển thành công” là quán yên tâm giao đồ uống.",
+    "truth": "Mã QR tĩnh dán cố định không tự biết đơn hàng nào đã trả, rất dễ bị lừa bằng ảnh chụp màn hình giả; các chuỗi lớn dùng [[mã QR động|dynamicqr]] gắn mã đơn tự động và có thể trả một khoản phí dịch vụ thu hộ rất nhỏ (ví dụ 0,1%–0,2%) để đổi lấy đối soát tức thời."
+   }
+  ],
+  "sections": [
+   {
+    "h": "Ly cà phê 50 nghìn và chiếc loa nhỏ trên quầy",
+    "paras": [
+     "Sáng thứ Hai, bạn ghé quán quen mua một ly cà phê giá 50.000 đồng — số ví dụ của bài. Trên mặt quầy gỗ, cạnh chiếc máy quẹt thẻ nằm im lìm là một tấm bảng nhựa in hình vuông đen trắng. Thu ngân mỉm cười chỉ vào tấm bảng: “Anh chị quét mã chuyển khoản giúp quán nhé”. Bạn mở ứng dụng ngân hàng, hướng ống kính vào ô vuông, bấm xác nhận. Ba giây sau, chiếc loa nhỏ trên quầy vang lên rành rọt: “Đã nhận năm mươi nghìn đồng”. Bạn cầm ly cà phê bước đi, còn quán nhận trọn vẹn 50.000 đồng ngay trong buổi sáng hôm đó.",
+     "Nếu đặt cảnh này cạnh bữa liên hoan 10 triệu ở Bài 1 — nơi quán phải đợi hai ngày làm việc ([[T+2|t2]]) và mất 220.000 đồng ([[MDR|mdr]] 2,2%, ví dụ) khi khách chạm thẻ tín dụng — một câu hỏi tự nhiên bật ra: tại sao cùng là thanh toán không tiền mặt bằng điện thoại, nhưng quẹt thẻ thì quán mất 2,2% phí và phải chờ hai ngày, còn quét mã QR chuyển khoản thì quán nhận đủ 100% tiền tươi ngay lập tức?"
+    ]
+   },
+   {
+    "h": "Đẩy tiền đi (Push) và Kéo tiền về (Pull)",
+    "paras": [
+     "Sự khác biệt nằm ở chiều đi của mệnh lệnh và nguồn tiền được dùng. Khi bạn chạm thẻ tín dụng, đó là một giao dịch [[thanh toán kéo|pullpayment]] (Pull Payment): máy POS của quán phát lệnh đi qua ngân hàng của quán, qua mạng lưới thẻ, tới [[ngân hàng phát hành|issuer]] để xin kéo 50.000 đồng về. Quan trọng hơn, 50.000 đồng đó không phải tiền của bạn mà là tiền ngân hàng phát hành ứng trước cho bạn vay miễn lãi tới 45 ngày. Vì ngân hàng phát hành vừa phải bỏ vốn ứng trước vừa phải gánh rủi ro bạn không trả, họ thu phí [[Interchange|interchange]], đẩy tổng phí [[MDR|mdr]] mà quán phải chịu lên 2,2% (tức mất 1.100 đồng trên ly cà phê 50.000 đồng, hay 220.000 đồng trên doanh thu 10.000.000 đồng, ví dụ).",
+     "Ngược lại, khi bạn quét mã QR chuyển khoản, tấm bảng nhựa trên quầy hoàn toàn thụ động — nó chỉ chứa số tài khoản của quán và mã ngân hàng. Chính bạn là người mở khoá sinh trắc học trên điện thoại của mình và phát lệnh [[thanh toán đẩy|pushpayment]] (Push Payment) yêu cầu ngân hàng của bạn chuyển 50.000 đồng đi. Tiền được trừ thẳng từ số dư [[tiền gửi không kỳ hạn|casa]] (CASA) mà bạn đang có sẵn. Không có ngân hàng nào phải ứng vốn cho bạn vay 45 ngày, không có rủi ro bùng nợ tín dụng, và không có quỹ tiền hoàn 1% nào phải trích ra từ túi của quán."
+    ]
+   },
+   {
+    "h": "Ba giây trên quầy và phiên bù trừ dưới lòng đất",
+    "paras": [
+     "Nhưng nếu bạn dùng Ngân hàng A còn quán mở tài khoản tại Ngân hàng B (giao dịch [[khác ngân hàng|offus]]), làm sao tiền có thể sang tới nơi chỉ trong 3 giây lúc 8 giờ sáng Chủ nhật? Câu trả lời là hạ tầng [[chuyển tiền nhanh 24/7|interbank247]] đã tách rời **lời nhắn ghi sổ tức thời** khỏi **phiên quyết toán tiền thật giữa hai ngân hàng**.",
+     "Ở giây thứ nhất, khi bạn bấm chuyển, ngân hàng của bạn kiểm tra số dư CASA, lập tức ghi giảm (Debit) tài khoản của bạn 50.000 đồng và bắn một bản tin điện tử qua [[tổ chức chuyển mạch|scheme]] liên ngân hàng. Ở giây thứ hai, tổ chức chuyển mạch kiểm tra hạn mức bảo chứng liên ngân hàng của ngân hàng bạn rồi chuyển tiếp bản tin sang ngân hàng của quán. Ở giây thứ ba, vì biết chắc khoản tiền này đã được bảo chứng bởi ký quỹ tại Ngân hàng Trung ương, ngân hàng của quán lập tức ghi tăng ([[Credit|credit]]) 50.000 đồng vào tài khoản thanh toán của quán và kích hoạt chiếc loa trên quầy.",
+     "Còn tiền thật giữa hai ngân hàng đi lúc nào? Họ không chuyển lẻ tẻ từng món 50.000 đồng. Suốt cả ngày, hàng triệu người chuyển tiền qua lại giữa hai ngân hàng. Đến giờ chốt phiên đối chiếu, tổ chức chuyển mạch tính toán số [[bù trừ ròng|netting]]: giả sử khách của Ngân hàng A chuyển sang Ngân hàng B tổng cộng 100 tỷ đồng, còn khách của Ngân hàng B chuyển ngược về Ngân hàng A 96 tỷ đồng, hai ngân hàng chỉ cần [[quyết toán|settlement]] đúng phần chênh lệch ròng 4 tỷ đồng trên tài khoản tiền gửi thanh toán mở tại Ngân hàng Trung ương."
+    ]
+   },
+   {
+    "h": "Nếu miễn phí 0 đồng, các ngân hàng lấy gì để sống?",
+    "paras": [
+     "Một thắc mắc lớn khác: vận hành hệ thống máy chủ 24/7 và đường truyền bảo mật tốn hàng trăm tỷ đồng, vậy tại sao các ngân hàng lại miễn phí 0 đồng cho cả bạn lẫn quán cà phê? Hãy nhìn vào cái giá của tiền mặt và bể vốn [[CASA|casa]] mà bạn đã gặp ở Bài 2.",
+     "Trước khi có mã QR chuyển khoản miễn phí, bạn phải ra cây ATM rút tiền mặt để trả 50.000 đồng cho quán, còn chủ quán cuối ngày lại cầm xấp tiền lẻ ra ngân hàng nộp vào. Rút tiền mặt làm số dư CASA rời khỏi hệ thống ngân hàng, đồng thời bắt ngân hàng tốn chi phí kiểm đếm, vận chuyển và tiếp quỹ ATM. Khi miễn phí chuyển khoản QR, cả 50.000 đồng chỉ nhảy từ tài khoản CASA của bạn sang tài khoản CASA của quán — đồng tiền không bao giờ rời khỏi hệ thống ngân hàng.",
+     "Quan trọng hơn, ai muốn dùng chiếc tài khoản nhận tiền QR hằng ngày thì phải để tiền mặt nằm sẵn trong tài khoản thanh toán với lãi suất chỉ khoảng 0,1%/năm (ví dụ). Với quán cà phê bán 200 ly mỗi ngày (10.000.000 đồng/ngày, tức 300.000.000 đồng/tháng doanh thu chạy qua tài khoản), số dư bình quân nằm lại trong tài khoản của quán chính là nguồn vốn CASA giá rẻ để ngân hàng đem đi cho vay ở mức 8%–10%/năm. Ngân hàng miễn vài trăm đồng phí chuyển khoản ở cửa trước để thu về nguồn vốn rẻ ở cửa sau."
+    ]
+   },
+   {
+    "h": "Mã QR tĩnh, mã QR động và điểm mù khi muốn đòi lại tiền",
+    "paras": [
+     "Dù tiện lợi và miễn phí, thanh toán đẩy qua mã QR có hai điểm mù mà cả quán lẫn bạn đều phải tự canh. Điểm mù thứ nhất nằm ở phía quán: nếu quán chỉ dán một mảnh giấy **mã QR tĩnh** cá nhân ở quầy, hệ thống thu ngân không tự biết khách đã chuyển thật hay chưa. Kẻ gian có thể chỉnh sửa ảnh chụp màn hình biên lai báo “chuyển thành công” để lấy hàng, hoặc nhân viên phải mất công chụp lại từng màn hình để cuối tháng kế toán dò tay hàng nghìn dòng sao kê. Để khoá lỗ hổng này, các cửa hàng lớn chuyển sang [[mã QR động|dynamicqr]] sinh riêng cho từng hoá đơn kèm [[loa báo tiền về|dynamicqr]]: khi khách quét, số tiền 50.000 đồng và mã đơn hàng đã khoá cứng, tiền về tài khoản là phần mềm bán hàng tự gạch nợ ngay — đổi lại, cửa hàng có thể trả một khoản phí dịch vụ thu hộ/đối soát nhỏ (ví dụ 0,1%–0,2%, tức chỉ 100 đồng trên ly cà phê 50.000 đồng, rẻ hơn 11 lần so với mức 2,2% của thẻ).",
+     "Điểm mù thứ hai nằm ở phía bạn: vì giao dịch QR là lệnh do chính tay bạn xác thực và đẩy tiền đi từ tài khoản CASA (tương đương trao tiền mặt tận tay), nó **không có cơ chế [[khiếu nại đòi lại tiền|chargeback]] (Chargeback)** mạnh như thẻ tín dụng. Nếu bạn chuyển nhầm số tài khoản hoặc chuyển tiền mua hàng trực tuyến cho một người bán gian lận, ngân hàng của bạn không có quyền tự ý trích ngược tiền từ tài khoản người nhận trả lại cho bạn, mà chỉ hỗ trợ gửi yêu cầu tra soát liên ngân hàng hoặc chờ cơ quan pháp luật can thiệp."
+    ]
+   }
+  ],
+  "flowSummary": [
+   {
+    "step": "Mốc 1 · Quét mã & Xác thực đẩy lệnh (T+0 — Giây 01)",
+    "channel": "wire",
+    "fromTo": "Bạn → Ngân hàng của bạn",
+    "amount": "lệnh Push 50.000 đ (ví dụ)",
+    "essence": "Bạn mở ứng dụng ngân hàng, quét mã QR của quán và xác thực chuyển khoản; không đi qua máy POS hay mạng lưới thẻ."
+   },
+   {
+    "step": "Mốc 2 · Trừ CASA & Chuyển mạch 24/7 (Giây 02)",
+    "channel": "wire",
+    "fromTo": "Ngân hàng của bạn → Tổ chức chuyển mạch → Ngân hàng của quán",
+    "amount": "bản tin 50.000 đ có bảo chứng",
+    "essence": "Ngân hàng của bạn trừ ngay 50.000 đồng khỏi số dư CASA của bạn và gửi bản tin chuyển tiền nhanh 24/7 qua tổ chức chuyển mạch."
+   },
+   {
+    "step": "Mốc 3 · Ghi Có tức thời & Loa báo tiền về (Giây 03)",
+    "channel": "book",
+    "fromTo": "Ngân hàng của quán → Sổ của Quán quen",
+    "amount": "+ 50.000 đ (Nợ 112 / Có 511)",
+    "essence": "Ngân hàng của quán ghi Có ngay 50.000 đồng vào tài khoản thanh toán của quán (phí 0 đồng); quán ghi tăng tiền gửi không kỳ hạn và doanh thu ngay lập tức."
+   },
+   {
+    "step": "Mốc 4 · Đối chiếu & Bù trừ ròng cuối phiên",
+    "channel": "wire",
+    "fromTo": "Ngân hàng của bạn ↔ Tổ chức chuyển mạch ↔ Ngân hàng của quán",
+    "amount": "đối chiếu chênh lệch ròng",
+    "essence": "Cuối phiên làm việc, tổ chức chuyển mạch tổng hợp hàng triệu lệnh chuyển qua lại giữa hai ngân hàng để tính ra một con số chênh lệch ròng duy nhất."
+   },
+   {
+    "step": "Mốc 5 · Quyết toán ròng tại Ngân hàng Trung ương",
+    "channel": "pipe",
+    "fromTo": "Ngân hàng của bạn → Ngân hàng của quán (tại NHTW)",
+    "amount": "tiền thật quyết toán phần chênh",
+    "essence": "Tiền dự trữ thanh toán thật sự dịch chuyển giữa hai ngân hàng trên sổ cái của Ngân hàng Trung ương theo số bù trừ ròng."
+   }
+  ],
+  "roles": [
+   {
+    "who": "Bạn",
+    "pays": "50.000 đồng trừ thẳng từ số dư CASA hiện có (phí chuyển khoản 0 đồng); không nhận được tiền hoàn 1% hay 45 ngày miễn lãi như thẻ tín dụng.",
+    "gains": "Thanh toán nhanh trong 3 giây ở bất kỳ quán nhỏ nào mà không cần mang tiền mặt hay thẻ vật lý.",
+    "risk": "Nếu chuyển nhầm hoặc gặp người bán gian lận, không có quyền yêu cầu ngân hàng tự động hoàn tiền (Chargeback) như thẻ tín dụng."
+   },
+   {
+    "who": "Quán quen",
+    "pays": "0 đồng với mã QR chuyển khoản dân sự (hoặc ~0,1%–0,2% nếu thuê dịch vụ mã QR động đối soát tự động — ví dụ).",
+    "gains": "Nhận đủ 50.000 đồng (hoặc 10.000.000 đồng cho 200 ly) vào TK 112 ngay trong 3 giây, tiết kiệm 2,2% phí MDR (220.000 đồng trên mỗi 10 triệu) và không phải chờ T+2.",
+    "risk": "Nếu chỉ dùng mã QR tĩnh không có loa báo/đối soát tự động, dễ bị lừa bằng ảnh chụp màn hình giả và vất vả khi kế toán đối chiếu sao kê cuối tháng."
+   },
+   {
+    "who": "Ngân hàng của bạn",
+    "pays": "Chi phí hạ tầng công nghệ và phí kết nối chuyển mạch cho mỗi giao dịch miễn phí.",
+    "gains": "Giữ chân bạn để số dư lương/chi tiêu nằm lại trong tài khoản CASA lãi suất ~0,1%/năm thay vì bị rút ra tiền mặt.",
+    "risk": "Không có rủi ro tín dụng (vì tiêu tiền có sẵn của bạn), nhưng phải duy trì hạn mức ký quỹ thanh khoản 24/7 tại tổ chức chuyển mạch."
+   },
+   {
+    "who": "Tổ chức chuyển mạch",
+    "pays": "Vận hành hạ tầng định tuyến bản tin 24/7 và hệ thống bù trừ ròng liên ngân hàng.",
+    "gains": "Thu phí xử lý chuyển mạch bán buôn từ các ngân hàng thành viên theo biểu phí liên ngân hàng.",
+    "risk": "Rủi ro vận hành hệ thống 24/7 và quản trị hạn mức bảo chứng giữa các ngân hàng."
+   },
+   {
+    "who": "Ngân hàng của quán",
+    "pays": "Chi phí ghi Có tức thời và thông báo biến động số dư cho quán.",
+    "gains": "Hấp thụ trọn vẹn dòng tiền doanh thu hằng ngày của quán vào bể vốn CASA giá rẻ và bán kèm gói dịch vụ mã QR động / loa báo tiền về.",
+    "risk": "Rủi ro đối chiếu nếu vượt hạn mức bảo chứng liên ngân hàng (được kiểm soát bằng cơ chế ký quỹ trước)."
+   }
+  ],
+  "whenHelps": [
+   "Với quán cà phê và cửa hàng nhỏ có biên lợi nhuận mỏng, mã QR chuyển khoản 24/7 giúp giữ lại trọn vẹn 2,2% doanh thu (tiết kiệm 220.000 đồng trên mỗi 10 triệu đồng so với quẹt thẻ, ví dụ) và có tiền mặt trong TK 112 ngay lập tức để nhập nguyên liệu.",
+   "Với người mua trong các giao dịch đời thường đã kiểm tra rõ hàng hoá tại quầy, quét mã QR giúp thanh toán gọn trong 3 giây và tiêu đúng trong phạm vi số dư thực có, không lo vướng nợ thẻ tín dụng.",
+   "Khi cửa hàng nâng cấp lên mã QR động gắn từng mã hoá đơn kèm loa báo tự động, kế toán vừa nhận tiền ngay vào TK 112 vừa tự động khớp sổ doanh thu TK 511 mà không sợ biên lai giả."
+  ],
+  "whenTraps": [
+   "Quán chỉ dán mã QR tĩnh cá nhân và nhìn màn hình điện thoại của khách mà không kiểm tra biến động số dư thật: rất dễ mất hàng vì ảnh chụp biên lai giả mạo.",
+   "Chủ hộ kinh doanh hoặc doanh nghiệp dùng chung một tài khoản cá nhân để nhận tiền QR bán hàng lẫn chuyển tiền sinh hoạt gia đình: cuối kỳ sổ kế toán TK 112 và doanh thu tính thuế sẽ rối tung khi đối chiếu.",
+   "Người mua dùng mã QR chuyển khoản trước 100% cho các đơn hàng giá trị lớn ở nơi chưa uy tín hoặc đặt cọc xa: khi bên bán không giao hàng, bạn mất lá chắn khiếu nại hoàn tiền (Chargeback) vốn chỉ có trên mạng lưới thẻ."
+  ],
+  "takeaways": [
+   "Khi mua một món hàng giá trị lớn hoặc đặt dịch vụ từ xa chưa nhận hàng ngay, sự khác biệt giữa chuyển khoản QR (Push) và thẻ tín dụng (Pull) nằm ở quyền khiếu nại nào?",
+   "Nếu mình đang kinh doanh, mỗi 10 triệu đồng doanh thu nhận qua QR đang giúp mình tiết kiệm bao nhiêu tiền phí MDR và bao nhiêu ngày chờ vốn so với máy POS?",
+   "Quầy thu ngân của mình đang dùng mã QR tĩnh nhìn màn hình bằng mắt thường hay đã có mã QR động / loa báo tự động khớp từng đơn hàng?",
+   "Tài khoản ngân hàng nhận tiền bán hàng qua mã QR của cửa hàng đã được tách bạch hoàn toàn khỏi tài khoản chi tiêu cá nhân để hạch toán TK 112 / TK 511 chưa?"
+  ]
+ },
+ "pro": {
+  "mechanics": [
+   {
+    "h": "1 · Kiến trúc Push Payment (Mã QR chuyển khoản liên ngân hàng) đối lập với Pull Payment 4 bên",
+    "p": "Trong giao dịch thẻ tín dụng ([[Pull Payment|pullpayment]]), luồng thông tin đi theo vòng khép kín 4 bên từ điểm bán (POS) → Ngân hàng thanh toán (Acquirer) → Tổ chức thẻ → Ngân hàng phát hành (Issuer) để xin cấp phép (Authorization) trên hạn mức tín dụng, sau đó mới gom lô đối chiếu ([[Clearing|clearing]]) và quyết toán ([[Settlement|settlement]]) ở T+2. Ngược lại, trong giao dịch quét mã QR chuyển khoản liên ngân hàng ([[Push Payment|pushpayment]]), mã QR theo chuẩn liên thông chỉ đóng vai trò cung cấp thông tin định danh tài khoản đích (mã ngân hàng thụ hưởng, số tài khoản của quán, số tiền và nội dung). Người mua chủ động khởi tạo lệnh chuyển tiền (Credit Transfer) từ ứng dụng của ngân hàng mình, cắt bỏ hoàn toàn bước xin cấp phép hạn mức tín dụng và bước giữ chỗ (Authorization Hold)."
+   },
+   {
+    "h": "2 · Cơ chế Ghi Có Tức Thời 24/7 và Quyết Toán Ròng Theo Phiên (Deferred Net Settlement — DNS)",
+    "p": "Để người bán nhận được tiền vào tài khoản ngay trong 3 giây vào bất kỳ thời điểm nào (kể cả đêm khuya hay ngày lễ), hạ tầng [[chuyển tiền nhanh 24/7|interbank247]] áp dụng cơ chế tách đôi giữa thông tin hạch toán khách hàng và quyết toán liên ngân hàng. Khi Ngân hàng A phát lệnh chuyển 50.000 đồng sang Ngân hàng B, [[tổ chức chuyển mạch|interbank]] kiểm tra hạn mức thanh khoản ròng (Net Debit Cap) được bảo đảm bằng tài sản ký quỹ hoặc số dư tài khoản thanh toán của Ngân hàng A tại Ngân hàng Trung ương. Ngay khi hợp lệ, Ngân hàng B lập tức ghi Có 50.000 đồng vào tài khoản của quán. Cuối mỗi phiên cắt sổ (Cut-off Window) trong ngày làm việc, tổ chức chuyển mạch tính toán vị thế ròng đa phương (Multilateral Net Position) của từng ngân hàng để thực hiện một bút toán quyết toán ròng duy nhất trên hệ thống thanh toán điện tử liên ngân hàng của Ngân hàng Trung ương."
+   },
+   {
+    "h": "3 · Bài toán Kinh tế học Ngân hàng: Đổi Phí Giao Dịch 0 Đồng Lấy Bể Vốn CASA",
+    "p": "Về mặt chi phí biên, mỗi giao dịch chuyển khoản liên ngân hàng 24/7 vẫn tiêu tốn chi phí hạ tầng máy chủ, bảo mật và phí chuyển mạch bán buôn. Tuy nhiên, các ngân hàng thương mại chọn áp dụng chính sách miễn phí chuyển khoản (Zero-Fee Retail Transfer) cho người dùng cá nhân và tiểu thương vì bài toán huy động vốn: khi thanh toán QR thay thế tiền mặt, dòng tiền lưu thông nằm nguyên trong hệ thống tài khoản [[CASA|casa]] (lãi suất ~0,1%/năm) thay vì rò rỉ ra tiền mặt ngoài lưu thông (Cash Leakage). Với biên lãi ròng (NIM) giữa lãi suất cho vay bình quân (~8,5%–10%/năm) và chi phí vốn CASA (~0,1%/năm), lợi nhuận từ số dư CASA bình quân giữ lại được vượt xa phần doanh thu phí chuyển khoản lẻ tẻ bị từ bỏ."
+   },
+   {
+    "h": "4 · Phân biệt Mã QR Tĩnh Chuyển Khoản Dân Sự (0% Phí) và Mã QR Động Thu Hộ Thương Mại (API/IPN)",
+    "p": "Trên thực tế vận hành doanh nghiệp có hai cấp độ triển khai mã QR. Cấp độ 1 là **Mã QR tĩnh (Static QR)**: chỉ mã hoá số tài khoản ngân hàng cố định; phí giao dịch bằng 0 đồng, nhưng không có bản tin gọi ngược (Webhook / IPN — Instant Payment Notification) về phần mềm bán hàng (POS/ERP), buộc kế toán phải đối chiếu sao kê thủ công. Cấp độ 2 là **Mã QR động ([[Dynamic QR|dynamicqr]]) tích hợp dịch vụ thu hộ (Collection Service / Payment Gateway)**: mỗi đơn hàng sinh một mã QR riêng có gắn mã tham chiếu giao dịch (Order Reference ID); ngay khi tiền vào tài khoản, ngân hàng hoặc trung gian thanh toán bắn bản tin IPN để phần mềm bán hàng tự động gạch nợ đơn hàng và phát loa báo — đổi lại, doanh nghiệp trả một mức phí dịch vụ thu hộ / đối soát nhỏ (thường từ 0,1% đến 0,3% hoặc phí cố định theo gói, thấp hơn nhiều so với mức MDR 2%–2,5% của thẻ tín dụng)."
+   }
+  ],
+  "accountingNotes": [
+   "Theo Thông tư 99/2025/TT-BTC, khi doanh nghiệp hoặc cửa hàng bán hàng thu tiền ngay qua mã QR chuyển khoản liên ngân hàng (phí 0 đồng), tiền vào thẳng tài khoản thanh toán ngay tại thời điểm giao dịch (T+0). Kế toán ghi nhận trực tiếp: Nợ TK 112 (Tiền gửi không kỳ hạn: 50.000 đồng cho 1 ly cà phê, hoặc 10.000.000 đồng cho 200 ly trong ngày) / Có TK 511 (Doanh thu bán hàng và cung cấp dịch vụ: 50.000 đồng hoặc 10.000.000 đồng; tách riêng Có TK 33311 nếu thuộc diện chịu thuế GTGT). Không phát sinh khoản treo trên TK 1388 (Phải thu khác) qua đêm như giao dịch quẹt thẻ.",
+   "Khi đặt cạnh giao dịch quẹt thẻ tín dụng cùng quy mô doanh thu 10.000.000 đồng (Bài 1): ở phương thức thẻ, ngày T+0 quán phải treo Nợ TK 1388 (10.000.000 đồng) và đến ngày T+2 mới nhận Nợ TK 112 (9.780.000 đồng) kèm Nợ TK 641 (Chi phí bán hàng — phí MDR 220.000 đồng). Như vậy, chuyển sang nhận qua mã QR chuyển khoản giúp doanh nghiệp vừa rút ngắn vòng quay tiền mặt từ T+2 về T+0, vừa giảm trực tiếp 220.000 đồng chi phí trên TK 641 cho mỗi 10.000.000 đồng doanh thu.",
+   "Trường hợp doanh nghiệp sử dụng dịch vụ [[mã QR động|dynamicqr]] có thu phí dịch vụ thu hộ / đối soát tự động (ví dụ 0,2% trên doanh thu 10.000.000 đồng = 20.000 đồng) và ngân hàng khấu trừ phí trực tiếp hoặc thu cuối ngày: kế toán ghi Nợ TK 112 (9.980.000 đồng) và Nợ TK 641 — Chi phí bán hàng (hoặc TK 642 — Chi phí quản lý doanh nghiệp tuỳ chính sách kế toán: 20.000 đồng) đối ứng Có TK 511 (10.000.000 đồng).",
+   "Trên sổ kế toán của hai ngân hàng thành viên: khi khách hàng quét mã chuyển 50.000 đồng khác ngân hàng (Off-Us), Ngân hàng của bạn ghi Nợ TK Tiền gửi không kỳ hạn của khách hàng (50.000 đồng) / Có TK Phải trả liên ngân hàng qua tổ chức chuyển mạch (50.000 đồng). Ngân hàng của quán ghi Nợ TK Phải thu liên ngân hàng qua tổ chức chuyển mạch (50.000 đồng) / Có TK Tiền gửi không kỳ hạn của quán (50.000 đồng). Khi kết thúc phiên bù trừ, hai khoản phải thu/phải trả trung gian này được tất toán qua TK Tiền gửi thanh toán tại Ngân hàng Trung ương."
+  ],
+  "journal": [
+   {
+    "step": "Bước 1 · Ngày T+0 (Khách quét mã QR chuyển khoản 1 ly cà phê 50.000 đồng — Phí 0 đồng)",
+    "book": "Sổ của quán (TT 99/2025)",
+    "assume": "Khách quét mã QR chuyển khoản liên ngân hàng 24/7 thanh toán 1 ly cà phê 50.000 đồng (ví dụ minh hoạ bỏ qua thuế GTGT để nhìn rõ dòng tiền); tiền báo Có vào tài khoản ngân hàng của quán ngay sau 3 giây, phí chuyển khoản 0 đồng.",
+    "rows": [
+     [
+      "Nợ",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "tiền về ngay lập tức qua chuyển khoản QR 24/7",
+      "Quán thực nhận đủ 100% ngay tại T+0",
+      50000
+     ],
+     [
+      "Có",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "doanh thu bán 1 ly cà phê tại quầy",
+      "Ghi nhận doanh thu bán hàng",
+      50000
+     ]
+    ],
+    "note": "Σ Debit = Σ Credit = 50.000 đồng. Không cần treo qua TK 1388 (Phải thu khác) và không mất phí MDR trên TK 641.",
+    "lifeNote": "Tiền thật vào thẳng tài khoản ngân hàng của quán ngay lúc khách vừa rời quầy."
+   },
+   {
+    "step": "Bước 2 · Tổng kết ca 200 ly cà phê qua mã QR chuyển khoản (10.000.000 đồng — Phí 0 đồng)",
+    "book": "Sổ của quán (TT 99/2025)",
+    "assume": "Trong ngày, quán bán được 200 ly cà phê × 50.000 đồng = 10.000.000 đồng hoàn toàn qua mã QR chuyển khoản dân sự (cùng quy mô 10.000.000 đồng để đối chiếu trực tiếp với Bài 1 quẹt thẻ).",
+    "rows": [
+     [
+      "Nợ",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "200 giao dịch QR × 50.000 đồng vào thẳng tài khoản",
+      "Tiền thật về đủ 10.000.000 đồng trong ngày",
+      10000000
+     ],
+     [
+      "Có",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "doanh thu 200 ly cà phê trong ngày",
+      "Tổng doanh thu ca bán hàng",
+      10000000
+     ]
+    ],
+    "note": "Đối chiếu với quẹt thẻ 10.000.000 đồng ở Bài 1 (chỉ thực nhận 9.780.000 đồng ở T+2): mã QR giúp quán giữ lại nguyên vẹn 220.000 đồng.",
+    "lifeNote": "Cứ mỗi 10 triệu đồng khách chuyển sang quét QR thay vì quẹt thẻ tín dụng, quán giữ lại được 220.000 đồng tiền mặt."
+   },
+   {
+    "step": "Bước 3 · Kịch bản dùng Mã QR Động có phí dịch vụ đối soát tự động 0,2% (20.000 đồng trên 10.000.000 đồng)",
+    "book": "Sổ của quán (TT 99/2025)",
+    "assume": "Kịch bản riêng, ví dụ: chuỗi cửa hàng tích hợp dịch vụ mã QR động (Dynamic QR API) vào máy POS để tự động gạch nợ từng hoá đơn và phát loa báo, chịu phí dịch vụ thu hộ / đối soát 0,2% trên doanh thu 10.000.000 đồng (= 20.000 đồng).",
+    "rows": [
+     [
+      "Nợ",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "tiền thực nhận sau khi trừ phí dịch vụ đối soát QR động 0,2%",
+      "Tiền thực nhận về tài khoản (99,8%)",
+      9980000
+     ],
+     [
+      "Nợ",
+      "641",
+      "Chi phí bán hàng",
+      "phí dịch vụ thu hộ & đối soát tự động mã QR động (0,2%) — hoặc ghi TK 642 tuỳ chính sách",
+      "Phí dịch vụ đối soát QR động",
+      20000
+     ],
+     [
+      "Có",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "doanh thu 200 ly cà phê qua hệ thống POS",
+      "Tổng doanh thu bán hàng",
+      10000000
+     ]
+    ],
+    "note": "Σ Debit = 9.980.000 + 20.000 = 10.000.000 = Σ Credit. Ngay cả khi thuê dịch vụ QR động tự động (20.000 đồng), chi phí vẫn rẻ hơn 11 lần so với phí MDR thẻ tín dụng (220.000 đồng).",
+    "lifeNote": "Đổi 20.000 đồng trên 10 triệu doanh thu để máy tự kiểm tiền và chống biên lai giả, vẫn tiết kiệm được 200.000 đồng so với quẹt thẻ."
+   },
+   {
+    "step": "Bước 4 · Kịch bản khách chuyển nhầm thừa 450.000 đồng (chuyển 500.000 đồng cho ly cà phê 50.000 đồng) và quán chuyển trả lại",
+    "book": "Sổ của quán (TT 99/2025)",
+    "assume": "Kịch bản ngoại lệ, ví dụ: khách quét mã QR tĩnh gõ nhầm thêm một số 0 thành 500.000 đồng cho ly cà phê 50.000 đồng; quán kiểm tra sao kê thấy tiền đã vào thật và chuyển khoản trả lại 450.000 đồng tiền thừa ngay tại quầy.",
+    "rows": [
+     [
+      "Nợ",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "nhận 500.000 đồng khách chuyển khoản",
+      "Tổng tiền vào tài khoản lúc khách bấm nhầm",
+      500000
+     ],
+     [
+      "Có",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "doanh thu đúng của 1 ly cà phê",
+      "Doanh thu thực tế của đơn hàng",
+      50000
+     ],
+     [
+      "Có",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: tiền khách chuyển thừa chờ hoàn trả",
+      "Khoản giữ hộ tiền thừa của khách",
+      450000
+     ],
+     [
+      "Nợ",
+      "338",
+      "Phải trả, phải nộp khác",
+      "chi tiết 3388: tất toán khoản khách chuyển thừa",
+      "Xoá khoản phải trả tiền thừa",
+      450000
+     ],
+     [
+      "Có",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "chuyển khoản trả lại 450.000 đồng cho khách",
+      "Tiền thật chuyển trả lại khách",
+      450000
+     ]
+    ],
+    "note": "Σ Debit = 500.000 + 450.000 = 950.000 = Σ Credit (50.000 + 450.000 + 450.000). Tách bạch rõ 50.000 đồng doanh thu (TK 511) và 450.000 đồng thu thừa trả lại (TK 338) để không bị tính nhầm vào doanh thu chịu thuế.",
+    "lifeNote": "Khi khách chuyển nhầm thừa tiền, phần thừa hạch toán vào khoản phải trả khác (TK 338) rồi chuyển trả lại, không ghi vào doanh thu."
+   }
+  ],
+  "edgeCases": [
+   {
+    "h": "1 · Màn hình khách báo “Đã chuyển thành công” nhưng loa của quán im lìm (Giao dịch treo liên ngân hàng)",
+    "p": "Vào giờ cao điểm hoặc khi một ngân hàng bảo trì kết nối, khách hàng bấm chuyển 50.000 đồng có thể thấy ứng dụng báo đã trừ tiền, nhưng bản tin chuyển mạch bị nghẽn (Time-out) trước khi tới ngân hàng của quán. Khi đó, khoản 50.000 đồng đang nằm treo trên tài khoản trung gian chờ đối soát liên ngân hàng. Nguyên tắc an toàn cho thu ngân là chỉ giao hàng khi hệ thống của quán đã nhận được bản tin ghi Có thật (hoặc viết phiếu hẹn hoàn tiền nếu khách trả lại lần hai và giao dịch treo trước đó được đối soát thành công vào phiên sau)."
+   },
+   {
+    "h": "2 · Bẫy lừa đảo “Chuyển nhầm tiền vào tài khoản QR rồi nhờ chuyển trả vào tài khoản khác”",
+    "p": "Một kịch bản rủi ro thực tế là kẻ gian cố tình chuyển một khoản tiền vào tài khoản mã QR công khai của cửa hàng, sau đó liên hệ báo chuyển nhầm và yêu cầu chủ quán chuyển trả sang một số tài khoản của bên thứ ba (hoặc giả danh nhân viên thu hồi nợ). Về nguyên tắc kế toán và pháp lý, nếu phát sinh khoản tiền lạ chuyển nhầm vào TK 112 (ghi Có TK 338 — Phải trả, phải nộp khác), doanh nghiệp chỉ làm thủ tục hoàn trả thông qua lệnh tra soát chính thức của ngân hàng về đúng số tài khoản gốc đã chuyển đến, tuyệt đối không tự ý chuyển sang tài khoản thứ ba."
+   },
+   {
+    "h": "3 · Quét cùng một mã QR ở quầy nhưng chọn “Nguồn tiền Thẻ tín dụng” thay vì “Tài khoản thanh toán CASA”",
+    "p": "Hiện nay nhiều ứng dụng ngân hàng và trung gian thanh toán cho phép người mua quét mã QR tại cửa hàng nhưng gạt chọn nguồn tiền trích từ hạn mức thẻ tín dụng thay vì tài khoản CASA. Ngay khi nguồn tiền đổi sang thẻ tín dụng, bản chất kinh tế của giao dịch lập tức quay trở lại mô hình tín dụng ứng trước: bên phát hành thẻ phải bỏ vốn và gánh rủi ro nợ, nên giao dịch đó chỉ thực hiện được tại các điểm chấp nhận mã QR thương mại có ký hợp đồng chịu phí chiết khấu (MDR ~1,5%–2,2%) hoặc thu phí xử lý từ phía người dùng, chứ không thể chuyển miễn phí 0 đồng vào mã QR chuyển khoản cá nhân thông thường."
+   }
+  ]
+ }
+},
+    videoScript: {
+ "long": {
+  "title": "Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 50 nghìn ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+  "hookNote": "Đặt bảng mã QR nhựa cạnh chiếc máy POS quẹt thẻ trên mặt quầy cà phê; đặt câu hỏi vì sao quẹt thẻ thì quán mất 2,2% phí và đợi 2 ngày, còn quét mã QR thì chỉ 3 giây sau loa đã báo quán nhận đủ 100%.",
+  "youtubeId": "d_WpGSjBR-4",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:42",
+    "beat": null,
+    "chapter": "Tấm bảng mã QR và chiếc máy quẹt thẻ nằm cạnh nhau",
+    "visual": "Khung 16:9 đêm Risograph ấm. Trên quầy gỗ của Quán quen, một bên là chiếc máy POS quẹt thẻ nằm yên, một bên là tấm bảng mã QR chuyển khoản kèm chiếc loa nhỏ. Bạn đưa điện thoại lên quét mã 50.000 đồng; chỉ 3 giây sau chiếc loa phát sáng xanh ngọc báo “Đã nhận 50.000 đồng”.",
+    "vo": "Sáng đầu tuần, bạn ghé quán quen gọi một ly cà phê năm mươi nghìn đồng. Trên mặt quầy có cả máy quẹt thẻ lẫn một tấm bảng mã quy rờ, nhưng thu ngân luôn mỉm cười chỉ tay vào tấm bảng mã quy rờ. Bạn đưa điện thoại lên quét, bấm xác nhận. Chỉ ba giây sau, chiếc loa nhỏ trên quầy đã đọc vang: đã nhận năm mươi nghìn đồng. Bạn cầm ly cà phê bước đi, còn quán nhận trọn vẹn năm mươi nghìn đồng ngay lập tức. Hãy nhớ lại bài số một: khi bạn chạm thẻ tín dụng mười triệu đồng, quán phải đợi hai ngày làm việc và bị trừ mất hai trăm hai mươi nghìn đồng tiền phí, tức hai phẩy hai phần trăm. Vì sao cùng là thanh toán không tiền mặt bằng chiếc điện thoại, nhưng quét mã quy rờ chuyển khoản thì quán nhận đủ một trăm phần trăm tiền tươi ngay trong ba giây mà không mất một đồng phí nào?",
+    "onScreen": "“Ly cà phê: 50.000 đ” · “Quẹt thẻ: Mất 2,2% phí + Chờ T+2 · Quét QR: Nhận đủ 50.000 đ sau 3 giây” · SFX gợi ý: tiếng máy ảnh quét mã & tiếng loa báo tiền về (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "0:42 – 1:32",
+    "beat": 0,
+    "chapter": "Thanh toán Đẩy (Push) đối lập với Thanh toán Kéo (Pull)",
+    "visual": "Toàn cảnh năm ngôi nhà trên phố đêm. Nhà Bạn, Quán quen và Ngân hàng của bạn bật sáng (lit 0,1,2). Từ nhà Bạn, một luồng lệnh chủ động chạy thẳng sang Ngân hàng của bạn (msgs 0→2), khác hẳn luồng máy POS của quán phát lệnh đi vòng qua 4 bên khi quẹt thẻ.",
+    "vo": "Bí mật đầu tiên nằm ở chiều đi của mệnh lệnh, thứ người trong nghề gọi là thanh toán đẩy và thanh toán kéo. Khi bạn chạm thẻ tín dụng vào máy của quán, đó là thanh toán kéo: máy của quán phải phát lệnh đi vòng qua ngân hàng của quán, qua tổ chức thẻ, tới ngân hàng phát hành thẻ để xin kéo tiền về. Còn khi bạn quét tấm bảng mã quy rờ trên quầy, tấm bảng nhựa ấy hoàn toàn đứng yên, không nối mạng viễn thông với ai cả. Nó chỉ là một tờ giấy ghi sẵn số tài khoản của quán. Chính bạn là người mở khoá khuôn mặt trên điện thoại của mình và chủ động đẩy lệnh chuyển khoản năm mươi nghìn đồng từ ngân hàng của bạn đi sang ngân hàng của quán.",
+    "onScreen": "“Quẹt thẻ = Thanh toán Kéo (Pull Payment qua 4 bên)” · “Quét QR = Thanh toán Đẩy (Push Payment từ chính bạn)” · SFX gợi ý: tiếng mở khoá sinh trắc học nhẹ (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "1:32 – 2:24",
+    "beat": 1,
+    "chapter": "Tiêu tiền có sẵn (CASA) nên không ai thu phí ứng vốn",
+    "visual": "Nhà Bạn và Ngân hàng của bạn sáng (lit 0,2). Trong Ngân hàng của bạn, két tiền gửi không kỳ hạn CASA giảm ngay 50.000 đồng (fx hold, iledger). Bảng đối chiếu hiện rõ: “Không ứng vốn 45 ngày · Không rủi ro bùng nợ · Không trích 1% tiền hoàn”.",
+    "vo": "Bí mật thứ hai quan trọng hơn: năm mươi nghìn đồng ấy là tiền của ai? Khi bạn quẹt thẻ tín dụng, bạn đang tiêu tiền của ngân hàng phát hành ứng trước cho bạn vay miễn lãi tới bốn mươi lăm ngày. Vì ngân hàng phát hành phải bỏ vốn ứng trước, phải gánh rủi ro bạn không trả, và còn trích một phần trăm thưởng tiền hoàn cho bạn, họ thu phí từ phía quán để bù đắp. Ngược lại, khi bạn quét mã quy rờ chuyển khoản, năm mươi nghìn đồng được trừ thẳng từ số dư tiền gửi không kỳ hạn, tức tiền thật đang có sẵn của chính bạn trong tài khoản thanh toán. Không có ngân hàng nào phải bỏ tiền túi cho bạn vay bốn mươi lăm ngày, không có rủi ro nợ xấu, nên cũng không ai có lý do để thu hai phẩy hai phần trăm phí chiết khấu từ quán cà phê.",
+    "onScreen": "“Nguồn tiền QR: Số dư CASA có sẵn của bạn” · “0 đồng ứng vốn · 0% rủi ro tín dụng → 0 đồng phí MDR” · SFX gợi ý: tiếng gạt sổ gọn (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "2:24 – 3:16",
+    "beat": 2,
+    "chapter": "Ba giây trên mặt đất: Bản tin chuyển mạch 24/7 và chiếc loa của quán",
+    "visual": "Nhà Bạn, Quán quen, Ngân hàng của bạn, Tổ chức chuyển mạch và Ngân hàng của quán cùng sáng (lit 0,1,2,3,4). Luồng thông tin trên cao chạy cực nhanh từ Ngân hàng của bạn qua Tổ chức chuyển mạch sang Ngân hàng của quán rồi báo về Quán quen (msgs 2→3, 3→4, 4→1). Sổ của Quán quen bật sáng dòng Nợ 112 / Có 511: 50.000 đồng.",
+    "vo": "Nhưng có một điều rất lạ: giả sử bạn dùng ngân hàng A, còn quán cà phê mở tài khoản ở ngân hàng B. Lúc tám giờ sáng Chủ nhật, phòng giao dịch ngân hàng trung ương đang nghỉ, tại sao chỉ ba giây sau khi bạn bấm nút, chiếc loa của quán đã báo nhận đủ năm mươi nghìn đồng và quán rút ra tiêu được ngay? Đó là nhờ kiến trúc hai tầng của hạ tầng chuyển tiền nhanh hai mươi bốn trên bảy. Ở tầng trên mặt đất, ngay giây thứ nhất ngân hàng của bạn trừ năm mươi nghìn đồng của bạn, một bản tin điện tử chạy qua tổ chức chuyển mạch sang ngân hàng của quán. Vì ngân hàng của bạn đã đặt sẵn một quỹ bảo chứng thanh khoản, ngân hàng của quán tin tưởng tuyệt đối vào bản tin ấy và lập tức ghi Có năm mươi nghìn đồng vào tài khoản của quán ngay ở giây thứ ba.",
+    "onScreen": "“Giây 01–03: Bản tin chuyển mạch 24/7 có bảo chứng” · “Sổ của quán: Debit 112 · Credit 511 — 50.000 đ ngay tại T+0” · SFX gợi ý: tiếng xung tín hiệu nhanh & tiếng chuông báo Có (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "3:16 – 4:10",
+    "beat": 3,
+    "chapter": "Dưới lòng đất: Phiên bù trừ ròng (Net Settlement) giữa các ngân hàng",
+    "visual": "Ngân hàng của bạn, Tổ chức chuyển mạch và Ngân hàng của quán sáng (lit 2,3,4). Trên cao là hàng trăm tia sáng nhỏ chạy qua lại hai chiều; bên dưới lòng đất, luồng quyết toán tiền thật chỉ chạy một khối gọn từ Ngân hàng của bạn sang Ngân hàng của quán (msgs 2→3, 3→4, 2→4 money) kèm nhãn “Bù trừ ròng cuối phiên”.",
+    "vo": "Vậy còn tiền thật giữa hai ngân hàng thì đi lúc nào? Hai ngân hàng không bao giờ chở một bọc năm mươi nghìn đồng đi qua lại cho từng ly cà phê. Suốt cả ngày, có hàng triệu người chuyển tiền từ ngân hàng A sang ngân hàng B, và cũng có hàng triệu người chuyển ngược từ ngân hàng B về ngân hàng A. Đến giờ chốt phiên đối chiếu trong ngày làm việc, tổ chức chuyển mạch mới cộng toàn bộ hai chiều lại để tính bù trừ ròng. Giả sử khách của ngân hàng A chuyển sang B tổng cộng một trăm tỷ đồng, còn khách của ngân hàng B chuyển về A chín mươi sáu tỷ đồng. Khi ấy, ngân hàng A chỉ cần chuyển đúng bốn tỷ đồng tiền chênh lệch ròng sang ngân hàng B trên tài khoản thanh toán mở tại Ngân hàng Trung ương. Lời nhắn chạy từng giây, nhưng tiền dự trữ chỉ chuyển phần chênh lệch.",
+    "onScreen": "“Hàng triệu lệnh nhỏ trong ngày → Gom đối chiếu 2 chiều” · “Quyết toán ròng (Net Settlement): 100 tỷ − 96 tỷ = Chỉ chuyển 4 tỷ phần chênh” · SFX gợi ý: tiếng khớp khóa cơ khí trầm (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "4:10 – 5:04",
+    "beat": 4,
+    "chapter": "So sổ kế toán 10 triệu đồng: Quét QR giữ lại 220.000 đồng cho quán",
+    "visual": "Quán quen và Ngân hàng của quán sáng (lit 1,4). Hai cuốn sổ kế toán đặt song song trên màn hình cho cùng doanh thu 200 ly cà phê (= 10.000.000 đồng): Sổ Quẹt Thẻ (Treo TK 1388 2 ngày, mất 220.000 đ vào TK 641, thực nhận 9.780.000 đ) đối chiếu với Sổ Quét QR (Nhận thẳng TK 112: 10.000.000 đ ngay trong ngày, phí TK 641 = 0 đ).",
+    "vo": "Giờ hãy mở cuốn sổ kế toán của quán cà phê theo Thông tư 99/2025 để thấy vì sao chủ quán lại mê tấm bảng mã quy rờ đến vậy. Giả sử một ngày quán bán được hai trăm ly cà phê năm mươi nghìn đồng, tổng doanh thu đúng bằng mười triệu đồng như bữa liên hoan ở bài một. Nếu khách quẹt thẻ tín dụng toàn bộ mười triệu đồng ấy, cuối ngày kế toán chỉ ghi được một khoản phải thu trên tài khoản một ba tám tám, chờ hai ngày sau tiền mới về tài khoản một một hai và bị hụt mất hai trăm hai mươi nghìn đồng phí bán hàng. Còn khi hai trăm vị khách cùng quét mã quy rờ chuyển khoản, mười triệu đồng chảy thẳng vào tài khoản tiền gửi không kỳ hạn một một hai ngay trong ca bán hàng, không hụt một đồng nào. Cứ mỗi một tháng ba mươi ngày như thế, tấm bảng nhựa nhỏ xíu trên quầy giữ lại cho quán sáu triệu sáu trăm nghìn đồng tiền mặt.",
+    "onScreen": "“Doanh thu 200 ly = 10.000.000 đ/ngày” · “Quẹt thẻ: Thực nhận 9.780.000 đ ở T+2 · Quét QR: Thực nhận 10.000.000 đ ở T+0” · “Tiết kiệm 220.000 đ/ngày (6,6 triệu/tháng — ví dụ)” · SFX gợi ý: tiếng lật sổ kế toán (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "5:04 – 5:58",
+    "beat": null,
+    "chapter": "Vì sao ngân hàng chịu miễn phí 0 đồng? Bài toán giữ bể vốn CASA",
+    "visual": "Ngân hàng của bạn và Ngân hàng của quán sáng rực. Giữa hai ngân hàng là bể vốn CASA khổng lồ màu vàng ấm: tiền 50.000 đồng nhảy từ bể CASA của người mua sang bể CASA của chủ quán, không một tờ tiền giấy nào rơi ra ngoài qua khe máy ATM.",
+    "vo": "Nhưng nếu bạn cũng không trả phí, quán cũng không trả phí, vậy hai ngân hàng lấy gì để bù đắp chi phí máy chủ hoạt động ngày đêm? Câu trả lời nối thẳng về bể vốn không kỳ hạn CASA mà bạn đã thấy ở bài tiền lương. Trước kia, để mua ly cà phê năm mươi nghìn đồng, bạn phải ra cây rút tiền tự động rút tiền giấy, làm tiền rời khỏi hệ thống ngân hàng và bắt ngân hàng tốn chi phí tiếp quỹ, kiểm đếm. Khi miễn phí chuyển khoản quy rờ, năm mươi nghìn đồng chỉ nhảy từ tài khoản thanh toán của bạn sang tài khoản thanh toán của quán. Đồng tiền không bao giờ rời khỏi hệ thống ngân hàng. Cả bạn lẫn chủ quán đều vui vẻ để hàng chục triệu đồng nằm sẵn trong tài khoản thanh toán với lãi suất chỉ khoảng không phẩy một phần trăm một năm, tạo thành nguồn vốn giá rẻ khổng lồ để ngân hàng đem đi cho vay.",
+    "onScreen": "“Miễn phí chuyển khoản QR = Giữ tiền không bị rút ra khỏi hệ thống” · “Đổi phí lẻ lấy bể vốn CASA lãi ~0,1%/năm để cho vay ~8,5%/năm (ví dụ)” · SFX gợi ý: tiếng dòng nước chảy êm (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "5:58 – 6:50",
+    "beat": null,
+    "chapter": "Mã QR tĩnh 0 đồng và Mã QR động tự động đối soát",
+    "visual": "Trên mặt cắt Quán quen hiện hai loại bảng mã: bên trái là Mã QR tĩnh dán giấy (0 đồng phí, thu ngân phải nhìn màn hình điện thoại khách), bên phải là Mã QR động trên màn hình máy POS kèm loa báo (tự gắn số tiền 50.000 đ + mã đơn HD1024, phí dịch vụ đối soát ~0,2%).",
+    "vo": "Dù vậy, không phải tấm bảng mã quy rờ nào trên quầy cũng giống hệt nhau. Quán nhỏ đầu ngõ thường in một tấm mã quy rờ tĩnh gắn cố định với tài khoản cá nhân của chủ quán: hoàn toàn miễn phí không đồng, nhưng khách phải tự gõ số tiền và thu ngân phải nhìn màn hình điện thoại của khách bằng mắt thường. Khi quán đông lên, kẻ gian có thể dùng ảnh chụp màn hình biên lai giả để lừa lấy đồ uống, và cuối tháng kế toán phải dò tay hàng nghìn dòng sao kê. Vì thế, các chuỗi cửa hàng lớn chuyển sang mã quy rờ động sinh riêng cho từng hoá đơn: số tiền năm mươi nghìn đồng và mã đơn hàng đã khoá cứng trong mã, tiền vừa vào là máy tính tiền tự gạch nợ và phát loa báo ngay. Đổi lấy sự tự động ấy, quán trả một khoản phí dịch vụ thu hộ rất nhỏ, ví dụ không phẩy hai phần trăm, tức vẫn rẻ hơn mười một lần so với phí quẹt thẻ.",
+    "onScreen": "“Mã QR tĩnh: Phí 0 đ · Phải nhìn màn hình & dò sao kê tay” · “Mã QR động: Khóa số tiền + Tự gạch nợ đơn hàng (phí dịch vụ ~0,2% ví dụ)” · SFX gợi ý: tiếng bíp khớp đơn hàng (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "6:50 – 7:40",
+    "beat": null,
+    "chapter": "Ba tình huống thực tế: Nghẽn mạng, chuyển nhầm và mất quyền Chargeback",
+    "visual": "Ba khung cảnh ngoại lệ trên mặt cắt: (1) Màn hình khách báo trừ tiền nhưng loa quán chưa kêu do nghẽn phiên; (2) Khách gõ thừa một số 0 thành 500.000 đ → quán hạch toán TK 338 trả lại 450.000 đ; (3) Mua hàng xa qua QR không có quyền khiếu nại đòi lại tiền (Chargeback) như thẻ.",
+    "vo": "Có ba tình huống thực tế bạn cần nhớ khi quét mã quy rờ. Thứ nhất: đôi lúc giờ cao điểm điện thoại bạn báo đã trừ năm mươi nghìn đồng nhưng loa của quán chưa kêu vì bản tin liên ngân hàng bị nghẽn; tiền lúc đó đang nằm ở tài khoản trung gian chờ đối soát chứ chưa mất đi. Thứ hai: nếu bạn lỡ tay gõ thừa một số không, chuyển năm trăm nghìn đồng cho ly cà phê năm mươi nghìn, kế toán của quán sẽ ghi bốn trăm năm mươi nghìn đồng tiền thừa vào khoản phải trả khác rồi chuyển trả lại bạn, chứ không được ghi cả năm trăm nghìn vào doanh thu. Và thứ ba, quan trọng nhất với ví tiền của bạn: vì quét mã quy rờ là lệnh do chính tay bạn đẩy tiền mặt đi, nó không có quyền khiếu nại đòi ngân hàng hoàn tiền như thẻ tín dụng. Đừng dùng chuyển khoản quy rờ trả trước cho những món hàng lớn ở nơi bạn chưa kiểm chứng độ tin cậy.",
+    "onScreen": "“Nghẽn bản tin: Tiền chờ đối soát liên ngân hàng” · “Chuyển thừa 450.000 đ: Ghi TK 338 trả lại” · “Lưu ý: Chuyển khoản QR không có Chargeback như thẻ tín dụng” · SFX gợi ý: tiếng chuông nhắc nhẹ (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "7:40 – 8:16",
+    "beat": null,
+    "chapter": "Khi nào quét mã QR, khi nào chạm thẻ?",
+    "visual": "Toàn cảnh năm ngôi nhà về đêm. Hai luồng sáng đặt cạnh nhau: luồng Push Payment (QR — nhanh 3 giây, 0% phí cho quán quen) và luồng Pull Payment (Thẻ — có 45 ngày ân hạn và lá chắn Chargeback nhưng quán chịu 2,2% phí).",
+    "vo": "Giờ thì mỗi lần đứng trước quầy thu ngân, nhìn tấm bảng mã quy rờ nằm cạnh chiếc máy quẹt thẻ, bạn đã thấy toàn bộ cỗ máy phía sau. Với ly cà phê năm mươi nghìn đồng hay bữa cơm trưa ở quán quen nơi bạn đã cầm món hàng trên tay, một cú quét mã quy rờ giúp tiền về thẳng túi người bán trong ba giây mà không lấy đi của họ hai phẩy hai phần trăm phí dịch vụ. Còn với những giao dịch đặt hàng từ xa hoặc cần lá chắn bảo vệ người mua, chiếc thẻ với cơ chế giữ chỗ và quyền khiếu nại lại phát huy giá trị của nó. Hiểu đường đi của tiền giúp bạn chọn đúng công cụ cho từng giao dịch mỗi ngày.",
+    "onScreen": "“Mua tại quầy quen: Quét QR → Tiền về T+0, giữ trọn 100% cho quán” · “Đặt hàng xa / cần bảo vệ: Dùng thẻ → Có lá chắn Chargeback” · SFX gợi ý: một nốt chuông ấm khép lại (cần giấy phép trước khi dùng)"
+   }
+  ]
+ },
+ "short": {
+  "title": "Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+  "angle": "Quét mã QR là giao dịch Thanh toán Đẩy (Push Payment) trừ thẳng vào số dư CASA có sẵn của bạn nên không có ngân hàng nào phải ứng vốn 45 ngày hay thu phí MDR 2,2%; bản tin 24/7 giúp quán nhận đủ 50.000 đồng sau 3 giây, còn hai ngân hàng bù trừ ròng vào cuối phiên.",
+  "youtubeId": "WpwLZw3ytwU",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:11",
+    "beat": null,
+    "visual": "9:16, trên mặt quầy cà phê đặt bảng mã QR cạnh máy POS; điện thoại quét mã 50.000 đồng, loa báo “Đã nhận 50.000 đồng” sau 3 giây.",
+    "vo": "Mua ly cà phê năm mươi nghìn đồng, nếu bạn chạm thẻ tín dụng thì quán mất hai phẩy hai phần trăm phí và phải chờ hai ngày. Vì sao khi bạn quét mã quy rờ chuyển khoản, chỉ ba giây sau quán đã nhận đủ trọn vẹn năm mươi nghìn đồng?",
+    "onScreen": "Chữ to: “Ly cà phê 50.000 đ · Quẹt thẻ mất 2,2% · Quét QR nhận đủ 100% sau 3 giây?” · SFX gợi ý: tiếng loa báo tiền về (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "0:11 – 0:23",
+    "beat": 0,
+    "visual": "9:16, so sánh luồng Pull Payment (máy POS kéo tiền qua 4 bên) và Push Payment (bạn chủ động đẩy tiền từ CASA).",
+    "vo": "Bởi vì quẹt thẻ là thanh toán kéo: ngân hàng phát hành phải bỏ tiền túi ứng trước cho bạn vay bốn mươi lăm ngày nên thu phí từ quán. Còn quét mã quy rờ là thanh toán đẩy: bạn tự lấy tiền có sẵn trong tài khoản của mình chuyển đi.",
+    "onScreen": "“Quẹt thẻ = Ngân hàng ứng vốn (Pull) · Quét QR = Bạn tự đẩy tiền CASA (Push)” · SFX gợi ý: tiếng gạt sổ (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "0:23 – 0:36",
+    "beat": 2,
+    "visual": "9:16, bản tin 24/7 chạy qua Tổ chức chuyển mạch trong 3 giây (lit 0,1,2,3,4; msgs 2→3, 3→4, 4→1); sổ quán ghi Nợ 112 / Có 511: 50.000 đồng.",
+    "vo": "Trong ba giây đầu tiên, bản tin chuyển tiền nhanh hai mươi bốn trên bảy chạy qua tổ chức chuyển mạch. Nhờ quỹ bảo chứng đặt sẵn, ngân hàng của quán ghi Có ngay năm mươi nghìn đồng cho quán dùng tức thì.",
+    "onScreen": "“3 giây: Bản tin 24/7 có bảo chứng → Quán nhận đủ 50.000 đ (Debit 112 / Credit 511)” · SFX gợi ý: tiếng xung tín hiệu (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "0:36 – 0:49",
+    "beat": 3,
+    "visual": "9:16, dưới lòng đất: hai ngân hàng gom hàng triệu lệnh trong ngày để bù trừ ròng (100 tỷ − 96 tỷ = chuyển 4 tỷ phần chênh).",
+    "vo": "Còn tiền thật giữa hai ngân hàng không chạy lẻ tẻ từng ly cà phê, mà được gom lại cuối phiên để bù trừ ròng phần chênh lệch tại Ngân hàng Trung ương.",
+    "onScreen": "“Cuối phiên: Hai ngân hàng bù trừ ròng (Net Settlement) phần chênh lệch” · SFX gợi ý: tiếng khớp khóa (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "0:49 – 1:00",
+    "beat": 4,
+    "visual": "9:16, bể vốn CASA ~0,1%/năm sáng lên tại hai ngân hàng; quán tiết kiệm 220.000 đồng trên mỗi 10 triệu doanh thu (nhận đủ 10.000.000 đ thay vì 9.780.000 đ).",
+    "vo": "Trên mỗi mười triệu doanh thu, mã quy rờ giúp quán giữ lại hai trăm hai mươi nghìn đồng. Ngân hàng vẫn miễn phí vì giữ được tiền trong bể vốn không kỳ hạn lãi thấp.",
+    "onScreen": "“Mỗi 10 triệu: Quán giữ lại 220.000 đ · Ngân hàng giữ bể vốn CASA ~0,1%/năm” · SFX gợi ý: tiếng chuông nhẹ (cần giấy phép trước khi dùng)"
+   },
+   {
+    "time": "1:00 – 1:10",
+    "beat": null,
+    "visual": "9:16, bảng tổng kết: Mua tại quầy quen dùng QR (giữ 100% cho quán), mua hàng xa dùng thẻ (có quyền khiếu nại Chargeback).",
+    "vo": "Mua trực tiếp ở quán quen, quét mã quy rờ giúp chủ quán giữ trọn từng đồng doanh thu. Nhưng khi mua hàng từ xa, hãy nhớ chuyển khoản quy rờ không có quyền đòi ngân hàng hoàn tiền như thẻ.",
+    "onScreen": "“Tại quầy quen: Quét QR giữ 100% cho quán · Mua từ xa: Lưu ý QR không có Chargeback” · SFX gợi ý: tiếng khoá sổ (cần giấy phép trước khi dùng)"
+   }
+  ]
+ }
+},
+    houses:[
+      {type:"home",label:"Bạn",fxText:{phone:"−50.000 CASA"}},
+      {type:"shop",label:"Quán quen",sign:"CÀ PHÊ",fxText:{paid:"sổ: +50.000 ngay",recv:"QR động 200 ly"}},
+      {type:"iss",label:"Ngân hàng của bạn",fxText:{hold:"trừ CASA 50.000",iledger:"Nợ tiền gửi KH"}},
+      {type:"scheme",label:"Tổ chức chuyển mạch",fxText:{wire:"chuyển mạch 24/7"}},
+      {type:"acq",label:"Ngân hàng của quán",fxText:{split:"ghi Có +50.000",board:"bù trừ ròng"}}],
+    beats:[
+      {when:"08:15 · Giây 01",sub:"quét mã tại quầy",title:"Bạn chủ động đẩy lệnh chuyển 50.000 đồng (Push Payment)",
+       say:["Sáng thứ Hai, bạn mua một ly cà phê 50.000 đồng — số ví dụ — và đưa điện thoại quét tấm bảng mã QR trên quầy.",
+            "Khác với quẹt thẻ (nơi máy POS của quán phải phát lệnh [[thanh toán kéo|pullpayment]] đi vòng qua 4 bên), tấm bảng mã QR hoàn toàn thụ động: nó chỉ cho điện thoại của bạn biết số tài khoản của quán.",
+            "Chính bạn là người xác thực trên ứng dụng và phát lệnh [[thanh toán đẩy|pushpayment]] yêu cầu ngân hàng của bạn chuyển 50.000 đồng đi."],
+       lit:[0,1,2],tags:{0:["đẩy lệnh chuyển 50.000","minus"],1:["bảng mã QR thụ động","plain"],2:["nhận lệnh từ chính chủ TK","plain"]},
+       msgs:[[0,2]],fx:["phone","hold"],
+       life:"Khi quét mã QR chuyển khoản, bạn đang tự lấy tiền của mình trao cho quán — giống như đưa tờ 50.000 đồng tiền mặt nhưng đi bằng đường điện tử.",
+       sys:"Trong mô hình Push Payment (Credit Transfer), lệnh thanh toán xuất phát từ ngân hàng của người trả tiền (Originating Bank), cắt bỏ toàn bộ quy trình xin cấp phép hạn mức tín dụng qua máy POS.",ledger:null},
+      {when:"08:15 · Giây 02",sub:"trừ tiền có sẵn",title:"Tiêu tiền CASA có sẵn — không ai ứng vốn, không phí MDR",
+       say:["Ngay lập tức, ngân hàng của bạn trừ 50.000 đồng thẳng vào số dư [[tiền gửi không kỳ hạn|casa]] (CASA) mà bạn đang có sẵn trong tài khoản.",
+            "Không có ngân hàng nào phải bỏ tiền túi ứng trước cho bạn vay 45 ngày như thẻ tín dụng, không có rủi ro bùng nợ, và không có quỹ [[tiền hoàn|cashback]] 1% nào phải trích ra.",
+            "Rồi ngân hàng của bạn bắn bản tin [[chuyển tiền nhanh 24/7|interbank247]] qua [[tổ chức chuyển mạch|interbank]] sang ngân hàng của quán."],
+       lit:[0,2,3,4],tags:{2:["− 50.000 CASA của bạn","minus"],3:["định tuyến bản tin 24/7","plain"],4:["nhận bản tin có bảo chứng","plus"]},
+       msgs:[[2,3],[3,4]],fx:["hold","iledger","wire"],
+       life:"Vì không ai phải cho bạn vay tiền trong 45 ngày, không ai có lý do để thu 2,2% phí chiết khấu (MDR) từ quán cà phê.",
+       sys:"Ngân hàng của bạn ghi Nợ TK Tiền gửi không kỳ hạn của khách hàng (50.000 đồng) và ghi Có TK Phải trả liên ngân hàng qua tổ chức chuyển mạch (50.000 đồng). Khoản chuyển đi được bảo đảm bằng hạn mức ký quỹ thanh khoản tại Ngân hàng Trung ương.",ledger:null},
+      {when:"08:15 · Giây 03",sub:"loa báo tiền về",title:"Quán nhận đủ 50.000 đồng ngay lập tức (T+0)",
+       say:["Chỉ 3 giây sau khi bạn bấm nút, chiếc loa nhỏ trên quầy đã đọc vang: “Đã nhận 50.000 đồng”.",
+            "Nhờ cơ chế bảo chứng liên ngân hàng, ngân hàng của quán lập tức ghi [[Credit|credit]] đủ 50.000 đồng vào tài khoản của quán mà không cần đợi hai ngày làm việc ([[T+2|t2]]).",
+            "Kế toán của quán ghi tăng tiền gửi không kỳ hạn (TK 112) và ghi nhận doanh thu (TK 511) trọn vẹn 50.000 đồng ngay tại quầy."],
+       lit:[1,4],tags:{4:["ghi Có ngay + 50.000","plus"],1:["+ 50.000 đủ 100% ở T+0","plus"]},
+       msgs:[[4,1]],fx:["split","paid"],
+       life:"Đó là lý do các quán cà phê và cửa hàng nhỏ thích bạn quét mã QR: họ nhận đủ 100% tiền tươi ngay trong 3 giây để xoay vòng vốn nhập nguyên liệu.",
+       sys:"Theo TT 99/2025/TT-BTC, giao dịch thu tiền ngay qua chuyển khoản QR hạch toán thẳng vào Nợ TK 112 / Có TK 511 (50.000 đồng), không phải treo qua TK 1388 (Phải thu khác) và không mất chi phí MDR trên TK 641.",
+       ledger:{book:"Sổ của quán (TT 99/2025)",assume:"Khách quét mã QR chuyển khoản 50.000 đồng cho 1 ly cà phê (phí chuyển khoản 0 đồng; ví dụ minh hoạ bỏ qua thuế GTGT để nhìn rõ dòng tiền).",
+         rows:[["Nợ","112","Tiền gửi không kỳ hạn","tiền vào thẳng tài khoản qua chuyển khoản QR 24/7","Quán thực nhận đủ 100% ngay tại T+0",50000],
+               ["Có","511","Doanh thu bán hàng và cung cấp dịch vụ","doanh thu bán 1 ly cà phê tại quầy","Ghi nhận doanh thu bán hàng",50000]],
+         note:"Σ Debit = Σ Credit = 50.000 đồng. Không phát sinh TK 1388 hay TK 641.",
+         lifeNote:"50.000 đồng tiền thật đã nằm trong tài khoản ngân hàng của quán ngay khi bạn vừa cầm ly cà phê rời quầy."}},
+      {when:"Cuối phiên",sub:"bù trừ liên ngân hàng",title:"Hàng triệu ly cà phê gom lại thành một lần bù trừ ròng",
+       say:["Nhưng tiền thật giữa hai ngân hàng có chạy lẻ tẻ 50.000 đồng mỗi lần bạn quét mã không? Không hề.",
+            "Suốt cả ngày, hàng triệu người chuyển tiền qua lại hai chiều giữa hai ngân hàng. Cuối mỗi phiên làm việc, tổ chức chuyển mạch gom tất cả lại để tính [[bù trừ ròng|netting]].",
+            "Hai ngân hàng chỉ [[quyết toán|settlement]] đúng phần chênh lệch ròng một lần trên tài khoản tiền gửi thanh toán tại Ngân hàng Trung ương — còn việc miễn phí 0 đồng giúp cả hai giữ chặt bể vốn [[CASA|casa]] lãi ~0,1%/năm không bị rút ra tiền mặt."],
+       lit:[2,3,4],tags:{2:["gửi đi 100 tỷ (ví dụ)","minus"],3:["bù trừ ròng 2 chiều","plain"],4:["nhận chênh lệch ròng 4 tỷ","plus"]},
+       msgs:[[2,3],[3,4],[2,4,"money"]],fx:["iledger","wire","board"],
+       life:"Ngân hàng miễn vài trăm đồng phí chuyển khoản cho bạn và quán để đổi lấy một thứ lớn hơn nhiều: tiền của cả hai luôn nằm lại trong bể vốn CASA giá rẻ của hệ thống ngân hàng.",
+       sys:"Cơ chế Quyết toán ròng theo phiên (Deferred Net Settlement): bản tin hạch toán khách hàng chạy tức thời 24/7, còn tiền dự trữ ngân hàng trung ương chỉ dịch chuyển theo vị thế ròng đa phương cuối phiên.",ledger:null},
+      {when:"Cuối ca",sub:"200 ly = 10.000.000 đồng",title:"Đặt cạnh 10 triệu quẹt thẻ: Giữ lại 220.000 đồng và bài toán QR động",
+       say:["Cuối ngày, giả sử quán bán được 200 ly cà phê — tổng doanh thu đúng 10.000.000 đồng như bữa liên hoan ở Bài 1.",
+            "Nhờ khách quét mã QR thay vì quẹt thẻ tín dụng, quán nhận đủ 10.000.000 đồng ngay trong ngày và giữ lại được 220.000 đồng tiền phí [[MDR|mdr]] (tương đương 6,6 triệu đồng mỗi tháng, ví dụ).",
+            "Và ngay cả khi quán lớn thuê dịch vụ [[mã QR động|dynamicqr]] tự động gạch nợ từng đơn để chống ảnh chụp màn hình giả (phí ví dụ 0,2% = 20.000 đồng), chi phí ấy vẫn rẻ hơn quẹt thẻ gấp 11 lần."],
+       lit:[0,1,4],tags:{1:["200 ly: giữ trọn 9.980k–10tr","plus"],4:["đối soát tự động QR động","plain"],0:["lưu ý: QR không có Chargeback","plain"]},
+       msgs:[[4,1]],fx:["recv","paid","phone"],
+       life:"Với quán quen tại quầy, quét mã QR giúp họ giữ trọn mồ hôi công sức. Còn với bạn, hãy nhớ chuyển khoản QR là trao tiền mặt đi luôn — không có quyền yêu cầu hoàn tiền (Chargeback) như thẻ khi mua hàng xa.",
+       sys:"Nếu dùng dịch vụ mã QR động có phí thu hộ/đối soát 0,2% (20.000 đồng trên 10.000.000 đồng), kế toán ghi Nợ TK 112 (9.980.000) + Nợ TK 641 (20.000) / Có TK 511 (10.000.000) — tiết kiệm 200.000 đồng so với MDR 2,2% của thẻ.",
+       ledger:{book:"Sổ của quán (Kịch bản 200 ly = 10.000.000 đồng qua QR động phí 0,2%)",assume:"Giả sử quán bán 200 ly cà phê (= 10.000.000 đồng) và dùng dịch vụ mã QR động tích hợp máy POS/loa báo tự động với mức phí dịch vụ đối soát ví dụ 0,2% (20.000 đồng; nếu dùng QR tĩnh dân sự thì phí là 0 đồng).",
+         rows:[["Nợ","112","Tiền gửi không kỳ hạn","tiền thực nhận ngay trong ngày từ 200 đơn QR động","Tiền thực nhận vào tài khoản (99,8%)",9980000],
+               ["Nợ","641","Chi phí bán hàng","phí dịch vụ đối soát tự động mã QR động 0,2% (hoặc 0 đồng nếu dùng QR tĩnh)","Phí dịch vụ mã QR động (rẻ hơn 11 lần so với 220.000 đ của thẻ)",20000],
+               ["Có","511","Doanh thu bán hàng và cung cấp dịch vụ","doanh thu 200 ly cà phê trong ngày","Tổng doanh thu bán hàng",10000000]],
+         note:"Σ Debit = 9.980.000 + 20.000 = 10.000.000 = Σ Credit. Nếu quán dùng mã QR tĩnh thông thường, Nợ TK 112 là đủ 10.000.000 đồng và TK 641 bằng 0.",
+         lifeNote:"Trên cùng doanh thu 10 triệu đồng, quẹt thẻ lấy đi của quán 220.000 đồng và bắt chờ 2 ngày, còn mã QR giữ lại cho quán từ 9.980.000 đến trọn 10.000.000 đồng ngay lập tức."}}
     ]}
+
 };
 
 /* ═══ Taxonomy 3 cấp: Danh mục (CATEGORIES) → Chủ đề/Bài (topics) → Đoạn + Mặt cắt (STORIES[k].beats/houses) ═══
@@ -3363,7 +3916,7 @@ const CATEGORIES = [
     {t:"Lãi tiền gửi có kỳ hạn: ngân hàng trả bạn bằng tiền của ai?",status:"upcoming"}]},
   {id:"c2",name:"Thẻ, QR & Thanh toán",c:"#8a4a2b",topics:[
     {story:"card"},
-    {t:"Quét mã QR ở quán cà phê: tiền đi qua những ai?",status:"upcoming"},
+    {story:"qr"},
     {t:"Thẻ ghi nợ và thẻ tín dụng: ai đang cho ai vay?",status:"upcoming"},
     {t:"Hoàn tiền một giao dịch thẻ: tiền quay về bằng đường nào?",status:"upcoming"}]},
   {id:"c3",name:"Vay nợ & Lãi suất thực",c:"#5c5a2e",topics:[
@@ -4354,6 +4907,41 @@ const CHAP_FIGS = {
       title: "Vì sao trả thiếu 10.000 đ vẫn mất trắng 45 ngày miễn lãi — và làm sao mở lại đồng hồ ân hạn?",
       desc: "Khi thẻ đang có dư nợ [[tín dụng tuần hoàn|revolving]] chuyển kỳ, cả giao dịch cũ lẫn giao dịch quẹt mới đều mất quyền miễn lãi. Chỉ khi thanh toán dứt điểm 100% dư nợ sao kê (10.092.500 đ, ghi Nợ TK 338 / Có TK 112), đồng hồ 45 ngày miễn lãi mới được khôi phục."
     }
+  ],
+  qr: [
+    null,
+    {
+      file: "qr-fig-1.jpg",
+      beat: 0,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · THANH TOÁN ĐẨY (PUSH) VS THANH TOÁN KÉO (PULL)",
+      alt: "Mặt cắt đối chiếu hai luồng thanh toán cho ly cà phê 50.000 đồng: quét mã QR là lệnh Push Payment trừ thẳng từ số dư CASA của bạn với phí 0 đồng, đối lập với quẹt thẻ Pull Payment đi qua 4 bên chịu phí MDR 2,2 phần trăm",
+      title: "Quét mã QR 50.000 đ (Push) vs Quẹt thẻ (Pull): Vì sao tiêu tiền CASA có sẵn giúp quán không mất 2,2% phí?",
+      desc: "Khi quét mã QR, bạn chủ động phát lệnh [[thanh toán đẩy|pushpayment]] trích thẳng từ số dư [[CASA|casa]] hiện có của mình, không có ngân hàng nào phải ứng vốn 45 ngày hay chịu rủi ro tín dụng như [[thanh toán kéo|pullpayment]] qua thẻ — nhờ vậy quán nhận đủ 100% mà không mất phí [[MDR|mdr]]."
+    },
+    {
+      file: "qr-fig-2.jpg",
+      beat: 2,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · GHI CÓ TỨC THỜI 3 GIÂY & BÙ TRỪ RÒNG CUỐI PHIÊN",
+      alt: "Mặt cắt kiến trúc hai tầng của chuyển khoản nhanh 24/7: tầng trên truyền bản tin bảo chứng giúp quán nhận 50.000 đồng vào TK 112 sau 3 giây, tầng dưới gom hàng triệu lệnh để bù trừ ròng tại Ngân hàng Trung ương",
+      title: "Ba giây trên mặt quầy và phiên bù trừ ròng (Net Settlement) giữa hai ngân hàng dưới lòng đất",
+      desc: "Ở giây thứ 3, bản tin [[chuyển tiền nhanh 24/7|interbank247]] có ký quỹ bảo chứng giúp ngân hàng của quán ghi Có ngay 50.000 đ (Nợ TK 112 / Có TK 511 theo TT 99/2025); còn tiền thật giữa hai ngân hàng được gom lại cuối phiên để [[bù trừ ròng|netting]] phần chênh lệch tại Ngân hàng Trung ương."
+    },
+    {
+      file: "qr-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · BÀI TOÁN ĐỔI PHÍ 0 ĐỒNG LẤY BỂ VỐN CASA",
+      alt: "Mặt cắt bể vốn không kỳ hạn CASA: khi miễn phí chuyển khoản QR, dòng tiền 10.000.000 đồng doanh thu mỗi ngày chỉ nhảy từ tài khoản CASA của khách sang tài khoản CASA của quán với lãi suất khoảng 0,1 phần trăm một năm",
+      title: "Vì sao ngân hàng miễn phí 0 đồng cho cả bạn lẫn quán? Để giữ tiền mặt nằm lại trong bể vốn CASA ~0,1%/năm",
+      desc: "Khi thanh toán QR thay thế việc rút tiền giấy tại ATM, dòng tiền 200 ly cà phê (10.000.000 đ/ngày) nằm nguyên trong hệ thống tài khoản [[CASA|casa]] lãi suất ~0,1%/năm — tạo nguồn vốn đầu vào cực rẻ để các ngân hàng cấp tín dụng ở mức ~8,5%–10%/năm."
+    },
+    {
+      file: "qr-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · MÃ QR TĨNH, MÃ QR ĐỘNG & ĐIỂM MÙ CHARGEBACK",
+      alt: "Mặt cắt so sánh mã QR tĩnh dán giấy (0 đồng phí nhưng phải nhìn màn hình tay) với mã QR động tích hợp POS tự động đối soát (phí khoảng 0,2 phần trăm) và cảnh báo chuyển khoản QR không có quyền khiếu nại Chargeback",
+      title: "Mã QR tĩnh (0 đ) vs Mã QR động tự gạch nợ (~0,2%) — và vì sao chuyển khoản QR không có quyền đòi lại tiền như thẻ?",
+      desc: "Nâng cấp lên [[mã QR động|dynamicqr]] tốn khoảng 20.000 đ trên 10.000.000 đ doanh thu (Nợ TK 641: 0,2%, rẻ hơn 11 lần so với 220.000 đ phí thẻ) để khoá cứng số tiền và chống biên lai giả; nhưng ở chiều người mua, giao dịch [[Push Payment|pushpayment]] không có lá chắn [[Chargeback|chargeback]] khi mua hàng xa."
+    }
   ]
 };
 function renderChapHTML(sKey, c, i){
@@ -4583,8 +5171,8 @@ function renderAll(){
   renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
-  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay";
-  $("#thu").hidden = !["card","pay","install","minpay"].includes(S.story);
+  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr";
+  $("#thu").hidden = !["card","pay","install","minpay","qr"].includes(S.story);
   $("#stageTitle").textContent = STORIES[S.story].title;
   $("#draftNote").hidden = STORIES[S.story].status === "published";
   renderCMS();
@@ -4734,8 +5322,24 @@ function calcMin(){
   $("#mpInt1").textContent = "+" + vnd(int1); $("#mpInt2").textContent = "+" + vnd(int2); $("#mpNewBal").textContent = vnd(newBal);
   $("#mpNote").textContent = `Vì chưa trả đủ 100%, bạn mất trắng 45 ngày miễn lãi đầu (${vnd(int1)}) cộng 15 ngày tiếp theo (${vnd(int2)}), tổng lãi ${vnd(totInt)}.`;
 }
+function calcQr(){
+  const rev = +$("#qrRev").value, qrPct = +$("#qrFeePct").value / 100;
+  const qrFee = Math.round(rev * qrPct), cardFee = Math.round(rev * 0.022);
+  const qrNet = rev - qrFee, cardNet = rev - cardFee, savedDay = cardFee - qrFee;
+  $("#qrRevOut").textContent = vnd(rev);
+  $("#qrFeePctOut").textContent = (+$("#qrFeePct").value).toFixed(1).replace(".", ",") + "%";
+  $("#qrNet").textContent = vnd(qrNet);
+  $("#qrCardNet").textContent = vnd(cardNet);
+  $("#qrSavedDay").textContent = "+" + vnd(savedDay);
+  $("#qrSavedMonth").textContent = "+" + vnd(savedDay * 30);
+  $("#qrNote").textContent = qrPct === 0
+    ? `Dùng mã QR tĩnh (0% phí): quán nhận đủ 100% vào TK 112 ngay tại T+0, giữ lại trọn ${vnd(cardFee)}/ngày so với MDR 2,2%.`
+    : `Dùng mã QR động tự gạch nợ (phí ${($("#qrFeePct").value).replace(".",",")}% = ${vnd(qrFee)}/ngày trên TK 641): quán vẫn tiết kiệm ${vnd(savedDay)}/ngày so với quẹt thẻ.`;
+}
 $("#amt").oninput = calcCard; $("#sal").oninput = calcPay; $("#keep").oninput = calcPay;
-$("#ip").oninput = calcInst; $("#ic").oninput = calcInst; $("#mpBal").oninput = calcMin; $("#mpPct").oninput = calcMin;
+$("#ip").oninput = calcInst; $("#ic").oninput = calcInst;
+$("#mpBal").oninput = calcMin; $("#mpPct").oninput = calcMin;
+$("#qrRev").oninput = calcQr; $("#qrFeePct").oninput = calcQr;
 
 /* ── Thanh 1 hàng 48px (Layout 1A: Split-Pill + Overlay Mục lục 2 cột + ⌘K + Trạm cuối bài) ── */
 function renderNav(){
@@ -5224,6 +5828,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Chuẩn xác (TT 99/2025/TT-BTC): Tiền lãi phát sinh do sử dụng tín dụng tuần hoàn là chi phí đi vay, ghi Debit TK 635 (Chi phí tài chính) đối ứng Credit TK 338 (hoặc TK 341 tuỳ chính sách phân loại thẻ doanh nghiệp)."
     }
+  ],
+  qr: [
+    {
+      id: "qr-q1.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Khi quét mã QR, bạn chủ động phát lệnh [[thanh toán đẩy|pushpayment]] trích thẳng từ số dư [[CASA|casa]] hiện có của mình, không có ngân hàng nào phải ứng vốn 45 ngày hay chịu rủi ro tín dụng như [[thanh toán kéo|pullpayment]] qua thẻ — nhờ vậy quán nhận đủ 100% mà không mất phí [[MDR|mdr]].",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Khi bạn quét mã QR chuyển khoản liên ngân hàng trả 50.000 đ cho ly cà phê tại quán quen (mã QR chuyển khoản dân sự phổ thông), vì sao quán nhận đủ 50.000 đ vào TK 112 ngay sau vài giây mà không mất 2,2% phí MDR như khi bạn chạm thẻ tín dụng?",
+      opts: [
+        "Vì đây là giao dịch Thanh toán Đẩy (Push Payment) trừ thẳng vào số dư CASA có sẵn của bạn — không có ngân hàng phát hành nào phải ứng vốn cho vay 45 ngày hay gánh rủi ro tín dụng để thu phí Interchange/MDR.",
+        "Vì nhà nước bắt buộc mọi máy POS thẻ tín dụng phải thu hộ tiền cho mã QR.",
+        "Vì quán cà phê phải tự trả lại 2,2% tiền mặt cho ngân hàng vào cuối năm."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Giao dịch Push Payment qua chuyển khoản nhanh 24/7 trích thẳng tiền gửi không kỳ hạn (CASA) của người mua và ghi Có tức thời cho quán (Debit TK 112 / Credit TK 511: 50.000 đ), không phát sinh ứng vốn tín dụng hay phí MDR."
+    },
+    {
+      id: "qr-q2.v1",
+      sectionId: "pk-pro-mech",
+      source_quote: "Ở giây thứ 3, bản tin [[chuyển tiền nhanh 24/7|interbank247]] có ký quỹ bảo chứng giúp ngân hàng của quán ghi Có ngay 50.000 đ (Nợ TK 112 / Có TK 511 theo TT 99/2025); còn tiền thật giữa hai ngân hàng được gom lại cuối phiên để [[bù trừ ròng|netting]] phần chênh lệch tại Ngân hàng Trung ương.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Khi bạn dùng Ngân hàng A quét mã QR chuyển 50.000 đ sang tài khoản của quán tại Ngân hàng B lúc 8 giờ sáng Chủ nhật và loa quán báo tiền về ngay sau 3 giây, tiền dự trữ giữa Ngân hàng A và Ngân hàng B thực sự được quyết toán như thế nào?",
+      opts: [
+        "Trong 3 giây đầu, bản tin chuyển mạch 24/7 (được bảo chứng bằng hạn mức ký quỹ) giúp Ngân hàng B ghi Có ngay 50.000 đ cho quán; còn tiền thật giữa hai ngân hàng được gom lại để bù trừ ròng (Net Settlement) phần chênh lệch theo phiên trên sổ tại Ngân hàng Trung ương.",
+        "Một xe chở tiền chuyên dụng chở đúng tờ 50.000 đ từ trụ sở Ngân hàng A sang Ngân hàng B ngay trong 3 giây đó.",
+        "Ngân hàng Trung ương phải mở cửa làm việc thủ công cho riêng từng giao dịch 50.000 đ vào sáng Chủ nhật."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Hạ tầng chuyển tiền nhanh 24/7 tách bản tin ghi Có tức thời (nhờ hạn mức ký quỹ bảo chứng trước) khỏi phiên quyết toán ròng đa phương (Deferred Net Settlement) trên tài khoản thanh toán tại Ngân hàng Trung ương."
+    }
   ]
 };
 
@@ -5511,7 +6147,7 @@ window.__wmsQA = { loadWmsProgress, saveWmsProgress, emitWmsTelemetry, answerQui
 /* ── khởi động ─────────────────────────────── */
 // bài mở đầu: "card" nếu người đọc này được thấy nó, không thì bài đầu tiên theo thứ tự danh mục
 if (!visible(S.story) && order().length) S.story = order()[0];
-applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin();
+applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr();
 setTimeout(()=>{ $("#sms").classList.add("in"); $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);
 </script>
 </body>

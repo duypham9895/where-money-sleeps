@@ -725,6 +725,85 @@ STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "qr": {
+        "house_nodes": [
+            ("BẠN", "Người mua"),
+            ("QUÁN QUEN", "Cà phê 50k"),
+            ("NGÂN HÀNG", "Của bạn"),
+            ("CHUYỂN MẠCH", "Liên NH 24/7"),
+            ("NGÂN HÀNG", "Của quán"),
+        ],
+        "scene_plates": [
+            ("public/brand/card-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/card-short-plate-4.jpg", (20, 460, 1060, 1305)),
+        ],
+        "scenes": [
+            {
+                "active": [0, 1],
+                "flow": ("wire", 0, 1),
+                "room_src": (0.32, 0.64, "QUẦY CÀ PHÊ (50.000 Đ)"),
+                "room_dst": (0.68, 0.30, "LOA BÁO TIỀN VỀ SAU 3 GIÂY"),
+                "packet_label": "QUÉT QR 50.000 Đ · NHẬN ĐỦ 100%",
+                "stage_tag": "LY CÀ PHÊ 50.000 Đ  ·  QUÉT MÃ QR NHẬN ĐỦ 100% SAU 3 GIÂY",
+                "primitive": "P1_QR_HOOK",
+                "kicker": "MỞ ĐẦU  ·  VÌ SAO QUÉT QR KHÔNG MẤT 2,2% PHÍ NHƯ THẺ?",
+            },
+            {
+                "active": [0, 1, 2],
+                "flow": ("wire", 0, 2),
+                "room_src": (0.34, 0.66, "ĐIỆN THOẠI BẠN (ĐẨY LỆNH)"),
+                "room_dst": (0.68, 0.30, "NGÂN HÀNG BẠN (−50.000 Đ CASA)"),
+                "packet_label": "THANH TOÁN ĐẨY (PUSH PAYMENT)",
+                "stage_tag": "THANH TOÁN ĐẨY (PUSH) TRỪ THẲNG TIỀN CÓ SẴN CASA",
+                "primitive": "P2_QR_PUSH_VS_PULL",
+                "kicker": "BƯỚC 1  ·  THANH TOÁN ĐẨY (PUSH) vs THANH TOÁN KÉO (PULL)",
+            },
+            {
+                "active": [2, 3, 4],
+                "flow": ("wire", 2, 3, 4),
+                "room_src": (0.34, 0.66, "BẢN TIN CHUYỂN MẠCH 24/7"),
+                "room_dst": (0.68, 0.30, "NGÂN HÀNG QUÁN (+50.000 Đ NGAY)"),
+                "packet_label": "GHI CÓ TỨC THỜI +50.000 Đ (T+0)",
+                "stage_tag": "GIÂY THỨ 3  ·  BẢN TIN 24/7 CÓ BẢO CHỨNG GHI CÓ NGAY",
+                "primitive": "P3_QR_3SEC_WIRE",
+                "kicker": "BƯỚC 2  ·  3 GIÂY TRÊN MẶT ĐẤT: BẢN TIN CÓ BẢO CHỨNG",
+            },
+            {
+                "active": [2, 3, 4],
+                "flow": ("pipe", 2, 3, 4),
+                "room_src": (0.34, 0.68, "GOM HÀNG TRIỆU LỆNH 2 CHIỀU"),
+                "room_dst": (0.68, 0.30, "BÙ TRỪ RÒNG CUỐI PHIÊN (4 TỶ)"),
+                "packet_label": "QUYẾT TOÁN RÒNG (NET SETTLEMENT)",
+                "stage_tag": "CUỐI PHIÊN  ·  HAI NGÂN HÀNG BÙ TRỪ RÒNG PHẦN CHÊNH LỆCH",
+                "primitive": "P6_QR_NET_SETTLE",
+                "kicker": "BƯỚC 3  ·  DƯỚI LÒNG ĐẤT: BÙ TRỪ RÒNG CUỐI PHIÊN",
+            },
+            {
+                "active": [1, 2, 4],
+                "flow": ("pipe", 2, 4),
+                "room_src": (0.34, 0.64, "200 LY = 10TR: GIỮ TRỌN 220.000 Đ"),
+                "room_dst": (0.68, 0.30, "BỂ VỐN CASA NGÂN HÀNG (~0,1%/NĂM)"),
+                "packet_label": "GIỮ LẠI 220.000 Đ · GIỮ BỂ VỐN CASA",
+                "stage_tag": "MỖI 10 TRIỆU DOANH THU: QUÁN GIỮ LẠI ĐƯỢC 220.000 Đ",
+                "primitive": "P1_QR_SAVE_220K",
+                "kicker": "BƯỚC 4  ·  QUÁN GIỮ 220K, NGÂN HÀNG GIỮ BỂ VỐN CASA",
+            },
+            {
+                "active": [0, 1, 4],
+                "flow": ("wire", 0, 1),
+                "room_src": (0.48, 0.24, "SỔ KẾ TOÁN QUÁN (TT 99/2025)"),
+                "room_dst": (0.50, 0.68, "QUẦY QUEN = QR · MUA XA = THẺ"),
+                "packet_label": "TẠI QUẦY QUEN: QR · MUA XA: THẺ",
+                "stage_tag": "MUA TẠI QUẦY QUEN DÙNG QR  ·  MUA TỪ XA CẦN LÁ CHẮN THẺ",
+                "primitive": "P4_QR_CLOSING",
+                "kicker": "ĐIỂM MẤU CHỐT  ·  KHI NÀO QUÉT QR, KHI NÀO CHẠM THẺ?",
+            },
+        ],
+    },
 }
 
 
@@ -1543,7 +1622,7 @@ def draw_mechanism_canvas(
         draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
         draw_centered_row_text(draw, icx, cy0 + 366, "GIỮ LẠI 9,5 TRIỆU THÊM 15 NGÀY TỐN 592.500 Đ (≈ 6,24%)", fonts["label"], (226, 168, 76))
 
-    else:  # P4_MINPAY_CLOSING
+    elif prim == "P4_MINPAY_CLOSING":
         t_y0, t_y1 = cy0 + 66, cy0 + 220
         draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
         v_int = step_quantize(592_500 * max(0.1, beat1), 25_000) if beat1 < 0.99 else 592_500
@@ -1558,6 +1637,106 @@ def draw_mechanism_canvas(
         draw_centered_row_text(draw, icx, q_y0 + 18, "QUY TẮC VÀNG KHI DÙNG THẺ TÍN DỤNG:", fonts["label"], (226, 168, 76))
         draw_centered_row_text(draw, icx, q_y0 + 58, "Trả đủ 100% dư nợ sao kê đúng hạn", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
         draw_centered_row_text(draw, icx, q_y0 + 106, "là cách duy nhất để giữ nguyên 45 ngày miễn lãi", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+
+    # ── NGUYÊN HÀM BÀI 5: `qr` (Quét mã QR chuyển khoản 50 nghìn vs Quẹt thẻ) ──
+    elif prim == "P1_QR_HOOK":
+        v1 = step_quantize(50_000 * max(0.2, beat1), 5_000) if beat1 < 0.99 else 50_000
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 182
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "QUÉT MÃ QR CHUYỂN KHOẢN TẠI QUẦY CÀ PHÊ:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 44, fmt_vnd(v1), fonts["hero_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Chỉ sau 3 giây: Loa báo quán nhận đủ 100% (50.000 đ · Phí 0 đ)", fonts["sub"], (182, 192, 206))
+
+        b2_y0, b2_y1 = cy0 + 198, cy0 + 328
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 31, 38), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "ĐỐI CHIẾU VỚI CHẠM THẺ TÍN DỤNG TẠI MÁY POS:", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, "Quẹt thẻ mất 2,2% phí MDR + Phải chờ T+2", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 90, "Vì sao quét mã QR lại nhận đủ tiền tươi ngay trong 3 giây?", fonts["sub"], blend_rgb((88, 100, 116), (216, 222, 232), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC LỜI BÌNH", fonts["label"], (226, 168, 76))
+
+    elif prim == "P2_QR_PUSH_VS_PULL":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "1. QUẸT THẺ TÍN DỤNG = THANH TOÁN KÉO (PULL PAYMENT):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Ngân hàng phát hành ứng vốn cho vay 45 ngày + Chịu rủi ro", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Nên thu phí chiết khấu MDR 2,2% từ phía cửa hàng để bù đắp", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "2. QUÉT MÃ QR = THANH TOÁN ĐẨY (PUSH PAYMENT):", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Bạn tự lấy tiền có sẵn (CASA) đẩy thẳng sang quán", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "0 đồng ứng vốn · 0% rủi ro nợ xấu · 0 đồng phí MDR", fonts["sub"], blend_rgb((88, 100, 116), (138, 212, 174), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "KHÔNG AI PHẢI CHO VAY 45 NGÀY NÊN KHÔNG AI THU PHÍ 2,2%", fonts["label"], (226, 168, 76))
+
+    elif prim == "P3_QR_3SEC_WIRE":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "TRONG 3 GIÂY ĐẦU TIÊN (CHUYỂN MẠCH 24/7):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Bản tin điện tử có quỹ bảo chứng chạy sang ngân hàng quán", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Ngân hàng của quán ghi Có ngay +50.000 đ cho quán dùng tức thì", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        v_qr = step_quantize(50_000 * beat2, 5_000) if beat2 < 0.99 else 50_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "SỔ KẾ TOÁN QUÁN CÀ PHÊ NGAY TẠI T+0 (TT 99/2025):", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, f"Debit TK 112 (Tiền gửi không kỳ hạn): +{fmt_vnd(v_qr)}", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, f"Credit TK 511 (Doanh thu bán hàng): +{fmt_vnd(v_qr)} (Không treo 1388)", fonts["sub"], blend_rgb((88, 100, 116), (138, 212, 174), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "TIỀN VÀO THẲNG TK 112 NGAY LÚC KHÁCH VỪA RỜI QUẦY", fonts["label"], (226, 168, 76))
+
+    elif prim == "P6_QR_NET_SETTLE":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "SUỐT CẢ NGÀY: HÀNG TRIỆU LỆNH CHẠY QUA LẠI 2 CHIỀU:", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "NH A sang NH B: 100 tỷ đ   |   NH B về NH A: 96 tỷ đ (Ví dụ)", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Hai ngân hàng không chở từng bọc 50.000 đ đi qua lại lẻ tẻ", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "CUỐI PHIÊN: QUYẾT TOÁN RÒNG (DEFERRED NET SETTLEMENT):", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "100 tỷ − 96 tỷ = Chỉ chuyển đúng 4 tỷ đ phần chênh lệch", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Tất toán một lần trên tài khoản thanh toán tại Ngân hàng Trung ương", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "LỜI NHẮN CHẠY TỪNG GIÂY  ·  TIỀN DỰ TRỮ CHỈ CHUYỂN PHẦN CHÊNH", fonts["label"], (226, 168, 76))
+
+    elif prim == "P1_QR_SAVE_220K":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_sv = step_quantize(220_000 * max(0.1, beat1), 20_000) if beat1 < 0.99 else 220_000
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "TRÊN MỖI 200 LY CÀ PHÊ (= 10.000.000 Đ DOANH THU):", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, f"Quét QR giúp quán giữ lại: +{fmt_vnd(v_sv)} phí thẻ", fonts["big_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 88, "(Nhận đủ 10.000.000 đ ở T+0 thay vì 9.780.000 đ ở T+2)", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "VÌ SAO NGÂN HÀNG VUI VẺ MIỄN PHÍ CHUYỂN KHOẢN 0 ĐỒNG?", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Giữ tiền nằm lại trong bể vốn CASA lãi ~0,1%/năm", fonts["val_bold"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Thay vì bị rút ra tiền giấy ở cây ATM, ngân hàng có vốn rẻ cho vay", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "ĐỔI PHÍ LẺ VÀI TRĂM ĐỒNG ĐỂ GIỮ BỂ VỐN CASA KHỔNG LỒ", fonts["label"], (226, 168, 76))
+
+    else:  # P4_QR_CLOSING
+        t_y0, t_y1 = cy0 + 66, cy0 + 220
+        draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_10m = step_quantize(10_000_000 * max(0.1, beat1), 500_000) if beat1 < 0.99 else 10_000_000
+        draw_centered_row_text(draw, icx, t_y0 + 12, "BÚT TOÁN 200 LY CÀ PHÊ QUA QR (TT 99/2025/TT-BTC):", fonts["label"], (148, 160, 178))
+        draw.line([(ix0 + 24, t_y0 + 42), (ix0 + 24 + (iw - 48) * max(0.15, beat1), t_y0 + 42)], fill=(94, 184, 138), width=2)
+        draw_centered_row_text(draw, icx, t_y0 + 54, "Bên Nợ: TK 112 (Tiền gửi không kỳ hạn) = 10.000.000 đ", fonts["sub"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, t_y0 + 88, "Bên Có: TK 511 (Doanh thu bán hàng) = 10.000.000 đ", fonts["sub"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, t_y0 + 122, f"Σ Nợ ({fmt_vnd(v_10m)})  =  Σ Có ({fmt_vnd(v_10m)})   [CÂN BẰNG]", fonts["val_bold"], (236, 231, 221))
+
+        q_y0, q_y1 = cy0 + 238, cy0 + 404
+        draw_beat_card(draw, (ix0, q_y0, ix1, q_y1), beat2, (22, 33, 38), (226, 168, 76), radius=14)
+        draw_centered_row_text(draw, icx, q_y0 + 18, "NGUYÊN TẮC CHỌN CÔNG CỤ THANH TOÁN:", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, q_y0 + 58, "Tại quầy quen: Quét QR giữ 100% cho quán", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, q_y0 + 106, "Mua từ xa: Dùng thẻ để có quyền khiếu nại hoàn tiền (Chargeback)", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
 
 
 def render_single_scene_frame(
@@ -1781,7 +1960,7 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str, api_
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
@@ -1793,7 +1972,7 @@ def main() -> int:
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = ensure_sfx_cached(api_key)
 
-    target_slugs = ["install", "card", "pay", "minpay"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay", "qr"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug, api_key)
     return 0
