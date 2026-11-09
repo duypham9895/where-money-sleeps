@@ -30,6 +30,8 @@ EXPECTED_YT_IDS = {
     ("pay", "short"): "XnMsbH0E_xo",
     ("install", "long"): "l_8aVo538jo",
     ("install", "short"): "J3DmDP4KKRI",
+    ("minpay", "long"): "ubgdEOblCgo",
+    ("minpay", "short"): "-atHoEHCrSI",
 }
 
 
@@ -292,7 +294,7 @@ def main() -> int:
         print(f"  ✗ {err}")
 
     e4 = verify_qa4_videos_and_youtube_ids(proto_text, studio_data_text)
-    print(f"[QA-4] Bộ 6 Video Calm Editorial v6.5 + .srt + 6 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
+    print(f"[QA-4] Bộ 8 Video Calm Editorial v6.5 + .srt + 8 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
     for err in e4:
         print(f"  ✗ {err}")
 

@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "minpay",
+  "storyStatus": "review",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 16,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-09T22:23:42+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (credit_card_minimum_payment_grace_forfeiture)",
+      "Toán trả tối thiểu & lãi lùi ADB khớp tuyệt đối: Sao kê 10,000,000đ − Trả tối thiểu 5% (500,000đ) = Gốc còn 9,500,000đ · Lãi lùi 45 ngày đầu (450,000đ) + Lãi 15 ngày sau (142,500đ) = Tổng lãi 592,500đ → Dư nợ kỳ 2 = 10,092,500đ · EIR_năm gộp=42.58% (xấp xỉ bài/video 42,6%)",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 338, 635, 642)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/minpay_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "ubgdEOblCgo",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/minpay-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?\n0:42 Đoạn 1\n1:32 Đoạn 2\n2:24 Đoạn 3\n3:14 Đoạn 4\n4:08 Đoạn 5\n5:12 Cảnh 7\n6:04 Cảnh 8\n6:56 Cảnh 9\n7:44 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:42",
+          "beat": null,
+          "sha256CacheKey": "da774dbc239935f4ddd3efbc9fa70cade99512fc9164ce06b2e0c1617fa5e16b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "61a435873e9d03b66b12fad4dfd85973164bdc4af0f584b4d7dc8e8b41363e31",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Khung 16:9 đêm Risograph ấm. Máy quay cận tờ sao kê thẻ tín dụng đặt trên bàn gỗ nhà Bạn: dòng chữ trên cùng ghi “Dư nợ sao kê: 10.000.000 đồng”, ngay bên dưới là ô sáng màu vàng ấm “Thanh toán tối thiểu 5%: 500.000 đồng”. Cạnh tờ sao kê, một chiếc đồng hồ cát bắt đầu chảy ngược.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng thông báo điện thoại & tiếng đồng hồ tích tắc (cần giấy phép trước khi dùng)",
+          "voWords": 171
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:42 – 1:32",
+          "beat": 0,
+          "sha256CacheKey": "17ed13be80b42ee0df720a57d03f9fb56c76d4b4a36cc8d84583a9bed3922edc",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b707f1af823797257a64f7b8cb46e9ca152819179fba45cbbfaa5e45ea52bcea",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh năm ngôi nhà trên phố đêm. Nhà Bạn, Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ bật sáng (lit 0,1,2,3). Máy POS tại Cửa hàng nháy xanh (fx pos), luồng thông tin xác nhận chạy qua lại giữa Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ (msgs 1→2, 2→3, 3→2, 2→1). Chốt giữ hạn mức tại Ngân hàng phát hành thẻ gạt xuống (fx hold).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy POS bíp (cần giấy phép trước khi dùng)",
+          "voWords": 156
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:32 – 2:24",
+          "beat": 1,
+          "sha256CacheKey": "255aa100265bf36dd5fe7576f95cfaec4910c0caf500c3b485f1aa7f82e55a0e",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b97e98125737c20e3547f17e0d8cd40e9f3eb72eff3c401a27606748bb509eaf",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cửa hàng, Ngân hàng của cửa hàng và Ngân hàng phát hành thẻ sáng (lit 1,2,3). Luồng quyết toán liên ngân hàng bên dưới phát sáng xanh ngọc: tiền thật chảy từ Ngân hàng phát hành thẻ sang Ngân hàng của cửa hàng rồi vào Cửa hàng (msgs 3→2 money, 2→1 money). Phễu chia phí tại Ngân hàng của cửa hàng giữ 200.000 đồng (fx split), sổ Cửa hàng hiện “+9.800.000” (fx paid).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuyển khoản liên ngân hàng (cần giấy phép trước khi dùng)",
+          "voWords": 168
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:24 – 3:14",
+          "beat": 2,
+          "sha256CacheKey": "654fc884c7260917f71468dcfe50ccd9edb942ed15be6b88c4dba84431c3e0ce",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9a4d3617ee888b87ff8cbcfe2bf01bcea55b2fdcfc93f88f43126438b7316dc3",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhà Bạn và Ngân hàng phát hành thẻ sáng (lit 0,3). Một thông báo sao kê gửi từ Ngân hàng phát hành thẻ về nhà Bạn (msgs 3→0). Điện thoại nhà Bạn rung lên (fx phone), bàn sổ tại Ngân hàng phát hành thẻ sáng đèn (fx iledger). Hai thẻ hiện lên trên khung: “Trả đủ 10.000.000 → Lãi 0 đ” và “Trả tối thiểu 500.000 → Mất miễn lãi”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật giấy sao kê (cần giấy phép trước khi dùng)",
+          "voWords": 165
+        },
+        {
+          "sceneIndex": 4,
+          "time": "3:14 – 4:08",
+          "beat": 3,
+          "sha256CacheKey": "b43acbfe152c8e54dfa7caab092f1b67878fb1e64ad06a25584463b95dcb743c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fe6dc6be7443cb7559dd8bca876aebdc44ebb8aaf22c8f441fdcfcbb8f464295",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhà Bạn, Ngân hàng phát hành thẻ và Ngân hàng tài khoản của bạn sáng (lit 0,3,4). Lệnh thanh toán đi từ nhà Bạn sang Ngân hàng tài khoản của bạn (msgs 0→4), rồi 500.000 đồng tiền thật chảy sang Ngân hàng phát hành thẻ (msgs 4→3 money). Đạo cụ két tiền tại Ngân hàng tài khoản của bạn hiện “trích 500.000 (5%)” (fx pool).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng gạt công tắc cơ khí (cần giấy phép trước khi dùng)",
+          "voWords": 151
+        },
+        {
+          "sceneIndex": 5,
+          "time": "4:08 – 5:12",
+          "beat": 4,
+          "sha256CacheKey": "8097762e6b3bf3995600af4476708b88496dfb4d5a724e2ee7f59efeb270bcc9",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "8d3a9330cab6fda0a680372f210d0754a85e18819226829582bd65f5f2f46153",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhà Bạn và Ngân hàng phát hành thẻ sáng rực (lit 0,3). Tờ sao kê kỳ 2 gửi từ Ngân hàng phát hành thẻ về nhà Bạn (msgs 3→0). Bàn sổ tại Ngân hàng phát hành thẻ (fx iledger, release) tách thành hai thanh ngang màu hổ phách và đất nung: Khúc 1 (Ngày 01–45: 10.000.000 × 0,1% × 45 = 450.000 đ) và Khúc 2 (Ngày 46–60: 9.500.000 × 0,1% × 15 = 142.500 đ), ghép lại thành 592.500 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy tính cộng dồn (cần giấy phép trước khi dùng)",
+          "voWords": 208
+        },
+        {
+          "sceneIndex": 6,
+          "time": "5:12 – 6:04",
+          "beat": null,
+          "sha256CacheKey": "de47383a33ae39980a207ae26aa56ab7f9082323c93cf9e825abad06764532d8",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b5a7674fd2c43343457d41254d5056e973f36d2586ac8e49c401b572d15b83a0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Trên nền mặt cắt Ngân hàng phát hành thẻ, hai cột số đặt lên bàn cân: bên trái là “Tiền giữ lại thêm 15 ngày: 9.500.000 đ”, bên phải là “Tiền lãi phải trả: 592.500 đ (6,24% trong 15 ngày)”. Phía dưới hiện dòng đối chiếu lãi kép 12 tháng: “36%/năm danh nghĩa ≈ 42,6%/năm EIR”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân (cần giấy phép trước khi dùng)",
+          "voWords": 185
+        },
+        {
+          "sceneIndex": 7,
+          "time": "6:04 – 6:56",
+          "beat": null,
+          "sha256CacheKey": "3cdd39a7c8ac3412e2886f3f009fa0878c516fddeb9badf2957ec89a0e52dcf2",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fcab6fcb08dbc2cc2d3d789e657e1ac09ec92f9a3c7197426a93345016f63d35",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Quay lại cảnh nhà Bạn và Cửa hàng (lit 0,1,3). Bạn quẹt thêm một giao dịch mới ở Ngày 50. Ngay giây chạm thẻ, đồng hồ tính lãi tại Ngân hàng phát hành thẻ bật sáng đỏ ngay lập tức, không còn vùng đệm 45 ngày màu xanh như kỳ đầu.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông cảnh báo trầm (cần giấy phép trước khi dùng)",
+          "voWords": 144
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:56 – 7:44",
+          "beat": null,
+          "sha256CacheKey": "5dcaa3ae8f799c5005e4ff39e22f98f01d43b42c02a060408ce63d2ec230883b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "3acf81ef3cca34b090b183e0957016ef03e0f6567f684bc8e4ef8d45e4ca282d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Khung hình chia ba tình huống ngoại lệ trên mặt cắt: (1) Trả 9.990.000 đ (thiếu 10.000 đ) → vẫn mất 450.000 đ lãi 45 ngày đầu; (2) Rút tiền mặt ATM → thu phí 4% + tính lãi ngay ngày đầu; (3) Lãi phần đuôi (Trailing Interest) sau khi trả sao kê kỳ 2.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật thẻ (cần giấy phép trước khi dùng)",
+          "voWords": 185
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:44 – 8:20",
+          "beat": null,
+          "sha256CacheKey": "c2c6f3445d53b3df2a4678fcda9ba7f78d824751dbd907dc223c707300ff4bb5",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4894c94721399afaf3f16ef4c1f91c965f524f81bad8fa5fb060ed6442345c87",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Máy quay lùi ra toàn cảnh năm ngôi nhà về đêm. Luồng quyết toán từ Ngân hàng tài khoản của bạn chạy sang Ngân hàng phát hành thẻ số tiền 10.092.500 đồng, xoá sạch dư nợ trên sổ về 0. Đèn chiếc đồng hồ miễn lãi 45 ngày bật xanh trở lại.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá sổ nhẹ (cần giấy phép trước khi dùng)",
+          "voWords": 154
+        }
+      ]
+    },
+    "short": {
+      "title": "Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/minpay_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "-atHoEHCrSI",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/minpay-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:11",
+          "beat": null,
+          "sha256CacheKey": "d8bc693cd533cccfc4b224e1aab73f9b02046653aa0ca1e75bf10883184e628b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1eac7830bd16eccb6aaeedf6cb7e61f94022df5f837a72e610d3f1dedd85077b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, cận tờ sao kê thẻ tín dụng 10.000.000 đồng trên điện thoại; nút “Trả tối thiểu 5%: 500.000 đồng” sáng vàng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng thông báo điện thoại (cần giấy phép trước khi dùng)",
+          "voWords": 44
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:11 – 0:23",
+          "beat": 1,
+          "sha256CacheKey": "7a5283b31132a0576c475ffe6f8678c6f5dc782da1c465105294cb3fbd2a42ce",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "a1e7bd93fcb979af808dfecefb39c96abd2f826d6c1f341c20d25ed0301f3f42",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, mặt cắt Ngân hàng phát hành thẻ ứng tiền thật 9.800.000 đồng cho Cửa hàng từ Ngày T+2 (lit 1,2,3; msgs 3→2 money, 2→1 money).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuyển khoản (cần giấy phép trước khi dùng)",
+          "voWords": 41
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:23 – 0:36",
+          "beat": 3,
+          "sha256CacheKey": "cf2cd506514f6afab1062130e4e3ee470e0934314e1f2eb90b7362c70dbbb0fa",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "091558613ae2b5e77587942eba3482695a96e2cf3256f1d7d5cff43dd1bd148b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, Ngày 45: 500.000 đồng chuyển từ Ngân hàng tài khoản của bạn sang Ngân hàng phát hành thẻ (lit 0,3,4; msgs 4→3 money); đồng hồ miễn lãi bị gạch chéo.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng gạt công tắc (cần giấy phép trước khi dùng)",
+          "voWords": 36
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:36 – 0:51",
+          "beat": 4,
+          "sha256CacheKey": "a7c9b589e18d526770a7b119f38a1185c60d3359e5dbbe0aa6d5e42a20d74b9d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "cd06d990529c0ea2d45fe53563744c1a575916c5d3a8fee1de58ba7435e0b177",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, bảng sổ tại Ngân hàng phát hành thẻ hiện hai khúc lãi: 450.000 đồng (45 ngày đầu trên 10 triệu) + 142.500 đồng (15 ngày sau trên 9,5 triệu) = 592.500 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy tính cộng dồn (cần giấy phép trước khi dùng)",
+          "voWords": 53
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:51 – 1:02",
+          "beat": null,
+          "sha256CacheKey": "9d0dc98df3419bd358f1a919ff1865334331c88c13148d2189008839bd414e53",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "be4e51d642ebf4fce6dc6ed63a6a77e38aa706dddc64c79272d7283bf0da7c1d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, đặt cạnh nhau: “Tiền vừa trả: 500.000 đ” và “Tiền lãi bị cộng: 592.500 đ” → “Dư nợ mới: 10.092.500 đ”.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đặt quả cân (cần giấy phép trước khi dùng)",
+          "voWords": 37
+        },
+        {
+          "sceneIndex": 5,
+          "time": "1:02 – 1:12",
+          "beat": null,
+          "sha256CacheKey": "354ad742b553fc8c2b501c3d3cf637323182f6e6099a039337bd65c53daa3ab5",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "cad3737e16620481b8d97f687bf9e405db8400f46028762801e9d10573211205",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "9:16, nút cài đặt trích nợ tự động gạt từ “5% tối thiểu” sang “100% dư nợ sao kê”, đèn 45 ngày miễn lãi bật xanh.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá sổ (cần giấy phép trước khi dùng)",
+          "voWords": 34
+        }
+      ]
+    }
+  }
+}

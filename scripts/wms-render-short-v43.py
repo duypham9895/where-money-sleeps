@@ -646,6 +646,85 @@ STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "minpay": {
+        "house_nodes": [
+            ("BẠN", "Chủ thẻ"),
+            ("CỬA HÀNG", "Nơi bán máy"),
+            ("NGÂN HÀNG", "Cửa hàng"),
+            ("NGÂN HÀNG", "Phát hành thẻ"),
+            ("NGÂN HÀNG", "Tài khoản bạn"),
+        ],
+        "scene_plates": [
+            ("public/brand/card-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/install-short-plate-4.jpg", (20, 820, 1060, 1665)),
+            ("public/brand/card-short-plate-4.jpg", (20, 460, 1060, 1305)),
+        ],
+        "scenes": [
+            {
+                "active": [0, 3],
+                "flow": ("wire", 3, 0),
+                "room_src": (0.32, 0.64, "SAO KÊ 10.000.000 Đ"),
+                "room_dst": (0.68, 0.30, "TRẢ TỐI THIỂU 5%: 500.000 Đ"),
+                "packet_label": "SAO KÊ 10TR · TỐI THIỂU 500.000 Đ",
+                "stage_tag": "SAO KÊ 10.000.000 Đ  ·  TRẢ TỐI THIỂU 5% = 500.000 Đ",
+                "primitive": "P1_MINPAY_HOOK",
+                "kicker": "MỞ ĐẦU  ·  TRẢ 500.000 Đ NHƯNG NỢ VỌT LÊN 10,09TR?",
+            },
+            {
+                "active": [1, 2, 3],
+                "flow": ("pipe", 3, 2, 1),
+                "room_src": (0.68, 0.30, "NGÂN HÀNG PHÁT HÀNH (ỨNG VỐN)"),
+                "room_dst": (0.38, 0.70, "CỬA HÀNG (+9.800.000 Đ)"),
+                "packet_label": "ỨNG TIỀN THẬT +9.800.000 Đ TỪ T+2",
+                "stage_tag": "NGÀY T+2  ·  NGÂN HÀNG ĐÃ BỎ TIỀN TÚI ỨNG TRƯỚC",
+                "primitive": "P2_MINPAY_T2_ADVANCE",
+                "kicker": "BƯỚC 1  ·  VÌ SAO LÃI TÍNH LÙI TỪ NGÀY 01?",
+            },
+            {
+                "active": [0, 3, 4],
+                "flow": ("pipe", 4, 3),
+                "room_src": (0.36, 0.68, "NGÂN HÀNG TK BẠN (−500.000 Đ)"),
+                "room_dst": (0.68, 0.30, "NGÂN HÀNG THẺ (GỐC CÒN 9,5TR)"),
+                "packet_label": "TRẢ 500.000 Đ · MẤT 45 NGÀY MIỄN LÃI",
+                "stage_tag": "NGÀY 45  ·  TRẢ 500.000 Đ LÀM SẬP 45 NGÀY MIỄN LÃI",
+                "primitive": "P3_MINPAY_FORFEIT",
+                "kicker": "BƯỚC 2  ·  THOÁT PHÍ PHẠT, MẤT TRẮNG ÂN HẠN",
+            },
+            {
+                "active": [0, 3],
+                "flow": ("wire", 3, 0),
+                "room_src": (0.34, 0.66, "KHÚC 1 (45 NGÀY): +450.000 Đ"),
+                "room_dst": (0.66, 0.34, "KHÚC 2 (15 NGÀY): +142.500 Đ"),
+                "packet_label": "TỔNG LÃI = 450K + 142,5K = 592.500 Đ",
+                "stage_tag": "PHÉP TÍNH LÃI LÙI DƯ NỢ BÌNH QUÂN NGÀY (0,1%/NGÀY)",
+                "primitive": "P1_MINPAY_TWO_PARTS",
+                "kicker": "BƯỚC 3  ·  GIẢI PHẪU HAI KHÚC LÃI 592.500 Đ",
+            },
+            {
+                "active": [0, 3],
+                "flow": ("wire", 3, 0),
+                "room_src": (0.36, 0.66, "TIỀN VỪA TRẢ: 500.000 Đ"),
+                "room_dst": (0.66, 0.34, "TIỀN LÃI CỘNG VÀO: +592.500 Đ"),
+                "packet_label": "DƯ NỢ MỚI = 10.092.500 Đ (+92.500 Đ)",
+                "stage_tag": "TRẢ 500.000 Đ NHƯNG BỊ CỘNG 592.500 Đ TIỀN LÃI",
+                "primitive": "P7_MINPAY_PARADOX",
+                "kicker": "BƯỚC 4  ·  NGHỊCH LÝ DƯ NỢ KỲ SAU TĂNG VỌT",
+            },
+            {
+                "active": [0, 3, 4],
+                "flow": ("pipe", 4, 3),
+                "room_src": (0.48, 0.24, "SỔ KẾ TOÁN TT 99/2025"),
+                "room_dst": (0.50, 0.68, "TRẢ ĐỦ 100% SAO KÊ = MIỄN LÃI"),
+                "packet_label": "TRẢ ĐỦ 100% ĐỂ KHÔI PHỤC 45 NGÀY",
+                "stage_tag": "TRẢ ĐỦ 100% DƯ NỢ SAO KÊ ĐỂ GIỮ TRỌN 45 NGÀY MIỄN LÃI",
+                "primitive": "P4_MINPAY_CLOSING",
+                "kicker": "ĐIỂM MẤU CHỐT  ·  KHI NÀO DÙNG TRẢ TỐI THIỂU?",
+            },
+        ],
+    },
 }
 
 
@@ -1359,7 +1438,7 @@ def draw_mechanism_canvas(
         draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
         draw_centered_row_text(draw, icx, cy0 + 366, "ĐÓ LÀ LÝ DO PHÒNG NHÂN SỰ CHỈ ĐỊNH 1 NGÂN HÀNG NHẬN LƯƠNG", fonts["label"], (226, 168, 76))
 
-    else:  # P4_PAY_CLOSING
+    elif prim == "P4_PAY_CLOSING":
         t_y0, t_y1 = cy0 + 66, cy0 + 220
         draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
         v_pay_bal = step_quantize(17_000_000 * max(0.1, beat1), 500_000) if beat1 < 0.99 else 17_000_000
@@ -1374,6 +1453,111 @@ def draw_mechanism_canvas(
         draw_centered_row_text(draw, icx, q_y0 + 18, "BẢN CHẤT KẾ TOÁN CỦA SỐ DƯ TRÊN ĐIỆN THOẠI:", fonts["label"], (226, 168, 76))
         draw_centered_row_text(draw, icx, q_y0 + 58, "Số dư tài khoản là khoản NGÂN HÀNG ĐANG NỢ BẠN", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
         draw_centered_row_text(draw, icx, q_y0 + 106, "Đêm nay, số dư nằm yên của bạn đang sinh lời cho ai?", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+
+    # ── NGUYÊN HÀM BÀI 4: `minpay` (Trả tối thiểu 5% sao kê thẻ tín dụng 10 triệu) ──
+    elif prim == "P1_MINPAY_HOOK":
+        v1 = step_quantize(10_000_000 * max(0.08, beat1), 500_000) if beat1 < 0.99 else 10_000_000
+        v_min = step_quantize(500_000 * max(0.1, beat1), 50_000) if beat1 < 0.99 else 500_000
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 182
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "DƯ NỢ SAO KÊ THẺ TÍN DỤNG NGÀY 30:", fonts["label"], (148, 160, 178))
+        draw_centered_row_text(draw, icx, b1_y0 + 44, fmt_vnd(v1), fonts["hero_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, f"Nút bấm nhẹ tênh: Trả tối thiểu 5% = {fmt_vnd(v_min)} (Đúng hạn, 0 phí phạt)", fonts["sub"], (94, 184, 138))
+
+        b2_y0, b2_y1 = cy0 + 198, cy0 + 328
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 31, 38), (226, 168, 76))
+        v2 = 9_500_000 if beat2 <= 0.01 else (10_092_500 if beat2 >= 0.99 else step_quantize(lerp(9_500_000, 10_092_500, beat2), 25_000))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "NHƯNG TỔNG DƯ NỢ TRÊN SAO KÊ KỲ SAU (NGÀY 60):", fonts["label"], blend_rgb((82, 102, 98), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, f"{fmt_vnd(v2)}   (Cộng thêm +592.500 đ lãi)", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 90, "Vì sao vừa trả 500.000 đ xong, tháng sau lại nợ nhiều hơn lúc chưa trả?", fonts["sub"], blend_rgb((88, 100, 116), (216, 222, 232), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC LỜI BÌNH", fonts["label"], (226, 168, 76))
+
+    elif prim == "P2_MINPAY_T2_ADVANCE":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_adv = step_quantize(9_800_000 * max(0.1, beat1), 200_000) if beat1 < 0.99 else 9_800_000
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "1. NGÀY T+2: NGÂN HÀNG PHÁT HÀNH ĐÃ BỎ TIỀN TÚI ỨNG TRƯỚC:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, f"QUYẾT TOÁN CHO CỬA HÀNG: +{fmt_vnd(v_adv)}", fonts["big_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 88, "(Sau khi trừ phí nhận thẻ MDR 2% ví dụ = 200.000 đ)", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "2. BẢN CHẤT CỦA 45 NGÀY MIỄN LÃI (CONDITIONAL GRACE PERIOD):", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Chỉ miễn lãi nếu Ngày 45 trả đủ 100% sao kê (10.000.000 đ)", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Suốt 45 ngày đó bạn đang tiêu tiền ngân hàng ứng trước từ Ngày T+2", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "MIỄN LÃI 45 NGÀY LÀ LỜI HỨA CÓ ĐIỀU KIỆN TRẢ ĐỦ 100%", fonts["label"], (226, 168, 76))
+
+    elif prim == "P3_MINPAY_FORFEIT":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_p = step_quantize(500_000 * max(0.1, beat1), 50_000) if beat1 < 0.99 else 500_000
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "NGÀY 45 — BẠN CHUYỂN KHOẢN TRẢ TỐI THIỂU 5%:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, f"TRẢ ĐÚNG HẠN: {fmt_vnd(v_p)}   (Gốc còn lại: 9.500.000 đ)", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Sổ DN (TT 99/2025): Debit TK 338: 500.000 đ  |  Credit TK 112: 500.000 đ", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "CÁI GIÁ CỦA VIỆC CHƯA TRẢ ĐỦ 100% DƯ NỢ SAO KÊ:", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Thoát phí phạt trễ hạn · NHƯNG MẤT TRẮNG 45 NGÀY MIỄN LÃI", fonts["val_bold"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Đồng hồ tính lãi lập tức quay ngược về tận Ngày 01 đầu kỳ", fonts["sub"], blend_rgb((88, 100, 116), (226, 168, 76), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "TRẢ THIẾU DÙ CHỈ 1 ĐỒNG CŨNG HUỶ TOÀN BỘ 45 NGÀY MIỄN LÃI", fonts["label"], (226, 168, 76))
+
+    elif prim == "P1_MINPAY_TWO_PARTS":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        v_k1 = step_quantize(450_000 * max(0.1, beat1), 25_000) if beat1 < 0.99 else 450_000
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "KHÚC 1 (NGÀY 01–45: TÍNH LÙI TRÊN CẢ 10.000.000 Đ):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, f"10.000.000 × 0,1%/ngày × 45 ngày = +{fmt_vnd(v_k1)}", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "(Lãi suất ví dụ 36%/năm ≈ 3%/tháng ≈ 0,1%/ngày)", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        v_k2 = step_quantize(142_500 * beat2, 12_500) if beat2 < 0.99 else 142_500
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "KHÚC 2 (NGÀY 46–60: TRÊN 9.500.000 Đ GỐC CÒN LẠI):", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, f"9.500.000 × 0,1%/ngày × 15 ngày = +{fmt_vnd(v_k2)}", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Tổng lãi kỳ 2 = 450.000 đ + 142.500 đ = +592.500 đ", fonts["sub"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "PHƯƠNG PHÁP DƯ NỢ BÌNH QUÂN NGÀY (AVERAGE DAILY BALANCE)", fonts["label"], (226, 168, 76))
+
+    elif prim == "P7_MINPAY_PARADOX":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "ĐỐI CHIẾU TIỀN BẠN TRẢ vs TIỀN LÃI BỊ CỘNG:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Tiền trả Ngày 45: 500.000 đ  <  Tiền lãi Ngày 60: 592.500 đ", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Tiền lãi phát sinh chỉ trong 1 kỳ đã nuốt trọn khoản trả tối thiểu", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        v_nb = step_quantize(lerp(9_500_000, 10_092_500, beat2), 25_000) if beat2 < 0.99 else 10_092_500
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "TỔNG DƯ NỢ MỚI TRÊN SAO KÊ NGÀY 60:", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, f"9.500.000 + 592.500 = {fmt_vnd(v_nb)}", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 88, "Cao hơn dư nợ ban đầu 92.500 đ · Lãi kép năm EIR ≈ 42,6%/năm", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "GIỮ LẠI 9,5 TRIỆU THÊM 15 NGÀY TỐN 592.500 Đ (≈ 6,24%)", fonts["label"], (226, 168, 76))
+
+    else:  # P4_MINPAY_CLOSING
+        t_y0, t_y1 = cy0 + 66, cy0 + 220
+        draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_int = step_quantize(592_500 * max(0.1, beat1), 25_000) if beat1 < 0.99 else 592_500
+        draw_centered_row_text(draw, icx, t_y0 + 12, "BÚT TOÁN LÃI THẺ TÍN DỤNG (TT 99/2025/TT-BTC):", fonts["label"], (148, 160, 178))
+        draw.line([(ix0 + 24, t_y0 + 42), (ix0 + 24 + (iw - 48) * max(0.15, beat1), t_y0 + 42)], fill=(94, 184, 138), width=2)
+        draw_centered_row_text(draw, icx, t_y0 + 54, "Bên Nợ: TK 635 (Chi phí tài chính — Lãi thẻ) = 592.500 đ", fonts["sub"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, t_y0 + 88, "Bên Có: TK 338 (Phải trả, phải nộp khác — 3388) = 592.500 đ", fonts["sub"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, t_y0 + 122, f"Σ Nợ ({fmt_vnd(v_int)})  =  Σ Có ({fmt_vnd(v_int)})   [CÂN BẰNG]", fonts["val_bold"], (236, 231, 221))
+
+        q_y0, q_y1 = cy0 + 238, cy0 + 404
+        draw_beat_card(draw, (ix0, q_y0, ix1, q_y1), beat2, (22, 33, 38), (226, 168, 76), radius=14)
+        draw_centered_row_text(draw, icx, q_y0 + 18, "QUY TẮC VÀNG KHI DÙNG THẺ TÍN DỤNG:", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, q_y0 + 58, "Trả đủ 100% dư nợ sao kê đúng hạn", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, q_y0 + 106, "là cách duy nhất để giữ nguyên 45 ngày miễn lãi", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
 
 
 def render_single_scene_frame(
@@ -1538,17 +1722,45 @@ def render_smooth_video(
         raise RuntimeError(f"FFmpeg failed with code {ret}:\n{stderr_out[-1200:]}")
 
 
-def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> None:
+def ensure_short_continuous_tts(slug: str, scenes: list[dict], api_key: str) -> dict:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cont_path = CACHE_DIR / f"{slug}_short_continuous_v3.json"
+    if cont_path.is_file():
+        return json.loads(cont_path.read_text(encoding="utf-8"))
+    voice_id = "JwqRvOqFdGeQNu7UjKjw"
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps"
+    full_text = "\n\n".join(s["vo"].strip() for s in scenes)
+    print(f"  [TTS eleven_v3] Calling ElevenLabs for {slug}.short ({len(full_text)} chars)...")
+    payload = {
+        "text": full_text,
+        "model_id": "eleven_v3",
+        "voice_settings": {
+            "stability": 0.65,
+            "similarity_boost": 0.80,
+            "style": 0.20,
+            "use_speaker_boost": True,
+        },
+    }
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"xi-api-key": api_key, "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        raw = resp.read()
+    cont_path.write_bytes(raw)
+    return json.loads(raw.decode("utf-8"))
+
+
+def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str, api_key: str) -> None:
     story = stories[slug]
     brand_audit = wmp.step_5_0_brand_safety_audit(slug, story)
     print(f"\n=== [{slug.upper()}.SHORT — Broadcast-Grade v5.0 Safe-Zone Cinema (QĐ 61)] ===")
     print(f"[0/3 Brand Safety Specialist PASS] B1–B4 sạch ({brand_audit['scenesAudited']} cảnh, 0 tên riêng/thương hiệu)")
     scenes = story["videoScript"]["short"]["scenes"]
 
-    cont_path = CACHE_DIR / f"{slug}_short_continuous_v3.json"
-    if not cont_path.is_file():
-        raise RuntimeError(f"Missing {cont_path}")
-    cont_data = json.loads(cont_path.read_text(encoding="utf-8"))
+    cont_data = ensure_short_continuous_tts(slug, scenes, api_key)
 
     with tempfile.TemporaryDirectory(prefix=f"wms_smooth_{slug}_") as tmp:
         tmp_dir = pathlib.Path(tmp)
@@ -1569,7 +1781,7 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
@@ -1581,9 +1793,9 @@ def main() -> int:
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = ensure_sfx_cached(api_key)
 
-    target_slugs = ["install", "card", "pay"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay"] if args.story == "all" else [args.story]
     for slug in target_slugs:
-        run_for_story(wmp, stories, sfx_map, slug)
+        run_for_story(wmp, stories, sfx_map, slug, api_key)
     return 0
 
 
