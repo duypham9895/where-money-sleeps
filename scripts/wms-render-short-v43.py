@@ -351,10 +351,10 @@ STORY_CONFIGS: dict[str, dict] = {
             "public/brand/install-short-plate-4.jpg",
         ],
         "crop_windows": [
-            (0, 380, 1080, 1380),
-            (0, 380, 1080, 1380),
-            (0, 380, 1080, 1380),
-            (0, 820, 1080, 1820),
+            (0, 250, 1080, 1490),
+            (0, 250, 1080, 1490),
+            (0, 250, 1080, 1490),
+            (0, 580, 1080, 1820),
         ],
         "house_nodes": [
             ("BẠN", "Người mua"),
@@ -382,10 +382,10 @@ STORY_CONFIGS: dict[str, dict] = {
             "public/brand/card-short-plate-4.jpg",
         ],
         "crop_windows": [
-            (0, 280, 1080, 1460),
-            (0, 280, 1080, 1460),
-            (0, 280, 1080, 1460),
-            (0, 280, 1080, 1460),
+            (0, 250, 1080, 1490),
+            (0, 250, 1080, 1490),
+            (0, 250, 1080, 1490),
+            (0, 250, 1080, 1490),
         ],
         "house_nodes": [
             ("BẠN", "Người mua"),
@@ -413,10 +413,10 @@ STORY_CONFIGS: dict[str, dict] = {
             "public/brand/pay-short-plate-4.jpg",
         ],
         "crop_windows": [
-            (0, 200, 1080, 1580),
-            (0, 200, 1080, 1580),
-            (0, 200, 1080, 1580),
-            (0, 200, 1080, 1580),
+            (0, 240, 1080, 1480),
+            (0, 240, 1080, 1480),
+            (0, 240, 1080, 1480),
+            (0, 240, 1080, 1480),
         ],
         "house_nodes": [
             ("CÔNG TY", "Nơi trả lương"),
@@ -554,8 +554,8 @@ WIRE_Y = 222
 NODE_Y = 267
 PIPE_Y = 312
 
-STAGE_BOX = (48, 368, 1032, 1548)
-CARD_BOX = (48, 1564, 1032, 1734)
+STAGE_BOX = (48, 368, 1032, 1496)
+CARD_BOX = (48, 1512, 1032, 1734)
 
 
 def assert_parent_child_containment(
@@ -668,20 +668,20 @@ def draw_stage_live_animation(
             pt_shop, pt_top = (425, 960), (510, 600)
             draw.ellipse((pt_shop[0] - r_glow, pt_shop[1] - r_glow, pt_shop[0] + r_glow, pt_shop[1] + r_glow), outline=(255, 209, 102, int(190 * pulse + 50)), width=3)
             draw_particles_along_segment(draw, pt_shop, pt_top, t, 0.55, (0.0, 0.33, 0.66), (245, 166, 35, 110), (255, 230, 150, 250))
-            draw_stage_pill(draw, 540, 412, "CÂU HỎI: AI TRẢ TIỀN LÃI CHO 12 THÁNG CHỜ ĐỢI?", f_tag, (14, 20, 32, 230), (245, 166, 35, 225), (255, 209, 102, 255))
-            draw_stage_pill(draw, 460, 1165, "QUẦY CỬA HÀNG: MÁY 12.000.000 Đ  ·  TỜ RƠI GHI 0% × 12 KỲ", f_tag, (14, 20, 32, 230), (72, 187, 120, 225), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "CÂU HỎI: AI TRẢ TIỀN LÃI CHO 12 THÁNG CHỜ ĐỢI?", f_tag, (14, 20, 32, 230), (245, 166, 35, 225), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "QUẦY CỬA HÀNG: MÁY 12.000.000 Đ  ·  TỜ RƠI GHI 0% × 12 KỲ", f_tag, (14, 20, 32, 230), (72, 187, 120, 225), (154, 240, 180, 255))
         elif s_idx == 1:
             draw_particles_along_segment(draw, (420, 965), (675, 680), t, 0.65, (0.0, 0.33, 0.66), (245, 166, 35, 115), (255, 236, 160, 255))
-            draw_stage_pill(draw, 640, 420, "CÔNG TY TÀI CHÍNH: CHỦ NỢ MỚI (GIỮ HỢP ĐỒNG 12.000.000 Đ)", f_tag, (14, 20, 32, 232), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 395, 1195, "QUẦY CỬA HÀNG: ĐÃ GIAO MÁY  ·  CHƯA NHẬN ĐỒNG TIỀN NÀO", f_tag, (14, 20, 32, 232), (80, 210, 190, 225), (175, 248, 236, 255))
+            draw_stage_pill(draw, 540, 404, "CÔNG TY TÀI CHÍNH: CHỦ NỢ MỚI (GIỮ HỢP ĐỒNG 12.000.000 Đ)", f_tag, (14, 20, 32, 232), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "QUẦY CỬA HÀNG: ĐÃ GIAO MÁY  ·  CHƯA NHẬN ĐỒNG TIỀN NÀO", f_tag, (14, 20, 32, 232), (80, 210, 190, 225), (175, 248, 236, 255))
         elif s_idx == 2:
             p_vault, p_junc, p_shop_tray, p_fee_tray = (650, 650), (535, 765), (390, 1015), (575, 975)
             draw_particles_along_segment(draw, p_vault, p_shop_tray, t, 0.60, (0.0, 0.33, 0.66), (72, 187, 120, 115), (154, 240, 180, 255))
             draw_particles_along_segment(draw, p_junc, p_fee_tray, t, 0.55, (0.0, 0.50), (245, 166, 35, 130), (255, 215, 110, 255))
-            draw_stage_pill(draw, 345, 1195, "CỬA HÀNG THỰC NHẬN: +11.400.000 Đ (95%)", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
-            draw_stage_pill(draw, 745, 1125, "GIỮ LẠI: −600.000 Đ (LÃI 5%)", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 404, "GIỮ LẠI TẠI NGUỒN: −600.000 Đ (CHI PHÍ HỖ TRỢ LÃI SUẤT 5%)", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "CỬA HÀNG THỰC NHẬN VÀO TÀI KHOẢN: +11.400.000 Đ (95%)", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
         elif s_idx == 3:
-            bar_x0, bar_y0, bar_x1, bar_y1 = sx0 + 36, sy0 + 22, sx1 - 36, sy0 + 82
+            bar_x0, bar_y0, bar_x1, bar_y1 = sx0 + 36, sy0 + 18, sx1 - 36, sy0 + 74
             draw.rounded_rectangle((bar_x0, bar_y0, bar_x1, bar_y1), radius=12, fill=(14, 20, 32, 232), outline=(245, 166, 35, 210), width=2)
             active_months = min(12, max(1, int(s_prog * 13.0)))
             cell_w = (bar_x1 - bar_x0 - 24) / 12.0
@@ -690,139 +690,76 @@ def draw_stage_live_animation(
                 cx1 = cx0 + cell_w - 6
                 is_paid = m_i < active_months
                 c_fill = (72, 187, 120, 235) if is_paid else (38, 50, 72, 190)
-                draw.rounded_rectangle((cx0, bar_y0 + 12, cx1, bar_y1 - 12), radius=6, fill=c_fill)
+                draw.rounded_rectangle((cx0, bar_y0 + 10, cx1, bar_y1 - 10), radius=6, fill=c_fill)
                 m_lbl = f"T{m_i+1}"
                 mw = draw.textlength(m_lbl, font=fonts["node_sub"])
-                draw.text(((cx0 + cx1 - mw) / 2, bar_y0 + 21), m_lbl, font=fonts["node_sub"], fill=(12, 18, 28, 255) if is_paid else (175, 188, 205, 220))
-            draw_stage_pill(draw, 540, 1200, "TRẢ THẲNG 11.400.000 Đ  vs  TRẢ GÓP 12.000.000 Đ  =  LÃI THỰC TẾ ~10%/NĂM", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+                draw.text(((cx0 + cx1 - mw) / 2, bar_y0 + 19), m_lbl, font=fonts["node_sub"], fill=(12, 18, 28, 255) if is_paid else (175, 188, 205, 220))
+            draw_stage_pill(draw, 540, 1456, "TRẢ THẲNG 11.400.000 Đ  vs  TRẢ GÓP 12.000.000 Đ  =  LÃI THỰC TẾ ~10%/NĂM", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
         elif s_idx == 4:
             pulse = 0.5 + 0.5 * math.sin(t * 3.5)
-            draw_stage_pill(draw, 330, 615, "TRẢ THẲNG GIẢM 600K: BẠN TRẢ LÃI", f_tag, (14, 20, 32, 235), (245, 166, 35, int(190 + 60 * pulse)), (255, 209, 102, 255))
-            draw_stage_pill(draw, 745, 665, "MỘT GIÁ CHUNG: CỬA HÀNG GÁNH 600K", f_tag, (14, 20, 32, 235), (72, 187, 120, int(190 + 60 * (1.0 - pulse))), (154, 240, 180, 255))
-            draw_stage_pill(draw, 540, 1205, "SỔ KẾ TOÁN: 600.000 Đ CHI PHÍ HỖ TRỢ LÃI SUẤT KHÔNG HỀ BIẾN MẤT", f_tag, (14, 20, 32, 235), (245, 166, 35, 225), (244, 239, 230, 255))
+            draw_stage_pill(draw, 330, 404, "TRẢ THẲNG GIẢM 600K: BẠN TRẢ LÃI", f_tag, (14, 20, 32, 235), (245, 166, 35, int(190 + 60 * pulse)), (255, 209, 102, 255))
+            draw_stage_pill(draw, 745, 404, "MỘT GIÁ CHUNG: CỬA HÀNG GÁNH 600K", f_tag, (14, 20, 32, 235), (72, 187, 120, int(190 + 60 * (1.0 - pulse))), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 1456, "SỔ KẾ TOÁN: 600.000 Đ CHI PHÍ HỖ TRỢ LÃI SUẤT KHÔNG HỀ BIẾN MẤT", f_tag, (14, 20, 32, 235), (245, 166, 35, 225), (244, 239, 230, 255))
         else:
-            draw_stage_pill(draw, 540, 595, "12.000.000 Đ (GHI BÁN)  −  11.400.000 Đ (THỰC NHẬN)  =  600.000 Đ TIỀN LÃI", f_tag, (14, 20, 32, 238), (245, 166, 35, 245), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "CÂU HỎI DUY NHẤT CẦN HỎI: “TRẢ THẲNG MỘT LẦN THÌ GIÁ BAO NHIÊU?”", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "12.000.000 Đ (GHI BÁN)  −  11.400.000 Đ (THỰC NHẬN)  =  600.000 Đ TIỀN LÃI", f_tag, (14, 20, 32, 238), (245, 166, 35, 245), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "CÂU HỎI DUY NHẤT CẦN HỎI: “TRẢ THẲNG MỘT LẦN THÌ GIÁ BAO NHIÊU?”", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
 
     elif story_slug == "card":
         if s_idx == 0:
             draw_particles_along_segment(draw, (650, 660), (430, 960), t, 0.55, (0.0, 0.33, 0.66), (245, 166, 35, 115), (255, 230, 150, 255))
-            draw_stage_pill(draw, 540, 412, "HOÁ ĐƠN 10.000.000 Đ  ·  HOÀN TIỀN +100.000 Đ (1%)", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "CÂU HỎI: 100.000 Đ TIỀN HOÀN NÀY ĐƯỢC TRÍCH TỪ ĐÂU?", f_tag, (14, 20, 32, 235), (72, 187, 120, 235), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "HOÁ ĐƠN 10.000.000 Đ  ·  HOÀN TIỀN +100.000 Đ (1%)", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "CÂU HỎI: 100.000 Đ TIỀN HOÀN NÀY ĐƯỢC TRÍCH TỪ ĐÂU?", f_tag, (14, 20, 32, 235), (72, 187, 120, 235), (154, 240, 180, 255))
         elif s_idx == 1:
             draw_particles_along_segment(draw, (430, 960), (520, 620), t, 0.65, (0.0, 0.33, 0.66), (245, 166, 35, 115), (255, 236, 160, 255))
-            draw_stage_pill(draw, 640, 420, "NGÂN HÀNG CỦA BẠN: GIỮ CHỖ 10.000.000 Đ TRÊN HẠN MỨC", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 440, 1205, "QUẦY QUÁN QUEN: CHƯA CÓ ĐỒNG TIỀN THẬT NÀO CHẠY VỀ KÉT", f_tag, (14, 20, 32, 235), (80, 210, 190, 235), (175, 248, 236, 255))
+            draw_stage_pill(draw, 540, 404, "NGÂN HÀNG CỦA BẠN: GIỮ CHỖ 10.000.000 Đ TRÊN HẠN MỨC", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "QUẦY QUÁN QUEN: CHƯA CÓ ĐỒNG TIỀN THẬT NÀO CHẠY VỀ KÉT", f_tag, (14, 20, 32, 235), (80, 210, 190, 235), (175, 248, 236, 255))
         elif s_idx == 2:
             draw_particles_along_segment(draw, (670, 660), (370, 990), t, 0.60, (0.0, 0.33, 0.66), (72, 187, 120, 120), (154, 240, 180, 255))
             draw_particles_along_segment(draw, (550, 780), (455, 955), t, 0.50, (0.0, 0.50), (245, 166, 35, 130), (255, 215, 110, 255))
-            draw_stage_pill(draw, 355, 1205, "QUÁN THỰC NHẬN: +9.780.000 Đ (SAU T+2)", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
-            draw_stage_pill(draw, 760, 1130, "PHÍ NHẬN THẺ (MDR 2,2%): −220.000 Đ", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 404, "PHÍ NHẬN THẺ (MDR 2,2%): −220.000 Đ KHẤU TRỪ TẠI NGUỒN", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "QUÁN THỰC NHẬN VÀO TÀI KHOẢN: +9.780.000 Đ (SAU T+2)", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
         elif s_idx == 3:
             draw_particles_along_segment(draw, (455, 955), (670, 660), t, 0.60, (0.0, 0.33, 0.66), (245, 166, 35, 125), (255, 224, 130, 255))
-            draw_stage_pill(draw, 540, 415, "NGÂN HÀNG CỦA BẠN NHẬN: +150.000 Đ PHÍ INTERCHANGE (1,5%)", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "NGÂN HÀNG CỦA QUÁN GIỮ 60.000 Đ  ·  PHÍ MẠNG THẺ 10.000 Đ", f_tag, (14, 20, 32, 236), (80, 210, 190, 235), (175, 248, 236, 255))
+            draw_stage_pill(draw, 540, 404, "NGÂN HÀNG CỦA BẠN NHẬN: +150.000 Đ PHÍ INTERCHANGE (1,5%)", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "NGÂN HÀNG CỦA QUÁN GIỮ 60.000 Đ  ·  PHÍ MẠNG THẺ 10.000 Đ", f_tag, (14, 20, 32, 236), (80, 210, 190, 235), (175, 248, 236, 255))
         elif s_idx == 4:
             draw_particles_along_segment(draw, (410, 980), (675, 670), t, 0.60, (0.0, 0.50), (72, 187, 120, 120), (154, 240, 180, 255))
             draw_particles_along_segment(draw, (675, 670), (370, 995), t, 0.55, (0.25, 0.75), (245, 166, 35, 130), (255, 224, 130, 255))
-            draw_stage_pill(draw, 630, 415, "THU INTERCHANGE 150.000 Đ  ·  TRÍCH HOÀN TIỀN 100.000 Đ", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 460, 1205, "BẠN TRẢ ĐỦ 10.000.000 Đ DƯ NỢ SAO KÊ  ·  NHẬN LẠI 100.000 Đ", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "THU INTERCHANGE 150.000 Đ  ·  TRÍCH HOÀN TIỀN 100.000 Đ", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "BẠN TRẢ ĐỦ 10.000.000 Đ DƯ NỢ SAO KÊ  ·  NHẬN LẠI 100.000 Đ", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
         else:
             pulse = 0.5 + 0.5 * math.sin(t * 3.5)
-            draw_stage_pill(draw, 540, 415, "QUÁN ĐỊNH GIÁ CHUNG: PHÍ NHẬN THẺ 2,2% NẰM TRONG GIÁ MÓN", f_tag, (14, 20, 32, 238), (245, 166, 35, int(195 + 55 * pulse)), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "TIỀN HOÀN 100.000 Đ RẤT CÓ THỂ LÀ TIỀN CỦA CHÍNH BẠN ĐI MỘT VÒNG", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "QUÁN ĐỊNH GIÁ CHUNG: PHÍ NHẬN THẺ 2,2% NẰM TRONG GIÁ MÓN", f_tag, (14, 20, 32, 238), (245, 166, 35, int(195 + 55 * pulse)), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "TIỀN HOÀN 100.000 Đ RẤT CÓ THỂ LÀ TIỀN CỦA CHÍNH BẠN ĐI MỘT VÒNG", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
 
     elif story_slug == "pay":
         if s_idx == 0:
             draw_particles_along_segment(draw, (320, 815), (535, 700), t, 0.65, (0.0, 0.50), (245, 166, 35, 120), (255, 230, 150, 255))
             draw_particles_along_segment(draw, (535, 700), (710, 835), t, 0.65, (0.25, 0.75), (245, 166, 35, 120), (255, 230, 150, 255))
-            draw_stage_pill(draw, 540, 412, "BÁO GHI CÓ +15.000.000 Đ  ·  KÉT TIỀN NGÂN HÀNG VẪN ĐÓNG KÍN", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "KHÔNG MỘT ĐỒNG TIỀN THẬT NÀO RỜI KHỎI TOÀ NHÀ NGÂN HÀNG", f_tag, (14, 20, 32, 235), (72, 187, 120, 235), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "BÁO GHI CÓ +15.000.000 Đ  ·  KÉT TIỀN NGÂN HÀNG VẪN ĐÓNG KÍN", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "KHÔNG MỘT ĐỒNG TIỀN THẬT NÀO RỜI KHỎI TOÀ NHÀ NGÂN HÀNG", f_tag, (14, 20, 32, 235), (72, 187, 120, 235), (154, 240, 180, 255))
         elif s_idx == 1:
             draw_particles_along_segment(draw, (320, 815), (535, 700), t, 0.60, (0.0, 0.33, 0.66), (245, 166, 35, 125), (255, 236, 160, 255))
-            draw_stage_pill(draw, 350, 420, "CÔNG TY: −15.000.000 Đ", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 730, 420, "TÀI KHOẢN BẠN: +15.000.000 Đ", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
-            draw_stage_pill(draw, 540, 1205, "CÙNG NGÂN HÀNG (ON-US): CHỈ ĐỔI TÊN CHỦ NỢ TRÊN SỔ CÁI", f_tag, (14, 20, 32, 235), (80, 210, 190, 235), (175, 248, 236, 255))
+            draw_stage_pill(draw, 350, 404, "CÔNG TY: −15.000.000 Đ", f_tag, (14, 20, 32, 235), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 730, 404, "TÀI KHOẢN BẠN: +15.000.000 Đ", f_tag, (14, 20, 32, 235), (72, 187, 120, 240), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 1456, "CÙNG NGÂN HÀNG (ON-US): CHỈ ĐỔI TÊN CHỦ NỢ TRÊN SỔ CÁI", f_tag, (14, 20, 32, 235), (80, 210, 190, 235), (175, 248, 236, 255))
         elif s_idx == 2:
             for x_ray in (340, 460, 610, 730):
                 draw_particles_along_segment(draw, (x_ray, 720), (x_ray, 980), t, 0.55, (0.0, 0.50), (72, 187, 120, 115), (154, 240, 180, 255))
-            draw_stage_pill(draw, 540, 412, "500 ĐỒNG NGHIỆP × 5.000.000 Đ = 2,5 TỶ ĐỒNG SỐ DƯ NẰM YÊN (CASA)", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "LÃI TIỀN GỬI KHÔNG KỲ HẠN RẤT THẤP: VÍ DỤ ~0,1% / NĂM", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "500 ĐỒNG NGHIỆP × 5.000.000 Đ = 2,5 TỶ ĐỒNG SỐ DƯ NẰM YÊN (CASA)", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "LÃI TIỀN GỬI KHÔNG KỲ HẠN RẤT THẤP: VÍ DỤ ~0,1% / NĂM", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
         elif s_idx == 3:
-            draw_stage_pill(draw, 355, 420, "CASA 0,1%: ~2,5 TRIỆU / NĂM", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
-            draw_stage_pill(draw, 730, 420, "KỲ HẠN 5%: ~125 TRIỆU / NĂM", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "NGUỒN VỐN RẺ GẤP 50 LẦN: LÝ DO NGÂN HÀNG MUỐN GIỮ BẢNG LƯƠNG", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 355, 404, "CASA 0,1%: ~2,5 TRIỆU / NĂM", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
+            draw_stage_pill(draw, 730, 404, "KỲ HẠN 5%: ~125 TRIỆU / NĂM", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "NGUỒN VỐN RẺ GẤP 50 LẦN: LÝ DO NGÂN HÀNG MUỐN GIỮ BẢNG LƯƠNG", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
         elif s_idx == 4:
             draw_particles_along_segment(draw, (370, 620), (740, 770), t, 0.60, (0.0, 0.50), (245, 166, 35, 120), (255, 230, 150, 255))
-            draw_stage_pill(draw, 540, 412, "BÊN CHO VAY CỦA NGÂN HÀNG: DÙNG BỂ VỐN RẺ ĐỂ CHO VAY LÃI CAO HƠN", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "CÔNG TY NHẬN ƯU ĐÃI PHÍ DỊCH VỤ HOẶC LÃI VAY (TUỲ HỢP ĐỒNG)", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
+            draw_stage_pill(draw, 540, 404, "BÊN CHO VAY CỦA NGÂN HÀNG: DÙNG BỂ VỐN RẺ ĐỂ CHO VAY LÃI CAO HƠN", f_tag, (14, 20, 32, 236), (245, 166, 35, 240), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "CÔNG TY NHẬN ƯU ĐÃI PHÍ DỊCH VỤ HOẶC LÃI VAY (TUỲ HỢP ĐỒNG)", f_tag, (14, 20, 32, 236), (72, 187, 120, 240), (154, 240, 180, 255))
         else:
-            draw_stage_pill(draw, 540, 412, "SỐ DƯ TRÊN ĐIỆN THOẠI = KHOẢN NGÂN HÀNG ĐANG NỢ BẠN", f_tag, (14, 20, 32, 238), (245, 166, 35, 245), (255, 209, 102, 255))
-            draw_stage_pill(draw, 540, 1205, "ĐÊM NAY, SỐ DƯ NẰM YÊN CỦA BẠN ĐANG LÀM VIỆC CHO AI?", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
-
-    # KINETIC LEDGER & MONEY-FLOW BAR IN EXPANDED ZONE 2 (y=1246..1524 — QĐ 59 Phương án B)
-    k_ease = smoothstep(0.0, 0.72, s_prog)
-    panel_x0, panel_y0, panel_x1, panel_y1 = sx0 + 28, 1246, sx1 - 28, 1524
-    draw.rounded_rectangle(
-        (panel_x0, panel_y0, panel_x1, panel_y1),
-        radius=18,
-        fill=(11, 16, 26, 238),
-        outline=(245, 166, 35, 200),
-        width=2,
-    )
-
-    if story_slug == "install":
-        led_specs = [
-            ("MẶT CẮT GIÁ BÁN & TRẢ GÓP (T+0)", 12_000_000, 1.0, "Giá niêm yết máy", "Nợ TK 1388 (Phải thu CTTC): +12.000.000 đ", "Có TK 511 (Doanh thu bán hàng): +12.000.000 đ"),
-            ("CHUYỂN GIAO HỢP ĐỒNG NỢ (T+0)", 12_000_000, 1.0, "Dư nợ gốc 12 kỳ", "Bên mua nhận máy · Cửa hàng chuyển quyền thu nợ", "Công ty tài chính nắm hợp đồng 12.000.000 đ"),
-            ("GIẢI NGÂN KHẤU TRỪ TẠI NGUỒN (T+1)", 11_400_000, 0.95, "Thực nhận 95% (Trừ 600k phí)", "Nợ TK 112 (Tiền gửi NH): +11.400.000 đ", "Nợ TK 641 (Phí hỗ trợ lãi 5%): +600.000 đ  |  Có TK 1388: 12tr"),
-            ("THU HỒI DÒNG TIỀN 12 KỲ (T+30..T+360)", int(round(1_000_000 * min(12, max(1, int(s_prog * 12 + 1))))), min(1.0, max(0.08, s_prog)), "Thu 1.000.000 đ × 12 tháng", "Mỗi kỳ thu gốc: 1.000.000 đ  ·  Tổng thu 12 kỳ: 12.000.000 đ", "Chênh lệch thực thu so với vốn giải ngân: +600.000 đ"),
-            ("ĐỐI CHIẾU TOÁN TÀI CHÍNH (IRR / EIR)", 600_000, 0.85, "Vốn 11,4tr → Thu 12tr (EIR ~10%/năm)", "Chi phí vốn thực tế ẩn trong giá bán: 600.000 đ (5%)", "Lãi suất hiệu dụng năm (EIR): ~10,01% / năm"),
-            ("BẢN CHẤT KẾ TOÁN TT 99/2025", 11_400_000, 0.95, "12,0tr ghi bán − 600k phí = 11,4tr", " Σ Nợ (11,4tr TK 112 + 600k TK 641) = Σ Có (12,0tr TK 511)", "Không có khoản vay 0% miễn phí — lãi nằm ở TK 641 / 521"),
-        ]
-    elif story_slug == "card":
-        led_specs = [
-            ("QUẸT THẺ 10 TRIỆU & HOÀN TIỀN 1% (T+0)", 10_000_000, 1.0, "Hoá đơn quẹt thẻ 10.000.000 đ", "Nợ TK 1388 (Phải thu NH thanh toán): +10.000.000 đ", "Có TK 511 (Doanh thu quán): +10.000.000 đ"),
-            ("PHONG TOẢ HẠN MỨC TẠM GIỮ (T+0)", 10_000_000, 1.0, "Giữ chỗ 10tr · Quán nhận 0 đ tiền mặt", "Ngân hàng phát hành khoá hạn mức: −10.000.000 đ", "Chưa có dòng tiền thật chảy sang két của Quán"),
-            ("QUYẾT TOÁN T+2 & KHẤU TRỪ MDR 2,2%", 9_780_000, 0.978, "Thực nhận 97,8% (Trừ 220k phí MDR)", "Nợ TK 112 (Tiền gửi NH): +9.780.000 đ", "Nợ TK 641 (Phí nhận thẻ 2,2%): +220.000 đ  |  Có TK 1388: 10tr"),
-            ("CHIA PHÍ MDR 220.000 Đ GIỮA 3 BÊN", 220_000, 0.88, "Interchange 150k · Acquirer 60k · Mạng thẻ 10k", "NH của bạn nhận: +150.000 đ (1,5%)", "NH của quán giữ: +60.000 đ (0,6%) · Tổ chức thẻ: +10.000 đ"),
-            ("NGUỒN GỐC 100.000 Đ TIỀN HOÀN (CASHBACK)", 100_000, 0.67, "Trích 100k từ 150k phí Interchange", "NH của bạn thu 150.000 đ phí → Trả lại bạn 100.000 đ", "Ngân hàng vẫn giữ lại phần dư ròng: +50.000 đ"),
-            ("BẢN CHẤT DÒNG TIỀN QUẸT THẺ", 9_780_000, 0.978, "10,0tr − 220k MDR = 9,78tr thực nhận", "Σ Nợ (9,78tr TK 112 + 220k TK 641) = Σ Có (10,0tr TK 511)", "Phí nhận thẻ 2,2% được quán tính gộp vào giá bán chung"),
-        ]
-    else:
-        led_specs = [
-            ("BÁO CÓ LƯƠNG ĐÊM T+0 (ON-US)", 15_000_000, 1.0, "Lương thực lĩnh +15.000.000 đ", "Nợ TK 334 (Phải trả người lao động): 15.000.000 đ", "Có TK 112 (Tiền gửi NH công ty): 15.000.000 đ"),
-            ("BÚT TOÁN NỘI BỘ CÙNG NGÂN HÀNG", 15_000_000, 1.0, "Đổi tên chủ nợ trên sổ ngân hàng", "Tài khoản Công ty: −15.000.000 đ  →  Tài khoản Bạn: +15.000.000 đ", "Tổng tiền mặt trong két ngân hàng không đổi (0 đ rời két)"),
-            ("BỂ VỐN KHÔNG KỲ HẠN (CASA 500 NGƯỜI)", 2_500_000_000, 0.92, "500 người × 5tr = 2,5 tỷ đồng CASA", "Số dư nằm yên trên tài khoản thanh toán: 2.500.000.000 đ", "Lãi suất không kỳ hạn (CASA): ~0,1% / năm"),
-            ("SO SÁNH CHI PHÍ HUY ĐỘNG VỐN (1 NĂM)", 2_500_000, 0.35, "CASA 2,5tr/năm vs Kỳ hạn 125tr/năm", "Trả lãi CASA (0,1%/năm): ~2.500.000 đ / năm", "Nếu huy động kỳ hạn (5%/năm): ~125.000.000 đ / năm (Đắt gấp 50 lần)"),
-            ("KHẤU TRỪ LƯƠNG GROSS 17 TRIỆU (TT 99/2025)", 15_000_000, 0.882, "Gross 17tr − (BHXH 1,785tr + Thuế 215k) = 15tr", "Nợ TK 642: 17.000.000 đ  |  Có TK 338 (BHXH 10,5%): 1.785.000 đ", "Có TK 3335 (Thuế TNCN): 215.000 đ  |  Có TK 334 (Net): 15.000.000 đ"),
-            ("BẢN CHẤT SỐ DƯ TÀI KHOẢN THANH TOÁN", 15_000_000, 1.0, "Số dư điện thoại = Ngân hàng nợ bạn", "Σ Nợ (17,0tr Chi phí lương) = Σ Có (15,0tr Net + 2,0tr Khấu trừ)", "Bảng lương giúp ngân hàng giữ bể vốn CASA rẻ suốt năm"),
-        ]
-
-    hdr_lbl, target_val, bar_ratio, bar_caption, row1_txt, row2_txt = led_specs[min(s_idx, len(led_specs) - 1)]
-    anim_val = int(round(target_val * k_ease))
-    anim_val_str = f"{anim_val:,}".replace(",", ".") + " Đ"
-
-    # Dòng 1: Tiêu đề bảng động + Con số tiền nhảy Kinetic (tabular-nums)
-    draw.text((panel_x0 + 24, panel_y0 + 18), f"SỔ KẾ TOÁN & DÒNG TIỀN ĐỘNG  ·  {hdr_lbl}", font=fonts["pipe_lbl"], fill=(245, 166, 35, 255))
-    val_w = draw.textlength(anim_val_str, font=fonts["stage_tag"])
-    draw.text((panel_x1 - 24 - val_w, panel_y0 + 16), anim_val_str, font=fonts["stage_tag"], fill=(154, 240, 180, 255))
-
-    # Dòng 2: Thanh tiến trình dòng tiền Kinetic Bar
-    bx0, by0, bx1, by1 = panel_x0 + 24, panel_y0 + 54, panel_x1 - 24, panel_y0 + 96
-    draw.rounded_rectangle((bx0, by0, bx1, by1), radius=10, fill=(24, 34, 52, 235), outline=(75, 95, 125, 190), width=2)
-    fill_w = max(18, int((bx1 - bx0) * bar_ratio * k_ease))
-    draw.rounded_rectangle((bx0, by0, bx0 + fill_w, by1), radius=10, fill=(42, 138, 98, 235))
-    draw.text((bx0 + 16, by0 + 11), bar_caption, font=fonts["badge"], fill=(255, 255, 255, 255))
-
-    # Dòng 3 & 4: Hai vế bút toán TT 99/2025 trượt mượt theo nhịp cảnh
-    r1_alpha = int(255 * smoothstep(0.02, 0.20, s_prog))
-    r2_alpha = int(255 * smoothstep(0.10, 0.30, s_prog))
-    draw.rounded_rectangle((bx0, panel_y0 + 112, bx1, panel_y0 + 178), radius=10, fill=(18, 26, 40, r1_alpha), outline=(56, 189, 248, int(r1_alpha * 0.85)), width=2)
-    draw.text((bx0 + 16, panel_y0 + 135), row1_txt, font=fonts["stage_tag"], fill=(224, 242, 254, r1_alpha))
-
-    draw.rounded_rectangle((bx0, panel_y0 + 190, bx1, panel_y0 + 256), radius=10, fill=(18, 26, 40, r2_alpha), outline=(72, 187, 120, int(r2_alpha * 0.85)), width=2)
-    draw.text((bx0 + 16, panel_y0 + 213), row2_txt, font=fonts["stage_tag"], fill=(209, 250, 229, r2_alpha))
+            draw_stage_pill(draw, 540, 404, "SỐ DƯ TRÊN ĐIỆN THOẠI = KHOẢN NGÂN HÀNG ĐANG NỢ BẠN", f_tag, (14, 20, 32, 238), (245, 166, 35, 245), (255, 209, 102, 255))
+            draw_stage_pill(draw, 540, 1456, "ĐÊM NAY, SỐ DƯ NẰM YÊN CỦA BẠN ĐANG LÀM VIỆC CHO AI?", f_tag, (14, 20, 32, 238), (72, 187, 120, 245), (154, 240, 180, 255))
+    # TUYỆT ĐỐI KHÔNG VẼ HỘP LEDGER ĐÈ LÊN TRONG STAGE_BOX (LUẬT 8: 0px chồng lấn hình ảnh)
 
 
 def render_single_scene_frame(
@@ -934,17 +871,55 @@ def render_single_scene_frame(
             active_p_float = (p_i - 1) + trans_w if p_i > 0 else 0.0
 
     kicker_w = int(draw.textlength(kicker, font=f_badge)) + 34
-    draw.rounded_rectangle((80, card_top + 30, 80 + kicker_w, card_top + 64), radius=9, fill=(245, 166, 35, 245))
-    draw.text((97, card_top + 37), kicker, font=f_badge, fill=(14, 20, 32, 255))
+    draw.rounded_rectangle((80, card_top + 28, 80 + kicker_w, card_top + 62), radius=9, fill=(245, 166, 35, 245))
+    draw.text((97, card_top + 35), kicker, font=f_badge, fill=(14, 20, 32, 255))
 
     cc_hint = "CC: BẬT PHỤ ĐỀ YOUTUBE ĐỂ ĐỌC LỜI BÌNH"
     cc_w = draw.textlength(cc_hint, font=f_node_sub)
-    draw.text((W - 80 - cc_w, card_top + 40), cc_hint, font=f_node_sub, fill=(164, 178, 198, 225))
+    draw.text((W - 80 - cc_w, card_top + 38), cc_hint, font=f_node_sub, fill=(164, 178, 198, 225))
 
-    cy = card_top + 78
-    for ln in sm["callout_lines"]:
+    cy = card_top + 74
+    for ln in sm["callout_lines"][:1]:
         draw.text((80, cy), ln, font=f_callout, fill=(255, 209, 102, 255))
         cy += 38
+
+    # Thanh dòng tiền động & bút toán TT 99/2025 nằm gọn bên trong CARD_BOX (y=1512..1734), KHÔNG BAO GIỜ chạm vào STAGE_BOX
+    k_ease = smoothstep(0.0, 0.72, s_prog)
+    if story_slug == "install":
+        led_rows = [
+            (12_000_000, 1.0, "Nợ TK 1388: +12.000.000 đ  |  Có TK 511 (Doanh thu): +12.000.000 đ"),
+            (12_000_000, 1.0, "Hợp đồng 12 kỳ chuyển quyền thu nợ sang Công ty tài chính"),
+            (11_400_000, 0.95, "Nợ TK 112: +11.400.000 đ (95%)  ·  Nợ TK 641 (Phí 5%): +600.000 đ  |  Có TK 1388: 12tr"),
+            (int(round(1_000_000 * min(12, max(1, int(s_prog * 12 + 1))))), min(1.0, max(0.08, s_prog)), "Thu 1.000.000 đ × 12 tháng = 12.000.000 đ  (Chênh +600.000 đ so với vốn 11,4tr)"),
+            (600_000, 0.85, "Chi phí hỗ trợ lãi suất 600.000 đ (5%)  ·  Lãi suất hiệu dụng (EIR): ~10%/năm"),
+            (11_400_000, 0.95, "Σ Nợ (11,4tr TK 112 + 600k TK 641) = Σ Có (12,0tr TK 511) — TT 99/2025/TT-BTC"),
+        ]
+    elif story_slug == "card":
+        led_rows = [
+            (10_000_000, 1.0, "Nợ TK 1388: +10.000.000 đ  |  Có TK 511 (Doanh thu quán): +10.000.000 đ"),
+            (10_000_000, 1.0, "Ngân hàng phát hành tạm giữ hạn mức −10.000.000 đ  ·  Quán nhận 0 đ tiền mặt"),
+            (9_780_000, 0.978, "Nợ TK 112: +9.780.000 đ (97,8%)  ·  Nợ TK 641 (MDR 2,2%): +220.000 đ  |  Có TK 1388: 10tr"),
+            (220_000, 0.88, "Phí MDR 220.000 đ = 150.000 đ Interchange (1,5%) + 60.000 đ NH quán + 10.000 đ Mạng thẻ"),
+            (100_000, 0.67, "Ngân hàng của bạn thu 150.000 đ phí Interchange → Trích hoàn bạn 100.000 đ (Giữ +50.000 đ)"),
+            (9_780_000, 0.978, "Σ Nợ (9,78tr TK 112 + 220k TK 641) = Σ Có (10,0tr TK 511) — TT 99/2025/TT-BTC"),
+        ]
+    else:
+        led_rows = [
+            (15_000_000, 1.0, "Nợ TK 334 (Phải trả NLĐ): 15.000.000 đ  |  Có TK 112 (Tiền gửi NH): 15.000.000 đ"),
+            (15_000_000, 1.0, "Nội bộ ngân hàng (On-Us): TK Công ty −15.000.000 đ → TK Bạn +15.000.000 đ (0 đ rời két)"),
+            (2_500_000_000, 0.92, "Bể vốn CASA 500 người × 5.000.000 đ = 2,5 tỷ đồng nằm yên (Lãi không kỳ hạn ~0,1%/năm)"),
+            (2_500_000, 0.35, "Chi phí trả lãi CASA 0,1%: ~2,5 triệu/năm  vs  Huy động kỳ hạn 5%: ~125 triệu/năm"),
+            (15_000_000, 0.882, "Nợ TK 642: 17tr  |  Có TK 338 (BHXH 10,5%): 1,785tr · Có TK 3335 (Thuế): 215k · Có TK 334: 15tr"),
+            (15_000_000, 1.0, "Σ Nợ (17,0tr Chi phí lương) = Σ Có (15,0tr Thực lĩnh + 2,0tr Khấu trừ) — TT 99/2025/TT-BTC"),
+        ]
+    t_val, b_ratio, l_txt = led_rows[min(s_idx, len(led_rows) - 1)]
+    anim_v = f"{int(round(t_val * k_ease)):,}".replace(",", ".") + " Đ"
+    bx0, by0, bx1, by1 = 80, card_top + 124, W - 80, card_top + 198
+    draw.rounded_rectangle((bx0, by0, bx1, by1), radius=12, fill=(18, 26, 42, 245), outline=(72, 187, 120, 210), width=2)
+    fill_w = max(16, int((bx1 - bx0) * b_ratio * k_ease))
+    draw.rounded_rectangle((bx0, by0, bx0 + fill_w, by0 + 28), radius=10, fill=(36, 118, 84, 210))
+    draw.text((bx0 + 14, by0 + 5), f"DÒNG TIỀN & SỔ TT 99/2025: {anim_v}", font=fonts["pipe_lbl"], fill=(154, 240, 180, 255))
+    draw.text((bx0 + 14, by0 + 38), l_txt, font=fonts["stage_tag"], fill=(232, 242, 252, 255))
 
     return Image.alpha_composite(frame_rgba, dyn).convert("RGB")
 
@@ -1157,7 +1132,7 @@ def main() -> int:
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = ensure_sfx_cached(api_key)
 
-    target_slugs = ["card", "pay"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug)
     return 0

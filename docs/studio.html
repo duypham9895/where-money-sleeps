@@ -456,21 +456,16 @@ html, body {
   pointer-events: none;
   z-index: 4;
 }
-/* Lớp phủ Phụ đề YouTube CC (.srt) khi Duy bật thử nghiệm */
+/* Thanh Phụ đề YouTube CC (.srt) đặt TÁCH BIỆT bên dưới khung video — tuyệt đối không đè lên hình ảnh video */
 .yt-cc-overlay {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 58px;
-  z-index: 5;
-  background: rgba(12, 14, 18, 0.86);
-  color: #ffffff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font: 500 13px/1.4 var(--sans);
+  margin-top: 8px;
+  background: #141821;
+  color: #f7f4ec;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font: 500 13px/1.45 var(--sans);
   text-align: center;
-  pointer-events: none;
-  border: 1px solid rgba(255,255,255,0.16);
+  border: 1px solid var(--border-strong);
 }
 
 .transport-strip {
@@ -705,11 +700,11 @@ html, body {
         </div>
 
         <div class="video-frame-box short" id="videoFrameBox">
-          <video id="studioVideo" controls preload="metadata" width="540" height="960" playsinline></video>
+          <video id="studioVideo" controls preload="auto" width="540" height="960" playsinline></video>
           <div id="ytIframeMount" hidden style="position:absolute;inset:0"></div>
-          <div class="yt-cc-overlay" id="ytCcBox"></div>
           <svg class="safezone-svg" id="safezoneSvg" viewBox="0 0 1080 1920" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
+        <div class="yt-cc-overlay" id="ytCcBox"></div>
 
         <div class="transport-strip">
           <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -1253,11 +1248,11 @@ html, body {
         <rect x="48" y="36" width="984" height="318" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="10 6" rx="12"/>
         <text x="540" y="72" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 1 · HEADER &amp; 5 HOUSE CONDUIT (y=36..354)</text>
 
-        <rect x="48" y="368" width="984" height="1180" fill="none" stroke="#e2a84b" stroke-width="3" stroke-dasharray="12 6" rx="14"/>
-        <text x="540" y="408" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 2 MỞ RỘNG (80%) · KINETIC STAGE &amp; LIVE LEDGER (y=368..1548)</text>
+        <rect x="48" y="368" width="984" height="1128" fill="none" stroke="#e2a84b" stroke-width="3" stroke-dasharray="12 6" rx="14"/>
+        <text x="540" y="408" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 2 · 100% HÌNH CẮT &amp; HOẠT HOẠ (y=368..1496 · 0PX CHE HÌNH)</text>
 
-        <rect x="48" y="1564" width="984" height="170" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="10 6" rx="14"/>
-        <text x="540" y="1602" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="22" font-weight="700">THANH CÔNG THỨC SỐ GỌN &lt;= 8 TỪ (y=1564..1734 · 0 SCRIPT WALL)</text>
+        <rect x="48" y="1512" width="984" height="222" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="10 6" rx="14"/>
+        <text x="540" y="1550" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 3 TÁCH BIỆT · CÔNG THỨC &amp; SỔ TT 99 (y=1512..1734 · CÁCH ZONE 2 16PX)</text>
 
         <line x1="0" y1="1734" x2="1080" y2="1734" stroke="#f43f5e" stroke-width="4" stroke-dasharray="14 8"/>
         <text x="540" y="1772" text-anchor="middle" fill="#f43f5e" font-family="JetBrains Mono" font-size="21" font-weight="700">ĐÁY AN TOÀN SHORTS (y=1734)</text>
@@ -1393,10 +1388,15 @@ html, body {
       vid.hidden = false;
       vid.width = isShort ? 540 : 1280;
       vid.height = isShort ? 960 : 720;
-      vid.poster = `../public/brand/${encodeURIComponent(ST.story)}-fig-1.jpg`;
+      vid.removeAttribute("poster");
       if (vid.getAttribute("data-cur-src") !== localMp4) {
         vid.setAttribute("data-cur-src", localMp4);
         vid.src = localMp4;
+        vid.onloadeddata = () => {
+          if (vid.paused && vid.currentTime < 0.4) {
+            try { vid.currentTime = 1.2; } catch (_) {}
+          }
+        };
       }
     }
 

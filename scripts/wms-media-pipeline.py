@@ -68,8 +68,8 @@ DEFAULT_REF_IMAGES = [
 # LUẬT 6b + LUẬT 8 + M3 (Bang-Motion Split-Stage & Parent-Child Containment Guard — QĐ 59 Phương án B: Zone 2 80% Kinetic Stage + Compact Formula Bar + YouTube CC .srt)
 HEADER_BOX = (48, 36, 1032, 184)
 CONDUIT_PARENT_BOX = (48, 198, 1032, 354)
-STAGE_BOX = (48, 368, 1032, 1548)
-CARD_BOX = (48, 1564, 1032, 1734)
+STAGE_BOX = (48, 368, 1032, 1496)
+CARD_BOX = (48, 1512, 1032, 1734)
 
 
 def assert_parent_child_containment(
