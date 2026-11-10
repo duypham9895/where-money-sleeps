@@ -36,13 +36,15 @@ EXPECTED_YT_IDS = {
     ("qr", "short"): "WpwLZw3ytwU",
     ("profitcash", "long"): "WnlsZ9AtNdI",
     ("profitcash", "short"): "BpNggcnByQg",
+    ("offus", "long"): "Qn3SIzHi_Ik",
+    ("offus", "short"): "9FdZabe_Q_4",
 }
 
 
 def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     errors = []
-    # Check 24 CHAP_FIGS images on disk and attributes across all 6 lessons
-    for sid in ("card", "pay", "install", "minpay", "qr", "profitcash"):
+    # Check 28 CHAP_FIGS images on disk and attributes across all 7 lessons
+    for sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
         for idx in (1, 2, 3, 4):
             fig_path = ROOT / "public" / "brand" / f"{sid}-fig-{idx}.jpg"
             if not fig_path.is_file() or fig_path.stat().st_size < 10_000:
@@ -50,8 +52,8 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     if 'width="1200" height="675"' not in proto_text or 'loading="lazy"' not in proto_text:
         errors.append("prototype.html thiếu thuộc tính CLS=0 (width=1200 height=675 loading=lazy) cho CHAP_FIGS")
 
-    # Check WMS_QUIZ_BANK 12 cards across all 6 lessons
-    for cid in ("card-q1.v1", "card-q2.v1", "pay-q1.v1", "pay-q2.v1", "install-q1.v1", "install-q2.v1", "minpay-q1.v1", "minpay-q2.v1", "qr-q1.v1", "qr-q2.v1", "profitcash-q1.v1", "profitcash-q2.v1"):
+    # Check WMS_QUIZ_BANK 14 cards across all 7 lessons
+    for cid in ("card-q1.v1", "card-q2.v1", "pay-q1.v1", "pay-q2.v1", "install-q1.v1", "install-q2.v1", "minpay-q1.v1", "minpay-q2.v1", "qr-q1.v1", "qr-q2.v1", "profitcash-q1.v1", "profitcash-q2.v1", "offus-q1.v1", "offus-q2.v1"):
         if cid not in proto_text:
             errors.append(f"WMS_QUIZ_BANK thiếu card trắc nghiệm: {cid}")
     if 'reviewed_by: "Duy"' not in proto_text or 'accountant_agent: "ke-toan-reviewer"' not in proto_text:
@@ -281,7 +283,7 @@ def main() -> int:
     print("wms-qa-verify — Kiểm thử E2E tất định S4 QA (where-money-sleeps)\n")
 
     e1 = verify_qa1_content_and_quiz(proto_text)
-    print(f"[QA-1] Nội dung, 24 hình LUẬT 9 (CLS=0) & 12 thẻ trắc nghiệm WMS_QUIZ_BANK: {'PASS' if not e1 else 'FAIL'}")
+    print(f"[QA-1] Nội dung, 28 hình LUẬT 9 (CLS=0) & 14 thẻ trắc nghiệm WMS_QUIZ_BANK: {'PASS' if not e1 else 'FAIL'}")
     for err in e1:
         print(f"  ✗ {err}")
 
@@ -298,7 +300,7 @@ def main() -> int:
         print(f"  ✗ {err}")
 
     e4 = verify_qa4_videos_and_youtube_ids(proto_text, studio_data_text)
-    print(f"[QA-4] Bộ 12 Video Calm Editorial v6.5 + .srt + 12 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
+    print(f"[QA-4] Bộ 14 Video Calm Editorial v6.5 + .srt + 14 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
     for err in e4:
         print(f"  ✗ {err}")
 

@@ -883,6 +883,85 @@ STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "offus": {
+        "house_nodes": [
+            ("BẠN & ĐỐI TÁC", "20 triệu đ"),
+            ("NGÂN HÀNG A", "Của bạn"),
+            ("CHUYỂN MẠCH", "Liên NH 24/7"),
+            ("NGÂN HÀNG B", "Người nhận"),
+            ("NH TRUNG ƯƠNG", "Quyết toán"),
+        ],
+        "scene_plates": [
+            ("public/brand/pay-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-4.jpg", (20, 560, 1060, 1405)),
+            ("public/brand/card-short-plate-4.jpg", (20, 420, 1060, 1265)),
+        ],
+        "scenes": [
+            {
+                "active": [0, 1, 3],
+                "flow": ("wire", 0, 1, 3),
+                "room_src": (0.28, 0.56, "CHUYỂN KHOẢN 20.000.000 Đ"),
+                "room_dst": (0.72, 0.56, "TING-TING +20TR SAU 3 GIÂY"),
+                "packet_label": "ON-US vs OFF-US: CÙNG 3 GIÂY BÁO CÓ",
+                "stage_tag": "CHUYỂN 20.000.000 Đ  ·  CÙNG 3 GIÂY NHƯNG 2 ĐƯỜNG KHÁC HẲN",
+                "primitive": "P1_OFFUS_HOOK",
+                "kicker": "MỞ ĐẦU  ·  HAI TIẾNG TING-TING 20 TRIỆU SAU 3 GIÂY",
+            },
+            {
+                "active": [0, 1],
+                "flow": ("wire", 0, 1),
+                "room_src": (0.48, 0.36, "SỔ CÁI NỘI BỘ NGÂN HÀNG A"),
+                "room_dst": (0.50, 0.74, "DỰ TRỮ TẠI NH TRUNG ƯƠNG: 0 Đ"),
+                "packet_label": "SỬA 2 DÒNG NỢ NỘI BỘ (±20TR)",
+                "stage_tag": "CÙNG NGÂN HÀNG (ON-US)  ·  0 ĐỒNG DỰ TRỮ RỜI TOÀ NHÀ",
+                "primitive": "P3_OFFUS_ONUS",
+                "kicker": "BƯỚC 1  ·  CÙNG NGÂN HÀNG (ON-US): SỬA SỔ NỘI BỘ",
+            },
+            {
+                "active": [1, 2, 3],
+                "flow": ("wire", 1, 2, 3),
+                "room_src": (0.34, 0.34, "HẠN MỨC KÝ QUỸ BẢO CHỨNG 24/7"),
+                "room_dst": (0.68, 0.64, "NGÂN HÀNG B GHI CÓ +20TR"),
+                "packet_label": "BẢO CHỨNG TRƯỚC · GHI CÓ GIÂY THỨ 3",
+                "stage_tag": "KHÁC NGÂN HÀNG (OFF-US)  ·  GHI CÓ NHỜ KÝ QUỸ BẢO CHỨNG",
+                "primitive": "P2_OFFUS_PREFUND",
+                "kicker": "BƯỚC 2  ·  KHÁC NGÂN HÀNG (OFF-US): KÝ QUỸ BẢO CHỨNG",
+            },
+            {
+                "active": [1, 2, 3],
+                "flow": ("wire", 1, 2, 3),
+                "room_src": (0.32, 0.66, "CHIỀU ĐI A SANG B: 500 TỶ Đ"),
+                "room_dst": (0.68, 0.32, "CHIỀU VỀ B SANG A: 470 TỶ Đ"),
+                "packet_label": "BÙ TRỪ: 500 TỶ − 470 TỶ = 30 TỶ",
+                "stage_tag": "CUỐI PHIÊN BÙ TRỪ RÒNG: 500 TỶ ĐI − 470 TỶ VỀ = 30 TỶ RÒNG",
+                "primitive": "P3_OFFUS_NETTING",
+                "kicker": "BƯỚC 3  ·  GOM 970 TỶ GỘP THÀNH 30 TỶ CHÊNH LỆCH RÒNG",
+            },
+            {
+                "active": [1, 3, 4],
+                "flow": ("pipe", 1, 4, 3),
+                "room_src": (0.36, 0.66, "SỔ DỰ TRỮ NGÂN HÀNG A (−30 TỶ)"),
+                "room_dst": (0.68, 0.30, "SỔ DỰ TRỮ NGÂN HÀNG B (+30 TỶ)"),
+                "packet_label": "QUYẾT TOÁN RÒNG 30 TỶ ĐỒNG",
+                "stage_tag": "NH TRUNG ƯƠNG CẮT 30 TỶ Đ DỰ TRỮ  ·  TIẾT KIỆM 940 TỶ (96,9%)",
+                "primitive": "P6_OFFUS_CB_SETTLE",
+                "kicker": "BƯỚC 4  ·  QUYẾT TOÁN RÒNG 30 TỶ TẠI NH TRUNG ƯƠNG",
+            },
+            {
+                "active": [0, 1, 2, 4],
+                "flow": ("wire", 1, 2),
+                "room_src": (0.36, 0.62, "TRỪ TK 112 CHIỀU 31/12: 20TR"),
+                "room_dst": (0.66, 0.44, "TREO TK 113 (TIỀN ĐANG CHUYỂN)"),
+                "packet_label": "NGHẼN CUỐI KỲ: NỢ TK 113 / CÓ TK 112",
+                "stage_tag": "LỆNH NGHẼN ĐỐI SOÁT 31/12: TREO TRÊN TK 113 (TIỀN ĐANG CHUYỂN)",
+                "primitive": "P4_OFFUS_CLOSING",
+                "kicker": "ĐIỂM MẤU CHỐT  ·  TK 113 (TIỀN ĐANG CHUYỂN) THEO TT 99/2025",
+            },
+        ],
+    },
 }
 
 
@@ -1903,7 +1982,7 @@ def draw_mechanism_canvas(
         draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
         draw_centered_row_text(draw, icx, cy0 + 366, "LỢI NHUẬN RÒNG +2 TỶ ĐỒNG NHƯNG DÒNG TIỀN KINH DOANH ÂM 950 TRIỆU", fonts["label"], (226, 168, 76))
 
-    else:  # P4_PROFIT_CLOSING
+    elif prim == "P4_PROFIT_CLOSING":
         t_y0, t_y1 = cy0 + 66, cy0 + 220
         draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
         v_pay = step_quantize(500_000_000 * max(0.1, beat1), 50_000_000) if beat1 < 0.99 else 500_000_000
@@ -1918,6 +1997,106 @@ def draw_mechanism_canvas(
         draw_centered_row_text(draw, icx, q_y0 + 18, "NGUYÊN TẮC SỐNG CÒN CỦA QUẢN TRỊ TÀI CHÍNH:", fonts["label"], (226, 168, 76))
         draw_centered_row_text(draw, icx, q_y0 + 58, "Lợi nhuận là chữ trên sổ · Dòng tiền là máu", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
         draw_centered_row_text(draw, icx, q_y0 + 106, "Luôn đặt Báo cáo lưu chuyển tiền tệ (OCF) cạnh Báo cáo lãi lỗ", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+
+    # ── NGUYÊN HÀM BÀI 7: `offus` (Chuyển khoản 20 triệu cùng ngân hàng On-Us vs khác ngân hàng Off-Us) ──
+    elif prim == "P1_OFFUS_HOOK":
+        v1 = step_quantize(20_000_000 * max(0.2, beat1), 1_000_000) if beat1 < 0.99 else 20_000_000
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 182
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "HAI LỆNH CHUYỂN KHOẢN TRÊN ĐIỆN THOẠI:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 44, fmt_vnd(v1), fonts["hero_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Lệnh 1 (Cùng ngân hàng On-Us) & Lệnh 2 (Khác ngân hàng Off-Us)", fonts["sub"], (182, 192, 206))
+
+        b2_y0, b2_y1 = cy0 + 198, cy0 + 328
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 31, 38), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "TRÊN MẶT ĐẤT GIỐNG HỆT · DƯỚI TẦNG HẦM KHÁC HẲN:", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, "Cùng báo Có sau 3 giây · Phí 0 đồng", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 90, "Nhưng tiền dự trữ tại Ngân hàng Trung ương đi hai đường trái ngược", fonts["sub"], blend_rgb((88, 100, 116), (216, 222, 232), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC LỜI BÌNH", fonts["label"], (226, 168, 76))
+
+    elif prim == "P3_OFFUS_ONUS":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "1. CHUYỂN CÙNG NGÂN HÀNG (ON-US BOOK TRANSFER):", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Giảm nợ tiền gửi Bạn 20tr · Tăng nợ tiền gửi Người nhận 20tr", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Sửa 2 dòng chữ trong cùng 1 cuốn sổ cái nội bộ của Ngân hàng A", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "2. TÁC ĐỘNG LÊN BỂ VỐN CASA & DỰ TRỮ TRUNG ƯƠNG:", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Bể vốn CASA biến động 0 đ  ·  Dự trữ di chuyển 0 đ", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Sổ DN gửi (TT 99/2025): Debit TK 331: 20tr  |  Credit TK 112: 20tr", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "GIAO DỊCH ON-US GIỮ TRỌN 100% VỐN RẺ TRONG CÙNG TOÀ NHÀ", fonts["label"], (226, 168, 76))
+
+    elif prim == "P2_OFFUS_PREFUND":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "GIÂY 01–02: HẠN MỨC KÝ QUỸ BẢO CHỨNG (PRE-FUNDED CAP):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Ngân hàng A đã đặt cọc sẵn tài sản bảo chứng đầu phiên", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Tổ chức chuyển mạch trừ lùi 20.000.000 đ hạn mức rồi đóng dấu bảo lãnh", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "GIÂY 03: NGÂN HÀNG B GHI CÓ ỨNG TRƯỚC CHO NGƯỜI NHẬN:", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, "Cộng ngay +20.000.000 đ vào TK 112 (Rút tiêu được ngay)", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Dù dưới tầng hầm, tiền dự trữ giữa 2 ngân hàng chưa hề chạy", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "NHỜ KÝ QUỸ BẢO CHỨNG, BẢN TIN 3 GIÂY AN TOÀN NHƯ TIỀN THẬT", fonts["label"], (226, 168, 76))
+
+    elif prim == "P3_OFFUS_NETTING":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "TỔNG HỢP LỆNH HAI CHIỀU SUỐT PHIÊN (TỔNG GỘP 970 TỶ Đ):", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Chiều đi (A sang B): 500 tỷ đ  ·  Chiều về (B sang A): 470 tỷ đ", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Hàng trăm nghìn lệnh nhỏ tự triệt tiêu lẫn nhau trên bàn cân bù trừ", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        v_net = step_quantize(30_000_000_000 * beat2, 3_000_000_000) if beat2 < 0.99 else 30_000_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "NGHĨA VỤ PHẢI TRẢ RÒNG CUỐI PHIÊN (NET POSITION):", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, f"500 tỷ − 470 tỷ = {fmt_vnd(v_net)}", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 88, "Ngân hàng A chỉ còn nợ ròng Ngân hàng B đúng 30 tỷ đồng", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "BÙ TRỪ RÒNG BIẾN 970 TỶ ĐỒNG GỘP THÀNH 1 CON SỐ 30 TỶ ĐỒNG", fonts["label"], (226, 168, 76))
+
+    elif prim == "P6_OFFUS_CB_SETTLE":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "QUYẾT TOÁN TẠI NGÂN HÀNG TRUNG ƯƠNG (SETTLEMENT):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Trích 30.000.000.000 đ dự trữ từ Ngân hàng A sang Ngân hàng B", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Chỉ cần 1 lệnh cắt chuyển dự trữ duy nhất lúc chốt phiên", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        v_sav = step_quantize(940_000_000_000 * beat2, 94_000_000_000) if beat2 < 0.99 else 940_000_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "THANH KHOẢN DỰ TRỮ TIẾT KIỆM CHO TOÀN HỆ THỐNG:", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, f"Tiết kiệm {fmt_vnd(v_sav)} (96,9%)", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 88, "Giải phóng 940 tỷ đ dự trữ · Mở dư địa miễn phí chuyển khoản 0 đ", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "LỆNH LỚN TIỀN TỶ VƯỢT TRẦN 24/7 SẼ ĐI THẲNG ĐẠI LỘ RTGS", fonts["label"], (226, 168, 76))
+
+    else:  # P4_OFFUS_CLOSING
+        t_y0, t_y1 = cy0 + 66, cy0 + 220
+        draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_20m = step_quantize(20_000_000 * max(0.1, beat1), 2_000_000) if beat1 < 0.99 else 20_000_000
+        draw_centered_row_text(draw, icx, t_y0 + 12, "BÚT TOÁN LỆNH TREO CHIỀU 31/12 (TT 99/2025/TT-BTC):", fonts["label"], (148, 160, 178))
+        draw.line([(ix0 + 24, t_y0 + 42), (ix0 + 24 + (iw - 48) * max(0.15, beat1), t_y0 + 42)], fill=(94, 184, 138), width=2)
+        draw_centered_row_text(draw, icx, t_y0 + 54, "Bên Nợ: TK 113 (Tiền đang chuyển — chờ đối soát) = 20.000.000 đ", fonts["sub"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, t_y0 + 88, "Bên Có: TK 112 (Tiền gửi không kỳ hạn — đã cắt) = 20.000.000 đ", fonts["sub"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, t_y0 + 122, f"Σ Nợ ({fmt_vnd(v_20m)})  =  Σ Có ({fmt_vnd(v_20m)})   [CÂN BẰNG]", fonts["val_bold"], (236, 231, 221))
+
+        q_y0, q_y1 = cy0 + 238, cy0 + 404
+        draw_beat_card(draw, (ix0, q_y0, ix1, q_y1), beat2, (22, 33, 38), (226, 168, 76), radius=14)
+        draw_centered_row_text(draw, icx, q_y0 + 18, "NHÌN THẤU TIẾNG TING-TING SAU 3 GIÂY:", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, q_y0 + 58, "On-Us sửa sổ nội bộ · Off-Us bù trừ ròng", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, q_y0 + 106, "Chỉ xoá nợ TK 331 khi tiền đã thực sự ghi Có tới tay đối tác", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
 
 
 def render_single_scene_frame(
@@ -2141,7 +2320,7 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str, api_
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "profitcash", "all"])
+    parser.add_argument("--story", default="install", choices=[*STORY_CONFIGS.keys(), "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
@@ -2153,7 +2332,7 @@ def main() -> int:
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = ensure_sfx_cached(api_key)
 
-    target_slugs = ["install", "card", "pay", "minpay", "qr", "profitcash"] if args.story == "all" else [args.story]
+    target_slugs = list(STORY_CONFIGS.keys()) if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug, api_key)
     return 0

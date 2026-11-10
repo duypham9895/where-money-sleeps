@@ -558,7 +558,7 @@ def find_story_videoscript_span(src: str, story_key: str) -> tuple[dict, int, in
     m_story = story_pat.search(src, base)
     if not m_story:
         raise KeyError(f"Không tìm thấy bài '{story_key}' trong STORIES")
-    m_vs = re.search(r"\bvideoScript\s*:\s*\{", src[m_story.start() :])
+    m_vs = re.search(r'(?:["\']?videoScript["\']?)\s*:\s*\{', src[m_story.start() :])
     if not m_vs:
         raise ValueError(f"Không tìm thấy `videoScript` trong bài '{story_key}'")
     start = m_story.start() + m_vs.end() - 1

@@ -3,7 +3,7 @@
   "kbId": "wms-financial-specialist-kb",
   "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
   "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
-  "lastCrawledAt": "2026-11-10T10:03:59+07:00",
+  "lastCrawledAt": "2026-11-10T10:45:14+07:00",
   "freshnessPolicy": {
     "maxAgeDays": 30,
     "recommendedCron": "0 8 * * 1",
@@ -214,6 +214,23 @@
       "sourceRefs": [
         "SRC-MOF-TT99-2025",
         "SRC-SBV-PAYROLL-BOOK-TRANSFER"
+      ]
+    },
+    {
+      "ruleId": "FIN-MECH-07",
+      "checkCode": "F1",
+      "category": "banking",
+      "title": "Chuyển khoản Cùng Ngân Hàng (On-Us Book Transfer) vs Khác Ngân Hàng (Off-Us 24/7 Pre-funded Clearing, DNS & RTGS) & Tiền Đang Chuyển TK 113",
+      "distilledTruth": "Khi chuyển khoản 20.000.000đ cùng ngân hàng (On-Us), ngân hàng chỉ thực hiện bút toán nội mạng (Book Transfer) giảm nợ tiền gửi của người gửi và tăng nợ tiền gửi của người nhận trong cùng một cuốn sổ cái: tổng bể vốn CASA (~0,1%/năm) và tiền dự trữ tại Ngân hàng Trung ương biến động 0 đồng. Khi chuyển 20.000.000đ khác ngân hàng (Off-Us) qua mạng chuyển tiền nhanh 24/7, Ngân hàng người nhận ghi Có tức thời sau 3 giây là nhờ cơ chế Hạn mức ký quỹ bảo chứng (Pre-funded Net Debit Cap); còn tiền dự trữ thật giữa hai ngân hàng được gom lại cuối phiên để quyết toán ròng có kỳ hạn (DNS): ví dụ chiều đi 500 tỷ đồng trừ chiều về 470 tỷ đồng (tổng gộp 970 tỷ đồng) chỉ cắt chuyển ròng 30 tỷ đồng tại Ngân hàng Trung ương (tiết kiệm 940 tỷ đồng thanh khoản dự trữ, tương đương 96,91% tổng gộp). Các lệnh giá trị lớn vượt trần 24/7 (ví dụ 10 tỷ đồng) đi qua hệ thống Thanh toán tổng tức thời từng lệnh (RTGS). Nếu lệnh liên ngân hàng chiều 31/12 đã trừ TK 112 nhưng bị treo đối soát qua đêm chưa báo Có cho nhà cung cấp, kế toán doanh nghiệp theo TT 99/2025/TT-BTC hạch toán vào Nợ TK 113 (Tiền đang chuyển) / Có TK 112 (20.000.000đ) và chỉ kết chuyển Nợ TK 331 / Có TK 113 khi hoàn tất.",
+      "forbiddenErrors": [
+        "Nói chuyển khoản cùng ngân hàng (On-Us) làm di chuyển tiền dự trữ tại Ngân hàng Trung ương",
+        "Nói mỗi lệnh chuyển khoản nhanh 24/7 (ví dụ 20.000.000đ lúc nửa đêm) đều buộc Ngân hàng Trung ương phải cắt chuyển tiền dự trữ riêng lẻ ngay ở giây thứ 3 thay vì bù trừ ròng theo phiên",
+        "Ghi giảm ngay nợ phải trả nhà cung cấp (Nợ TK 331) vào ngày 31/12 khi lệnh chuyển khoản liên ngân hàng đang bị treo đối soát và đối tác chưa nhận được tiền (bỏ qua TK 113 Tiền đang chuyển)"
+      ],
+      "sourceRefs": [
+        "SRC-SBV-PAYROLL-BOOK-TRANSFER",
+        "SRC-SBV-PAYMENT-CARD",
+        "SRC-MOF-TT99-2025"
       ]
     }
   ],
@@ -783,15 +800,113 @@
           ]
         ]
       }
+    },
+    "offus": {
+      "storySlug": "offus",
+      "category": "banking",
+      "mechanismType": "onus_book_transfer_vs_offus_prefunded_dns_rtgs",
+      "parameters": {
+        "transferAmount": 20000000,
+        "onUsReserveMoved": 0,
+        "grossOutboundSession": 500000000000,
+        "grossInboundSession": 470000000000,
+        "totalGrossTwoWay": 970000000000,
+        "netSettlementAmount": 30000000000,
+        "liquiditySavedAmount": 940000000000,
+        "expectedGrossLiquiditySavedRatio": 0.969072,
+        "rtgsLargeOrderExample": 10000000000
+      },
+      "wireOnlyBeats": [
+        0,
+        1,
+        2
+      ],
+      "pipeMoneyBeats": [
+        3,
+        4
+      ],
+      "requiredAccounts": [
+        "112",
+        "113",
+        "131",
+        "331"
+      ],
+      "forbiddenAccounts": [],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "20.000.000",
+          "500 tỷ",
+          "470 tỷ",
+          "30 tỷ",
+          "940 tỷ",
+          "112",
+          "113",
+          "331"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "20 triệu",
+            "20.000.000",
+            "hai mươi triệu"
+          ],
+          [
+            "500 tỷ",
+            "năm trăm tỷ"
+          ],
+          [
+            "470 tỷ",
+            "bốn trăm bảy mươi tỷ"
+          ],
+          [
+            "30 tỷ",
+            "ba mươi tỷ"
+          ],
+          [
+            "940 tỷ",
+            "chín trăm bốn mươi tỷ"
+          ],
+          [
+            "113",
+            "Tiền đang chuyển"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "20 triệu",
+            "20.000.000",
+            "hai mươi triệu"
+          ],
+          [
+            "500 tỷ",
+            "năm trăm tỷ"
+          ],
+          [
+            "470 tỷ",
+            "bốn trăm bảy mươi tỷ"
+          ],
+          [
+            "30 tỷ",
+            "ba mươi tỷ"
+          ],
+          [
+            "940 tỷ",
+            "chín trăm bốn mươi tỷ"
+          ],
+          [
+            "113",
+            "Tiền đang chuyển"
+          ]
+        ]
+      }
     }
   },
   "lastCrawlSummary": {
-    "crawledAt": "2026-11-10T10:03:59+07:00",
+    "crawledAt": "2026-11-10T10:45:14+07:00",
     "localArtifactsVerified": 3,
     "localArtifactsTotal": 3,
     "liveUrlsProbed": 7,
-    "liveUrlsReachable": 7,
-    "domainRulesCount": 8,
-    "storyInvariantsCount": 6
+    "liveUrlsReachable": 6,
+    "domainRulesCount": 9,
+    "storyInvariantsCount": 7
   }
 }

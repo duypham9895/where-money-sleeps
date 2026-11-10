@@ -1048,6 +1048,25 @@ body.cms-on{padding-bottom:150px}
       <div class="bars" aria-hidden="true"></div>
     </div>
   </div>
+  <div class="try" id="tryOffus" hidden>
+    <div>
+      <p class="tryhint">Kéo để đổi tổng luồng lệnh khách chuyển đi từ Ngân hàng A sang Ngân hàng B và chiều ngược lại từ B về A trong phiên (<span class="ex">ví dụ</span>) để thấy cơ chế <button class="term" data-term="netting">bù trừ ròng</button> giúp tiết kiệm bao nhiêu tiền dự trữ tại Ngân hàng Trung ương so với giao dịch nội mạng <button class="term" data-term="onus">On-Us</button>.</p>
+      <div class="field"><label for="ouOut">Tổng lệnh khách chuyển đi A → B trong phiên <output id="ouOutLbl" class="num"></output></label>
+        <input type="range" id="ouOut" min="50000000000" max="800000000000" step="10000000000" value="500000000000"></div>
+      <div class="field"><label for="ouIn">Tổng lệnh khách chuyển ngược B → A trong phiên <output id="ouInLbl" class="num"></output></label>
+        <input type="range" id="ouIn" min="50000000000" max="800000000000" step="10000000000" value="470000000000"></div>
+    </div>
+    <div class="receipt">
+      <h4>So sánh Quyết toán Dự trữ: On-Us vs Off-Us (DNS)</h4>
+      <p class="sub">Cùng ghi Có cho người nhận sau 3 giây (nhờ <button class="term" data-term="prefund">ký quỹ bảo chứng</button>)</p>
+      <div class="row"><span>Nếu chuyển cùng ngân hàng (On-Us)</span><span class="num plus" id="ouOnUsRes">0 đồng dự trữ</span></div>
+      <div class="row"><span>Tổng giao dịch gộp 2 chiều (A ↔ B)</span><span class="num" id="ouGross"></span></div>
+      <div class="row"><span>Thanh khoản dự trữ tiết kiệm nhờ bù trừ</span><span class="num plus" id="ouSaved"></span></div>
+      <div class="row total"><span>Tiền dự trữ thực cắt tại NH Trung ương</span><span class="num" id="ouNet"></span></div>
+      <p class="note" id="ouNote"></p>
+      <div class="bars" aria-hidden="true"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
@@ -1197,7 +1216,9 @@ const GLOSS = {
   accrual:{"t": "Accrual accounting", "en": "kế toán dồn tích", "d": "Nguyên tắc ghi nhận doanh thu và chi phí ngay tại thời điểm giao dịch phát sinh (khi đã giao hàng và ký biên bản nghiệm thu), không phụ thuộc vào việc công ty đã thực thu hay thực chi tiền mặt hay chưa."},
   workingcapital:{"t": "Working capital", "en": "vốn lưu động ròng", "d": "Phần vốn duy trì hoạt động hàng ngày của doanh nghiệp, tính bằng Tài sản ngắn hạn trừ Nợ ngắn hạn. Khi khoản phải thu khách hàng (TK 131) và hàng tồn kho (TK 156) phình to, vốn lưu động hút cạn tiền mặt trong két."},
   ccc:{"t": "Cash conversion cycle", "en": "vòng quay tiền mặt (CCC)", "d": "Số ngày tính từ lúc công ty xuất tiền mặt trả nhà cung cấp để nhập hàng cho tới lúc thu hồi được tiền mặt từ khách hàng. Vòng quay này càng dài, doanh nghiệp càng dễ thiếu tiền mặt dù bán hàng rất lãi."},
-  ocf:{"t": "Operating cash flow", "en": "dòng tiền thuần từ hoạt động kinh doanh", "d": "Lượng tiền mặt thực tế chảy vào hoặc chảy ra từ việc mua bán và vận hành của doanh nghiệp trong kỳ — khác với lợi nhuận kế toán trên báo cáo kết quả kinh doanh."}
+  ocf:{"t": "Operating cash flow", "en": "dòng tiền thuần từ hoạt động kinh doanh", "d": "Lượng tiền mặt thực tế chảy vào hoặc chảy ra từ việc mua bán và vận hành của doanh nghiệp trong kỳ — khác với lợi nhuận kế toán trên báo cáo kết quả kinh doanh."},
+  rtgs:{"t": "RTGS — Real-Time Gross Settlement", "en": "thanh toán tổng tức thời từng lệnh", "d": "Hệ thống tại Ngân hàng Trung ương nơi các khoản chuyển tiền giá trị lớn giữa các ngân hàng được quyết toán tức thời từng lệnh một bằng tiền dự trữ, không chờ gom bù trừ ròng cuối phiên."},
+  prefund:{"t": "Pre-funded net debit cap", "en": "hạn mức ký quỹ bảo chứng", "d": "Khoản tiền hoặc giấy tờ có giá mà ngân hàng thành viên ký quỹ sẵn tại hệ thống chuyển mạch để bảo chứng cho các lệnh chuyển tiền nhanh 24/7, giúp ngân hàng người nhận yên tâm ghi Có ngay sau vài giây trước khi hai ngân hàng quyết toán ròng."}
 };
 
 const STORIES = {
@@ -4479,8 +4500,823 @@ const STORIES = {
                ["Có","341","Vay và nợ thuê tài chính","rút hạn mức vay ngắn hạn ngân hàng bù đắp phần tiền mặt thiếu hụt","Ghi tăng khoản nợ vay ngắn hạn ngân hàng 450 triệu đồng",450000000]],
          note:"Σ Debit = 500.000.000 = 50.000.000 + 450.000.000 = Σ Credit. Lãi vay phát sinh sau đó sẽ hạch toán vào Nợ TK 635 (Chi phí tài chính).",
          lifeNote:"Nhân sự nhận đủ 500 triệu đồng tiền lương, còn công ty bước sang năm mới với két tiền 0 đồng và khoản nợ vay ngắn hạn 450 triệu đồng dù báo cáo cả năm lãi 2 tỷ đồng."}}
-    ]}
-
+    ]}    ,
+  offus:{
+  "name": "Chuyện chuyển khoản: 20 triệu cùng ngân hàng vs khác ngân hàng",
+  "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng (On-Us) và khác ngân hàng (Off-Us): Vì sao người nhận đều ting-ting sau 3 giây nhưng tiền dự trữ dưới lòng đất đi hai đường khác hẳn nhau?",
+  "teaser": "Hai lệnh chuyển khoản 20 triệu đồng cùng báo thành công sau 3 giây, nhưng một lệnh chỉ sửa hai dòng chữ trong cùng toà nhà còn lệnh kia kích hoạt hạn mức ký quỹ và phiên bù trừ ròng 30 tỷ đồng tại Ngân hàng Trung ương.",
+  "category": "c1",
+  "status": "review",
+  "approvedBy": "",
+  "approvedAt": "",
+  "review": {
+    "ketoan": "Tổng: PASS 10 · FAIL 0 · UNVERIFIED 0 · FLAG 4",
+    "ketoanAt": "2026-11-10",
+    "draftedBy": "agent",
+    "draftedAt": "2026-11-10"
+  },
+  "article": {
+    "lay": {
+      "myths": [
+        {
+          "myth": "Chuyển khoản 20 triệu đồng cùng ngân hàng hay khác ngân hàng đều giống hệt nhau: tiền mặt trong tài khoản của bạn đều chạy sang tài khoản người nhận ngay ở giây thứ 3 khi điện thoại báo ting-ting.",
+          "truth": "Ở giao dịch [[cùng ngân hàng|onus]], ngân hàng chỉ sửa hai dòng số dư trong cùng một cuốn sổ cái nội bộ mà 0 đồng tiền dự trữ nào rời toà nhà; còn ở giao dịch [[khác ngân hàng|offus]], tiếng ting-ting ở giây thứ 3 là nhờ [[hạn mức ký quỹ bảo chứng|prefund]], trong khi tiền dự trữ thật giữa hai ngân hàng chỉ [[quyết toán ròng|netting]] vào cuối phiên tại Ngân hàng Trung ương."
+        },
+        {
+          "myth": "Mỗi khi bạn chuyển 20 triệu đồng sang một ngân hàng khác lúc 10 giờ đêm, Ngân hàng Trung ương phải lập tức trích đúng 20 triệu đồng tiền dự trữ của ngân hàng bạn sang ngân hàng kia ngay trong đêm đó.",
+          "truth": "Hệ thống [[chuyển tiền nhanh 24/7|interbank247]] gom hàng triệu lệnh nhỏ lẻ hai chiều suốt phiên: ví dụ chiều đi 500 tỷ đồng và chiều về 470 tỷ đồng thì cuối phiên hai ngân hàng chỉ trích chuyển đúng phần chênh lệch ròng 30 tỷ đồng trên tài khoản tại Ngân hàng Trung ương."
+        },
+        {
+          "myth": "Khi ngân hàng miễn phí 0 đồng cho cả chuyển khoản cùng ngân hàng lẫn khác ngân hàng, ngân hàng không thu được lợi ích kinh tế nào và đối xử với hai loại lệnh này như nhau.",
+          "truth": "Một lệnh [[On-Us|onus]] giữ trọn 20 triệu đồng nằm lại trong bể vốn [[tiền gửi không kỳ hạn|casa]] lãi suất ~0,1%/năm của chính ngân hàng đó; ngược lại, lệnh [[Off-Us|offus]] làm ngân hàng gửi mất thanh khoản dự trữ nếu chiều chuyển đi lớn hơn chiều nhận về."
+        },
+        {
+          "myth": "Cứ tài khoản phía mình đã báo trừ 20 triệu đồng vào chiều cuối năm thì nghĩa vụ thanh toán với đối tác chắc chắn đã hoàn tất 100% trong ngày hôm đó.",
+          "truth": "Nếu lệnh liên ngân hàng rơi vào nhịp nghẽn đối soát sát giờ khoá sổ chiều 31/12 khiến ngân hàng đối tác chưa kịp báo Có, khoản 20 triệu đồng ấy phải treo tạm trên tài khoản Tiền đang chuyển (TK 113 theo TT 99/2025) chứ chưa xoá được công nợ phải trả."
+        }
+      ],
+      "sections": [
+        {
+          "h": "Hai cú chạm 20 triệu đồng lúc 10 giờ sáng: Cùng 3 giây ting-ting trên mặt đất, hai thế giới trái ngược dưới tầng hầm",
+          "paras": [
+            "Mười giờ sáng thứ Ba, bạn mở ứng dụng ngân hàng để thanh toán hai khoản tiền hàng, mỗi khoản đúng 20.000.000 đồng. Khoản thứ nhất gửi cho người đối tác dùng cùng ngân hàng với bạn; khoản thứ hai gửi cho một nhà cung cấp mở tài khoản ở ngân hàng khác. Cả hai người nhận đều chụp màn hình gửi lại ngay lập tức: chỉ sau đúng 3 giây, điện thoại của họ cùng sáng đèn báo [[ghi có|credit]] +20.000.000 đồng và số dư khả dụng nhảy lên có thể rút tiêu ngay.",
+            "Nếu chỉ nhìn vào màn hình điện thoại của người gửi và người nhận, hai giao dịch 20.000.000 đồng này giống nhau đến từng mili-giây: cùng miễn phí chuyển khoản 0 đồng, cùng tốc độ phản hồi 3 giây và cùng hiện số dư tức thời. Thế nhưng ngay bên dưới lớp vỏ giao diện ấy, hệ thống tài chính vừa vận hành hai cơ chế thanh toán hoàn toàn trái ngược nhau về mặt sổ sách kế toán lẫn dòng chảy tiền dự trữ.",
+            "Ở giao dịch đầu tiên, không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng của bạn và cũng không có bản tin nào đi ra mạng lưới bên ngoài. Ở giao dịch thứ hai, lời nhắn của bạn phải xuyên qua [[tổ chức chuyển mạch liên ngân hàng|interbank]], dùng tới [[hạn mức ký quỹ bảo chứng|prefund]] để ứng niềm tin trước, rồi chờ tới phiên [[quyết toán ròng|netting]] tại Ngân hàng Trung ương mới hoàn tất việc di chuyển tiền thật. Để hiểu vì sao ngân hàng thiết kế hai con đường khác biệt ấy, chúng ta hãy lật mở cuốn sổ cái ở từng chặng."
+          ]
+        },
+        {
+          "h": "Lệnh thứ nhất — Chuyển khoản cùng ngân hàng (On-Us): Sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái",
+          "paras": [
+            "Khi bạn chuyển 20.000.000 đồng cho người nhận có tài khoản tại cùng một ngân hàng, trong ngôn ngữ nghiệp vụ đó là giao dịch [[On-Us|onus]] (chuyển khoản nội mạng hay Book Transfer). Hãy nhớ bản chất kế toán cốt lõi của số dư tiền gửi thanh toán: 20.000.000 đồng bạn nhìn thấy trên ứng dụng là tài sản của bạn (trên sổ doanh nghiệp ghi ở TK 112 — Tiền gửi không kỳ hạn theo Thông tư 99/2025/TT-BTC), nhưng trên bảng cân đối kế toán của ngân hàng thì đó là một khoản nợ phải trả không kỳ hạn mà ngân hàng đang nợ bạn.",
+            "Vì cả bạn lẫn người nhận đều gửi tiền tại cùng một định chế, ngân hàng của bạn chính là người giữ sổ duy nhất cho cả hai bên. Ngay giây bạn xác thực lệnh chuyển 20.000.000 đồng, máy chủ lõi của ngân hàng chỉ thực hiện một bút toán nội bộ khép kín: ghi giảm khoản nợ phải trả đối với tài khoản của bạn 20.000.000 đồng và đồng thời ghi tăng khoản nợ phải trả đối với tài khoản của người nhận đúng 20.000.000 đồng.",
+            "Điều kỳ diệu đối với ngân hàng nằm ở tổng số dư cuối cùng: trước và sau cú chạm của bạn, tổng bể vốn [[tiền gửi không kỳ hạn|casa]] (lãi suất chỉ khoảng 0,1%/năm trong ví dụ này) của ngân hàng biến động đúng bằng 0 đồng. Tiền dự trữ của ngân hàng gửi tại Ngân hàng Trung ương không hề nhúc nhích một xu nào; ngân hàng chỉ vừa đổi tên chủ nợ của khoản 20.000.000 đồng từ bạn sang người nhận ngay trong một phần nghìn giây."
+          ]
+        },
+        {
+          "h": "Lệnh thứ hai — Chuyển khoản khác ngân hàng (Off-Us): Bí mật của 3 giây ghi Có tức thời và hạn mức ký quỹ bảo chứng",
+          "paras": [
+            "Mọi chuyện trở nên phức tạp hơn hẳn ở lệnh thứ hai, khi bạn chuyển 20.000.000 đồng sang một ngân hàng khác — tức giao dịch [[Off-Us|offus]] đi qua hạ tầng [[chuyển tiền nhanh 24/7|interbank247]]. Ngân hàng của bạn không có quyền tự ý mở cuốn sổ cái của Ngân hàng người nhận để cộng tiền, còn Ngân hàng người nhận cũng không thể cộng khống 20.000.000 đồng cho khách nếu chưa có gì bảo đảm rằng Ngân hàng của bạn sẽ trả phần tiền thật tương ứng.",
+            "Vậy làm thế nào điện thoại của người nhận vẫn ting-ting báo Có +20.000.000 đồng chỉ sau 3 giây, kể cả lúc nửa đêm hay sáng Chủ nhật khi quầy giao dịch Ngân hàng Trung ương đóng cửa? Câu trả lời nằm ở cơ chế tách bạch giữa luồng bản tin tức thời và luồng [[quyết toán|settlement]] tiền dự trữ, được nối với nhau bằng một chiếc cầu bảo hiểm gọi là [[hạn mức ký quỹ bảo chứng|prefund]] (Pre-funded Net Debit Cap).",
+            "Trước khi tham gia mạng lưới chuyển tiền nhanh 24/7, Ngân hàng của bạn đã phải đặt cọc sẵn một khoản tiền dự trữ hoặc giấy tờ có giá có tính thanh khoản cao tại hệ thống để thiết lập hạn mức nợ ròng tối đa trong phiên. Ở giây thứ 1, Ngân hàng của bạn trừ 20.000.000 đồng trên tài khoản của bạn. Ở giây thứ 2, [[tổ chức chuyển mạch|interbank]] kiểm tra thấy lệnh 20.000.000 đồng này vẫn nằm gọn trong hạn mức ký quỹ bảo chứng của Ngân hàng bạn nên lập tức đóng dấu xác nhận chuyển tiếp. Nhờ con dấu bảo chứng 100% không rủi ro vỡ nợ ấy, ở giây thứ 3 Ngân hàng người nhận tự tin ghi Có ngay +20.000.000 đồng cho người nhận tiêu dùng tức khắc, dù tiền dự trữ thật giữa hai ngân hàng vẫn chưa hề di chuyển."
+          ]
+        },
+        {
+          "h": "Phiên bù trừ ròng (Net Settlement) dưới tầng hầm Ngân hàng Trung ương: Gom 970 tỷ đồng giao dịch thành một lệnh 30 tỷ đồng",
+          "paras": [
+            "Nếu ở giây thứ 3 tiền dự trữ thật chưa chạy, thì khi nào hai ngân hàng mới trả tiền cho nhau? Thay vì bắt Ngân hàng Trung ương phải chuyển tiền dự trữ lắt nhắt cho từng lệnh 50.000 đồng tiền phở hay 20.000.000 đồng tiền hàng suốt ngày đêm, hệ thống chuyển mạch gom toàn bộ các bản tin [[Off-Us|offus]] đã thành công trong phiên để thực hiện [[quyết toán ròng|netting]] (Deferred Net Settlement) theo khung giờ quy định.",
+            "Hãy nhìn vào con số ví dụ của một phiên làm việc giữa hai ngân hàng: giả sử suốt từ sáng đến chiều, hàng trăm nghìn khách hàng của Ngân hàng bạn chuyển sang Ngân hàng đối tác tổng cộng 500.000.000.000 đồng (500 tỷ đồng, trong đó có lệnh 20.000.000 đồng của bạn). Nhưng ở chiều ngược lại, khách hàng của Ngân hàng đối tác cũng chuyển về Ngân hàng của bạn tổng cộng 470.000.000.000 đồng (470 tỷ đồng). Tổng giá trị giao dịch gộp hai chiều lên tới 970 tỷ đồng.",
+            "Khi bước vào giờ chốt phiên bù trừ, tổ chức chuyển mạch đặt hai con số lên bàn cân: 500 tỷ đồng chiều đi trừ 470 tỷ đồng chiều về chỉ còn chênh lệch ròng đúng 30.000.000.000 đồng (30 tỷ đồng). Bảng kết quả bù trừ ròng này được gửi sang hệ thống tại Ngân hàng Trung ương; tại đây, Ngân hàng Trung ương chỉ cần ghi giảm tài khoản tiền gửi thanh toán của Ngân hàng bạn 30 tỷ đồng và ghi tăng tài khoản tiền gửi thanh toán của Ngân hàng đối tác đúng 30 tỷ đồng. Nhờ cơ chế bù trừ ròng, 940 tỷ đồng thanh khoản dự trữ (tương đương 96,9% tổng giao dịch gộp hai chiều, hay 94,0% chiều chuyển đi) được giải phóng hoàn toàn khỏi việc phải dịch chuyển qua lại."
+          ]
+        },
+        {
+          "h": "Khi nào tiền đi thẳng từng lệnh (RTGS) và khi nào tiền bị treo trên TK 113 (Tiền đang chuyển)?",
+          "paras": [
+            "Có phải mọi lệnh chuyển tiền khác ngân hàng đều đi qua đường chuyển nhanh 24/7 và chờ bù trừ ròng cuối phiên không? Không. Mạng chuyển tiền nhanh 24/7 được thiết kế cho các giao dịch bán lẻ và dân sự dưới ngưỡng trần mỗi lệnh (ví dụ dưới 500 triệu đồng/lệnh). Khi một doanh nghiệp chuyển khoản thanh toán lô thiết bị trị giá 10.000.000.000 đồng (10 tỷ đồng) sang ngân hàng khác, giao dịch giá trị lớn này sẽ đi thẳng vào đại lộ [[thanh toán tổng tức thời từng lệnh|rtgs]] (RTGS) tại Ngân hàng Trung ương: tiền dự trữ của ngân hàng gửi bị cắt và chuyển sang ngân hàng nhận ngay tại thời điểm lệnh được xử lý, từng lệnh một, không chờ gom ròng.",
+            "Một tình huống thực tế khác mà mọi kế toán doanh nghiệp đều phải cảnh giác là lệnh chuyển tiền liên ngân hàng thực hiện sát giờ khoá sổ chiều 31/12 hoặc khi kênh đối soát bị nghẽn. Giả sử tài khoản của công ty bạn tại Ngân hàng gửi đã bị trừ 20.000.000 đồng (Có TK 112), nhưng do lệch phiên hoặc tra soát tên tài khoản nên hết ngày 31/12 Ngân hàng của nhà cung cấp vẫn chưa ghi Có cho họ.",
+            "Theo Thông tư 99/2025/TT-BTC, vì nghĩa vụ trả nợ chưa hoàn tất tại thời điểm khoá sổ, kế toán không được ghi giảm ngay khoản Phải trả cho người bán (TK 331) mà phải hạch toán khoản 20.000.000 đồng đó vào Nợ TK 113 (Tiền đang chuyển) / Có TK 112 (Tiền gửi không kỳ hạn). Chỉ sang ngày làm việc kế tiếp khi ngân hàng đối tác xác nhận đã ghi Có cho nhà cung cấp (hoặc khi hoàn tất tra soát), kế toán mới kết chuyển Nợ TK 331 / Có TK 113 để khép lại trọn vẹn hành trình của 20 triệu đồng."
+          ]
+        }
+      ],
+      "flowSummary": [
+        {
+          "step": "Bước 1A (On-Us) · Chuyển 20 triệu cùng ngân hàng — ghi sổ nội bộ khép kín",
+          "fromTo": "Bạn → Ngân hàng của bạn → Người nhận (cùng ngân hàng)",
+          "channel": "book",
+          "amount": "20.000.000 đồng",
+          "essence": "Ngân hàng chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái nội bộ ([[On-Us|onus]]): giảm số dư của bạn 20.000.000 đ và tăng số dư của người nhận 20.000.000 đ; tổng bể vốn [[CASA|casa]] và tiền dự trữ tại Ngân hàng Trung ương biến động 0 đồng."
+        },
+        {
+          "step": "Bước 1B (Off-Us · Giây 01) · Ngân hàng của bạn trừ số dư và phát bản tin liên ngân hàng",
+          "fromTo": "Bạn → Ngân hàng của bạn → Tổ chức chuyển mạch",
+          "channel": "wire",
+          "amount": "−20.000.000 đồng",
+          "essence": "Khi chuyển [[khác ngân hàng|offus]], Ngân hàng của bạn trừ 20.000.000 đ trên tài khoản của bạn (sổ doanh nghiệp ghi Có TK 112) và đẩy bản tin thanh toán sang [[tổ chức chuyển mạch|interbank]]."
+        },
+        {
+          "step": "Bước 2B (Off-Us · Giây 02) · Kiểm tra hạn mức ký quỹ bảo chứng (Pre-funded Net Debit Cap)",
+          "fromTo": "Tổ chức chuyển mạch",
+          "channel": "wire",
+          "amount": "Bảo chứng 20.000.000 đồng",
+          "essence": "Tổ chức chuyển mạch kiểm tra [[hạn mức ký quỹ bảo chứng|prefund]] mà Ngân hàng của bạn đã đặt cọc sẵn, trừ lùi hạn mức khả dụng trong phiên và đóng dấu bảo lãnh chuyển tiếp sang Ngân hàng người nhận."
+        },
+        {
+          "step": "Bước 3B (Off-Us · Giây 03) · Ngân hàng người nhận ghi Có tức thời cho người nhận",
+          "fromTo": "Tổ chức chuyển mạch → Ngân hàng người nhận → Người nhận",
+          "channel": "book",
+          "amount": "+20.000.000 đồng",
+          "essence": "Nhờ bản tin đã được bảo chứng 100%, Ngân hàng người nhận ghi Có ngay +20.000.000 đ vào tài khoản người nhận (sổ doanh nghiệp nhận ghi Nợ TK 112 / Có TK 131: 20.000.000 đ) chỉ sau 3 giây, dù tiền dự trữ liên ngân hàng chưa chạy."
+        },
+        {
+          "step": "Bước 4B (Cuối phiên) · Đối chiếu và tính số chênh lệch ròng hai chiều (Clearing & Netting)",
+          "fromTo": "Ngân hàng của bạn ↔ Tổ chức chuyển mạch ↔ Ngân hàng người nhận",
+          "channel": "wire",
+          "amount": "500 tỷ − 470 tỷ = 30 tỷ đồng (ví dụ)",
+          "essence": "Cuối phiên [[đối chiếu|clearing]], hệ thống cộng gộp toàn bộ lệnh hai chiều: chiều đi 500 tỷ đồng trừ chiều về 470 tỷ đồng (tổng gộp 970 tỷ đồng) chỉ còn nghĩa vụ phải trả ròng đúng 30 tỷ đồng."
+        },
+        {
+          "step": "Bước 5B (Quyết toán) · Cắt chuyển 30 tỷ đồng tiền dự trữ tại Ngân hàng Trung ương",
+          "fromTo": "Ngân hàng của bạn → Ngân hàng Trung ương → Ngân hàng người nhận",
+          "channel": "pipe",
+          "amount": "30.000.000.000 đồng",
+          "essence": "Ngân hàng Trung ương thực hiện [[quyết toán|settlement]] bằng cách trích 30 tỷ đồng từ tài khoản tiền gửi thanh toán của Ngân hàng bạn sang Ngân hàng người nhận — tiết kiệm 940 tỷ đồng thanh khoản dự trữ (96,9% tổng giao dịch gộp)."
+        }
+      ],
+      "roles": [
+        {
+          "who": "Bạn & Người nhận",
+          "pays": "Phí chuyển khoản 0 đồng (ở gói tài khoản phổ thông); để lại số dư thanh toán trong tài khoản lãi suất thấp (~0,1%/năm).",
+          "gains": "Chuyển và nhận 20.000.000 đồng tức thời sau 3 giây suốt 24/7, dù [[cùng ngân hàng|onus]] hay [[khác ngân hàng|offus]].",
+          "risk": "Nếu gõ nhầm số tài khoản hoặc gặp lệnh nghẽn liên ngân hàng sát giờ khoá sổ (treo trên TK 113), việc tra soát thu hồi qua hai ngân hàng mất nhiều thời gian hơn nội mạng."
+        },
+        {
+          "who": "Ngân hàng của bạn",
+          "pays": "Với lệnh [[Off-Us|offus]]: phải ký quỹ tài sản làm [[hạn mức bảo chứng|prefund]], trả phí chuyển mạch và mất tiền dự trữ nếu cuối phiên bị âm ròng (ví dụ −30 tỷ đồng).",
+          "gains": "Với lệnh [[On-Us|onus]]: giữ nguyên 100% khoản 20.000.000 đồng trong bể vốn [[CASA|casa]] giá rẻ (~0,1%/năm) của chính mình mà không tốn phí chuyển mạch hay dự trữ.",
+          "risk": "Rủi ro thanh khoản trong ngày nếu dòng tiền khách hàng rút chuyển [[Off-Us|offus]] đột biến vượt quá hạn mức ký quỹ bảo chứng đã cấp."
+        },
+        {
+          "who": "Tổ chức chuyển mạch",
+          "pays": "Đầu tư và vận hành hạ tầng định tuyến bản tin 24/7, quản lý hạn mức ký quỹ và tính toán bảng [[bù trừ ròng|netting]] đa phương mỗi phiên.",
+          "gains": "Thu phí dịch vụ chuyển mạch và bù trừ từ các ngân hàng thành viên theo biểu phí bán buôn.",
+          "risk": "Rủi ro vận hành kỹ thuật 24/7 và trách nhiệm chặn tự động các lệnh vượt hạn mức ký quỹ để không phát sinh nợ xấu liên ngân hàng."
+        },
+        {
+          "who": "Ngân hàng người nhận",
+          "pays": "Ghi Có ứng trước +20.000.000 đồng trên sổ cho người nhận rút tiêu ngay ở giây thứ 3 trước khi nhận tiền dự trữ cuối phiên; trả phí mạng lưới chuyển mạch.",
+          "gains": "Hút thêm 20.000.000 đồng vào bể vốn [[CASA|casa]] của mình từ lệnh [[Off-Us|offus]] và nhận về +30 tỷ đồng tiền dự trữ ròng cuối phiên (ví dụ).",
+          "risk": "Phụ thuộc vào cơ chế hạn mức ký quỹ bảo chứng của hệ thống chuyển mạch trong khoảng thời gian từ giây thứ 3 đến giờ quyết toán cuối phiên."
+        },
+        {
+          "who": "Ngân hàng Trung ương",
+          "pays": "Vận hành hệ thống [[thanh toán tổng tức thời từng lệnh|rtgs]] (RTGS) và hạch toán quyết toán các bảng bù trừ ròng trên tài khoản tiền gửi thanh toán của các ngân hàng.",
+          "gains": "Đảm bảo an toàn hệ thống thanh toán quốc gia, kiểm soát thanh khoản dự trữ và tính toàn vẹn cuối cùng (Settlement Finality) của đồng tiền.",
+          "risk": "Rủi ro tắc nghẽn thanh khoản hệ thống nếu một ngân hàng thành viên thiếu hụt dự trữ vào giờ chốt phiên quyết toán."
+        }
+      ],
+      "whenHelps": [
+        "Cơ chế chuyển tiền nhanh 24/7 kết hợp [[hạn mức ký quỹ bảo chứng|prefund]] phục vụ bạn tốt nhất khi cần thanh toán tức thời mọi khung giờ đêm hay cuối tuần mà người nhận vẫn nhận đủ 100% tiền chỉ sau 3 giây.",
+        "Cơ chế [[quyết toán ròng|netting]] cuối phiên giúp toàn hệ thống ngân hàng tiết kiệm hơn 90% lượng tiền dự trữ phải điều chuyển qua lại (ví dụ gom 970 tỷ đồng gộp thành 30 tỷ đồng ròng), từ đó các ngân hàng có dư địa miễn phí chuyển khoản 0 đồng cho người dùng.",
+        "Với doanh nghiệp có hệ sinh thái nhà cung cấp và nhân sự mở tài khoản [[cùng ngân hàng|onus]], giao dịch nội mạng hoàn tất tức thời trên một sổ cái duy nhất, không bao giờ gặp rủi ro treo tiền liên ngân hàng qua đêm."
+      ],
+      "whenTraps": [
+        "Nó thành điểm nghẽn kế toán khi doanh nghiệp chuyển khoản [[khác ngân hàng|offus]] sát giờ khoá sổ chiều 31/12 và lệnh bị treo đối soát: tiền đã trừ khỏi TK 112 nhưng phải nằm chờ ở TK 113 (Tiền đang chuyển) chứ chưa xoá được nợ TK 331 trong năm tài chính.",
+        "Nó thành rủi ro thanh toán khi chuyển các khoản tiền hợp đồng giá trị rất lớn (hàng tỷ đồng) vào tối cuối tuần mà không tách lệnh hoặc không đi qua kênh [[RTGS|rtgs]] trong giờ làm việc hành chính của hệ thống liên ngân hàng.",
+        "Nó thành rủi ro mất tiền nếu người gửi chuyển nhầm số tài khoản [[Off-Us|offus]]: vì bản tin là lệnh thanh toán đẩy và người nhận đã được ghi Có ngay sau 3 giây, ngân hàng của bạn không thể tự ý rút ngược tiền từ sổ của ngân hàng khác nếu không có quy trình phong tỏa và đồng thuận pháp lý."
+      ],
+      "takeaways": [
+        "Khi điện thoại của người nhận báo ting-ting +20 triệu đồng sau 3 giây ở một ngân hàng khác, tiền dự trữ tại Ngân hàng Trung ương đã thực sự chạy sang chưa hay đang chờ phiên bù trừ ròng?",
+        "Vì sao ngân hàng luôn khuyến khích cả công ty trả lương, nhân viên lẫn nhà cung cấp cùng mở tài khoản tại một ngân hàng (On-Us) để giữ nguyên bể vốn CASA?",
+        "Nếu chiều 31/12 công ty bạn chuyển khoản liên ngân hàng 20 triệu đồng trả nhà cung cấp nhưng lệnh bị treo đối soát qua đêm, kế toán phải ghi vào tài khoản nào theo Thông tư 99/2025/TT-BTC?",
+        "Khi nào một giao dịch chuyển tiền liên ngân hàng đi qua kênh bù trừ ròng 24/7, và khi nào nó buộc phải đi qua đại lộ thanh toán từng lệnh RTGS tại Ngân hàng Trung ương?"
+      ]
+    },
+    "pro": {
+      "mechanics": [
+        {
+          "h": "Bút toán nội mạng (On-Us Book Transfer) và tính bất biến của bể vốn CASA",
+          "p": "Trên bảng cân đối kế toán của một ngân hàng thương mại, tiền gửi thanh toán của khách hàng (cả cá nhân lẫn doanh nghiệp) đều nằm bên phần Nguồn vốn dưới dạng Nợ phải trả không kỳ hạn ([[CASA|casa]]). Khi diễn ra một lệnh chuyển khoản [[On-Us|onus]] 20.000.000 đồng từ Khách hàng A sang Khách hàng B trong cùng một ngân hàng, hệ thống Core Banking chỉ thực hiện một bút toán đảo vế bên trong cùng một phân hệ Nợ phải trả: giảm số dư tài khoản tiền gửi của A (−20.000.000 đồng) và tăng số dư tài khoản tiền gửi của B (+20.000.000 đồng). Tổng tài sản và tổng nợ phải trả của ngân hàng không đổi; đặc biệt, khoản Tiền gửi thanh toán của ngân hàng đó tại Ngân hàng Trung ương hoàn toàn không bị chạm tới. Nhờ chi phí thanh khoản dự trữ bằng 0 đồng và chi phí chuyển mạch ngoại mạng bằng 0 đồng, tỷ lệ giao dịch On-Us càng cao thì ngân hàng càng giữ được nguồn vốn CASA lãi suất thấp (~0,1%/năm trong ví dụ) nằm yên để định giá vốn nội bộ ([[FTP|ftp]])."
+        },
+        {
+          "h": "Cơ chế Hạn mức ký quỹ bảo chứng (Pre-funded Net Debit Cap) trong chuyển mạch 24/7",
+          "p": "Trong giao dịch [[Off-Us|offus]] qua mạng [[chuyển tiền nhanh 24/7|interbank247]], thách thức lớn nhất là rủi ro tín dụng liên ngân hàng trong khoảng thời gian từ lúc Ngân hàng người nhận ghi Có cho khách (giây thứ 3, T+0) đến lúc hai ngân hàng thực sự [[quyết toán|settlement]] tiền dự trữ tại Ngân hàng Trung ương. Để triệt tiêu rủi ro này mà không cần chờ quyết toán từng lệnh, hạ tầng chuyển mạch áp dụng cơ chế [[hạn mức ký quỹ bảo chứng|prefund]] (Pre-funded Collateral / Net Debit Cap). Mỗi ngân hàng thành viên phải ký quỹ trước một lượng tiền dự trữ hoặc giấy tờ có giá (như trái phiếu Chính phủ) tại Ngân hàng Trung ương để nhận một hạn mức nợ ròng tối đa trong phiên. Mỗi lệnh chuyển đi 20.000.000 đồng làm giảm hạn mức khả dụng của ngân hàng gửi 20.000.000 đồng; mỗi lệnh nhận về làm tăng lại hạn mức ấy. Bất kỳ lệnh nào vượt quá hạn mức ký quỹ bảo chứng đều bị hệ thống chuyển mạch chặn tự động ngay ở giây thứ 2, đảm bảo 100% lệnh đã báo Có ở giây thứ 3 đều có tài sản đảm bảo thanh toán."
+        },
+        {
+          "h": "Toán học của Quyết toán ròng có kỳ hạn (Deferred Net Settlement — DNS) vs Thanh toán tổng tức thời (RTGS)",
+          "p": "Giữa các ngân hàng có hai phương thức quyết toán nền tảng tại Ngân hàng Trung ương: [[quyết toán ròng|netting]] theo phiên (DNS) và [[thanh toán tổng tức thời từng lệnh|rtgs]] (RTGS). Gọi $Q_{AB}$ là tổng giá trị các lệnh chuyển từ Ngân hàng A sang Ngân hàng B trong phiên (ví dụ $Q_{AB} = 500$ tỷ đồng) và $Q_{BA}$ là tổng giá trị chiều ngược lại từ B sang A (ví dụ $Q_{BA} = 470$ tỷ đồng). Nếu quyết toán gộp từng lệnh, tổng lượng thanh khoản phải luân chuyển là $Q_{\\text{gross}} = Q_{AB} + Q_{BA} = 970$ tỷ đồng. Với cơ chế DNS, cuối phiên tổ chức chuyển mạch tính vị thế ròng $N_{AB} = Q_{AB} - Q_{BA} = 30$ tỷ đồng; Ngân hàng A chỉ phải trích đúng 30 tỷ đồng tiền dự trữ tại Ngân hàng Trung ương chuyển cho Ngân hàng B. Tỷ lệ tiết kiệm thanh khoản đạt $(970 - 30) / 970 \\approx 96,91\\%$ trên tổng giao dịch gộp hai chiều (hoặc $(500 - 30) / 500 = 94,0\\%$ so với tổng chiều chuyển đi của Ngân hàng A). Ngược lại, các giao dịch lô lớn vượt trần chuyển nhanh 24/7 (ví dụ lệnh 10 tỷ đồng) bắt buộc đi qua hệ thống RTGS để quyết toán tức thời từng lệnh bằng tiền dự trữ tại Ngân hàng Trung ương."
+        },
+        {
+          "h": "Hạch toán kế toán doanh nghiệp theo Thông tư 99/2025/TT-BTC: TK 112, TK 113, TK 131 và TK 331",
+          "p": "Dưới góc nhìn kế toán doanh nghiệp theo Thông tư 99/2025/TT-BTC, bản chất của việc chuyển khoản không phụ thuộc vào On-Us hay Off-Us nếu giao dịch thông suốt trong ngày: bên trả tiền nhà cung cấp ghi Nợ TK 331 (Phải trả cho người bán: 20.000.000 đồng) / Có TK 112 (Tiền gửi không kỳ hạn: 20.000.000 đồng); bên nhận tiền từ khách hàng ghi Nợ TK 112 (20.000.000 đồng) / Có TK 131 (Phải thu của khách hàng: 20.000.000 đồng). Tuy nhiên, sự khác biệt giữa On-Us và Off-Us lộ diện rõ rệt vào thời điểm khoá sổ cuối kỳ kế toán: nếu doanh nghiệp phát lệnh chuyển khoản Off-Us 20.000.000 đồng chiều 31/12, ngân hàng phục vụ doanh nghiệp đã cắt tiền (báo Nợ trên sao kê TK 112) nhưng do nghẽn đối soát liên ngân hàng hoặc sai lệch thông tin thụ hưởng khiến nhà cung cấp chưa nhận được tiền trong ngày 31/12, kế toán phải phản ánh khoản tiền rời TK 112 nhưng chưa tới đích này vào Nợ TK 113 (Tiền đang chuyển: 20.000.000 đồng) / Có TK 112 (20.000.000 đồng), và chỉ ghi Nợ TK 331 / Có TK 113 khi có xác nhận hoàn tất thanh toán ở kỳ sau."
+        }
+      ],
+      "accountingNotes": [
+        "Theo Phụ lục II Thông tư 99/2025/TT-BTC, TK 112 có tên chính thức là “Tiền gửi không kỳ hạn” (thay cho tên cũ “Tiền gửi ngân hàng”). Mọi giao dịch chuyển khoản thông suốt trong kỳ — dù [[On-Us|onus]] hay [[Off-Us|offus]] — đều được ghi nhận vào TK 112 căn cứ trên giấy báo Nợ / báo Có (hoặc sao kê điện tử) của ngân hàng.",
+        "Khi kiểm tra điều kiện tách bạch công nợ trên TK 131 (“Phải thu của khách hàng”), cần lưu ý TK 131 chỉ phản ánh khoản phải thu thương mại giữa doanh nghiệp bán hàng và người mua hàng. Khi người mua đã chuyển khoản thành công 20.000.000 đồng vào tài khoản của doanh nghiệp bán, kế toán bên bán ghi Nợ TK 112 / Có TK 131: 20.000.000 đồng.",
+        "TK 113 (“Tiền đang chuyển”) theo Thông tư 99/2025/TT-BTC dùng để phản ánh các khoản tiền của doanh nghiệp đã làm thủ tục chuyển trả từ TK 112 (hoặc nộp tiền mặt) cho đơn vị khác qua ngân hàng nhưng đến cuối kỳ kế toán vẫn chưa nhận được giấy báo hay xác nhận đã thanh toán xong cho bên thụ hưởng. Đây là tài khoản trọng yếu khi đối chiếu các lệnh [[Off-Us|offus]] cuối năm.",
+        "Đối với sổ kế toán nội bộ của ngân hàng thương mại (áp dụng Hệ thống tài khoản kế toán các tổ chức tín dụng của Ngân hàng Nhà nước, không dùng TT 99/2025): lệnh [[On-Us|onus]] chỉ ghi Nợ / Có giữa hai tài khoản tiền gửi khách hàng; còn lệnh [[Off-Us|offus]] ghi giảm tiền gửi khách hàng đối ứng với tài khoản Trung gian thanh toán chuyển mạch, sau đó tại phiên [[quyết toán ròng|netting]] mới tất toán qua tài khoản Tiền gửi thanh toán tại Ngân hàng Nhà nước."
+      ],
+      "journal": [
+        {
+          "step": "Bút toán 1 (Bên mua trả nợ nhà cung cấp 20.000.000 đ — thông suốt trong ngày)",
+          "book": "Sổ kế toán doanh nghiệp chuyển tiền (TT 99/2025)",
+          "assume": "Doanh nghiệp chuyển khoản 20.000.000 đồng thanh toán tiền hàng cho nhà cung cấp (dù On-Us hay Off-Us 24/7 đều báo thành công và đối tác xác nhận đã nhận ngay sau 3 giây; phí chuyển khoản 0 đồng).",
+          "rows": [
+            [
+              "Nợ",
+              "331",
+              "Phải trả cho người bán",
+              "tất toán công nợ mua hàng cho nhà cung cấp khi lệnh chuyển khoản hoàn tất",
+              "Giảm nợ phải trả nhà cung cấp 20 triệu đồng",
+              20000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "ngân hàng báo Nợ trừ số dư tài khoản thanh toán của doanh nghiệp",
+              "Tiền gửi trong tài khoản giảm 20 triệu đồng",
+              20000000
+            ]
+          ],
+          "note": "Σ Debit = 20.000.000 = Σ Credit. Nếu phát sinh phí chuyển khoản (ví dụ lệnh giá trị lớn qua RTGS), phần phí hạch toán riêng vào Nợ TK 642 / Có TK 112.",
+          "lifeNote": "Khi giao dịch thông suốt, công nợ mua hàng 20 triệu đồng được xoá ngay trong ngày phát lệnh."
+        },
+        {
+          "step": "Bút toán 2 (Bên bán nhận 20.000.000 đ khách hàng chuyển khoản trả nợ)",
+          "book": "Sổ kế toán doanh nghiệp nhận tiền (TT 99/2025)",
+          "assume": "Ngay ở giây thứ 3 khi nhận thông báo ghi Có +20.000.000 đồng từ khách hàng mua chịu lô hàng trước đó, kế toán bên bán gạch nợ phải thu thương mại.",
+          "rows": [
+            [
+              "Nợ",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "tài khoản thanh toán báo Có +20.000.000 đồng khả dụng tức thời",
+              "Tiền thật cộng vào tài khoản của doanh nghiệp",
+              20000000
+            ],
+            [
+              "Có",
+              "131",
+              "Phải thu của khách hàng",
+              "xoá khoản công nợ thương mại mà đối tác mua hàng đã thanh toán",
+              "Khách mua hàng đã trả hết khoản nợ 20 triệu đồng",
+              20000000
+            ]
+          ],
+          "note": "Σ Debit = 20.000.000 = Σ Credit. Dù ở giao dịch Off-Us hai bên tổ chức tín dụng chỉ quyết toán ròng 30 tỷ đồng vào cuối phiên, doanh nghiệp nhận tiền vẫn được ghi Nợ TK 112 ngay tại giây thứ 3.",
+          "lifeNote": "Nhờ hạn mức ký quỹ bảo chứng, người nhận có 20 triệu đồng tiền thật để chi tiêu ngay từ giây thứ 3."
+        },
+        {
+          "step": "Bút toán 3 (Lệnh chuyển khoản liên ngân hàng chiều 31/12 bị treo đối soát qua đêm)",
+          "book": "Sổ kế toán doanh nghiệp chuyển tiền ngày 31/12 (TT 99/2025)",
+          "assume": "Chiều 31/12 sát giờ khoá sổ năm, doanh nghiệp phát lệnh chuyển khoản liên ngân hàng 20.000.000 đồng trả nhà cung cấp; tài khoản TK 112 đã bị trừ tiền nhưng lệnh bị treo tra soát liên ngân hàng, hết ngày 31/12 nhà cung cấp vẫn chưa nhận được tiền.",
+          "rows": [
+            [
+              "Nợ",
+              "113",
+              "Tiền đang chuyển",
+              "khoản tiền đã trích khỏi TK 112 nhưng đang nằm trên đường đối soát liên ngân hàng cuối kỳ",
+              "Ghi nhận 20 triệu đồng đang trên đường chuyển",
+              20000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "sao kê cuối năm đã trừ 20.000.000 đồng theo lệnh chuyển đi",
+              "Số dư tài khoản thanh toán giảm 20 triệu đồng",
+              20000000
+            ]
+          ],
+          "note": "Σ Debit = 20.000.000 = Σ Credit. Việc treo trên TK 113 giúp số dư TK 112 khớp đúng sao kê ngày 31/12 mà không ghi giảm khống nợ phải trả TK 331 khi tiền chưa tới tay đối tác.",
+          "lifeNote": "Tiền đã rời tài khoản của bạn nhưng chưa tới tài khoản nhà cung cấp nên tạm nằm ở trạm trung chuyển TK 113."
+        },
+        {
+          "step": "Bút toán 4 (Ngày làm việc đầu năm mới — lệnh treo hoàn tất và gạch nợ nhà cung cấp)",
+          "book": "Sổ kế toán doanh nghiệp chuyển tiền ngày 02/01 (TT 99/2025)",
+          "assume": "Sang ngày làm việc đầu năm mới, hệ thống liên ngân hàng hoàn tất tra soát và ghi Có 20.000.000 đồng vào tài khoản của nhà cung cấp.",
+          "rows": [
+            [
+              "Nợ",
+              "331",
+              "Phải trả cho người bán",
+              "nhà cung cấp xác nhận đã nhận đủ 20.000.000 đồng tiền hàng",
+              "Chính thức xoá khoản nợ phải trả nhà cung cấp",
+              20000000
+            ],
+            [
+              "Có",
+              "113",
+              "Tiền đang chuyển",
+              "kết chuyển khoản tiền đang chuyển sau khi giao dịch liên ngân hàng hoàn tất",
+              "Đóng khoản tiền đang chuyển 20 triệu đồng",
+              20000000
+            ]
+          ],
+          "note": "Σ Debit = 20.000.000 = Σ Credit. Trường hợp lệnh bị trả ngược (Refund/Return) về lại tài khoản do sai số tài khoản thụ hưởng, kế toán sẽ ghi Nợ TK 112 / Có TK 113: 20.000.000 đồng.",
+          "lifeNote": "Khi ngân hàng đối tác xác nhận báo Có hoàn tất, khoản tiền đang chuyển mới chính thức xoá xong nợ nhà cung cấp."
+        }
+      ],
+      "edgeCases": [
+        {
+          "h": "Chuyển khoản nhầm số tài khoản khác ngân hàng (Off-Us): Vì sao ngân hàng của bạn không thể tự bấm nút thu hồi?",
+          "p": "Nhiều người lầm tưởng khi vừa chuyển nhầm 20.000.000 đồng sang một tài khoản ở ngân hàng khác, chỉ cần gọi tổng đài trong 5 phút là ngân hàng của mình sẽ rút tiền về được. Thực tế, vì chuyển khoản nhanh 24/7 là giao dịch [[thanh toán đẩy|pushpayment]] do chính bạn xác thực bảo mật và Ngân hàng người nhận đã ghi Có tức thời (+20.000.000 đồng) vào sổ của họ ở giây thứ 3, tính bất khả huỷ ngang của lệnh đã kích hoạt. Ngân hàng của bạn chỉ có thể gửi bản tin tra soát sang Ngân hàng người nhận để đề nghị liên hệ chủ tài khoản thụ hưởng hoàn trả (hoặc phối hợp cơ quan chức năng phong tỏa nếu có dấu hiệu vi phạm pháp luật), chứ không có quyền tự ý ghi Nợ tài khoản khách hàng ở ngân hàng khác."
+        },
+        {
+          "h": "Ngân hàng gửi chạm trần Hạn mức ký quỹ bảo chứng (Net Debit Cap) vào dịp cao điểm cận Tết",
+          "p": "Vào những ngày cao điểm sát Tết Nguyên đán, khi lượng khách hàng rút tiền chuyển đi từ một ngân hàng nhỏ sang các ngân hàng lớn tăng đột biến gấp nhiều lần chiều nhận về, vị thế nợ ròng trong phiên của ngân hàng đó có thể chạm kịch trần [[hạn mức ký quỹ bảo chứng|prefund]] đã đặt cọc. Ngay tại thời điểm chạm trần, hệ thống chuyển mạch 24/7 sẽ tạm dừng nhận lệnh chuyển nhanh đi ra từ ngân hàng đó (khách hàng thấy thông báo bảo trì hoặc chuyển sang kênh chuyển thường chờ phiên sau), cho tới khi ngân hàng đó nộp bổ sung tài sản ký quỹ hoặc hoàn tất quyết toán ròng tại Ngân hàng Trung ương để mở lại hạn mức."
+        },
+        {
+          "h": "Giao dịch giá trị lớn vượt trần chuyển nhanh 24/7 (ví dụ 10 tỷ đồng): Đi qua đại lộ RTGS và giờ cắt phiên (Cut-off Time)",
+          "p": "Khi doanh nghiệp thanh toán hợp đồng mua máy móc hoặc bất động sản trị giá 10.000.000.000 đồng (10 tỷ đồng) sang ngân hàng khác, con số này vượt ngưỡng trần mỗi lệnh của kênh chuyển tiền nhanh 24/7 bán lẻ. Thay vì tách thành hàng chục lệnh nhỏ, kế toán doanh nghiệp thực hiện lệnh uỷ nhiệm chi qua hệ thống [[thanh toán tổng tức thời từng lệnh|rtgs]] (RTGS) tại Ngân hàng Trung ương. Trên kênh RTGS, lệnh 10 tỷ đồng được quyết toán trực tiếp bằng tiền dự trữ giữa hai ngân hàng ngay trong giờ làm việc hành chính; nhưng nếu phát lệnh sau giờ cắt phiên (Cut-off Time, thường khoảng 15:30–16:00 chiều ngày làm việc), lệnh sẽ phải xếp hàng chờ sáng ngày làm việc kế tiếp mới được Ngân hàng Trung ương xử lý."
+        }
+      ]
+    }
+  },
+  "videoScript": {
+ "long": {
+  "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao người nhận đều ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác hẳn nhau?",
+  "hookNote": "Đặt hai chiếc điện thoại cạnh nhau lúc 10:00 sáng: cả hai lệnh chuyển 20 triệu đồng (một cùng ngân hàng On-Us, một khác ngân hàng Off-Us) đều báo ting-ting +20 triệu đồng sau đúng 3 giây — rồi kéo mặt cắt xuống tầng hầm để thấy một bên tiền dự trữ đứng yên 0 đồng, còn một bên kích hoạt phiên bù trừ ròng 30 tỷ đồng tại Ngân hàng Trung ương.",
+  "youtubeId": "Qn3SIzHi_Ik",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:42",
+    "beat": null,
+    "chapter": "Hai tiếng ting-ting 20 triệu đồng giống hệt nhau trên mặt đất",
+    "visual": "Mặt cắt 5 ngôi nhà lúc 10:00 sáng: từ nhà Bạn & Người nhận phát đi hai lệnh chuyển khoản 20.000.000 đồng, cả hai màn hình đều sáng +20.000.000 đồng sau 3 giây.",
+    "vo": "Mười giờ sáng, bạn mở điện thoại chuyển hai khoản tiền hàng, mỗi khoản đúng hai mươi triệu đồng. Khoản thứ nhất gửi cho người đối tác dùng cùng ngân hàng với bạn. Khoản thứ hai gửi cho một nhà cung cấp mở tài khoản ở ngân hàng khác. Chỉ sau đúng ba giây, điện thoại của cả hai người nhận đều sáng đèn báo ghi có cộng hai mươi triệu đồng, phí chuyển khoản đều bằng không đồng, và tiền rút ra tiêu được ngay. Nhìn trên màn hình, hai cú chạm này giống nhau như hai giọt nước. Nhưng nếu cắt dọc mặt đất để nhìn vào cuốn sổ cái của các ngân hàng và tầng hầm tại Ngân hàng Trung ương, bạn sẽ thấy hai khoản hai mươi triệu đồng ấy vừa đi qua hai thế giới hoàn toàn trái ngược nhau.",
+    "onScreen": "20.000.000 đ On-Us vs 20.000.000 đ Off-Us: Cùng 3 giây ting-ting, 2 đường đi khác hẳn — SFX: tiếng chuông báo tin nhắn (SFX chung)"
+   },
+   {
+    "time": "0:42 – 1:34",
+    "beat": 0,
+    "chapter": "Lệnh 1 (On-Us): Sửa hai dòng chữ trong cùng một toà nhà",
+    "visual": "Cận cảnh toà nhà Ngân hàng của bạn (nhà 1): cuốn sổ cái nội bộ lật trang, gạch giảm 20 triệu dòng của Bạn và cộng 20 triệu dòng của Người nhận; tầng hầm tới Ngân hàng Trung ương tối đèn (0 đồng).",
+    "vo": "Hãy nhìn vào lệnh đầu tiên: chuyển hai mươi triệu đồng cho người dùng cùng ngân hàng với bạn — người trong nghề gọi là giao dịch On-Us, tức chuyển khoản nội mạng. Một sự thật kế toán ít người để ý là hai mươi triệu đồng trong tài khoản thanh toán là tài sản của bạn, nhưng trên bảng cân đối kế toán của ngân hàng thì đó là khoản nợ phải trả không kỳ hạn mà ngân hàng đang nợ bạn. Vì cả bạn lẫn người nhận đều gửi tiền tại cùng một toà nhà, ngân hàng của bạn chính là người giữ sổ duy nhất cho cả hai bên. Ngay giây bạn bấm xác nhận, máy chủ ngân hàng chỉ làm đúng một việc: sửa dòng nợ phải trả đối với bạn giảm đi hai mươi triệu đồng, và sửa dòng nợ phải trả đối với người nhận tăng lên hai mươi triệu đồng. Không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.",
+    "onScreen": "On-Us (Cùng ngân hàng): Sửa 2 dòng nợ nội bộ · 0 đồng rời toà nhà — SFX: tiếng bút gạch sổ (SFX chung)"
+   },
+   {
+    "time": "1:34 – 2:24",
+    "beat": 0,
+    "chapter": "Vì sao lệnh On-Us giữ nguyên 100% bể vốn CASA giá rẻ?",
+    "visual": "Bể vốn CASA bên trong Ngân hàng của bạn giữ nguyên mức nước trước và sau lệnh chuyển 20 triệu đồng; sổ kế toán doanh nghiệp hiện Nợ TK 331 / Có TK 112: 20.000.000 đồng.",
+    "vo": "Hãy nhìn vào bể vốn của ngân hàng sau cú chạm On-Us đó. Trước khi bạn chuyển, ngân hàng giữ hai mươi triệu đồng tiền gửi không kỳ hạn của bạn. Sau khi bạn chuyển xong, ngân hàng vẫn giữ nguyên hai mươi triệu đồng ấy, chỉ đổi tên người chủ sở hữu trên sổ từ bạn sang người nhận. Trong ví dụ lãi suất tiền gửi không kỳ hạn khoảng không phẩy một phần trăm một năm, tổng bể vốn giá rẻ CASA của ngân hàng biến động đúng bằng không đồng. Trong khi đó, trên sổ kế toán doanh nghiệp của bạn theo Thông tư 99 năm 2025, khoản nợ nhà cung cấp đã được tất toán gọn gàng: ghi Nợ tài khoản 331 Phải trả cho người bán hai mươi triệu đồng, đối ứng Có tài khoản 112 Tiền gửi không kỳ hạn hai mươi triệu đồng.",
+    "onScreen": "Bể vốn CASA biến động 0 đ · Sổ DN: Nợ TK 331 / Có TK 112 (20.000.000 đ) — SFX: tiếng đóng dấu (SFX chung)"
+   },
+   {
+    "time": "2:24 – 3:18",
+    "beat": 1,
+    "chapter": "Lệnh 2 (Off-Us): Bài toán khó khi chuyển tiền sang ngân hàng khác",
+    "visual": "Luồng bản tin phát sáng từ Ngân hàng của bạn (nhà 1) chạy sang Tổ chức chuyển mạch (nhà 2) rồi tới Ngân hàng người nhận (nhà 3).",
+    "vo": "Bây giờ hãy sang lệnh thứ hai: bạn chuyển hai mươi triệu đồng cho nhà cung cấp có tài khoản ở một ngân hàng khác — gọi là giao dịch Off-Us hay chuyển khoản liên ngân hàng. Ở đây xuất hiện một bức tường ngăn cách: ngân hàng của bạn không có quyền mở cuốn sổ cái của ngân hàng bên kia để tự cộng tiền. Ngược lại, ngân hàng người nhận cũng không thể cộng khống hai mươi triệu đồng cho khách hàng của họ rút tiêu ngay nếu chưa có gì bảo đảm rằng ngân hàng của bạn sẽ trả tiền thật. Thế nhưng thực tế, dù bạn chuyển lúc mười giờ đêm thứ Bảy khi Ngân hàng Trung ương đang nghỉ cuối tuần, điện thoại người nhận vẫn ting-ting báo có hai mươi triệu đồng chỉ sau ba giây. Ai đã đứng ra bảo lãnh cho ba giây thần tốc đó?",
+    "onScreen": "Off-Us (Khác ngân hàng): Khác sổ cái, làm sao ghi Có sau 3 giây? — SFX: tiếng tít điện tử (SFX chung)"
+   },
+   {
+    "time": "3:18 – 4:12",
+    "beat": 1,
+    "chapter": "Bí mật ở giây thứ 2: Hạn mức ký quỹ bảo chứng (Pre-funded Net Debit Cap)",
+    "visual": "Cận cảnh Tổ chức chuyển mạch (nhà 2): đồng hồ kiểm tra Hạn mức ký quỹ bảo chứng của Ngân hàng gửi, đóng dấu xác nhận chuyển sang Ngân hàng người nhận ghi Có +20.000.000 đồng.",
+    "vo": "Bí mật nằm ở ngôi nhà đứng giữa: Tổ chức chuyển mạch liên ngân hàng và cơ chế Hạn mức ký quỹ bảo chứng. Trước khi tham gia mạng lưới chuyển tiền nhanh hai mươi bốn trên bảy, ngân hàng của bạn đã phải đặt cọc sẵn một khoản tiền dự trữ hoặc trái phiếu Chính phủ tại Ngân hàng Trung ương để làm hạn mức bảo chứng nợ ròng trong phiên. Ở giây thứ nhất, ngân hàng của bạn trừ hai mươi triệu đồng trên tài khoản của bạn. Ở giây thứ hai, tổ chức chuyển mạch kiểm tra thấy lệnh hai mươi triệu đồng này vẫn nằm gọn trong hạn mức ký quỹ mà ngân hàng bạn đã đặt cọc, nên lập tức trừ lùi hạn mức khả dụng và đóng dấu bảo chứng chuyển tiếp. Nhờ con dấu bảo chứng một trăm phần trăm không rủi ro vỡ nợ ấy, ở giây thứ ba ngân hàng người nhận yên tâm ghi Có ngay hai mươi triệu đồng cho đối tác của bạn.",
+    "onScreen": "Giây 02: Kiểm tra Hạn mức ký quỹ bảo chứng · Giây 03: Ghi Có +20.000.000 đ — SFX: tiếng khoá chốt (SFX chung)"
+   },
+   {
+    "time": "4:12 – 5:04",
+    "beat": 2,
+    "chapter": "Giây thứ 3: Người nhận có tiền tiêu ngay, nhưng tiền dự trữ vẫn nằm yên",
+    "visual": "Tại nhà Bạn & Người nhận (nhà 0) và Ngân hàng người nhận (nhà 3): sổ doanh nghiệp nhận ghi Nợ TK 112 / Có TK 131: 20.000.000 đồng, nhưng tầng hầm tại Ngân hàng Trung ương (nhà 4) vẫn chưa cắt tiền dự trữ.",
+    "vo": "Hãy dừng hình ở giây thứ tư ngay sau tiếng ting-ting. Đối tác của bạn mở ứng dụng lên, thấy số dư tăng thêm hai mươi triệu đồng và có thể rút ra trả tiền hàng ngay lập tức. Kế toán phía đối tác mở sổ theo Thông tư 99, ghi Nợ tài khoản 112 Tiền gửi không kỳ hạn hai mươi triệu đồng và ghi Có tài khoản 131 Phải thu của khách hàng hai mươi triệu đồng. Với cả bạn lẫn đối tác, giao dịch đã xong hoàn toàn. Nhưng dưới tầng hầm giữa hai ngân hàng, hai mươi triệu đồng tiền dự trữ thật vẫn chưa hề di chuyển! Thực chất ở giây thứ ba, ngân hàng người nhận đang tạm ứng niềm tin trên sổ cho khách hàng của họ dựa vào lời hứa có bảo chứng của ngân hàng bạn.",
+    "onScreen": "Sổ người nhận: Nợ TK 112 / Có TK 131 (20 triệu) · Tiền dự trữ chờ cuối phiên — SFX: tiếng lật giấy (SFX chung)"
+   },
+   {
+    "time": "5:04 – 6:00",
+    "beat": 3,
+    "chapter": "Cuối phiên dưới lòng đất: Gom 970 tỷ đồng giao dịch thành một con số ròng 30 tỷ đồng",
+    "visual": "Tổ chức chuyển mạch (nhà 2) đặt hai cột số lên bàn cân: Chiều đi 500 tỷ đồng trừ Chiều về 470 tỷ đồng = Phải trả ròng 30 tỷ đồng.",
+    "vo": "Vì sao hai ngân hàng không chuyển ngay hai mươi triệu đồng tiền dự trữ ở giây thứ ba? Hãy hình dung mỗi ngày có hàng chục triệu lệnh chuyển khoản ăn sáng, mua sắm, trả tiền hàng chạy đan chéo giữa hai ngân hàng. Trong ví dụ một phiên giao dịch, giả sử tổng cộng các khách hàng từ ngân hàng của bạn chuyển sang ngân hàng đối tác là năm trăm tỷ đồng — trong đó có hai mươi triệu đồng của bạn. Nhưng cùng lúc ấy, khách hàng từ ngân hàng đối tác cũng chuyển ngược về ngân hàng của bạn bốn trăm bảy mươi tỷ đồng. Tổng giá trị giao dịch gộp hai chiều lên tới chín trăm bảy mươi tỷ đồng. Khi đến giờ chốt phiên bù trừ, tổ chức chuyển mạch lấy năm trăm tỷ đồng chiều đi trừ bốn trăm bảy mươi tỷ đồng chiều về, ra con số chênh lệch ròng đúng ba mươi tỷ đồng.",
+    "onScreen": "Bù trừ ròng (Netting): 500 tỷ chiều đi − 470 tỷ chiều về = Chênh lệch ròng 30 tỷ đ — SFX: tiếng máy tính cơ (SFX chung)"
+   },
+   {
+    "time": "6:00 – 6:52",
+    "beat": 3,
+    "chapter": "Quyết toán tại Ngân hàng Trung ương: Tiết kiệm 940 tỷ đồng thanh khoản dự trữ",
+    "visual": "Tại Ngân hàng Trung ương (nhà 4): luồng quyết toán tầng hầm bừng sáng, trích đúng 30 tỷ đồng từ tài khoản dự trữ của Ngân hàng gửi sang Ngân hàng nhận.",
+    "vo": "Bảng kết quả bù trừ ròng ba mươi tỷ đồng ấy được gửi thẳng tới Ngân hàng Trung ương — tức ngôi nhà thứ năm trên mặt cắt, nơi mở tài khoản tiền gửi thanh toán cho tất cả các ngân hàng thương mại. Tại đây, Ngân hàng Trung ương chỉ thực hiện một lệnh quyết toán duy nhất: ghi giảm tài khoản tiền gửi thanh toán của ngân hàng bạn ba mươi tỷ đồng, và ghi tăng tài khoản tiền gửi thanh toán của ngân hàng người nhận đúng ba mươi tỷ đồng. Nhờ gộp chín trăm bảy mươi tỷ đồng giao dịch hai chiều thành một lệnh quyết toán ròng ba mươi tỷ đồng, hệ thống ngân hàng tiết kiệm được chín trăm bốn mươi tỷ đồng thanh khoản dự trữ phải chạy qua lại — tương đương gần chín mươi bảy phần trăm tổng khối lượng giao dịch.",
+    "onScreen": "Ngân hàng Trung ương cắt chuyển 30 tỷ đ dự trữ · Tiết kiệm 940 tỷ đ (96,9%) — SFX: tiếng dòng chảy sâu (SFX chung)"
+   },
+   {
+    "time": "6:52 – 7:40",
+    "beat": 4,
+    "chapter": "Hai ngoại lệ thực tế: Đại lộ RTGS cho lệnh tiền tỷ và lệnh treo TK 113 chiều 31/12",
+    "visual": "Cận cảnh Ngân hàng Trung ương (nhà 4) xử lý lệnh RTGS 10 tỷ đồng tức thời; đồng thời sổ kế toán doanh nghiệp hiện bút toán treo chiều 31/12: Nợ TK 113 / Có TK 112: 20.000.000 đồng.",
+    "vo": "Có hai tình huống thực tế bạn cần phân biệt rõ. Thứ nhất, nếu công ty bạn chuyển một lệnh lớn mười tỷ đồng vượt trần chuyển nhanh hai mươi bốn trên bảy, lệnh đó không chờ bù trừ ròng mà đi thẳng vào hệ thống Thanh toán tổng tức thời từng lệnh RTGS tại Ngân hàng Trung ương để cắt tiền dự trữ ngay trong giờ hành chính. Thứ hai, nếu chiều ba mươi mốt tháng mười hai sát giờ khoá sổ năm, bạn chuyển liên ngân hàng hai mươi triệu đồng mà lệnh bị nghẽn đối soát khiến nhà cung cấp chưa nhận được tiền trong năm cũ, kế toán không được xoá nợ ngay trên tài khoản 331. Theo Thông tư 99 năm 2025, khoản tiền đã rời tài khoản 112 nhưng chưa tới đích phải ghi Nợ tài khoản 113 Tiền đang chuyển hai mươi triệu đồng, chờ sang đầu năm mới khi hoàn tất mới kết chuyển vào tài khoản 331.",
+    "onScreen": "Lệnh lớn: qua RTGS · Lệnh nghẽn 31/12: Nợ TK 113 (Tiền đang chuyển) / Có TK 112 — SFX: tiếng đóng dấu (SFX chung)"
+   },
+   {
+    "time": "7:40 – 8:20",
+    "beat": null,
+    "chapter": "Nhìn thấu tiếng ting-ting sau 3 giây trên điện thoại của bạn",
+    "visual": "Toàn cảnh 5 ngôi nhà sáng dịu: tầng trên là bản tin 3 giây, tầng dưới là phiên bù trừ ròng 30 tỷ đồng tại Ngân hàng Trung ương.",
+    "vo": "Lần tới khi bạn bấm chuyển khoản hai mươi triệu đồng và nghe tiếng ting-ting vang lên sau ba giây, bạn đã nhìn thấu cả hai tầng của hệ thống tài chính. Nếu cùng ngân hàng, chỉ có hai dòng chữ vừa đổi chỗ trong cùng một toà nhà để giữ nguyên bể vốn giá rẻ. Còn nếu khác ngân hàng, tiếng ting-ting ở giây thứ ba là một lời hứa có ký quỹ bảo chứng, còn dòng tiền dự trữ thật sự đang chờ phiên bù trừ ròng hàng chục tỷ đồng dưới tầng hầm của Ngân hàng Trung ương.",
+    "onScreen": "On-Us: Sửa sổ nội bộ · Off-Us: Bảo chứng 3 giây + Bù trừ ròng tại NH Trung ương — SFX: một tiếng chuông khẽ (SFX chung)"
+   }
+  ]
+ },
+ "short": {
+  "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao cùng ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác nhau?",
+  "angle": "Bắt đầu từ hai tiếng ting-ting 20 triệu đồng giống hệt nhau sau 3 giây, rồi lật mở sự khác biệt một trời một vực: On-Us chỉ sửa 2 dòng sổ nội bộ (0 đồng rời toà nhà), còn Off-Us dùng hạn mức ký quỹ bảo chứng ở giây thứ 3 và gom 970 tỷ đồng giao dịch thành 1 lệnh quyết toán ròng 30 tỷ đồng tại Ngân hàng Trung ương.",
+  "youtubeId": "9FdZabe_Q_4",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:11",
+    "beat": null,
+    "visual": "Hai màn hình điện thoại đặt cạnh nhau: chuyển 20.000.000 đồng cùng ngân hàng (On-Us) và khác ngân hàng (Off-Us) đều báo +20.000.000 đồng sau 3 giây.",
+    "vo": "Bạn chuyển khoản hai mươi triệu đồng cùng ngân hàng hay khác ngân hàng thì người nhận đều ting-ting sau ba giây. Nhưng dưới tầng hầm, tiền đi hai đường trái ngược hẳn nhau.",
+    "onScreen": "Chuyển 20.000.000 đ: Cùng 3 giây ting-ting, 2 đường đi khác hẳn — SFX: tiếng chuông báo tin nhắn (SFX chung)"
+   },
+   {
+    "time": "0:11 – 0:23",
+    "beat": 0,
+    "visual": "Cận cảnh Ngân hàng của bạn (nhà 1): sổ cái nội bộ giảm 20 triệu dòng của Bạn, tăng 20 triệu dòng Người nhận; bể vốn CASA giữ nguyên.",
+    "vo": "Nếu chuyển cùng ngân hàng — gọi là On-Us — ngân hàng chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái. Không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.",
+    "onScreen": "Cùng ngân hàng (On-Us): Sửa 2 dòng sổ nội bộ · 0 đ rời toà nhà — SFX: tiếng bút gạch sổ (SFX chung)"
+   },
+   {
+    "time": "0:23 – 0:36",
+    "beat": 1,
+    "visual": "Bản tin chạy qua Tổ chức chuyển mạch (nhà 2): kiểm tra Hạn mức ký quỹ bảo chứng và đóng dấu sang Ngân hàng người nhận (nhà 3).",
+    "vo": "Còn khi chuyển khác ngân hàng — Off-Us — ở giây thứ ba tiền dự trữ thật chưa hề chạy sang. Người nhận có tiền tiêu ngay là nhờ ngân hàng của bạn đã đặt cọc sẵn hạn mức ký quỹ bảo chứng tại hệ thống chuyển mạch.",
+    "onScreen": "Khác ngân hàng (Off-Us): Giây thứ 3 ghi Có nhờ Hạn mức ký quỹ bảo chứng — SFX: tiếng tít điện tử (SFX chung)"
+   },
+   {
+    "time": "0:36 – 0:50",
+    "beat": 3,
+    "visual": "Bàn cân bù trừ ròng tại Tổ chức chuyển mạch: 500 tỷ đồng chiều đi trừ 470 tỷ đồng chiều về = 30 tỷ đồng ròng.",
+    "vo": "Đến cuối phiên, hệ thống mới gom toàn bộ lệnh hai chiều để bù trừ ròng. Trong ví dụ chiều đi năm trăm tỷ đồng, chiều về bốn trăm bảy mươi tỷ đồng, hai ngân hàng chỉ lệch nhau đúng ba mươi tỷ đồng.",
+    "onScreen": "Cuối phiên: 500 tỷ chiều đi − 470 tỷ chiều về = Ròng 30 tỷ đ — SFX: tiếng máy tính cơ (SFX chung)"
+   },
+   {
+    "time": "0:50 – 1:01",
+    "beat": 3,
+    "visual": "Tầng hầm Ngân hàng Trung ương (nhà 4) cắt chuyển đúng 30 tỷ đồng dự trữ giữa hai ngân hàng.",
+    "vo": "Khi đó Ngân hàng Trung ương chỉ cắt chuyển một lệnh duy nhất ba mươi tỷ đồng tiền dự trữ, giúp tiết kiệm chín trăm bốn mươi tỷ đồng thanh khoản phải chạy qua lại.",
+    "onScreen": "NH Trung ương cắt chuyển 30 tỷ đ dự trữ · Tiết kiệm 940 tỷ đ — SFX: tiếng đóng dấu (SFX chung)"
+   },
+   {
+    "time": "1:01 – 1:12",
+    "beat": 4,
+    "visual": "Sổ kế toán doanh nghiệp chiều 31/12 hiện bút toán Nợ TK 113 (Tiền đang chuyển) / Có TK 112: 20.000.000 đồng.",
+    "vo": "Và nếu lệnh liên ngân hàng chiều cuối năm bị treo đối soát qua đêm, kế toán phải ghi vào tài khoản 113 Tiền đang chuyển chứ chưa xoá được nợ ngay đâu.",
+    "onScreen": "Nghẽn cuối kỳ: Treo trên TK 113 (Tiền đang chuyển) — SFX: một tiếng chuông khẽ (SFX chung)"
+   }
+  ]
+ }
+},
+  "houses": [
+    {
+      "type": "home",
+      "label": "Bạn & Người nhận",
+      "sign": "NGƯỜI DÙNG",
+      "fxText": {
+        "phone": "ting-ting +20.000.000 đ sau 3 giây"
+      }
+    },
+    {
+      "type": "iss",
+      "label": "Ngân hàng của bạn",
+      "sign": "NGÂN HÀNG GỬI",
+      "fxText": {
+        "iledger": "sổ cái On-Us: đổi chủ nợ 20 triệu, 0 đ rời nhà",
+        "hold": "ký quỹ bảo chứng hạn mức chuyển nhanh 24/7",
+        "release": "trích −30 tỷ đ dự trữ ròng cuối phiên (ví dụ)"
+      }
+    },
+    {
+      "type": "scheme",
+      "label": "Tổ chức chuyển mạch",
+      "sign": "CHUYỂN MẠCH",
+      "fxText": {
+        "wire": "kiểm hạn mức ký quỹ & bù trừ 500 tỷ − 470 tỷ"
+      }
+    },
+    {
+      "type": "acq",
+      "label": "Ngân hàng người nhận",
+      "sign": "NGÂN HÀNG NHẬN",
+      "fxText": {
+        "board": "ghi Có ứng trước +20.000.000 đ ở giây thứ 3",
+        "split": "nhận +30 tỷ đ tiền dự trữ ròng cuối phiên"
+      }
+    },
+    {
+      "type": "pbank",
+      "label": "Ngân hàng Trung ương",
+      "sign": "NH TRUNG ƯƠNG",
+      "fxText": {
+        "two": "sổ tiền gửi thanh toán của 2 ngân hàng",
+        "pool": "quyết toán ròng 30 tỷ đ (tiết kiệm 940 tỷ đ)"
+      }
+    }
+  ],
+  "beats": [
+    {
+      "when": "10:00 · Lệnh 1 (On-Us)",
+      "sub": "chuyển 20 triệu cùng ngân hàng",
+      "title": "Cùng ngân hàng (On-Us): Sửa 2 dòng nợ nội bộ, 0 đồng tiền dự trữ rời toà nhà",
+      "say": [
+        "Lúc 10:00 sáng, bạn chuyển khoản 20.000.000 đồng trả tiền hàng cho đối tác mở tài khoản tại [[cùng ngân hàng|onus]] với bạn.",
+        "Vì cả bạn và người nhận đều gửi tiền ở cùng một nơi, ngân hàng của bạn chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái: giảm số dư của bạn 20.000.000 đồng và tăng số dư của người nhận 20.000.000 đồng.",
+        "Tổng bể vốn [[tiền gửi không kỳ hạn|casa]] của ngân hàng biến động đúng bằng 0 đồng, và không có một đồng tiền dự trữ nào phải chạy ra ngoài hay qua Ngân hàng Trung ương."
+      ],
+      "lit": [
+        0,
+        1
+      ],
+      "tags": {
+        "0": [
+          "ting-ting +20.000.000 đ",
+          "plus"
+        ],
+        "1": [
+          "sửa 2 dòng sổ · CASA đổi 0 đ",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "fx": [
+        "phone",
+        "iledger"
+      ],
+      "life": "Khi chuyển cùng ngân hàng, tiền chỉ đổi tên người sở hữu ngay trong một cuốn sổ cái nội bộ — nên ngân hàng giữ trọn 100% số tiền đó trong bể vốn rẻ của mình.",
+      "sys": "Sổ doanh nghiệp chuyển tiền (TT 99/2025/TT-BTC): Nợ TK 331 (Phải trả cho người bán: 20.000.000) / Có TK 112 (Tiền gửi không kỳ hạn: 20.000.000). Sổ nội bộ ngân hàng: giảm Nợ phải trả tiền gửi KH A, tăng Nợ phải trả tiền gửi KH B.",
+      "ledger": {
+        "book": "Sổ doanh nghiệp chuyển tiền trả nhà cung cấp (TT 99/2025)",
+        "assume": "Doanh nghiệp chuyển khoản 20.000.000 đồng thanh toán tiền hàng cho nhà cung cấp; giao dịch hoàn tất tức thời với phí chuyển khoản 0 đồng.",
+        "rows": [
+          [
+            "Nợ",
+            "331",
+            "Phải trả cho người bán",
+            "tất toán công nợ tiền hàng cho nhà cung cấp khi lệnh hoàn tất",
+            "Giảm nợ phải trả nhà cung cấp 20 triệu đồng",
+            20000000
+          ],
+          [
+            "Có",
+            "112",
+            "Tiền gửi không kỳ hạn",
+            "ngân hàng báo Nợ trừ số dư tài khoản thanh toán của doanh nghiệp",
+            "Tiền gửi trong tài khoản giảm 20 triệu đồng",
+            20000000
+          ]
+        ],
+        "note": "Σ Debit = 20.000.000 = Σ Credit. Trên sổ nội bộ ngân hàng (On-Us), tổng tiền gửi CASA và tiền dự trữ tại Ngân hàng Trung ương biến động 0 đồng.",
+        "lifeNote": "Bạn đã trả xong 20 triệu đồng nợ tiền hàng, còn ngân hàng không tốn một đồng thanh khoản dự trữ nào."
+      }
+    },
+    {
+      "when": "10:01 · Giây 01–02 (Off-Us)",
+      "sub": "qua chuyển mạch & ký quỹ",
+      "title": "Khác ngân hàng (Off-Us): Bản tin chạy qua chuyển mạch và kiểm hạn mức ký quỹ bảo chứng",
+      "say": [
+        "Một phút sau, bạn chuyển tiếp 20.000.000 đồng cho nhà cung cấp thứ hai mở tài khoản ở [[ngân hàng khác|offus]] qua kênh [[chuyển tiền nhanh 24/7|interbank247]].",
+        "Ngân hàng của bạn trừ 20.000.000 đồng trên số dư của bạn rồi bắn bản tin sang [[tổ chức chuyển mạch|interbank]] liên ngân hàng.",
+        "Tại giây thứ 2, tổ chức chuyển mạch kiểm tra [[hạn mức ký quỹ bảo chứng|prefund]] mà ngân hàng bạn đã đặt cọc sẵn, trừ lùi 20.000.000 đồng hạn mức khả dụng trong phiên rồi đóng dấu bảo lãnh chuyển tiếp sang Ngân hàng người nhận."
+      ],
+      "lit": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tags": {
+        "1": [
+          "trừ −20.000.000 đ trên sổ",
+          "minus"
+        ],
+        "2": [
+          "kiểm ký quỹ bảo chứng 24/7",
+          "plain"
+        ],
+        "3": [
+          "nhận lệnh đã bảo chứng",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "fx": [
+        "phone",
+        "hold",
+        "wire"
+      ],
+      "life": "Ngân hàng người nhận dám cộng tiền ngay sau 3 giây vào lúc nửa đêm là nhờ Ngân hàng của bạn đã đặt cọc sẵn tài sản bảo chứng ở đầu phiên.",
+      "sys": "Luồng thông tin (wire): Bản tin ISO 8583 / ISO 20022 đi qua Tổ chức chuyển mạch, đối chiếu hạn mức nợ ròng có ký quỹ bảo chứng (Pre-funded Net Debit Cap) trước khi định tuyến tới ngân hàng thụ hưởng.",
+      "ledger": null
+    },
+    {
+      "when": "10:01 · Giây 03 (Off-Us)",
+      "sub": "ghi Có ứng trước sau 3 giây",
+      "title": "Giây thứ 3: Ngân hàng người nhận ghi Có +20 triệu đồng trước khi tiền dự trữ kịp chạy",
+      "say": [
+        "Ở giây thứ 3, vừa nhận bản tin có dấu bảo chứng từ tổ chức chuyển mạch, Ngân hàng người nhận lập tức [[ghi có|credit]] +20.000.000 đồng vào tài khoản của đối tác.",
+        "Điện thoại đối tác báo ting-ting +20.000.000 đồng và họ có thể rút hoặc chuyển đi tiêu ngay lập tức, dù dưới tầng hầm giữa hai ngân hàng chưa có đồng tiền dự trữ nào di chuyển.",
+        "Kế toán bên nhận tiền mở sổ ghi tăng Tiền gửi không kỳ hạn (Nợ TK 112: 20.000.000 đồng) và xoá nợ Phải thu của khách hàng (Có TK 131: 20.000.000 đồng)."
+      ],
+      "lit": [
+        0,
+        2,
+        3
+      ],
+      "tags": {
+        "3": [
+          "ghi Có ngay +20.000.000 đ",
+          "plus"
+        ],
+        "0": [
+          "đối tác nhận đủ 20 triệu",
+          "plus"
+        ]
+      },
+      "msgs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "fx": [
+        "phone",
+        "board"
+      ],
+      "life": "Với bạn và người nhận, giao dịch 20 triệu đồng đã hoàn tất 100% ở giây thứ 3; nhưng giữa hai ngân hàng, khoản nợ 20 triệu đồng mới vừa được ghi vào sổ chờ cuối phiên.",
+      "sys": "Sổ doanh nghiệp nhận tiền (TT 99/2025/TT-BTC): Nợ TK 112 (Tiền gửi không kỳ hạn: 20.000.000) / Có TK 131 (Phải thu của khách hàng: 20.000.000).",
+      "ledger": {
+        "book": "Sổ doanh nghiệp nhận tiền từ khách hàng (TT 99/2025)",
+        "assume": "Nhà cung cấp nhận thông báo ghi Có +20.000.000 đồng ở giây thứ 3 từ khoản tiền hàng khách mua chịu trước đó.",
+        "rows": [
+          [
+            "Nợ",
+            "112",
+            "Tiền gửi không kỳ hạn",
+            "tài khoản thanh toán báo Có +20.000.000 đồng khả dụng tức thời",
+            "Tiền thật cộng vào tài khoản của đơn vị bán",
+            20000000
+          ],
+          [
+            "Có",
+            "131",
+            "Phải thu của khách hàng",
+            "xoá khoản công nợ thương mại mà đối tác mua hàng đã thanh toán",
+            "Khách mua hàng đã trả hết khoản nợ 20 triệu đồng",
+            20000000
+          ]
+        ],
+        "note": "Σ Debit = 20.000.000 = Σ Credit. Doanh nghiệp nhận tiền hạch toán ngay vào TK 112 ở giây thứ 3 mà không cần chờ phiên quyết toán liên ngân hàng cuối ngày.",
+        "lifeNote": "Người nhận đã có 20 triệu đồng thật trong tài khoản từ giây thứ 3, còn việc thanh toán tiền dự trữ là chuyện nội bộ giữa hai ngân hàng vào cuối phiên."
+      }
+    },
+    {
+      "when": "16:00 · Cuối phiên",
+      "sub": "bù trừ ròng 30 tỷ đồng",
+      "title": "Quyết toán ròng (Net Settlement) tại Ngân hàng Trung ương: Gom 970 tỷ đồng thành 30 tỷ đồng",
+      "say": [
+        "Đến giờ chốt phiên chiều (ví dụ 16:00), [[tổ chức chuyển mạch|interbank]] cộng gộp toàn bộ các lệnh chuyển nhanh hai chiều trong ngày giữa hai ngân hàng để [[quyết toán ròng|netting]].",
+        "Giả sử cả phiên khách từ Ngân hàng của bạn chuyển sang Ngân hàng kia 500 tỷ đồng (gồm 20 triệu của bạn), còn khách bên kia chuyển ngược về 470 tỷ đồng: đặt lên bàn cân bù trừ, Ngân hàng của bạn chỉ phải trả ròng đúng 30 tỷ đồng.",
+        "Tại Ngân hàng Trung ương, chỉ có đúng một lệnh [[quyết toán|settlement]] 30.000.000.000 đồng chạy từ tài khoản dự trữ của Ngân hàng bạn sang Ngân hàng người nhận — tiết kiệm 940 tỷ đồng thanh khoản dự trữ (96,9% tổng giao dịch gộp 970 tỷ đồng)."
+      ],
+      "lit": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "tags": {
+        "2": [
+          "bù trừ: 500 tỷ − 470 tỷ",
+          "plain"
+        ],
+        "1": [
+          "cắt dự trữ −30 tỷ đồng",
+          "minus"
+        ],
+        "4": [
+          "quyết toán ròng 30 tỷ đ",
+          "plain"
+        ],
+        "3": [
+          "nhận dự trữ +30 tỷ đồng",
+          "plus"
+        ]
+      },
+      "msgs": [
+        [
+          2,
+          4
+        ],
+        [
+          1,
+          4,
+          "money"
+        ],
+        [
+          4,
+          3,
+          "money"
+        ]
+      ],
+      "fx": [
+        "release",
+        "wire",
+        "split",
+        "two",
+        "pool"
+      ],
+      "life": "Nhờ gom hàng trăm nghìn lệnh nhỏ thành một con số chênh lệch ròng cuối phiên, các ngân hàng tiết kiệm được gần 97% tiền dự trữ phải điều chuyển và có dư địa miễn phí chuyển khoản 0 đồng cho bạn.",
+      "sys": "Quyết toán ròng có kỳ hạn (Deferred Net Settlement — DNS): Tổng giao dịch gộp 2 chiều = 500 tỷ + 470 tỷ = 970 tỷ đồng; nghĩa vụ quyết toán ròng tại Ngân hàng Trung ương = 500 tỷ − 470 tỷ = 30 tỷ đồng (tiết kiệm 940 tỷ đồng thanh khoản).",
+      "ledger": null
+    },
+    {
+      "when": "Chiều 31/12 · Ngoại lệ",
+      "sub": "RTGS tiền tỷ & treo TK 113",
+      "title": "Ngoại lệ cuối kỳ: Lệnh tiền tỷ đi qua RTGS và lệnh nghẽn đối soát treo trên TK 113",
+      "say": [
+        "Nếu doanh nghiệp chuyển một lệnh giá trị lớn vượt trần chuyển nhanh 24/7 (ví dụ 10 tỷ đồng), lệnh đó sẽ không chờ bù trừ ròng mà đi thẳng qua hệ thống [[thanh toán tổng tức thời từng lệnh|rtgs]] (RTGS) tại Ngân hàng Trung ương.",
+        "Còn nếu chiều 31/12 sát giờ khoá sổ năm, công ty bạn chuyển khoản liên ngân hàng 20.000.000 đồng mà lệnh bị treo tra soát khiến nhà cung cấp chưa nhận được tiền trong ngày 31/12, kế toán không được ghi giảm ngay nợ phải trả TK 331.",
+        "Theo Thông tư 99/2025/TT-BTC, khoản 20.000.000 đồng đã trừ khỏi TK 112 nhưng chưa tới đích phải treo tạm trên Nợ TK 113 (Tiền đang chuyển), chờ sang ngày làm việc đầu năm mới khi hoàn tất mới kết chuyển Nợ TK 331 / Có TK 113."
+      ],
+      "lit": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "tags": {
+        "1": [
+          "đã trừ TK 112: 20 triệu",
+          "minus"
+        ],
+        "2": [
+          "treo đối soát: TK 113",
+          "plain"
+        ],
+        "4": [
+          "lệnh ≥ 10 tỷ đi thẳng RTGS",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          4,
+          "money"
+        ]
+      ],
+      "fx": [
+        "hold",
+        "wire",
+        "two"
+      ],
+      "life": "Tài khoản của bạn đã báo trừ tiền vào chiều 31/12 chưa chắc có nghĩa là đối tác đã nhận được tiền trong năm đó — hãy nhìn vào trạng thái hoàn tất đối soát liên ngân hàng.",
+      "sys": "Theo TT 99/2025/TT-BTC, tiền đã cắt khỏi TK 112 nhưng cuối kỳ chưa nhận được xác nhận báo Có cho bên thụ hưởng được hạch toán Nợ TK 113 (Tiền đang chuyển: 20.000.000) / Có TK 112 (Tiền gửi không kỳ hạn: 20.000.000).",
+      "ledger": {
+        "book": "Sổ kế toán doanh nghiệp chiều 31/12 khi lệnh liên ngân hàng treo qua đêm (TT 99/2025)",
+        "assume": "Chiều 31/12, doanh nghiệp chuyển khoản liên ngân hàng 20.000.000 đồng trả nhà cung cấp; ngân hàng gửi đã báo Nợ trừ TK 112 nhưng do nghẽn đối soát cuối năm nên hết ngày 31/12 ngân hàng nhận vẫn chưa báo Có cho nhà cung cấp.",
+        "rows": [
+          [
+            "Nợ",
+            "113",
+            "Tiền đang chuyển",
+            "khoản tiền đã trích khỏi TK 112 nhưng đang chờ hoàn tất đối soát liên ngân hàng cuối kỳ",
+            "Ghi nhận 20 triệu đồng đang trên đường chuyển",
+            20000000
+          ],
+          [
+            "Có",
+            "112",
+            "Tiền gửi không kỳ hạn",
+            "sao kê ngân hàng ngày 31/12 đã trừ 20.000.000 đồng theo lệnh chuyển đi",
+            "Số dư tài khoản thanh toán giảm 20 triệu đồng",
+            20000000
+          ]
+        ],
+        "note": "Σ Debit = 20.000.000 = Σ Credit. Sang ngày làm việc đầu năm mới khi lệnh hoàn tất, kế toán mới ghi Nợ TK 331 (Phải trả cho người bán: 20.000.000) / Có TK 113 (Tiền đang chuyển: 20.000.000).",
+        "lifeNote": "Treo khoản tiền vào TK 113 giúp bảng cân đối kế toán ngày 31/12 vừa khớp đúng số dư sao kê ngân hàng, vừa phản ánh trung thực việc nợ nhà cung cấp chỉ xoá khi tiền tới đích."
+      }
+    }
+  ]
+}
 };
 
 /* ═══ Taxonomy 3 cấp: Danh mục (CATEGORIES) → Chủ đề/Bài (topics) → Đoạn + Mặt cắt (STORIES[k].beats/houses) ═══
@@ -4490,7 +5326,7 @@ const STORIES = {
 const CATEGORIES = [
   {id:"c1",name:"Lương & Ngân hàng",c:"#3c5a73",topics:[
     {story:"pay"},
-    {t:"Chuyển khoản cùng ngân hàng và khác ngân hàng: tiền đi đường nào?",status:"upcoming"},
+    {story:"offus"},
     {t:"Lãi tiền gửi có kỳ hạn: ngân hàng trả bạn bằng tiền của ai?",status:"upcoming"}]},
   {id:"c2",name:"Thẻ, QR & Thanh toán",c:"#8a4a2b",topics:[
     {story:"card"},
@@ -5555,6 +6391,41 @@ const CHAP_FIGS = {
       title: "Cầu nối Lợi nhuận (+2 tỷ) sang Dòng tiền OCF (−950 triệu) và 3 van giải phóng tiền mặt đang ngủ",
       desc: "Một đồng lợi nhuận trên TK 421 chỉ thực sự trở thành tiền tươi khi doanh nghiệp rút ngắn [[vòng quay tiền mặt|ccc]]: thu hồi công nợ TK 131 theo tiến độ hoặc chiết khấu thanh toán sớm, tối ưu tồn kho TK 156 và đồng bộ kỳ hạn trả nhà cung cấp TK 331."
     }
+  ],
+  offus: [
+    null,
+    {
+      file: "offus-fig-1.jpg",
+      beat: 0,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · CHUYỂN KHOẢN CÙNG NGÂN HÀNG (ON-US BOOK TRANSFER)",
+      alt: "Mặt cắt chuyển khoản 20.000.000 đồng cùng ngân hàng On-Us: ngân hàng chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái nội bộ, tổng bể vốn CASA và tiền dự trữ tại Ngân hàng Trung ương biến động 0 đồng",
+      title: "Chuyển khoản 20.000.000 đ cùng ngân hàng (On-Us): Vì sao 0 đồng tiền dự trữ nào rời khỏi toà nhà?",
+      desc: "Khi người gửi và người nhận mở tài khoản tại [[cùng một ngân hàng|onus]], máy chủ chỉ sửa hai dòng nợ phải trả trên cùng một cuốn sổ cái nội bộ (sổ doanh nghiệp ghi Nợ TK 331 / Có TK 112: 20.000.000 đ theo TT 99/2025) — giữ nguyên 100% bể vốn [[CASA|casa]] ~0,1%/năm."
+    },
+    {
+      file: "offus-fig-2.jpg",
+      beat: 1,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · HẠN MỨC KÝ QUỸ BẢO CHỨNG & 3 GIÂY GHI CÓ TỨC THỜI",
+      alt: "Mặt cắt chuyển khoản 20.000.000 đồng khác ngân hàng Off-Us ở giây thứ 3: Tổ chức chuyển mạch kiểm tra Hạn mức ký quỹ bảo chứng của ngân hàng gửi để Ngân hàng người nhận ghi Có +20.000.000 đồng ngay lập tức",
+      title: "Chuyển khoản khác ngân hàng (Off-Us): Bí mật của Hạn mức ký quỹ bảo chứng giúp ghi Có ngay sau 3 giây",
+      desc: "Ở giây thứ 2, [[tổ chức chuyển mạch|interbank]] kiểm tra và trừ lùi [[hạn mức ký quỹ bảo chứng|prefund]] mà Ngân hàng của bạn đã đặt cọc sẵn; nhờ con dấu bảo lãnh 100% này, ở giây thứ 3 Ngân hàng người nhận ghi Có ngay +20.000.000 đ (Nợ TK 112 / Có TK 131) trước khi tiền dự trữ kịp chạy."
+    },
+    {
+      file: "offus-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · BÙ TRỪ RÒNG (NET SETTLEMENT) 30 TỶ ĐỒNG CUỐI PHIÊN",
+      alt: "Mặt cắt phiên bù trừ ròng cuối ngày tại Ngân hàng Trung ương: gom 500 tỷ đồng chiều đi và 470 tỷ đồng chiều về (tổng gộp 970 tỷ đồng) thành một lệnh quyết toán ròng duy nhất 30 tỷ đồng, tiết kiệm 940 tỷ đồng thanh khoản",
+      title: "Gom 970 tỷ đồng giao dịch hai chiều (500 tỷ đi − 470 tỷ về) thành một lệnh quyết toán ròng 30 tỷ đồng",
+      desc: "Đến giờ chốt phiên, hệ thống [[quyết toán ròng|netting]] lấy 500 tỷ đồng chiều đi trừ 470 tỷ đồng chiều về và chỉ cắt chuyển đúng 30 tỷ đồng tiền dự trữ tại Ngân hàng Trung ương — giải phóng 940 tỷ đồng thanh khoản dự trữ (96,9% tổng giao dịch gộp)."
+    },
+    {
+      file: "offus-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · ĐẠI LỘ RTGS TIỀN TỶ & LỆNH TREO TK 113 CHIỀU 31/12",
+      alt: "Mặt cắt hai tình huống ngoại lệ: giao dịch lô lớn 10 tỷ đồng đi thẳng qua hệ thống RTGS từng lệnh tại Ngân hàng Trung ương, và lệnh liên ngân hàng nghẽn đối soát chiều 31/12 treo trên TK 113 Tiền đang chuyển",
+      title: "Khi nào tiền đi thẳng từng lệnh qua RTGS (10 tỷ đ) và khi nào phải treo trên TK 113 (Tiền đang chuyển)?",
+      desc: "Các lệnh giá trị lớn vượt trần 24/7 đi thẳng qua đại lộ [[RTGS|rtgs]] từng lệnh tại Ngân hàng Trung ương; còn nếu lệnh [[Off-Us|offus]] 20.000.000 đ chiều 31/12 đã trừ TK 112 nhưng bị treo đối soát qua đêm, kế toán phải hạch toán Nợ TK 113 (Tiền đang chuyển) / Có TK 112 theo TT 99/2025."
+    }
   ]
 };
 function renderChapHTML(sKey, c, i){
@@ -5784,8 +6655,8 @@ function renderAll(){
   renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
-  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash";
-  $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash"].includes(S.story);
+  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash"; $("#tryOffus").hidden = S.story!=="offus";
+  $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash","offus"].includes(S.story);
   $("#stageTitle").textContent = STORIES[S.story].title;
   $("#draftNote").hidden = STORIES[S.story].status === "published";
   renderCMS();
@@ -5970,7 +6841,21 @@ $("#amt").oninput = calcCard; $("#sal").oninput = calcPay; $("#keep").oninput = 
 $("#ip").oninput = calcInst; $("#ic").oninput = calcInst;
 $("#mpBal").oninput = calcMin; $("#mpPct").oninput = calcMin;
 $("#qrRev").oninput = calcQr; $("#qrFeePct").oninput = calcQr;
+function calcOffus(){
+  const outAmt = +$("#ouOut").value, inAmt = +$("#ouIn").value;
+  const gross = outAmt + inAmt, net = Math.abs(outAmt - inAmt), saved = gross - net;
+  const pctSaved = gross > 0 ? (saved / gross * 100).toFixed(1).replace(".", ",") : "0,0";
+  $("#ouOutLbl").textContent = vnd(outAmt);
+  $("#ouInLbl").textContent = vnd(inAmt);
+  $("#ouGross").textContent = vnd(gross);
+  $("#ouSaved").textContent = vnd(saved) + ` (${pctSaved}%)`;
+  $("#ouNet").textContent = net === 0 ? "0 đồng (cân bằng tuyệt đối)" : (outAmt > inAmt ? "A chuyển B: " : "B chuyển A: ") + vnd(net);
+  $("#ouNote").textContent = net === 0
+    ? `Hai chiều A → B và B → A cân bằng đúng ${vnd(outAmt)}: cuối phiên 0 đồng dự trữ tại Ngân hàng Trung ương phải di chuyển (tiết kiệm 100% trên tổng gộp ${vnd(gross)}).`
+    : `Thay vì chuyển gộp ${vnd(gross)}, cơ chế bù trừ ròng (DNS) chỉ cắt chuyển đúng ${vnd(net)} dự trữ tại Ngân hàng Trung ương — giải phóng ${vnd(saved)} (${pctSaved}%) thanh khoản.`;
+}
 $("#pcAr").oninput = calcProfit; $("#pcInv").oninput = calcProfit;
+$("#ouOut").oninput = calcOffus; $("#ouIn").oninput = calcOffus;
 
 /* ── Thanh 1 hàng 48px (Layout 1A: Split-Pill + Overlay Mục lục 2 cột + ⌘K + Trạm cuối bài) ── */
 function renderNav(){
@@ -6523,6 +7408,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Chuẩn xác: Mức tăng tài sản ngắn hạn phi tiền mặt (Phải thu TK 131 +2,5 tỷ và Tồn kho TK 156 +950 triệu) làm giảm dòng tiền mặt, đưa OCF về −950 triệu đồng; cộng với 1 tỷ đồng tiền mặt đầu kỳ nên TK 112 cuối kỳ chỉ còn 50 triệu đồng."
     }
+  ],
+  offus: [
+    {
+      id: "offus-q1.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Khi bước vào giờ chốt phiên bù trừ, tổ chức chuyển mạch đặt hai con số lên bàn cân: 500 tỷ đồng chiều đi trừ 470 tỷ đồng chiều về chỉ còn chênh lệch ròng đúng 30.000.000.000 đồng (30 tỷ đồng)... Nhờ cơ chế bù trừ ròng, 940 tỷ đồng thanh khoản dự trữ (tương đương 96,9% tổng giao dịch gộp hai chiều, hay 94,0% chiều chuyển đi) được giải phóng hoàn toàn khỏi việc phải dịch chuyển qua lại.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Khi bạn chuyển 20.000.000 đ cùng ngân hàng (On-Us) và khác ngân hàng (Off-Us qua chuyển tiền nhanh 24/7), cả hai người nhận đều ting-ting sau 3 giây. Giả sử trong phiên, tổng lệnh khách chuyển từ Ngân hàng A sang Ngân hàng B là 500 tỷ đồng và chiều ngược lại từ B về A là 470 tỷ đồng, tiền dự trữ tại Ngân hàng Trung ương thực sự di chuyển như thế nào?",
+      opts: [
+        "Lệnh On-Us chỉ sửa 2 dòng nợ nội bộ (0 đ dự trữ di chuyển); còn lệnh Off-Us ghi Có ở giây thứ 3 nhờ hạn mức ký quỹ bảo chứng, và cuối phiên Ngân hàng A chỉ trích chuyển phần chênh lệch ròng 30 tỷ đồng (500 tỷ − 470 tỷ) sang Ngân hàng B tại Ngân hàng Trung ương (tiết kiệm 940 tỷ đồng thanh khoản gộp).",
+        "Ngân hàng Trung ương phải chuyển gộp đủ 970 tỷ đồng tiền dự trữ cho từng lệnh nhỏ ngay ở giây thứ 3.",
+        "Lệnh On-Us bắt buộc phải chuyển 20.000.000 đ qua Ngân hàng Trung ương, còn lệnh Off-Us thì không cần quyết toán."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Giao dịch On-Us chỉ đổi chủ nợ trên cùng cuốn sổ cái nội bộ (giữ nguyên 100% bể vốn CASA); còn giao dịch Off-Us 24/7 tách bản tin ghi Có tức thời (nhờ hạn mức ký quỹ bảo chứng) khỏi phiên quyết toán ròng (500 tỷ − 470 tỷ = 30 tỷ đồng) tại Ngân hàng Trung ương."
+    },
+    {
+      id: "offus-q2.v1",
+      sectionId: "pk-pro-jr",
+      source_quote: "Theo Thông tư 99/2025/TT-BTC, vì nghĩa vụ trả nợ chưa hoàn tất tại thời điểm khoá sổ, kế toán không được ghi giảm ngay khoản Phải trả cho người bán (TK 331) mà phải hạch toán khoản 20.000.000 đồng đó vào Nợ TK 113 (Tiền đang chuyển) / Có TK 112 (Tiền gửi không kỳ hạn). Chỉ sang ngày làm việc kế tiếp khi ngân hàng đối tác xác nhận đã ghi Có cho nhà cung cấp (hoặc khi hoàn tất tra soát), kế toán mới kết chuyển Nợ TK 331 / Có TK 113 để khép lại trọn vẹn hành trình của 20 triệu đồng.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Chiều 31/12 sát giờ khoá sổ năm, doanh nghiệp phát lệnh chuyển khoản liên ngân hàng (Off-Us) 20.000.000 đ trả tiền hàng cho nhà cung cấp. Ngân hàng của doanh nghiệp đã trừ 20.000.000 đ trên sao kê TK 112, nhưng do lệnh bị treo đối soát liên ngân hàng nên hết ngày 31/12 nhà cung cấp vẫn chưa nhận được tiền. Theo Thông tư 99/2025/TT-BTC, kế toán hạch toán tại ngày 31/12 như thế nào?",
+      opts: [
+        "Ghi Debit TK 113 (Tiền đang chuyển: 20.000.000 đ) / Credit TK 112 (Tiền gửi không kỳ hạn: 20.000.000 đ); sang đầu năm sau khi ngân hàng đối tác báo Có cho nhà cung cấp mới ghi Debit TK 331 / Credit TK 113.",
+        "Ghi giảm ngay nợ phải trả nhà cung cấp (Debit TK 331: 20.000.000 đ) trong ngày 31/12 dù tiền chưa tới tài khoản của họ.",
+        "Ghi vào chi phí bất thường trong năm vì tiền đã mất."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Khoản tiền đã cắt khỏi TK 112 nhưng đến thời điểm khoá sổ vẫn đang trên đường đối soát liên ngân hàng được phản ánh vào TK 113 (Tiền đang chuyển) và chỉ kết chuyển giảm nợ TK 331 khi hoàn tất thanh toán."
+    }
   ]
 };
 
@@ -6810,7 +7727,7 @@ window.__wmsQA = { loadWmsProgress, saveWmsProgress, emitWmsTelemetry, answerQui
 /* ── khởi động ─────────────────────────────── */
 // bài mở đầu: "card" nếu người đọc này được thấy nó, không thì bài đầu tiên theo thứ tự danh mục
 if (!visible(S.story) && order().length) S.story = order()[0];
-applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit();
+applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus();
 setTimeout(()=>{ $("#sms").classList.add("in"); $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);
 </script>
 </body>
