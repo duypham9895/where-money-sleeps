@@ -291,10 +291,21 @@ def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci
                 errors.append(f"File MP4 v6.5 thiếu hoặc quá nhỏ: {mp4_path}")
         if not srt_path.is_file() or srt_path.stat().st_size < 200:
             errors.append(f"File phụ đề .srt thiếu hoặc rỗng: {srt_path}")
+    if 'const effFmt = scope === "stage" ? "long" : fmt;' not in proto_text:
+        errors.append("prototype.html chưa khoá chỉ hiển thị Video Dài 16:9 trên sân khấu website (scope === 'stage')")
     for sid in sorted(seen_sids):
         manifest_path = YT_DIR / f"{sid}-elevenlabs-youtube-manifest.json"
         if not manifest_path.is_file() or manifest_path.stat().st_size < 100:
             errors.append(f"File manifest thiếu hoặc rỗng: {manifest_path}")
+            continue
+        try:
+            mf = json.loads(manifest_path.read_text(encoding="utf-8"))
+            short_spec = ((mf.get("formats") or {}).get("short") or {}).get("youtubeUploadSpec") or {}
+            expected_url = f"https://where-money-sleeps.duypham9895.workers.dev/?story={sid}"
+            if short_spec.get("articleUrl") != expected_url or expected_url not in str(short_spec.get("description") or ""):
+                errors.append(f"Manifest {sid} thiếu URL bài viết chính xác ({expected_url}) trong description của Video Ngắn")
+        except Exception as exc:
+            errors.append(f"Lỗi đọc manifest {manifest_path}: {exc}")
     return errors
 
 

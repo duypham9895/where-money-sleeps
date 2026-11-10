@@ -60,6 +60,7 @@ DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
 DEFAULT_VEO_FAST_MODEL = "veo-3.1-fast-generate-preview"
 DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
 DEFAULT_YT_URL = "https://www.youtube.com/@WhereMoneySleeps"
+DEFAULT_SITE_BASE_URL = "https://where-money-sleeps.duypham9895.workers.dev"
 DEFAULT_REF_IMAGES = [
     "public/brand/youtube-banner-2560x1440-safezone.jpg",
     "public/brand/youtube-avatar-1024x1024.png",
@@ -133,7 +134,7 @@ def run_auth_youtube(port: int = 8765) -> int:
     auth_uri = cfg.get("auth_uri", "https://accounts.google.com/o/oauth2/auth")
     token_uri = cfg.get("token_uri", "https://oauth2.googleapis.com/token")
     redirect_uri = f"http://localhost:{port}"
-    scopes = "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly"
+    scopes = "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly"
 
     params = urllib.parse.urlencode(
         {
@@ -403,16 +404,7 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
     scenes = fobj.get("scenes") or []
     raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
     title = f"{raw_title} #Shorts" if fmt == "short" and "#Shorts" not in raw_title else raw_title
-    chapters = build_youtube_chapters(scenes, raw_title)
-    desc = (
-        f"{story.get('teaser', '')}\n\n"
-        f"Bài khảo cứu tương tác đầy đủ (Mặt cắt Kiến trúc Đêm Diorama v3.0 & Sổ kế toán kép):\n"
-        f"Where Money Sleeps ({DEFAULT_YT_HANDLE})\n\n"
-        f"Mục lục chương:\n{chapters}\n\n"
-        f"---\n"
-        f"Lưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\n"
-        f"Where Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
-    )
+    desc = build_youtube_description(story_key, story, fmt)
     privacy = "unlisted" if story.get("status") != "published" else "unlisted"
     meta_body = json.dumps(
         {
@@ -634,6 +626,11 @@ def parse_start_mmss(time_range: str) -> str:
     return m.group(1) if m else "0:00"
 
 
+def build_article_url(story_key: str) -> str:
+    base = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
+    return f"{base}/?story={urllib.parse.quote(story_key)}"
+
+
 def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
     lines = [f"0:00 Mở đầu — {story_title}"]
     for idx, sc in enumerate(scenes):
@@ -643,6 +640,80 @@ def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
         if t0 != "0:00":
             lines.append(f"{t0} {label}")
     return "\n".join(lines)
+
+
+def build_youtube_description(story_key: str, story: dict, fmt: str) -> str:
+    vid = story.get("videoScript") or {}
+    fobj = vid.get(fmt) or {}
+    scenes = fobj.get("scenes") or []
+    raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
+    chapters = build_youtube_chapters(scenes, raw_title)
+    article_url = build_article_url(story_key)
+    long_yt_id = str((vid.get("long") or {}).get("youtubeId") or "").strip()
+    long_line = f"▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/{long_yt_id}\n" if (fmt == "short" and long_yt_id) else ""
+    return (
+        f"📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: {article_url}\n"
+        f"{long_line}\n"
+        f"{story.get('teaser', '')}\n\n"
+        f"Mục lục chương:\n{chapters}\n\n"
+        f"---\n"
+        f"Bài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): {article_url}\n"
+        f"Kênh: Where Money Sleeps ({DEFAULT_YT_HANDLE})\n"
+        f"Lưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\n"
+        f"Where Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+    )
+
+
+def step_5c_update_youtube_description(story_key: str, story: dict, fmt: str) -> str:
+    """Cập nhật snippet.description (kèm URL chính xác của bài viết) trên YouTube qua videos.update."""
+    step_5_0_brand_safety_audit(story_key, story)
+    vid = story.get("videoScript") or {}
+    fobj = vid.get(fmt) or {}
+    yt_id = str(fobj.get("youtubeId") or "").strip()
+    if not YT_ID_RE.match(yt_id):
+        raise ValueError(f"Bài '{story_key}' ({fmt}) chưa có youtubeId hợp lệ để cập nhật description")
+    access_token = get_youtube_access_token()
+    raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
+    title = f"{raw_title} #Shorts" if fmt == "short" and "#Shorts" not in raw_title else raw_title
+    desc = build_youtube_description(story_key, story, fmt)
+    body = json.dumps(
+        {
+            "id": yt_id,
+            "snippet": {
+                "title": title[:100],
+                "description": desc,
+                "tags": ["WhereMoneySleeps", "TaiChinhCaNhan", "KeToan", "TraGop0PhanTram", "Shorts" if fmt == "short" else "Explainer"],
+                "categoryId": "27",
+                "defaultLanguage": "vi",
+                "defaultAudioLanguage": "vi",
+            },
+        },
+        ensure_ascii=False,
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        "https://www.googleapis.com/youtube/v3/videos?part=snippet",
+        data=body,
+        headers={
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        method="PUT",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+        out_id = str(res_data.get("id") or yt_id).strip()
+        print(f"[5C Update Desc PASS] {story_key} ({fmt} · {out_id}) -> {build_article_url(story_key)}")
+        return out_id
+    except urllib.error.HTTPError as exc:
+        err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
+            print(
+                f"[5C Update Desc INFO] {story_key} ({fmt} · {yt_id}): Đã ghi description chuẩn kèm URL {build_article_url(story_key)} vào manifest. "
+                "Để cập nhật trực tiếp video cũ đã tải lên trên YouTube qua videos.update, chạy 1 lần `python3 -I scripts/wms-media-pipeline.py --auth-youtube` để cấp thêm scope `youtube` (mọi video upload mới qua `videos.insert` đã tự động đính kèm URL này ngay từ đầu)."
+            )
+            return yt_id
+        raise RuntimeError(f"YouTube videos.update trả về HTTP {exc.code}: {err_raw}") from exc
 
 
 def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
@@ -790,12 +861,14 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
                 "channelHandle": yt_handle,
                 "channelUrl": yt_url,
+                "articleUrl": build_article_url(story_key),
                 "categoryId": "27",
                 "defaultLanguage": "vi",
                 "privacyStatus": "unlisted" if story.get("status") != "published" else "public",
                 "selfDeclaredMadeForKids": False,
                 "containsSyntheticMedia": True,
                 "chaptersDescription": build_youtube_chapters(scenes, str(fobj.get("title") or story.get("title") or "")),
+                "description": build_youtube_description(story_key, story, fmt),
             },
             "scenes": scene_plan,
         }
@@ -904,6 +977,8 @@ def main() -> int:
     ap.add_argument("--bind-short-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Shorts 9:16 và nhúng vào bài")
     ap.add_argument("--upload-short", action="store_true", help="Upload dist/youtube/<story>-short-9x16.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
     ap.add_argument("--upload-long", action="store_true", help="Upload dist/youtube/<story>-long-16x9.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
+    ap.add_argument("--update-youtube-desc", action="store_true", help="Cập nhật description chứa URL chính xác của bài viết lên YouTube cho video ngắn (và dài)")
+    ap.add_argument("--all-stories", action="store_true", help="Chạy cho toàn bộ 7 bài trong STORIES")
     ap.add_argument(
         "--embed-status",
         choices=sorted(VALID_EMBED_STATUS),
@@ -918,14 +993,27 @@ def main() -> int:
     if args.auth_youtube:
         return run_auth_youtube()
 
-    if not args.story:
-        ap.error("Cần truyền `--story <slug>` (hoặc `--check-env` / `--auth-youtube`)")
-
     src = args.html.read_text(encoding="utf-8")
     stories = extract_stories(src)
+
+    if args.all_stories:
+        for sk in stories:
+            if args.update_youtube_desc:
+                step_5c_update_youtube_description(sk, stories[sk], "short")
+                step_5c_update_youtube_description(sk, stories[sk], "long")
+            step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode)
+        return 0
+
+    if not args.story:
+        ap.error("Cần truyền `--story <slug>` (hoặc `--all-stories` / `--check-env` / `--auth-youtube`)")
+
     if args.story not in stories:
         print(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES", file=sys.stderr)
         return 1
+
+    if args.update_youtube_desc:
+        step_5c_update_youtube_description(args.story, stories[args.story], "short")
+        step_5c_update_youtube_description(args.story, stories[args.story], "long")
 
     if args.upload_short:
         mp4_short = DIST_DIR / f"{args.story}-short-9x16.mp4"

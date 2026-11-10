@@ -6318,7 +6318,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
@@ -6529,7 +6529,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
@@ -6747,7 +6747,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-08T17:08:03+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
@@ -6958,7 +6958,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-09T22:23:42+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
@@ -7162,7 +7162,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-09T23:23:09+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
@@ -7366,7 +7366,7 @@ window.WMS_STUDIO_DATA = {
       "financialSpecialistAudit": {
         "specialist": "tai-chinh-reviewer",
         "kbFile": "knowledge/finance-kb.json",
-        "kbLastCrawledAt": "2026-11-10T10:03:59+07:00",
+        "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
         "checks": [
           "F1_banking_payment_credit_mechanics",
           "F2_financial_math_irr_eir_ledger",
