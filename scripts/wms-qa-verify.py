@@ -254,6 +254,23 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
     # Check CSP connect-src 'none' on studio.html
     if "connect-src 'none'" not in studio_text:
         errors.append("studio.html thiếu khoá bảo mật CSP connect-src 'none'")
+
+    # Check Cloudflare Worker & wrangler.jsonc privacy invariants (AC-55, AC-56)
+    worker_path = ROOT / "cloudflare" / "worker.js"
+    wrangler_path = ROOT / "wrangler.jsonc"
+    schema_path = ROOT / "cloudflare" / "schema.sql"
+    for req_p in (worker_path, wrangler_path, schema_path):
+        if not req_p.is_file():
+            errors.append(f"Thiếu file hạ tầng deploy Cloudflare: {req_p}")
+    if worker_path.is_file():
+        w_txt = worker_path.read_text(encoding="utf-8")
+        for forbidden in ("CF-Connecting-IP", "User-Agent", "request.cf", "Set-Cookie", "console.log(request)"):
+            if forbidden.lower() in w_txt.lower():
+                errors.append(f"cloudflare/worker.js vi phạm AC-55/AC-56 (chứa {forbidden})")
+    if wrangler_path.is_file():
+        wr_txt = wrangler_path.read_text(encoding="utf-8")
+        if '"enabled": false' not in wr_txt:
+            errors.append("wrangler.jsonc thiếu observability.enabled = false (AC-56)")
     return errors
 
 

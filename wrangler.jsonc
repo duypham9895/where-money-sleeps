@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "where-money-sleeps",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2025-04-01",
+  "observability": {
+    "enabled": false,
+    "logs": {
+      "enabled": false
+    }
+  },
+  "assets": {
+    "directory": "./dist/site",
+    "binding": "ASSETS"
+  }
+}
