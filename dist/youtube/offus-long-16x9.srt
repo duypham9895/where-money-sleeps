@@ -1,0 +1,191 @@
+1
+00:00:00,000 --> 00:00:06,030
+Mười giờ sáng, bạn mở điện thoại chuyển hai khoản tiền hàng, mỗi khoản đúng hai mươi triệu đồng.
+
+2
+00:00:06,030 --> 00:00:10,110
+Khoản thứ nhất gửi cho người đối tác dùng cùng ngân hàng với bạn.
+
+3
+00:00:10,110 --> 00:00:14,440
+Khoản thứ hai gửi cho một nhà cung cấp mở tài khoản ở ngân hàng khác.
+
+4
+00:00:14,440 --> 00:00:25,300
+Chỉ sau đúng ba giây, điện thoại của cả hai người nhận đều sáng đèn báo ghi có cộng hai mươi triệu đồng, phí chuyển khoản đều bằng không đồng, và tiền rút ra tiêu được ngay.
+
+5
+00:00:25,300 --> 00:00:29,380
+Nhìn trên màn hình, hai cú chạm này giống nhau như hai giọt nước.
+
+6
+00:00:29,380 --> 00:00:42,000
+Nhưng nếu cắt dọc mặt đất để nhìn vào cuốn sổ cái của các ngân hàng và tầng hầm tại Ngân hàng Trung ương, bạn sẽ thấy hai khoản hai mươi triệu đồng ấy vừa đi qua hai thế giới hoàn toàn trái ngược nhau.
+
+7
+00:00:42,000 --> 00:00:52,950
+Hãy nhìn vào lệnh đầu tiên: chuyển hai mươi triệu đồng cho người dùng cùng ngân hàng với bạn — người trong nghề gọi là giao dịch On-Us, tức chuyển khoản nội mạng.
+
+8
+00:00:52,950 --> 00:01:07,560
+Một sự thật kế toán ít người để ý là hai mươi triệu đồng trong tài khoản thanh toán là tài sản của bạn, nhưng trên bảng cân đối kế toán của ngân hàng thì đó là khoản nợ phải trả không kỳ hạn mà ngân hàng đang nợ bạn.
+
+9
+00:01:07,560 --> 00:01:15,940
+Vì cả bạn lẫn người nhận đều gửi tiền tại cùng một toà nhà, ngân hàng của bạn chính là người giữ sổ duy nhất cho cả hai bên.
+
+10
+00:01:15,940 --> 00:01:29,670
+Ngay giây bạn bấm xác nhận, máy chủ ngân hàng chỉ làm đúng một việc: sửa dòng nợ phải trả đối với bạn giảm đi hai mươi triệu đồng, và sửa dòng nợ phải trả đối với người nhận tăng lên hai mươi triệu đồng.
+
+11
+00:01:29,670 --> 00:01:34,000
+Không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.
+
+12
+00:01:34,000 --> 00:01:38,000
+Hãy nhìn vào bể vốn của ngân hàng sau cú chạm On-Us đó.
+
+13
+00:01:38,000 --> 00:01:44,260
+Trước khi bạn chuyển, ngân hàng giữ hai mươi triệu đồng tiền gửi không kỳ hạn của bạn.
+
+14
+00:01:44,260 --> 00:01:54,010
+Sau khi bạn chuyển xong, ngân hàng vẫn giữ nguyên hai mươi triệu đồng ấy, chỉ đổi tên người chủ sở hữu trên sổ từ bạn sang người nhận.
+
+15
+00:01:54,010 --> 00:02:05,150
+Trong ví dụ lãi suất tiền gửi không kỳ hạn khoảng không phẩy một phần trăm một năm, tổng bể vốn giá rẻ CASA của ngân hàng biến động đúng bằng không đồng.
+
+16
+00:02:05,150 --> 00:02:24,000
+Trong khi đó, trên sổ kế toán doanh nghiệp của bạn theo Thông tư 99 năm 2025, khoản nợ nhà cung cấp đã được tất toán gọn gàng: ghi Nợ tài khoản 331 Phải trả cho người bán hai mươi triệu đồng, đối ứng Có tài khoản 112 Tiền gửi không kỳ hạn hai mươi triệu đồng.
+
+17
+00:02:24,000 --> 00:02:37,100
+Bây giờ hãy sang lệnh thứ hai: bạn chuyển hai mươi triệu đồng cho nhà cung cấp có tài khoản ở một ngân hàng khác — gọi là giao dịch Off-Us hay chuyển khoản liên ngân hàng.
+
+18
+00:02:37,100 --> 00:02:46,830
+Ở đây xuất hiện một bức tường ngăn cách: ngân hàng của bạn không có quyền mở cuốn sổ cái của ngân hàng bên kia để tự cộng tiền.
+
+19
+00:02:46,830 --> 00:03:00,390
+Ngược lại, ngân hàng người nhận cũng không thể cộng khống hai mươi triệu đồng cho khách hàng của họ rút tiêu ngay nếu chưa có gì bảo đảm rằng ngân hàng của bạn sẽ trả tiền thật.
+
+20
+00:03:00,390 --> 00:03:14,410
+Thế nhưng thực tế, dù bạn chuyển lúc mười giờ đêm thứ Bảy khi Ngân hàng Trung ương đang nghỉ cuối tuần, điện thoại người nhận vẫn ting-ting báo có hai mươi triệu đồng chỉ sau ba giây.
+
+21
+00:03:14,410 --> 00:03:18,000
+Ai đã đứng ra bảo lãnh cho ba giây thần tốc đó?
+
+22
+00:03:18,000 --> 00:03:25,110
+Bí mật nằm ở ngôi nhà đứng giữa: Tổ chức chuyển mạch liên ngân hàng và cơ chế Hạn mức ký quỹ bảo chứng.
+
+23
+00:03:25,110 --> 00:03:40,720
+Trước khi tham gia mạng lưới chuyển tiền nhanh hai mươi bốn trên bảy, ngân hàng của bạn đã phải đặt cọc sẵn một khoản tiền dự trữ hoặc trái phiếu Chính phủ tại Ngân hàng Trung ương để làm hạn mức bảo chứng nợ ròng trong phiên.
+
+24
+00:03:40,720 --> 00:03:46,380
+Ở giây thứ nhất, ngân hàng của bạn trừ hai mươi triệu đồng trên tài khoản của bạn.
+
+25
+00:03:46,380 --> 00:04:01,020
+Ở giây thứ hai, tổ chức chuyển mạch kiểm tra thấy lệnh hai mươi triệu đồng này vẫn nằm gọn trong hạn mức ký quỹ mà ngân hàng bạn đã đặt cọc, nên lập tức trừ lùi hạn mức khả dụng và đóng dấu bảo chứng chuyển tiếp.
+
+26
+00:04:01,020 --> 00:04:12,000
+Nhờ con dấu bảo chứng một trăm phần trăm không rủi ro vỡ nợ ấy, ở giây thứ ba ngân hàng người nhận yên tâm ghi Có ngay hai mươi triệu đồng cho đối tác của bạn.
+
+27
+00:04:12,000 --> 00:04:16,290
+Hãy dừng hình ở giây thứ tư ngay sau tiếng ting-ting.
+
+28
+00:04:16,290 --> 00:04:25,830
+Đối tác của bạn mở ứng dụng lên, thấy số dư tăng thêm hai mươi triệu đồng và có thể rút ra trả tiền hàng ngay lập tức.
+
+29
+00:04:25,830 --> 00:04:40,060
+Kế toán phía đối tác mở sổ theo Thông tư 99, ghi Nợ tài khoản 112 Tiền gửi không kỳ hạn hai mươi triệu đồng và ghi Có tài khoản 131 Phải thu của khách hàng hai mươi triệu đồng.
+
+30
+00:04:40,060 --> 00:04:44,270
+Với cả bạn lẫn đối tác, giao dịch đã xong hoàn toàn.
+
+31
+00:04:44,270 --> 00:04:52,280
+Nhưng dưới tầng hầm giữa hai ngân hàng, hai mươi triệu đồng tiền dự trữ thật vẫn chưa hề di chuyển!
+
+32
+00:04:52,280 --> 00:05:04,000
+Thực chất ở giây thứ ba, ngân hàng người nhận đang tạm ứng niềm tin trên sổ cho khách hàng của họ dựa vào lời hứa có bảo chứng của ngân hàng bạn.
+
+33
+00:05:04,000 --> 00:05:10,400
+Vì sao hai ngân hàng không chuyển ngay hai mươi triệu đồng tiền dự trữ ở giây thứ ba?
+
+34
+00:05:10,400 --> 00:05:19,810
+Hãy hình dung mỗi ngày có hàng chục triệu lệnh chuyển khoản ăn sáng, mua sắm, trả tiền hàng chạy đan chéo giữa hai ngân hàng.
+
+35
+00:05:19,810 --> 00:05:33,210
+Trong ví dụ một phiên giao dịch, giả sử tổng cộng các khách hàng từ ngân hàng của bạn chuyển sang ngân hàng đối tác là năm trăm tỷ đồng — trong đó có hai mươi triệu đồng của bạn.
+
+36
+00:05:33,210 --> 00:05:41,940
+Nhưng cùng lúc ấy, khách hàng từ ngân hàng đối tác cũng chuyển ngược về ngân hàng của bạn bốn trăm bảy mươi tỷ đồng.
+
+37
+00:05:41,940 --> 00:05:47,360
+Tổng giá trị giao dịch gộp hai chiều lên tới chín trăm bảy mươi tỷ đồng.
+
+38
+00:05:47,360 --> 00:06:00,000
+Khi đến giờ chốt phiên bù trừ, tổ chức chuyển mạch lấy năm trăm tỷ đồng chiều đi trừ bốn trăm bảy mươi tỷ đồng chiều về, ra con số chênh lệch ròng đúng ba mươi tỷ đồng.
+
+39
+00:06:00,000 --> 00:06:14,430
+Bảng kết quả bù trừ ròng ba mươi tỷ đồng ấy được gửi thẳng tới Ngân hàng Trung ương — tức ngôi nhà thứ năm trên mặt cắt, nơi mở tài khoản tiền gửi thanh toán cho tất cả các ngân hàng thương mại.
+
+40
+00:06:14,430 --> 00:06:31,990
+Tại đây, Ngân hàng Trung ương chỉ thực hiện một lệnh quyết toán duy nhất: ghi giảm tài khoản tiền gửi thanh toán của ngân hàng bạn ba mươi tỷ đồng, và ghi tăng tài khoản tiền gửi thanh toán của ngân hàng người nhận đúng ba mươi tỷ đồng.
+
+41
+00:06:31,990 --> 00:06:52,000
+Nhờ gộp chín trăm bảy mươi tỷ đồng giao dịch hai chiều thành một lệnh quyết toán ròng ba mươi tỷ đồng, hệ thống ngân hàng tiết kiệm được chín trăm bốn mươi tỷ đồng thanh khoản dự trữ phải chạy qua lại — tương đương gần chín mươi bảy phần trăm tổng khối lượng giao dịch.
+
+42
+00:06:52,000 --> 00:06:54,930
+Có hai tình huống thực tế bạn cần phân biệt rõ.
+
+43
+00:06:54,930 --> 00:07:11,780
+Thứ nhất, nếu công ty bạn chuyển một lệnh lớn mười tỷ đồng vượt trần chuyển nhanh hai mươi bốn trên bảy, lệnh đó không chờ bù trừ ròng mà đi thẳng vào hệ thống Thanh toán tổng tức thời từng lệnh RTGS tại Ngân hàng Trung ương để cắt tiền dự trữ ngay trong giờ hành chính.
+
+44
+00:07:11,780 --> 00:07:26,890
+Thứ hai, nếu chiều ba mươi mốt tháng mười hai sát giờ khoá sổ năm, bạn chuyển liên ngân hàng hai mươi triệu đồng mà lệnh bị nghẽn đối soát khiến nhà cung cấp chưa nhận được tiền trong năm cũ, kế toán không được xoá nợ ngay trên tài khoản 331.
+
+45
+00:07:26,890 --> 00:07:40,000
+Theo Thông tư 99 năm 2025, khoản tiền đã rời tài khoản 112 nhưng chưa tới đích phải ghi Nợ tài khoản 113 Tiền đang chuyển hai mươi triệu đồng, chờ sang đầu năm mới khi hoàn tất mới kết chuyển vào tài khoản 331.
+
+46
+00:07:40,000 --> 00:07:53,220
+Lần tới khi bạn bấm chuyển khoản hai mươi triệu đồng và nghe tiếng ting-ting vang lên sau ba giây, bạn đã nhìn thấu cả hai tầng của hệ thống tài chính.
+
+47
+00:07:53,220 --> 00:08:02,240
+Nếu cùng ngân hàng, chỉ có hai dòng chữ vừa đổi chỗ trong cùng một toà nhà để giữ nguyên bể vốn giá rẻ.
+
+48
+00:08:02,240 --> 00:08:20,000
+Còn nếu khác ngân hàng, tiếng ting-ting ở giây thứ ba là một lời hứa có ký quỹ bảo chứng, còn dòng tiền dự trữ thật sự đang chờ phiên bù trừ ròng hàng chục tỷ đồng dưới tầng hầm của Ngân hàng Trung ương.

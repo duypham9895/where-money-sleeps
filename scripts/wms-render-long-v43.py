@@ -1615,6 +1615,204 @@ LONG_STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "offus": {
+        "house_nodes": [
+            ("BẠN & ĐỐI TÁC", "20 triệu đ"),
+            ("NGÂN HÀNG A", "Của bạn"),
+            ("CHUYỂN MẠCH", "Liên NH 24/7"),
+            ("NGÂN HÀNG B", "Người nhận"),
+            ("NH TRUNG ƯƠNG", "Quyết toán"),
+        ],
+        "plates_pool": [
+            ("public/brand/pay-short-plate-1.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 720, 1060, 1565)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-3.jpg", (40, 430, 1040, 1255)),
+            ("public/brand/pay-short-plate-4.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-4.jpg", (20, 420, 1060, 1265)),
+        ],
+        "scenes": [
+            # 0: Mode L-A (Mở đầu: Hai tiếng ting-ting 20 triệu đồng giống hệt nhau trên mặt đất)
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {0, 1, 3},
+                "flow": ("wire", 0, 1, 3),
+                "kicker": "MỞ ĐẦU  ·  HAI LỆNH CHUYỂN KHOẢN 20 TRIỆU ĐỒNG LÚC 10:00 SÁNG",
+                "stage_tag": "CHUYỂN 20.000.000 Đ ON-US vs OFF-US  ·  CÙNG 3 GIÂY BÁO CÓ",
+                "beats": [
+                    ("1. LỆNH 1 (CÙNG NGÂN HÀNG ON-US)", "Chuyển 20.000.000 đ cho đối tác dùng cùng ngân hàng — báo Có sau 3 giây"),
+                    ("2. LỆNH 2 (KHÁC NGÂN HÀNG OFF-US)", "Chuyển 20.000.000 đ sang ngân hàng khác — cũng báo Có sau đúng 3 giây"),
+                    ("3. TRẢI NGHIỆM BỀ MẶT GIỐNG HỆT", "Cùng miễn phí 0 đồng, cùng tốc độ 3 giây, cùng rút tiêu được ngay"),
+                    ("4. CÂU HỎI DƯỚI TẦNG HẦM", "Vì sao tiền dự trữ tại Ngân hàng Trung ương lại đi 2 đường trái ngược hẳn?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            # 1: Mode L-B (Lệnh 1 On-Us: Sửa hai dòng chữ trong cùng một toà nhà)
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1},
+                "flow": ("wire", 0, 1),
+                "kicker": "BƯỚC 1  ·  CHUYỂN CÙNG NGÂN HÀNG (ON-US BOOK TRANSFER)",
+                "stage_tag": "CÙNG MỘT SỔ CÁI NỘI BỘ  ·  0 ĐỒNG TIỀN DỰ TRỮ RỜI TOÀ NHÀ",
+                "scale_title": "GIÁ TRỊ LỆNH CHUYỂN KHOẢN NỘI MẠNG (ON-US):",
+                "scale_val": 20_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Dòng 1 — Tài khoản của Bạn: −20.000.000 đ (Ngân hàng giảm nợ phải trả Bạn)",
+                "mech_line2": "Dòng 2 — Tài khoản Người nhận: +20.000.000 đ (Ngân hàng tăng nợ Người nhận)",
+                "ledger_title": "BẢN CHẤT TRÊN BẢNG CÂN ĐỐI KẾ TOÁN NGÂN HÀNG:",
+                "debit_line": "Giảm Nợ phải trả tiền gửi Khách hàng A: −20.000.000 đ",
+                "credit_line": "Tăng Nợ phải trả tiền gửi Khách hàng B: +20.000.000 đ",
+                "rule": "NGÂN HÀNG CHỈ ĐỔI TÊN CHỦ NỢ NGAY TRONG CÙNG MỘT CUỐN SỔ CÁI",
+            },
+            # 2: Mode L-B (Vì sao lệnh On-Us giữ nguyên 100% bể vốn CASA giá rẻ?)
+            {
+                "mode": "L-B",
+                "plate_idx": 2,
+                "active": {0, 1},
+                "flow": ("wire", 0, 1),
+                "kicker": "BƯỚC 2  ·  TÍNH BẤT BIẾN CỦA BỂ VỐN CASA TRONG GIAO DỊCH ON-US",
+                "stage_tag": "BỂ VỐN CASA (~0,1%/NĂM) BIẾN ĐỘNG 0 Đ  ·  HẠCH TOÁN TT 99/2025",
+                "scale_title": "TỔNG TIỀN GỬI GIỮ LẠI TRONG NGÂN HÀNG A:",
+                "scale_val": 20_000_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 1.0,
+                "split_left_lbl": "GIỮ NGUYÊN 100% CASA: 20.000.000 Đ",
+                "split_right_lbl": "DỰ TRỮ RỜI NHÀ: 0 Đ",
+                "ledger_title": "SỔ KẾ TOÁN DOANH NGHIỆP CHUYỂN TIỀN (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 331 (Phải trả cho người bán): −20.000.000 đ (Xoá nợ)",
+                "credit_line": "Credit TK 112 (Tiền gửi không kỳ hạn): −20.000.000 đ",
+                "rule": "TỔNG BỂ VỐN CASA VÀ DỰ TRỮ TẠI NH TRUNG ƯƠNG BIẾN ĐỘNG 0 ĐỒNG",
+            },
+            # 3: Mode L-A (Lệnh 2 Off-Us: Bài toán khó khi chuyển tiền sang ngân hàng khác)
+            {
+                "mode": "L-A",
+                "plate_idx": 3,
+                "active": {0, 1, 2, 3},
+                "flow": ("wire", 1, 2, 3),
+                "kicker": "BƯỚC 3  ·  CHUYỂN KHÁC NGÂN HÀNG (OFF-US): BỨC TƯỜNG HAI SỔ CÁI",
+                "stage_tag": "HAI NGÂN HÀNG ĐỘC LẬP  ·  LÀM SAO GHI CÓ NGAY SAU 3 GIÂY?",
+                "beats": [
+                    ("1. HAI CUỐN SỔ CÁI TÁCH BIỆT", "Ngân hàng A không có quyền tự mở sổ của Ngân hàng B để cộng tiền"),
+                    ("2. RỦI RO TÍN DỤNG LIÊN NGÂN HÀNG", "Ngân hàng B không thể cộng khống 20 triệu nếu chưa có bảo đảm thanh toán"),
+                    ("3. GIAO DỊCH 24/7 CẢ ĐÊM & CUỐI TUẦN", "Lúc 22:00 tối thứ Bảy quầy giao dịch Ngân hàng Trung ương đang nghỉ"),
+                    ("4. CƠ CHẾ GIẢI QUYẾT", "Đặt Tổ chức chuyển mạch ở giữa kèm Hạn mức ký quỹ bảo chứng trước"),
+                ],
+                "rule": "BẢN TIN CHUYỂN MẠCH 24/7 ĐI TRƯỚC  ·  TIỀN DỰ TRỮ QUYẾT TOÁN THEO PHIÊN",
+            },
+            # 4: Mode L-B (Bí mật ở giây thứ 2: Hạn mức ký quỹ bảo chứng Pre-funded Net Debit Cap)
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {1, 2, 3},
+                "flow": ("wire", 1, 2, 3),
+                "kicker": "BƯỚC 4  ·  GIÂY THỨ 2: HẠN MỨC KÝ QUỸ BẢO CHỨNG (PRE-FUNDED CAP)",
+                "stage_tag": "NGÂN HÀNG GỬI ĐẶT CỌC TÀI SẢN TRƯỚC  ·  CHUYỂN MẠCH ĐÓNG DẤU BẢO LÃNH",
+                "scale_title": "LỆNH CHUYỂN NHANH ĐƯỢC BẢO CHỨNG 100%:",
+                "scale_val": 20_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Giây 01–02: Chuyển mạch kiểm và trừ lùi 20tr Hạn mức ký quỹ NH A",
+                "mech_line2": "Giây 03: Nhờ dấu bảo chứng 100%, Ngân hàng B ghi Có +20.000.000 đ",
+                "ledger_title": "CƠ CHẾ BẢO HIỂM RỦI RO VỠ NỢ LIÊN NGÂN HÀNG:",
+                "debit_line": "Tài sản bảo chứng: Tiền dự trữ hoặc Trái phiếu Chính phủ ký quỹ",
+                "credit_line": "Hạn mức nợ ròng khả dụng giảm: −20.000.000 đ (An toàn tuyệt đối)",
+                "rule": "KÝ QUỸ BẢO CHỨNG TRƯỚC GIÚP BẢN TIN 3 GIÂY ĐÁNG TIN NHƯ TIỀN MẶT",
+            },
+            # 5: Mode L-B (Giây thứ 3: Người nhận có tiền tiêu ngay, nhưng tiền dự trữ vẫn nằm yên)
+            {
+                "mode": "L-B",
+                "plate_idx": 5,
+                "active": {0, 2, 3},
+                "flow": ("wire", 2, 3, 0),
+                "kicker": "BƯỚC 5  ·  GIÂY THỨ 3: ĐỐI TÁC NHẬN TIỀN TRƯỚC KHI DỰ TRỮ CHẠY",
+                "stage_tag": "SỔ DOANH NGHIỆP NHẬN GHI NỢ TK 112 / CÓ TK 131: 20.000.000 Đ",
+                "scale_title": "SỐ DƯ KHẢ DỤNG TỨC THỜI CỦA NGƯỜI NHẬN:",
+                "scale_val": 20_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Trên mặt đất (Giây 03): Người nhận rút tiêu được ngay 20.000.000 đ",
+                "mech_line2": "Dưới tầng hầm (Giây 03): Tiền dự trữ tại NH Trung ương chưa chạy",
+                "ledger_title": "BÚT TOÁN BÊN NHẬN TIỀN THEO THÔNG TƯ 99/2025/TT-BTC:",
+                "debit_line": "Debit TK 112 (Tiền gửi không kỳ hạn): +20.000.000 đ",
+                "credit_line": "Credit TK 131 (Phải thu của khách hàng): −20.000.000 đ (Xoá nợ)",
+                "rule": "NGƯỜI NHẬN CÓ TIỀN THẬT Ở GIÂY THỨ 3 DÙ 2 NGÂN HÀNG CHƯA QUYẾT TOÁN",
+            },
+            # 6: Mode L-C (Cuối phiên dưới lòng đất: Gom 970 tỷ đồng giao dịch thành một con số ròng 30 tỷ đồng)
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {1, 2, 3},
+                "flow": ("wire", 1, 2, 3),
+                "kicker": "BƯỚC 6  ·  TOÁN HỌC CỦA BÙ TRỪ RÒNG CUỐI PHIÊN (DEFERRED NET SETTLEMENT)",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "TỔNG GIAO DỊCH GỘP 2 CHIỀU = 500 TỶ (CHIỀU ĐI) + 470 TỶ (CHIỀU VỀ) = 970 TỶ ĐỒNG",
+                "card1_title": "ĐẶT LÊN BÀN CÂN BÙ TRỪ RÒNG (NETTING)",
+                "card1_big": "500 tỷ − 470 tỷ = 30.000.000.000 đ",
+                "card1_sub": "Hàng trăm nghìn lệnh chuyển khoản hai chiều tự triệt tiêu phần lớn nghĩa vụ nợ",
+                "card2_title": "LƯỢNG THANH KHOẢN DỰ TRỮ ĐƯỢC GIẢI PHÓNG",
+                "card2_big": "970 tỷ − 30 tỷ = 940 tỷ đồng (96,9%)",
+                "card2_sub": "Không cần điều chuyển 940 tỷ đồng tiền dự trữ qua lại cho từng lệnh nhỏ lẻ",
+                "rule": "BÙ TRỪ RÒNG ĐA PHƯƠNG LÀ TRÁI TIM CỦA HẠ TẦNG THANH TOÁN BÁN LẺ HIỆN ĐẠI",
+            },
+            # 7: Mode L-B (Quyết toán tại Ngân hàng Trung ương: Tiết kiệm 940 tỷ đồng thanh khoản dự trữ)
+            {
+                "mode": "L-B",
+                "plate_idx": 6,
+                "active": {1, 3, 4},
+                "flow": ("pipe", 1, 4, 3),
+                "kicker": "BƯỚC 7  ·  QUYẾT TOÁN RÒNG 30 TỶ ĐỒNG TẠI NGÂN HÀNG TRUNG ƯƠNG",
+                "stage_tag": "NGÂN HÀNG TRUNG ƯƠNG CẮT CHUYỂN ĐÚNG 30 TỶ ĐỒNG TIỀN DỰ TRỮ",
+                "scale_title": "SỐ TIỀN DỰ TRỮ THỰC SỰ CHUYỂN TẠI NH TRUNG ƯƠNG:",
+                "scale_val": 30_000_000_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.969,
+                "split_left_lbl": "TIẾT KIỆM NHỜ BÙ TRỪ (96,9%): 940 TỶ",
+                "split_right_lbl": "CẮT RÒNG: 30 TỶ",
+                "ledger_title": "SỔ TIỀN GỬI THANH TOÁN TẠI NGÂN HÀNG TRUNG ƯƠNG:",
+                "debit_line": "Tài khoản tiền gửi thanh toán Ngân hàng A: −30.000.000.000 đ",
+                "credit_line": "Tài khoản tiền gửi thanh toán Ngân hàng B: +30.000.000.000 đ",
+                "rule": "CHỈ 1 LỆNH 30 TỶ ĐỒNG KHÉP LẠI TRỌN VẸN 970 TỶ ĐỒNG GIAO DỊCH",
+            },
+            # 8: Mode L-C (Hai ngoại lệ thực tế: Đại lộ RTGS cho lệnh tiền tỷ và lệnh treo TK 113 chiều 31/12)
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 4},
+                "flow": ("pipe", 1, 4),
+                "kicker": "NGOẠI LỆ  ·  ĐẠI LỘ RTGS TIỀN TỶ & LỆNH TREO TK 113 CHIỀU 31/12",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "BA TÌNH HUỐNG THỰC TẾ KHI CHUYỂN KHOẢN LIÊN NGÂN HÀNG MÀ KẾ TOÁN CẦN NẮM RÕ",
+                "col1_title": "1. LỆNH LỚN VƯỢT TRẦN (10 TỶ ĐỒNG)",
+                "col1_big": "Đi thẳng hệ thống RTGS từng lệnh",
+                "col1_sub": "Quyết toán trực tiếp từng lệnh bằng tiền dự trữ tại Ngân hàng Trung ương trong giờ hành chính",
+                "col2_title": "2. NGHẼN ĐỐI SOÁT CHIỀU 31/12",
+                "col2_big": "Treo vào Nợ TK 113 (Tiền đang chuyển)",
+                "col2_sub": "Đã trừ TK 112 nhưng đối tác chưa nhận được tiền: ghi Nợ TK 113 / Có TK 112 (20.000.000 đ)",
+                "col3_title": "3. CHUYỂN NHẦM SỐ TÀI KHOẢN OFF-US",
+                "col3_big": "Không thể tự bấm nút thu hồi",
+                "col3_sub": "Vì lệnh Push đã ghi Có ở giây thứ 3, phải phát bản tin tra soát qua ngân hàng thụ hưởng",
+                "rule": "THEO TT 99/2025/TT-BTC: CHỈ GHI GIẢM NỢ TK 331 KHI ĐỐI TÁC ĐÃ THỰC SỰ NHẬN ĐƯỢC TIỀN",
+            },
+            # 9: Mode L-A (Nhìn thấu tiếng ting-ting sau 3 giây trên điện thoại của bạn)
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 1, 4, 3),
+                "kicker": "KẾT LUẬN  ·  NHÌN THẤU TIẾNG TING-TING SAU 3 GIÂY TRÊN ĐIỆN THOẠI",
+                "stage_tag": "ON-US SỬA SỔ NỘI BỘ (0 Đ DỰ TRỮ)  ·  OFF-US BẢO CHỨNG 24/7 & BÙ TRỪ RÒNG",
+                "beats": [
+                    ("1. CHUYỂN CÙNG NGÂN HÀNG (ON-US)", "Đổi chủ nợ trong 1 cuốn sổ cái nội bộ — giữ nguyên 100% bể vốn CASA"),
+                    ("2. CHUYỂN KHÁC NGÂN HÀNG (OFF-US)", "Ghi Có sau 3 giây nhờ Hạn mức ký quỹ bảo chứng (Pre-funded Cap)"),
+                    ("3. QUYẾT TOÁN RÒNG CUỐI PHIÊN (DNS)", "Gom 970 tỷ đồng gộp thành 1 lệnh 30 tỷ đồng tại Ngân hàng Trung ương"),
+                    ("4. KỶ LUẬT KẾ TOÁN CUỐI KỲ (TT 99/2025)", "Lệnh liên ngân hàng treo qua đêm 31/12 phải phản ánh trung thực ở TK 113"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
 }
 
 
@@ -2441,14 +2639,14 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "profitcash", "all"])
+    parser.add_argument("--story", default="install", choices=[*LONG_STORY_CONFIGS.keys(), "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = load_cached_sfx()
 
-    target_slugs = ["install", "card", "pay", "minpay", "qr", "profitcash"] if args.story == "all" else [args.story]
+    target_slugs = list(LONG_STORY_CONFIGS.keys()) if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug)
     return 0

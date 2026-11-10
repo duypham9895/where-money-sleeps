@@ -113,6 +113,14 @@ PROFITCASH_HOUSES = [
     ("NHÂN SỰ", "Đội ngũ"),
 ]
 
+OFFUS_HOUSES = [
+    ("BẠN", "20 triệu"),
+    ("NGÂN HÀNG", "Của bạn"),
+    ("TỔ CHỨC", "Chuyển mạch"),
+    ("NGÂN HÀNG", "Người nhận"),
+    ("NH TRUNG", "Ương"),
+]
+
 FIGURES_SPEC: dict[str, list[dict]] = {
     "card": [
         {
@@ -580,6 +588,84 @@ FIGURES_SPEC: dict[str, list[dict]] = {
                 ("3. Đồng bộ tồn kho TK 156 & phải trả TK 331", "Nhập kho sát tốc độ bán thật và thương lượng kỳ hạn trả nhà cung cấp khớp với kỳ hạn thu khách hàng.", "amber"),
             ],
             "footer_eq": "Lợi nhuận trên TK 421 là ý kiến kế toán — Tiền mặt trong TK 112 mới là oxy duy trì sự sống",
+        },
+    ],
+    "offus": [
+        {
+            "out": "offus-fig-1.jpg",
+            "plate": "public/brand/pay-short-plate-1.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 01  ·  CHƯƠNG 02  ·  CÙNG NGÂN HÀNG (ON-US)",
+            "title": "Chuyển khoản 20 triệu cùng ngân hàng (On-Us): Sửa 2 dòng sổ, 0 đồng rời nhà",
+            "houses": OFFUS_HOUSES,
+            "active_houses": {0, 1},
+            "left_pills": [
+                (354, 72, "SỔ CÁI NỘI BỘ (ON-US): TRỪ BẠN 20 TRIỆU · CỘNG ĐỐI TÁC 20 TRIỆU", "green"),
+                (354, 598, "BỂ VỐN CASA & DỰ TRỮ TẠI NH TRUNG ƯƠNG: BIẾN ĐỘNG 0 ĐỒNG", "teal"),
+            ],
+            "steps": [
+                ("1. Bút toán nội mạng (Book Transfer)", "Ngân hàng chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái: đổi chủ nợ từ bạn sang người nhận.", "green"),
+                ("2. Bất biến bể vốn CASA (~0,1%/năm)", "Tổng tiền gửi không kỳ hạn của ngân hàng giữ nguyên 100%, không tốn một đồng dự trữ liên ngân hàng nào.", "teal"),
+                ("3. Sổ doanh nghiệp (TT 99/2025)", "Bên chuyển ghi Nợ TK 331 (Phải trả người bán) / Có TK 112 (Tiền gửi không kỳ hạn): 20.000.000 đ.", "amber"),
+            ],
+            "footer_eq": "Giao dịch On-Us: Tiền chỉ đổi tên người sở hữu ngay trong cùng một toà nhà ngân hàng",
+        },
+        {
+            "out": "offus-fig-2.jpg",
+            "plate": "public/brand/pay-short-plate-2.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 02  ·  CHƯƠNG 03  ·  KÝ QUỸ BẢO CHỨNG 24/7",
+            "title": "Khác ngân hàng (Off-Us): Bí mật Hạn mức ký quỹ giúp ghi Có ngay sau 3 giây",
+            "houses": OFFUS_HOUSES,
+            "active_houses": {0, 1, 2, 3},
+            "left_pills": [
+                (354, 72, "GIÂY 02: CHUYỂN MẠCH KIỂM HẠN MỨC KÝ QUỸ BẢO CHỨNG (PRE-FUND)", "amber"),
+                (354, 598, "GIÂY 03: NGÂN HÀNG NHẬN GHI CÓ +20 TRIỆU TRƯỚC KHI DỰ TRỮ CHẠY", "green"),
+            ],
+            "steps": [
+                ("1. Đặt cọc Hạn mức ký quỹ (Pre-funded Cap)", "Ngân hàng gửi đã ký quỹ sẵn tiền dự trữ hoặc trái phiếu tại hệ thống để bảo lãnh cho các lệnh trong phiên.", "amber"),
+                ("2. Đóng dấu bảo chứng ở giây thứ 2", "Tổ chức chuyển mạch trừ lùi 20.000.000 đ hạn mức khả dụng của ngân hàng gửi rồi chuyển tiếp bản tin.", "teal"),
+                ("3. Ghi Có tức thời ở giây thứ 3 (TK 112)", "Ngân hàng nhận cộng ngay +20.000.000 đ cho người nhận tiêu dùng (Nợ TK 112 / Có TK 131: 20.000.000 đ).", "green"),
+            ],
+            "footer_eq": "Nhờ hạn mức ký quỹ bảo chứng trước, bản tin 3 giây an toàn tương đương tiền mặt",
+        },
+        {
+            "out": "offus-fig-3.jpg",
+            "plate": "public/brand/pay-short-plate-3.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 03  ·  CHƯƠNG 04  ·  BÙ TRỪ RÒNG CUỐI PHIÊN",
+            "title": "Gom 970 tỷ giao dịch hai chiều (500 tỷ − 470 tỷ) thành 1 lệnh quyết toán 30 tỷ",
+            "houses": OFFUS_HOUSES,
+            "active_houses": {1, 2, 3, 4},
+            "left_pills": [
+                (354, 72, "BÙ TRỪ ĐA PHƯƠNG: 500 TỶ CHIỀU ĐI − 470 TỶ CHIỀU VỀ = 30 TỶ RÒNG", "teal"),
+                (354, 598, "NH TRUNG ƯƠNG: CẮT ĐÚNG 30 TỶ DỰ TRỮ · TIẾT KIỆM 940 TỶ (96,9%)", "green"),
+            ],
+            "steps": [
+                ("1. Cộng gộp hai chiều suốt phiên (Clearing)", "Chiều Ngân hàng bạn → đối tác là 500 tỷ đồng; chiều ngược lại về Ngân hàng bạn là 470 tỷ đồng (gộp 970 tỷ).", "teal"),
+                ("2. Tính vị thế ròng (Netting = 30 tỷ đồng)", "Đặt lên bàn cân bù trừ: 500 tỷ − 470 tỷ chỉ còn nghĩa vụ phải trả ròng đúng 30.000.000.000 đ.", "amber"),
+                ("3. Quyết toán tại Ngân hàng Trung ương", "Cắt chuyển 1 lệnh 30 tỷ đồng dự trữ duy nhất — giải phóng 940 tỷ đồng thanh khoản (96,9% tổng gộp).", "green"),
+            ],
+            "footer_eq": "Bù trừ ròng giải phóng 96,9% thanh khoản dự trữ, mở dư địa miễn phí 0 đồng cho người dùng",
+        },
+        {
+            "out": "offus-fig-4.jpg",
+            "plate": "public/brand/pay-short-plate-4.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 04  ·  CHƯƠNG 05  ·  ĐẠI LỘ RTGS & TREO TK 113",
+            "title": "Khi nào tiền đi thẳng từng lệnh qua RTGS (10 tỷ) và khi nào treo trên TK 113?",
+            "houses": OFFUS_HOUSES,
+            "active_houses": {0, 1, 2, 4},
+            "left_pills": [
+                (354, 72, "LỆNH LỚN 10 TỶ ĐỒNG: ĐI THẲNG ĐẠI LỘ RTGS TỪNG LỆNH TỨC THỜI", "amber"),
+                (354, 598, "LỆNH NGHẼN CHIỀU 31/12: GHI NỢ TK 113 (TIỀN ĐANG CHUYỂN) / CÓ TK 112", "clay"),
+            ],
+            "steps": [
+                ("1. Thanh toán tổng tức thời từng lệnh (RTGS)", "Các lô thanh toán lớn vượt trần 24/7 (ví dụ 10 tỷ đồng) cắt tiền dự trữ trực tiếp từng lệnh tại NH Trung ương.", "amber"),
+                ("2. Lệnh nghẽn đối soát chiều 31/12 (TK 113)", "Đã trừ TK 112 nhưng đối tác chưa nhận được tiền: ghi Nợ TK 113 (Tiền đang chuyển) / Có TK 112: 20.000.000 đ.", "clay"),
+                ("3. Tất toán công nợ đầu năm mới (TK 331)", "Khi ngân hàng đối tác báo Có hoàn tất, kế toán mới kết chuyển Nợ TK 331 / Có TK 113: 20.000.000 đ.", "green"),
+            ],
+            "footer_eq": "Treo TK 113 giúp khớp sao kê TK 112 ngày 31/12 mà không xoá khống công nợ phải trả TK 331",
         },
     ],
 }

@@ -466,6 +466,34 @@ def verify_story_finance(
                     f"OCF = +{profit:,}đ − ΔTK 131 ({ar:,}đ) − ΔTK 156 ({inv_amt:,}đ) + ΔTK 334 ({payroll:,}đ) = {ocf:,}đ · "
                     f"Tiền cuối kỳ TK 112 = {open_cash:,}đ + ({ocf:,}đ) = {end_cash:,}đ (vay TK 341 {loan:,}đ để trả lương {payroll:,}đ)"
                 ))
+        elif story_key == "offus":
+            tx_amt = p["transferAmount"]
+            onus_res = p["onUsReserveMoved"]
+            out_g = p["grossOutboundSession"]
+            in_g = p["grossInboundSession"]
+            tot_g = p["totalGrossTwoWay"]
+            net_s = p["netSettlementAmount"]
+            saved_liq = p["liquiditySavedAmount"]
+            saved_ratio = saved_liq / tot_g if tot_g else 0.0
+            if (
+                onus_res != 0
+                or out_g + in_g != tot_g
+                or out_g - in_g != net_s
+                or tot_g - net_s != saved_liq
+                or abs(saved_ratio - p["expectedGrossLiquiditySavedRatio"]) > 1e-4
+            ):
+                rows.append((
+                    "FAIL", "F2", w,
+                    f"Toán bù trừ ròng liên ngân hàng (DNS) lệch: tot_g={tot_g}, net_s={net_s}, saved={saved_liq}"
+                ))
+                f2_ok = False
+            else:
+                rows.append((
+                    "PASS", "F2", w,
+                    f"Toán On-Us vs Off-Us DNS khớp tuyệt đối: Lệnh {tx_amt:,}đ (On-Us dự trữ di chuyển {onus_res}đ) · "
+                    f"Phiên Off-Us: Chiều đi {out_g:,}đ + Chiều về {in_g:,}đ = Tổng gộp {tot_g:,}đ → "
+                    f"Quyết toán ròng tại NH Trung ương = {net_s:,}đ (tiết kiệm {saved_liq:,}đ thanh khoản = {saved_ratio*100:.2f}%)"
+                ))
     elif f2_ok:
         rows.append(("PASS", "F2", w, f"Toán cân đối {len(all_ledgers)} bút toán Σ Nợ = Σ Có hợp lệ"))
 

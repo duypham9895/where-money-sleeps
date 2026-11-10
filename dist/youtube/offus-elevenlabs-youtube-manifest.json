@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "offus",
+  "storyStatus": "review",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 16,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-10T10:45:14+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (onus_book_transfer_vs_offus_prefunded_dns_rtgs)",
+      "Toán On-Us vs Off-Us DNS khớp tuyệt đối: Lệnh 20,000,000đ (On-Us dự trữ di chuyển 0đ) · Phiên Off-Us: Chiều đi 500,000,000,000đ + Chiều về 470,000,000,000đ = Tổng gộp 970,000,000,000đ → Quyết toán ròng tại NH Trung ương = 30,000,000,000đ (tiết kiệm 940,000,000,000đ thanh khoản = 96.91%)",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 113, 131, 331)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao người nhận đều ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác hẳn nhau?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/offus_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "Qn3SIzHi_Ik",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/offus-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao người nhận đều ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác hẳn nhau?\n0:42 Đoạn 1\n1:34 Đoạn 1\n2:24 Đoạn 2\n3:18 Đoạn 2\n4:12 Đoạn 3\n5:04 Đoạn 4\n6:00 Đoạn 4\n6:52 Đoạn 5\n7:40 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:42",
+          "beat": null,
+          "sha256CacheKey": "6bc0c5e5d3bc7db39638b093d078ac56df71909c0e7d6bd68764159517bd7381",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "0da537cabfcacd6fb5e3a2be5274758cad2dfd84c2e1e5d61443a348c03d0b04",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Mặt cắt 5 ngôi nhà lúc 10:00 sáng: từ nhà Bạn & Người nhận phát đi hai lệnh chuyển khoản 20.000.000 đồng, cả hai màn hình đều sáng +20.000.000 đồng sau 3 giây.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông báo tin nhắn (SFX chung)",
+          "voWords": 145
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:42 – 1:34",
+          "beat": 0,
+          "sha256CacheKey": "28bb1608f968868bb6f1b3561267553da0ebe6054988cc6ea08946d5c542bac5",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "a1c463c1d8d5a26b9b0ee4f0108022d1b9b4b83be128eb810197d0227916ea5b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận cảnh toà nhà Ngân hàng của bạn (nhà 1): cuốn sổ cái nội bộ lật trang, gạch giảm 20 triệu dòng của Bạn và cộng 20 triệu dòng của Người nhận; tầng hầm tới Ngân hàng Trung ương tối đèn (0 đồng).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bút gạch sổ (SFX chung)",
+          "voWords": 172
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:34 – 2:24",
+          "beat": 0,
+          "sha256CacheKey": "7b9efcc5ed6bf3a959b98496a0f76ed6c67e4393c0981c4b3f36a50c2258f9c0",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "43c03e4fecb9b611bcb8b0fad98cd4635702703d9c363534739ae6b0325e284c",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bể vốn CASA bên trong Ngân hàng của bạn giữ nguyên mức nước trước và sau lệnh chuyển 20 triệu đồng; sổ kế toán doanh nghiệp hiện Nợ TK 331 / Có TK 112: 20.000.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu (SFX chung)",
+          "voWords": 150
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:24 – 3:18",
+          "beat": 1,
+          "sha256CacheKey": "0adb9fa073ab25000e076d85f76b74a6ba3ba001849a6bc37e84e6be0b29e521",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "a76087da2cf96cb0bf8b5b33bfeb4512cd00040917552358aed01df9464ad811",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Luồng bản tin phát sáng từ Ngân hàng của bạn (nhà 1) chạy sang Tổ chức chuyển mạch (nhà 2) rồi tới Ngân hàng người nhận (nhà 3).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tít điện tử (SFX chung)",
+          "voWords": 154
+        },
+        {
+          "sceneIndex": 4,
+          "time": "3:18 – 4:12",
+          "beat": 1,
+          "sha256CacheKey": "401c635fecccf560cd925c0820cd88cbbfa2a21c229914a7a63f5ee618c99b6b",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "99e864da33b0c4b25f0135bcd1a242f4cf4af7222c41e39b8a3dca531bfd357b",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận cảnh Tổ chức chuyển mạch (nhà 2): đồng hồ kiểm tra Hạn mức ký quỹ bảo chứng của Ngân hàng gửi, đóng dấu xác nhận chuyển sang Ngân hàng người nhận ghi Có +20.000.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá chốt (SFX chung)",
+          "voWords": 175
+        },
+        {
+          "sceneIndex": 5,
+          "time": "4:12 – 5:04",
+          "beat": 2,
+          "sha256CacheKey": "6fa3486b115f24d4119e4cee2946aef3476fd958b34eb459dcf9ade5e773f7d9",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1c4046f5bf47f83f7c6f0762395e45643eb254abfb523e42458c5e70beef7a8e",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tại nhà Bạn & Người nhận (nhà 0) và Ngân hàng người nhận (nhà 3): sổ doanh nghiệp nhận ghi Nợ TK 112 / Có TK 131: 20.000.000 đồng, nhưng tầng hầm tại Ngân hàng Trung ương (nhà 4) vẫn chưa cắt tiền dự trữ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng lật giấy (SFX chung)",
+          "voWords": 145
+        },
+        {
+          "sceneIndex": 6,
+          "time": "5:04 – 6:00",
+          "beat": 3,
+          "sha256CacheKey": "cfd2dc582b823706ef7a8d19a42d3d200b6c95abcce1d27d51fbf56f68cbaf85",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4c84b8cf3c9050981a8c2e6e37fd42d4e52e085acf3d008e7f79960d792b20e0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tổ chức chuyển mạch (nhà 2) đặt hai cột số lên bàn cân: Chiều đi 500 tỷ đồng trừ Chiều về 470 tỷ đồng = Phải trả ròng 30 tỷ đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy tính cơ (SFX chung)",
+          "voWords": 164
+        },
+        {
+          "sceneIndex": 7,
+          "time": "6:00 – 6:52",
+          "beat": 3,
+          "sha256CacheKey": "53ef14601471104d3bd975288344abcaea4805cfd96fd414cc85111b780755a6",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "564a1f875f0f8a50de05c6fcf5376298ee82d34619e8a9752a18c063347a72b6",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tại Ngân hàng Trung ương (nhà 4): luồng quyết toán tầng hầm bừng sáng, trích đúng 30 tỷ đồng từ tài khoản dự trữ của Ngân hàng gửi sang Ngân hàng nhận.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng dòng chảy sâu (SFX chung)",
+          "voWords": 151
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:52 – 7:40",
+          "beat": 4,
+          "sha256CacheKey": "790b3149bb60d2e7ac37a7c2b3d7287a1e62e6e4e74cb48eb17720902ae14ad8",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "612425d49f6a1e2d723650f8238f2c74d8e04b8a7b6b5b1c748f590fa4f85ac4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận cảnh Ngân hàng Trung ương (nhà 4) xử lý lệnh RTGS 10 tỷ đồng tức thời; đồng thời sổ kế toán doanh nghiệp hiện bút toán treo chiều 31/12: Nợ TK 113 / Có TK 112: 20.000.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu (SFX chung)",
+          "voWords": 166
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:40 – 8:20",
+          "beat": null,
+          "sha256CacheKey": "f07649b15a55e91ee1f94b4f4aeea6f86ffdd5c56aaea742a12858c6fe52df8c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7ee7f5e46b408d6db6fd62dc2199e4572db1d53511ecfddc79f9743f44ba70b9",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh 5 ngôi nhà sáng dịu: tầng trên là bản tin 3 giây, tầng dưới là phiên bù trừ ròng 30 tỷ đồng tại Ngân hàng Trung ương.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "một tiếng chuông khẽ (SFX chung)",
+          "voWords": 101
+        }
+      ]
+    },
+    "short": {
+      "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao cùng ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác nhau?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/offus_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "9FdZabe_Q_4",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/offus-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Chuyển khoản 20 triệu đồng cùng ngân hàng và khác ngân hàng: Vì sao cùng ting-ting sau 3 giây nhưng tiền dự trữ đi hai đường khác nhau?\n0:11 Đoạn 1\n0:23 Đoạn 2\n0:36 Đoạn 4\n0:50 Đoạn 4\n1:01 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:11",
+          "beat": null,
+          "sha256CacheKey": "cfc31aeaedd4acae9f8c90e2422793c0bc743b02e7c3dc34d1b13c4e6b3fd4f4",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "acc80cbcd79a91a408cb432f44900769d55a8efd4e968a1c38050b4996d474b7",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Hai màn hình điện thoại đặt cạnh nhau: chuyển 20.000.000 đồng cùng ngân hàng (On-Us) và khác ngân hàng (Off-Us) đều báo +20.000.000 đồng sau 3 giây.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông báo tin nhắn (SFX chung)",
+          "voWords": 34
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:11 – 0:23",
+          "beat": 0,
+          "sha256CacheKey": "4f29ac914f4c0799c401c89259a3a2e146c5a492a54229adc923de08353f1dbd",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1d01788c997cfe3fba4665c03b43feef72eeb6a9b7fe4e4bc13622298a9d7850",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cận cảnh Ngân hàng của bạn (nhà 1): sổ cái nội bộ giảm 20 triệu dòng của Bạn, tăng 20 triệu dòng Người nhận; bể vốn CASA giữ nguyên.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bút gạch sổ (SFX chung)",
+          "voWords": 40
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:23 – 0:36",
+          "beat": 1,
+          "sha256CacheKey": "09318a01ed8c96a48b724c9d64639debb65a9edbc0b731126d47a2806d01759d",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7686339661ffe18b866d4b8bfdcc31e7d12bb044a8b1a75b35f4a3566dc0513a",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bản tin chạy qua Tổ chức chuyển mạch (nhà 2): kiểm tra Hạn mức ký quỹ bảo chứng và đóng dấu sang Ngân hàng người nhận (nhà 3).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tít điện tử (SFX chung)",
+          "voWords": 48
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:36 – 0:50",
+          "beat": 3,
+          "sha256CacheKey": "f966b5d2d15347b9a4fa22bd92e9b798307b4e8f7a9700de777452291e4e90d9",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "99d32eb12c69baf7eab6b0a2b25f923f4e53f977c78ff839105d73f2ecc1fdde",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bàn cân bù trừ ròng tại Tổ chức chuyển mạch: 500 tỷ đồng chiều đi trừ 470 tỷ đồng chiều về = 30 tỷ đồng ròng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy tính cơ (SFX chung)",
+          "voWords": 44
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:50 – 1:01",
+          "beat": 3,
+          "sha256CacheKey": "7f8a81fa027e50771d73653ead903e4fbcbaa97a358d986969952c51bd87c050",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fb446e22db16e4c1f02877a58a81f3e4ff1c54f778c08199b2750abf7c2c62fe",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tầng hầm Ngân hàng Trung ương (nhà 4) cắt chuyển đúng 30 tỷ đồng dự trữ giữa hai ngân hàng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu (SFX chung)",
+          "voWords": 35
+        },
+        {
+          "sceneIndex": 5,
+          "time": "1:01 – 1:12",
+          "beat": 4,
+          "sha256CacheKey": "689442e51674d33920a9b736948cdb348f20d1db039ab939532c7577cb69acba",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "c7339a5e6cdafdb8a226ef3f3a639974456d0173485ab4a2b1127e90fa5638c2",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Sổ kế toán doanh nghiệp chiều 31/12 hiện bút toán Nợ TK 113 (Tiền đang chuyển) / Có TK 112: 20.000.000 đồng.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "một tiếng chuông khẽ (SFX chung)",
+          "voWords": 33
+        }
+      ]
+    }
+  }
+}
