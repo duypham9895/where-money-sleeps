@@ -90,6 +90,9 @@ export function parseAndValidateBeacon(rawBody) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.hostname === "wms.duypham.me") {
+      return Response.redirect(`https://money.duypham.me${url.pathname}${url.search}`, 301);
+    }
 
     if (url.pathname === "/api/p") {
       if (request.method !== "POST") {

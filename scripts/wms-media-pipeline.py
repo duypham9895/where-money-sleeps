@@ -60,7 +60,7 @@ DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
 DEFAULT_VEO_FAST_MODEL = "veo-3.1-fast-generate-preview"
 DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
 DEFAULT_YT_URL = "https://www.youtube.com/@WhereMoneySleeps"
-DEFAULT_SITE_BASE_URL = "https://where-money-sleeps.duypham9895.workers.dev"
+DEFAULT_SITE_BASE_URL = "https://money.duypham.me"
 DEFAULT_REF_IMAGES = [
     "public/brand/youtube-banner-2560x1440-safezone.jpg",
     "public/brand/youtube-avatar-1024x1024.png",
@@ -151,7 +151,12 @@ def run_auth_youtube(port: int = 8765) -> int:
 
     class OAuthHandler(http.server.BaseHTTPRequestHandler):
         def do_GET(self):  # noqa: N802
-            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            parsed = urllib.parse.urlparse(self.path)
+            if parsed.path == "/favicon.ico":
+                self.send_response(204)
+                self.end_headers()
+                return
+            q = urllib.parse.parse_qs(parsed.query)
             if "code" in q:
                 captured["code"] = q["code"][0]
                 body = "<html><meta charset='utf-8'><body style='font-family:sans-serif;padding:2rem'><h2>Đã kết nối kênh @WhereMoneySleeps thành công!</h2><p>Bạn có thể đóng tab này và quay lại cửa sổ dòng lệnh.</p></body></html>"
@@ -168,14 +173,15 @@ def run_auth_youtube(port: int = 8765) -> int:
             return
 
     print("=== ĐĂNG NHẬP OAUTH 2.0 CHO KÊNH @WhereMoneySleeps ===")
-    print(f"1. Mở URL sau trên trình duyệt (chọn đúng tài khoản quản lý kênh @WhereMoneySleeps):\n   {auth_url}\n")
+    print(f"1. Mở URL sau trên trình duyệt (chọn đúng tài khoản quản lý kênh @WhereMoneySleeps):\n   {auth_url}\n", flush=True)
     try:
         webbrowser.open(auth_url)
     except Exception:
         pass
-    print(f"2. Đang chờ Google gọi ngược về {redirect_uri} ...")
+    print(f"2. Đang chờ Google gọi ngược về {redirect_uri} ...", flush=True)
     with http.server.HTTPServer(("127.0.0.1", port), OAuthHandler) as httpd:
-        httpd.handle_request()
+        while "code" not in captured and "error" not in captured:
+            httpd.handle_request()
 
     if "code" not in captured:
         print(f"LỖI: Không nhận được mã uỷ quyền OAuth ({captured.get('error', 'timeout')})", file=sys.stderr)
@@ -664,34 +670,47 @@ def build_youtube_description(story_key: str, story: dict, fmt: str) -> str:
     )
 
 
-def step_5c_update_youtube_description(story_key: str, story: dict, fmt: str) -> str:
-    """Cập nhật snippet.description (kèm URL chính xác của bài viết) trên YouTube qua videos.update."""
+def step_5c_update_youtube_description(
+    story_key: str,
+    story: dict,
+    fmt: str,
+    privacy_status: str | None = None,
+) -> str:
+    """Cập nhật snippet.description (kèm URL chính xác của bài viết) và status.privacyStatus trên YouTube qua videos.update."""
     step_5_0_brand_safety_audit(story_key, story)
     vid = story.get("videoScript") or {}
     fobj = vid.get(fmt) or {}
     yt_id = str(fobj.get("youtubeId") or "").strip()
     if not YT_ID_RE.match(yt_id):
         raise ValueError(f"Bài '{story_key}' ({fmt}) chưa có youtubeId hợp lệ để cập nhật description")
+    if privacy_status == "public" and story.get("status") != "published":
+        raise PermissionError(f"CỔNG WMS-R4: Bài '{story_key}' chưa ở status='published', cấm bật public")
     access_token = get_youtube_access_token()
     raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
     title = f"{raw_title} #Shorts" if fmt == "short" and "#Shorts" not in raw_title else raw_title
     desc = build_youtube_description(story_key, story, fmt)
-    body = json.dumps(
-        {
-            "id": yt_id,
-            "snippet": {
-                "title": title[:100],
-                "description": desc,
-                "tags": ["WhereMoneySleeps", "TaiChinhCaNhan", "KeToan", "TraGop0PhanTram", "Shorts" if fmt == "short" else "Explainer"],
-                "categoryId": "27",
-                "defaultLanguage": "vi",
-                "defaultAudioLanguage": "vi",
-            },
+    payload: dict = {
+        "id": yt_id,
+        "snippet": {
+            "title": title[:100],
+            "description": desc,
+            "tags": ["WhereMoneySleeps", "TaiChinhCaNhan", "KeToan", "TraGop0PhanTram", "Shorts" if fmt == "short" else "Explainer"],
+            "categoryId": "27",
+            "defaultLanguage": "vi",
+            "defaultAudioLanguage": "vi",
         },
-        ensure_ascii=False,
-    ).encode("utf-8")
+    }
+    part_q = "snippet"
+    if privacy_status in ("public", "unlisted", "private"):
+        payload["status"] = {
+            "privacyStatus": privacy_status,
+            "selfDeclaredMadeForKids": False,
+            "containsSyntheticMedia": True,
+        }
+        part_q = "snippet,status"
+    body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
-        "https://www.googleapis.com/youtube/v3/videos?part=snippet",
+        f"https://www.googleapis.com/youtube/v3/videos?part={part_q}",
         data=body,
         headers={
             "Authorization": f"Bearer {access_token}",
@@ -703,7 +722,8 @@ def step_5c_update_youtube_description(story_key: str, story: dict, fmt: str) ->
         with urllib.request.urlopen(req, timeout=60) as resp:
             res_data = json.loads(resp.read().decode("utf-8"))
         out_id = str(res_data.get("id") or yt_id).strip()
-        print(f"[5C Update Desc PASS] {story_key} ({fmt} · {out_id}) -> {build_article_url(story_key)}")
+        out_priv = str((res_data.get("status") or {}).get("privacyStatus") or privacy_status or "unchanged")
+        print(f"[5C Update Desc PASS] {story_key} ({fmt} · {out_id} · privacy={out_priv}) -> {build_article_url(story_key)}")
         return out_id
     except urllib.error.HTTPError as exc:
         err_raw = exc.read().decode("utf-8", errors="replace")
@@ -997,10 +1017,20 @@ def main() -> int:
     stories = extract_stories(src)
 
     if args.all_stories:
-        for sk in stories:
+        priv_map = {
+            "uploaded_public": "public",
+            "uploaded_unlisted": "unlisted",
+            "uploaded_private": "private",
+        }
+        target_priv = priv_map.get(args.embed_status or "")
+        for sk in list(stories.keys()):
+            if args.embed_status is not None:
+                step_5d_embed_into_post(args.html, sk, None, None, args.embed_status)
+                src = args.html.read_text(encoding="utf-8")
+                stories = extract_stories(src)
             if args.update_youtube_desc:
-                step_5c_update_youtube_description(sk, stories[sk], "short")
-                step_5c_update_youtube_description(sk, stories[sk], "long")
+                step_5c_update_youtube_description(sk, stories[sk], "short", privacy_status=target_priv)
+                step_5c_update_youtube_description(sk, stories[sk], "long", privacy_status=target_priv)
             step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode)
         return 0
 

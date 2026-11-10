@@ -92,20 +92,20 @@
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
       "youtubeId": "ubgdEOblCgo",
-      "embedStatus": "uploaded_unlisted",
+      "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/minpay-long-16x9.mp4",
       "youtubeUploadSpec": {
         "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
         "channelHandle": "@WhereMoneySleeps",
         "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
-        "articleUrl": "https://where-money-sleeps.duypham9895.workers.dev/?story=minpay",
+        "articleUrl": "https://money.duypham.me/?story=minpay",
         "categoryId": "27",
         "defaultLanguage": "vi",
         "privacyStatus": "public",
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?\n0:42 Đoạn 1\n1:32 Đoạn 2\n2:24 Đoạn 3\n3:14 Đoạn 4\n4:08 Đoạn 5\n5:12 Cảnh 7\n6:04 Cảnh 8\n6:56 Cảnh 9\n7:44 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://where-money-sleeps.duypham9895.workers.dev/?story=minpay\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?\n0:42 Đoạn 1\n1:32 Đoạn 2\n2:24 Đoạn 3\n3:14 Đoạn 4\n4:08 Đoạn 5\n5:12 Cảnh 7\n6:04 Cảnh 8\n6:56 Cảnh 9\n7:44 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://where-money-sleeps.duypham9895.workers.dev/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://money.duypham.me/?story=minpay\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Quẹt thẻ tín dụng 10 triệu rồi trả tối thiểu 500 nghìn đúng hạn: Vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi?\n0:42 Đoạn 1\n1:32 Đoạn 2\n2:24 Đoạn 3\n3:14 Đoạn 4\n4:08 Đoạn 5\n5:12 Cảnh 7\n6:04 Cảnh 8\n6:56 Cảnh 9\n7:44 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://money.duypham.me/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {
@@ -414,20 +414,20 @@
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
       "youtubeId": "-atHoEHCrSI",
-      "embedStatus": "uploaded_unlisted",
+      "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/minpay-short-9x16.mp4",
       "youtubeUploadSpec": {
         "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
         "channelHandle": "@WhereMoneySleeps",
         "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
-        "articleUrl": "https://where-money-sleeps.duypham9895.workers.dev/?story=minpay",
+        "articleUrl": "https://money.duypham.me/?story=minpay",
         "categoryId": "27",
         "defaultLanguage": "vi",
         "privacyStatus": "public",
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://where-money-sleeps.duypham9895.workers.dev/?story=minpay\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/ubgdEOblCgo\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://where-money-sleeps.duypham9895.workers.dev/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://money.duypham.me/?story=minpay\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/ubgdEOblCgo\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://money.duypham.me/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {
