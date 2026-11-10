@@ -58,6 +58,18 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
             errors.append(f"WMS_QUIZ_BANK thiếu card trắc nghiệm: {cid}")
     if 'reviewed_by: "Duy"' not in proto_text or 'accountant_agent: "ke-toan-reviewer"' not in proto_text:
         errors.append("WMS_QUIZ_BANK thiếu trường reviewed_by='Duy' hoặc accountant_agent='ke-toan-reviewer' (AC-21)")
+
+    # Check CSS Anti-Overlap Guard (.flow, .ch, .ledger .stamp vs .jstep/h4, .book, .split-pill)
+    required_css_guards = [
+        ("minmax(15.5rem,18rem)", ".flow li phải đủ rộng cho cột .who (minmax(15.5rem,18rem)) để không đè cột .what"),
+        (".flow .who{display:grid;grid-template-columns:minmax(0,1fr)", ".flow .who phải khoá minmax(0,1fr) và min-width:0"),
+        ("width:fit-content;max-width:100%", ".ch phải dùng width:fit-content;max-width:100% thay vì width:max-content"),
+        (".journal .jstep{font:700 11px/1.4 var(--mono);letter-spacing:.06em;color:#94600c;display:block;margin-bottom:4px;padding-right:124px}", ".journal .jstep phải có padding-right:124px để không đè lên .stamp"),
+        ("min-height:var(--h,250px);height:auto", ".book phải dùng min-height thay vì height cứng để không tràn chữ trên mobile"),
+    ]
+    for snippet, msg in required_css_guards:
+        if snippet not in proto_text:
+            errors.append(f"Lỗi hồi quy CSS Anti-Overlap: {msg}")
     return errors
 
 
