@@ -1,0 +1,111 @@
+name: CI & Auto-Deploy (Cloudflare Workers + D1)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: T1 Gate + S4 QA E2E + Build Site
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+
+      - name: Run T1 Deterministic Gate (wms-check.sh)
+        run: bash scripts/wms-check.sh --quiet
+
+      - name: Run S4 E2E QA Verification (wms-qa-verify.py --ci)
+        run: python3 -I scripts/wms-qa-verify.py --ci
+
+      - name: Build Static Assets Bundle (dist/site)
+        run: python3 -I scripts/wms-build-deploy.py
+
+  deploy:
+    name: Deploy to Cloudflare Workers + D1
+    runs-on: ubuntu-latest
+    needs: [verify]
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: production-deploy-main
+      cancel-in-progress: false
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+
+      - name: Build Static Assets Bundle (dist/site)
+        run: python3 -I scripts/wms-build-deploy.py
+
+      - name: Configure Cloudflare Credentials
+        env:
+          CF_API_TOKEN_SECRET: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_WRANGLER_CONFIG_SECRET: ${{ secrets.CLOUDFLARE_WRANGLER_CONFIG }}
+          CF_ACCOUNT_ID_SECRET: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -n "${CF_ACCOUNT_ID_SECRET:-}" ]; then
+            echo "CLOUDFLARE_ACCOUNT_ID=${CF_ACCOUNT_ID_SECRET}" >> "$GITHUB_ENV"
+          fi
+          if [ -n "${CF_API_TOKEN_SECRET:-}" ]; then
+            echo "CLOUDFLARE_API_TOKEN=${CF_API_TOKEN_SECRET}" >> "$GITHUB_ENV"
+            echo "Configured Cloudflare authentication via CLOUDFLARE_API_TOKEN secret."
+          elif [ -n "${CF_WRANGLER_CONFIG_SECRET:-}" ]; then
+            mkdir -p "$HOME/.config/.wrangler/config"
+            printf '%s\n' "$CF_WRANGLER_CONFIG_SECRET" > "$HOME/.config/.wrangler/config/default.toml"
+            chmod 600 "$HOME/.config/.wrangler/config/default.toml"
+            echo "Configured Cloudflare authentication via CLOUDFLARE_WRANGLER_CONFIG secret."
+          else
+            echo "::error::Missing Cloudflare credentials: set CLOUDFLARE_API_TOKEN or CLOUDFLARE_WRANGLER_CONFIG in GitHub Actions secrets."
+            exit 1
+          fi
+
+      - name: Apply D1 Schema Idempotently (cloudflare/schema.sql)
+        run: npx --yes wrangler@4 d1 execute where-money-sleeps-db --remote --file=cloudflare/schema.sql --yes
+
+      - name: Deploy Worker & Static Assets to Production
+        run: npx --yes wrangler@4 deploy
+
+      - name: Verify Live Production Endpoints
+        run: |
+          set -euo pipefail
+          LIVE_URL="https://where-money-sleeps.duypham9895.workers.dev"
+          curl -fsSL "$LIVE_URL/" | grep -q "const STORIES"
+          curl -fsSL "$LIVE_URL/studio.html" | grep -q "Where Money Sleeps"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$LIVE_URL/api/p" \
+            -H "Content-Type: text/plain" \
+            -d '{"e":"story_open","sid":"offus","d":"2026-11-10"}')
+          if [ "$HTTP_CODE" != "204" ]; then
+            echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
+            exit 1
+          fi
+          echo "Verified live endpoints: GET /, GET /studio.html (200), POST /api/p (204)."

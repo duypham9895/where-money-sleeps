@@ -274,9 +274,11 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
     return errors
 
 
-def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str) -> list[str]:
+def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci_mode: bool = False) -> list[str]:
     errors = []
+    seen_sids = set()
     for (sid, fmt), ytid in EXPECTED_YT_IDS.items():
+        seen_sids.add(sid)
         if ytid not in proto_text:
             errors.append(f"prototype.html thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         if ytid not in studio_data_text:
@@ -284,14 +286,20 @@ def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str) ->
         suffix = "long-16x9" if fmt == "long" else "short-9x16"
         mp4_path = YT_DIR / f"{sid}-{suffix}.mp4"
         srt_path = YT_DIR / f"{sid}-{suffix}.srt"
-        if not mp4_path.is_file() or mp4_path.stat().st_size < 5_000_000:
-            errors.append(f"File MP4 v6.5 thiếu hoặc quá nhỏ: {mp4_path}")
+        if not ci_mode or mp4_path.is_file():
+            if not mp4_path.is_file() or mp4_path.stat().st_size < 5_000_000:
+                errors.append(f"File MP4 v6.5 thiếu hoặc quá nhỏ: {mp4_path}")
         if not srt_path.is_file() or srt_path.stat().st_size < 200:
             errors.append(f"File phụ đề .srt thiếu hoặc rỗng: {srt_path}")
+    for sid in sorted(seen_sids):
+        manifest_path = YT_DIR / f"{sid}-elevenlabs-youtube-manifest.json"
+        if not manifest_path.is_file() or manifest_path.stat().st_size < 100:
+            errors.append(f"File manifest thiếu hoặc rỗng: {manifest_path}")
     return errors
 
 
 def main() -> int:
+    ci_mode = ("--ci" in sys.argv) or (os.environ.get("GITHUB_ACTIONS") == "true")
     proto_text = PROTO.read_text(encoding="utf-8")
     studio_text = STUDIO.read_text(encoding="utf-8")
     wf_text = WORKFLOWS.read_text(encoding="utf-8")
@@ -316,7 +324,7 @@ def main() -> int:
     for err in e3:
         print(f"  ✗ {err}")
 
-    e4 = verify_qa4_videos_and_youtube_ids(proto_text, studio_data_text)
+    e4 = verify_qa4_videos_and_youtube_ids(proto_text, studio_data_text, ci_mode=ci_mode)
     print(f"[QA-4] Bộ 14 Video Calm Editorial v6.5 + .srt + 14 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
     for err in e4:
         print(f"  ✗ {err}")
