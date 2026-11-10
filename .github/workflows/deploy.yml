@@ -99,11 +99,13 @@ jobs:
         run: |
           set -euo pipefail
           LIVE_URL="https://where-money-sleeps.duypham9895.workers.dev"
-          curl -fsSL "$LIVE_URL/" | grep -q "const STORIES"
-          curl -fsSL "$LIVE_URL/studio.html" | grep -q "Where Money Sleeps"
+          curl -fsSL "$LIVE_URL/" -o /tmp/live-index.html
+          grep -q "const STORIES" /tmp/live-index.html
+          curl -fsSL "$LIVE_URL/studio.html" -o /tmp/live-studio.html
+          grep -q "Where Money Sleeps" /tmp/live-studio.html
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$LIVE_URL/api/p" \
             -H "Content-Type: text/plain" \
-            -d '{"e":"story_open","sid":"offus","d":"2026-11-10"}')
+            -d '{"event":"ci_smoke_ping"}')
           if [ "$HTTP_CODE" != "204" ]; then
             echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
             exit 1
