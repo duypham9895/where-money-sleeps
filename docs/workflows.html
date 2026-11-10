@@ -878,6 +878,17 @@ html[data-reduced-motion="true"] * {
 
 <script>
 (() => {
+  // Author-only access guard on public edge (*.workers.dev)
+  try {
+    const _q = new URLSearchParams(location.search);
+    if (_q.get("author") === "1" || _q.has("preview") || location.hash === "#author") {
+      localStorage.setItem("wms-author", "1");
+    } else if (location.hostname.endsWith(".workers.dev") && localStorage.getItem("wms-author") !== "1") {
+      location.replace("/");
+      return;
+    }
+  } catch (_) {}
+
   const NS = "http://www.w3.org/2000/svg";
   const svg = document.getElementById("factory-svg");
   const scrubberEl = document.getElementById("step-scrubber");
