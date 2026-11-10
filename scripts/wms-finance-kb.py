@@ -427,6 +427,45 @@ def verify_story_finance(
                     f"QR tĩnh thực nhận {gross10m:,}đ (phí 0đ) vs Thẻ trừ MDR 2,2% ({mdr_fee:,}đ, còn {card_net:,}đ) · "
                     f"QR động trừ 0,2% ({dyn_fee:,}đ, còn {dyn_net:,}đ) · Chuyển nhầm {overpaid:,}đ treo TK 338 {refund_liab:,}đ"
                 ))
+        elif story_key == "profitcash":
+            open_cash = p["openingCash112"]
+            rev = p["revenue511"]
+            cogs = p["cogs632"]
+            inv_amt = p["endingInventory156"]
+            paid_sup = p["cashPaidSuppliers"]
+            opex = p["operatingExpenses642"]
+            paid_opex = p["cashPaidOpex"]
+            payroll = p["unpaidPayroll334"]
+            profit = p["netProfit421"]
+            cash_in_cust = p["cashCollectedFromCustomer"]
+            ar = p["accountsReceivable131"]
+            wc_locked = p["workingCapitalLocked"]
+            ocf = p["operatingCashFlowOCF"]
+            end_cash = p["endingCashBeforeLoan112"]
+            loan = p["shortTermLoan341"]
+            if (
+                rev - cogs - opex != profit
+                or cogs + inv_amt != paid_sup
+                or paid_opex + payroll != opex
+                or cash_in_cust + ar != rev
+                or ar + inv_amt != wc_locked
+                or profit - ar - inv_amt + payroll != ocf
+                or open_cash + ocf != end_cash
+                or open_cash + cash_in_cust - paid_sup - paid_opex != end_cash
+                or end_cash + loan != payroll
+            ):
+                rows.append((
+                    "FAIL", "F2", w,
+                    f"Toán đối chiếu Lợi nhuận vs Dòng tiền OCF lệch: profit={profit}, ocf={ocf}, end_cash={end_cash}"
+                ))
+                f2_ok = False
+            else:
+                rows.append((
+                    "PASS", "F2", w,
+                    f"Toán Kế toán dồn tích vs Lưu chuyển tiền tệ gián tiếp khớp tuyệt đối: Doanh thu {rev:,}đ − Giá vốn {cogs:,}đ − Chi phí {opex:,}đ = Lãi {profit:,}đ · "
+                    f"OCF = +{profit:,}đ − ΔTK 131 ({ar:,}đ) − ΔTK 156 ({inv_amt:,}đ) + ΔTK 334 ({payroll:,}đ) = {ocf:,}đ · "
+                    f"Tiền cuối kỳ TK 112 = {open_cash:,}đ + ({ocf:,}đ) = {end_cash:,}đ (vay TK 341 {loan:,}đ để trả lương {payroll:,}đ)"
+                ))
     elif f2_ok:
         rows.append(("PASS", "F2", w, f"Toán cân đối {len(all_ledgers)} bút toán Σ Nợ = Σ Có hợp lệ"))
 

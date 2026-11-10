@@ -3,7 +3,7 @@
   "kbId": "wms-financial-specialist-kb",
   "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
   "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
-  "lastCrawledAt": "2026-11-09T23:23:09+07:00",
+  "lastCrawledAt": "2026-11-10T10:03:59+07:00",
   "freshnessPolicy": {
     "maxAgeDays": 30,
     "recommendedCron": "0 8 * * 1",
@@ -199,6 +199,21 @@
         "SRC-SBV-PAYMENT-CARD",
         "SRC-SBV-PAYROLL-BOOK-TRANSFER",
         "SRC-MOF-TT99-2025"
+      ]
+    },
+    {
+      "ruleId": "FIN-MECH-06",
+      "checkCode": "F1",
+      "category": "business",
+      "title": "Kế toán Dồn tích (Accrual Basis) vs Lưu chuyển Tiền tệ Gián tiếp (Indirect Cash Flow) & Bẫy Vốn lưu động (Working Capital Lock-up)",
+      "distilledTruth": "Theo Thông tư 99/2025/TT-BTC, Báo cáo kết quả kinh doanh ghi nhận Doanh thu (Có TK 511: 10.000.000.000đ) và Giá vốn hàng bán (Nợ TK 632: 6.500.000.000đ) ngay khi giao hàng và ký biên bản nghiệm thu theo nguyên tắc kế toán dồn tích, trừ Chi phí quản lý & vận hành (Nợ TK 642: 1.500.000.000đ gồm 1 tỷ đã chi tiền và 500 triệu lương tháng 12 ghi Có TK 334) tạo ra Lợi nhuận ròng 2.000.000.000đ (Có TK 421). Tuy nhiên trên Báo cáo lưu chuyển tiền tệ theo phương pháp gián tiếp: OCF = Lợi nhuận ròng (+2.000 triệu) − ΔPhải thu khách hàng TK 131 (−2.500 triệu) − ΔHàng tồn kho TK 156 (−950 triệu) + ΔLương phải trả chưa chi TK 334 (+500 triệu) = −950.000.000đ. Cộng tiền mặt đầu kỳ 1.000.000.000đ, số dư TK 112 chiều 31/12 chỉ còn đúng 50.000.000đ (vì 3.450.000.000đ bị giam ở TK 131 + TK 156), buộc công ty phải vay ngắn hạn 450.000.000đ (Có TK 341) để trả đủ 500.000.000đ lương nhân sự.",
+      "forbiddenErrors": [
+        "Đồng nhất Lợi nhuận sau thuế chưa phân phối (TK 421) với số dư Tiền gửi không kỳ hạn (TK 112)",
+        "Tính toàn bộ hàng tồn kho nhập dự trữ chưa bán (TK 156: 950.000.000đ) vào Giá vốn hàng bán trong kỳ (TK 632)"
+      ],
+      "sourceRefs": [
+        "SRC-MOF-TT99-2025",
+        "SRC-SBV-PAYROLL-BOOK-TRANSFER"
       ]
     }
   ],
@@ -643,15 +658,140 @@
           ]
         ]
       }
+    },
+    "profitcash": {
+      "storySlug": "profitcash",
+      "category": "business",
+      "mechanismType": "accrual_profit_vs_operating_cashflow_reconciliation",
+      "parameters": {
+        "openingCash112": 1000000000,
+        "revenue511": 10000000000,
+        "cogs632": 6500000000,
+        "endingInventory156": 950000000,
+        "cashPaidSuppliers": 7450000000,
+        "operatingExpenses642": 1500000000,
+        "cashPaidOpex": 1000000000,
+        "unpaidPayroll334": 500000000,
+        "netProfit421": 2000000000,
+        "cashCollectedFromCustomer": 7500000000,
+        "accountsReceivable131": 2500000000,
+        "workingCapitalLocked": 3450000000,
+        "operatingCashFlowOCF": -950000000,
+        "endingCashBeforeLoan112": 50000000,
+        "shortTermLoan341": 450000000
+      },
+      "wireOnlyBeats": [
+        3
+      ],
+      "pipeMoneyBeats": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "requiredAccounts": [
+        "112",
+        "131",
+        "156",
+        "334",
+        "341",
+        "421",
+        "511",
+        "632",
+        "642"
+      ],
+      "forbiddenAccounts": [],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "10.000.000.000",
+          "7.500.000.000",
+          "2.500.000.000",
+          "7.450.000.000",
+          "6.500.000.000",
+          "950.000.000",
+          "2.000.000.000",
+          "500.000.000",
+          "450.000.000",
+          "50.000.000",
+          "131",
+          "156",
+          "341",
+          "421"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "10 tỷ",
+            "10.000.000.000",
+            "mười tỷ"
+          ],
+          [
+            "2 tỷ",
+            "2.000.000.000",
+            "hai tỷ"
+          ],
+          [
+            "50 triệu",
+            "50.000.000",
+            "năm mươi triệu"
+          ],
+          [
+            "2,5 tỷ",
+            "2.500.000.000",
+            "hai phẩy năm tỷ"
+          ],
+          [
+            "950 triệu",
+            "950.000.000",
+            "chín trăm năm mươi triệu"
+          ],
+          [
+            "450 triệu",
+            "450.000.000",
+            "bốn trăm năm mươi triệu"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "10 tỷ",
+            "10.000.000.000",
+            "mười tỷ"
+          ],
+          [
+            "2 tỷ",
+            "2.000.000.000",
+            "hai tỷ"
+          ],
+          [
+            "50 triệu",
+            "50.000.000",
+            "năm mươi triệu"
+          ],
+          [
+            "2,5 tỷ",
+            "2.500.000.000",
+            "hai phẩy năm tỷ"
+          ],
+          [
+            "950 triệu",
+            "950.000.000",
+            "chín trăm năm mươi triệu"
+          ],
+          [
+            "450 triệu",
+            "450.000.000",
+            "bốn trăm năm mươi triệu"
+          ]
+        ]
+      }
     }
   },
   "lastCrawlSummary": {
-    "crawledAt": "2026-11-09T23:23:09+07:00",
+    "crawledAt": "2026-11-10T10:03:59+07:00",
     "localArtifactsVerified": 3,
     "localArtifactsTotal": 3,
     "liveUrlsProbed": 7,
-    "liveUrlsReachable": 6,
-    "domainRulesCount": 7,
-    "storyInvariantsCount": 5
+    "liveUrlsReachable": 7,
+    "domainRulesCount": 8,
+    "storyInvariantsCount": 6
   }
 }

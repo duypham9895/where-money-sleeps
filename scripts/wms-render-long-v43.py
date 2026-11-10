@@ -1416,6 +1416,205 @@ LONG_STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "profitcash": {
+        "house_nodes": [
+            ("KHO HÀNG", "Nhà cung cấp"),
+            ("CÔNG TY", "Lãi sổ 2 tỷ"),
+            ("KHÁCH SỈ", "Nợ 2,5 tỷ"),
+            ("NGÂN HÀNG", "Két còn 50tr"),
+            ("NHÂN SỰ", "Lương 500tr"),
+        ],
+        "plates_pool": [
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/install-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/install-short-plate-4.jpg", (20, 780, 1060, 1625)),
+            ("public/brand/pay-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-4.jpg", (20, 460, 1060, 1305)),
+        ],
+        "scenes": [
+            # 0: Mode L-A (Mở đầu: Chiều 31 tháng 12 — Lãi ròng 2 tỷ nhưng két còn 50 triệu)
+            {
+                "mode": "L-A",
+                "plate_idx": 0,
+                "active": {1, 3, 4},
+                "flow": ("wire", 1, 3),
+                "kicker": "MỞ ĐẦU  ·  CHIỀU 31/12: LÃI RÒNG 2 TỶ NHƯNG KÉT CÒN 50 TRIỆU",
+                "stage_tag": "BÁO CÁO LÃI RÒNG 2.000.000.000 Đ  ·  KÉT TK 112 CÒN 50.000.000 Đ",
+                "beats": [
+                    ("1. BÁO CÁO KẾT QUẢ KINH DOANH", "Doanh thu 10 tỷ − Chi phí 8 tỷ = Lãi ròng +2.000.000.000 đ"),
+                    ("2. BẢNG LƯƠNG THÁNG 12 CHỜ DUYỆT", "Cần chuyển 500.000.000 đ trả lương cho đội ngũ nhân sự"),
+                    ("3. SỐ DƯ KÉT NGÂN HÀNG (TK 112)", "Chỉ còn đúng 50.000.000 đ — thiếu 450.000.000 đ tiền mặt"),
+                    ("4. CÂU HỎI TRUNG TÂM", "Công ty làm ăn có lãi thật, không ai biển thủ — vậy tiền đi đâu?"),
+                ],
+                "rule": "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC TRỌN LỜI BÌNH",
+            },
+            # 1: Mode L-B (Bước 1: Xuất 7,45 tỷ đồng tiền tươi trả nhà cung cấp để nhập hàng)
+            {
+                "mode": "L-B",
+                "plate_idx": 1,
+                "active": {0, 1, 3},
+                "flow": ("pipe", 3, 0),
+                "kicker": "BƯỚC 1  ·  XUẤT 7,45 TỶ TIỀN TƯƠI NHẬP HÀNG VÀO KHO",
+                "stage_tag": "ĐẦU KỲ CÓ 1 TỶ VỐN LƯU ĐỘNG  ·  NHẬP KHO 7.450.000.000 Đ",
+                "scale_title": "TIỀN THẬT CHUYỂN TRẢ NHÀ CUNG CẤP ĐẦU VÀO:",
+                "scale_val": 7_450_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Lô hàng xuất bán cho hợp đồng trong kỳ (Giá vốn): 6.500.000.000 đ",
+                "mech_line2": "Lô hàng dự trữ gối đầu nằm lại trên kệ kho (TK 156): 950.000.000 đ",
+                "ledger_title": "BÚT TOÁN NHẬP KHO HÀNG HOÁ (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 156 (Hàng hóa): +7.450.000.000 đ",
+                "credit_line": "Credit TK 112 (Tiền gửi không kỳ hạn): −7.450.000.000 đ",
+                "rule": "7,45 TỶ ĐỒNG TIỀN MẶT ĐÃ RỜI KÉT NGÂN HÀNG ĐỂ BIẾN THÀNH HÀNG TRONG KHO",
+            },
+            # 2: Mode L-B (Bước 2: Giao lô hàng 10 tỷ đồng — Kế toán dồn tích ghi đủ doanh thu)
+            {
+                "mode": "L-B",
+                "plate_idx": 2,
+                "active": {1, 2, 3},
+                "flow": ("pipe", 2, 3),
+                "kicker": "BƯỚC 2  ·  GIAO LÔ HÀNG 10 TỶ & NGUYÊN TẮC KẾ TOÁN DỒN TÍCH",
+                "stage_tag": "GHI ĐỦ DOANH THU 10 TỶ (TK 511)  ·  KHÁCH SỈ CÒN NỢ 2,5 TỶ (TK 131)",
+                "scale_title": "DOANH THU GHI NHẬN TRÊN BÁO CÁO KẾT QUẢ KINH DOANH:",
+                "scale_val": 10_000_000_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.75,
+                "split_left_lbl": "THU TIỀN TK 112 (75%): 7,5 TỶ",
+                "split_right_lbl": "KHÁCH NỢ 131: 2,5 TỶ",
+                "ledger_title": "BÚT TOÁN DOANH THU THEO CƠ SỞ DỒN TÍCH (TT 99/2025):",
+                "debit_line": "Debit TK 112: +7.500.000.000 đ  ·  Debit TK 131: +2.500.000.000 đ",
+                "credit_line": "Credit TK 511 (Doanh thu bán hàng): +10.000.000.000 đ",
+                "rule": "TRÊN GIẤY TỜ BÁN ĐƯỢC 10 TỶ NHƯNG KÉT NGÂN HÀNG CHỈ THỰC NHẬN 7,5 TỶ",
+            },
+            # 3: Mode L-B (Bước 3: Khoá sổ cuối năm — Vì sao báo cáo hiện lãi ròng đúng 2 tỷ?)
+            {
+                "mode": "L-B",
+                "plate_idx": 3,
+                "active": {1, 3, 4},
+                "flow": ("pipe", 1, 3),
+                "kicker": "BƯỚC 3  ·  KHOÁ SỔ CUỐI NĂM: BÁO CÁO HIỆN LÃI RÒNG 2 TỶ",
+                "stage_tag": "DOANH THU 10 TỶ − GIÁ VỐN 6,5 TỶ − QUẢN LÝ 1,5 TỶ = LÃI 2 TỶ",
+                "scale_title": "LỢI NHUẬN RÒNG SAU THUẾ CHƯA PHÂN PHỐI (TK 421):",
+                "scale_val": 2_000_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Chi phí quản lý (TK 642: 1,5 tỷ) = 1,0 tỷ đã chi tiền mặt + 500tr lương chờ trả",
+                "mech_line2": "950 triệu hàng tồn kho (TK 156) chưa bán nên chưa bị trừ vào chi phí trong kỳ",
+                "ledger_title": "KẾT CHUYỂN LÃI LỖ CUỐI KỲ (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 511 (Doanh thu thuần): 10.000.000.000 đ",
+                "credit_line": "Credit TK 632 (6,5 tỷ) + TK 642 (1,5 tỷ) + TK 421 (Lãi 2,0 tỷ)",
+                "rule": "PHÉP TÍNH LỢI NHUẬN ĐÚNG LUẬT KẾ TOÁN NHƯNG KHÔNG PHẢI SỐ DƯ KÉT TIỀN",
+            },
+            # 4: Mode L-B (Bước 4: Phép đối chiếu trực diện giữa Tiền vào và Tiền ra trên TK 112)
+            {
+                "mode": "L-B",
+                "plate_idx": 4,
+                "active": {1, 2, 3},
+                "flow": ("wire", 1, 3),
+                "kicker": "BƯỚC 4  ·  ĐỐI CHIẾU TIỀN VÀO (8,50 TỶ) vs TIỀN RA (8,45 TỶ)",
+                "stage_tag": "8.500.000.000 Đ (VÀO) − 8.450.000.000 Đ (RA) = CÒN 50.000.000 Đ",
+                "scale_title": "SỐ DƯ TIỀN THẬT TRONG KÉT NGÂN HÀNG CHIỀU 31/12:",
+                "scale_val": 50_000_000,
+                "mech_type": "P3_FLIP",
+                "mech_line1": "Tổng tiền mặt vào két: 1,00 tỷ (Đầu kỳ) + 7,50 tỷ (Thu khách) = 8,50 tỷ đ",
+                "mech_line2": "Tổng tiền mặt ra khỏi két: 7,45 tỷ (Mua hàng) + 1,00 tỷ (Vận hành) = 8,45 tỷ đ",
+                "ledger_title": "HAI MIẾNG BỌT BIỂN ĐANG GIAM 3.450.000.000 Đ TIỀN MẶT:",
+                "debit_line": "Phải thu khách hàng (TK 131): 2.500.000.000 đ (Hẹn 90 ngày)",
+                "credit_line": "Hàng tồn kho cuối kỳ (TK 156): 950.000.000 đ (Nằm trên kệ kho)",
+                "rule": "CÔNG TY LÃI 2 TỶ NHƯNG VỐN LƯU ĐỘNG ĐANG GIAM CHẶT 3,45 TỶ ĐỒNG",
+            },
+            # 5: Mode L-C (Bước 5: Cầu nối gián tiếp từ Lợi nhuận +2 tỷ sang Dòng tiền OCF −950 triệu)
+            {
+                "mode": "L-C",
+                "plate_idx": 5,
+                "active": {1, 2, 3},
+                "flow": ("wire", 1, 3),
+                "kicker": "BƯỚC 5  ·  BÁO CÁO LƯU CHUYỂN TIỀN TỆ (PHƯƠNG PHÁP GIÁN TIẾP)",
+                "lc_type": "P5_EIR_FORMULA",
+                "headline": "OCF = LỢI NHUẬN (+2,00 TỶ) − TĂNG PHẢI THU (2,50 TỶ) − TĂNG TỒN KHO (0,95 TỶ) + TĂNG PHẢI TRẢ (0,50 TỶ)",
+                "card1_title": "DÒNG TIỀN KINH DOANH THUẦN (OCF)",
+                "card1_big": "OCF = −950.000.000 đ (Âm 950 triệu)",
+                "card1_sub": "Mỗi đồng tăng thêm ở Phải thu (TK 131) và Tồn kho (TK 156) đều mang dấu trừ trên dòng tiền",
+                "card2_title": "ĐỐI CHIẾU KÉT TIỀN CUỐI KỲ (TK 112)",
+                "card2_big": "1.000tr − 950tr = 50.000.000 đ",
+                "card2_sub": "Tiền đầu kỳ (1,00 tỷ) cộng Dòng tiền OCF (−950 triệu) khớp chính xác 50 triệu còn lại trong két",
+                "rule": "BÁO CÁO LÃI LỖ ĐO THÀNH QUẢ KINH TẾ  ·  BÁO CÁO LƯU CHUYỂN TIỀN TỆ ĐO SỨC SỐNG THANH KHOẢN",
+            },
+            # 6: Mode L-C (Bước 6: Chu kỳ chuyển đổi tiền mặt CCC = DIO + DSO − DPO)
+            {
+                "mode": "L-C",
+                "plate_idx": 6,
+                "active": {0, 1, 2},
+                "flow": ("pipe", 0, 1, 2),
+                "kicker": "BƯỚC 6  ·  CHU KỲ CHUYỂN ĐỔI TIỀN MẶT (CCC = DIO + DSO − DPO)",
+                "lc_type": "P7_TWOWORLD_COMPARE",
+                "headline": "KHOẢNG TRỐNG THỜI GIAN TỪ LÚC XUẤT TIỀN MUA HÀNG ĐẾN LÚC THU ĐƯỢC TIỀN KHÁCH SỈ",
+                "card1_title": "THỜI GIAN TIỀN BỊ GIAM (DIO + DSO = 135 NGÀY)",
+                "card1_big": "Tồn kho 45 ngày + Chờ thu 90 ngày",
+                "card1_sub": "Hàng nằm trong kho 45 ngày rồi giao cho khách sỉ chờ thêm 90 ngày mới thu hồi đủ tiền mặt",
+                "card2_title": "THỜI GIAN ĐƯỢC NỢ NHÀ CUNG CẤP (DPO = 0 NGÀY)",
+                "card2_big": "Khoảng trống CCC = 135 ngày thiếu tiền",
+                "card2_sub": "Vì phải trả tiền tươi ngay cho nhà cung cấp, công ty tự gánh trọn 135 ngày trống thanh khoản",
+                "rule": "CHU KỲ TIỀN MẶT (CCC) CÀNG DÀI, DOANH NGHIỆP CÀNG DỄ CẠN KÉT KHI MỞ RỘNG ĐƠN HÀNG",
+            },
+            # 7: Mode L-B (Bước 7: Cái kết chiều 31/12 — Vay ngắn hạn 450 triệu để trả lương)
+            {
+                "mode": "L-B",
+                "plate_idx": 6,
+                "active": {1, 3, 4},
+                "flow": ("pipe", 3, 4),
+                "kicker": "BƯỚC 7  ·  CHIỀU 31/12: VAY NGẮN HẠN 450 TRIỆU ĐỂ TRẢ LƯƠNG",
+                "stage_tag": "50 TRIỆU KÉT + 450 TRIỆU VAY NGẮN HẠN (TK 341) = 500 TRIỆU LƯƠNG",
+                "scale_title": "TỔNG BẢNG LƯƠNG THÁNG 12 GIẢI NGÂN CHO NHÂN SỰ:",
+                "scale_val": 500_000_000,
+                "mech_type": "P1_SPLIT",
+                "split_ratio": 0.90,
+                "split_left_lbl": "VAY NGẮN HẠN TK 341 (90%): 450TR",
+                "split_right_lbl": "KÉT 112: 50TR",
+                "ledger_title": "BÚT TOÁN VAY NGẮN HẠN TRẢ LƯƠNG (TT 99/2025/TT-BTC):",
+                "debit_line": "Debit TK 334 (Phải trả người lao động): −500.000.000 đ (Tất toán lương)",
+                "credit_line": "Credit TK 112: 50.000.000 đ  ·  Credit TK 341 (Vay ngắn hạn): +450.000.000 đ",
+                "rule": "CÔNG TY LÃI 2 TỶ VẪN PHẢI VAY NGÂN HÀNG 450 TRIỆU ĐỂ TRẢ LƯƠNG",
+            },
+            # 8: Mode L-C (Bước 8: Ba tình huống nguy hiểm nhất — Tăng trưởng nóng, nợ xấu và hàng lỗi mốt)
+            {
+                "mode": "L-C",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("wire", 1, 2, 3),
+                "kicker": "NGOẠI LỆ  ·  3 RỦI RO LÀM ĐỨT GÃY DÒNG TIỀN DOANH NGHIỆP",
+                "lc_type": "P9_TRIPTYCH",
+                "headline": "TĂNG TRƯỞNG QUÁ NÓNG (OVERTRADING), NỢ PHẢI THU QUÁ HẠN VÀ HÀNG TỒN KHO MẤT GIÁ",
+                "col1_title": "1. TĂNG TRƯỞNG NÓNG (OVERTRADING)",
+                "col1_big": "Nhận đơn gấp đôi làm cạn sạch két",
+                "col1_sub": "Càng nhận thêm đơn hàng trả chậm khi chưa thu được tiền cũ, nhu cầu vốn lưu động càng phình gấp bội",
+                "col2_title": "2. KHÁCH SỈ TRỄ HẠN / NỢ XẤU",
+                "col2_big": "Trích lập dự phòng TK 2293",
+                "col2_sub": "Khi khoản phải thu 2,5 tỷ quá hạn khó đòi, công ty vừa mất tiền mặt vừa phải ghi tăng chi phí TK 642",
+                "col3_title": "3. HÀNG TỒN KHO LỖI MỐT / GIẢM GIÁ",
+                "col3_big": "Giam vốn + Tốn phí lưu kho",
+                "col3_sub": "Hàng nằm chết trên kệ TK 156 không tự biến thành tiền trả lương mà còn làm giảm lợi nhuận kỳ sau",
+                "rule": "QUẢN TRỊ TUỔI NỢ (AGING SCHEDULE) VÀ VÒNG QUAY TỒN KHO QUAN TRỌNG KHÔNG KÉM DOANH SỐ",
+            },
+            # 9: Mode L-A (Kết luận: Lợi nhuận là ý kiến kế toán, tiền mặt là sự thật)
+            {
+                "mode": "L-A",
+                "plate_idx": 7,
+                "active": {0, 1, 2, 3, 4},
+                "flow": ("pipe", 3, 4),
+                "kicker": "KẾT LUẬN  ·  ĐÁNH THỨC 3,45 TỶ ĐỒNG ĐANG NGỦ ĐÔNG",
+                "stage_tag": "LỢI NHUẬN RÒNG (+2 TỶ) ≠ TIỀN MẶT (50 TRIỆU)  ·  3,45 TỶ KẸT Ở TK 131 & TK 156",
+                "beats": [
+                    ("1. BẢN CHẤT KẾ TOÁN DỒN TÍCH", "Doanh thu (TK 511) và Lợi nhuận (TK 421) ghi nhận theo thời điểm giao hàng"),
+                    ("2. HAI NƠI TIỀN ĐANG NGỦ ĐÔNG", "2,50 tỷ đ ở Phải thu khách hàng (TK 131) + 950 triệu đ ở Hàng tồn kho (TK 156)"),
+                    ("3. THƯỚC ĐO SỨC SỐNG THẬT SỰ", "Luôn đọc Dòng tiền kinh doanh (OCF = −950tr) cạnh Lợi nhuận ròng (+2 tỷ)"),
+                    ("4. NGUYÊN TẮC QUẢN TRỊ DÒNG TIỀN", "Thu hồi công nợ đúng hạn, tinh gọn tồn kho và giữ quỹ dự phòng thanh khoản"),
+                ],
+                "rule": "ĐÊM NAY, TIỀN CỦA BẠN NGỦ Ở ĐÂU?  ·  WHERE MONEY SLEEPS",
+            },
+        ],
+    },
 }
 
 
@@ -2242,14 +2441,14 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str) -> N
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "profitcash", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = load_cached_sfx()
 
-    target_slugs = ["install", "card", "pay", "minpay", "qr"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay", "qr", "profitcash"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug)
     return 0

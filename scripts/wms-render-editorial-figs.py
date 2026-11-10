@@ -105,6 +105,14 @@ QR_HOUSES = [
     ("NGÂN HÀNG", "Của quán"),
 ]
 
+PROFITCASH_HOUSES = [
+    ("KHO HÀNG", "Đầu vào"),
+    ("CÔNG TY", "Lãi 2 tỷ"),
+    ("KHÁCH SỈ", "Đối tác B2B"),
+    ("NGÂN HÀNG", "Công ty"),
+    ("NHÂN SỰ", "Đội ngũ"),
+]
+
 FIGURES_SPEC: dict[str, list[dict]] = {
     "card": [
         {
@@ -494,6 +502,84 @@ FIGURES_SPEC: dict[str, list[dict]] = {
                 ("3. Không có lá chắn Chargeback", "Vì chính bạn đẩy tiền đi như trao tiền mặt, ngân hàng không thể tự động thu hồi nếu người bán từ xa gian lận.", "clay"),
             ],
             "footer_eq": "Tại quầy quen: Quét QR giữ 99,8%–100% cho quán  ·  Mua từ xa: Lưu ý QR không có Chargeback",
+        },
+    ],
+    "profitcash": [
+        {
+            "out": "profitcash-fig-1.jpg",
+            "plate": "public/brand/pay-short-plate-1.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 01  ·  CHƯƠNG 02  ·  DỒN TÍCH VS DÒNG TIỀN",
+            "title": "Hợp đồng 10 tỷ đồng qua hai lăng kính: Doanh thu ghi đủ 10 tỷ nhưng tiền về chỉ 7,5 tỷ",
+            "houses": PROFITCASH_HOUSES,
+            "active_houses": {0, 1, 2, 3},
+            "left_pills": [
+                (354, 72, "SỔ KẾT QUẢ KINH DOANH: GHI ĐỦ 10 TỶ DOANH THU · BÁO LÃI 2 TỶ", "green"),
+                (354, 598, "SỔ TIỀN GỬI TK 112: XUẤT 7,45 TỶ MUA HÀNG · MỚI THU VỀ 7,5 TỶ", "amber"),
+            ],
+            "steps": [
+                ("1. Kế toán dồn tích (Accrual)", "Ngay khi giao hàng và ký nghiệm thu, kế toán ghi Có TK 511 đủ 10.000.000.000 đ dù khách chưa trả hết.", "green"),
+                ("2. Chi tiền tươi ở đầu vào (TK 156)", "Ngày 01/10 công ty đã xuất 7.450.000.000 đ từ TK 112 trả nhà cung cấp (6,5 tỷ giá vốn + 950 triệu tồn kho).", "amber"),
+                ("3. Bán chịu trả chậm ở đầu ra (TK 131)", "Khách sỉ mới trả 7.500.000.000 đ đợt 1, còn giữ lại 2.500.000.000 đ hẹn 60–90 ngày sau mới thanh toán.", "clay"),
+            ],
+            "footer_eq": "Doanh thu ghi sổ 10 tỷ đồng (TK 511) nhưng tiền thực thu chỉ là 7,5 tỷ đồng (TK 112)",
+        },
+        {
+            "out": "profitcash-fig-2.jpg",
+            "plate": "public/brand/pay-short-plate-2.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 02  ·  CHƯƠNG 03  ·  HAI BỌT BIỂN HÚT TIỀN",
+            "title": "Giải phẫu 3,5 tỷ Tổng tài sản chiều 31/12: 3,45 tỷ đang ngủ ở Phải thu và Tồn kho",
+            "houses": PROFITCASH_HOUSES,
+            "active_houses": {0, 1, 2, 3},
+            "left_pills": [
+                (354, 72, "PHẢI THU KHÁCH SỈ (TK 131): 2,50 TỶ ĐỒNG NẰM TRÊN GIẤY NỢ", "amber"),
+                (354, 598, "HÀNG TỒN KHO (TK 156): 950 TRIỆU ĐỒNG NẰM TRÊN KỆ KHO", "teal"),
+            ],
+            "steps": [
+                ("1. Phép cộng trừ tiền mặt (TK 112)", "Tiền vào 8,50 tỷ (1 tỷ đầu kỳ + 7,5 tỷ thu khách) trừ Tiền ra 8,45 tỷ (7,45 tỷ mua hàng + 1 tỷ vận hành) = 50 triệu.", "teal"),
+                ("2. Bọt biển #1: Phải thu TK 131 (2,5 tỷ)", "Khách sỉ đang chiếm dụng hợp pháp 2.500.000.000 đ vốn lưu động không mất lãi của công ty bạn.", "amber"),
+                ("3. Bọt biển #2: Tồn kho TK 156 (950 triệu)", "Lô hàng nhập thêm 950.000.000 đ chưa bán nên chưa vào chi phí, nhưng đã rút tiền thật khỏi TK 112.", "clay"),
+            ],
+            "footer_eq": "Tổng tài sản 3,50 tỷ = Phải thu 2,50 tỷ + Tồn kho 0,95 tỷ + Tiền mặt 0,05 tỷ (50 triệu)",
+        },
+        {
+            "out": "profitcash-fig-3.jpg",
+            "plate": "public/brand/install-short-plate-3.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 03  ·  CHƯƠNG 04  ·  VÒNG QUAY TIỀN MẶT (CCC)",
+            "title": "Khi Vòng quay tiền mặt kéo giãn: Cho khách nợ 2,5 tỷ nhưng phải vay 450 triệu trả lương",
+            "houses": PROFITCASH_HOUSES,
+            "active_houses": {1, 2, 3, 4},
+            "left_pills": [
+                (354, 72, "BẢNG LƯƠNG THÁNG 12 (TK 334): 500 TRIỆU ĐỒNG ĐẾN HẠN CHIỀU 31/12", "amber"),
+                (354, 598, "GIẢI CỨU: VÉT 50 TRIỆU TK 112 + VAY NGẮN HẠN 450 TRIỆU (TK 341)", "green"),
+            ],
+            "steps": [
+                ("1. Vòng quay tiền mặt CCC = DIO + DSO − DPO", "Trả tiền tươi cho nhà cung cấp (DPO = 0) nhưng chờ khách sỉ trả nợ 90 ngày làm két tiền bị rút rỗng.", "amber"),
+                ("2. Bút toán vay cứu lương chiều 31/12", "Ghi Nợ TK 334 (500.000.000 đ) / Có TK 112 (50.000.000 đ) + Có TK 341 (Vay ngắn hạn: 450.000.000 đ).", "green"),
+                ("3. Nghịch lý chi phí lãi vay (TK 635)", "Công ty báo lãi 2 tỷ đồng nhưng phải trả lãi vay ngân hàng vì đang cho khách sỉ mượn không lãi 2,5 tỷ.", "clay"),
+            ],
+            "footer_eq": "Tăng trưởng đơn hàng sỉ trên một vòng quay tiền mặt lệch pha sẽ hút cạn két tiền",
+        },
+        {
+            "out": "profitcash-fig-4.jpg",
+            "plate": "public/brand/install-short-plate-4.jpg",
+            "crop": (0, 290, 768, 1220),
+            "badge": "HÌNH 04  ·  CHƯƠNG 05  ·  CẦU NỐI OCF & 3 VAN GIẢI PHÓNG",
+            "title": "Cầu nối Lợi nhuận (+2 tỷ) sang Dòng tiền OCF (−950 triệu) và 3 van giải phóng tiền mặt",
+            "houses": PROFITCASH_HOUSES,
+            "active_houses": {0, 1, 2, 3, 4},
+            "left_pills": [
+                (354, 72, "LỢI NHUẬN RÒNG (+2 TỶ) ≠ DÒNG TIỀN KINH DOANH OCF (−950 TRIỆU)", "teal"),
+                (354, 598, "3 VAN ĐIỀU TIẾT: THU THEO TIẾN ĐỘ · ĐỊNH MỨC KHO · GIÃN PHẢI TRẢ", "green"),
+            ],
+            "steps": [
+                ("1. Phương trình Lưu chuyển tiền tệ gián tiếp", "OCF = Lãi (+2,00 tỷ) − ΔPhải thu (2,50 tỷ) − ΔTồn kho (0,95 tỷ) + ΔLương chưa chi (0,50 tỷ) = −950 triệu.", "teal"),
+                ("2. Thu hồi công nợ TK 131 sớm", "Chia nhỏ đợt thanh toán theo tiến độ hoặc chiết khấu thanh toán sớm để kéo tiền tươi về TK 112.", "green"),
+                ("3. Đồng bộ tồn kho TK 156 & phải trả TK 331", "Nhập kho sát tốc độ bán thật và thương lượng kỳ hạn trả nhà cung cấp khớp với kỳ hạn thu khách hàng.", "amber"),
+            ],
+            "footer_eq": "Lợi nhuận trên TK 421 là ý kiến kế toán — Tiền mặt trong TK 112 mới là oxy duy trì sự sống",
         },
     ],
 }

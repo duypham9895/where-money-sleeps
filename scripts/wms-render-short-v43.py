@@ -804,6 +804,85 @@ STORY_CONFIGS: dict[str, dict] = {
             },
         ],
     },
+    "profitcash": {
+        "house_nodes": [
+            ("KHO HÀNG", "Nhà cung cấp"),
+            ("CÔNG TY", "Lãi sổ 2 tỷ"),
+            ("KHÁCH SỈ", "Nợ 2,5 tỷ"),
+            ("NGÂN HÀNG", "Két còn 50tr"),
+            ("NHÂN SỰ", "Lương 500tr"),
+        ],
+        "scene_plates": [
+            ("public/brand/pay-short-plate-1.jpg", (60, 520, 1020, 1300)),
+            ("public/brand/install-short-plate-2.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/card-short-plate-3.jpg", (20, 420, 1060, 1265)),
+            ("public/brand/pay-short-plate-2.jpg", (20, 260, 1060, 1105)),
+            ("public/brand/install-short-plate-4.jpg", (20, 780, 1060, 1625)),
+            ("public/brand/pay-short-plate-4.jpg", (20, 460, 1060, 1305)),
+        ],
+        "scenes": [
+            {
+                "active": [1, 3, 4],
+                "flow": ("wire", 1, 3),
+                "room_src": (0.34, 0.64, "BÁO CÁO LÃI RÒNG: +2 TỶ Đ"),
+                "room_dst": (0.68, 0.30, "KÉT NGÂN HÀNG: CÒN 50 TRIỆU"),
+                "packet_label": "LÃI 2 TỶ NHƯNG KÉT CÒN 50 TRIỆU",
+                "stage_tag": "BÁO CÁO LÃI RÒNG 2 TỶ ĐỒNG  ·  KÉT NGÂN HÀNG CÒN 50 TRIỆU",
+                "primitive": "P1_PROFIT_HOOK",
+                "kicker": "MỞ ĐẦU  ·  LÃI RÒNG 2 TỶ SAO KHÔNG ĐỦ TIỀN TRẢ LƯƠNG?",
+            },
+            {
+                "active": [1, 2, 3],
+                "flow": ("pipe", 2, 3),
+                "room_src": (0.34, 0.66, "DOANH THU TK 511: 10 TỶ Đ"),
+                "room_dst": (0.68, 0.30, "KHÁCH SỈ NỢ TK 131: 2,5 TỶ Đ"),
+                "packet_label": "THU 7,5 TỶ · CÒN NỢ 2,5 TỶ (TK 131)",
+                "stage_tag": "GIAO HÀNG 10 TỶ  ·  THU VỀ 7,5 TỶ, KHÁCH NỢ 2,5 TỶ (TK 131)",
+                "primitive": "P2_PROFIT_ACCRUAL_131",
+                "kicker": "BƯỚC 1  ·  KẾ TOÁN DỒN TÍCH & 2,5 TỶ NỢ PHẢI THU",
+            },
+            {
+                "active": [0, 1, 3],
+                "flow": ("pipe", 3, 0),
+                "room_src": (0.34, 0.66, "TIỀN VÀO KÉT: 1 TỶ + 7,5 TỶ"),
+                "room_dst": (0.68, 0.30, "CHI NHẬP HÀNG: −7,45 TỶ Đ"),
+                "packet_label": "CHI 7,45 TỶ HÀNG + 1,0 TỶ VẬN HÀNH",
+                "stage_tag": "NHẬP HÀNG 7,45 TỶ ĐỒNG  ·  TỒN KHO CUỐI KỲ GIAM 950 TRIỆU",
+                "primitive": "P3_PROFIT_INVENTORY_156",
+                "kicker": "BƯỚC 2  ·  HÀNG TỒN KHO TK 156 NGỐN TIỀN TƯƠI",
+            },
+            {
+                "active": [0, 1, 2],
+                "flow": ("wire", 1, 2),
+                "room_src": (0.34, 0.66, "PHẢI THU TK 131: 2,50 TỶ Đ"),
+                "room_dst": (0.68, 0.30, "TỒN KHO TK 156: 950 TRIỆU Đ"),
+                "packet_label": "3,45 TỶ ĐỒNG ĐANG NGỦ TRONG SỔ",
+                "stage_tag": "TIỀN VÀO 8,50 TỶ TRỪ TIỀN RA 8,45 TỶ = KÉT CÒN 50 TRIỆU",
+                "primitive": "P6_PROFIT_SPONGE_345B",
+                "kicker": "BƯỚC 3  ·  3,45 TỶ ĐỒNG NGỦ ĐÔNG Ở PHẢI THU & TỒN KHO",
+            },
+            {
+                "active": [1, 2, 3],
+                "flow": ("wire", 1, 3),
+                "room_src": (0.34, 0.66, "LỢI NHUẬN RÒNG: +2,00 TỶ Đ"),
+                "room_dst": (0.68, 0.30, "DÒNG TIỀN OCF: −950 TRIỆU Đ"),
+                "packet_label": "LÃI RÒNG +2 TỶ NHƯNG OCF −950 TRIỆU",
+                "stage_tag": "BÁO CÁO LƯU CHUYỂN TIỀN TỆ: DÒNG TIỀN KINH DOANH ÂM 950TR",
+                "primitive": "P7_PROFIT_OCF_MINUS950M",
+                "kicker": "BƯỚC 4  ·  ĐỐI CHIẾU LỢI NHUẬN (+2 TỶ) vs DÒNG TIỀN (−950TR)",
+            },
+            {
+                "active": [1, 3, 4],
+                "flow": ("pipe", 3, 4),
+                "room_src": (0.48, 0.24, "VAY NGẮN HẠN TK 341: +450TR"),
+                "room_dst": (0.50, 0.68, "CHI LƯƠNG TK 334: 500 TRIỆU"),
+                "packet_label": "50TR KÉT + 450TR VAY = 500TR LƯƠNG",
+                "stage_tag": "VAY NGẮN HẠN 450 TRIỆU (TK 341) ĐỂ TRẢ ĐỦ 500 TRIỆU LƯƠNG",
+                "primitive": "P4_PROFIT_CLOSING",
+                "kicker": "ĐIỂM MẤU CHỐT  ·  LỢI NHUẬN LÀ CHỮ, DÒNG TIỀN LÀ MÁU",
+            },
+        ],
+    },
 }
 
 
@@ -1722,7 +1801,7 @@ def draw_mechanism_canvas(
         draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
         draw_centered_row_text(draw, icx, cy0 + 366, "ĐỔI PHÍ LẺ VÀI TRĂM ĐỒNG ĐỂ GIỮ BỂ VỐN CASA KHỔNG LỒ", fonts["label"], (226, 168, 76))
 
-    else:  # P4_QR_CLOSING
+    elif prim == "P4_QR_CLOSING":
         t_y0, t_y1 = cy0 + 66, cy0 + 220
         draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
         v_10m = step_quantize(10_000_000 * max(0.1, beat1), 500_000) if beat1 < 0.99 else 10_000_000
@@ -1737,6 +1816,108 @@ def draw_mechanism_canvas(
         draw_centered_row_text(draw, icx, q_y0 + 18, "NGUYÊN TẮC CHỌN CÔNG CỤ THANH TOÁN:", fonts["label"], (226, 168, 76))
         draw_centered_row_text(draw, icx, q_y0 + 58, "Tại quầy quen: Quét QR giữ 100% cho quán", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
         draw_centered_row_text(draw, icx, q_y0 + 106, "Mua từ xa: Dùng thẻ để có quyền khiếu nại hoàn tiền (Chargeback)", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+
+    # ── NGUYÊN HÀM BÀI 6: `profitcash` (Báo cáo lãi ròng 2 tỷ nhưng két còn 50 triệu) ──
+    elif prim == "P1_PROFIT_HOOK":
+        v1 = step_quantize(2_000_000_000 * max(0.2, beat1), 100_000_000) if beat1 < 0.99 else 2_000_000_000
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 182
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "BÁO CÁO KẾT QUẢ KINH DOANH CUỐI NĂM (TK 421):", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 44, f"+{fmt_vnd(v1)}", fonts["hero_num"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Doanh thu 10 tỷ − Giá vốn 6,5 tỷ − Chi phí quản lý 1,5 tỷ = Lãi 2 tỷ", fonts["sub"], (182, 192, 206))
+
+        b2_y0, b2_y1 = cy0 + 198, cy0 + 328
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 31, 38), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "NHƯNG TRÊN MÀN HÌNH KÉT NGÂN HÀNG (TK 112):", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, "Chỉ còn 50.000.000 đ (Thiếu 450tr trả lương)", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 90, "Bảng lương tháng 12 cần 500.000.000 đ · Tiền thật của công ty đi đâu?", fonts["sub"], blend_rgb((88, 100, 116), (216, 222, 232), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "VÍ DỤ MINH HOẠ CƠ CHẾ  ·  BẬT PHỤ ĐỀ [CC] ĐỂ ĐỌC LỜI BÌNH", fonts["label"], (226, 168, 76))
+
+    elif prim == "P2_PROFIT_ACCRUAL_131":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "NGUYÊN TẮC KẾ TOÁN DỒN TÍCH (ACCRUAL BASIS — TT 99/2025):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Giao hàng xong là ghi nhận đủ: Credit TK 511 = 10.000.000.000 đ", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Doanh thu ghi sổ ngay khi bàn giao, không đợi tiền mặt về đủ", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        v_ar = step_quantize(2_500_000_000 * beat2, 250_000_000) if beat2 < 0.99 else 2_500_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "THỰC TẾ THU TIỀN TỪ ĐỐI TÁC MUA SỈ:", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, f"Thu TK 112: 7,5 tỷ đ  ·  Nợ phải thu TK 131: {fmt_vnd(v_ar)}", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "2,5 tỷ đồng nằm trên giấy hẹn trả chậm 90 ngày của khách hàng", fonts["sub"], blend_rgb((88, 100, 116), (138, 212, 174), beat2))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "DOANH THU 10 TỶ TRÊN SỔ NHƯNG KÉT CHỈ THU VỀ 7,5 TỶ TIỀN TƯƠI", fonts["label"], (226, 168, 76))
+
+    elif prim == "P3_PROFIT_INVENTORY_156":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "TỔNG TIỀN MẶT CHẢY VÀO KÉT TRONG KỲ:", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "Đầu kỳ 1.000.000.000 đ + Thu khách 7.500.000.000 đ = 8,50 tỷ đ", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Toàn bộ nguồn tiền mặt thực có để xoay sở trong suốt quý 4", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        v_out = step_quantize(8_450_000_000 * beat2, 450_000_000) if beat2 < 0.99 else 8_450_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "TỔNG TIỀN MẶT ĐÃ CHI RA KHỎI KÉT (TK 112):", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, f"Nhập hàng 7,45 tỷ + Vận hành 1,00 tỷ = {fmt_vnd(v_out)}", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Trong 7,45 tỷ tiền hàng: 6,50 tỷ là giá vốn TK 632 + 950tr tồn kho TK 156", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "950 TRIỆU HÀNG TỒN KHO CHƯA BÁN KHÔNG TÍNH VÀO CHI PHÍ NHƯNG ĐÃ TRỪ TIỀN", fonts["label"], (226, 168, 76))
+
+    elif prim == "P6_PROFIT_SPONGE_345B":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "PHÉP TRỪ TRỰC DIỆN TRÊN TÀI KHOẢN NGÂN HÀNG (TK 112):", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "8.500.000.000 đ (Vào) − 8.450.000.000 đ (Ra) = 50.000.000 đ", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Số dư tiền gửi không kỳ hạn chiều 31/12 chỉ còn đúng 50 triệu đồng", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (94, 184, 138))
+        v_sp = step_quantize(3_450_000_000 * beat2, 350_000_000) if beat2 < 0.99 else 3_450_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "HAI MIẾNG BỌT BIỂN ĐANG GIAM CHẶT TIỀN MẶT:", fonts["label"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 48, f"Phải thu 2,50 tỷ + Tồn kho 950tr = {fmt_vnd(v_sp)}", fonts["val_bold"], blend_rgb((92, 104, 120), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 86, "Tiền không mất đi — nó đang ngủ đông trong công nợ và kệ kho", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "VỐN LƯU ĐỘNG PHÌNH TO HÚT CẠN KÉT TIỀN DÙ BÁO CÁO LÃI LỚN", fonts["label"], (226, 168, 76))
+
+    elif prim == "P7_PROFIT_OCF_MINUS950M":
+        b1_y0, b1_y1 = cy0 + 66, cy0 + 190
+        draw_beat_card(draw, (ix0, b1_y0, ix1, b1_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 14, "CẦU NỐI GIÁN TIẾP TỪ LỢI NHUẬN SANG DÒNG TIỀN (OCF):", fonts["label"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, b1_y0 + 48, "+2,00 tỷ (Lãi) − 2,50 tỷ (TK 131) − 0,95 tỷ (TK 156) + 0,50 tỷ (TK 334)", fonts["val_bold"], (236, 231, 221))
+        draw_centered_row_text(draw, icx, b1_y0 + 86, "Điều chỉnh biến động vốn lưu động trên Báo cáo lưu chuyển tiền tệ", fonts["sub"], (148, 160, 178))
+
+        b2_y0, b2_y1 = cy0 + 206, cy0 + 330
+        draw_beat_card(draw, (ix0, b2_y0, ix1, b2_y1), beat2, (19, 30, 40), (226, 168, 76))
+        v_ocf = step_quantize(950_000_000 * beat2, 95_000_000) if beat2 < 0.99 else 950_000_000
+        draw_centered_row_text(draw, icx, b2_y0 + 14, "DÒNG TIỀN THUẦN TỪ HOẠT ĐỘNG KINH DOANH (OCF):", fonts["label"], blend_rgb((96, 108, 124), (226, 168, 76), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 46, f"OCF = −{fmt_vnd(v_ocf)} (Âm 950 triệu)", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, b2_y0 + 88, "Tiền đầu kỳ (1,00 tỷ) + OCF (−950 triệu) = Tiền cuối kỳ (50 triệu)", fonts["sub"], (148, 160, 178))
+
+        draw.line([(ix0, cy0 + 346), (ix1, cy0 + 346)], fill=(34, 44, 60), width=1)
+        draw_centered_row_text(draw, icx, cy0 + 366, "LỢI NHUẬN RÒNG +2 TỶ ĐỒNG NHƯNG DÒNG TIỀN KINH DOANH ÂM 950 TRIỆU", fonts["label"], (226, 168, 76))
+
+    else:  # P4_PROFIT_CLOSING
+        t_y0, t_y1 = cy0 + 66, cy0 + 220
+        draw_beat_card(draw, (ix0, t_y0, ix1, t_y1), max(0.15, beat1), (21, 29, 43), (94, 184, 138))
+        v_pay = step_quantize(500_000_000 * max(0.1, beat1), 50_000_000) if beat1 < 0.99 else 500_000_000
+        draw_centered_row_text(draw, icx, t_y0 + 12, "BÚT TOÁN VAY NGẮN HẠN TRẢ LƯƠNG 31/12 (TT 99/2025/TT-BTC):", fonts["label"], (148, 160, 178))
+        draw.line([(ix0 + 24, t_y0 + 42), (ix0 + 24 + (iw - 48) * max(0.15, beat1), t_y0 + 42)], fill=(94, 184, 138), width=2)
+        draw_centered_row_text(draw, icx, t_y0 + 54, "Bên Nợ: TK 334 (Phải trả người lao động) = 500.000.000 đ", fonts["sub"], (94, 184, 138))
+        draw_centered_row_text(draw, icx, t_y0 + 88, "Bên Có: TK 112 (50.000.000 đ) + TK 341 (Vay ngắn hạn: 450.000.000 đ)", fonts["sub"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, t_y0 + 122, f"Σ Nợ ({fmt_vnd(v_pay)})  =  Σ Có ({fmt_vnd(v_pay)})   [CÂN BẰNG]", fonts["val_bold"], (236, 231, 221))
+
+        q_y0, q_y1 = cy0 + 238, cy0 + 404
+        draw_beat_card(draw, (ix0, q_y0, ix1, q_y1), beat2, (22, 33, 38), (226, 168, 76), radius=14)
+        draw_centered_row_text(draw, icx, q_y0 + 18, "NGUYÊN TẮC SỐNG CÒN CỦA QUẢN TRỊ TÀI CHÍNH:", fonts["label"], (226, 168, 76))
+        draw_centered_row_text(draw, icx, q_y0 + 58, "Lợi nhuận là chữ trên sổ · Dòng tiền là máu", fonts["big_num"], blend_rgb((96, 108, 124), (236, 231, 221), beat2))
+        draw_centered_row_text(draw, icx, q_y0 + 106, "Luôn đặt Báo cáo lưu chuyển tiền tệ (OCF) cạnh Báo cáo lãi lỗ", fonts["sub"], blend_rgb((82, 102, 98), (94, 184, 138), beat2))
 
 
 def render_single_scene_frame(
@@ -1960,7 +2141,7 @@ def run_for_story(wmp, stories: dict, sfx_map: dict[str, bytes], slug: str, api_
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "all"])
+    parser.add_argument("--story", default="install", choices=["install", "card", "pay", "minpay", "qr", "profitcash", "all"])
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
@@ -1972,7 +2153,7 @@ def main() -> int:
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = ensure_sfx_cached(api_key)
 
-    target_slugs = ["install", "card", "pay", "minpay", "qr"] if args.story == "all" else [args.story]
+    target_slugs = ["install", "card", "pay", "minpay", "qr", "profitcash"] if args.story == "all" else [args.story]
     for slug in target_slugs:
         run_for_story(wmp, stories, sfx_map, slug, api_key)
     return 0
