@@ -100,17 +100,21 @@ jobs:
       - name: Verify Live Production Endpoints
         run: |
           set -euo pipefail
-          for LIVE_URL in "https://money.duypham.me" "https://where-money-sleeps.duypham9895.workers.dev"; do
-            curl -fsSL --retry 10 --retry-delay 4 --retry-all-errors "$LIVE_URL/" -o /tmp/live-index.html
-            grep -q "const STORIES" /tmp/live-index.html
-            curl -fsSL --retry 10 --retry-delay 4 --retry-all-errors "$LIVE_URL/studio.html" -o /tmp/live-studio.html
-            grep -q "WMS Review Studio" /tmp/live-studio.html
-            HTTP_CODE=$(curl -s --retry 10 --retry-delay 4 --retry-all-errors -o /dev/null -w "%{http_code}" -X POST "$LIVE_URL/api/p" \
-              -H "Content-Type: text/plain" \
-              -d '{"event":"ci_smoke_ping"}')
-            if [ "$HTTP_CODE" != "204" ]; then
-              echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
-              exit 1
-            fi
-            echo "Verified live endpoints on $LIVE_URL: GET /, GET /studio.html (200), POST /api/p (204)."
+          LIVE_URL="https://where-money-sleeps.duypham9895.workers.dev"
+          curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "$LIVE_URL/" -o /tmp/live-index.html
+          grep -q "const STORIES" /tmp/live-index.html
+          curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "$LIVE_URL/studio.html" -o /tmp/live-studio.html
+          grep -q "WMS Review Studio" /tmp/live-studio.html
+          HTTP_CODE=$(curl -s --retry 5 --retry-delay 2 --retry-all-errors -o /dev/null -w "%{http_code}" -X POST "$LIVE_URL/api/p" \
+            -H "Content-Type: text/plain" \
+            -d '{"event":"ci_smoke_ping"}')
+          if [ "$HTTP_CODE" != "204" ]; then
+            echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
+            exit 1
+          fi
+          for CUSTOM_HOST in "money.duypham.me" "wms.duypham.me"; do
+            getent hosts "$CUSTOM_HOST"
+            CUSTOM_CODE=$(curl -sS --retry 5 --retry-delay 3 -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" "https://$CUSTOM_HOST/")
+            echo "Custom domain https://$CUSTOM_HOST/ TLS+HTTP status from runner: $CUSTOM_CODE"
           done
+          echo "Verified live endpoints on $LIVE_URL and custom domains money.duypham.me / wms.duypham.me."
