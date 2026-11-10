@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 PUBLIC_BRAND = ROOT / "public" / "brand"
+PUBLIC_AUDIO = ROOT / "public" / "audio"
 LEGAL = ROOT / "legal" / "licences.json"
 OUT = ROOT / "dist" / "site"
 
@@ -24,11 +25,15 @@ def build_site() -> int:
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "public" / "brand").mkdir(parents=True, exist_ok=True)
+    (OUT / "public" / "audio").mkdir(parents=True, exist_ok=True)
     (OUT / "legal").mkdir(parents=True, exist_ok=True)
 
     # 1. Build index.html & prototype.html from docs/prototype.html
     proto_src = (DOCS / "prototype.html").read_text(encoding="utf-8")
-    proto_dist = proto_src.replace('src="../public/brand/', 'src="public/brand/')
+    proto_dist = (
+        proto_src.replace('src="../public/brand/', 'src="public/brand/')
+        .replace("../public/audio/", "public/audio/")
+    )
     (OUT / "index.html").write_text(proto_dist, encoding="utf-8")
     (OUT / "prototype.html").write_text(proto_dist, encoding="utf-8")
 
@@ -36,7 +41,11 @@ def build_site() -> int:
     for name in ("studio.html", "wms-studio-data.js", "workflows.html"):
         src_file = DOCS / name
         if src_file.is_file():
-            txt = src_file.read_text(encoding="utf-8").replace("../public/brand/", "public/brand/")
+            txt = (
+                src_file.read_text(encoding="utf-8")
+                .replace("../public/brand/", "public/brand/")
+                .replace("../public/audio/", "public/audio/")
+            )
             (OUT / name).write_text(txt, encoding="utf-8")
 
     # 3. Copy all brand figures & plates
@@ -46,13 +55,25 @@ def build_site() -> int:
             shutil.copy2(img, OUT / "public" / "brand" / img.name)
             copied_figs += 1
 
-    # Verify all 28 LUẬT 9 figures exist in dist/site/public/brand
+    # 3b. Copy all ElevenLabs studio beat audio files & manifest
+    copied_audio = 0
+    if PUBLIC_AUDIO.is_dir():
+        for aud in sorted(PUBLIC_AUDIO.glob("*")):
+            if aud.is_file() and aud.suffix.lower() in (".mp3", ".json"):
+                shutil.copy2(aud, OUT / "public" / "audio" / aud.name)
+                copied_audio += 1
+
+    # Verify all 28 LUẬT 9 figures & 7 ElevenLabs beat MP3s exist in dist/site/public/
     for sid in LESSONS:
         for idx in (1, 2, 3, 4):
             fig = OUT / "public" / "brand" / f"{sid}-fig-{idx}.jpg"
             if not fig.is_file() or fig.stat().st_size < 10_000:
                 print(f"FAIL: Thiếu hình mặt cắt LUẬT 9 trong gói deploy: {fig}", file=sys.stderr)
                 return 1
+        mp3 = OUT / "public" / "audio" / f"{sid}-beats.mp3"
+        if not mp3.is_file() or mp3.stat().st_size < 50_000:
+            print(f"FAIL: Thiếu file âm thanh Giọng Tâm ElevenLabs trong gói deploy: {mp3}", file=sys.stderr)
+            return 1
 
     # 4. Copy legal/licences.json
     if LEGAL.is_file():
@@ -62,10 +83,14 @@ def build_site() -> int:
     headers_txt = (
         "/*\n"
         "  X-Content-Type-Options: nosniff\n"
-        "  Referrer-Policy: no-referrer\n"
+        "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  X-Frame-Options: DENY\n"
         "\n"
+        "/public/audio/*\n"
+        "  Cache-Control: public, max-age=31536000, immutable\n"
+        "\n"
         "/studio.html\n"
+        "  Referrer-Policy: no-referrer\n"
         "  Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'\n"
     )
     (OUT / "_headers").write_text(headers_txt, encoding="utf-8")
@@ -73,7 +98,7 @@ def build_site() -> int:
     total_bytes = sum(f.stat().st_size for f in OUT.rglob("*") if f.is_file())
     print(
         f"[wms-build-deploy PASS] Đã đóng gói dist/site/ ({total_bytes / (1024 * 1024):.2f} MB · "
-        f"{copied_figs} ảnh public/brand · 7 bài học · index.html + studio.html + workflows.html + _headers)"
+        f"{copied_figs} ảnh public/brand · {copied_audio} file âm thanh public/audio · 7 bài học)"
     )
     return 0
 

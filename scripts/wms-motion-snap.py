@@ -138,6 +138,17 @@ def run_audit() -> int:
         else:
             bad("M3b", "docs/prototype.html", f"Vi phạm LUẬT 10 trên #scene: pole_safe={has_pole_safe}, tag_clamp={has_tag_clamp}")
 
+        # M3c: Đồng bộ Web Diorama ↔ Video (BEAT_AUDIO Giọng Tâm, vòng lặp hạt, HUD 5 ngôi nhà, nhúng Video trực tiếp)
+        beatmap_json = ROOT / "knowledge" / "wms-beatmap.json"
+        has_beatmap = beatmap_json.is_file()
+        has_audio_sync = 'id="dioramaAudio"' in psrc and "const BEAT_AUDIO =" in psrc and "startAudioMasterClock" in psrc
+        has_loop_hud = "const phase = e % cycle" in psrc and 'id="dioramaHudBar"' in psrc and 'id="packVideoEmbed"' in psrc and 'id="stageVideoWrap"' in psrc
+        audio_files_ok = all((ROOT / "public" / "audio" / f"{k}-beats.mp3").is_file() for k in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"))
+        if has_beatmap and has_audio_sync and has_loop_hud and audio_files_ok:
+            ok("M3c", "docs/prototype.html", "Đồng bộ Web ↔ Video: 7 MP3 Giọng Tâm (-14 LUFS) + rAF master clock + HUD 5 nhà + vòng lặp hạt + nhúng Video trực tiếp")
+        else:
+            bad("M3c", "docs/prototype.html", f"Thiếu đồng bộ Web ↔ Video: beatmap={has_beatmap}, audio_sync={has_audio_sync}, loop_hud={has_loop_hud}, mp3_7={audio_files_ok}")
+
     if STUDIO_HTML.is_file():
         ssrc = STUDIO_HTML.read_text(encoding="utf-8")
         svg_y_vals = [int(y) for y in re.findall(r'<text\b[^>]*\by="(\d+)"', ssrc)]

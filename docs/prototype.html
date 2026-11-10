@@ -129,16 +129,16 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 
 /* ── sân khấu ──────────────────────────────── */
 .stage{width:var(--wide);margin:26px auto 0;scroll-margin-top:var(--sticky,12px)}
-.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:14px;margin-bottom:12px}
+.bar{max-width:min(62rem,100%);margin:0 auto 14px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:14px}
 .seg{display:inline-flex;border-radius:999px;padding:3px;background:var(--paper-2);box-shadow:inset 0 1px 2px var(--sh-2)}
 .seg button{border:0;background:none;padding:6px 13px;border-radius:999px;cursor:pointer;color:var(--ink-2);font-size:13.5px;transition:background .25s,color .25s,box-shadow .25s}
 .seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px var(--sh),0 0 0 1px var(--rule-2)}
 .seg-label{color:var(--ink-3);margin-right:6px;font-size:13px}
-.legend{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin:10px 2px 0}
+.legend{max-width:min(62rem,100%);margin:10px auto 0;display:flex;flex-wrap:wrap;gap:4px 22px;justify-content:center;text-align:center;font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend i{display:inline-block;width:28px;height:0;border-top:2.5px dotted #c99a2c}
 .legend i.m{border-top:3px dashed #4f9a6c}
-.tags{position:absolute;inset:0;pointer-events:none;z-index:3}
+.tags{position:absolute;left:0;right:0;top:38px;bottom:0;pointer-events:none;z-index:3}
 .tagx{position:absolute;transform:translate(-50%,-100%);font-family:var(--sans);font-size:12.5px;line-height:1.3;
   background:#fbf6ea;color:#2a2218;padding:6px 9px 5px;border-radius:2px;max-width:16ch;text-align:center;font-variant-numeric:tabular-nums;
   box-shadow:0 1px 1px rgba(0,0,0,.25),0 8px 16px -8px rgba(0,0,0,.7);opacity:0;animation:tagIn .55s cubic-bezier(.2,.9,.3,1.2) forwards}
@@ -147,18 +147,40 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .tagx.minus{border-bottom:2px solid #c45a36}.tagx.plus{border-bottom:2px solid #4f8a5f}
 @keyframes tagIn{from{opacity:0;transform:translate(-50%,-70%) rotate(-3deg)}to{opacity:1;transform:translate(-50%,-100%) rotate(0)}}
 /* màn rộng: danh sách chỉ dành cho trình đọc màn hình; màn hẹp: hiện ra cho mắt đọc */
-.taglist{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;font-family:var(--sans);font-size:13.5px;margin:8px 0 0;padding:0;list-style:none}
+.taglist{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;font-family:var(--sans);font-size:13.5px;margin:8px auto 0;padding:0;list-style:none;max-width:min(52rem,100%)}
 .taglist li{padding:5px 0;border-bottom:1px dashed var(--rule-2)}
 .taglist i{color:var(--ink-3)}
 @media (max-width:640px){.tags{display:none}.taglist{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal}}
 
-.caption{display:grid;grid-template-columns:7.5rem 1fr;gap:6px 22px;padding:22px 2px 6px}
+/* Thanh HUD đồng bộ Mặt cắt Diorama ↔ Video phát sóng (bang-motion M1–M3) */
+.dio-hud{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;padding:8px 14px;
+  background:#0f1626;border-bottom:1px solid rgba(224,183,90,.24);font-family:var(--mono);font-size:11px;color:#cbd5e1;position:relative;z-index:4}
+.dio-hud-left{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dio-beat-pill{font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#f8fafc;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:2px 7px}
+.dio-chan-pill{font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:3px;padding:2px 8px;display:inline-flex;align-items:center;gap:6px;border:1px solid currentColor}
+.dio-chan-pill.wire{color:#fbbf24;background:rgba(245,165,36,.12)}
+.dio-chan-pill.pipe{color:#34d399;background:rgba(52,211,153,.14)}
+.dio-chan-pill.book{color:#f59e0b;background:rgba(245,158,11,.12)}
+.dio-actors{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.dio-actor{border:1px solid rgba(148,163,184,.25);background:rgba(15,23,42,.65);color:#94a3b8;border-radius:4px;
+  padding:2px 7px;font:600 10.5px/1.3 var(--sans);display:inline-flex;align-items:center;gap:5px;transition:border-color .25s,color .25s,background .25s}
+.dio-actor b{font:700 10px var(--mono);color:#64748b}
+.dio-actor.lit{border-color:#e0b75a;background:rgba(224,183,90,.16);color:#fef3c7;box-shadow:0 0 10px rgba(224,183,90,.18)}
+.dio-actor.lit b{color:#fbbf24}
+
+/* Khung Video trên Sân khấu chính (chế độ ▶ Bản video) */
+.stage-video{max-width:min(62rem,100%);margin:0 auto 14px}
+.stage-video[hidden]{display:none!important}
+.mode-video .diorama,.mode-video .legend,.mode-video .taglist{display:none!important}
+
+.caption{max-width:min(52rem,100%);margin:0 auto;display:grid;grid-template-columns:8rem minmax(0,1fr);gap:6px 24px;padding:22px 6px 8px;align-items:start}
 @media (max-width:640px){.caption{grid-template-columns:1fr}}
 .caption.turn > *{animation:turn .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes turn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .when{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
 .when b{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.6rem;color:var(--lamp);line-height:1.1}
-.tell{font-size:1.32rem;line-height:1.5;margin:0;max-width:44ch}
+.tell{font-size:1.32rem;line-height:1.52;margin:0;max-width:100%}
 .tell .s{transition:color .4s,opacity .4s}
 .tell .s.next{opacity:.28}
 .tell .s.now{color:var(--ink)}
@@ -169,7 +191,7 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .term:hover{background:var(--lamp-soft)}
 .term:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
 
-.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0 6px;font-family:var(--sans)}
+.controls{max-width:min(52rem,100%);margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 6px 6px;font-family:var(--sans)}
 .play{width:54px;height:54px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);cursor:pointer;display:grid;place-items:center;flex:0 0 auto;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -3px 0 rgba(0,0,0,.3),0 8px 14px -6px var(--sh);transition:transform .15s,box-shadow .15s}
 .play:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.3),0 3px 6px -3px var(--sh)}
@@ -180,15 +202,15 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .dots{display:flex;flex:1;min-width:220px;gap:4px}
 .dot{flex:1;border:0;background:none;cursor:pointer;padding:6px 0 0;text-align:left;font-size:12px;color:var(--ink-3)}
 .dot i{display:block;height:4px;border-radius:2px;background:var(--rule);margin-bottom:6px;position:relative;overflow:hidden;box-shadow:inset 0 1px 1px var(--sh-2)}
-.dot i::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--lamp);transition:width .3s linear}
+.dot i::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--lamp);transition:width .2s linear}
 .dot[aria-current="step"]{color:var(--ink);font-weight:600}
 @media (max-width:560px){.dot span{display:none}}
 .voice{border:0;background:var(--card);border-radius:999px;padding:7px 13px;cursor:pointer;font-size:13px;box-shadow:0 0 0 1px var(--rule-2)}
-.voice[aria-pressed="true"]{box-shadow:0 0 0 1.5px var(--lamp);color:var(--lamp)}
-.voicenote{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin:2px 0 0;min-height:1.2em}
+.voice[aria-pressed="true"]{box-shadow:0 0 0 1.5px var(--lamp);color:var(--lamp);font-weight:600}
+.voicenote{max-width:min(52rem,100%);margin:4px auto 0;padding:0 6px;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);min-height:1.2em;text-align:center}
 
 /* lens + sổ kế toán giấy kẻ */
-.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:26px;margin-top:18px;align-items:start}
+.below{max-width:min(58rem,100%);margin:22px auto 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:26px;align-items:start}
 @media (max-width:820px){.below{grid-template-columns:1fr}}
 .lensnote{border-top:2px solid var(--ink);padding-top:10px}
 .lensnote h4{font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 6px;color:var(--ink-3)}
@@ -218,9 +240,9 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .ledger.empty{display:grid;place-items:center;color:#6c6152;font-style:italic;font-size:1rem;padding:20px 20px 20px 44px}
 
 /* chế độ nghe */
-.listen{display:none;border-radius:10px;background:var(--card);padding:8px 0;box-shadow:0 0 0 1px var(--rule),0 14px 24px -18px var(--sh)}
+.listen{max-width:min(52rem,100%);margin:0 auto;display:none;border-radius:10px;background:var(--card);padding:8px 0;box-shadow:0 0 0 1px var(--rule),0 14px 24px -18px var(--sh)}
 .mode-listen .listen{display:block}
-.mode-listen .diorama,.mode-listen .legend,.mode-listen .taglist,.mode-listen .caption,.mode-listen .below{display:none!important}
+.mode-listen .diorama,.mode-listen .stage-video,.mode-listen .legend,.mode-listen .taglist,.mode-listen .caption,.mode-listen .below{display:none!important}
 .listen .scroll{position:relative;max-height:min(62vh,560px);overflow:auto;padding:6px 26px 20px}
 .listen h3{font-weight:500;font-style:italic;font-size:1.35rem;margin:22px 0 4px}
 .listen .lb{font-family:var(--sans);font-size:12.5px;color:var(--lamp);margin:16px 0 2px;font-weight:600}
@@ -233,7 +255,7 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .listen .moon svg{flex:0 0 auto}
 
 /* thử với con số: tờ hoá đơn nhiệt */
-.try{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:34px;margin-top:10px;align-items:start}
+.try{max-width:min(58rem,100%);margin:14px auto 0;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:34px;align-items:start}
 .try[hidden]{display:none}
 @media (max-width:820px){.try{grid-template-columns:1fr}}
 .field{font-family:var(--sans);margin:14px 0 18px}
@@ -486,7 +508,7 @@ button.tp:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
 mark{background:var(--lamp-soft);color:inherit;border-radius:2px;padding:0 2px}
 
 /* ── Trạm đọc kế tiếp cuối bài (End-of-Article Handoff Card) ── */
-.handoff{margin:28px 0 8px;padding:16px 18px;border:2px solid var(--ink);border-radius:5px;
+.handoff{max-width:min(54rem,100%);margin:28px auto 8px;padding:16px 18px;border:2px solid var(--ink);border-radius:5px;
   background:linear-gradient(180deg,var(--card),var(--paper-2));box-shadow:4px 4px 0 var(--ink);
   display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between}
 .handoff-meta{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--clay);margin:0 0 4px}
@@ -503,8 +525,8 @@ mark{background:var(--lamp-soft);color:inherit;border-radius:2px;padding:0 2px}
 .stories{grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr))}
 .story .cat{display:inline-block;border-bottom:2px solid var(--c);padding-bottom:1px}
 .story .draft{font-size:11px;font-weight:600;color:#2a2218;background:#f4c766;border-radius:2px;padding:1px 6px;margin-left:6px}
-.stage-title{font-weight:500;font-size:clamp(1.3rem,2.6vw,1.65rem);line-height:1.2;letter-spacing:-.01em;margin:0 0 14px;max-width:40ch}
-.draftnote{font-family:var(--sans);font-size:13.5px;margin:0 0 12px;padding:9px 12px;border-radius:3px;color:#2a2218;
+.stage-title{font-weight:500;font-size:clamp(1.3rem,2.6vw,1.65rem);line-height:1.22;letter-spacing:-.01em;margin:0 auto 16px;max-width:48ch;text-align:center}
+.draftnote{font-family:var(--sans);font-size:13.5px;max-width:min(54rem,100%);margin:0 auto 12px;padding:9px 12px;border-radius:3px;color:#2a2218;text-align:center;
   background:repeating-linear-gradient(-45deg,#f4c766 0 10px,#f0bd55 10px 20px);box-shadow:0 1px 2px var(--sh-2)}
 .draftnote[hidden]{display:none}
 /* thanh duyệt bài nổi */
@@ -546,22 +568,23 @@ body.cms-on{padding-bottom:150px}
 
 /* ── Bài viết đầy đủ & Kịch bản dựng Video (C9) — tạp chí Risograph + sổ kế toán; ngoài khối Scene ── */
 .pack{width:var(--wide);margin:8px auto 0}
-.pack-head{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:end;justify-content:space-between;border-bottom:3px double var(--ink);padding-bottom:10px}
-.pack-head h3{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.75rem);line-height:1.2;margin:2px 0 0;max-width:36rem}
-.pack-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.pack-head{max-width:min(54rem,100%);margin:0 auto;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;border-bottom:3px double var(--ink);padding-bottom:14px}
+.pack-head h3{font-family:var(--serif);font-size:clamp(1.35rem,2.6vw,1.8rem);line-height:1.22;margin:4px auto 0;max-width:48ch}
+.pack-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .pack-tabs button{font:600 13.5px var(--sans);border:1.5px solid var(--ink);background:var(--card);color:var(--ink);border-radius:3px;padding:8px 12px;cursor:pointer;
   box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s,background .2s}
 .pack-tabs button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
 .pack-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--lamp)}
 .pack-tabs b{font-family:var(--mono);margin-right:6px}
+#packVideoEmbed{max-width:min(54rem,100%);margin:18px auto 0}
 .pack-panel{padding:22px 0 8px}
 .pack-panel[hidden]{display:none}
 .pack-panel.in{animation:packIn .45s cubic-bezier(.2,.7,.2,1) both}
 @keyframes packIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.pack-sub{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin:26px 0 10px;display:flex;gap:10px;align-items:center}
-.pack-sub::after{content:"";flex:1;border-top:1.5px dashed var(--rule-2)}
+.pack-sub{max-width:min(54rem,100%);margin:28px auto 12px;font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--clay);display:flex;gap:12px;align-items:center;justify-content:center;text-align:center}
+.pack-sub::before,.pack-sub::after{content:"";flex:1;border-top:1.5px dashed var(--rule-2)}
 .pack-panel > .pack-sub:first-child{margin-top:0}
-.myths{display:grid;gap:14px}
+.myths{max-width:min(54rem,100%);margin:0 auto;display:grid;gap:14px}
 .myth{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2)}
 .myth > div{padding:14px 16px}
 .myth .m{background:repeating-linear-gradient(135deg,transparent 0 9px,var(--lamp-soft) 9px 11px);border-right:1.5px dashed var(--rule-2)}
@@ -570,42 +593,42 @@ body.cms-on{padding-bottom:150px}
 .myth .t h5{color:var(--moss)}
 .myth p{margin:0;font-size:1.02rem;line-height:1.55}
 @media (max-width:640px){.myth{grid-template-columns:1fr}.myth .m{border-right:0;border-bottom:1.5px dashed var(--rule-2)}}
-.prose{max-width:var(--read);font-size:1.08rem;line-height:1.7}
+.prose{max-width:min(42rem,100%);margin-inline:auto;font-size:1.08rem;line-height:1.7}
 .prose p{margin:0 0 .9em}
 .prose p:first-child::first-letter{font-family:var(--serif);float:left;font-size:3.3em;line-height:.85;padding:.06em .1em 0 0;color:var(--clay)}
-.roles{width:100%;border-collapse:collapse;font-size:.97rem;background:var(--card);border:1.5px solid var(--ink)}
+.roles{max-width:min(54rem,100%);margin:0 auto;width:100%;border-collapse:collapse;font-size:.97rem;background:var(--card);border:1.5px solid var(--ink)}
 .roles th,.roles td{padding:9px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
 .roles thead th{font:700 11.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;background:var(--paper-2);color:var(--ink-2)}
 .roles tbody th{font-family:var(--serif);font-size:1.02rem;white-space:nowrap}
 .roles .ix{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;background:var(--ink);color:var(--paper);font:700 11px var(--mono);margin-right:6px}
 @media (max-width:720px){.roles thead{display:none}.roles tr{display:block;border-bottom:1.5px solid var(--ink)}.roles th,.roles td{display:block;border:0;padding:5px 10px}
   .roles td::before{content:attr(data-l);display:block;font:700 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}}
-.asks{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:ask}
+.asks{max-width:min(54rem,100%);margin:0 auto;list-style:none;padding:0;display:grid;gap:10px;counter-reset:ask}
 .asks li{counter-increment:ask;position:relative;padding:12px 14px 12px 52px;border-left:4px solid var(--lamp);background:var(--card);font-size:1.02rem}
 .asks li::before{content:"?" counter(ask);position:absolute;left:12px;top:10px;font:700 15px var(--mono);color:var(--lamp)}
-.pack-note{font:12.5px/1.5 var(--sans);color:var(--ink-3);margin:14px 0 0;max-width:var(--read)}
-.mech{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:14px}
+.pack-note{font:12.5px/1.5 var(--sans);color:var(--ink-3);margin:16px auto 0;max-width:min(42rem,100%);text-align:center}
+.mech{max-width:min(54rem,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:14px}
 .mech article{border-top:3px solid var(--ink);padding-top:8px}
 .mech h5{font:700 15px var(--sans);margin:0 0 6px}
 .mech p,.acc p{margin:0;line-height:1.6}
-.acc{display:grid;gap:10px;max-width:var(--read)}
+.acc{display:grid;gap:10px;max-width:min(42rem,100%);margin-inline:auto}
 .acc p{border-left:3px solid var(--rule-2);padding-left:12px}
-.journal{display:grid;gap:16px}
+.journal{max-width:min(54rem,100%);margin:0 auto;display:grid;gap:16px}
 .journal .ledger{margin:0}
 .journal .jstep{font:700 11px var(--mono);letter-spacing:.06em;color:#94600c;display:block;margin-bottom:2px}
-.edges{display:grid;gap:12px}
+.edges{max-width:min(54rem,100%);margin:0 auto;display:grid;gap:12px}
 .edges details{border:1.5px solid var(--ink);background:var(--card)}
 .edges summary{cursor:pointer;padding:12px 14px;font:600 15px var(--sans);list-style:none;display:flex;justify-content:space-between;gap:10px}
 .edges summary::-webkit-details-marker{display:none}
 .edges summary::after{content:"+";font-family:var(--mono);transition:transform .2s}
 .edges details[open] summary::after{transform:rotate(45deg)}
 .edges details p{margin:0;padding:0 14px 14px;line-height:1.6}
-.vid-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
+.vid-bar{max-width:min(54rem,100%);margin:0 auto 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .vid-bar button{font:600 13.5px var(--sans);border:0;border-radius:3px;padding:9px 13px;cursor:pointer;background:var(--clay);color:#fff8ee;box-shadow:3px 3px 0 var(--ink)}
 .vid-bar button.alt{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink),3px 3px 0 var(--ink)}
 .vid-bar .meta{font:12.5px var(--mono);color:var(--ink-3)}
 .vid-bar output{font:600 12.5px var(--sans);color:var(--moss)}
-.scenes{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.scenes{max-width:min(54rem,100%);margin:0 auto;list-style:none;padding:0;display:grid;gap:14px}
 .scene{display:grid;grid-template-columns:7.2rem minmax(0,1fr);border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2)}
 .scene .tc{background:var(--ink);color:var(--paper);padding:12px 10px;font-family:var(--mono)}
 .scene .tc b{display:block;font-size:13px}
@@ -618,20 +641,20 @@ body.cms-on{padding-bottom:150px}
 .scene p{margin:0}
 @media (max-width:640px){.scene{grid-template-columns:1fr}.scene .tc{display:flex;gap:12px;align-items:baseline}.scene .tc span{margin:0}.scene .f{grid-template-columns:1fr}}
 /* C9 v2 — mục lục nhanh · chương · sơ đồ dòng chảy 3 kênh · có lợi/thành bẫy · studio video 2 định dạng */
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;padding:10px 12px;border:1.5px dashed var(--rule-2);background:var(--paper-2);counter-reset:toc}
+.toc{max-width:min(54rem,100%);margin:0 auto 10px;display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border:1.5px dashed var(--rule-2);background:var(--paper-2);counter-reset:toc}
 .toc b{font:700 10.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin-right:4px}
 .toc a{counter-increment:toc;font:600 13px var(--sans);color:var(--ink);text-decoration:none;border:1.5px solid var(--ink);background:var(--card);padding:5px 10px 5px 8px;border-radius:2px;box-shadow:2px 2px 0 var(--ink);transition:transform .15s,box-shadow .15s}
 .toc a::before{content:counter(toc,decimal-leading-zero);font:700 11px var(--mono);color:var(--clay);margin-right:7px}
 .toc a:hover,.toc a:focus-visible{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
 .pack-panel [id^="pk-"]{scroll-margin-top:170px}
-.chap{max-width:min(52rem,100%);margin:0 0 28px}
-.chap h4,.chap .prose{max-width:var(--read)}
-.chap h4{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.55rem);line-height:1.25;margin:0 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
+.chap{max-width:min(54rem,100%);margin:0 auto 32px}
+.chap h4,.chap .prose{max-width:min(42rem,100%);margin-inline:auto}
+.chap h4{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.55rem);line-height:1.25;margin:0 auto 14px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
 .chap h4 span{font:700 11px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--clay);padding:4px 7px;border-radius:2px;transform:translateY(-3px)}
 .chap .prose p:first-child::first-letter{font-size:inherit;float:none;padding:0;color:inherit;font-family:inherit;line-height:inherit}
 .chap:first-of-type .prose p:first-child::first-letter{font-family:var(--serif);float:left;font-size:3.3em;line-height:.85;padding:.06em .1em 0 0;color:var(--clay)}
 /* LUẬT 9 — Minh hoạ mặt cắt đan xen giữa các đoạn văn (Advance Organizer + Spatial Contiguity + 3-Layer Figure-Caption Contract) */
-.chap-fig{margin:18px 0 22px;border:1.5px solid var(--ink);border-radius:6px;background:var(--card);box-shadow:4px 4px 0 var(--sh-2);overflow:hidden}
+.chap-fig{max-width:min(52rem,100%);margin:22px auto 26px;border:1.5px solid var(--ink);border-radius:6px;background:var(--card);box-shadow:4px 4px 0 var(--sh-2);overflow:hidden}
 .chap-fig img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#0e131e;border-bottom:1.5px solid var(--ink)}
 .chap-fig figcaption{padding:12px 16px 14px;display:grid;gap:6px;background:var(--card)}
 .chap-fig-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
@@ -640,7 +663,7 @@ body.cms-on{padding-bottom:150px}
 .chap-fig-jump:hover,.chap-fig-jump:focus-visible{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
 .chap-fig-title{font:700 clamp(.98rem,1.45vw,1.1rem)/1.35 var(--serif);color:var(--ink);margin:2px 0 0}
 .chap-fig-desc{font:400 .94rem/1.58 var(--serif);color:var(--ink-2);margin:0}
-.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2)}
+.flow{max-width:min(54rem,100%);margin:0 auto;list-style:none;padding:0;display:grid;gap:0;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2)}
 .flow li{display:grid;grid-template-columns:2.4rem minmax(9rem,13rem) minmax(0,1fr);gap:4px 14px;padding:12px 14px;border-bottom:1px dashed var(--rule-2);position:relative}
 .flow li:last-child{border-bottom:0}
 .flow .n{font:700 13px var(--mono);display:grid;place-items:center;width:2rem;height:2rem;border:1.5px solid var(--ink);border-radius:50%;background:var(--paper)}
@@ -654,9 +677,9 @@ body.cms-on{padding-bottom:150px}
 .ch-wire{color:var(--lamp)} .ch-wire i{border-top:2px dashed currentColor}
 .ch-pipe{color:var(--moss);background:color-mix(in srgb,var(--moss) 10%,transparent)} .ch-pipe i{height:6px;border:2px solid currentColor;border-radius:3px;background:color-mix(in srgb,currentColor 35%,transparent)}
 .ch-book{color:var(--clay)} .ch-book i{width:12px;height:14px;border:1.5px solid currentColor;background:repeating-linear-gradient(currentColor 0 1px,transparent 1px 4px)}
-.flow-key{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.flow-key{max-width:min(54rem,100%);margin:0 auto 10px;display:flex;flex-wrap:wrap;gap:8px}
 @media (max-width:720px){.flow li{grid-template-columns:2.4rem minmax(0,1fr)}.flow .what{grid-column:2}}
-.verdict{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.verdict{max-width:min(54rem,100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
 .verdict section{border:1.5px solid var(--ink);background:var(--card);padding:30px 16px 14px;position:relative;box-shadow:4px 4px 0 var(--sh-2)}
 .verdict h5{position:absolute;top:-12px;left:14px;margin:0;font:700 11.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:2px solid currentColor;background:var(--paper);transform:rotate(-1.5deg)}
 .verdict .ok h5{color:var(--moss)} .verdict .trap h5{color:var(--clay);transform:rotate(1.2deg)}
@@ -666,13 +689,13 @@ body.cms-on{padding-bottom:150px}
 .verdict .ok li::before{content:"✓";position:absolute;left:0;font:700 14px var(--mono);color:var(--moss)}
 .verdict .trap li::before{content:"!";position:absolute;left:4px;font:700 14px var(--mono);color:var(--clay)}
 @media (max-width:720px){.verdict{grid-template-columns:1fr;gap:26px}}
-.fmt{display:inline-flex;border:1.5px solid var(--ink);border-radius:3px;box-shadow:3px 3px 0 var(--ink);overflow:hidden;margin:0 0 14px}
+.fmt{display:flex;width:max-content;max-width:100%;border:1.5px solid var(--ink);border-radius:3px;box-shadow:3px 3px 0 var(--ink);overflow:hidden;margin:0 auto 14px}
 .fmt button{font:600 13.5px var(--sans);border:0;background:var(--card);color:var(--ink);padding:9px 14px;cursor:pointer;display:grid;gap:2px;text-align:left}
 .fmt button + button{border-left:1.5px solid var(--ink)}
 .fmt button small{font:500 11px var(--mono);color:var(--ink-3)}
 .fmt button[aria-checked="true"]{background:var(--ink);color:var(--paper)}
 .fmt button[aria-checked="true"] small{color:color-mix(in srgb,var(--paper) 72%,transparent)}
-.vid-head{border-left:4px solid var(--clay);padding:4px 0 4px 14px;margin:0 0 16px;max-width:var(--read)}
+.vid-head{border-left:4px solid var(--clay);padding:4px 0 4px 14px;margin:0 auto 16px;max-width:min(42rem,100%)}
 .vid-head h4{font-family:var(--serif);font-size:1.3rem;margin:0 0 4px}
 .vid-head p{margin:0;font-size:.98rem;color:var(--ink-2);line-height:1.55}
 .vid-head p b{font:700 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-right:6px}
@@ -685,7 +708,7 @@ body.cms-on{padding-bottom:150px}
 .scenes.short .scene .f{grid-template-columns:1fr;gap:2px}
 .scene .tc em{display:block;font:italic 500 12px var(--serif);margin-top:4px;color:var(--lamp-soft);color:color-mix(in srgb,var(--paper) 85%,var(--lamp))}
 /* ── Khung nhúng Video (QĐ 56) ── */
-.yt-embed{margin:0 0 18px;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2);border-radius:4px;overflow:hidden;font-family:var(--sans)}
+.yt-embed{max-width:min(54rem,100%);margin:0 auto 18px;border:1.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--sh-2);border-radius:6px;overflow:hidden;font-family:var(--sans)}
 .yt-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--paper-2);border-bottom:1.5px solid var(--ink)}
 .yt-bar-left{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .yt-badge{font:700 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:2px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink)}
@@ -697,7 +720,7 @@ body.cms-on{padding-bottom:150px}
 .yt-switch button + button{border-left:1.5px solid var(--ink)}
 .yt-switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .yt-body{padding:14px;display:grid;gap:12px}
-.yt-stage{position:relative;width:100%;aspect-ratio:16/9;background:#141b33;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;display:grid;place-items:center;color:#f5ede0}
+.yt-stage{position:relative;width:100%;aspect-ratio:16/9;background:#0b101b;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;display:grid;place-items:center;color:#f5ede0}
 .yt-stage.short{max-width:340px;aspect-ratio:9/16;margin:0 auto}
 .yt-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .yt-facade{padding:20px;max-width:38rem;text-align:center;display:grid;gap:10px;justify-items:center}
@@ -715,7 +738,7 @@ body.cms-on{padding-bottom:150px}
 @media (prefers-reduced-motion:reduce){.pack-panel.in{animation:none}.toc a,.flow li{transition:none}.pack-tabs button{transition:none}}
 
 /*SCENECSS:START — dùng chung với bản xem nhanh 450px (Diorama v4.0 Architectural Cutaway & Dual Financial Rails) */
-.diorama{position:relative;border-radius:10px;overflow:hidden;background:#0b101b;isolation:isolate;border:1.5px solid #1e293b;
+.diorama{max-width:min(68rem,100%);margin:0 auto;position:relative;border-radius:10px;overflow:hidden;background:#0b101b;isolation:isolate;border:1.5px solid #1e293b;
   box-shadow:0 1px 0 rgba(255,255,255,.15),0 20px 44px -18px rgba(7,10,18,.78)}
 .diorama::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:2;
   box-shadow:inset 0 0 0 1px rgba(224,183,90,.16),inset 0 18px 28px -20px rgba(0,0,0,.65),inset 0 -14px 24px -18px rgba(0,0,0,.65)}
@@ -751,6 +774,7 @@ body.cms-on{padding-bottom:150px}
 .wTrail.msg{stroke:#fde68a;stroke-width:3.2}
 .wTrail.money{stroke:#6ee7b7;stroke-width:4.8}
 .wFlow{transition:opacity .6s cubic-bezier(.22,1,.36,1)}
+.wWireOn .wWireLbl{fill:#fef3c7}
 .wConduitOn .wFlow{opacity:.32}
 .wConduitOn .wPipeLbl{fill:#d1fae5}
 .tw{animation:wTw 4s ease-in-out infinite alternate}
@@ -919,16 +943,19 @@ body.cms-on{padding-bottom:150px}
       <div><span class="seg-label">Bạn muốn</span>
         <span class="seg" role="group" aria-label="Cách theo dõi">
           <button data-mode="watch" aria-pressed="true">Xem</button>
+          <button data-mode="video" aria-pressed="false">▶ Bản video</button>
           <button data-mode="listen" aria-pressed="false">Nghe</button>
         </span></div>
     </div>
 
     <div class="diorama" id="street">
+      <div class="dio-hud" id="dioramaHudBar" aria-hidden="true"></div>
       <svg id="scene" role="img" aria-label="Mặt cắt kiến trúc xuyên thấu năm định chế tài chính. Định chế nào tham gia nhịp hiện tại sẽ bật sáng nội thất và khung viền vàng. Luồng thông tin và hợp đồng (0 đồng) chạy trên thanh ray tín hiệu phía trên; tiền thật quyết toán qua thanh ray liên ngân hàng phía dưới."></svg>
       <div class="tags" id="tags" aria-hidden="true"></div>
     </div>
     <p class="legend" aria-hidden="true"><span><i></i>luồng thông tin: lời nhắn & hợp đồng (0 đồng)</span><span><i class="m"></i>luồng quyết toán: tiền thật chuyển qua ngân hàng</span></p>
     <ul class="taglist" id="taglist" aria-label="Dòng sổ vừa đổi"></ul>
+    <div class="stage-video" id="stageVideoWrap" hidden></div>
 
     <div class="caption" id="caption" aria-live="polite">
       <div class="when"><b id="when">22:47</b><span id="whenSub"></span></div>
@@ -948,9 +975,10 @@ body.cms-on{padding-bottom:150px}
       <button class="play" id="play" aria-label="Kể"><svg viewBox="0 0 24 24" fill="currentColor" id="playIcon" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
       <button class="step" id="next" aria-label="Đoạn sau"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m9 5 8 7-8 7z"/></svg></button>
       <div class="dots" id="dots" role="group" aria-label="Các đoạn"></div>
-      <button class="voice" id="voice" aria-pressed="false">Giọng đọc: tắt</button>
+      <button class="voice" id="voice" aria-pressed="true">Giọng đọc: Giọng Tâm</button>
     </div>
-    <p class="voicenote" id="voicenote">Không bật giọng đọc thì lời kể vẫn chạy theo nhịp đọc.</p>
+    <p class="voicenote" id="voicenote">Giọng Tâm thu âm chuyên mục (-14 LUFS) · Bấm Phát để nghe đồng bộ từng câu với mặt cắt.</p>
+    <audio id="dioramaAudio" preload="metadata" hidden></audio>
 
     <div class="below">
       <div class="lensnote"><h4 id="lensHead">Với túi tiền của bạn</h4><p id="lensText"></p></div>
@@ -1113,9 +1141,10 @@ body.cms-on{padding-bottom:150px}
         <button role="tab" id="tab-pro" aria-controls="pnl-pro" aria-selected="false" tabindex="-1"><b>B</b>Sổ kế toán &amp; Cơ chế TT 99/2025</button>
       </div>
     </div>
+    <div id="packVideoEmbed"></div>
     <div class="pack-panel" role="tabpanel" id="pnl-lay" aria-labelledby="tab-lay" tabindex="0"></div>
     <div class="pack-panel" role="tabpanel" id="pnl-pro" aria-labelledby="tab-pro" tabindex="0" hidden></div>
-    <div id="lessonQuizWrap" style="padding:18px 20px;border-top:1.5px solid var(--ink);background:var(--paper-2)" aria-label="Câu hỏi kiểm chứng cơ chế & Lưu tiến độ"></div>
+    <div id="lessonQuizWrap" style="max-width:min(54rem,100%);margin:18px auto 0;padding:18px 20px;border-top:1.5px solid var(--ink);background:var(--paper-2)" aria-label="Câu hỏi kiểm chứng cơ chế & Lưu tiến độ"></div>
     <div class="handoff" id="nextHandoff" aria-label="Trạm đọc kế tiếp"></div>
   </div>
 </section>
@@ -5881,25 +5910,51 @@ const Scene = (() => {
     rafs.forEach(cancelAnimationFrame); rafs = [];
     L.route.innerHTML = ""; L.fly.innerHTML = "";
     svg.classList.toggle("wConduitOn", list.some(m => m[2] === "money"));
+    svg.classList.toggle("wWireOn", list.some(m => m[2] !== "money"));
     list.forEach((m, k) => {
       const kind = m[2] === "money" ? "money" : "msg";
       const d = kind === "money" ? conduitPath(m[0], m[1]) : wirePath(m[0], m[1]);
       const p = P(L.route, d, "none", {class: "wRoute " + kind});
-      if (RM || !svg.getClientRects().length) return;   // giảm chuyển động, hoặc cảnh đang ẩn (chế độ Nghe)
       const len = p.getTotalLength();
       const trail = P(L.fly, d, "none", {class: "wTrail " + kind, "stroke-dasharray": `${len} ${len}`, "stroke-dashoffset": len, opacity: 0});
-      const tok = token(kind), dur = kind === "money" ? 2000 : 1250, delay = 380 + k * (kind === "money" ? 1200 : 850);
+      const tok = token(kind);
+      if (RM) {
+        const ptMid = p.getPointAtLength(len * 0.5);
+        tok.setAttribute("transform", `translate(${ptMid.x.toFixed(1)} ${ptMid.y.toFixed(1)})`);
+        tok.setAttribute("opacity", 1);
+        trail.setAttribute("opacity", .92);
+        trail.setAttribute("stroke-dashoffset", (len * 0.5).toFixed(1));
+        return;
+      }
+      if (!svg.getClientRects().length) return;
+      const dur = kind === "money" ? 2100 : 1350, hold = 650, cycle = dur + hold, delay = 220 + k * (kind === "money" ? 950 : 680);
+      const ring = C(L.fly, 0, 0, 4, "none", {stroke: kind === "money" ? "#6ee7b7" : "#fde68a", "stroke-width": 2.2, opacity: 0});
       let t0 = null;
       const step = ts => {
         if (t0 === null) t0 = ts;
         const e = ts - t0 - delay;
         if (e < 0) { rafs.push(requestAnimationFrame(step)); return; }
-        const f = Math.min(e / dur, 1), q = kind === "money" ? ease3(f) : 1 - Math.pow(1 - f, 2.2);
-        const pt = p.getPointAtLength(len * q);
-        tok.setAttribute("transform", `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`); tok.setAttribute("opacity", 1);
-        trail.setAttribute("opacity", .92); trail.setAttribute("stroke-dashoffset", (len * (1 - q)).toFixed(1));
-        if (f < 1) { rafs.push(requestAnimationFrame(step)); return; }
-        arrive(pt, kind, tok, trail);
+        const phase = e % cycle;
+        if (phase < dur) {
+          const f = phase / dur, q = kind === "money" ? ease3(f) : 1 - Math.pow(1 - f, 2.2);
+          const pt = p.getPointAtLength(len * q);
+          tok.setAttribute("transform", `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
+          tok.setAttribute("opacity", 1);
+          trail.setAttribute("opacity", .92);
+          trail.setAttribute("stroke-dashoffset", (len * (1 - q)).toFixed(1));
+          ring.setAttribute("opacity", 0);
+        } else {
+          const rf = (phase - dur) / hold, ptEnd = p.getPointAtLength(len);
+          tok.setAttribute("transform", `translate(${ptEnd.x.toFixed(1)} ${ptEnd.y.toFixed(1)})`);
+          tok.setAttribute("opacity", (1 - rf * 0.85).toFixed(2));
+          trail.setAttribute("opacity", (.92 * (1 - rf)).toFixed(2));
+          trail.setAttribute("stroke-dashoffset", "0");
+          ring.setAttribute("cx", ptEnd.x.toFixed(1));
+          ring.setAttribute("cy", ptEnd.y.toFixed(1));
+          ring.setAttribute("r", (4 + 20 * rf).toFixed(1));
+          ring.setAttribute("opacity", (1 - rf).toFixed(2));
+        }
+        rafs.push(requestAnimationFrame(step));
       };
       rafs.push(requestAnimationFrame(step));
     });
@@ -5985,7 +6040,7 @@ window.__vibeSeek = (beatIdx, storyKey) => {
 };
 
 /* ── trạng thái ───────────────────────────── */
-const S = {story:"card", beat:0, sent:0, playing:false, voice:false, lens:"life", mode:"watch", run:0};
+const S = {story:"card", beat:0, sent:0, playing:false, voice:true, lens:"life", mode:"watch", run:0};
 /* chế độ duyệt: bật bằng nút trên tủ mục lục hoặc ?preview=1. Không lưu đi đâu — đây là prototype. */
 const CMS = {on: new URLSearchParams(location.search).has("preview"), q:"review", edit:false};
 const A = {q:"", st:"all", cat:null};                              // bộ lọc của bản đồ toàn bộ
@@ -6017,6 +6072,16 @@ function renderScene(){
   const inner = Scene.setBeat(b);
   const tags = $("#tags"), list = $("#taglist"); tags.innerHTML = ""; list.innerHTML = "";
   const houses = STORIES[S.story].houses;
+  const hud = $("#dioramaHudBar");
+  if (hud) {
+    const msgs = b.msgs || [];
+    const hasMoney = msgs.some(m => m[2] === "money"), hasMsg = msgs.some(m => m[2] !== "money");
+    const chCls = hasMoney ? "pipe" : (hasMsg ? "wire" : "book");
+    const chTxt = hasMoney ? "QUYẾT TOÁN TIỀN THẬT" : (hasMsg ? "LUỒNG THÔNG TIN · 0 ĐỒNG" : "GHI SỔ KẾ TOÁN NỘI BỘ");
+    const beatLbl = `NHỊP ${S.beat+1}/${STORIES[S.story].beats.length} · ${esc(b.when)}`;
+    const actHtml = houses.map((h, i) => `<span class="dio-actor${b.lit.includes(i) ? " lit" : ""}"><b>0${i+1}</b>${esc(h.label)}</span>`).join("");
+    hud.innerHTML = `<div class="dio-hud-left"><span class="dio-beat-pill">${beatLbl}</span><span class="dio-chan-pill ${chCls}">${chTxt}</span></div><div class="dio-actors">${actHtml}</div>`;
+  }
   inner.forEach(({i, txt}) => { const li = document.createElement("li");
     li.innerHTML = `<b>${esc(houses[i].label)}</b> <i>(bên trong)</i>: ${esc(txt)}`; list.appendChild(li); });
   Object.entries(b.tags).forEach(([i,[txt,kind]], k) => {
@@ -6120,6 +6185,9 @@ function renderYtEmbedHTML(s, fmt, scope){
   const stKey = f.embedStatus || "pending_upload";
   const [bCls, bTxt] = EMBED_LABELS[stKey] || EMBED_LABELS.pending_upload;
   const isShort = fmt === "short";
+  const localSrc = `../dist/youtube/${encodeURIComponent(S.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
+  const useIframe = Boolean(ytId) && location.protocol !== "file:";
+  const iframeSrc = ytId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&playsinline=1&hl=vi&cc_lang_pref=vi` : "";
   const chaps = sc.map((x, i) => {
     const [startSec] = tspan(x.time);
     const lbl = x.chapter || sceneLabel(s, x, i, sc.length);
@@ -6128,22 +6196,18 @@ function renderYtEmbedHTML(s, fmt, scope){
   const cmsBar = CMS.on ? `<div class="yt-cms-bind"><span><b>Bước 5D (Embed Test):</b> Gán thử mã <code>youtubeId</code> 11 ký tự cho bản ${isShort?"Dọc 9:16":"Dài 16:9"}:</span>`
     + `<input type="text" maxlength="11" placeholder="dQw4w9WgXcQ" value="${esc(ytId)}" data-yt-input="${scope}" aria-label="Mã Video ID 11 ký tự">`
     + `<button type="button" data-yt-apply="${scope}">Nhúng Video (${isShort?"9:16":"16:9"})</button>`
+    + (scope !== "vid" ? `<button type="button" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : "")
     + `<span>hoặc chạy CLI: <code>python3 -I scripts/wms-media-pipeline.py --story ${esc(S.story)} --bind-${fmt}-id &lt;11char&gt; --embed-status uploaded_unlisted</code></span></div>` : "";
+  const playerHTML = useIframe
+    ? `<iframe src="${iframeSrc}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`
+    : `<video controls preload="metadata" src="${localSrc}" title="${esc(f.title || s.title)}" style="position:absolute;inset:0;width:100%;height:100%;background:#070a12"></video>`;
   return `<section class="yt-embed" data-yt-box="${scope}" aria-label="Video minh hoạ bài viết">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · Giọng kể chuyên mục · Mặt cắt Diorama v3.0${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
+    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · Giọng Tâm · Mặt cắt Diorama v3.0${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
     + `<div class="yt-switch" role="group" aria-label="Chuyển định dạng video nhúng">`
     + `<button type="button" data-yt-fmt="long" aria-pressed="${!isShort}">▶ Video Dài 16:9</button>`
     + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 Video Dọc 9:16</button></div></div>`
-    + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">`
-    + `<div class="yt-facade"><h4>${esc(f.title || s.title)}</h4>`
-    + `<p data-yt-preview="${scope}">${ytId
-        ? `Video minh hoạ (${esc(ytId)}) kết hợp giọng đọc thu âm và mặt cắt Diorama. Bấm phát hoặc chọn chương bên dưới để xem ngay trong bài.`
-        : `Cảnh 1/${sc.length} (${esc((sc[0]&&sc[0].time)||"0:00")}): ${esc((sc[0]&&sc[0].vo)||"Bấm phát bên dưới để xem video minh hoạ cho bài viết này.")}`}</p>`
-    + (ytId
-        ? `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-load="0">▶ Phát Video minh hoạ (${isShort ? "Khung dọc 9:16" : "Khung ngang 16:9"})</button>${CMS.on && scope !== "vid" ? `<button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : ""}</div>`
-        : `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button type="button" class="yt-play" data-yt-local="0">▶ Phát Video minh hoạ 30fps (${isShort ? "9:16" : "16:9"})</button>${CMS.on && scope !== "vid" ? `<button type="button" class="yt-play" style="background:#24304c;border-color:#93a5cf" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : ""}</div>`)
-    + `</div></div>`
+    + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">${playerHTML}</div>`
     + `<div class="yt-chaps"><b>Chương Video:</b>${chaps}</div>${cmsBar}</div></section>`;
 }
 function bindYtEmbed(scope, s, draft){
@@ -6151,12 +6215,13 @@ function bindYtEmbed(scope, s, draft){
   if (!box) return;
   const f = (s.videoScript && s.videoScript[PK.fmt]) || {}, sc = Array.isArray(f.scenes) ? f.scenes : [];
   const ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
+  const useIframe = Boolean(ytId) && location.protocol !== "file:";
   const isShort = PK.fmt === "short";
   const localSrc = `../dist/youtube/${encodeURIComponent(S.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
   const stage = $(`[data-yt-stage="${scope}"]`, box);
   const mountIframe = sec => {
-    if (!ytId || !stage) return;
-    const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&autoplay=1&start=${sec||0}`;
+    if (!useIframe || !stage) return;
+    const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&playsinline=1&hl=vi&cc_lang_pref=vi&autoplay=1&start=${sec||0}`;
     stage.innerHTML = `<iframe src="${u}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
   };
   const mountLocal = sec => {
@@ -6176,24 +6241,23 @@ function bindYtEmbed(scope, s, draft){
     }
   };
   $$("[data-yt-fmt]", box).forEach(b => {
-    b.onclick = () => { PK.fmt = b.dataset.ytFmt; renderPack(); };
+    b.onclick = () => {
+      PK.fmt = b.dataset.ytFmt;
+      if (scope === "stage") renderStageVideo();
+      else renderPack();
+    };
   });
-  const playBtn = $("[data-yt-load]", box);
-  if (playBtn) playBtn.onclick = () => mountIframe(+playBtn.dataset.ytLoad || 0);
-  const localBtn = $("[data-yt-local]", box);
-  if (localBtn) localBtn.onclick = () => mountLocal(+localBtn.dataset.ytLocal || 0);
   const studioBtn = $("[data-yt-go-studio]", box);
   if (studioBtn) studioBtn.onclick = () => showTab("vid", true);
   $$(".yt-chap", box).forEach(b => {
     b.onclick = () => {
       $$(".yt-chap", box).forEach(x => x.setAttribute("aria-current", x === b ? "true" : "false"));
-      const sec = +b.dataset.sec || 0, idx = +b.dataset.idx || 0;
-      if (ytId) { mountIframe(sec); }
-      else {
-        mountLocal(sec);
-        const pv = $(`[data-yt-preview="${scope}"]`, box), item = sc[idx];
-        if (pv && item) pv.textContent = `Cảnh ${idx+1}/${sc.length} (${item.time}): ${item.vo}`;
-        if (item && Number.isInteger(item.beat)) setBeat(item.beat);
+      const sec = +b.dataset.sec || 0, idx = +b.dataset.idx || 0, item = sc[idx];
+      if (useIframe) { mountIframe(sec); }
+      else { mountLocal(sec); }
+      if (item && Number.isInteger(item.beat) && item.beat !== S.beat) {
+        S.beat = item.beat; S.sent = 0;
+        renderDots(); renderScene(); renderCaption(); renderLens(); updateSentence();
       }
     };
   });
@@ -6202,7 +6266,7 @@ function bindYtEmbed(scope, s, draft){
     applyBtn.onclick = () => {
       const val = inp.value.trim();
       if (val && !/^[A-Za-z0-9_-]{11}$/.test(val)) {
-        inp.setCustomValidity("Mã YouTube ID phải rỗng hoặc đúng 11 ký tự (A-Z, a-z, 0-9, _, -)");
+        inp.setCustomValidity("Mã Video ID phải rỗng hoặc đúng 11 ký tự (A-Z, a-z, 0-9, _, -)");
         inp.reportValidity();
         return;
       }
@@ -6210,9 +6274,19 @@ function bindYtEmbed(scope, s, draft){
       f.youtubeId = val;
       f.embedStatus = val ? "uploaded_unlisted" : "pending_upload";
       renderPack();
+      renderStageVideo();
       if (CMS.on) renderCMS();
     };
   }
+}
+function renderStageVideo(){
+  const wrap = $("#stageVideoWrap");
+  if (!wrap) return;
+  const s = STORIES[S.story];
+  wrap.hidden = S.mode !== "video";
+  if (S.mode !== "video") return;
+  wrap.innerHTML = renderYtEmbedHTML(s, PK.fmt, "stage");
+  bindYtEmbed("stage", s, "");
 }
 const CHAP_FIGS = {
   card: [
@@ -6494,9 +6568,13 @@ function renderPack(){
   $("#pack-h").textContent = s.title;
   const L = a.lay, P = a.pro, arr = x => Array.isArray(x) ? x : [], draft = s.status !== "published"
     ? `<p class="pack-note"><b>Bản nháp chờ Duy duyệt.</b> Số liệu là ví dụ để thấy cơ chế; tên tài khoản theo bản chép thứ cấp của Thông tư 99/2025. Kế toán — agent soát: ${esc((s.review && s.review.ketoan) || "chưa chạy")}.</p>` : "";
+  const packVidEl = $("#packVideoEmbed");
+  if (packVidEl) {
+    packVidEl.innerHTML = renderYtEmbedHTML(s, PK.fmt, "pack");
+    bindYtEmbed("pack", s, draft);
+  }
   $("#pnl-lay").innerHTML =
     `<p class="pack-sub">Bài khảo cứu toàn cảnh — đọc để hiểu trọn bản chất, không cần biết kế toán</p>`
-    + renderYtEmbedHTML(s, PK.fmt, "lay")
     + toc("lay", [["myths","Lầm tưởng & Sự thật"],["essay","Bài khảo cứu toàn cảnh"],["flow","Sơ đồ dòng chảy"],["roles","Bảng phân vai 5 nhà"],["when","Khi có lợi / Khi thành bẫy & Câu hỏi tự soi"]])
     + `<p class="pack-sub" id="pk-lay-myths">1 · Lầm tưởng phổ biến và sự thật</p><div class="myths">`
     + arr(L.myths).map(m => `<div class="myth"><div class="m"><h5>Nhiều người nghĩ</h5><p>${rich(m.myth)}</p></div><div class="t"><h5>Điều thật sự xảy ra</h5><p>${rich(m.truth)}</p></div></div>`).join("")
@@ -6521,7 +6599,6 @@ function renderPack(){
     + `<p class="pack-sub" id="pk-pro-acc">2 · Đối chiếu sổ doanh nghiệp (TT 99/2025) và sổ ngân hàng</p><div class="acc">${arr(P.accountingNotes).map(n => `<p>${rich(n)}</p>`).join("")}</div>`
     + `<p class="pack-sub" id="pk-pro-jr">3 · Chuỗi bút toán kép, từ phát sinh tới tất toán</p><div class="journal">${arr(P.journal).map(journalHTML).join("")}</div>`
     + `<p class="pack-sub" id="pk-pro-edge">4 · Tình huống thực tế &amp; ngoại lệ</p><div class="edges">${arr(P.edgeCases).map(e => `<details><summary>${esc(e.h)}</summary><p>${rich(e.p)}</p></details>`).join("")}</div>${draft}`;
-  bindYtEmbed("lay", s, draft);
   $$("[data-jump-beat]", $("#pnl-lay")).forEach(btn => {
     btn.onclick = () => {
       const b = +btn.dataset.jumpBeat || 0;
@@ -6686,13 +6763,14 @@ function renderAll(){
   const lost = document.activeElement && document.activeElement.closest && document.activeElement.closest("#tell,#lensText,#ledger");
   if (CMS.edit) setEdit(false);                     // chữ sửa tay không sống qua lần dựng lại — tắt cho rõ
   renderNav(); renderStories(); renderShelf();
-  renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderHandoff(); updateSentence();
+  renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderStageVideo(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
   $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash"; $("#tryOffus").hidden = S.story!=="offus";
   $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash","offus"].includes(S.story);
   $("#stageTitle").textContent = STORIES[S.story].title;
   $("#draftNote").hidden = STORIES[S.story].status === "published";
+  ensureAudioTrack(S.story);
   renderCMS();
 }
 function go(story, b, s, keepPlaying){
@@ -6701,33 +6779,201 @@ function go(story, b, s, keepPlaying){
   S.story = story; S.beat = b; S.sent = s || 0;
   if (changed) drawHouses();
   renderAll();
+  seekAudioToCurrent();
   if (keepPlaying) tick(); else setPlaying(false);
 }
 
-/* ── người kể: giọng đọc nếu có, không thì chạy theo nhịp đọc ── */
-let viVoice = null, timer = null;
+/* ── người kể: Giọng Tâm thu âm chuyên mục (-14 LUFS) đồng bộ timestamps từng câu ── */
+const BEAT_AUDIO = {
+  card: {src:"../public/audio/card-beats.mp3", fallbackSrc:"public/audio/card-beats.mp3", duration:110.63, beats:[
+    {beat:0,t0:0.18,t1:16.7,sents:[[0.18,5.54],[5.652,10.58],[10.676,16.7]]},
+    {beat:1,t0:17.32,t1:37.1,sents:[[17.32,21.78],[21.96,29.9],[30.167,37.1]]},
+    {beat:2,t0:37.727,t1:53.7,sents:[[37.727,43.3],[43.513,47.54],[47.74,53.7]]},
+    {beat:3,t0:54.46,t1:82.14,sents:[[54.46,62.78],[63.42,71.02],[71.46,82.14]]},
+    {beat:4,t0:83.193,t1:110.18,sents:[[83.193,91.94],[92.153,101.54],[101.86,110.18]]}
+  ]},
+  pay: {src:"../public/audio/pay-beats.mp3", fallbackSrc:"public/audio/pay-beats.mp3", duration:102.23, beats:[
+    {beat:0,t0:0.18,t1:13.221,sents:[[0.18,5.38],[5.473,13.221]]},
+    {beat:1,t0:13.932,t1:37.38,sents:[[13.932,21.5],[21.74,28.94],[29.116,37.38]]},
+    {beat:2,t0:37.98,t1:57.14,sents:[[37.98,44.9],[45.02,52.5],[53.14,57.14]]},
+    {beat:3,t0:57.724,t1:79.9,sents:[[57.724,63.74],[63.964,72.38],[72.567,79.9]]},
+    {beat:4,t0:80.836,t1:101.78,sents:[[80.836,84.74],[84.852,93.38],[93.54,101.78]]}
+  ]},
+  install: {src:"../public/audio/install-beats.mp3", fallbackSrc:"public/audio/install-beats.mp3", duration:115.19, beats:[
+    {beat:0,t0:0.18,t1:20.34,sents:[[0.18,8.46],[8.564,14.98],[15.3,20.34]]},
+    {beat:1,t0:21.553,t1:40.94,sents:[[21.553,28.98],[29.11,35.98],[36.26,40.94]]},
+    {beat:2,t0:42.05,t1:58.06,sents:[[42.05,47.86],[48.02,52.74],[53.14,58.06]]},
+    {beat:3,t0:58.86,t1:81.54,sents:[[58.86,65.58],[66.22,73.82],[74.06,81.54]]},
+    {beat:4,t0:82.66,t1:114.74,sents:[[82.66,90.02],[90.233,101.46],[101.68,114.74]]}
+  ]},
+  minpay: {src:"../public/audio/minpay-beats.mp3", fallbackSrc:"public/audio/minpay-beats.mp3", duration:149.59, beats:[
+    {beat:0,t0:0.18,t1:21.46,sents:[[0.18,6.02],[6.18,16.02],[16.24,21.46]]},
+    {beat:1,t0:22.26,t1:47.82,sents:[[22.26,31.74],[31.98,41.58],[41.68,47.82]]},
+    {beat:2,t0:48.78,t1:76.18,sents:[[48.78,55.14],[55.32,66.74],[66.94,76.18]]},
+    {beat:3,t0:77.18,t1:104.94,sents:[[77.18,86.86],[87.127,93.5],[93.633,104.94]]},
+    {beat:4,t0:105.972,t1:149.14,sents:[[105.972,128.26],[128.452,137.22],[137.348,149.14]]}
+  ]},
+  qr: {src:"../public/audio/qr-beats.mp3", fallbackSrc:"public/audio/qr-beats.mp3", duration:152.55, beats:[
+    {beat:0,t0:0.18,t1:25.86,sents:[[0.18,6.9],[7.193,18.98],[19.073,25.86]]},
+    {beat:1,t0:26.593,t1:53.14,sents:[[26.593,35.5],[35.58,45.74],[46.3,53.14]]},
+    {beat:2,t0:53.8,t1:82.5,sents:[[53.8,60.18],[60.58,70.98],[71.3,82.5]]},
+    {beat:3,t0:83.7,t1:115.58,sents:[[83.7,90.5],[90.647,100.7],[100.82,115.58]]},
+    {beat:4,t0:116.473,t1:152.102,sents:[[116.473,123.46],[123.753,137.062],[137.355,152.102]]}
+  ]},
+  profitcash: {src:"../public/audio/profitcash-beats.mp3", fallbackSrc:"public/audio/profitcash-beats.mp3", duration:211.75, beats:[
+    {beat:0,t0:0.18,t1:37.94,sents:[[0.18,9.78],[10.047,22.9],[23.007,37.94]]},
+    {beat:1,t0:39.047,t1:74.55,sents:[[39.047,47.342],[47.518,56.864],[57.037,74.55]]},
+    {beat:2,t0:75.71,t1:116.603,sents:[[75.71,90.037],[90.41,105.083],[105.563,116.603]]},
+    {beat:3,t0:118.163,t1:170.963,sents:[[118.163,132.723],[133.043,153.603],[153.976,170.963]]},
+    {beat:4,t0:172.123,t1:211.323,sents:[[172.123,185.003],[185.227,198.843],[199.243,211.323]]}
+  ]},
+  offus: {src:"../public/audio/offus-beats.mp3", fallbackSrc:"public/audio/offus-beats.mp3", duration:196.31, beats:[
+    {beat:0,t0:0.18,t1:28.782,sents:[[0.18,6.02],[6.287,18.822],[19.014,28.782]]},
+    {beat:1,t0:29.502,t1:58.702,sents:[[29.502,38.542],[38.718,45.582],[45.842,58.702]]},
+    {beat:2,t0:59.962,t1:94.822,sents:[[59.962,68.822],[68.998,80.742],[81.142,94.822]]},
+    {beat:3,t0:96.022,t1:139.422,sents:[[96.022,105.742],[106.062,123.222],[123.392,139.422]]},
+    {beat:4,t0:140.242,t1:195.862,sents:[[140.242,155.462],[155.942,173.142],[173.398,195.862]]}
+  ]}
+};
+let viVoice = null, timer = null, audioRaf = 0;
 function pickVoice(){
   if (!("speechSynthesis" in window)) return;
   viVoice = speechSynthesis.getVoices().find(v => /^vi/i.test(v.lang)) || null;
 }
 if ("speechSynthesis" in window){ pickVoice(); speechSynthesis.addEventListener("voiceschanged", pickVoice); }
-function stopSpeech(){ S.run++; clearTimeout(timer); if ("speechSynthesis" in window) speechSynthesis.cancel(); }
+function ensureAudioTrack(storyKey){
+  const aud = $("#dioramaAudio"), meta = BEAT_AUDIO[storyKey];
+  if (!aud || !meta) return null;
+  if (aud.dataset.story !== storyKey) {
+    aud.dataset.story = storyKey;
+    aud.dataset.fb = "";
+    aud.src = meta.src;
+    aud.onerror = () => {
+      if (!aud.dataset.fb && meta.fallbackSrc) {
+        aud.dataset.fb = "1";
+        aud.src = meta.fallbackSrc;
+      }
+    };
+  }
+  return aud;
+}
+function seekAudioToCurrent(){
+  const aud = ensureAudioTrack(S.story), meta = BEAT_AUDIO[S.story];
+  if (!aud || !meta) return;
+  const bMeta = meta.beats[S.beat];
+  if (!bMeta) return;
+  const sMeta = bMeta.sents[Math.min(S.sent, bMeta.sents.length - 1)] || [bMeta.t0, bMeta.t1];
+  const target = Math.max(0, sMeta[0]);
+  try {
+    if (aud.readyState >= 1) aud.currentTime = target;
+    else aud.addEventListener("loadedmetadata", () => { try { aud.currentTime = target; } catch (_) {} }, {once: true});
+  } catch (_) {}
+}
+function updateVoiceNote(){
+  const b = $("#voice"), note = $("#voicenote");
+  if (b) {
+    b.setAttribute("aria-pressed", S.voice);
+    b.textContent = S.voice ? "Giọng đọc: Giọng Tâm" : "Giọng đọc: tắt";
+  }
+  if (!note) return;
+  if (!S.voice) note.textContent = "Đang tắt giọng đọc — lời kể chạy tự động theo nhịp đọc trên mặt cắt.";
+  else if (S.playing) note.textContent = "Đang phát Giọng Tâm thu âm chuyên mục (-14 LUFS) · Đồng bộ từng câu với mặt cắt Diorama.";
+  else note.textContent = "Giọng Tâm thu âm chuyên mục (-14 LUFS) · Bấm Phát để nghe đồng bộ từng câu với mặt cắt.";
+}
+function stopSpeech(){
+  S.run++;
+  clearTimeout(timer);
+  cancelAnimationFrame(audioRaf);
+  const aud = $("#dioramaAudio");
+  if (aud && !aud.paused) { try { aud.pause(); } catch (_) {} }
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+}
 function setPlaying(on){
   S.playing = on;
   $("#playIcon").innerHTML = on ? '<path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/>' : '<path d="M7 4.5v15l12.5-7.5z"/>';
   $("#play").setAttribute("aria-label", on ? "Tạm dừng" : "Kể");
+  updateVoiceNote();
   updateSentence();
 }
 const readMs = t => Math.max(2600, t.length * 62);
-function tick(){
-  const run = ++S.run, text = plain(beat().say[S.sent]);
-  setPlaying(true);
+function startAudioMasterClock(run){
+  const aud = ensureAudioTrack(S.story), meta = BEAT_AUDIO[S.story];
+  if (!aud || !meta) return false;
+  seekAudioToCurrent();
+  const stepClock = () => {
+    if (run !== S.run || !S.playing) return;
+    const t = aud.currentTime || 0;
+    const beats = meta.beats;
+    let bi = S.beat;
+    for (let i = 0; i < beats.length; i++) {
+      const nextT0 = i + 1 < beats.length ? beats[i + 1].t0 : meta.duration + 1;
+      if (t >= beats[i].t0 - 0.12 && t < nextT0 - 0.04) { bi = i; break; }
+    }
+    const bMeta = beats[bi] || beats[S.beat];
+    let si = 0;
+    if (bMeta && Array.isArray(bMeta.sents)) {
+      for (let j = 0; j < bMeta.sents.length; j++) {
+        if (t >= bMeta.sents[j][0] - 0.06) si = j;
+      }
+    }
+    if (bi !== S.beat) {
+      S.beat = bi;
+      S.sent = si;
+      renderDots(); renderScene(); renderCaption(); renderLens(); updateSentence();
+    } else if (si !== S.sent) {
+      S.sent = si;
+      updateSentence();
+    }
+    if (bMeta) {
+      const span = Math.max(0.1, bMeta.t1 - bMeta.t0);
+      const pct = Math.max(0, Math.min(100, ((t - bMeta.t0) / span) * 100));
+      $$("#dots .dot").forEach((d, idx) => {
+        const p = idx < S.beat ? 100 : idx === S.beat ? pct.toFixed(1) : 0;
+        const bar = d.querySelector("i");
+        if (bar) bar.style.setProperty("--p", p + "%");
+      });
+    }
+    if (aud.ended || t >= meta.duration - 0.08) {
+      const o = order(), nx = o[o.indexOf(S.story) + 1];
+      if (S.mode === "listen" && nx) {
+        S.story = nx; S.beat = 0; S.sent = 0; drawHouses(); renderAll(); tick();
+        return;
+      }
+      S.sent = STORIES[S.story].beats[S.beat].say.length;
+      setPlaying(false);
+      return;
+    }
+    audioRaf = requestAnimationFrame(stepClock);
+  };
+  const playPromise = aud.play();
+  if (playPromise && typeof playPromise.then === "function") {
+    playPromise.then(() => {
+      if (run === S.run) audioRaf = requestAnimationFrame(stepClock);
+    }).catch(() => {
+      if (run === S.run) fallbackTick(run);
+    });
+  } else {
+    audioRaf = requestAnimationFrame(stepClock);
+  }
+  return true;
+}
+function fallbackTick(run){
+  const text = plain(beat().say[S.sent]);
   const done = () => { if (run === S.run) advance(); };
   if (S.voice && viVoice){
     const u = new SpeechSynthesisUtterance(text); u.voice = viVoice; u.lang = viVoice.lang; u.rate = 1;
     u.onend = done; u.onerror = () => { if (run===S.run) timer = setTimeout(done, readMs(text)); };
     speechSynthesis.speak(u);
   } else timer = setTimeout(done, readMs(text));
+}
+function tick(){
+  const run = ++S.run;
+  setPlaying(true);
+  if (S.voice && BEAT_AUDIO[S.story]) {
+    startAudioMasterClock(run);
+    return;
+  }
+  fallbackTick(run);
 }
 function advance(){
   const bs = STORIES[S.story].beats;
@@ -6770,28 +7016,29 @@ function openStory(k){ go(k, 0, 0, false); $("#stage").scrollIntoView({behavior:
 $("#play").onclick = () => {
   if (S.playing){ stopSpeech(); setPlaying(false); return; }
   const bs = STORIES[S.story].beats;
-  if (S.beat===bs.length-1 && S.sent>=bs[S.beat].say.length){ S.beat=0; S.sent=0; renderAll(); }
+  if (S.beat===bs.length-1 && S.sent>=bs[S.beat].say.length){ S.beat=0; S.sent=0; renderAll(); seekAudioToCurrent(); }
   tick();
 };
 $("#prev").onclick = () => go(S.story, Math.max(0,S.beat-1), 0, S.playing);
 $("#next").onclick = () => go(S.story, Math.min(STORIES[S.story].beats.length-1,S.beat+1), 0, S.playing);
 $$("[data-lens]").forEach(b => b.onclick = () => { if (CMS.edit) { setEdit(false); renderCMS(); } S.lens = b.dataset.lens;
   $$("[data-lens]").forEach(x => x.setAttribute("aria-pressed", x===b)); renderLens(); });
-$$("[data-mode]").forEach(b => b.onclick = () => { S.mode = b.dataset.mode;
+$$("[data-mode]").forEach(b => b.onclick = () => {
+  S.mode = b.dataset.mode;
   $$("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x===b));
   $("#stage").classList.toggle("mode-listen", S.mode==="listen");
+  $("#stage").classList.toggle("mode-video", S.mode==="video");
+  if (S.mode==="video" && S.playing) { stopSpeech(); setPlaying(false); }
+  renderStageVideo();
   if (S.mode==="watch") renderScene();   // cảnh vừa hiện lại: chạy lại hoạt hình của đoạn hiện tại
-  updateSentence(); });
+  updateSentence();
+});
 $("#transcript").addEventListener("click", e => {
   const s = e.target.closest(".s"); if (!s || e.target.closest(".term")) return;
   go(s.dataset.story, +s.dataset.b, +s.dataset.s, true); });
 $("#voice").onclick = () => {
-  S.voice = !S.voice; const b = $("#voice"); b.setAttribute("aria-pressed", S.voice);
-  b.textContent = "Giọng đọc: " + (S.voice ? "bật" : "tắt");
-  const note = $("#voicenote");
-  if (!S.voice) note.textContent = "Không bật giọng đọc thì lời kể vẫn chạy theo nhịp đọc.";
-  else if (viVoice) note.textContent = "Đang dùng giọng đọc tiếng Việt có sẵn trên máy bạn. Bản phát hành sẽ dùng giọng thu sẵn.";
-  else note.textContent = "Máy bạn chưa có giọng đọc tiếng Việt, nên lời kể vẫn chạy bằng chữ.";
+  S.voice = !S.voice;
+  updateVoiceNote();
   if (S.playing){ stopSpeech(); tick(); }
 };
 

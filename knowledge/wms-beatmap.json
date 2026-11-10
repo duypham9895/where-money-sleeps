@@ -1,0 +1,1209 @@
+{
+  "card": {
+    "story": "card",
+    "title": "Đêm nay, 10 triệu bạn vừa quẹt thẻ đang ngủ ở đâu?",
+    "audioSrc": "public/audio/card-beats.mp3",
+    "duration": 110.63,
+    "youtubeLongId": "fxpFvVJcpRA",
+    "youtubeShortId": "th6zR4gwV5c",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "22:47",
+        "title": "Cú chạm",
+        "lit": [
+          0,
+          4
+        ],
+        "msgs": [],
+        "tags": {
+          "0": [
+            "Hạn mức khả dụng −10.000.000",
+            "minus"
+          ],
+          "4": [
+            "Giữ chỗ 10.000.000",
+            "plain"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 16.7
+      },
+      {
+        "beat": 1,
+        "when": "vài giây",
+        "title": "Lời nhắn đi một vòng",
+        "lit": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "tags": {
+          "3": [
+            "chuyển lời nhắn",
+            "plain"
+          ],
+          "4": [
+            "“đồng ý”",
+            "plain"
+          ]
+        },
+        "t0": 17.32,
+        "t1": 37.1
+      },
+      {
+        "beat": 2,
+        "when": "đêm đó",
+        "title": "Tiền ngủ trong một lời hứa",
+        "lit": [
+          1
+        ],
+        "msgs": [],
+        "tags": {
+          "1": [
+            "+ Phải thu 10.000.000",
+            "plus"
+          ]
+        },
+        "t0": 37.727,
+        "t1": 53.7
+      },
+      {
+        "beat": 3,
+        "when": "T+2",
+        "title": "Lời hứa thành tiền — hụt 220.000",
+        "lit": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            4,
+            2,
+            "money"
+          ],
+          [
+            2,
+            1,
+            "money"
+          ],
+          [
+            2,
+            3,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "+ 9.780.000 vào tài khoản",
+            "plus"
+          ],
+          "2": [
+            "giữ phần phí còn lại",
+            "plain"
+          ],
+          "3": [
+            "+ phí mạng thẻ",
+            "plain"
+          ],
+          "4": [
+            "+ Interchange ≈ 150.000",
+            "plus"
+          ]
+        },
+        "t0": 54.46,
+        "t1": 82.14
+      },
+      {
+        "beat": 4,
+        "when": "ngày sao kê",
+        "title": "Ai trả tiền hoàn cho bạn?",
+        "lit": [
+          0,
+          4
+        ],
+        "msgs": [
+          [
+            0,
+            4,
+            "money"
+          ]
+        ],
+        "tags": {
+          "0": [
+            "−10.000.000 trả nợ thẻ · +100.000 tiền hoàn",
+            "minus"
+          ],
+          "4": [
+            "khoản bạn nợ về 0",
+            "plain"
+          ]
+        },
+        "t0": 83.193,
+        "t1": 110.18
+      }
+    ]
+  },
+  "pay": {
+    "story": "pay",
+    "title": "Vì sao công ty bảo bạn mở tài khoản ở đúng một ngân hàng?",
+    "audioSrc": "public/audio/pay-beats.mp3",
+    "duration": 102.23,
+    "youtubeLongId": "3NqEha4j53k",
+    "youtubeShortId": "XnMsbH0E_xo",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "ngày đầu",
+        "title": "Một tờ giấy từ phòng nhân sự",
+        "lit": [
+          0,
+          1,
+          2
+        ],
+        "msgs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "tags": {
+          "1": [
+            "+ một tài khoản mới",
+            "plus"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 13.221
+      },
+      {
+        "beat": 1,
+        "when": "ngày lương",
+        "title": "Tiền không rời khỏi toà nhà",
+        "lit": [
+          0,
+          1,
+          2
+        ],
+        "msgs": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "tags": {
+          "0": [
+            "−15.000.000",
+            "minus"
+          ],
+          "1": [
+            "sửa hai dòng, tổng không đổi",
+            "plain"
+          ],
+          "2": [
+            "+15.000.000",
+            "plus"
+          ]
+        },
+        "t0": 13.932,
+        "t1": 37.38
+      },
+      {
+        "beat": 2,
+        "when": "cả tháng",
+        "title": "Phần lương nằm yên",
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "msgs": [],
+        "tags": {
+          "2": [
+            "số dư nằm yên",
+            "plain"
+          ],
+          "3": [
+            "500 số dư nằm yên",
+            "plain"
+          ]
+        },
+        "t0": 37.98,
+        "t1": 57.14
+      },
+      {
+        "beat": 3,
+        "when": "cùng lúc",
+        "title": "Nguồn vốn rẻ của ngân hàng",
+        "lit": [
+          1,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            4
+          ]
+        ],
+        "tags": {
+          "1": [
+            "vốn gộp chung",
+            "plain"
+          ],
+          "4": [
+            "cho vay ~8,5%/năm (ví dụ)",
+            "plain"
+          ]
+        },
+        "t0": 57.724,
+        "t1": 79.9
+      },
+      {
+        "beat": 4,
+        "when": "đổi lại",
+        "title": "Sếp bạn được gì?",
+        "lit": [
+          0,
+          1,
+          2
+        ],
+        "msgs": [
+          [
+            1,
+            0
+          ]
+        ],
+        "tags": {
+          "0": [
+            "ưu đãi trong gói dịch vụ",
+            "plus"
+          ]
+        },
+        "t0": 80.836,
+        "t1": 101.78
+      }
+    ]
+  },
+  "install": {
+    "story": "install",
+    "title": "Mua trả góp 12 triệu lãi suất 0%: vậy ai đang trả tiền lãi?",
+    "audioSrc": "public/audio/install-beats.mp3",
+    "duration": 115.19,
+    "youtubeLongId": "l_8aVo538jo",
+    "youtubeShortId": "J3DmDP4KKRI",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "thứ Bảy",
+        "title": "Tờ rơi 0%",
+        "lit": [
+          0,
+          1
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "tags": {
+          "1": [
+            "gửi hồ sơ trả góp",
+            "plain"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 20.34
+      },
+      {
+        "beat": 1,
+        "when": "15 phút",
+        "title": "Chuyển giao hợp đồng vay",
+        "lit": [
+          0,
+          1,
+          2
+        ],
+        "msgs": [
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "tags": {
+          "0": [
+            "nợ công ty tài chính 12.000.000",
+            "minus"
+          ],
+          "2": [
+            "“duyệt”",
+            "plain"
+          ]
+        },
+        "t0": 21.553,
+        "t1": 40.94
+      },
+      {
+        "beat": 2,
+        "when": "tối đó",
+        "title": "Cửa hàng ghi một lời hứa",
+        "lit": [
+          1,
+          2
+        ],
+        "msgs": [],
+        "tags": {
+          "1": [
+            "+ Phải thu 12.000.000",
+            "plus"
+          ]
+        },
+        "t0": 42.05,
+        "t1": 58.06
+      },
+      {
+        "beat": 3,
+        "when": "T+1",
+        "title": "Giải ngân — hụt 600.000",
+        "lit": [
+          1,
+          2,
+          4
+        ],
+        "msgs": [
+          [
+            2,
+            4,
+            "money"
+          ],
+          [
+            4,
+            1,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "+ 11.400.000 vào tài khoản",
+            "plus"
+          ],
+          "2": [
+            "giữ 600.000 làm lãi",
+            "plain"
+          ]
+        },
+        "t0": 58.86,
+        "t1": 81.54
+      },
+      {
+        "beat": 4,
+        "when": "12 tháng",
+        "title": "Lãi thật của 0%",
+        "lit": [
+          0,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            2,
+            "money"
+          ]
+        ],
+        "tags": {
+          "0": [
+            "−1.000.000 mỗi tháng",
+            "minus"
+          ],
+          "2": [
+            "dư nợ của bạn giảm dần",
+            "plain"
+          ]
+        },
+        "t0": 82.66,
+        "t1": 114.74
+      }
+    ]
+  },
+  "minpay": {
+    "story": "minpay",
+    "title": "Trả tối thiểu 5% (500.000 đồng) trên sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau bạn mất trắng 45 ngày miễn lãi và bị cộng thêm 592.500 đồng tiền lãi?",
+    "audioSrc": "public/audio/minpay-beats.mp3",
+    "duration": 149.59,
+    "youtubeLongId": "ubgdEOblCgo",
+    "youtubeShortId": "-atHoEHCrSI",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "Ngày 01",
+        "title": "Quẹt thẻ 10 triệu — mở kỳ 45 ngày miễn lãi",
+        "lit": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "tags": {
+          "1": [
+            "bán thiết bị 10.000.000",
+            "plain"
+          ],
+          "3": [
+            "giữ chỗ hạn mức 10.000.000",
+            "minus"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 21.46
+      },
+      {
+        "beat": 1,
+        "when": "Ngày T+2",
+        "title": "Ngân hàng phát hành đã bỏ tiền túi ứng trước",
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            3,
+            2,
+            "money"
+          ],
+          [
+            2,
+            1,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "+ 9.800.000 vào tài khoản",
+            "plus"
+          ],
+          "3": [
+            "ứng tiền thật quyết toán",
+            "minus"
+          ]
+        },
+        "t0": 22.26,
+        "t1": 47.82
+      },
+      {
+        "beat": 2,
+        "when": "Ngày 30",
+        "title": "Sao kê 10 triệu và con số “tối thiểu 500.000”",
+        "lit": [
+          0,
+          3
+        ],
+        "msgs": [
+          [
+            3,
+            0
+          ]
+        ],
+        "tags": {
+          "0": [
+            "nhận sao kê 10.000.000",
+            "plain"
+          ],
+          "3": [
+            "hạn Ngày 45: trả 10tr hoặc 500k",
+            "plain"
+          ]
+        },
+        "t0": 48.78,
+        "t1": 76.18
+      },
+      {
+        "beat": 3,
+        "when": "Ngày 45",
+        "title": "Trả 500.000 đồng — thoát phạt, mất trắng 45 ngày miễn lãi",
+        "lit": [
+          0,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            0,
+            4
+          ],
+          [
+            4,
+            3,
+            "money"
+          ]
+        ],
+        "tags": {
+          "3": [
+            "gốc còn 9.500.000 · huỷ miễn lãi",
+            "plain"
+          ],
+          "4": [
+            "− 500.000 tiền thật",
+            "minus"
+          ]
+        },
+        "t0": 77.18,
+        "t1": 104.94
+      },
+      {
+        "beat": 4,
+        "when": "Ngày 60",
+        "title": "Trả 500.000 đồng nhưng bị cộng 592.500 đồng tiền lãi",
+        "lit": [
+          0,
+          3
+        ],
+        "msgs": [
+          [
+            3,
+            0
+          ]
+        ],
+        "tags": {
+          "0": [
+            "dư nợ mới: 10.092.500",
+            "minus"
+          ],
+          "3": [
+            "+ 592.500 tiền lãi (450k + 142,5k)",
+            "plus"
+          ]
+        },
+        "t0": 105.972,
+        "t1": 149.14
+      }
+    ]
+  },
+  "qr": {
+    "story": "qr",
+    "title": "Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: vì sao quán nhận đủ 50 nghìn ngay lập tức mà không mất 2,2% phí như quẹt thẻ?",
+    "audioSrc": "public/audio/qr-beats.mp3",
+    "duration": 152.55,
+    "youtubeLongId": "d_WpGSjBR-4",
+    "youtubeShortId": "WpwLZw3ytwU",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "08:15 · Giây 01",
+        "title": "Bạn chủ động đẩy lệnh chuyển 50.000 đồng (Push Payment)",
+        "lit": [
+          0,
+          1,
+          2
+        ],
+        "msgs": [
+          [
+            0,
+            2
+          ]
+        ],
+        "tags": {
+          "0": [
+            "đẩy lệnh chuyển 50.000",
+            "minus"
+          ],
+          "1": [
+            "bảng mã QR thụ động",
+            "plain"
+          ],
+          "2": [
+            "nhận lệnh từ chính chủ TK",
+            "plain"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 25.86
+      },
+      {
+        "beat": 1,
+        "when": "08:15 · Giây 02",
+        "title": "Tiêu tiền CASA có sẵn — không ai ứng vốn, không phí MDR",
+        "lit": [
+          0,
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "tags": {
+          "2": [
+            "− 50.000 CASA của bạn",
+            "minus"
+          ],
+          "3": [
+            "định tuyến bản tin 24/7",
+            "plain"
+          ],
+          "4": [
+            "nhận bản tin có bảo chứng",
+            "plus"
+          ]
+        },
+        "t0": 26.593,
+        "t1": 53.14
+      },
+      {
+        "beat": 2,
+        "when": "08:15 · Giây 03",
+        "title": "Quán nhận đủ 50.000 đồng ngay lập tức (T+0)",
+        "lit": [
+          1,
+          4
+        ],
+        "msgs": [
+          [
+            4,
+            1
+          ]
+        ],
+        "tags": {
+          "1": [
+            "+ 50.000 đủ 100% ở T+0",
+            "plus"
+          ],
+          "4": [
+            "ghi Có ngay + 50.000",
+            "plus"
+          ]
+        },
+        "t0": 53.8,
+        "t1": 82.5
+      },
+      {
+        "beat": 3,
+        "when": "Cuối phiên",
+        "title": "Hàng triệu ly cà phê gom lại thành một lần bù trừ ròng",
+        "lit": [
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            4,
+            "money"
+          ]
+        ],
+        "tags": {
+          "2": [
+            "gửi đi 100 tỷ (ví dụ)",
+            "minus"
+          ],
+          "3": [
+            "bù trừ ròng 2 chiều",
+            "plain"
+          ],
+          "4": [
+            "nhận chênh lệch ròng 4 tỷ",
+            "plus"
+          ]
+        },
+        "t0": 83.7,
+        "t1": 115.58
+      },
+      {
+        "beat": 4,
+        "when": "Cuối ca",
+        "title": "Đặt cạnh 10 triệu quẹt thẻ: Giữ lại 220.000 đồng và bài toán QR động",
+        "lit": [
+          0,
+          1,
+          4
+        ],
+        "msgs": [
+          [
+            4,
+            1
+          ]
+        ],
+        "tags": {
+          "0": [
+            "lưu ý: QR không có Chargeback",
+            "plain"
+          ],
+          "1": [
+            "200 ly: giữ trọn 9.980k–10tr",
+            "plus"
+          ],
+          "4": [
+            "đối soát tự động QR động",
+            "plain"
+          ]
+        },
+        "t0": 116.473,
+        "t1": 152.102
+      }
+    ]
+  },
+  "profitcash": {
+    "story": "profitcash",
+    "title": "Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+    "audioSrc": "public/audio/profitcash-beats.mp3",
+    "duration": 211.75,
+    "youtubeLongId": "WnlsZ9AtNdI",
+    "youtubeShortId": "BpNggcnByQg",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "Ngày 01/10 · Nhập hàng",
+        "title": "Xuất 7,45 tỷ đồng tiền thật trả nhà cung cấp để nhập hàng vào kho",
+        "lit": [
+          0,
+          1,
+          3
+        ],
+        "msgs": [
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            0,
+            "money"
+          ]
+        ],
+        "tags": {
+          "0": [
+            "+ 7,45 tỷ tiền tươi",
+            "plus"
+          ],
+          "1": [
+            "xuất 7,45 tỷ mua hàng",
+            "minus"
+          ],
+          "3": [
+            "TK 112 chi −7,45 tỷ",
+            "minus"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 37.94
+      },
+      {
+        "beat": 1,
+        "when": "Ngày 15/11 · Giao hàng",
+        "title": "Giao lô hàng 10 tỷ đồng: Ghi nhận đủ doanh thu dù khách còn nợ 2,5 tỷ",
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "ghi doanh thu +10 tỷ",
+            "plus"
+          ],
+          "2": [
+            "trả 7,5 tỷ · nợ 2,5 tỷ",
+            "plain"
+          ],
+          "3": [
+            "TK 112 thu +7,5 tỷ",
+            "plus"
+          ]
+        },
+        "t0": 39.047,
+        "t1": 74.55
+      },
+      {
+        "beat": 2,
+        "when": "Ngày 25/12 · Khoá sổ",
+        "title": "Khoá sổ cuối năm: Doanh thu 10 tỷ trừ chi phí 8 tỷ = Lãi ròng 2 tỷ đồng",
+        "lit": [
+          1,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            3,
+            "money"
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "tags": {
+          "1": [
+            "BCTC: Lãi ròng +2 tỷ",
+            "plus"
+          ],
+          "3": [
+            "đã chi 1 tỷ vận hành",
+            "minus"
+          ],
+          "4": [
+            "chờ nhận lương 500 triệu",
+            "plain"
+          ]
+        },
+        "t0": 75.71,
+        "t1": 116.603
+      },
+      {
+        "beat": 3,
+        "when": "Chiều 31/12 · Mở két",
+        "title": "Cú sốc chiều 31/12: Két tiền chỉ còn 50 triệu đồng khi cần trả lương 500 triệu",
+        "lit": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "tags": {
+          "0": [
+            "giam 950 triệu ở TK 156",
+            "minus"
+          ],
+          "2": [
+            "giam 2,5 tỷ ở TK 131",
+            "minus"
+          ],
+          "3": [
+            "két TK 112: 50.000.000 đ",
+            "minus"
+          ]
+        },
+        "t0": 118.163,
+        "t1": 170.963
+      },
+      {
+        "beat": 4,
+        "when": "16:30 · 31/12 · Giải cứu",
+        "title": "Vay ngắn hạn ngân hàng 450 triệu đồng để trả đủ 500 triệu tiền lương",
+        "lit": [
+          1,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "nợ vay TK 341: 450 triệu",
+            "minus"
+          ],
+          "3": [
+            "giải ngân vay 450 triệu",
+            "plain"
+          ],
+          "4": [
+            "nhận đủ 500 triệu lương",
+            "plus"
+          ]
+        },
+        "t0": 172.123,
+        "t1": 211.323
+      }
+    ]
+  },
+  "offus": {
+    "story": "offus",
+    "title": "Chuyển khoản 20 triệu đồng cùng ngân hàng (On-Us) và khác ngân hàng (Off-Us): Vì sao người nhận đều ting-ting sau 3 giây nhưng tiền dự trữ dưới lòng đất đi hai đường khác hẳn nhau?",
+    "audioSrc": "public/audio/offus-beats.mp3",
+    "duration": 196.31,
+    "youtubeLongId": "Qn3SIzHi_Ik",
+    "youtubeShortId": "9FdZabe_Q_4",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "10:00 · Lệnh 1 (On-Us)",
+        "title": "Cùng ngân hàng (On-Us): Sửa 2 dòng nợ nội bộ, 0 đồng tiền dự trữ rời toà nhà",
+        "lit": [
+          0,
+          1
+        ],
+        "msgs": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "tags": {
+          "0": [
+            "ting-ting +20.000.000 đ",
+            "plus"
+          ],
+          "1": [
+            "sửa 2 dòng sổ · CASA đổi 0 đ",
+            "plain"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 28.782
+      },
+      {
+        "beat": 1,
+        "when": "10:01 · Giây 01–02 (Off-Us)",
+        "title": "Khác ngân hàng (Off-Us): Bản tin chạy qua chuyển mạch và kiểm hạn mức ký quỹ bảo chứng",
+        "lit": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "tags": {
+          "1": [
+            "trừ −20.000.000 đ trên sổ",
+            "minus"
+          ],
+          "2": [
+            "kiểm ký quỹ bảo chứng 24/7",
+            "plain"
+          ],
+          "3": [
+            "nhận lệnh đã bảo chứng",
+            "plain"
+          ]
+        },
+        "t0": 29.502,
+        "t1": 58.702
+      },
+      {
+        "beat": 2,
+        "when": "10:01 · Giây 03 (Off-Us)",
+        "title": "Giây thứ 3: Ngân hàng người nhận ghi Có +20 triệu đồng trước khi tiền dự trữ kịp chạy",
+        "lit": [
+          0,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "tags": {
+          "0": [
+            "đối tác nhận đủ 20 triệu",
+            "plus"
+          ],
+          "3": [
+            "ghi Có ngay +20.000.000 đ",
+            "plus"
+          ]
+        },
+        "t0": 59.962,
+        "t1": 94.822
+      },
+      {
+        "beat": 3,
+        "when": "16:00 · Cuối phiên",
+        "title": "Quyết toán ròng (Net Settlement) tại Ngân hàng Trung ương: Gom 970 tỷ đồng thành 30 tỷ đồng",
+        "lit": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            2,
+            4
+          ],
+          [
+            1,
+            4,
+            "money"
+          ],
+          [
+            4,
+            3,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "cắt dự trữ −30 tỷ đồng",
+            "minus"
+          ],
+          "2": [
+            "bù trừ: 500 tỷ − 470 tỷ",
+            "plain"
+          ],
+          "3": [
+            "nhận dự trữ +30 tỷ đồng",
+            "plus"
+          ],
+          "4": [
+            "quyết toán ròng 30 tỷ đ",
+            "plain"
+          ]
+        },
+        "t0": 96.022,
+        "t1": 139.422
+      },
+      {
+        "beat": 4,
+        "when": "Chiều 31/12 · Ngoại lệ",
+        "title": "Ngoại lệ cuối kỳ: Lệnh tiền tỷ đi qua RTGS và lệnh nghẽn đối soát treo trên TK 113",
+        "lit": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            4,
+            "money"
+          ]
+        ],
+        "tags": {
+          "1": [
+            "đã trừ TK 112: 20 triệu",
+            "minus"
+          ],
+          "2": [
+            "treo đối soát: TK 113",
+            "plain"
+          ],
+          "4": [
+            "lệnh ≥ 10 tỷ đi thẳng RTGS",
+            "plain"
+          ]
+        },
+        "t0": 140.242,
+        "t1": 195.862
+      }
+    ]
+  }
+}
