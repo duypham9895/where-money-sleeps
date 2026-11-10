@@ -4,6 +4,7 @@
   "account_id": "76cf12a5975b729026f1b1dd89005e53",
   "main": "cloudflare/worker.js",
   "compatibility_date": "2025-04-01",
+  "workers_dev": true,
   "routes": [
     {
       "pattern": "money.duypham.me",
