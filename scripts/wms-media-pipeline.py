@@ -424,6 +424,8 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
             },
             "status": {
                 "privacyStatus": privacy,
+                "embeddable": True,
+                "publicStatsViewable": True,
                 "selfDeclaredMadeForKids": False,
                 "containsSyntheticMedia": True,
             },
@@ -704,6 +706,8 @@ def step_5c_update_youtube_description(
     if privacy_status in ("public", "unlisted", "private"):
         payload["status"] = {
             "privacyStatus": privacy_status,
+            "embeddable": True,
+            "publicStatsViewable": True,
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": True,
         }
@@ -885,6 +889,8 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "categoryId": "27",
                 "defaultLanguage": "vi",
                 "privacyStatus": "unlisted" if story.get("status") != "published" else "public",
+                "embeddable": True,
+                "publicStatsViewable": True,
                 "selfDeclaredMadeForKids": False,
                 "containsSyntheticMedia": True,
                 "chaptersDescription": build_youtube_chapters(scenes, str(fobj.get("title") or story.get("title") or "")),
