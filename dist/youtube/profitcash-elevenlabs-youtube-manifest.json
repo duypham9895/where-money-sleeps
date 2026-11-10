@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+  "story": "profitcash",
+  "storyStatus": "review",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 16,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-10T10:03:59+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (accrual_profit_vs_operating_cashflow_reconciliation)",
+      "Toán Kế toán dồn tích vs Lưu chuyển tiền tệ gián tiếp khớp tuyệt đối: Doanh thu 10,000,000,000đ − Giá vốn 6,500,000,000đ − Chi phí 1,500,000,000đ = Lãi 2,000,000,000đ · OCF = +2,000,000,000đ − ΔTK 131 (2,500,000,000đ) − ΔTK 156 (950,000,000đ) + ΔTK 334 (500,000,000đ) = -950,000,000đ · Tiền cuối kỳ TK 112 = 1,000,000,000đ + (-950,000,000đ) = 50,000,000đ (vay TK 341 450,000,000đ để trả lương 500,000,000đ)",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 131, 156, 334, 341, 421, 511, 632, 642)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "elevenlabs-commercial-tts-sfx",
+      "licence": "ElevenLabs Commercial Terms (Paid Plan: Starter / Creator / Pro+)"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/profitcash_long_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "WnlsZ9AtNdI",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/profitcash-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?\n0:42 Đoạn 1\n1:34 Đoạn 2\n2:30 Đoạn 3\n3:24 Đoạn 4\n4:20 Đoạn 4\n5:14 Đoạn 2\n6:08 Đoạn 5\n6:58 Đoạn 3\n7:42 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:42",
+          "beat": null,
+          "sha256CacheKey": "73f66dd59c9b8eb1a9869defedbf60a5c3674c6f2a55e604d2a58144a09c783a",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4f738f076e92d6dead091de0636bd16c8250338648ee68722f1cd6c3266bd18f",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Mặt cắt năm ngôi nhà chiều 31 tháng 12: Kho nhà cung cấp, Công ty của bạn, Đối tác mua sỉ, Ngân hàng công ty và Đội ngũ nhân sự. Trên bàn giám đốc, tờ báo cáo in đậm Lãi ròng +2.000.000.000 đ, nhưng két TK 112 tại ngân hàng nhấp nháy 50.000.000 đ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đồng hồ tích tắc chiều cuối năm",
+          "voWords": 160
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:42 – 1:34",
+          "beat": 0,
+          "sha256CacheKey": "4ec89c613dbc64af4ea981c1bb753565000af7ad4c90eaa17d2609c180126d00",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4fe1395aa27e2a6ba27b2ad9686fc83f05cccbe544f80200f00461db1d89d4b9",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đèn bật sáng tại Công ty, Ngân hàng công ty và Kho nhà cung cấp. Từ két TK 112 (có 1 tỷ đầu kỳ cộng tiền thu trong kỳ), dòng tiền thật 7.450.000.000 đ chảy qua đường quyết toán sang Nhà cung cấp; kiện hàng 6,5 tỷ chuẩn bị giao và 950 triệu nằm lại trên kệ kho TK 156.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng kiện hàng đặt lên kệ kho",
+          "voWords": 154
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:34 – 2:30",
+          "beat": 1,
+          "sha256CacheKey": "c71c7ddeae4448232541d54582e38cae3aeb83f179638b363e9443ea2c732a4c",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "0ee78316b07adac7511cb1890fbcb909d195ad8a638962cb3e2f6344c5c78dcd",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đường hợp đồng nối từ Công ty sang Đối tác mua sỉ: lô hàng 10 tỷ đồng được bàn giao và ký nghiệm thu. Đối tác mua sỉ chuyển trả đợt đầu 7.500.000.000 đ tiền thật về Ngân hàng công ty, còn 2.500.000.000 đ hiện lên thành tờ giấy hẹn nợ 90 ngày trên TK 131.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu nghiệm thu",
+          "voWords": 158
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:30 – 3:24",
+          "beat": 2,
+          "sha256CacheKey": "601ca71d62f49db666a435bc9045b3a8f94c49a13a22d8cf346219e61fb63105",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "b1050361472994bff74d83d5b3b0f64eb9c482c491985fac0671297f07066177",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tại Công ty của bạn, bảng Báo cáo kết quả kinh doanh sáng lên: Doanh thu (TK 511: 10 tỷ) trừ Giá vốn hàng đã xuất bán (TK 632: 6,5 tỷ) trừ Chi phí quản lý & lương (TK 642: 1,5 tỷ) = Lợi nhuận sau thuế chưa phân phối (TK 421: +2 tỷ đồng).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy in báo cáo",
+          "voWords": 185
+        },
+        {
+          "sceneIndex": 4,
+          "time": "3:24 – 4:20",
+          "beat": 3,
+          "sha256CacheKey": "a15455851f63a0f9100d6ab892f1d22964228c7175c0cf237ff0973ca972f79f",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "ae280da680169390a2666157432a5ad0953dbb9be705e3cd21f80090813e4603",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ống kính soi thẳng vào két TK 112 tại Ngân hàng công ty: Tiền đầu kỳ (+1 tỷ) + Thu từ khách (+7,5 tỷ) − Trả nhà cung cấp (−7,45 tỷ) − Chi vận hành (−1 tỷ) = 50.000.000 đ. Bên cạnh là bảng lương TK 334: 500.000.000 đ đang chờ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông cảnh báo số dư",
+          "voWords": 163
+        },
+        {
+          "sceneIndex": 5,
+          "time": "4:20 – 5:14",
+          "beat": 3,
+          "sha256CacheKey": "f6fe7e4b14e40d2f44549bb5825a46bdc56407dae6a431783509d18c8463c563",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "855521d8097f3af49af6defa90403303a030fb6a1986fc86ee62d13d1ddce8fb",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Sơ đồ đối chiếu Bảng cân đối kế toán chiều 31/12: Tổng tài sản 3,5 tỷ đồng được chia thành 3 ngăn: TK 131 Phải thu khách sỉ (2.500.000.000 đ), TK 156 Hàng tồn kho (950.000.000 đ) và TK 112 Tiền mặt (50.000.000 đ).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá sổ cái",
+          "voWords": 166
+        },
+        {
+          "sceneIndex": 6,
+          "time": "5:14 – 6:08",
+          "beat": 1,
+          "sha256CacheKey": "9700f2de282b555103a3c691978cf21c4d33eefcbdd5aa5f8d5261ba846f0633",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "61146a5b26b8d6da1c82015febca0e90562f742bc76e1373cf43834cf49610d1",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bảng cầu nối từ Lợi nhuận kế toán (+2.000.000.000 đ) sang Dòng tiền thuần từ hoạt động kinh doanh OCF (−950.000.000 đ): trừ mức tăng Phải thu (−2,5 tỷ), trừ mức tăng Tồn kho (−950 triệu), cộng Lương chưa chi (+500 triệu).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng bút vạch số",
+          "voWords": 167
+        },
+        {
+          "sceneIndex": 7,
+          "time": "6:08 – 6:58",
+          "beat": 4,
+          "sha256CacheKey": "89b8a2040224ff86f5e33d17d93612226877f591e273dfa83f8dbc6c57361407",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "97495ce1172ed00c948a918320f8b71b9975bc2710f4ff6064efb3d2d1ac77c0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đèn sáng tại Ngân hàng công ty và Đội ngũ nhân sự: Ngân hàng giải ngân khoản vay ngắn hạn 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ cuối cùng trong TK 112 để chuyển đủ 500.000.000 đ tiền lương sang Đội ngũ nhân sự.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng tin nhắn lương về",
+          "voWords": 148
+        },
+        {
+          "sceneIndex": 8,
+          "time": "6:58 – 7:42",
+          "beat": 2,
+          "sha256CacheKey": "2eea2393538cc97ac40fa826b8bcf08753f92c7c2e4b13bd4e9ba13329803846",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "84c8b03626c9ecc7e3c09ebf2e7c14c6fe21f36369b0e8b4796a9cd192957804",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Biểu đồ hai đường phân kỳ: đường Lợi nhuận trên sổ (TK 421) đi lên dốc theo từng hợp đồng sỉ mới, trong khi đường Tiền mặt thực tế (TK 112) lao dốc xuống dưới 0 vì Vòng quay tiền mặt CCC = DIO + DSO − DPO bị kéo giãn.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng nhịp tim trầm",
+          "voWords": 123
+        },
+        {
+          "sceneIndex": 9,
+          "time": "7:42 – 8:20",
+          "beat": null,
+          "sha256CacheKey": "417ef3f1f09f489b9bcd2ae3a1d1e725e5f27171e8474af10bf97f1ef3cf4371",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "67f06b65992cdc7030939d2faa53c4229e5b22992fe8c8ce08b406221cc2d81d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Toàn cảnh năm ngôi nhà sáng đèn cân bằng trở lại. Ba dòng nguyên tắc vàng hiện lên bên cạnh sổ cái TT 99/2025: 1. Theo dõi OCF cạnh Lợi nhuận · 2. Thu hồi TK 131 theo tiến độ · 3. Kiểm soát tồn kho TK 156.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông ngân kết bài",
+          "voWords": 140
+        }
+      ]
+    },
+    "short": {
+      "title": "Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/elevenlabs/profitcash_short_continuous_v3.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "requiredKeyScopes": [
+          "Text to Speech",
+          "Sound Effects",
+          "Voices (Read)",
+          "Pronunciation Dictionaries"
+        ],
+        "cacheDir": ".cache/elevenlabs/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "youtubeId": "BpNggcnByQg",
+      "embedStatus": "uploaded_unlisted",
+      "outputMp4": "dist/youtube/profitcash-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "unlisted",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Mở đầu — Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?\n0:11 Đoạn 2\n0:23 Đoạn 1\n0:35 Đoạn 3\n0:47 Đoạn 4\n0:59 Cảnh kết"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:11",
+          "beat": 3,
+          "sha256CacheKey": "9330be69239dbff28dbfde02951b23baf420f08d0d09b774f6596e58a703ff5a",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "7b6cccfe4888c94a90bc50c5a2392f5e546f7aaad9939ee0800800288dc78ceb",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Chiều 31/12: Báo cáo kết quả kinh doanh hiện Lãi ròng +2.000.000.000 đ, nhưng màn hình TK 112 chỉ còn 50.000.000 đ trước bảng lương 500.000.000 đ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông báo số dư",
+          "voWords": 39
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:11 – 0:23",
+          "beat": 1,
+          "sha256CacheKey": "7155f371f7766e78403c954c097055c26347eeedd4b1572b4b18d00e4fafc59f",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "c8130eb3de10f017fa5534fa1439a4ce2866b179e49accb72fe418aa87bf597d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Hợp đồng giao hàng 10 tỷ đồng: ghi Có TK 511 đủ 10 tỷ theo kế toán dồn tích, nhưng khách sỉ mới trả 7,5 tỷ và còn nợ 2,5 tỷ trên TK 131.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng đóng dấu",
+          "voWords": 42
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:23 – 0:35",
+          "beat": 0,
+          "sha256CacheKey": "0ef09f1ff012b14d8decb56e8a57303e3e734435a638bbb07d2827a62799a1b5",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9947464c389dc25eed74189db8777631455bf6d11d9a42b27b50be3e1ce9e214",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đầu kỳ có 1 tỷ đồng, thu khách 7,5 tỷ (= 8,5 tỷ), nhưng công ty đã chi 7,45 tỷ trả nhà cung cấp (6,5 tỷ giá vốn + 950 triệu tồn kho TK 156) và 1 tỷ vận hành (= 8,45 tỷ).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng máy đếm tiền",
+          "voWords": 45
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:35 – 0:47",
+          "beat": 2,
+          "sha256CacheKey": "caa2a824b659535972fb84712c25398970d0fc147908f7e029fcaffb46962db6",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1a157ad7fa89015e967fbebd2c67b35d678fdcbef7f224b71990b650aceefee0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Hai miếng bọt biển giam vốn: 2.500.000.000 đ ở Phải thu khách hàng (TK 131) + 950.000.000 đ ở Hàng tồn kho (TK 156) = 3.450.000.000 đ.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng khoá két",
+          "voWords": 41
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:47 – 0:59",
+          "beat": 3,
+          "sha256CacheKey": "addd4f5b84d50f946603bd10b97a7fcc24e315370f84daccb11adcbf3e012b85",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "01038130c95a1ee8d39c7b0edd984ceab2d0d36d800bfaac097d25853b981f66",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Báo cáo lưu chuyển tiền tệ gián tiếp: Lợi nhuận ròng (+2,0 tỷ) − Tăng phải thu (2,5 tỷ) − Tăng tồn kho (0,95 tỷ) + Tăng lương phải trả (0,5 tỷ) = OCF −950 triệu.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng cân đối sổ",
+          "voWords": 37
+        },
+        {
+          "sceneIndex": 5,
+          "time": "0:59 – 1:10",
+          "beat": 4,
+          "sha256CacheKey": "f914cd20ce998584d14c7fb08dae8b32b21b5b063c62895b421dc2940d412552",
+          "cached": false,
+          "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
+          "elevenlabsModelId": "eleven_v3",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9ed1279afbeede5bd734ab6f54474c78e966c597e40358e44251ed0e01207ad4",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Công ty phải vay ngắn hạn ngân hàng 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ để trả đủ 500.000.000 đ tiền lương (Nợ TK 334).",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông kết",
+          "voWords": 41
+        }
+      ]
+    }
+  }
+}

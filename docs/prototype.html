@@ -1029,6 +1029,25 @@ body.cms-on{padding-bottom:150px}
       <div class="bars" aria-hidden="true"></div>
     </div>
   </div>
+  <div class="try" id="tryProfit" hidden>
+    <div>
+      <p class="tryhint">Kéo để đổi khoản phải thu khách sỉ đang nợ (<button class="term" data-term="accrual">TK 131</button>) và lượng hàng tồn kho nhập thêm (<button class="term" data-term="workingcapital">TK 156</button>) trên cùng doanh thu 10 tỷ đồng (lãi ròng trên sổ 2 tỷ đồng, tiền mặt đầu kỳ 1 tỷ đồng <span class="ex">ví dụ</span>) để thấy vì sao két tiền <button class="term" data-term="ocf">TK 112</button> chiều 31/12 bị rút cạn.</p>
+      <div class="field"><label for="pcAr">Khách hàng còn nợ chưa trả (TK 131) <output id="pcArOut" class="num"></output></label>
+        <input type="range" id="pcAr" min="0" max="4000000000" step="250000000" value="2500000000"></div>
+      <div class="field"><label for="pcInv">Hàng tồn kho nhập dự trữ thêm (TK 156) <output id="pcInvOut" class="num"></output></label>
+        <input type="range" id="pcInv" min="0" max="2000000000" step="50000000" value="950000000"></div>
+    </div>
+    <div class="receipt">
+      <h4>Đối chiếu Lợi nhuận (TK 421) vs Tiền mặt (TK 112)</h4>
+      <p class="sub">Doanh thu 10 tỷ · Giá vốn 6,5 tỷ · Chi phí 1,5 tỷ · Đầu kỳ 1 tỷ <span class="ex">ví dụ</span></p>
+      <div class="row"><span>Lợi nhuận ròng trên sổ (TK 421)</span><span class="num plus" id="pcProfit"></span></div>
+      <div class="row"><span>Vốn bị giam ở Phải thu + Tồn kho</span><span class="num minus" id="pcLocked"></span></div>
+      <div class="row"><span>Dòng tiền thuần HĐKD (OCF)</span><span class="num" id="pcOcf"></span></div>
+      <div class="row total"><span>Số dư tiền thật chiều 31/12 (TK 112)</span><span class="num" id="pcCash"></span></div>
+      <p class="note" id="pcNote"></p>
+      <div class="bars" aria-hidden="true"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
@@ -1174,7 +1193,11 @@ const GLOSS = {
   pushpayment:{"t": "Push payment", "en": "thanh toán đẩy — người mua chủ động chuyển", "d": "Giao dịch do chính người trả tiền khởi tạo từ ứng dụng ngân hàng của mình (như quét mã QR chuyển khoản). Tiền trừ thẳng từ số dư hiện có nên chi phí trung gian rất thấp."},
   pullpayment:{"t": "Pull payment", "en": "thanh toán kéo — người bán phát lệnh thu qua thẻ", "d": "Giao dịch do máy quẹt thẻ của người bán phát lệnh kéo tiền từ hạn mức thẻ của khách qua mạng lưới 4 bên, đi kèm phí chiết khấu MDR và thời gian chờ quyết toán."},
   interbank247:{"t": "Fast payment 24/7", "en": "chuyển tiền nhanh liên ngân hàng 24/7", "d": "Hạ tầng chuyển mạch cho phép bản tin chuyển khoản và ghi Có cho người nhận diễn ra tức thời trong vài giây bất kể ngày đêm, trong khi hai ngân hàng quyết toán phần chênh lệch ròng theo phiên."},
-  dynamicqr:{"t": "Dynamic QR", "en": "mã QR động gắn từng đơn hàng", "d": "Mã QR được tạo riêng cho mỗi hoá đơn với số tiền và mã đơn cố định, giúp hệ thống của quán tự động đối soát và phát loa báo ngay khi tiền về mà không cần chụp màn hình."}
+  dynamicqr:{"t": "Dynamic QR", "en": "mã QR động gắn từng đơn hàng", "d": "Mã QR được tạo riêng cho mỗi hoá đơn với số tiền và mã đơn cố định, giúp hệ thống của quán tự động đối soát và phát loa báo ngay khi tiền về mà không cần chụp màn hình."},
+  accrual:{"t": "Accrual accounting", "en": "kế toán dồn tích", "d": "Nguyên tắc ghi nhận doanh thu và chi phí ngay tại thời điểm giao dịch phát sinh (khi đã giao hàng và ký biên bản nghiệm thu), không phụ thuộc vào việc công ty đã thực thu hay thực chi tiền mặt hay chưa."},
+  workingcapital:{"t": "Working capital", "en": "vốn lưu động ròng", "d": "Phần vốn duy trì hoạt động hàng ngày của doanh nghiệp, tính bằng Tài sản ngắn hạn trừ Nợ ngắn hạn. Khi khoản phải thu khách hàng (TK 131) và hàng tồn kho (TK 156) phình to, vốn lưu động hút cạn tiền mặt trong két."},
+  ccc:{"t": "Cash conversion cycle", "en": "vòng quay tiền mặt (CCC)", "d": "Số ngày tính từ lúc công ty xuất tiền mặt trả nhà cung cấp để nhập hàng cho tới lúc thu hồi được tiền mặt từ khách hàng. Vòng quay này càng dài, doanh nghiệp càng dễ thiếu tiền mặt dù bán hàng rất lãi."},
+  ocf:{"t": "Operating cash flow", "en": "dòng tiền thuần từ hoạt động kinh doanh", "d": "Lượng tiền mặt thực tế chảy vào hoặc chảy ra từ việc mua bán và vận hành của doanh nghiệp trong kỳ — khác với lợi nhuận kế toán trên báo cáo kết quả kinh doanh."}
 };
 
 const STORIES = {
@@ -3901,6 +3924,561 @@ const STORIES = {
                ["Có","511","Doanh thu bán hàng và cung cấp dịch vụ","doanh thu 200 ly cà phê trong ngày","Tổng doanh thu bán hàng",10000000]],
          note:"Σ Debit = 9.980.000 + 20.000 = 10.000.000 = Σ Credit. Nếu quán dùng mã QR tĩnh thông thường, Nợ TK 112 là đủ 10.000.000 đồng và TK 641 bằng 0.",
          lifeNote:"Trên cùng doanh thu 10 triệu đồng, quẹt thẻ lấy đi của quán 220.000 đồng và bắt chờ 2 ngày, còn mã QR giữ lại cho quán từ 9.980.000 đến trọn 10.000.000 đồng ngay lập tức."}}
+    ]},
+
+  profitcash:{
+    name:"Chuyện doanh nghiệp: Lãi 2 tỷ nhưng két còn 50 triệu",
+    title:"Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+    teaser:"Một hợp đồng 10 tỷ đồng, hai quyển sổ chạy lệch nhịp, và 3,45 tỷ đồng tiền mặt đang ngủ đông trong kho hàng cùng giấy hẹn nợ.",
+    category:"c4", status:"review",
+    approvedBy:"", approvedAt:"",
+    review:{ketoan:"Tổng: PASS 10 · FAIL 0 · UNVERIFIED 0 · FLAG 4", ketoanAt:"2026-11-10", draftedBy:"agent", draftedAt:"2026-11-10"},
+    article:{
+ "lay": {
+  "myths": [
+   {
+    "myth": "Báo cáo kết quả kinh doanh cuối năm ghi lãi ròng 2 tỷ đồng nghĩa là trong tài khoản ngân hàng của công ty đang có sẵn thêm 2 tỷ đồng tiền tươi để chia thưởng và trả lương.",
+    "truth": "Lợi nhuận ròng trên báo cáo được tính theo nguyên tắc [[kế toán dồn tích|accrual]]: hễ giao hàng và ký biên bản nghiệm thu là ghi nhận doanh thu, bất kể khách hàng đã chuyển tiền thật hay mới ký giấy hẹn nợ 90 ngày sau."
+   },
+   {
+    "myth": "Công ty càng ký được nhiều đơn hàng sỉ lớn liên tiếp vào dịp cuối năm thì két tiền mặt càng dồi dào và an toàn.",
+    "truth": "Tăng trưởng nóng về doanh số bán sỉ thường hút cạn tiền mặt nhanh nhất: công ty phải xuất tiền tươi trả nhà cung cấp và nhập thêm hàng tồn kho ngay hôm nay, nhưng phải chờ 60 đến 90 ngày mới thu được tiền từ đối tác."
+   },
+   {
+    "myth": "Hàng hoá nằm đầy trong kho là tài sản an toàn nên không ảnh hưởng gì tới khả năng trả lương cuối tháng của công ty.",
+    "truth": "Mỗi kiện hàng nằm yên trên kệ kho (TK 156) chính là những cọc tiền mặt đã rút ra khỏi tài khoản ngân hàng (TK 112) nhưng chưa biến thành doanh thu, và nhân viên thì không thể nhận lương bằng hàng tồn kho."
+   },
+   {
+    "myth": "Chỉ những công ty làm ăn thua lỗ mới lâm vào cảnh kiệt quệ dòng tiền và mất khả năng thanh toán.",
+    "truth": "Một doanh nghiệp có biên lợi nhuận ròng 20% trên sổ sách vẫn có thể rơi vào khủng hoảng thanh khoản ngay chiều 31 tháng 12 nếu [[vòng quay tiền mặt|ccc]] bị kéo giãn làm toàn bộ vốn nằm kẹt ở khoản phải thu và tồn kho."
+   }
+  ],
+  "sections": [
+   {
+    "h": "Chiều 31 tháng 12: Tờ báo cáo lãi 2 tỷ đồng và chiếc két chỉ còn 50 triệu",
+    "paras": [
+     "Bốn giờ chiều ngày 31 tháng 12, giám đốc một công ty phân phối thiết bị đặt hai tờ giấy cạnh nhau trên bàn làm việc. Tờ bên trái là Báo cáo kết quả kinh doanh vừa khoá sổ: doanh thu cả đợt đạt 10.000.000.000 đồng (10 tỷ đồng — số ví dụ xuyên suốt bài này), trừ giá vốn hàng bán 6,5 tỷ đồng và chi phí vận hành 1,5 tỷ đồng, công ty báo lãi ròng đúng 2.000.000.000 đồng (2 tỷ đồng). Nhưng tờ bên phải là sao kê tài khoản [[tiền gửi không kỳ hạn|casa]] (TK 112) tại ngân hàng: số dư khả dụng chỉ còn vỏn vẹn 50.000.000 đồng (50 triệu đồng), trong khi bảng lương tháng 12 của đội ngũ nhân sự đến hạn phải chuyển khoản trước 5 giờ chiều nay là 500.000.000 đồng (500 triệu đồng).",
+     "Không có ai biển thủ công quỹ, cũng không có dòng số nào cộng sai. Khoảng vênh khổng lồ giữa 2 tỷ đồng tiền lãi trên sổ và 50 triệu đồng tiền mặt trong két đến từ một sự thật nền tảng của tài chính doanh nghiệp: lợi nhuận kế toán và [[dòng tiền thuần từ hoạt động kinh doanh|ocf]] là hai đại lượng đo hai thứ hoàn toàn khác nhau. Bài khảo cứu này mở mặt cắt của năm ngôi nhà — Kho hàng nhà cung cấp, Công ty của bạn, Đối tác mua sỉ, Ngân hàng công ty và Đội ngũ nhân sự — để truy tìm xem 2 tỷ đồng tiền lãi cộng với 1 tỷ đồng tiền mặt đầu kỳ đã bốc hơi đi đâu."
+    ]
+   },
+   {
+    "h": "Hai quyển sổ chạy lệch nhịp: Kế toán dồn tích (Accrual) đối đầu Dòng tiền thực (Cash Flow)",
+    "paras": [
+     "Để hiểu vì sao một công ty vừa có lãi lớn vừa cạn sạch tiền, ta phải tách bạch hai lăng kính ghi chép trong mỗi doanh nghiệp. Lăng kính thứ nhất là Báo cáo kết quả kinh doanh, vận hành theo nguyên tắc [[kế toán dồn tích|accrual]]. Theo nguyên tắc này và chuẩn mực hạch toán tại Thông tư 99/2025/TT-BTC, ngay khoảnh khắc công ty bàn giao lô hàng 10 tỷ đồng cho đối tác mua sỉ và hai bên ký biên bản nghiệm thu, kế toán lập tức ghi nhận đủ 10.000.000.000 đồng doanh thu vào bên [[Credit|credit]] của TK 511. Quyển sổ này đo lường giá trị kinh tế mà công ty đã tạo ra trong kỳ, không quan tâm tiền mặt đã về tài khoản hay chưa.",
+     "Lăng kính thứ hai là Báo cáo lưu chuyển tiền tệ và sổ cái tài khoản ngân hàng (TK 112), nơi chỉ ghi nhận khi tiền thật thực sự chạy qua đường [[quyết toán|settlement]] liên ngân hàng. Đầu kỳ, giả sử trong két ngân hàng của công ty có sẵn 1.000.000.000 đồng (1 tỷ đồng) vốn lưu động. Để có lô hàng giao cho khách cộng với lượng hàng dự trữ gối đầu cho đầu năm sau, ngày 1 tháng 10 công ty đã phải chuyển khoản trả tươi 7.450.000.000 đồng (7,45 tỷ đồng) cho nhà cung cấp. Tiền thật chảy ra ngay lập tức ở đầu vào, nhưng ở đầu ra, hợp đồng bán sỉ lại cho phép đối tác thanh toán trả chậm."
+    ]
+   },
+   {
+    "h": "Hai miếng bọt biển hút cạn 3,45 tỷ đồng: Phải thu khách hàng (TK 131) và Hàng tồn kho (TK 156)",
+    "paras": [
+     "Hãy làm một phép kiểm toán dòng tiền thật từ đầu kỳ đến chiều 31 tháng 12. Công ty bắt đầu với 1 tỷ đồng tiền mặt trong TK 112. Khi giao lô hàng 10 tỷ đồng vào giữa tháng 11, đối tác mua sỉ mới chuyển khoản thanh toán đợt đầu 7.500.000.000 đồng (7,5 tỷ đồng), còn giữ lại 2.500.000.000 đồng (2,5 tỷ đồng) theo điều khoản trả chậm 60 đến 90 ngày sau nghiệm thu. Như vậy, tổng lượng tiền mặt thực tế chảy vào tài khoản ngân hàng của công ty trong cả kỳ là 1 tỷ đồng đầu kỳ cộng 7,5 tỷ đồng thu từ khách, bằng 8.500.000.000 đồng (8,5 tỷ đồng).",
+     "Giờ hãy nhìn sang chiều tiền chảy ra khỏi TK 112. Công ty đã chi 7.450.000.000 đồng trả nhà cung cấp — gồm 6.500.000.000 đồng giá vốn của lô hàng đã xuất bán (ghi vào TK 632) và 950.000.000 đồng hàng nhập thêm đang nằm trong kho dự trữ cho quý mới (ghi vào TK 156). Cộng thêm 1.000.000.000 đồng tiền thuê mặt bằng, vận chuyển và quản lý đã chi bằng tiền mặt trong kỳ, tổng tiền thật chảy ra khỏi két là 8.450.000.000 đồng (8,45 tỷ đồng). Lấy 8,5 tỷ đồng tiền vào trừ 8,45 tỷ đồng tiền ra, số dư [[tiền gửi không kỳ hạn|casa]] trên TK 112 chiều 31 tháng 12 còn đúng 50.000.000 đồng.",
+     "Vậy 2 tỷ đồng lợi nhuận ròng cộng 1 tỷ đồng vốn đầu kỳ và 500 triệu đồng lương tháng 12 chưa trả (tổng cộng 3.500.000.000 đồng tổng tài sản trên bảng cân đối kế toán) đang ở đâu? Câu trả lời nằm ở hai tài khoản thuộc [[vốn lưu động ròng|workingcapital]]: có tới 2.500.000.000 đồng đang ngủ trong tờ giấy nhận nợ của khách sỉ (TK 131 — Phải thu của khách hàng) và 950.000.000 đồng đang ngủ dưới dạng các thùng hàng trên kệ kho (TK 156 — Hàng hóa). Hai miếng bọt biển này đã hút giữ đúng 3.450.000.000 đồng, chỉ chừa lại 50.000.000 đồng tiền mặt trong két."
+    ]
+   },
+   {
+    "h": "Vòng quay tiền mặt (Cash Conversion Cycle) và nghịch lý tăng trưởng tự sát",
+    "paras": [
+     "Hiện tượng doanh nghiệp có lãi trên sổ nhưng kiệt quệ tiền mặt trong két được giải thích trọn vẹn bằng chỉ số [[vòng quay tiền mặt|ccc]] (Cash Conversion Cycle — CCC). Chỉ số này đo khoảng thời gian tính bằng ngày từ lúc công ty phải móc tiền túi trả cho nhà cung cấp cho đến lúc thu hồi được tiền mặt từ khách hàng: CCC bằng Số ngày hàng nằm trong kho (DIO) cộng Số ngày khách mua chịu chưa trả (DSO) trừ đi Số ngày công ty được nợ lại nhà cung cấp (DPO). Khi nhà cung cấp đòi tiền tươi ngay lúc giao hàng nhưng khách mua sỉ lại đòi nợ 90 ngày, công ty phải tự lấy tiền túi ra tài trợ cho toàn bộ khoảng trống thời gian đó.",
+     "Nguy hiểm nhất là khi doanh nghiệp tăng trưởng doanh số quá nhanh trên một vòng quay tiền mặt bị lệch. Mỗi khi công ty ký thêm một đơn hàng sỉ mới theo điều khoản trả chậm 30%–70%, báo cáo kết quả kinh doanh lại đẹp thêm một nấc lợi nhuận, nhưng két tiền mặt lại bị rút rỗng thêm một khúc để ứng trước tiền hàng, tiền kho và chi phí vận hành. Chiều 31 tháng 12, để có đủ 500.000.000 đồng trả lương đúng hạn cho nhân viên (Nợ TK 334), công ty buộc phải ký khế ước vay thấu chi ngắn hạn ngân hàng 450.000.000 đồng (Có TK 341) và chịu chi phí lãi vay (TK 635) ngay trên chính khoản lợi nhuận 2 tỷ đồng đang nằm trong túi khách hàng."
+    ]
+   },
+   {
+    "h": "Làm sao giải phóng tiền mặt đang ngủ trong sổ phải thu và kệ kho?",
+    "paras": [
+     "Hiểu rõ cơ chế lệch pha giữa lợi nhuận dồn tích và dòng tiền thực giúp người điều hành lẫn người đi làm đọc vị được sức khoẻ thật của một tổ chức. Một doanh nghiệp vững mạnh không chỉ nhìn vào dòng Lợi nhuận sau thuế chưa phân phối (TK 421) cuối kỳ, mà phải đặt bảng đối chiếu [[dòng tiền thuần từ hoạt động kinh doanh|ocf]] (Operating Cash Flow) lên hàng đầu: một đồng lợi nhuận chỉ thực sự trở thành máu nuôi doanh nghiệp khi nó đã đi hết hành trình từ TK 511 qua TK 131 để về nằm yên trong TK 112.",
+     "Để rút ngắn [[vòng quay tiền mặt|ccc]] và tránh rơi vào cảnh đi vay ngân hàng để trả lương dù đang lãi lớn, doanh nghiệp có ba van điều tiết thực tế: đàm phán thu tiền theo tiến độ giao hàng hoặc chiết khấu thanh toán sớm để kéo giảm số dư phải thu (TK 131); kiểm soát chặt định mức nhập kho dự trữ (TK 156) theo tốc độ tiêu thụ thật; và thương lượng kỳ hạn thanh toán công nợ với nhà cung cấp (TK 331) khớp với kỳ hạn thu tiền từ khách hàng."
+    ]
+   }
+  ],
+  "flowSummary": [
+   {
+    "step": "Đầu kỳ: Két tiền gửi ngân hàng của công ty có 1 tỷ đồng vốn lưu động",
+    "fromTo": "Vốn chủ sở hữu (TK 411) → Tiền gửi ngân hàng công ty (TK 112)",
+    "channel": "book",
+    "amount": "1.000.000.000 đồng",
+    "essence": "Số dư tiền gửi không kỳ hạn ban đầu nằm sẵn trong tài khoản ngân hàng của công ty trước khi bước vào quý kinh doanh cao điểm."
+   },
+   {
+    "step": "Ngày 01/10: Xuất 7,45 tỷ đồng tiền thật trả nhà cung cấp để nhập hàng",
+    "fromTo": "Ngân hàng công ty (TK 112) → Nhà cung cấp (lô hàng bán 6,5 tỷ + dự trữ kho 950 triệu)",
+    "channel": "pipe",
+    "amount": "7.450.000.000 đồng",
+    "essence": "Tiền mặt chảy ra ngay lập tức qua đường quyết toán liên ngân hàng để đổi lấy hàng hoá nhập kho (Nợ TK 156 / Có TK 112)."
+   },
+   {
+    "step": "Ngày 15/11: Giao lô hàng 10 tỷ đồng — ghi nhận đủ doanh thu theo kế toán dồn tích",
+    "fromTo": "Công ty → Đối tác mua sỉ (ghi Có TK 511: 10 tỷ · kết chuyển Giá vốn Nợ TK 632: 6,5 tỷ)",
+    "channel": "wire",
+    "amount": "10.000.000.000 đồng",
+    "essence": "Biên bản nghiệm thu và hoá đơn tạo ra 10 tỷ đồng doanh thu trên sổ kết quả kinh doanh, dù kho hàng vẫn còn giữ lại 950 triệu đồng hàng tồn kho."
+   },
+   {
+    "step": "Ngày 20/11: Khách sỉ thanh toán đợt đầu 7,5 tỷ đồng — giữ lại 2,5 tỷ đồng công nợ",
+    "fromTo": "Đối tác mua sỉ → Ngân hàng công ty (Nợ TK 112: 7,5 tỷ · treo Nợ TK 131: 2,5 tỷ)",
+    "channel": "pipe",
+    "amount": "7.500.000.000 đồng",
+    "essence": "Khách chuyển khoản trả 75% giá trị hợp đồng; 2,5 tỷ đồng còn lại nằm yên trên sổ phải thu khách hàng (TK 131) chờ 60–90 ngày sau mới thanh toán."
+   },
+   {
+    "step": "Trong kỳ: Chi 1 tỷ đồng tiền mặt vận hành và hạch toán 500 triệu đồng lương tháng 12",
+    "fromTo": "Công ty → Chi phí vận hành (Có TK 112: 1 tỷ) & Bảng lương nhân sự (Có TK 334: 500 triệu)",
+    "channel": "book",
+    "amount": "1.500.000.000 đồng",
+    "essence": "Tổng chi phí bán hàng và quản lý là 1,5 tỷ đồng (đưa lợi nhuận ròng trên sổ về đúng 2 tỷ đồng), trong đó 1 tỷ đồng đã chi tiền thật và 500 triệu đồng lương chờ chi chiều 31/12."
+   },
+   {
+    "step": "Chiều 31/12: Két tiền TK 112 chỉ còn 50 triệu đồng khi bảng lương 500 triệu đến hạn",
+    "fromTo": "Đối chiếu TK 112 (1 tỷ + 7,5 tỷ − 7,45 tỷ − 1 tỷ = 50 triệu) vs Bảng lương TK 334 (500 triệu)",
+    "channel": "wire",
+    "amount": "50.000.000 đồng",
+    "essence": "Vì 2,5 tỷ nằm ở phải thu (TK 131) và 950 triệu nằm ở tồn kho (TK 156), két tiền mặt thiếu hụt đúng 450 triệu đồng để trả lương dù công ty đang lãi ròng 2 tỷ đồng."
+   },
+   {
+    "step": "16:30 ngày 31/12: Vay ngắn hạn ngân hàng 450 triệu đồng để chi đủ 500 triệu lương nhân sự",
+    "fromTo": "Ngân hàng công ty (Có TK 341: 450 triệu + Có TK 112: 50 triệu) → Đội ngũ nhân sự (Nợ TK 334: 500 triệu)",
+    "channel": "pipe",
+    "amount": "500.000.000 đồng",
+    "essence": "Công ty phải vay thấu chi ngắn hạn 450 triệu đồng bù vào 50 triệu đồng sẵn có để giải ngân đủ 500 triệu đồng tiền lương về tài khoản nhân viên đúng chiều cuối năm."
+   }
+  ],
+  "roles": [
+   {
+    "who": "Kho & Nhà cung cấp",
+    "pays": "Giao lô hàng tổng trị giá vốn 7,45 tỷ đồng (6,5 tỷ đồng đã xuất bán + 950 triệu đồng nằm trong kho dự trữ của công ty bạn)",
+    "gains": "Thu đủ 7,45 tỷ đồng tiền tươi ngay từ đầu kỳ vào tài khoản ngân hàng, đẩy toàn bộ rủi ro tồn kho và công nợ sang phía công ty phân phối",
+    "risk": "Nếu siết điều khoản thu tiền ngay quá chặt làm đại lý phân phối đứt dòng tiền, nhà cung cấp có thể mất kênh tiêu thụ ở các quý tiếp theo"
+   },
+   {
+    "who": "Công ty có lãi 2 tỷ",
+    "pays": "Xuất 7,45 tỷ đồng tiền tươi trả nhà cung cấp, 1 tỷ đồng chi phí vận hành và phải gánh thêm lãi vay ngắn hạn trên khoản vay 450 triệu đồng chiều 31/12",
+    "gains": "Ghi nhận 10 tỷ đồng doanh thu (TK 511) và 2 tỷ đồng lợi nhuận ròng (TK 421), sở hữu 2,5 tỷ đồng quyền đòi nợ khách sỉ cùng 950 triệu đồng hàng tồn kho",
+    "risk": "Mất thanh khoản cục bộ (két chỉ còn 50 triệu đồng khi cần trả 500 triệu đồng tiền lương); nếu đối tác mua sỉ trả chậm quá hạn hoặc mất khả năng thanh toán, 2,5 tỷ đồng trên TK 131 trở thành nợ xấu"
+   },
+   {
+    "who": "Đối tác mua sỉ",
+    "pays": "Mới chuyển khoản thanh toán 7,5 tỷ đồng đợt đầu, còn giữ lại 2,5 tỷ đồng chưa trả theo điều khoản trả chậm 60–90 ngày",
+    "gains": "Nhận đủ 10 tỷ đồng hàng hoá để đưa vào kinh doanh ngay từ tháng 11 và chiếm dụng hợp pháp 2,5 tỷ đồng vốn lưu động không mất lãi của công ty bạn",
+    "risk": "Mất chiết khấu thanh toán sớm hoặc bị siết hạn mức tín dụng thương mại ở các đơn hàng sau nếu thanh toán trễ hạn cam kết"
+   },
+   {
+    "who": "Ngân hàng công ty",
+    "pays": "Vận hành tài khoản thanh toán (TK 112) và giải ngân khoản vay thấu chi/ngắn hạn 450 triệu đồng chiều 31/12 để công ty trả lương",
+    "gains": "Thu lãi cho vay ngắn hạn trên khoản giải ngân 450 triệu đồng (được đảm bảo bằng chính hợp đồng phải thu 2,5 tỷ đồng và hàng tồn kho 950 triệu đồng của công ty)",
+    "risk": "Rủi ro tín dụng nếu khoản phải thu 2,5 tỷ đồng của công ty tại đối tác mua sỉ bị tranh chấp hoặc không thu hồi được đúng hạn để tất toán khoản vay"
+   },
+   {
+    "who": "Đội ngũ nhân sự",
+    "pays": "Đóng góp sức lao động suốt tháng 12 (tạo ra khoản phải trả người lao động 500 triệu đồng trên TK 334 của công ty)",
+    "gains": "Nhận đủ 500 triệu đồng tiền lương bằng tiền thật vào chiều 31/12 sau khi công ty rút 50 triệu đồng tiền mặt cuối cùng cộng 450 triệu đồng tiền vay ngân hàng",
+    "risk": "Nếu công ty không còn hạn mức tín dụng ngắn hạn tại ngân hàng, nhân sự sẽ bị chậm lương thưởng cuối năm dù báo cáo công ty vẫn ghi lãi ròng 2 tỷ đồng"
+   }
+  ],
+  "whenHelps": [
+   "Khi công ty có biên lợi nhuận gộp đủ dày và nguồn vốn lưu động dự phòng (hoặc hạn mức thấu chi giá rẻ) được chuẩn bị trước, việc cấp tín dụng thương mại trả chậm 30–60 ngày giúp doanh nghiệp giành được các hợp đồng B2B quy mô lớn.",
+   "Khi số ngày thu tiền khách hàng (DSO) cộng số ngày tồn kho (DIO) nhỏ hơn hoặc bằng số ngày công ty được nợ lại nhà cung cấp (DPO): lúc đó chính nhà cung cấp và khách hàng đang tài trợ vốn lưu động cho công ty.",
+   "Khi doanh nghiệp theo dõi sát Báo cáo lưu chuyển tiền tệ hàng tuần song song với Báo cáo kết quả kinh doanh, tách biệt rõ quỹ tiền mặt bắt buộc (lương, thuế, nợ đến hạn) khỏi dòng tiền kinh doanh đang quay vòng."
+  ],
+  "whenTraps": [
+   "Khi giám đốc chỉ nhìn vào con số lợi nhuận kế toán trên giấy (2 tỷ đồng) để quyết định rút tiền chia cổ tức, mua sắm tài sản cố định hoặc mở rộng ồ ạt trong khi tiền thật vẫn đang nằm ở phải thu khách hàng (TK 131).",
+   "Khi doanh nghiệp trả tiền tươi 100% cho nhà cung cấp và ôm hàng tồn kho lớn (TK 156) nhưng lại cho khách hàng nợ dài hạn không có bảo lãnh thanh toán, làm vòng quay tiền mặt (CCC) phình to vượt quá sức chịu đựng của két tiền.",
+   "Khi một khách hàng sỉ chiếm tỷ trọng lớn trong khoản phải thu 2,5 tỷ đồng bất ngờ kéo dài thời hạn trả nợ từ 60 ngày lên 180 ngày, biến lợi nhuận trên sổ thành chi phí lãi vay ngân hàng (TK 635) ăn mòn toàn bộ thành quả cả năm."
+  ],
+  "takeaways": [
+   "Lợi nhuận ròng trên báo cáo (2 tỷ đồng) là một ý kiến kế toán theo nguyên tắc dồn tích; còn số dư tiền mặt trong TK 112 (50 triệu đồng) mới là sự thật quyết định công ty có trả được lương chiều nay hay không.",
+   "Mỗi đồng tăng thêm ở Khoản phải thu khách hàng (TK 131: 2,5 tỷ đồng) và Hàng tồn kho (TK 156: 950 triệu đồng) đều tương đương với một đồng tiền mặt bị rút ra khỏi két ngân hàng của doanh nghiệp.",
+   "Khi đọc báo cáo tài chính của bất kỳ công ty nào, hãy luôn đặt dòng Lợi nhuận sau thuế (TK 421) cạnh dòng Lưu chuyển tiền tệ thuần từ hoạt động kinh doanh (OCF) để xem lợi nhuận đó có đi kèm tiền thật hay chỉ nằm trên giấy nợ.",
+   "Tăng trưởng doanh thu mà không kiểm soát Vòng quay tiền mặt (CCC = DIO + DSO − DPO) có thể đẩy một doanh nghiệp đang có lãi lớn vào tình trạng cạn kiệt thanh khoản nhanh hơn cả một doanh nghiệp đứng yên."
+  ]
+ },
+ "pro": {
+  "mechanics": [
+   {
+    "h": "Nguyên tắc kế toán dồn tích (Accrual Basis) vs Nguyên tắc cơ sở tiền mặt (Cash Basis) theo Thông tư 99/2025/TT-BTC",
+    "p": "Theo chế độ kế toán doanh nghiệp tại Thông tư 99/2025/TT-BTC, Báo cáo kết quả kinh doanh được lập trên cơ sở dồn tích (Accrual Basis): doanh thu bán hàng và cung cấp dịch vụ (TK 511) được ghi nhận ngay khi doanh nghiệp đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu sản phẩm, hàng hoá cho người mua và khách hàng đã chấp nhận thanh toán, không phụ thuộc vào việc đã thu được tiền hay chưa. Trong thương vụ 10.000.000.000 đồng (ví dụ), ngay khi giao hàng và ký biên bản nghiệm thu, kế toán ghi Có TK 511 đủ 10.000.000.000 đồng và ghi Nợ TK 632 (Giá vốn hàng bán) 6.500.000.000 đồng cùng chi phí vận hành 1.500.000.000 đồng, tạo ra Lợi nhuận ròng 2.000.000.000 đồng trên TK 421 — dù 2.500.000.000 đồng tiền bán hàng vẫn còn nằm trên TK 131 (Phải thu của khách hàng)."
+   },
+   {
+    "h": "Phương trình đối chiếu Lợi nhuận ròng và Dòng tiền thuần từ hoạt động kinh doanh (Indirect Cash Flow Reconciliation)",
+    "p": "Trên Báo cáo lưu chuyển tiền tệ theo phương pháp gián tiếp, Dòng tiền thuần từ hoạt động kinh doanh (Operating Cash Flow — OCF) được tính bằng cách điều chỉnh Lợi nhuận kế toán cho các khoản thay đổi vốn lưu động phi tiền mặt: OCF = Lợi nhuận ròng − ΔPhải thu ngắn hạn − ΔHàng tồn kho + ΔNợ phải trả ngắn hạn (không kể vay). Áp vào số liệu của công ty trong kỳ: Lợi nhuận ròng (+2.000.000.000 đồng) trừ Mức tăng Phải thu khách hàng TK 131 (−2.500.000.000 đồng) trừ Mức tăng Hàng tồn kho TK 156 (−950.000.000 đồng) cộng Mức tăng Phải trả người lao động chưa chi TK 334 (+500.000.000 đồng) = −950.000.000 đồng (dòng tiền kinh doanh âm 950 triệu đồng). Cộng với số dư tiền mặt đầu kỳ 1.000.000.000 đồng, số dư tiền cuối kỳ trên TK 112 còn đúng 1.000.000.000 − 950.000.000 = 50.000.000 đồng."
+   },
+   {
+    "h": "Định lượng Vòng quay tiền mặt (Cash Conversion Cycle — CCC) và Nhu cầu Vốn lưu động ròng (Net Working Capital)",
+    "p": "Nhu cầu vốn lưu động ròng (Net Working Capital — NWC) trong hoạt động kinh doanh được xác định bởi công thức: NWC = Khoản phải thu khách hàng (TK 131) + Hàng tồn kho (TK 156) − Phải trả người bán & nhân sự (TK 331, TK 334). Tại chiều 31 tháng 12, NWC phi tiền mặt của công ty là 2.500.000.000 + 950.000.000 − 500.000.000 = 2.950.000.000 đồng. Về mặt thời gian, Vòng quay tiền mặt CCC = DIO (Số ngày tồn kho bình quân) + DSO (Số ngày thu tiền bình quân) − DPO (Số ngày trả tiền nhà cung cấp bình quân). Khi công ty trả tiền ngay cho nhà cung cấp (DPO = 0 ngày), giữ hàng trong kho và cho khách sỉ nợ 25%–70% giá trị hợp đồng tới 60–90 ngày, CCC dương rất lớn buộc doanh nghiệp phải dùng toàn bộ 1.000.000.000 đồng tiền mặt đầu kỳ cộng 2.000.000.000 đồng lợi nhuận vừa làm ra để tài trợ cho NWC, chỉ còn lại 50.000.000 đồng tiền mặt."
+   },
+   {
+    "h": "Bẫy tăng trưởng thiếu thanh khoản (Overtrading) và Chi phí vốn khi phải vay ngắn hạn bù đắp dòng tiền",
+    "p": "Khi số dư TK 112 chiều 31 tháng 12 chỉ còn 50.000.000 đồng trước nghĩa vụ chi lương 500.000.000 đồng (TK 334), công ty rơi vào trạng thái thiếu hụt thanh khoản ngắn hạn 450.000.000 đồng. Để không vi phạm nghĩa vụ trả lương người lao động, doanh nghiệp phải sử dụng hạn mức vay thấu chi hoặc vay ngắn hạn ngân hàng (Có TK 341: 450.000.000 đồng) hoặc bao thanh toán khoản phải thu (Factoring). Tiền lãi vay phát sinh ở kỳ sau được ghi nhận vào Nợ TK 635 (Chi phí tài chính), nghĩa là công ty phải trả lãi cho ngân hàng chỉ vì đang cho khách hàng mua sỉ mượn không lãi 2.500.000.000 đồng trên TK 131."
+   }
+  ],
+  "accountingNotes": [
+   "Khi xuất tiền gửi ngân hàng mua hàng hoá nhập kho (lô hàng xuất bán trong kỳ 6.500.000.000 đồng cộng lô hàng dự trữ cuối kỳ 950.000.000 đồng): kế toán ghi Nợ TK 156 (Hàng hóa: 7.450.000.000 đồng) đối ứng Có TK 112 (Tiền gửi không kỳ hạn: 7.450.000.000 đồng). Lúc này toàn bộ 7,45 tỷ đồng tiền mặt đã rời khỏi tài khoản ngân hàng của công ty.",
+   "Khi bàn giao lô hàng theo hợp đồng 10.000.000.000 đồng cho đối tác mua sỉ (khách chuyển khoản trả trước 7.500.000.000 đồng và nhận nợ trả chậm 2.500.000.000 đồng): kế toán ghi nhận doanh thu Nợ TK 112 (7.500.000.000 đồng) + Nợ TK 131 (Phải thu của khách hàng: 2.500.000.000 đồng) / Có TK 511 (Doanh thu bán hàng và cung cấp dịch vụ: 10.000.000.000 đồng); đồng thời kết chuyển giá vốn lô hàng đã giao Nợ TK 632 (Giá vốn hàng bán: 6.500.000.000 đồng) / Có TK 156 (Hàng hóa: 6.500.000.000 đồng, để lại số dư tồn kho cuối kỳ trên TK 156 đúng bằng 950.000.000 đồng).",
+   "Khi ghi nhận chi phí vận hành, quản lý trong kỳ (1.000.000.000 đồng đã trả bằng tiền gửi ngân hàng và 500.000.000 đồng tiền lương tháng 12 phải trả nhân viên) và kết chuyển lợi nhuận cuối kỳ: kế toán ghi Nợ TK 642 (Chi phí quản lý doanh nghiệp: 1.500.000.000 đồng) / Có TK 112 (1.000.000.000 đồng) + Có TK 334 (Phải trả người lao động: 500.000.000 đồng). Khi kết chuyển xác định kết quả kinh doanh: Nợ TK 511 (10.000.000.000 đồng) / Có TK 632 (6.500.000.000 đồng) + Có TK 642 (1.500.000.000 đồng) + Có TK 421 (Lợi nhuận sau thuế chưa phân phối: 2.000.000.000 đồng).",
+   "Chiều 31 tháng 12 khi chi trả bảng lương 500.000.000 đồng trong lúc số dư TK 112 chỉ còn 50.000.000 đồng (1.000.000.000 đầu kỳ + 7.500.000.000 thu khách − 7.450.000.000 trả nhà cung cấp − 1.000.000.000 chi vận hành): công ty giải ngân vay ngắn hạn 450.000.000 đồng cùng 50.000.000 đồng tiền mặt còn lại để trả lương, ghi Nợ TK 334 (Phải trả người lao động: 500.000.000 đồng) / Có TK 112 (Tiền gửi không kỳ hạn: 50.000.000 đồng) + Có TK 341 (Vay và nợ thuê tài chính: 450.000.000 đồng)."
+  ],
+  "journal": [
+   {
+    "step": "Bước 1 (Ngày 01/10): Xuất 7,45 tỷ đồng tiền gửi ngân hàng mua hàng hoá nhập kho (gồm lô hàng sẽ bán 6,5 tỷ và dự trữ kho cuối kỳ 950 triệu)",
+    "book": "Sổ của công ty (TT 99/2025)",
+    "assume": "Đầu kỳ công ty có 1.000.000.000 đồng trên TK 112. Trong kỳ, công ty thanh toán tổng cộng 7.450.000.000 đồng tiền mặt cho nhà cung cấp để nhập hàng hoá (ví dụ minh hoạ bỏ qua thuế GTGT để tập trung vào chênh lệch Lợi nhuận vs Dòng tiền).",
+    "rows": [
+     [
+      "Nợ",
+      "156",
+      "Hàng hóa",
+      "nhập kho lô hàng phục vụ hợp đồng 6,5 tỷ và hàng dự trữ gối đầu 950 triệu",
+      "Giá trị hàng hoá nhập vào kho của công ty",
+      7450000000
+     ],
+     [
+      "Có",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "chuyển khoản thanh toán tiền hàng cho nhà cung cấp",
+      "Tiền thật rời khỏi tài khoản ngân hàng của công ty",
+      7450000000
+     ]
+    ],
+    "note": "Σ Debit = Σ Credit = 7.450.000.000 đồng. Khi xuất bán lô hàng giá vốn 6.500.000.000 đồng (Nợ TK 632 / Có TK 156), số dư hàng tồn kho còn nằm lại trên TK 156 cuối năm là 950.000.000 đồng.",
+    "lifeNote": "7,45 tỷ đồng tiền mặt đã chảy khỏi két ngân hàng của công ty để biến thành các kiện hàng trong kho."
+   },
+   {
+    "step": "Bước 2 (Ngày 15/11): Giao lô hàng 10 tỷ đồng — ghi nhận đủ doanh thu, thu trước 7,5 tỷ đồng và treo phải thu khách hàng 2,5 tỷ đồng",
+    "book": "Sổ của công ty (TT 99/2025)",
+    "assume": "Công ty bàn giao hoàn tất lô hàng 10.000.000.000 đồng cho đối tác mua sỉ. Khách chuyển khoản trả đợt đầu 7.500.000.000 đồng và ký nhận nợ trả chậm 2.500.000.000 đồng sau 60–90 ngày.",
+    "rows": [
+     [
+      "Nợ",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "tiền khách sỉ thanh toán đợt 1 (75% giá trị hợp đồng)",
+      "Tiền mặt thực thu về két của công ty",
+      7500000000
+     ],
+     [
+      "Nợ",
+      "131",
+      "Phải thu của khách hàng",
+      "khoản đối tác mua sỉ còn nợ theo điều khoản trả chậm 60–90 ngày",
+      "Doanh thu đã ghi sổ nhưng tiền thật còn nằm ở phía khách hàng",
+      2500000000
+     ],
+     [
+      "Có",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "ghi nhận toàn bộ doanh thu hợp đồng theo nguyên tắc kế toán dồn tích",
+      "Tổng doanh thu ghi trên Báo cáo kết quả kinh doanh",
+      10000000000
+     ]
+    ],
+    "note": "Σ Debit = 7.500.000.000 + 2.500.000.000 = 10.000.000.000 = Σ Credit. Doanh thu là 10 tỷ đồng nhưng tiền thực thu chỉ là 7,5 tỷ đồng.",
+    "lifeNote": "Trên giấy tờ công ty đã bán được 10 tỷ đồng, nhưng 2,5 tỷ đồng vẫn đang nằm trong túi của khách mua sỉ."
+   },
+   {
+    "step": "Bước 3 (Ngày 25/12): Kết chuyển doanh thu 10 tỷ đồng, giá vốn 6,5 tỷ đồng và chi phí 1,5 tỷ đồng để ghi nhận Lãi ròng 2 tỷ đồng",
+    "book": "Sổ của công ty (TT 99/2025)",
+    "assume": "Trong kỳ công ty đã xuất kho giá vốn 6.500.000.000 đồng (TK 632) và phát sinh 1.500.000.000 đồng chi phí quản lý, vận hành (TK 642 — gồm 1.000.000.000 đồng đã trả bằng tiền mặt TK 112 và 500.000.000 đồng lương tháng 12 ghi Có TK 334). Bút toán tổng hợp kết chuyển cuối kỳ:",
+    "rows": [
+     [
+      "Nợ",
+      "511",
+      "Doanh thu bán hàng và cung cấp dịch vụ",
+      "kết chuyển toàn bộ doanh thu thuần trong kỳ",
+      "Tổng doanh thu đưa vào tính lãi lỗ",
+      10000000000
+     ],
+     [
+      "Có",
+      "632",
+      "Giá vốn hàng bán",
+      "kết chuyển giá vốn của lô hàng đã giao cho khách sỉ",
+      "Trừ giá vốn lô hàng đã bán (6,5 tỷ đồng)",
+      6500000000
+     ],
+     [
+      "Có",
+      "642",
+      "Chi phí quản lý doanh nghiệp",
+      "kết chuyển 1 tỷ chi phí vận hành đã chi tiền và 500 triệu chi phí lương tháng 12",
+      "Trừ chi phí vận hành và lương nhân sự (1,5 tỷ đồng)",
+      1500000000
+     ],
+     [
+      "Có",
+      "421",
+      "Lợi nhuận sau thuế chưa phân phối",
+      "lợi nhuận ròng kết chuyển cuối kỳ trên báo cáo kết quả kinh doanh",
+      "Lãi ròng 2 tỷ đồng hiện lên trên báo cáo cuối năm",
+      2000000000
+     ]
+    ],
+    "note": "Σ Debit = 10.000.000.000 = 6.500.000.000 + 1.500.000.000 + 2.000.000.000 = Σ Credit. Trên thực tế kế toán kết chuyển qua TK 911 (Xác định kết quả kinh doanh) rồi sang TK 421; trình bày gộp để thấy rõ đẳng thức Doanh thu − Chi phí = Lợi nhuận 2 tỷ đồng.",
+    "lifeNote": "Tờ báo cáo cuối năm hoàn tất với con số lãi ròng 2 tỷ đồng đẹp đẽ, trong khi két tiền TK 112 chỉ còn 1 tỷ + 7,5 tỷ − 7,45 tỷ − 1 tỷ = 50 triệu đồng."
+   },
+   {
+    "step": "Bước 4 (Chiều 31/12): Vay ngắn hạn 450 triệu đồng cộng 50 triệu đồng tiền mặt cuối cùng trong két để chi trả đủ 500 triệu đồng lương nhân sự",
+    "book": "Sổ của công ty (TT 99/2025)",
+    "assume": "Đến hạn trả lương tháng 12 (500.000.000 đồng đang treo trên TK 334), tài khoản TK 112 chỉ còn 50.000.000 đồng. Công ty rút hạn mức vay thấu chi/vay ngắn hạn ngân hàng 450.000.000 đồng giải ngân thẳng để trả đủ lương:",
+    "rows": [
+     [
+      "Nợ",
+      "334",
+      "Phải trả người lao động",
+      "tất toán nghĩa vụ tiền lương tháng 12 cho đội ngũ nhân sự",
+      "Trả đủ 500 triệu đồng tiền lương tháng 12 cho nhân viên",
+      500000000
+     ],
+     [
+      "Có",
+      "112",
+      "Tiền gửi không kỳ hạn",
+      "vét toàn bộ số dư tiền gửi còn lại trong két ngân hàng của công ty",
+      "Xuất nốt 50 triệu đồng tiền mặt cuối cùng trong tài khoản",
+      50000000
+     ],
+     [
+      "Có",
+      "341",
+      "Vay và nợ thuê tài chính",
+      "rút hạn mức vay ngắn hạn ngân hàng để bù đắp phần tiền mặt thiếu hụt",
+      "Ghi tăng khoản nợ vay ngân hàng 450 triệu đồng",
+      450000000
+     ]
+    ],
+    "note": "Σ Debit = 500.000.000 = 50.000.000 + 450.000.000 = Σ Credit. Công ty có lãi 2 tỷ đồng nhưng kết thúc năm với két tiền 0 đồng và khoản nợ vay ngắn hạn 450 triệu đồng.",
+    "lifeNote": "Nhân viên nhận đủ 500 triệu đồng tiền lương chiều cuối năm, còn giám đốc bước sang năm mới với khoản nợ vay ngân hàng 450 triệu đồng chỉ vì 3,45 tỷ đồng đang ngủ trong công nợ và kho hàng."
+   }
+  ],
+  "edgeCases": [
+   {
+    "h": "Khi khoản phải thu 2,5 tỷ đồng trên TK 131 bị quá hạn hoặc khách sỉ mất khả năng thanh toán (Dự phòng phải thu khó đòi TK 2293)",
+    "p": "Nếu sang năm sau đối tác mua sỉ gặp khó khăn tài chính và không trả được khoản nợ 2.500.000.000 đồng đúng hạn, công ty không chỉ tiếp tục thiếu tiền mặt mà còn phải trích lập dự phòng phải thu khó đòi theo Thông tư 99/2025/TT-BTC: ghi Nợ TK 642 (Chi phí quản lý doanh nghiệp) / Có TK 2293 (Dự phòng phải thu khó đòi). Lúc đó, chính khoản lợi nhuận 2 tỷ đồng từng báo cáo ở năm trước sẽ bị xoá sổ ngược lại trên Báo cáo kết quả kinh doanh."
+   },
+   {
+    "h": "Chiết khấu thanh toán sớm (Early Payment Discount) và Bao thanh toán (Factoring) — Đổi một phần biên lợi nhuận lấy tiền mặt tức thời",
+    "p": "Thay vì để 2.500.000.000 đồng nằm chết trên TK 131 suốt 90 ngày rồi phải đi vay thấu chi ngân hàng 450.000.000 đồng chịu lãi, doanh nghiệp có thể đề xuất chiết khấu thanh toán sớm (ví dụ giảm 1%–2% trên số tiền thanh toán ngay, hạch toán vào Nợ TK 635 — Chi phí tài chính) hoặc bán khoản phải thu cho ngân hàng qua nghiệp vụ bao thanh toán (Factoring). Doanh nghiệp chấp nhận giảm một phần nhỏ lợi nhuận trên sổ để thu tiền tươi về TK 112 ngay lập tức."
+   },
+   {
+    "h": "Khấu hao tài sản cố định (TK 214) — Trường hợp ngược lại khi dòng tiền mặt cao hơn lợi nhuận kế toán",
+    "p": "Ngược lại với bẫy phải thu và tồn kho, có những khoản chi phí làm giảm lợi nhuận trên sổ nhưng không hề lấy đi đồng tiền mặt nào trong kỳ — điển hình là Chi phí khấu hao tài sản cố định (ghi Nợ TK 627, 641, 642 / Có TK 214). Khi công ty đã mua máy móc từ các năm trước và thu tiền bán hàng ngay bằng tiền mặt (T+0), dòng tiền thuần từ hoạt động kinh doanh (OCF) sẽ lớn hơn lợi nhuận kế toán đúng bằng phần khấu hao cộng lại."
+   }
+  ]
+ }
+},
+    videoScript:{
+ "long": {
+  "title": "Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+  "hookNote": "Mở cảnh chiều 31 tháng 12 trên bàn giám đốc: một bên là Báo cáo kết quả kinh doanh báo lãi ròng 2 tỷ đồng từ hợp đồng 10 tỷ, một bên là màn hình ngân hàng báo số dư TK 112 chỉ còn 50 triệu đồng trước giờ trả lương 500 triệu. Đặt câu hỏi trực diện: 2 tỷ đồng tiền lãi cộng 1 tỷ đồng vốn đầu kỳ đang ngủ ở đâu?",
+  "youtubeId": "WnlsZ9AtNdI",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:42",
+    "beat": null,
+    "chapter": "Mở đầu: Tờ báo cáo lãi 2 tỷ đồng và chiếc két chỉ còn 50 triệu",
+    "visual": "Mặt cắt năm ngôi nhà chiều 31 tháng 12: Kho nhà cung cấp, Công ty của bạn, Đối tác mua sỉ, Ngân hàng công ty và Đội ngũ nhân sự. Trên bàn giám đốc, tờ báo cáo in đậm Lãi ròng +2.000.000.000 đ, nhưng két TK 112 tại ngân hàng nhấp nháy 50.000.000 đ.",
+    "vo": "Bốn giờ chiều ngày ba mươi mốt tháng mười hai, giám đốc một công ty phân phối đặt hai tờ giấy cạnh nhau trên bàn làm việc. Tờ bên trái là Báo cáo kết quả kinh doanh cả năm vừa khoá sổ: trong ví dụ này, công ty đạt doanh thu mười tỷ đồng, sau khi trừ hết giá vốn và chi phí vận hành thì báo lãi ròng tròn hai tỷ đồng. Nhưng tờ bên phải là màn hình tài khoản ngân hàng của công ty: số dư tiền mặt thực tế chỉ còn đúng năm mươi triệu đồng, trong khi bảng lương tháng mười hai của anh em nhân viên đến hạn phải chuyển trước năm giờ chiều nay là năm trăm triệu đồng. Không có ai biển thủ công quỹ, cũng không có dòng nào cộng sai. Vậy hai tỷ đồng tiền lãi cộng với một tỷ đồng vốn tiền mặt đầu kỳ đã biến đi đâu?",
+    "onScreen": "BÁO CÁO KẾT QUẢ KINH DOANH: LÃI RÒNG +2.000.000.000 Đ · SỐ DƯ KÉT NGÂN HÀNG (TK 112): 50.000.000 Đ · LƯƠNG ĐẾN HẠN: 500.000.000 Đ · SFX: tiếng đồng hồ tích tắc chiều cuối năm"
+   },
+   {
+    "time": "0:42 – 1:34",
+    "beat": 0,
+    "chapter": "Nhịp 1: Xuất 7,45 tỷ đồng tiền tươi để nhập hàng vào kho",
+    "visual": "Đèn bật sáng tại Công ty, Ngân hàng công ty và Kho nhà cung cấp. Từ két TK 112 (có 1 tỷ đầu kỳ cộng tiền thu trong kỳ), dòng tiền thật 7.450.000.000 đ chảy qua đường quyết toán sang Nhà cung cấp; kiện hàng 6,5 tỷ chuẩn bị giao và 950 triệu nằm lại trên kệ kho TK 156.",
+    "vo": "Để tìm ra chỗ tiền đang ngủ, chúng ta phải quay lại ngày một tháng mười, lúc công ty chuẩn bị hàng cho hợp đồng mười tỷ đồng cuối năm. Đầu kỳ, giả sử trong tài khoản ngân hàng của công ty có sẵn một tỷ đồng vốn lưu động. Để nhà cung cấp chịu giao lô thiết bị đúng tiến độ kèm mức giá tốt, công ty phải chuyển khoản thanh toán tiền tươi tổng cộng bảy phẩy bốn mươi lăm tỷ đồng. Trong đó, sáu phẩy năm tỷ đồng là giá vốn của lô hàng sẽ giao cho khách sỉ, và chín trăm năm mươi triệu đồng là lô hàng nhập dự trữ gối đầu cho đầu năm sau. Ngay ở bước đầu tiên này, bảy phẩy bốn mươi lăm tỷ đồng tiền mặt thật đã chảy ra khỏi tài khoản ngân hàng để biến thành những thùng hàng nằm trong kho.",
+    "onScreen": "NGÀY 01/10 · NHẬP HÀNG: NỢ TK 156 (HÀNG HÓA) 7.450.000.000 / CÓ TK 112 (TIỀN GỬI) 7.450.000.000 · SFX: tiếng kiện hàng đặt lên kệ kho"
+   },
+   {
+    "time": "1:34 – 2:30",
+    "beat": 1,
+    "chapter": "Nhịp 2: Giao lô hàng 10 tỷ — Kế toán dồn tích ghi nhận đủ doanh thu",
+    "visual": "Đường hợp đồng nối từ Công ty sang Đối tác mua sỉ: lô hàng 10 tỷ đồng được bàn giao và ký nghiệm thu. Đối tác mua sỉ chuyển trả đợt đầu 7.500.000.000 đ tiền thật về Ngân hàng công ty, còn 2.500.000.000 đ hiện lên thành tờ giấy hẹn nợ 90 ngày trên TK 131.",
+    "vo": "Đến ngày mười lăm tháng mười một, công ty bàn giao toàn bộ lô hàng theo hợp đồng mười tỷ đồng cho đối tác mua sỉ và hai bên ký biên bản nghiệm thu. Tại đây, quy tắc quan trọng nhất của kế toán doanh nghiệp xuất hiện: nguyên tắc kế toán dồn tích. Theo Thông tư 99 năm 2025 của Bộ Tài chính, ngay khi hàng đã giao và khách đã ký nhận, kế toán bắt buộc ghi nhận đủ mười tỷ đồng vào tài khoản Doanh thu bán hàng năm một một, bất kể đã thu đủ tiền hay chưa. Thực tế, đối tác mua sỉ chỉ chuyển khoản trả đợt đầu bảy phẩy năm tỷ đồng, còn hai phẩy năm tỷ đồng họ giữ lại theo điều khoản trả chậm sáu mươi đến chín mươi ngày. Trên sổ doanh thu ghi mười tỷ, nhưng két ngân hàng chỉ nhận về bảy phẩy năm tỷ đồng.",
+    "onScreen": "KẾ TOÁN DỒN TÍCH (ACCRUAL): CÓ TK 511 (DOANH THU) 10.000.000.000 · NỢ TK 112 (TIỀN VỀ) 7.500.000.000 · NỢ TK 131 (PHẢI THU KHÁCH HÀNG) 2.500.000.000 · SFX: tiếng đóng dấu nghiệm thu"
+   },
+   {
+    "time": "2:30 – 3:24",
+    "beat": 2,
+    "chapter": "Nhịp 3: Khoá sổ kết quả kinh doanh — Vì sao báo cáo hiện lãi ròng 2 tỷ đồng?",
+    "visual": "Tại Công ty của bạn, bảng Báo cáo kết quả kinh doanh sáng lên: Doanh thu (TK 511: 10 tỷ) trừ Giá vốn hàng đã xuất bán (TK 632: 6,5 tỷ) trừ Chi phí quản lý & lương (TK 642: 1,5 tỷ) = Lợi nhuận sau thuế chưa phân phối (TK 421: +2 tỷ đồng).",
+    "vo": "Ngày hai mươi lăm tháng mười hai, phòng kế toán khoá sổ để lập Báo cáo kết quả kinh doanh. Phép tính trên tờ báo cáo này hoàn toàn chuẩn xác theo luật kế toán: lấy mười tỷ đồng doanh thu trên tài khoản năm một một, trừ đi sáu phẩy năm tỷ đồng giá vốn của lô hàng đã xuất bán trên tài khoản sáu ba hai. Lưu ý rằng chín trăm năm mươi triệu đồng hàng nhập thêm vì chưa bán nên vẫn nằm ở tài khoản hàng tồn kho một năm sáu, chưa bị trừ vào chi phí trong kỳ. Tiếp theo, kế toán trừ đi một phẩy năm tỷ đồng chi phí vận hành và quản lý — bao gồm một tỷ đồng tiền thuê kho bãi, vận chuyển đã chi bằng tiền mặt và năm trăm triệu đồng tiền lương tháng mười hai của nhân viên vừa hạch toán vào tài khoản phải trả người lao động ba ba tư. Mười tỷ trừ sáu phẩy năm tỷ trừ một phẩy năm tỷ bằng đúng hai tỷ đồng lợi nhuận ròng.",
+    "onScreen": "BÁO CÁO KẾT QUẢ KINH DOANH: DOANH THU 10 TỶ − GIÁ VỐN 6,5 TỶ − CHI PHÍ 1,5 TỶ = LÃI RÒNG +2.000.000.000 Đ (TK 421) · SFX: tiếng máy in báo cáo"
+   },
+   {
+    "time": "3:24 – 4:20",
+    "beat": 3,
+    "chapter": "Nhịp 4: Mở két chiều 31 tháng 12 — Phép cộng trừ phũ phàng của tiền mặt",
+    "visual": "Ống kính soi thẳng vào két TK 112 tại Ngân hàng công ty: Tiền đầu kỳ (+1 tỷ) + Thu từ khách (+7,5 tỷ) − Trả nhà cung cấp (−7,45 tỷ) − Chi vận hành (−1 tỷ) = 50.000.000 đ. Bên cạnh là bảng lương TK 334: 500.000.000 đ đang chờ.",
+    "vo": "Thế nhưng chiều ba mươi mốt tháng mười hai, khi giám đốc mở ứng dụng ngân hàng để bấm nút duyệt chi năm trăm triệu đồng tiền lương tháng mười hai, màn hình báo không đủ số dư. Hãy làm một phép cộng trừ thuần tuý của dòng tiền thật trên tài khoản một một hai: đầu kỳ két có một tỷ đồng; cộng bảy phẩy năm tỷ đồng khách sỉ đã chuyển khoản, tổng tiền mặt chảy vào là tám phẩy năm tỷ đồng. Ở chiều ngược lại, công ty đã chuyển bảy phẩy bốn mươi lăm tỷ đồng trả nhà cung cấp và chi một tỷ đồng tiền mặt cho vận hành kho bãi; tổng tiền mặt chảy ra là tám phẩy bốn mươi lăm tỷ đồng. Lấy tám phẩy năm tỷ trừ tám phẩy bốn mươi lăm tỷ, trong két ngân hàng còn đúng năm mươi triệu đồng — thiếu hụt bốn trăm năm mươi triệu đồng để trả lương.",
+    "onScreen": "SỔ TIỀN GỬI NGÂN HÀNG (TK 112): 1,00 TỶ + 7,50 TỶ − 7,45 TỶ − 1,00 TỶ = 50.000.000 Đ · THIẾU 450.000.000 Đ TRẢ LƯƠNG · SFX: tiếng chuông cảnh báo số dư"
+   },
+   {
+    "time": "4:20 – 5:14",
+    "beat": 3,
+    "chapter": "Giải phẫu 2 miếng bọt biển hút tiền: Phải thu (2,5 tỷ) và Tồn kho (950 triệu)",
+    "visual": "Sơ đồ đối chiếu Bảng cân đối kế toán chiều 31/12: Tổng tài sản 3,5 tỷ đồng được chia thành 3 ngăn: TK 131 Phải thu khách sỉ (2.500.000.000 đ), TK 156 Hàng tồn kho (950.000.000 đ) và TK 112 Tiền mặt (50.000.000 đ).",
+    "vo": "Nhìn vào bảng cân đối kế toán lúc này, bạn sẽ thấy ngay hai miếng bọt biển khổng lồ đang hút giữ toàn bộ tiền mặt của công ty. Tổng tài sản của doanh nghiệp đã tăng từ một tỷ đồng đầu năm lên ba phẩy năm tỷ đồng cuối năm — bao gồm một tỷ vốn gốc, hai tỷ tiền lãi ròng và năm trăm triệu đồng nợ lương chưa trả. Nhưng trong ba phẩy năm tỷ đồng tài sản đó, có tới hai phẩy năm tỷ đồng đang nằm ngủ trong túi của đối tác mua sỉ dưới tên gọi Phải thu của khách hàng — tài khoản một ba một. Và chín trăm năm mươi triệu đồng nữa đang nằm ngủ trên kệ sắt dưới tên gọi Hàng hóa tồn kho — tài khoản một năm sáu. Cộng hai khoản đó lại là ba phẩy bốn mươi lăm tỷ đồng bị giam chặt, chỉ chừa lại đúng năm mươi triệu đồng tiền tươi.",
+    "onScreen": "TỔNG TÀI SẢN 3,5 TỶ ĐỒNG = PHẢI THU TK 131 (2,50 TỶ) + TỒN KHO TK 156 (0,95 TỶ) + TIỀN MẶT TK 112 (0,05 TỶ) · SFX: tiếng khoá sổ cái"
+   },
+   {
+    "time": "5:14 – 6:08",
+    "beat": 1,
+    "chapter": "Báo cáo lưu chuyển tiền tệ gián tiếp: Vì sao Lãi +2 tỷ nhưng OCF âm 950 triệu?",
+    "visual": "Bảng cầu nối từ Lợi nhuận kế toán (+2.000.000.000 đ) sang Dòng tiền thuần từ hoạt động kinh doanh OCF (−950.000.000 đ): trừ mức tăng Phải thu (−2,5 tỷ), trừ mức tăng Tồn kho (−950 triệu), cộng Lương chưa chi (+500 triệu).",
+    "vo": "Trên Báo cáo lưu chuyển tiền tệ theo phương pháp gián tiếp, các chuyên gia tài chính dùng một phương trình cầu nối để vạch trần sự lệch pha này. Bắt đầu từ Lợi nhuận ròng dương hai tỷ đồng: vì khoản phải thu khách hàng tăng thêm hai phẩy năm tỷ đồng tức là tiền chưa về, ta phải trừ đi hai phẩy năm tỷ. Vì hàng tồn kho tăng thêm chín trăm năm mươi triệu đồng tức là tiền đã chi ra mua hàng nằm kho, ta phải trừ tiếp chín trăm năm mươi triệu. Cộng lại năm trăm triệu đồng chi phí lương đã tính vào chi phí nhưng chưa chi tiền, ta có Dòng tiền thuần từ hoạt động kinh doanh âm chín trăm năm mươi triệu đồng. Lợi nhuận dương hai tỷ, nhưng dòng tiền kinh doanh lại âm chín trăm năm mươi triệu — ăn lẹm vào một tỷ đồng vốn đầu kỳ để chỉ còn lại năm mươi triệu đồng.",
+    "onScreen": "DÒNG TIỀN KINH DOANH (OCF) = LÃI (+2,00 TỶ) − ΔPHẢI THU (2,50 TỶ) − ΔTỒN KHO (0,95 TỶ) + ΔLƯƠNG CHƯA CHI (0,50 TỶ) = −950.000.000 Đ · SFX: tiếng bút vạch số"
+   },
+   {
+    "time": "6:08 – 6:58",
+    "beat": 4,
+    "chapter": "Nhịp 5: Vay ngắn hạn 450 triệu đồng để trả lương và cái giá của Vòng quay tiền mặt",
+    "visual": "Đèn sáng tại Ngân hàng công ty và Đội ngũ nhân sự: Ngân hàng giải ngân khoản vay ngắn hạn 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ cuối cùng trong TK 112 để chuyển đủ 500.000.000 đ tiền lương sang Đội ngũ nhân sự.",
+    "vo": "Bốn giờ ba mươi chiều ba mươi mốt tháng mười hai, để năm trăm nhân sự có tiền lương về tài khoản đúng hẹn, giám đốc buộc phải ký rút hạn mức vay thấu chi ngắn hạn tại ngân hàng bốn trăm năm mươi triệu đồng, ghi Có tài khoản vay và nợ thuê tài chính ba bốn một, cộng với năm mươi triệu đồng tiền mặt cuối cùng trong két để chuyển đủ năm trăm triệu đồng trả lương. Hãy nhìn sự trớ trêu của vòng quay tiền mặt: công ty của bạn đang cho đối tác mua sỉ mượn không lãi hai phẩy năm tỷ đồng suốt chín mươi ngày, nhưng chính công ty lại phải đi vay ngân hàng bốn trăm năm mươi triệu đồng và gánh chi phí lãi vay trên tài khoản sáu ba lăm để trả lương cho nhân viên của mình.",
+    "onScreen": "CHIỀU 31/12 · GIẢI CỨU BẢNG LƯƠNG: NỢ TK 334 (500.000.000) / CÓ TK 112 (50.000.000) + CÓ TK 341 (VAY NGẮN HẠN 450.000.000) · SFX: tiếng tin nhắn lương về"
+   },
+   {
+    "time": "6:58 – 7:42",
+    "beat": 2,
+    "chapter": "Nghịch lý tăng trưởng tự sát (Overtrading) khi mở rộng đơn hàng sỉ",
+    "visual": "Biểu đồ hai đường phân kỳ: đường Lợi nhuận trên sổ (TK 421) đi lên dốc theo từng hợp đồng sỉ mới, trong khi đường Tiền mặt thực tế (TK 112) lao dốc xuống dưới 0 vì Vòng quay tiền mặt CCC = DIO + DSO − DPO bị kéo giãn.",
+    "vo": "Trong quản trị tài chính, cái bẫy này được gọi là tăng trưởng vượt quá năng lực vốn lưu động. Khi vòng quay tiền mặt — tính bằng số ngày tồn kho cộng số ngày thu tiền khách hàng trừ số ngày được nợ nhà cung cấp — bị kéo giãn lên sáu mươi hay chín mươi ngày, mỗi đơn hàng mới ký thêm sẽ lập tức hút máu tiền mặt của công ty. Nếu thấy báo cáo cuối năm lãi hai tỷ đồng mà người điều hành vội vàng rút tiền chia thưởng lớn hoặc đầu tư mua sắm tài sản cố định, doanh nghiệp sẽ đứt thanh khoản ngay ở quý tiếp theo dù sổ sách vẫn báo lãi kỷ lục.",
+    "onScreen": "VÒNG QUAY TIỀN MẶT (CCC) = NGÀY TỒN KHO (DIO) + NGÀY PHẢI THU (DSO) − NGÀY PHẢI TRẢ (DPO) · TĂNG TRƯỞNG NÓNG = HÚT CẠN TIỀN MẶT · SFX: tiếng nhịp tim trầm"
+   },
+   {
+    "time": "7:42 – 8:20",
+    "beat": null,
+    "chapter": "Kết luận: Lợi nhuận là ý kiến trên sổ, tiền mặt mới là oxy duy trì sự sống",
+    "visual": "Toàn cảnh năm ngôi nhà sáng đèn cân bằng trở lại. Ba dòng nguyên tắc vàng hiện lên bên cạnh sổ cái TT 99/2025: 1. Theo dõi OCF cạnh Lợi nhuận · 2. Thu hồi TK 131 theo tiến độ · 3. Kiểm soát tồn kho TK 156.",
+    "vo": "Câu chuyện hợp đồng mười tỷ đồng khép lại với một nguyên tắc sống còn: lợi nhuận ròng hai tỷ đồng trên báo cáo kết quả kinh doanh là một con số kế toán theo nguyên tắc dồn tích, còn năm mươi triệu đồng trong tài khoản một một hai mới là lượng oxy thật sự để doanh nghiệp thở mỗi ngày. Một đồng lợi nhuận chỉ thực sự thuộc về bạn khi nó đã rời khỏi tờ giấy phải thu một ba một và kệ hàng tồn kho một năm sáu để chảy về nằm yên trong két tiền ngân hàng. Khi đọc bất kỳ báo cáo tài chính nào, hãy luôn đặt bảng kết quả kinh doanh cạnh bảng lưu chuyển tiền tệ — để biết tiền thật đang thức hay đang ngủ trong sổ của người khác.",
+    "onScreen": "LỢI NHUẬN (TK 421: 2 TỶ) ≠ TIỀN MẶT (TK 112: 50 TRIỆU) · 3,45 TỶ ĐANG NGỦ Ở PHẢI THU (TK 131) & TỒN KHO (TK 156) · SFX: tiếng chuông ngân kết bài"
+   }
+  ]
+ },
+ "short": {
+  "title": "Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?",
+  "angle": "Cắt thẳng vào nghịch lý chiều 31 tháng 12: hợp đồng 10 tỷ đồng báo lãi ròng 2 tỷ đồng trên sổ, nhưng két ngân hàng TK 112 chỉ còn 50 triệu đồng không đủ trả 500 triệu tiền lương vì 2,5 tỷ kẹt ở phải thu khách hàng (TK 131) và 950 triệu kẹt ở hàng tồn kho (TK 156).",
+  "youtubeId": "BpNggcnByQg",
+  "embedStatus": "uploaded_unlisted",
+  "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+  "scenes": [
+   {
+    "time": "0:00 – 0:11",
+    "beat": 3,
+    "visual": "Chiều 31/12: Báo cáo kết quả kinh doanh hiện Lãi ròng +2.000.000.000 đ, nhưng màn hình TK 112 chỉ còn 50.000.000 đ trước bảng lương 500.000.000 đ.",
+    "vo": "Chiều ba mươi mốt tháng mười hai, báo cáo công ty ghi lãi ròng hai tỷ đồng, nhưng két ngân hàng chỉ còn năm mươi triệu — thiếu bốn trăm năm mươi triệu trả lương. Tiền thật đi đâu?",
+    "onScreen": "BÁO CÁO LÃI RÒNG: +2.000.000.000 Đ · KÉT TIỀN TK 112: 50.000.000 Đ · SFX: tiếng chuông báo số dư"
+   },
+   {
+    "time": "0:11 – 0:23",
+    "beat": 1,
+    "visual": "Hợp đồng giao hàng 10 tỷ đồng: ghi Có TK 511 đủ 10 tỷ theo kế toán dồn tích, nhưng khách sỉ mới trả 7,5 tỷ và còn nợ 2,5 tỷ trên TK 131.",
+    "vo": "Thủ phạm đầu tiên là kế toán dồn tích. Hợp đồng mười tỷ đồng vừa giao hàng đã ghi đủ doanh thu, nhưng khách sỉ mới trả bảy phẩy năm tỷ, còn nợ hai phẩy năm tỷ hẹn chín mươi ngày sau.",
+    "onScreen": "DOANH THU TK 511: 10 TỶ · THU TIỀN TK 112: 7,5 TỶ · KHÁCH NỢ TK 131: 2,5 TỶ · SFX: tiếng đóng dấu"
+   },
+   {
+    "time": "0:23 – 0:35",
+    "beat": 0,
+    "visual": "Đầu kỳ có 1 tỷ đồng, thu khách 7,5 tỷ (= 8,5 tỷ), nhưng công ty đã chi 7,45 tỷ trả nhà cung cấp (6,5 tỷ giá vốn + 950 triệu tồn kho TK 156) và 1 tỷ vận hành (= 8,45 tỷ).",
+    "vo": "Thủ phạm thứ hai là hàng tồn kho. Đầu kỳ két có một tỷ, cộng bảy phẩy năm tỷ thu khách là tám phẩy năm tỷ, nhưng công ty đã chi tươi bảy phẩy bốn mươi lăm tỷ mua hàng và một tỷ vận hành.",
+    "onScreen": "TIỀN VÀO: 8,50 TỶ − TIỀN RA: 8,45 TỶ (MUA HÀNG 7,45 TỶ + VẬN HÀNH 1 TỶ) = CÒN 50 TRIỆU · SFX: tiếng máy đếm tiền"
+   },
+   {
+    "time": "0:35 – 0:47",
+    "beat": 2,
+    "visual": "Hai miếng bọt biển giam vốn: 2.500.000.000 đ ở Phải thu khách hàng (TK 131) + 950.000.000 đ ở Hàng tồn kho (TK 156) = 3.450.000.000 đ.",
+    "vo": "Tám phẩy năm tỷ tiền vào trừ tám phẩy bốn mươi lăm tỷ tiền ra, két còn đúng năm mươi triệu đồng. Ba phẩy bốn mươi lăm tỷ đồng đang ngủ ở công nợ khách hàng và kệ hàng tồn kho.",
+    "onScreen": "3,45 TỶ ĐANG NGỦ ĐÔNG = PHẢI THU TK 131 (2,50 TỶ) + TỒN KHO TK 156 (950 TRIỆU) · SFX: tiếng khoá két"
+   },
+   {
+    "time": "0:47 – 0:59",
+    "beat": 3,
+    "visual": "Báo cáo lưu chuyển tiền tệ gián tiếp: Lợi nhuận ròng (+2,0 tỷ) − Tăng phải thu (2,5 tỷ) − Tăng tồn kho (0,95 tỷ) + Tăng lương phải trả (0,5 tỷ) = OCF −950 triệu.",
+    "vo": "Trên báo cáo lưu chuyển tiền tệ, lợi nhuận ròng dương hai tỷ đồng nhưng dòng tiền thuần từ hoạt động kinh doanh lại âm chín trăm năm mươi triệu đồng vì vốn lưu động phình to.",
+    "onScreen": "LỢI NHUẬN RÒNG: +2,00 TỶ Đ NHƯNG DÒNG TIỀN KINH DOANH (OCF): −950 TRIỆU Đ · SFX: tiếng cân đối sổ"
+   },
+   {
+    "time": "0:59 – 1:10",
+    "beat": 4,
+    "visual": "Công ty phải vay ngắn hạn ngân hàng 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ để trả đủ 500.000.000 đ tiền lương (Nợ TK 334).",
+    "vo": "Chiều cuối năm, công ty lãi hai tỷ phải vay ngắn hạn ngân hàng bốn trăm năm mươi triệu đồng để trả đủ năm trăm triệu tiền lương. Lợi nhuận là chữ trên sổ, dòng tiền mới giữ công ty sống.",
+    "onScreen": "VAY NGẮN HẠN TK 341: 450 TRIỆU ĐỂ TRẢ LƯƠNG · LỢI NHUẬN ≠ TIỀN MẶT · SFX: tiếng chuông kết"
+   }
+  ]
+ }
+},
+    houses:[
+      {type:"shop",label:"Kho & Nhà cung cấp",sign:"NHÀ CUNG CẤP",fxText:{recv:"thu 7,45 tỷ tiền hàng",empty:"tồn kho +950 triệu",paid:"xuất 7,45 tỷ hàng"}},
+      {type:"co",label:"Công ty có lãi 2 tỷ",sign:"CÔNG TY",fxText:{deal:"sổ lãi +2 tỷ đồng",hr:"bảng lương 500 tr"}},
+      {type:"lend",label:"Đối tác mua sỉ",sign:"KHÁCH SỈ B2B",fxText:{loan:"nợ phải thu 2,5 tỷ"}},
+      {type:"pbank",label:"Ngân hàng công ty",sign:"NGÂN HÀNG",fxText:{two:"TK 112 còn 50 tr",pool:"giải ngân 450 tr"}},
+      {type:"crowd",label:"Đội ngũ nhân sự",sign:"NHÂN SỰ"}],
+    beats:[
+      {when:"Ngày 01/10 · Nhập hàng",sub:"xuất tiền tươi 7,45 tỷ",title:"Xuất 7,45 tỷ đồng tiền thật trả nhà cung cấp để nhập hàng vào kho",
+       say:["Đầu quý 4, giả sử trong tài khoản [[tiền gửi không kỳ hạn|casa]] (TK 112) của công ty có sẵn 1.000.000.000 đồng (1 tỷ đồng — số ví dụ) vốn lưu động.",
+            "Để chuẩn bị hàng cho hợp đồng lớn cuối năm và dự trữ gối đầu cho quý sau, công ty phải chuyển khoản trả tươi tổng cộng 7.450.000.000 đồng (7,45 tỷ đồng) cho nhà cung cấp.",
+            "Trong 7,45 tỷ đồng hàng nhập kho (TK 156) này, lô hàng trị giá vốn 6,5 tỷ đồng sẽ được xuất giao cho khách sỉ, còn 950.000.000 đồng (950 triệu đồng) hàng dự trữ nằm lại trên kệ kho."],
+       lit:[0,1,3],tags:{1:["xuất 7,45 tỷ mua hàng","minus"],3:["TK 112 chi −7,45 tỷ","minus"],0:["+ 7,45 tỷ tiền tươi","plus"]},
+       msgs:[[1,3],[3,0,"money"]],fx:["recv","empty","paid"],
+       life:"Nhà cung cấp đòi tiền tươi ngay khi giao hàng: 7,45 tỷ đồng tiền mặt thật đã rời khỏi két ngân hàng của công ty để biến thành các thùng hàng trong kho.",
+       sys:"Theo TT 99/2025/TT-BTC, khi mua hàng hoá nhập kho thanh toán bằng chuyển khoản, kế toán ghi Nợ TK 156 (Hàng hóa: 7.450.000.000 đồng) / Có TK 112 (Tiền gửi không kỳ hạn: 7.450.000.000 đồng).",
+       ledger:{book:"Sổ của công ty (TT 99/2025)",assume:"Công ty chuyển khoản thanh toán 7.450.000.000 đồng cho nhà cung cấp để nhập lô hàng hoá (6,5 tỷ đồng phục vụ hợp đồng bán sỉ trong kỳ và 950 triệu đồng dự trữ kho cuối kỳ; ví dụ bỏ qua thuế GTGT để nhìn rõ dòng tiền).",
+         rows:[["Nợ","156","Hàng hóa","nhập kho lô hàng xuất bán trong kỳ (6,5 tỷ) và hàng dự trữ cuối kỳ (950 triệu)","Giá trị hàng hoá nhập vào kho của công ty",7450000000],
+               ["Có","112","Tiền gửi không kỳ hạn","chuyển khoản thanh toán tiền hàng cho nhà cung cấp","Tiền thật rời khỏi tài khoản ngân hàng của công ty",7450000000]],
+         note:"Σ Debit = Σ Credit = 7.450.000.000 đồng. Khi xuất giao lô hàng 6,5 tỷ đồng cho khách, kho hàng TK 156 vẫn còn giữ lại 950.000.000 đồng.",
+         lifeNote:"7,45 tỷ đồng tiền mặt đã biến thành hàng hoá nằm trong kho trước khi công ty thu được đồng tiền bán hàng trọn vẹn."}},
+      {when:"Ngày 15/11 · Giao hàng",sub:"hợp đồng sỉ 10 tỷ đồng",title:"Giao lô hàng 10 tỷ đồng: Ghi nhận đủ doanh thu dù khách còn nợ 2,5 tỷ",
+       say:["Giữa tháng 11, công ty bàn giao lô hàng theo hợp đồng 10.000.000.000 đồng (10 tỷ đồng) cho đối tác mua sỉ và ký biên bản nghiệm thu.",
+            "Theo nguyên tắc [[kế toán dồn tích|accrual]], ngay khi giao hàng thành công, kế toán ghi nhận đủ 10.000.000.000 đồng vào Doanh thu bán hàng (TK 511) trên sổ.",
+            "Nhưng trên thực tế, đối tác mua sỉ mới chuyển khoản trả đợt đầu 7.500.000.000 đồng (7,5 tỷ đồng), còn 2.500.000.000 đồng (2,5 tỷ đồng) được hẹn trả chậm sau 60–90 ngày trên sổ Phải thu khách hàng (TK 131)."],
+       lit:[1,2,3],tags:{1:["ghi doanh thu +10 tỷ","plus"],2:["trả 7,5 tỷ · nợ 2,5 tỷ","plain"],3:["TK 112 thu +7,5 tỷ","plus"]},
+       msgs:[[1,2],[2,3,"money"]],fx:["deal","loan","two"],
+       life:"Trên giấy tờ công ty vừa bán được 10 tỷ đồng, nhưng két ngân hàng chỉ thực nhận 7,5 tỷ đồng — còn 2,5 tỷ đồng vẫn nằm trong túi khách mua sỉ.",
+       sys:"Ghi nhận doanh thu theo cơ sở dồn tích (TT 99/2025/TT-BTC): Nợ TK 112 (7.500.000.000) + Nợ TK 131 (Phải thu của khách hàng: 2.500.000.000) / Có TK 511 (Doanh thu bán hàng và cung cấp dịch vụ: 10.000.000.000); đồng thời kết chuyển giá vốn Nợ TK 632 / Có TK 156 (6.500.000.000).",
+       ledger:{book:"Sổ doanh thu của công ty (TT 99/2025)",assume:"Bàn giao hoàn tất hợp đồng 10.000.000.000 đồng cho đối tác mua sỉ; khách thanh toán chuyển khoản đợt 1 là 7.500.000.000 đồng (75%) và nhận nợ trả chậm 2.500.000.000 đồng (25%).",
+         rows:[["Nợ","112","Tiền gửi không kỳ hạn","tiền khách sỉ thanh toán đợt 1 (75% giá trị hợp đồng)","Tiền mặt thực thu về két của công ty",7500000000],
+               ["Nợ","131","Phải thu của khách hàng","khoản đối tác mua sỉ còn nợ theo điều khoản trả chậm 60–90 ngày","Doanh thu đã ghi sổ nhưng tiền còn nằm ở phía khách hàng",2500000000],
+               ["Có","511","Doanh thu bán hàng và cung cấp dịch vụ","ghi nhận toàn bộ doanh thu hợp đồng ngay khi giao hàng","Tổng doanh thu trên Báo cáo kết quả kinh doanh",10000000000]],
+         note:"Σ Debit = 7.500.000.000 + 2.500.000.000 = 10.000.000.000 = Σ Credit. Cùng lúc đó kế toán ghi Nợ TK 632 / Có TK 156: 6.500.000.000 đồng giá vốn.",
+         lifeNote:"Khoảng vênh 2,5 tỷ đồng giữa Doanh thu ghi sổ (10 tỷ) và Tiền thực thu (7,5 tỷ) chính là hố đen đầu tiên nuốt dòng tiền của công ty."}},
+      {when:"Ngày 25/12 · Khoá sổ",sub:"báo cáo lãi ròng 2 tỷ",title:"Khoá sổ cuối năm: Doanh thu 10 tỷ trừ chi phí 8 tỷ = Lãi ròng 2 tỷ đồng",
+       say:["Cuối tháng 12, kế toán tổng hợp chi phí vận hành và quản lý trong kỳ là 1.500.000.000 đồng (gồm 1 tỷ đồng tiền thuê kho, vận chuyển đã chi tiền mặt và 500 triệu đồng lương tháng 12 chuẩn bị trả cho nhân sự).",
+            "Trên Báo cáo kết quả kinh doanh, phép tính rất đẹp: Doanh thu 10 tỷ đồng trừ Giá vốn hàng đã bán 6,5 tỷ đồng, trừ tiếp Chi phí quản lý 1,5 tỷ đồng, cho ra Lợi nhuận ròng đúng 2.000.000.000 đồng (2 tỷ đồng).",
+            "Còn 950.000.000 đồng hàng nhập thêm vì chưa xuất bán nên không bị tính vào chi phí, mà nằm yên làm đẹp bảng tài sản ở mục Hàng tồn kho (TK 156)."],
+       lit:[1,3,4],tags:{1:["BCTC: Lãi ròng +2 tỷ","plus"],3:["đã chi 1 tỷ vận hành","minus"],4:["chờ nhận lương 500 triệu","plain"]},
+       msgs:[[1,3,"money"],[1,4]],fx:["deal","hr","idle"],
+       life:"Nhìn tờ Báo cáo kết quả kinh doanh lãi ròng 2 tỷ đồng, ai cũng nghĩ công ty vừa có một năm thắng lớn và két tiền đang đầy ắp.",
+       sys:"Kết chuyển kết quả kinh doanh cuối kỳ (TT 99/2025/TT-BTC): Doanh thu thuần (TK 511: 10 tỷ) trừ Giá vốn hàng bán (TK 632: 6,5 tỷ) và Chi phí quản lý doanh nghiệp (TK 642: 1,5 tỷ) tạo ra Lợi nhuận sau thuế chưa phân phối (TK 421: 2 tỷ đồng).",
+       ledger:{book:"Sổ kết chuyển lợi nhuận cuối kỳ (TT 99/2025)",assume:"Tổng hợp cuối kỳ: Doanh thu 10.000.000.000 đồng, Giá vốn lô hàng đã bán 6.500.000.000 đồng, Chi phí quản lý & vận hành 1.500.000.000 đồng (1 tỷ đã trả qua TK 112 + 500 triệu lương tháng 12 ghi Có TK 334).",
+         rows:[["Nợ","511","Doanh thu bán hàng và cung cấp dịch vụ","kết chuyển toàn bộ doanh thu thuần trong kỳ","Tổng doanh thu đưa vào tính lãi lỗ",10000000000],
+               ["Có","632","Giá vốn hàng bán","kết chuyển giá vốn của lô hàng đã giao cho khách sỉ","Trừ giá vốn lô hàng đã bán (6,5 tỷ đồng)",6500000000],
+               ["Có","642","Chi phí quản lý doanh nghiệp","kết chuyển 1 tỷ chi phí vận hành đã chi tiền và 500 triệu lương tháng 12","Trừ chi phí vận hành và lương nhân sự (1,5 tỷ đồng)",1500000000],
+               ["Có","421","Lợi nhuận sau thuế chưa phân phối","lợi nhuận ròng kết chuyển cuối kỳ trên báo cáo kết quả kinh doanh","Lãi ròng 2 tỷ đồng trên báo cáo cuối năm",2000000000]],
+         note:"Σ Debit = 10.000.000.000 = 6.500.000.000 + 1.500.000.000 + 2.000.000.000 = Σ Credit.",
+         lifeNote:"Con số lãi 2 tỷ đồng là có thật về mặt quyền sở hữu tài sản, nhưng nó chưa hề biến thành tiền mặt trong tài khoản ngân hàng."}},
+      {when:"Chiều 31/12 · Mở két",sub:"TK 112 chỉ còn 50 triệu",title:"Cú sốc chiều 31/12: Két tiền chỉ còn 50 triệu đồng khi cần trả lương 500 triệu",
+       say:["Bốn giờ chiều ngày 31/12, giám đốc mở tài khoản ngân hàng (TK 112) để chuyển 500.000.000 đồng tiền lương tháng 12 cho đội ngũ nhân sự thì sững người: số dư chỉ còn đúng 50.000.000 đồng (50 triệu đồng).",
+            "Phép tính [[dòng tiền thuần từ hoạt động kinh doanh|ocf]] không biết nói dối: Đầu kỳ có 1 tỷ + Thu từ khách 7,5 tỷ (= 8,5 tỷ tiền vào), trừ đi 7,45 tỷ trả nhà cung cấp và 1 tỷ chi vận hành (= 8,45 tỷ tiền ra), còn lại đúng 50 triệu đồng.",
+            "Toàn bộ 2 tỷ đồng tiền lãi cộng vốn lưu động đang bị giam chặt ở hai nơi thuộc [[vốn lưu động ròng|workingcapital]]: 2,5 tỷ đồng trong tờ giấy hẹn nợ của khách sỉ (TK 131) và 950 triệu đồng trong kệ hàng tồn kho (TK 156)."],
+       lit:[0,1,2,3,4],tags:{3:["két TK 112: 50.000.000 đ","minus"],2:["giam 2,5 tỷ ở TK 131","minus"],0:["giam 950 triệu ở TK 156","minus"]},
+       msgs:[[1,3],[1,2]],fx:["hr","two","loan","empty","idle"],
+       life:"Bạn không thể trả lương nhân viên bằng tờ giấy hẹn nợ của khách hàng hay những thùng hàng đang nằm trong kho.",
+       sys:"Đối chiếu Báo cáo lưu chuyển tiền tệ gián tiếp: OCF = Lợi nhuận ròng (+2.000 tr) − ΔPhải thu TK 131 (−2.500 tr) − ΔTồn kho TK 156 (−950 tr) + ΔPhải trả người lao động TK 334 (+500 tr) = −950.000.000 đồng. Tiền cuối kỳ TK 112 = 1.000 tr − 950 tr = 50.000.000 đồng.",ledger:null},
+      {when:"16:30 · 31/12 · Giải cứu",sub:"vay ngắn hạn 450 triệu",title:"Vay ngắn hạn ngân hàng 450 triệu đồng để trả đủ 500 triệu tiền lương",
+       say:["Để nhân viên không mất Tết vì chậm lương, lúc 16:30 chiều 31/12 công ty buộc phải rút hạn mức vay ngắn hạn tại ngân hàng 450.000.000 đồng (Có TK 341).",
+            "Ngân hàng giải ngân 450.000.000 đồng gộp cùng 50.000.000 đồng tiền mặt cuối cùng trong két TK 112 để chuyển khoản đủ 500.000.000 đồng tiền lương (Nợ TK 334) cho đội ngũ nhân sự.",
+            "Đó là cái giá đắt của một [[vòng quay tiền mặt|ccc]] bị kéo giãn: công ty có lãi 2 tỷ đồng trên sổ nhưng phải đi vay ngân hàng chịu lãi chỉ vì đang cho khách sỉ mượn không lãi 2,5 tỷ đồng."],
+       lit:[1,3,4],tags:{3:["giải ngân vay 450 triệu","plain"],1:["nợ vay TK 341: 450 triệu","minus"],4:["nhận đủ 500 triệu lương","plus"]},
+       msgs:[[1,3],[3,4,"money"]],fx:["pool","hr","idle"],
+       life:"Lợi nhuận trên báo cáo là danh hiệu, còn tiền mặt trong két mới là oxy. Đừng bao giờ nhìn dòng lãi ròng mà quên nhìn bảng lưu chuyển tiền tệ.",
+       sys:"Theo TT 99/2025/TT-BTC, khi dùng tiền gửi còn lại kết hợp giải ngân vay ngắn hạn trả lương: Nợ TK 334 (Phải trả người lao động: 500.000.000) / Có TK 112 (Tiền gửi không kỳ hạn: 50.000.000) + Có TK 341 (Vay và nợ thuê tài chính: 450.000.000).",
+       ledger:{book:"Sổ vay ngắn hạn & chi trả lương chiều 31/12 (TT 99/2025)",assume:"Chiều 31/12, công ty vét 50.000.000 đồng cuối cùng trên TK 112 và giải ngân 450.000.000 đồng từ hạn mức vay ngắn hạn ngân hàng (TK 341) để tất toán đủ 500.000.000 đồng lương tháng 12 cho nhân sự.",
+         rows:[["Nợ","334","Phải trả người lao động","tất toán bảng lương tháng 12 cho đội ngũ nhân sự","Trả đủ 500 triệu đồng tiền lương cho nhân viên",500000000],
+               ["Có","112","Tiền gửi không kỳ hạn","xuất toàn bộ số dư tiền gửi còn lại trong két ngân hàng","Xuất nốt 50 triệu đồng tiền mặt cuối cùng trong két",50000000],
+               ["Có","341","Vay và nợ thuê tài chính","rút hạn mức vay ngắn hạn ngân hàng bù đắp phần tiền mặt thiếu hụt","Ghi tăng khoản nợ vay ngắn hạn ngân hàng 450 triệu đồng",450000000]],
+         note:"Σ Debit = 500.000.000 = 50.000.000 + 450.000.000 = Σ Credit. Lãi vay phát sinh sau đó sẽ hạch toán vào Nợ TK 635 (Chi phí tài chính).",
+         lifeNote:"Nhân sự nhận đủ 500 triệu đồng tiền lương, còn công ty bước sang năm mới với két tiền 0 đồng và khoản nợ vay ngắn hạn 450 triệu đồng dù báo cáo cả năm lãi 2 tỷ đồng."}}
     ]}
 
 };
@@ -3924,7 +4502,7 @@ const CATEGORIES = [
     {story:"minpay"},
     {t:"Vay mua nhà: hết ưu đãi thì lãi thả nổi là bao nhiêu?",status:"upcoming"}]},
   {id:"c4",name:"Doanh nghiệp, Hoá đơn & Thuế",c:"#6a3f55",topics:[
-    {t:"Vì sao công ty có lãi vẫn có thể hết tiền?",status:"upcoming"},
+    {story:"profitcash"},
     {t:"Thuế GTGT trên hoá đơn của bạn đi đâu?",status:"upcoming"},
     {t:"Phiếu quà tặng đã bán: doanh thu hay một khoản nợ?",status:"upcoming"}]},
   {id:"c5",name:"Bảo hiểm & Giữ tài sản",c:"#2f5a52",topics:[
@@ -4942,6 +5520,41 @@ const CHAP_FIGS = {
       title: "Mã QR tĩnh (0 đ) vs Mã QR động tự gạch nợ (~0,2%) — và vì sao chuyển khoản QR không có quyền đòi lại tiền như thẻ?",
       desc: "Nâng cấp lên [[mã QR động|dynamicqr]] tốn khoảng 20.000 đ trên 10.000.000 đ doanh thu (Nợ TK 641: 0,2%, rẻ hơn 11 lần so với 220.000 đ phí thẻ) để khoá cứng số tiền và chống biên lai giả; nhưng ở chiều người mua, giao dịch [[Push Payment|pushpayment]] không có lá chắn [[Chargeback|chargeback]] khi mua hàng xa."
     }
+  ],
+  profitcash: [
+    null,
+    {
+      file: "profitcash-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · KẾ TOÁN DỒN TÍCH (ACCRUAL) VS DÒNG TIỀN THỰC (CASH FLOW)",
+      alt: "Mặt cắt đối chiếu hai quyển sổ của hợp đồng 10 tỷ đồng: Sổ kết quả kinh doanh ghi nhận đủ 10 tỷ doanh thu (Có TK 511) và báo lãi ròng 2 tỷ đồng, trong khi Sổ tiền gửi ngân hàng (TK 112) chỉ mới thu về 7,5 tỷ đồng",
+      title: "Hợp đồng 10 tỷ đồng qua hai lăng kính: Vì sao Sổ kết quả kinh doanh ghi nhận đủ 10 tỷ ngay khi giao hàng?",
+      desc: "Theo nguyên tắc [[kế toán dồn tích|accrual]] (TT 99/2025/TT-BTC), ngay khi bàn giao lô hàng và ký nghiệm thu, kế toán ghi Có TK 511 đủ 10.000.000.000 đ (tạo ra Lãi ròng 2.000.000.000 đ trên TK 421) dù khách sỉ mới trả 7.500.000.000 đ vào TK 112 và còn nợ 2.500.000.000 đ trên TK 131."
+    },
+    {
+      file: "profitcash-fig-2.jpg",
+      beat: 3,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · HAI MIẾNG BỌT BIỂN HÚT CẠN 3,45 TỶ ĐỒNG TIỀN MẶT",
+      alt: "Mặt cắt kiểm toán dòng tiền từ 1 tỷ đồng đầu kỳ đến 50 triệu đồng cuối kỳ: 2,5 tỷ đồng nằm kẹt ở Phải thu khách hàng (TK 131) và 950 triệu đồng nằm kẹt ở Hàng tồn kho (TK 156)",
+      title: "Giải phẫu 3,5 tỷ đồng Tổng tài sản chiều 31/12: 3,45 tỷ đồng đang ngủ ở Phải thu (TK 131) và Tồn kho (TK 156)",
+      desc: "Lấy 8.500.000.000 đ tiền mặt vào (1 tỷ đầu kỳ + 7,5 tỷ thu khách) trừ 8.450.000.000 đ tiền mặt ra (7,45 tỷ trả nhà cung cấp + 1 tỷ chi vận hành), két [[TK 112|casa]] chỉ còn đúng 50.000.000 đ vì 3.450.000.000 đ đang bị giam trong [[vốn lưu động ròng|workingcapital]]."
+    },
+    {
+      file: "profitcash-fig-3.jpg",
+      beat: 4,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · VÒNG QUAY TIỀN MẶT (CCC) & KHOẢN VAY CỨU LƯƠNG 450 TRIỆU",
+      alt: "Mặt cắt Vòng quay tiền mặt CCC = DIO + DSO - DPO: trả tiền tươi cho nhà cung cấp ở Ngày 01 nhưng chờ khách sỉ trả nợ tới Ngày 90 buộc công ty phải vay ngắn hạn 450 triệu đồng chiều 31/12 để trả đủ 500 triệu tiền lương",
+      title: "Khi Vòng quay tiền mặt (CCC) kéo giãn: Cho khách sỉ nợ không lãi 2,5 tỷ nhưng phải đi vay ngân hàng 450 triệu để trả lương",
+      desc: "Vì [[dòng tiền thuần từ hoạt động kinh doanh|ocf]] âm 950.000.000 đ, chiều 31/12 công ty phải rút hạn mức vay ngắn hạn 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ cuối cùng trong TK 112 để tất toán bảng lương 500.000.000 đ (Nợ TK 334)."
+    },
+    {
+      file: "profitcash-fig-4.jpg",
+      beat: 2,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · CẦU NỐI LƯU CHUYỂN TIỀN TỆ & 3 VAN GIẢI PHÓNG VỐN",
+      alt: "Mặt cắt cầu nối từ Lợi nhuận ròng (+2 tỷ) sang Dòng tiền kinh doanh OCF (-950 triệu) và ba van rút ngắn Vòng quay tiền mặt: thu tiền theo tiến độ giảm TK 131, kiểm soát định mức tồn kho TK 156 và giãn kỳ hạn phải trả TK 331",
+      title: "Cầu nối Lợi nhuận (+2 tỷ) sang Dòng tiền OCF (−950 triệu) và 3 van giải phóng tiền mặt đang ngủ",
+      desc: "Một đồng lợi nhuận trên TK 421 chỉ thực sự trở thành tiền tươi khi doanh nghiệp rút ngắn [[vòng quay tiền mặt|ccc]]: thu hồi công nợ TK 131 theo tiến độ hoặc chiết khấu thanh toán sớm, tối ưu tồn kho TK 156 và đồng bộ kỳ hạn trả nhà cung cấp TK 331."
+    }
   ]
 };
 function renderChapHTML(sKey, c, i){
@@ -5171,8 +5784,8 @@ function renderAll(){
   renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
-  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr";
-  $("#thu").hidden = !["card","pay","install","minpay","qr"].includes(S.story);
+  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash";
+  $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash"].includes(S.story);
   $("#stageTitle").textContent = STORIES[S.story].title;
   $("#draftNote").hidden = STORIES[S.story].status === "published";
   renderCMS();
@@ -5336,10 +5949,28 @@ function calcQr(){
     ? `Dùng mã QR tĩnh (0% phí): quán nhận đủ 100% vào TK 112 ngay tại T+0, giữ lại trọn ${vnd(cardFee)}/ngày so với MDR 2,2%.`
     : `Dùng mã QR động tự gạch nợ (phí ${($("#qrFeePct").value).replace(".",",")}% = ${vnd(qrFee)}/ngày trên TK 641): quán vẫn tiết kiệm ${vnd(savedDay)}/ngày so với quẹt thẻ.`;
 }
+function calcProfit(){
+  const ar = +$("#pcAr").value, inv = +$("#pcInv").value;
+  const profit = 2000000000, unpaidPayroll = 500000000, openCash = 1000000000;
+  const locked = ar + inv;
+  const ocf = profit + unpaidPayroll - locked;
+  const endCash = openCash + ocf;
+  $("#pcArOut").textContent = vnd(ar);
+  $("#pcInvOut").textContent = vnd(inv);
+  $("#pcProfit").textContent = "+" + vnd(profit);
+  $("#pcLocked").textContent = "−" + vnd(locked);
+  $("#pcOcf").textContent = (ocf >= 0 ? "+" : "−") + vnd(Math.abs(ocf));
+  $("#pcCash").textContent = (endCash >= 0 ? "" : "−") + vnd(Math.abs(endCash));
+  const shortPayroll = unpaidPayroll - endCash;
+  $("#pcNote").textContent = shortPayroll > 0
+    ? `Két TK 112 chiều 31/12 chỉ còn ${vnd(endCash)}: thiếu hụt ${vnd(shortPayroll)} để trả bảng lương 500 triệu (TK 334), buộc phải vay ngắn hạn ngân hàng (TK 341) dù sổ vẫn báo lãi 2 tỷ đồng.`
+    : `Két TK 112 chiều 31/12 có ${vnd(endCash)}: đủ chi trả ngay 500 triệu đồng lương tháng 12 (TK 334) và còn dư ${vnd(endCash - unpaidPayroll)} tiền tươi mà không cần vay ngắn hạn.`;
+}
 $("#amt").oninput = calcCard; $("#sal").oninput = calcPay; $("#keep").oninput = calcPay;
 $("#ip").oninput = calcInst; $("#ic").oninput = calcInst;
 $("#mpBal").oninput = calcMin; $("#mpPct").oninput = calcMin;
 $("#qrRev").oninput = calcQr; $("#qrFeePct").oninput = calcQr;
+$("#pcAr").oninput = calcProfit; $("#pcInv").oninput = calcProfit;
 
 /* ── Thanh 1 hàng 48px (Layout 1A: Split-Pill + Overlay Mục lục 2 cột + ⌘K + Trạm cuối bài) ── */
 function renderNav(){
@@ -5860,6 +6491,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Chuẩn xác: Hạ tầng chuyển tiền nhanh 24/7 tách bản tin ghi Có tức thời (nhờ hạn mức ký quỹ bảo chứng trước) khỏi phiên quyết toán ròng đa phương (Deferred Net Settlement) trên tài khoản thanh toán tại Ngân hàng Trung ương."
     }
+  ],
+  profitcash: [
+    {
+      id: "profitcash-q1.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Lấy 8,5 tỷ đồng tiền vào trừ 8,45 tỷ đồng tiền ra, số dư [[tiền gửi không kỳ hạn|casa]] trên TK 112 chiều 31 tháng 12 còn đúng 50.000.000 đồng... có tới 2.500.000.000 đồng đang ngủ trong tờ giấy nhận nợ của khách sỉ (TK 131 — Phải thu của khách hàng) và 950.000.000 đồng đang ngủ dưới dạng các thùng hàng trên kệ kho (TK 156 — Hàng hóa).",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Đầu kỳ công ty có 1 tỷ đồng tiền mặt (TK 112). Trong kỳ công ty giao hợp đồng 10 tỷ đồng (giá vốn 6,5 tỷ, chi phí quản lý 1,5 tỷ gồm 1 tỷ đã chi tiền và 500 triệu lương tháng 12 chưa trả) nên báo lãi ròng 2 tỷ đồng. Vì sao chiều 31/12 két tiền TK 112 chỉ còn đúng 50 triệu đồng?",
+      opts: [
+        "Vì khách sỉ mới trả 7,5 tỷ và còn nợ 2,5 tỷ trên TK 131 (Phải thu của khách hàng), đồng thời công ty đã xuất 7,45 tỷ tiền tươi trả nhà cung cấp (gồm 6,5 tỷ giá vốn + 950 triệu hàng tồn kho TK 156) và 1 tỷ chi vận hành — khiến 3,45 tỷ đồng bị giam trong Phải thu và Tồn kho.",
+        "Vì ngân hàng tự động thu giữ 1,95 tỷ đồng phí duy trì tài khoản thanh toán vào chiều 31/12.",
+        "Vì kế toán cộng nhầm doanh thu 10 tỷ đồng thành chi phí trên Báo cáo kết quả kinh doanh."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Tiền vào TK 112 là 8,5 tỷ (1 tỷ đầu kỳ + 7,5 tỷ thu khách) trừ Tiền ra 8,45 tỷ (7,45 tỷ trả nhà cung cấp + 1 tỷ vận hành) = 50 triệu đồng; 3,45 tỷ đồng còn lại đang nằm ở TK 131 (2,5 tỷ) và TK 156 (950 triệu)."
+    },
+    {
+      id: "profitcash-q2.v1",
+      sectionId: "pk-pro-mech",
+      source_quote: "Áp vào số liệu của công ty trong kỳ: Lợi nhuận ròng (+2.000.000.000 đồng) trừ Mức tăng Phải thu khách hàng TK 131 (−2.500.000.000 đồng) trừ Mức tăng Hàng tồn kho TK 156 (−950.000.000 đồng) cộng Mức tăng Phải trả người lao động chưa chi TK 334 (+500.000.000 đồng) = −950.000.000 đồng (dòng tiền kinh doanh âm 950 triệu đồng).",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Trên Báo cáo lưu chuyển tiền tệ theo phương pháp gián tiếp (Indirect Cash Flow), với Lợi nhuận ròng +2 tỷ đồng, Phải thu khách hàng (TK 131) tăng +2,5 tỷ đồng, Hàng tồn kho (TK 156) tăng +950 triệu đồng và Lương phải trả chưa chi (TK 334) tăng +500 triệu đồng, Dòng tiền thuần từ hoạt động kinh doanh (OCF) bằng bao nhiêu?",
+      opts: [
+        "OCF = +2.000 triệu − 2.500 triệu (ΔTK 131) − 950 triệu (ΔTK 156) + 500 triệu (ΔTK 334) = −950.000.000 đ (dòng tiền kinh doanh âm 950 triệu đồng).",
+        "OCF = +2.000 triệu + 2.500 triệu + 950 triệu = +5.450.000.000 đ.",
+        "OCF luôn bằng đúng Lợi nhuận ròng (+2.000.000.000 đ) trong mọi trường hợp."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Mức tăng tài sản ngắn hạn phi tiền mặt (Phải thu TK 131 +2,5 tỷ và Tồn kho TK 156 +950 triệu) làm giảm dòng tiền mặt, đưa OCF về −950 triệu đồng; cộng với 1 tỷ đồng tiền mặt đầu kỳ nên TK 112 cuối kỳ chỉ còn 50 triệu đồng."
+    }
   ]
 };
 
@@ -6147,7 +6810,7 @@ window.__wmsQA = { loadWmsProgress, saveWmsProgress, emitWmsTelemetry, answerQui
 /* ── khởi động ─────────────────────────────── */
 // bài mở đầu: "card" nếu người đọc này được thấy nó, không thì bài đầu tiên theo thứ tự danh mục
 if (!visible(S.story) && order().length) S.story = order()[0];
-applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr();
+applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit();
 setTimeout(()=>{ $("#sms").classList.add("in"); $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);
 </script>
 </body>

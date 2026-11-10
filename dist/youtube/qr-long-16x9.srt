@@ -1,0 +1,215 @@
+1
+00:00:00,000 --> 00:00:03,870
+Sáng đầu tuần, bạn ghé quán quen gọi một ly cà phê năm mươi nghìn đồng.
+
+2
+00:00:03,870 --> 00:00:10,460
+Trên mặt quầy có cả máy quẹt thẻ lẫn một tấm bảng mã quy rờ, nhưng thu ngân luôn mỉm cười chỉ tay vào tấm bảng mã quy rờ.
+
+3
+00:00:10,460 --> 00:00:12,750
+Bạn đưa điện thoại lên quét, bấm xác nhận.
+
+4
+00:00:12,750 --> 00:00:17,220
+Chỉ ba giây sau, chiếc loa nhỏ trên quầy đã đọc vang: đã nhận năm mươi nghìn đồng.
+
+5
+00:00:17,220 --> 00:00:21,740
+Bạn cầm ly cà phê bước đi, còn quán nhận trọn vẹn năm mươi nghìn đồng ngay lập tức.
+
+6
+00:00:21,740 --> 00:00:31,490
+Hãy nhớ lại bài số một: khi bạn chạm thẻ tín dụng mười triệu đồng, quán phải đợi hai ngày làm việc và bị trừ mất hai trăm hai mươi nghìn đồng tiền phí, tức hai phẩy hai phần trăm.
+
+7
+00:00:31,490 --> 00:00:42,000
+Vì sao cùng là thanh toán không tiền mặt bằng chiếc điện thoại, nhưng quét mã quy rờ chuyển khoản thì quán nhận đủ một trăm phần trăm tiền tươi ngay trong ba giây mà không mất một đồng phí nào?
+
+8
+00:00:42,000 --> 00:00:50,450
+Bí mật đầu tiên nằm ở chiều đi của mệnh lệnh, thứ người trong nghề gọi là thanh toán đẩy và thanh toán kéo.
+
+9
+00:00:50,450 --> 00:01:05,460
+Khi bạn chạm thẻ tín dụng vào máy của quán, đó là thanh toán kéo: máy của quán phải phát lệnh đi vòng qua ngân hàng của quán, qua tổ chức thẻ, tới ngân hàng phát hành thẻ để xin kéo tiền về.
+
+10
+00:01:05,460 --> 00:01:14,940
+Còn khi bạn quét tấm bảng mã quy rờ trên quầy, tấm bảng nhựa ấy hoàn toàn đứng yên, không nối mạng viễn thông với ai cả.
+
+11
+00:01:14,940 --> 00:01:19,050
+Nó chỉ là một tờ giấy ghi sẵn số tài khoản của quán.
+
+12
+00:01:19,050 --> 00:01:32,000
+Chính bạn là người mở khoá khuôn mặt trên điện thoại của mình và chủ động đẩy lệnh chuyển khoản năm mươi nghìn đồng từ ngân hàng của bạn đi sang ngân hàng của quán.
+
+13
+00:01:32,000 --> 00:01:36,980
+Bí mật thứ hai quan trọng hơn: năm mươi nghìn đồng ấy là tiền của ai?
+
+14
+00:01:36,980 --> 00:01:45,850
+Khi bạn quẹt thẻ tín dụng, bạn đang tiêu tiền của ngân hàng phát hành ứng trước cho bạn vay miễn lãi tới bốn mươi lăm ngày.
+
+15
+00:01:45,850 --> 00:01:57,750
+Vì ngân hàng phát hành phải bỏ vốn ứng trước, phải gánh rủi ro bạn không trả, và còn trích một phần trăm thưởng tiền hoàn cho bạn, họ thu phí từ phía quán để bù đắp.
+
+16
+00:01:57,750 --> 00:02:10,880
+Ngược lại, khi bạn quét mã quy rờ chuyển khoản, năm mươi nghìn đồng được trừ thẳng từ số dư tiền gửi không kỳ hạn, tức tiền thật đang có sẵn của chính bạn trong tài khoản thanh toán.
+
+17
+00:02:10,880 --> 00:02:24,000
+Không có ngân hàng nào phải bỏ tiền túi cho bạn vay bốn mươi lăm ngày, không có rủi ro nợ xấu, nên cũng không ai có lý do để thu hai phẩy hai phần trăm phí chiết khấu từ quán cà phê.
+
+18
+00:02:24,000 --> 00:02:30,890
+Nhưng có một điều rất lạ: giả sử bạn dùng ngân hàng A, còn quán cà phê mở tài khoản ở ngân hàng B.
+
+19
+00:02:30,890 --> 00:02:44,940
+Lúc tám giờ sáng Chủ nhật, phòng giao dịch ngân hàng trung ương đang nghỉ, tại sao chỉ ba giây sau khi bạn bấm nút, chiếc loa của quán đã báo nhận đủ năm mươi nghìn đồng và quán rút ra tiêu được ngay?
+
+20
+00:02:44,940 --> 00:02:50,630
+Đó là nhờ kiến trúc hai tầng của hạ tầng chuyển tiền nhanh hai mươi bốn trên bảy.
+
+21
+00:02:50,630 --> 00:03:02,150
+Ở tầng trên mặt đất, ngay giây thứ nhất ngân hàng của bạn trừ năm mươi nghìn đồng của bạn, một bản tin điện tử chạy qua tổ chức chuyển mạch sang ngân hàng của quán.
+
+22
+00:03:02,150 --> 00:03:16,000
+Vì ngân hàng của bạn đã đặt sẵn một quỹ bảo chứng thanh khoản, ngân hàng của quán tin tưởng tuyệt đối vào bản tin ấy và lập tức ghi Có năm mươi nghìn đồng vào tài khoản của quán ngay ở giây thứ ba.
+
+23
+00:03:16,000 --> 00:03:19,700
+Vậy còn tiền thật giữa hai ngân hàng thì đi lúc nào?
+
+24
+00:03:19,700 --> 00:03:26,110
+Hai ngân hàng không bao giờ chở một bọc năm mươi nghìn đồng đi qua lại cho từng ly cà phê.
+
+25
+00:03:26,110 --> 00:03:36,800
+Suốt cả ngày, có hàng triệu người chuyển tiền từ ngân hàng A sang ngân hàng B, và cũng có hàng triệu người chuyển ngược từ ngân hàng B về ngân hàng A.
+
+26
+00:03:36,800 --> 00:03:45,420
+Đến giờ chốt phiên đối chiếu trong ngày làm việc, tổ chức chuyển mạch mới cộng toàn bộ hai chiều lại để tính bù trừ ròng.
+
+27
+00:03:45,420 --> 00:03:54,750
+Giả sử khách của ngân hàng A chuyển sang B tổng cộng một trăm tỷ đồng, còn khách của ngân hàng B chuyển về A chín mươi sáu tỷ đồng.
+
+28
+00:03:54,750 --> 00:04:05,010
+Khi ấy, ngân hàng A chỉ cần chuyển đúng bốn tỷ đồng tiền chênh lệch ròng sang ngân hàng B trên tài khoản thanh toán mở tại Ngân hàng Trung ương.
+
+29
+00:04:05,010 --> 00:04:10,000
+Lời nhắn chạy từng giây, nhưng tiền dự trữ chỉ chuyển phần chênh lệch.
+
+30
+00:04:10,000 --> 00:04:18,150
+Giờ hãy mở cuốn sổ kế toán của quán cà phê theo Thông tư 99/2025 để thấy vì sao chủ quán lại mê tấm bảng mã quy rờ đến vậy.
+
+31
+00:04:18,150 --> 00:04:27,360
+Giả sử một ngày quán bán được hai trăm ly cà phê năm mươi nghìn đồng, tổng doanh thu đúng bằng mười triệu đồng như bữa liên hoan ở bài một.
+
+32
+00:04:27,360 --> 00:04:43,530
+Nếu khách quẹt thẻ tín dụng toàn bộ mười triệu đồng ấy, cuối ngày kế toán chỉ ghi được một khoản phải thu trên tài khoản một ba tám tám, chờ hai ngày sau tiền mới về tài khoản một một hai và bị hụt mất hai trăm hai mươi nghìn đồng phí bán hàng.
+
+33
+00:04:43,530 --> 00:04:55,590
+Còn khi hai trăm vị khách cùng quét mã quy rờ chuyển khoản, mười triệu đồng chảy thẳng vào tài khoản tiền gửi không kỳ hạn một một hai ngay trong ca bán hàng, không hụt một đồng nào.
+
+34
+00:04:55,590 --> 00:05:04,000
+Cứ mỗi một tháng ba mươi ngày như thế, tấm bảng nhựa nhỏ xíu trên quầy giữ lại cho quán sáu triệu sáu trăm nghìn đồng tiền mặt.
+
+35
+00:05:04,000 --> 00:05:12,850
+Nhưng nếu bạn cũng không trả phí, quán cũng không trả phí, vậy hai ngân hàng lấy gì để bù đắp chi phí máy chủ hoạt động ngày đêm?
+
+36
+00:05:12,850 --> 00:05:18,480
+Câu trả lời nối thẳng về bể vốn không kỳ hạn CASA mà bạn đã thấy ở bài tiền lương.
+
+37
+00:05:18,480 --> 00:05:30,970
+Trước kia, để mua ly cà phê năm mươi nghìn đồng, bạn phải ra cây rút tiền tự động rút tiền giấy, làm tiền rời khỏi hệ thống ngân hàng và bắt ngân hàng tốn chi phí tiếp quỹ, kiểm đếm.
+
+38
+00:05:30,970 --> 00:05:39,890
+Khi miễn phí chuyển khoản quy rờ, năm mươi nghìn đồng chỉ nhảy từ tài khoản thanh toán của bạn sang tài khoản thanh toán của quán.
+
+39
+00:05:39,890 --> 00:05:43,460
+Đồng tiền không bao giờ rời khỏi hệ thống ngân hàng.
+
+40
+00:05:43,460 --> 00:05:58,000
+Cả bạn lẫn chủ quán đều vui vẻ để hàng chục triệu đồng nằm sẵn trong tài khoản thanh toán với lãi suất chỉ khoảng không phẩy một phần trăm một năm, tạo thành nguồn vốn giá rẻ khổng lồ để ngân hàng đem đi cho vay.
+
+41
+00:05:58,000 --> 00:06:02,610
+Dù vậy, không phải tấm bảng mã quy rờ nào trên quầy cũng giống hệt nhau.
+
+42
+00:06:02,610 --> 00:06:17,210
+Quán nhỏ đầu ngõ thường in một tấm mã quy rờ tĩnh gắn cố định với tài khoản cá nhân của chủ quán: hoàn toàn miễn phí không đồng, nhưng khách phải tự gõ số tiền và thu ngân phải nhìn màn hình điện thoại của khách bằng mắt thường.
+
+43
+00:06:17,210 --> 00:06:26,620
+Khi quán đông lên, kẻ gian có thể dùng ảnh chụp màn hình biên lai giả để lừa lấy đồ uống, và cuối tháng kế toán phải dò tay hàng nghìn dòng sao kê.
+
+44
+00:06:26,620 --> 00:06:40,390
+Vì thế, các chuỗi cửa hàng lớn chuyển sang mã quy rờ động sinh riêng cho từng hoá đơn: số tiền năm mươi nghìn đồng và mã đơn hàng đã khoá cứng trong mã, tiền vừa vào là máy tính tiền tự gạch nợ và phát loa báo ngay.
+
+45
+00:06:40,390 --> 00:06:50,000
+Đổi lấy sự tự động ấy, quán trả một khoản phí dịch vụ thu hộ rất nhỏ, ví dụ không phẩy hai phần trăm, tức vẫn rẻ hơn mười một lần so với phí quẹt thẻ.
+
+46
+00:06:50,000 --> 00:06:53,450
+Có ba tình huống thực tế bạn cần nhớ khi quét mã quy rờ.
+
+47
+00:06:53,450 --> 00:07:06,630
+Thứ nhất: đôi lúc giờ cao điểm điện thoại bạn báo đã trừ năm mươi nghìn đồng nhưng loa của quán chưa kêu vì bản tin liên ngân hàng bị nghẽn; tiền lúc đó đang nằm ở tài khoản trung gian chờ đối soát chứ chưa mất đi.
+
+48
+00:07:06,630 --> 00:07:22,950
+Thứ hai: nếu bạn lỡ tay gõ thừa một số không, chuyển năm trăm nghìn đồng cho ly cà phê năm mươi nghìn, kế toán của quán sẽ ghi bốn trăm năm mươi nghìn đồng tiền thừa vào khoản phải trả khác rồi chuyển trả lại bạn, chứ không được ghi cả năm trăm nghìn vào doanh thu.
+
+49
+00:07:22,950 --> 00:07:33,850
+Và thứ ba, quan trọng nhất với ví tiền của bạn: vì quét mã quy rờ là lệnh do chính tay bạn đẩy tiền mặt đi, nó không có quyền khiếu nại đòi ngân hàng hoàn tiền như thẻ tín dụng.
+
+50
+00:07:33,850 --> 00:07:40,000
+Đừng dùng chuyển khoản quy rờ trả trước cho những món hàng lớn ở nơi bạn chưa kiểm chứng độ tin cậy.
+
+51
+00:07:40,000 --> 00:07:48,090
+Giờ thì mỗi lần đứng trước quầy thu ngân, nhìn tấm bảng mã quy rờ nằm cạnh chiếc máy quẹt thẻ, bạn đã thấy toàn bộ cỗ máy phía sau.
+
+52
+00:07:48,090 --> 00:08:01,920
+Với ly cà phê năm mươi nghìn đồng hay bữa cơm trưa ở quán quen nơi bạn đã cầm món hàng trên tay, một cú quét mã quy rờ giúp tiền về thẳng túi người bán trong ba giây mà không lấy đi của họ hai phẩy hai phần trăm phí dịch vụ.
+
+53
+00:08:01,920 --> 00:08:11,180
+Còn với những giao dịch đặt hàng từ xa hoặc cần lá chắn bảo vệ người mua, chiếc thẻ với cơ chế giữ chỗ và quyền khiếu nại lại phát huy giá trị của nó.
+
+54
+00:08:11,180 --> 00:08:16,000
+Hiểu đường đi của tiền giúp bạn chọn đúng công cụ cho từng giao dịch mỗi ngày.
