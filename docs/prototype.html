@@ -169,10 +169,10 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .dio-actor.lit{border-color:#e0b75a;background:rgba(224,183,90,.16);color:#fef3c7;box-shadow:0 0 10px rgba(224,183,90,.18)}
 .dio-actor.lit b{color:#fbbf24}
 
-/* Khung Video trên Sân khấu chính (chế độ ▶ Bản video) */
+/* Khung Video trên Sân khấu chính (mặc định ▶ Video bài giảng — 1 trình phát duy nhất, tính view YouTube) */
 .stage-video{max-width:min(62rem,100%);margin:0 auto 14px}
 .stage-video[hidden]{display:none!important}
-.mode-video .diorama,.mode-video .legend,.mode-video .taglist{display:none!important}
+.mode-video .diorama,.mode-video .legend,.mode-video .taglist,.mode-video .caption,.mode-video .controls,.mode-video .voicenote,.mode-video .listen{display:none!important}
 
 .caption{max-width:min(52rem,100%);margin:0 auto;display:grid;grid-template-columns:8rem minmax(0,1fr);gap:6px 24px;padding:22px 6px 8px;align-items:start}
 @media (max-width:640px){.caption{grid-template-columns:1fr}}
@@ -931,7 +931,7 @@ body.cms-on{padding-bottom:150px}
   <div class="stories" id="storyList" role="group" aria-label="Chọn bài"></div>
 
   <!-- sân khấu -->
-  <div class="stage" id="stage">
+  <div class="stage mode-video" id="stage">
     <p class="draftnote" id="draftNote" hidden><b>Bản nháp — chưa đăng.</b> Bạn đang xem đúng như người đọc sẽ thấy; chỉ hiện ở chế độ duyệt bài.</p>
     <h3 class="stage-title" id="stageTitle"></h3>
     <div class="bar">
@@ -942,11 +942,13 @@ body.cms-on{padding-bottom:150px}
         </span></div>
       <div><span class="seg-label">Bạn muốn</span>
         <span class="seg" role="group" aria-label="Cách theo dõi">
-          <button data-mode="watch" aria-pressed="true">Xem</button>
-          <button data-mode="video" aria-pressed="false">▶ Bản video</button>
-          <button data-mode="listen" aria-pressed="false">Nghe</button>
+          <button data-mode="video" aria-pressed="true">▶ Video bài giảng</button>
+          <button data-mode="watch" aria-pressed="false">Sơ đồ 5 nhịp</button>
+          <button data-mode="listen" aria-pressed="false">Bản chữ</button>
         </span></div>
     </div>
+
+    <div class="stage-video" id="stageVideoWrap"></div>
 
     <div class="diorama" id="street">
       <div class="dio-hud" id="dioramaHudBar" aria-hidden="true"></div>
@@ -955,7 +957,6 @@ body.cms-on{padding-bottom:150px}
     </div>
     <p class="legend" aria-hidden="true"><span><i></i>luồng thông tin: lời nhắn & hợp đồng (0 đồng)</span><span><i class="m"></i>luồng quyết toán: tiền thật chuyển qua ngân hàng</span></p>
     <ul class="taglist" id="taglist" aria-label="Dòng sổ vừa đổi"></ul>
-    <div class="stage-video" id="stageVideoWrap" hidden></div>
 
     <div class="caption" id="caption" aria-live="polite">
       <div class="when"><b id="when">22:47</b><span id="whenSub"></span></div>
@@ -1141,7 +1142,7 @@ body.cms-on{padding-bottom:150px}
         <button role="tab" id="tab-pro" aria-controls="pnl-pro" aria-selected="false" tabindex="-1"><b>B</b>Sổ kế toán &amp; Cơ chế TT 99/2025</button>
       </div>
     </div>
-    <div id="packVideoEmbed"></div>
+    <div id="packVideoEmbed" hidden></div>
     <div class="pack-panel" role="tabpanel" id="pnl-lay" aria-labelledby="tab-lay" tabindex="0"></div>
     <div class="pack-panel" role="tabpanel" id="pnl-pro" aria-labelledby="tab-pro" tabindex="0" hidden></div>
     <div id="lessonQuizWrap" style="max-width:min(54rem,100%);margin:18px auto 0;padding:18px 20px;border-top:1.5px solid var(--ink);background:var(--paper-2)" aria-label="Câu hỏi kiểm chứng cơ chế & Lưu tiến độ"></div>
@@ -6035,12 +6036,13 @@ const animateMoneyText = countUp;
 window.__vibeSeek = (beatIdx, storyKey) => {
   const k = storyKey && STORIES[storyKey] ? storyKey : S.story;
   const b = Math.max(0, Math.min((STORIES[k].beats.length || 5) - 1, +beatIdx || 0));
+  if (typeof setStageMode === "function" && S.mode !== "watch") setStageMode("watch");
   go(k, b, 0, false);
   return {story: S.story, beat: S.beat};
 };
 
 /* ── trạng thái ───────────────────────────── */
-const S = {story:"card", beat:0, sent:0, playing:false, voice:true, lens:"life", mode:"watch", run:0};
+const S = {story:"card", beat:0, sent:0, playing:false, voice:true, lens:"life", mode:"video", run:0};
 /* chế độ duyệt: bật bằng nút trên tủ mục lục hoặc ?preview=1. Không lưu đi đâu — đây là prototype. */
 const CMS = {on: new URLSearchParams(location.search).has("preview"), q:"review", edit:false};
 const A = {q:"", st:"all", cat:null};                              // bộ lọc của bản đồ toàn bộ
@@ -6187,7 +6189,8 @@ function renderYtEmbedHTML(s, fmt, scope){
   const isShort = fmt === "short";
   const localSrc = `../dist/youtube/${encodeURIComponent(S.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
   const useIframe = Boolean(ytId) && location.protocol !== "file:";
-  const iframeSrc = ytId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&playsinline=1&hl=vi&cc_lang_pref=vi` : "";
+  const iframeSrc = ytId ? `https://www.youtube.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=vi&cc_lang_pref=vi` : "";
+  const watchUrl = ytId ? `https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}` : "https://www.youtube.com/@WhereMoneySleeps";
   const chaps = sc.map((x, i) => {
     const [startSec] = tspan(x.time);
     const lbl = x.chapter || sceneLabel(s, x, i, sc.length);
@@ -6199,11 +6202,11 @@ function renderYtEmbedHTML(s, fmt, scope){
     + (scope !== "vid" ? `<button type="button" data-yt-go-studio="1">🎬 Ngăn Kịch bản (${sc.length} cảnh)</button>` : "")
     + `<span>hoặc chạy CLI: <code>python3 -I scripts/wms-media-pipeline.py --story ${esc(S.story)} --bind-${fmt}-id &lt;11char&gt; --embed-status uploaded_unlisted</code></span></div>` : "";
   const playerHTML = useIframe
-    ? `<iframe src="${iframeSrc}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`
+    ? `<iframe src="${iframeSrc}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
     : `<video controls preload="metadata" src="${localSrc}" title="${esc(f.title || s.title)}" style="position:absolute;inset:0;width:100%;height:100%;background:#070a12"></video>`;
   return `<section class="yt-embed" data-yt-box="${scope}" aria-label="Video minh hoạ bài viết">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice"><a href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">@WhereMoneySleeps</a> · Giọng Tâm · Mặt cắt Diorama v3.0${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
+    + `<span class="yt-voice"><a href="${watchUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Mở trên @WhereMoneySleeps ↗</a> · Giọng Tâm · Mặt cắt Diorama v3.0${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
     + `<div class="yt-switch" role="group" aria-label="Chuyển định dạng video nhúng">`
     + `<button type="button" data-yt-fmt="long" aria-pressed="${!isShort}">▶ Video Dài 16:9</button>`
     + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 Video Dọc 9:16</button></div></div>`
@@ -6221,8 +6224,16 @@ function bindYtEmbed(scope, s, draft){
   const stage = $(`[data-yt-stage="${scope}"]`, box);
   const mountIframe = sec => {
     if (!useIframe || !stage) return;
-    const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&playsinline=1&hl=vi&cc_lang_pref=vi&autoplay=1&start=${sec||0}`;
-    stage.innerHTML = `<iframe src="${u}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>`;
+    const ifr = $("iframe", stage);
+    if (ifr && ifr.contentWindow) {
+      try {
+        ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:"seekTo",args:[sec||0,true]}), "*");
+        ifr.contentWindow.postMessage(JSON.stringify({event:"command",func:"playVideo",args:[]}), "*");
+        return;
+      } catch (_) {}
+    }
+    const u = `https://www.youtube.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=vi&cc_lang_pref=vi&autoplay=1&start=${sec||0}`;
+    stage.innerHTML = `<iframe src="${u}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
   };
   const mountLocal = sec => {
     if (!stage) return;
@@ -6243,7 +6254,7 @@ function bindYtEmbed(scope, s, draft){
   $$("[data-yt-fmt]", box).forEach(b => {
     b.onclick = () => {
       PK.fmt = b.dataset.ytFmt;
-      if (scope === "stage") renderStageVideo();
+      if (scope === "stage") renderStageVideo(true);
       else renderPack();
     };
   });
@@ -6274,17 +6285,21 @@ function bindYtEmbed(scope, s, draft){
       f.youtubeId = val;
       f.embedStatus = val ? "uploaded_unlisted" : "pending_upload";
       renderPack();
-      renderStageVideo();
+      renderStageVideo(true);
       if (CMS.on) renderCMS();
     };
   }
 }
-function renderStageVideo(){
+function renderStageVideo(forceRemount){
   const wrap = $("#stageVideoWrap");
   if (!wrap) return;
   const s = STORIES[S.story];
   wrap.hidden = S.mode !== "video";
   if (S.mode !== "video") return;
+  const v = s.videoScript || {}, f = v[PK.fmt] || {}, ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
+  const key = `${S.story}:${PK.fmt}:${ytId}:${CMS.on?1:0}`;
+  if (!forceRemount && wrap.dataset.mountedKey === key && wrap.innerHTML.trim() !== "") return;
+  wrap.dataset.mountedKey = key;
   wrap.innerHTML = renderYtEmbedHTML(s, PK.fmt, "stage");
   bindYtEmbed("stage", s, "");
 }
@@ -6570,8 +6585,8 @@ function renderPack(){
     ? `<p class="pack-note"><b>Bản nháp chờ Duy duyệt.</b> Số liệu là ví dụ để thấy cơ chế; tên tài khoản theo bản chép thứ cấp của Thông tư 99/2025. Kế toán — agent soát: ${esc((s.review && s.review.ketoan) || "chưa chạy")}.</p>` : "";
   const packVidEl = $("#packVideoEmbed");
   if (packVidEl) {
-    packVidEl.innerHTML = renderYtEmbedHTML(s, PK.fmt, "pack");
-    bindYtEmbed("pack", s, draft);
+    packVidEl.innerHTML = "";
+    packVidEl.hidden = true;
   }
   $("#pnl-lay").innerHTML =
     `<p class="pack-sub">Bài khảo cứu toàn cảnh — đọc để hiểu trọn bản chất, không cần biết kế toán</p>`
@@ -6602,15 +6617,17 @@ function renderPack(){
   $$("[data-jump-beat]", $("#pnl-lay")).forEach(btn => {
     btn.onclick = () => {
       const b = +btn.dataset.jumpBeat || 0;
+      if (typeof setStageMode === "function" && S.mode !== "watch") setStageMode("watch");
       go(S.story, b, 0, false);
       $("#stage").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
     };
   });
-  renderVid(s, draft);
+  const stSec = $("#studioScriptSec"), showStudio = Boolean(CMS.on || S.studioDrawer);
+  if (stSec) stSec.hidden = !showStudio;
+  if (showStudio) renderVid(s, draft);
+  else { const pv = $("#pnl-vid"); if (pv) pv.innerHTML = ""; }
   if (PK.tab === "vid") PK.tab = "lay";
   showTab(PK.tab, false);
-  const stSec = $("#studioScriptSec");
-  if (stSec) stSec.hidden = !(CMS.on || S.studioDrawer);
   const stH = $("#studio-script-h");
   if (stH) stH.textContent = `Kịch bản Video & Hậu trường Kỹ thuật — ${s.title}`;
   const fullLink = $("#openFullStudioLink"), navLink = $("#studioNavLink");
@@ -6667,7 +6684,7 @@ function exportVO(k){
       youtubeId:f.youtubeId || "",
       embedStatus:f.embedStatus || "pending_upload",
       elevenlabsVoiceId:f.elevenlabsVoiceId || "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      embedUrl:f.youtubeId ? `https://www.youtube-nocookie.com/embed/${f.youtubeId}?rel=0&modestbranding=1` : "",
+      embedUrl:f.youtubeId ? `https://www.youtube.com/embed/${f.youtubeId}?enablejsapi=1&rel=0&playsinline=1&hl=vi&cc_lang_pref=vi` : "",
       youtubeUpload:{
         api:"YouTube Data API v3 (videos.insert)",
         channelHandle:"@WhereMoneySleeps",
@@ -6710,6 +6727,7 @@ function showTab(t, focus){
     const stSec = $("#studioScriptSec");
     if (stSec) {
       stSec.hidden = false;
+      renderVid(STORIES[S.story], "");
       if (focus) stSec.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
     }
     return;
@@ -6724,8 +6742,9 @@ function showTab(t, focus){
 const closeStBtn = $("#closeStudioDrawerBtn");
 if (closeStBtn) closeStBtn.onclick = () => {
   S.studioDrawer = false;
-  const stSec = $("#studioScriptSec");
+  const stSec = $("#studioScriptSec"), pv = $("#pnl-vid");
   if (stSec) stSec.hidden = true;
+  if (pv && !CMS.on) pv.innerHTML = "";
 };
 $$(".pack-tabs [role=tab]").forEach((b, i, all) => {
   b.onclick = () => showTab(b.id.slice(4), false);
@@ -7023,16 +7042,20 @@ $("#prev").onclick = () => go(S.story, Math.max(0,S.beat-1), 0, S.playing);
 $("#next").onclick = () => go(S.story, Math.min(STORIES[S.story].beats.length-1,S.beat+1), 0, S.playing);
 $$("[data-lens]").forEach(b => b.onclick = () => { if (CMS.edit) { setEdit(false); renderCMS(); } S.lens = b.dataset.lens;
   $$("[data-lens]").forEach(x => x.setAttribute("aria-pressed", x===b)); renderLens(); });
-$$("[data-mode]").forEach(b => b.onclick = () => {
-  S.mode = b.dataset.mode;
-  $$("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x===b));
-  $("#stage").classList.toggle("mode-listen", S.mode==="listen");
-  $("#stage").classList.toggle("mode-video", S.mode==="video");
-  if (S.mode==="video" && S.playing) { stopSpeech(); setPlaying(false); }
+function setStageMode(m){
+  S.mode = m;
+  $$("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x.dataset.mode === m));
+  const stg = $("#stage");
+  if (stg) {
+    stg.classList.toggle("mode-listen", m === "listen");
+    stg.classList.toggle("mode-video", m === "video");
+  }
+  if (m === "video" && S.playing) { stopSpeech(); setPlaying(false); }
   renderStageVideo();
-  if (S.mode==="watch") renderScene();   // cảnh vừa hiện lại: chạy lại hoạt hình của đoạn hiện tại
+  if (m === "watch") renderScene();   // cảnh vừa hiện lại: chạy lại hoạt hình của đoạn hiện tại
   updateSentence();
-});
+}
+$$("[data-mode]").forEach(b => b.onclick = () => setStageMode(b.dataset.mode));
 $("#transcript").addEventListener("click", e => {
   const s = e.target.closest(".s"); if (!s || e.target.closest(".term")) return;
   go(s.dataset.story, +s.dataset.b, +s.dataset.s, true); });
