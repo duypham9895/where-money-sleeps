@@ -3,11 +3,14 @@
 wms-build-deploy.py — Đóng gói bản phát hành tĩnh `dist/site/` cho Cloudflare Workers Static Assets + `/api/p`.
 Đảm bảo:
   - `dist/site/index.html` (và `dist/site/prototype.html`) lấy từ `docs/prototype.html`, chuẩn hoá đường dẫn ảnh `public/brand/`.
-  - Sao chép đầy đủ 28 hình mặt cắt LUẬT 9 (`public/brand/*-fig-*.jpg`), `studio.html`, `wms-studio-data.js`, `workflows.html` và `legal/licences.json`.
-  - Sinh file `dist/site/_headers` khoá bảo mật HTTP (`nosniff`, `no-referrer`, `CSP`).
+  - Sao chép đầy đủ 28 hình mặt cắt LUẬT 9 (`public/brand/*-fig-*.jpg`), 7 file âm thanh `public/audio/*-beats.mp3`,
+    `studio.html`, `wms-studio-data.js`, `workflows.html`, các trang cổng `s0.html..s6.html`, `assets/doc.{css,js}`,
+    `favicon.svg` + `favicon.ico` và `legal/licences.json`.
+  - Sinh file `dist/site/_headers` khoá bảo mật HTTP (`nosniff`, `no-referrer`, `CSP` chặn 100% script bên thứ ba).
 """
 
 import shutil
+import struct
 import sys
 from pathlib import Path
 
@@ -21,11 +24,43 @@ OUT = ROOT / "dist" / "site"
 LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
 
 
+def _write_favicons(out_dir: Path) -> None:
+    svg_txt = (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+        '<rect width="64" height="64" rx="14" fill="#0d1320"/>'
+        '<circle cx="32" cy="32" r="21" fill="none" stroke="#f5a524" stroke-width="3.5"/>'
+        '<path d="M23 24h18M23 32h18M23 40h12" stroke="#f5f1e8" stroke-width="3.5" stroke-linecap="round"/>'
+        '<circle cx="41" cy="40" r="3" fill="#10b981"/>'
+        "</svg>\n"
+    )
+    (out_dir / "favicon.svg").write_text(svg_txt, encoding="utf-8")
+
+    # Minimal valid 16x16 32-bit BGRA ICO in pure Python (0 external dependencies in CI)
+    w, h = 16, 16
+    pixels = bytearray()
+    for y in range(h):
+        for x in range(w):
+            dx, dy = x - 7.5, y - 7.5
+            r2 = dx * dx + dy * dy
+            if 28 <= r2 <= 46:
+                pixels.extend((36, 165, 245, 255))  # Gold ring (#f5a524 in BGRA)
+            elif r2 < 28:
+                pixels.extend((32, 19, 13, 255))    # Archival navy (#0d1320 in BGRA)
+            else:
+                pixels.extend((0, 0, 0, 0))
+    and_mask = bytes(4 * h)
+    bmp_header = struct.pack("<IIIHHIIIIII", 40, w, h * 2, 1, 32, 0, len(pixels) + len(and_mask), 0, 0, 0, 0)
+    ico_data = bmp_header + bytes(pixels) + and_mask
+    ico_dir = struct.pack("<HHHBBBBHHII", 0, 1, 1, w, h, 0, 0, 1, 32, len(ico_data), 22)
+    (out_dir / "favicon.ico").write_bytes(ico_dir + ico_data)
+
+
 def build_site() -> int:
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "public" / "brand").mkdir(parents=True, exist_ok=True)
     (OUT / "public" / "audio").mkdir(parents=True, exist_ok=True)
+    (OUT / "assets").mkdir(parents=True, exist_ok=True)
     (OUT / "legal").mkdir(parents=True, exist_ok=True)
 
     # 1. Build index.html & prototype.html from docs/prototype.html
@@ -37,16 +72,45 @@ def build_site() -> int:
     (OUT / "index.html").write_text(proto_dist, encoding="utf-8")
     (OUT / "prototype.html").write_text(proto_dist, encoding="utf-8")
 
-    # 2. Copy studio.html, wms-studio-data.js, workflows.html
-    for name in ("studio.html", "wms-studio-data.js", "workflows.html"):
+    # 2. Copy studio.html, wms-studio-data.js, workflows.html, and stage review docs
+    doc_files = (
+        "studio.html",
+        "wms-studio-data.js",
+        "workflows.html",
+        "s1.html",
+        "s2.html",
+        "s3.html",
+        "s4.html",
+        "s5.html",
+        "s6.html",
+        "llm-quiz.html",
+        "studio-mockups.html",
+    )
+    for name in doc_files:
         src_file = DOCS / name
         if src_file.is_file():
             txt = (
                 src_file.read_text(encoding="utf-8")
                 .replace("../public/brand/", "public/brand/")
                 .replace("../public/audio/", "public/audio/")
+                .replace('<a href="index.html">S0 Discovery</a>', '<a href="s0.html">S0 Discovery</a>')
             )
             (OUT / name).write_text(txt, encoding="utf-8")
+
+    if (DOCS / "index.html").is_file():
+        s0_txt = (
+            (DOCS / "index.html")
+            .read_text(encoding="utf-8")
+            .replace('<a href="index.html">S0 Discovery</a>', '<a href="s0.html">S0 Discovery</a>')
+        )
+        (OUT / "s0.html").write_text(s0_txt, encoding="utf-8")
+
+    if (DOCS / "assets").is_dir():
+        for asset in sorted((DOCS / "assets").glob("*")):
+            if asset.is_file():
+                shutil.copy2(asset, OUT / "assets" / asset.name)
+
+    _write_favicons(OUT)
 
     # 3. Copy all brand figures & plates
     copied_figs = 0
@@ -79,19 +143,20 @@ def build_site() -> int:
     if LEGAL.is_file():
         shutil.copy2(LEGAL, OUT / "legal" / "licences.json")
 
-    # 5. Write Cloudflare Static Assets _headers
+    # 5. Write Cloudflare Static Assets _headers (enforce AC-33/AC-36 zero 3rd-party scripts across all pages)
     headers_txt = (
         "/*\n"
         "  X-Content-Type-Options: nosniff\n"
         "  Referrer-Policy: strict-origin-when-cross-origin\n"
         "  X-Frame-Options: DENY\n"
+        "  Content-Security-Policy: default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'\n"
         "\n"
         "/public/audio/*\n"
         "  Cache-Control: public, max-age=31536000, immutable\n"
         "\n"
         "/studio.html\n"
         "  Referrer-Policy: no-referrer\n"
-        "  Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'\n"
+        "  Content-Security-Policy: default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'\n"
     )
     (OUT / "_headers").write_text(headers_txt, encoding="utf-8")
 
