@@ -12,5 +12,12 @@
   "assets": {
     "directory": "./dist/site",
     "binding": "ASSETS"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "where-money-sleeps-db",
+      "database_id": "35bc919b-28f2-4025-a576-5036f62b886c"
+    }
+  ]
 }
