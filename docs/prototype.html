@@ -129,7 +129,8 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 
 /* ── sân khấu ──────────────────────────────── */
 .stage{width:var(--wide);margin:26px auto 0;scroll-margin-top:var(--sticky,12px)}
-.bar{max-width:min(62rem,100%);margin:0 auto 14px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:14px}
+.bar{max-width:min(58rem,100%);margin:18px auto 0;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:14px}
+.bar [hidden]{display:none!important}
 .seg{display:inline-flex;border-radius:999px;padding:3px;background:var(--paper-2);box-shadow:inset 0 1px 2px var(--sh-2)}
 .seg button{border:0;background:none;padding:6px 13px;border-radius:999px;cursor:pointer;color:var(--ink-2);font-size:13.5px;transition:background .25s,color .25s,box-shadow .25s}
 .seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px var(--sh),0 0 0 1px var(--rule-2)}
@@ -934,21 +935,19 @@ body.cms-on{padding-bottom:150px}
   <div class="stage mode-video" id="stage">
     <p class="draftnote" id="draftNote" hidden><b>Bản nháp — chưa đăng.</b> Bạn đang xem đúng như người đọc sẽ thấy; chỉ hiện ở chế độ duyệt bài.</p>
     <h3 class="stage-title" id="stageTitle"></h3>
+    <div class="stage-video" id="stageVideoWrap"></div>
+
     <div class="bar">
-      <div><span class="seg-label">Kể theo cách</span>
+      <div><span class="seg-label">Góc nhìn sổ sách theo chương video</span>
         <span class="seg" role="group" aria-label="Góc nhìn">
           <button data-lens="life" aria-pressed="true" title="Hiểu luật chơi, giữ túi tiền">Đời thường</button>
           <button data-lens="ledger" aria-pressed="false" title="Bút toán Debit/Credit và đường đi của tiền">Sổ kế toán</button>
         </span></div>
-      <div><span class="seg-label">Bạn muốn</span>
+      <div hidden><span class="seg-label">Bạn muốn</span>
         <span class="seg" role="group" aria-label="Cách theo dõi">
           <button data-mode="video" aria-pressed="true">▶ Video bài giảng</button>
-          <button data-mode="watch" aria-pressed="false">Sơ đồ 5 nhịp</button>
-          <button data-mode="listen" aria-pressed="false">Bản chữ</button>
         </span></div>
     </div>
-
-    <div class="stage-video" id="stageVideoWrap"></div>
 
     <div class="diorama" id="street">
       <div class="dio-hud" id="dioramaHudBar" aria-hidden="true"></div>
@@ -6036,12 +6035,11 @@ const animateMoneyText = countUp;
 window.__vibeSeek = (beatIdx, storyKey) => {
   const k = storyKey && STORIES[storyKey] ? storyKey : S.story;
   const b = Math.max(0, Math.min((STORIES[k].beats.length || 5) - 1, +beatIdx || 0));
-  if (typeof setStageMode === "function" && S.mode !== "watch") setStageMode("watch");
   go(k, b, 0, false);
   return {story: S.story, beat: S.beat};
 };
 
-/* ── trạng thái ───────────────────────────── */
+/* ── trạng thái (Phương án B: khoá cố định S.mode = "video", chỉ giữ trình phát YouTube nhúng duy nhất) ── */
 const S = {story:"card", beat:0, sent:0, playing:false, voice:true, lens:"life", mode:"video", run:0};
 /* chế độ duyệt: bật bằng nút trên tủ mục lục hoặc ?preview=1. Không lưu đi đâu — đây là prototype. */
 const CMS = {on: new URLSearchParams(location.search).has("preview"), q:"review", edit:false};
@@ -6128,7 +6126,7 @@ function updateSentence(){
 }
 function renderLens(){
   const b = beat(), isLedger = S.lens==="ledger";
-  $("#lensHead").textContent = isLedger ? "Trong sổ" : "Với túi tiền của bạn";
+  $("#lensHead").textContent = `${isLedger ? "Trong sổ" : "Với túi tiền của bạn"} · Nhịp ${S.beat+1}/${STORIES[S.story].beats.length} (${b.when} — ${b.title})`;
   $("#lensText").innerHTML = rich(isLedger ? b.sys : b.life);
   const L = $("#ledger");
   if (!b.ledger){
@@ -6562,7 +6560,7 @@ function renderChapHTML(sKey, c, i){
     + `<img src="../public/brand/${esc(fig.file)}" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='public/brand/${esc(fig.file)}';}" width="1200" height="675" loading="lazy" decoding="async" alt="${esc(fig.alt)}">`
     + `<figcaption>`
     + `<div class="chap-fig-top"><span class="chap-fig-kicker">${esc(fig.kicker)}</span>`
-    + `<button type="button" class="chap-fig-jump" data-jump-beat="${fig.beat}">Xem nhịp này trên Mặt cắt Diorama ↑</button></div>`
+    + `<button type="button" class="chap-fig-jump" data-jump-beat="${fig.beat}">▶ Xem đoạn này trong Video &amp; Sổ kế toán ↑</button></div>`
     + `<strong class="chap-fig-title">${esc(fig.title)}</strong>`
     + `<p class="chap-fig-desc">${rich(fig.desc)}</p>`
     + `</figcaption></figure>`;
@@ -6617,8 +6615,12 @@ function renderPack(){
   $$("[data-jump-beat]", $("#pnl-lay")).forEach(btn => {
     btn.onclick = () => {
       const b = +btn.dataset.jumpBeat || 0;
-      if (typeof setStageMode === "function" && S.mode !== "watch") setStageMode("watch");
       go(S.story, b, 0, false);
+      const box = $('[data-yt-box="stage"]');
+      const f = (s.videoScript && s.videoScript[PK.fmt]) || {}, sc = Array.isArray(f.scenes) ? f.scenes : [];
+      const scIdx = sc.findIndex(x => x.beat === b);
+      const chapBtn = box && scIdx >= 0 ? $(`.yt-chap[data-idx="${scIdx}"]`, box) : null;
+      if (chapBtn) chapBtn.click();
       $("#stage").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
     };
   });
@@ -7042,20 +7044,17 @@ $("#prev").onclick = () => go(S.story, Math.max(0,S.beat-1), 0, S.playing);
 $("#next").onclick = () => go(S.story, Math.min(STORIES[S.story].beats.length-1,S.beat+1), 0, S.playing);
 $$("[data-lens]").forEach(b => b.onclick = () => { if (CMS.edit) { setEdit(false); renderCMS(); } S.lens = b.dataset.lens;
   $$("[data-lens]").forEach(x => x.setAttribute("aria-pressed", x===b)); renderLens(); });
-function setStageMode(m){
-  S.mode = m;
-  $$("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x.dataset.mode === m));
+function setStageMode(){
+  S.mode = "video";
   const stg = $("#stage");
   if (stg) {
-    stg.classList.toggle("mode-listen", m === "listen");
-    stg.classList.toggle("mode-video", m === "video");
+    stg.classList.remove("mode-listen");
+    stg.classList.add("mode-video");
   }
-  if (m === "video" && S.playing) { stopSpeech(); setPlaying(false); }
+  if (S.playing) { stopSpeech(); setPlaying(false); }
   renderStageVideo();
-  if (m === "watch") renderScene();   // cảnh vừa hiện lại: chạy lại hoạt hình của đoạn hiện tại
-  updateSentence();
 }
-$$("[data-mode]").forEach(b => b.onclick = () => setStageMode(b.dataset.mode));
+$$("[data-mode]").forEach(b => b.onclick = () => setStageMode());
 $("#transcript").addEventListener("click", e => {
   const s = e.target.closest(".s"); if (!s || e.target.closest(".term")) return;
   go(s.dataset.story, +s.dataset.b, +s.dataset.s, true); });
