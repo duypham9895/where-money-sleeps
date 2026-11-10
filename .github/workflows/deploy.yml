@@ -90,7 +90,9 @@ jobs:
           fi
 
       - name: Apply D1 Schema Idempotently (cloudflare/schema.sql)
-        run: npx --yes wrangler@4 d1 execute where-money-sleeps-db --remote --file=cloudflare/schema.sql --yes
+        run: |
+          SQL_CMD=$(grep -v '^[[:space:]]*--' cloudflare/schema.sql | tr '\n' ' ')
+          npx --yes wrangler@4 d1 execute where-money-sleeps-db --remote --command="$SQL_CMD" --yes
 
       - name: Deploy Worker & Static Assets to Production
         run: npx --yes wrangler@4 deploy
