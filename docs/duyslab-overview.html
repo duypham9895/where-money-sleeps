@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Money Sleeps — Overview Chuyển Domain duyslab.icu, Public Repo &amp; duypham.me/labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;650;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/doc.css">
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="in">
+  <span class="slug">where-money-<i>sleeps</i></span>
+  <a href="index.html">S0 Discovery</a>
+  <a href="s1.html">S1 Spec</a>
+  <a href="s2.html">S2 Design</a>
+  <a href="s3.html">S3 Build</a>
+  <a href="s4.html">S4 QA</a>
+  <a href="s5.html">S5 Launch</a>
+  <a href="s6.html">S6 Iterate</a>
+  <a href="duyslab-overview.html" aria-current="page">Overview duyslab.icu</a>
+  <a href="prototype.html">Prototype</a>
+  <button id="t" type="button">sáng</button>
+</div></nav>
+
+<main>
+<section>
+  <div class="meta r"><span class="words">—</span><span>2026-11-11 · Route T3 (S=6/8) · Đã qua phản biện phiên độc lập</span></div>
+  <h1 class="r">Lộ trình <code>P0 → P3</code>: Khoá bảo mật repo, chuyển sang <code>wheremoneysleeps.duyslab.icu</code>, mở Public GitHub và lên <code>duypham.me/labs</code>.</h1>
+  <div class="tldr r"><p><strong>TL;DR:</strong> Quét toàn bộ Git xác nhận <strong>0 lộ API key/secret</strong>; <code>duyslab.icu</code> nằm sẵn trên cùng Cloudflare và subdomain mới còn trống. Gom <code>P0 + P1</code> trên nhánh <code>chore/duyslab-public</code> để vá 5 điểm bảo mật, đổi sang <code>wheremoneysleeps.duyslab.icu</code> và đồng bộ 14 video YouTube trước khi mở Public (<code>P2</code>) rồi đẩy PR sang <code>duys-portfolio</code> (<code>P3</code>). Chưa chạm trạng thái live nào.</p></div>
+</section>
+
+<section>
+  <h2 class="r">1. Chi phí đổi hướng &amp; Sự thật đã kiểm chứng</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Chi phí đổi hướng và hiện trạng kỹ thuật"><table><thead><tr><th>Hạng mục</th><th>Hiện trạng đã đo (Confirmed)</th><th>Hệ quả / Chi phí đổi hướng</th></tr></thead>
+  <tbody>
+    <tr><td><strong>DNS &amp; Cloudflare</strong></td><td><code>duyslab.icu</code> chung NS Cloudflare với <code>duypham.me</code>; <code>wheremoneysleeps.duyslab.icu</code> trả <code>NXDOMAIN</code>.</td><td><strong>0 đ · ~60s</strong> gắn Worker Custom Domain + cấp chứng chỉ SSL.</td></tr>
+    <tr><td><strong>Link cũ <code>money.duypham.me</code></strong></td><td>Đang nằm ở <strong>14/14 mô tả video YouTube</strong> trên <code>@WhereMoneySleeps</code> và 9 file trong repo.</td><td>Chạy API <code>videos.update</code> cho 14 video và đổi URL trong 9 file.</td></tr>
+    <tr><td><strong>An toàn Git History</strong></td><td>187 file tracked (<code>36,8 MB</code>): <strong>0 key/token</strong> trong toàn bộ <code>git log -p --all</code>.</td><td>Không cần viết lại lịch sử Git; chỉ dọn 5 mục ở <code>P0</code> trên nhánh mới.</td></tr>
+    <tr><td><strong>Repo <code>duys-portfolio</code></strong></td><td>Nhánh <code>develop</code> đang có sửa dở ở <code>referral-tracker</code>; có cổng <code>contentRules.ts</code> &amp; WCAG AA.</td><td>Tách <code>git worktree</code> riêng từ <code>origin/develop</code> để không đụng việc đang dở.</td></tr>
+    <tr><td><strong>Chưa xác minh được</strong></td><td>Chưa nạp API Token quyền <code>Edit</code> vào GitHub Secrets; chưa đo contrast màu nhấn mới trên <code>/labs</code>.</td><td>Xác minh bằng CI thật + <code>qa:contrast</code> trước khi merge. <em>Same vendor, same priors — no external verifier ran.</em></td></tr>
+  </tbody></table></div>
+</section>
+
+<section>
+  <h2 class="r">2. Thứ tự ưu tiên thực thi (<code>P0 → P3</code>)</h2>
+  <div class="tw r" tabindex="0" role="region" aria-label="Bảng thứ tự ưu tiên P0 đến P3"><table><thead><tr><th>Ưu tiên</th><th>Hạng mục công việc</th><th>Tiêu chí hoàn tất (Definition of Done)</th></tr></thead>
+  <tbody>
+    <tr><td><strong><code>P0</code> · Chặn đầu</strong></td><td><strong>Vệ sinh &amp; Bảo mật (nhánh riêng):</strong> (1) Thêm <code>dist/site/</code>, <code>.wrangler/</code> vào <code>.gitignore</code>; (2) Gỡ <code>account_id</code> khỏi <code>wrangler.jsonc</code>; (3) Xoá 15 đường dẫn <code>/Users/edwardpham</code>; (4) Chặn ghi D1 khác <code>Origin</code> (vẫn trả <code>204</code>); (5) Thêm <code>README.md</code> + <code>LICENSE</code>.</td><td><code>0</code> lộ ID/đường dẫn cá nhân; <code>wms-check.sh</code> PASS.</td></tr>
+    <tr><td><strong><code>P1</code> · Hạ tầng</strong></td><td><strong>Chuyển sang <code>wheremoneysleeps.duyslab.icu</code>:</strong> Nạp <code>CLOUDFLARE_API_TOKEN</code> + <code>CLOUDFLARE_ACCOUNT_ID</code> vào Secrets, cấp SSL domain mới, merge <code>main</code> và cập nhật link <strong>14 video YouTube</strong>.</td><td>Live <code>HTTP 200</code> + 14 video trỏ đúng <code>duyslab.icu</code> + CI xanh bền vững.</td></tr>
+    <tr><td><strong><code>P2</code> · Mở mã nguồn</strong></td><td><strong>Bật Public repo GitHub:</strong> Chuyển <code>duypham9895/where-money-sleeps</code> sang <code>public</code>, gắn Homepage URL, mô tả tiếng Anh và Topics.</td><td>Mở ẩn danh thấy <code>README.md</code>, <code>LICENSE</code> và link live chuẩn.</td></tr>
+    <tr><td><strong><code>P3</code> · Portfolio</strong></td><td><strong>Cập nhật <code>duypham.me/labs</code>:</strong> Tách worktree sạch trên <code>duys-portfolio</code>, thêm mục vào <code>labs.ts</code>, nâng <code>labs.spec.ts</code> (<code>5 → 6</code>), qua đủ 5 cổng QA rồi merge <code>develop</code>.</td><td><code>duypham.me/labs</code> hiển thị <code>Live</code>, bấm sang <code>duyslab.icu</code> &amp; GitHub trả <code>200</code>.</td></tr>
+  </tbody></table></div>
+</section>
+</main>
+<script src="assets/doc.js"></script>
+</body>
+</html>

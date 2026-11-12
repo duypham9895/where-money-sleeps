@@ -1,0 +1,50 @@
+# Licenses for Where Money Sleeps
+
+The Where Money Sleeps project is licensed under a dual-license model:
+
+---
+
+## 1. Code & Software Scripts: MIT License
+
+Copyright (c) 2026 Duy Pham
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## 2. Editorial Content & Media: All Rights Reserved
+
+All original written articles, investigative essays, accounting walkthroughs,
+illustrations in `public/brand/`, and narration audio in `public/audio/` are:
+
+Copyright (c) 2026 Duy Pham. All rights reserved.
+
+Commercial redistribution, re-hosting, or sublicensing of the written essays
+and voice narration recordings without express written permission is prohibited.
+
+---
+
+## 3. Third-Party Attributions & Licenses
+
+- **Accounting Reference Material:** Adapted in part from *Accounting Principles: A Business Perspective* (Global Text Project) by Roger H. Hermanson, James Don Edwards, and Michael W. Maher, licensed under [Creative Commons Attribution 3.0 (CC BY 3.0)](https://creativecommons.org/licenses/by/3.0/).
+- **Typography:**
+  - *Newsreader* — Copyright (c) Production Type, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/).
+  - *Be Vietnam Pro* — Copyright (c) Be Group, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/).
+- **Motion Graphics Principles:** Adapted in part from *bang-motion* by Bang Tutorial, licensed under the [MIT License](https://github.com/bangtutorial/bang-motion/blob/main/LICENSE).
+- Detailed license evidence and asset registry are tracked in `legal/licences.json`.

@@ -60,7 +60,7 @@ DEFAULT_VEO_MODEL = "veo-3.1-generate-preview"
 DEFAULT_VEO_FAST_MODEL = "veo-3.1-fast-generate-preview"
 DEFAULT_YT_HANDLE = "@WhereMoneySleeps"
 DEFAULT_YT_URL = "https://www.youtube.com/@WhereMoneySleeps"
-DEFAULT_SITE_BASE_URL = "https://money.duypham.me"
+DEFAULT_SITE_BASE_URL = "https://wheremoneysleeps.duyslab.icu"
 DEFAULT_REF_IMAGES = [
     "public/brand/youtube-banner-2560x1440-safezone.jpg",
     "public/brand/youtube-avatar-1024x1024.png",

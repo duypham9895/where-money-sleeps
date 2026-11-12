@@ -43,8 +43,8 @@ import urllib.request
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = pathlib.Path("/Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps")
-BRAIN = pathlib.Path("/Users/edwardpham/.gemini/antigravity/brain/7f8bd653-2dd3-4155-8d12-ef6b38dd6a6e")
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+BRAIN = ROOT / ".cache/brain"
 CACHE_DIR = ROOT / ".cache/elevenlabs"
 DIST_DIR = ROOT / "dist/youtube"
 

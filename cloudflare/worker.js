@@ -90,15 +90,27 @@ export function parseAndValidateBeacon(rawBody) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.hostname === "wms.duypham.me") {
-      return Response.redirect(`https://money.duypham.me${url.pathname}${url.search}`, 301);
-    }
 
     if (url.pathname === "/api/p") {
       if (request.method !== "POST") {
         return new Response(null, { status: 204 });
       }
       try {
+        const origin = request.headers.get("Origin") || "";
+        if (origin) {
+          try {
+            const originHost = new URL(origin).hostname;
+            if (
+              originHost !== "wheremoneysleeps.duyslab.icu" &&
+              originHost !== "localhost" &&
+              originHost !== "127.0.0.1"
+            ) {
+              return new Response(null, { status: 204 });
+            }
+          } catch {
+            return new Response(null, { status: 204 });
+          }
+        }
         const raw = await request.text();
         const parsed = parseAndValidateBeacon(raw);
         if (!parsed) {

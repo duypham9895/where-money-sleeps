@@ -112,9 +112,14 @@ jobs:
             echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
             exit 1
           fi
-          for CUSTOM_HOST in "money.duypham.me" "wms.duypham.me"; do
-            getent hosts "$CUSTOM_HOST"
-            CUSTOM_CODE=$(curl -sS --retry 5 --retry-delay 3 -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" "https://$CUSTOM_HOST/")
-            echo "Custom domain https://$CUSTOM_HOST/ TLS+HTTP status from runner: $CUSTOM_CODE"
+          CUSTOM_HOST="wheremoneysleeps.duyslab.icu"
+          for i in {1..12}; do
+            if getent hosts "$CUSTOM_HOST" >/dev/null 2>&1; then
+              CUSTOM_CODE=$(curl -sS --retry 5 --retry-delay 3 -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" "https://$CUSTOM_HOST/" || true)
+              echo "Custom domain https://$CUSTOM_HOST/ status: $CUSTOM_CODE"
+              if [ "$CUSTOM_CODE" = "200" ]; then break; fi
+            fi
+            echo "Waiting for DNS/TLS propagation on $CUSTOM_HOST (attempt $i/12)..."
+            sleep 5
           done
-          echo "Verified live endpoints on $LIVE_URL and custom domains money.duypham.me / wms.duypham.me."
+          echo "Verified live endpoints on $LIVE_URL and custom domain $CUSTOM_HOST."

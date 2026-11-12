@@ -5,9 +5,9 @@
 - **Stage:** `02-design` (`S2 Design`)
 - **Reviewer:** `cross-vendor model review (Claude ↔ Gemini) — no human external verifier ran`
 - **Sản phẩm bàn giao:**
-  1. [`docs/studio.html`](file:///Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/docs/studio.html) — Bàn dựng & kiểm duyệt Nội dung, Kịch bản, Sóng âm & Video (`16:9` + `9:16` + `LUẬT 8` HUD + 4 Cổng Chuyên gia `K/F/B/M`)
-  2. [`scripts/wms-studio-sync.py`](file:///Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/scripts/wms-studio-sync.py) + [`docs/wms-studio-data.js`](file:///Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/docs/wms-studio-data.js) — Bộ đồng bộ dữ liệu một nguồn chuẩn & trích xuất biên độ sóng âm thật (`RMS Peaks`) từ file MP4 qua `ffmpeg`
-  3. [`docs/prototype.html`](file:///Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/docs/prototype.html) — Tách biệt 100% **Trang Người Đọc (`#baiday`: 2 tab Đời thường & Sổ kế toán TT 99/2025)** khỏi **Bàn Kiểm Duyệt Kịch Bản Video (`#studioScriptSec` / `docs/studio.html`)**
+  1. [`docs/studio.html`](../../docs/studio.html) — Bàn dựng & kiểm duyệt Nội dung, Kịch bản, Sóng âm & Video (`16:9` + `9:16` + `LUẬT 8` HUD + 4 Cổng Chuyên gia `K/F/B/M`)
+  2. [`scripts/wms-studio-sync.py`](../../scripts/wms-studio-sync.py) + [`docs/wms-studio-data.js`](../../docs/wms-studio-data.js) — Bộ đồng bộ dữ liệu một nguồn chuẩn & trích xuất biên độ sóng âm thật (`RMS Peaks`) từ file MP4 qua `ffmpeg`
+  3. [`docs/prototype.html`](../../docs/prototype.html) — Tách biệt 100% **Trang Người Đọc (`#baiday`: 2 tab Đời thường & Sổ kế toán TT 99/2025)** khỏi **Bàn Kiểm Duyệt Kịch Bản Video (`#studioScriptSec` / `docs/studio.html`)**
 
 ---
 
@@ -15,7 +15,7 @@
 
 | Hạng mục | Quyết định đã chốt (`QĐ 59`) | Lý do kỹ thuật & bảo mật |
 |---|---|---|
-| **1. Tách giao diện Người đọc vs. Bàn dựng của Duy** | **Phương án A:** Trên `docs/prototype.html`, mục `#baiday` của độc giả **chỉ còn 2 tầng đọc sạch** (`A · Góc nhìn Đời thường` + `B · Sổ kế toán TT 99/2025`). Toàn bộ Kịch bản Video, Sóng âm, Thước đo `LUẬT 8` và Cổng kiểm 4 chuyên gia được đưa sang **[`docs/studio.html`](file:///Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/docs/studio.html)** (và ngăn kéo hậu trường `#studioScriptSec` ẩn mặc định). | Độc giả đọc bài khảo cứu không bị nhiễu bởi thông số kỹ thuật hậu trường (`timecode`, `onScreen`, `WPM`, `-14 LUFS`), trong khi Duy có một bàn dựng chuyên nghiệp kiểu NLE để duyệt trước khi lên bài. |
+| **1. Tách giao diện Người đọc vs. Bàn dựng của Duy** | **Phương án A:** Trên `docs/prototype.html`, mục `#baiday` của độc giả **chỉ còn 2 tầng đọc sạch** (`A · Góc nhìn Đời thường` + `B · Sổ kế toán TT 99/2025`). Toàn bộ Kịch bản Video, Sóng âm, Thước đo `LUẬT 8` và Cổng kiểm 4 chuyên gia được đưa sang **[`docs/studio.html`](../../docs/studio.html)** (và ngăn kéo hậu trường `#studioScriptSec` ẩn mặc định). | Độc giả đọc bài khảo cứu không bị nhiễu bởi thông số kỹ thuật hậu trường (`timecode`, `onScreen`, `WPM`, `-14 LUFS`), trong khi Duy có một bàn dựng chuyên nghiệp kiểu NLE để duyệt trước khi lên bài. |
 | **2. Có cài trực tiếp repo GitHub nào làm dependency (`npm` / Docker) không?** | **KHÔNG cài bất kỳ repo nào làm runtime/npm dependency (`0/15 repo`).** Chắt lọc **8 mẫu thiết kế UI/UX đắt giá nhất** từ các repo giấy phép sạch (`MIT` / `BSD-3-Clause` / `Apache-2.0`) vào **1 file tĩnh `docs/studio.html` (`0 node_modules`)**. | Giữ nguyên cam kết **Zero-Dependency Static Architecture**, bảo vệ tuyệt đối `.env` (`ELEVENLABS_API_KEY`, `GEMINI_API_KEY`) và `.secrets/youtube_token.json` khỏi tấn công chuỗi cung ứng `npm postinstall`, đồng thời tránh bẫy bản quyền `Remotion License` / `AGPL-3.0`. |
 | **3. Cơ chế đồng bộ dữ liệu trên `file://` và `http://`** | `scripts/wms-studio-sync.py` trích xuất `STORIES`, `GLOSS`, `CATEGORIES`, `CHAP_FIGS`, manifest YouTube và **sóng âm thật (`RMS Peaks`)** từ 6 file MP4 sang `docs/wms-studio-data.js` (kèm mã băm `SHA-256` kiểm tra trong `wms-check.sh`). | Trình duyệt chặn `fetch()` đọc file nội bộ trên giao thức `file://` (CORS `origin: null`). Nạp qua `<script src="wms-studio-data.js">` giúp `studio.html` mở trực tiếp bằng cú đúp chuột (`file://`) lẫn localhost (`http://`). |
 

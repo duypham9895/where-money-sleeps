@@ -45,7 +45,7 @@ import wave
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = pathlib.Path("/Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps")
+ROOT = pathlib.Path(__file__).resolve().parent.parent
 CACHE_DIR = ROOT / ".cache/elevenlabs"
 DIST_DIR = ROOT / "dist/youtube"
 

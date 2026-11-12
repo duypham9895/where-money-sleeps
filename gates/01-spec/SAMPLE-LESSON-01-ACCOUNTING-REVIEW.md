@@ -54,8 +54,8 @@ import re
 import unicodedata
 from decimal import Decimal
 
-LESSON_PATH = "/Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/gates/01-spec/SAMPLE-LESSON-01.md"
-JSON_PATH = "/Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps/legal/tt99-phu-luc-ii.secondary.json"
+LESSON_PATH = "gates/01-spec/SAMPLE-LESSON-01.md"
+JSON_PATH = "legal/tt99-phu-luc-ii.secondary.json"
 
 with open(LESSON_PATH, "r", encoding="utf-8") as f:
     lesson_text = unicodedata.normalize("NFC", f.read())

@@ -10,7 +10,12 @@ __pycache__/
 *.py[cod]
 .cache/
 node_modules/
-.claude/settings.local.json
+dist/site/
+.wrangler/
+.agents/
+.claude/
+CLAUDE.md
+GEMINI.md
 dist/youtube/*.mp4
 dist/youtube/*.mp3
 public/media/**/*.mp3

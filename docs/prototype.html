@@ -6683,7 +6683,7 @@ async function copyScript(k, fmt){
 }
 function exportVO(k){
   const s = STORIES[k], v = s.videoScript;
-  const articleUrl = `https://money.duypham.me/?story=${encodeURIComponent(k)}`;
+  const articleUrl = `https://wheremoneysleeps.duyslab.icu/?story=${encodeURIComponent(k)}`;
   const pack = fmt => { const f = v[fmt], st = vstat(f), isShort = fmt === "short";
     const scenes = f.scenes.map((x, i) => { const [start, end] = tspan(x.time);
       return {index:i+1, time:x.time, start, end, beat:x.beat, label:sceneLabel(s, x, i, f.scenes.length), ...(x.chapter ? {chapter:x.chapter} : {}), visual:x.visual, vo:x.vo, onScreen:x.onScreen}; });

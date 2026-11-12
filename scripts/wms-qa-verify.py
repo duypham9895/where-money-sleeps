@@ -313,7 +313,7 @@ def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci
         try:
             mf = json.loads(manifest_path.read_text(encoding="utf-8"))
             short_spec = ((mf.get("formats") or {}).get("short") or {}).get("youtubeUploadSpec") or {}
-            expected_url = f"https://money.duypham.me/?story={sid}"
+            expected_url = f"https://wheremoneysleeps.duyslab.icu/?story={sid}"
             if short_spec.get("articleUrl") != expected_url or expected_url not in str(short_spec.get("description") or ""):
                 errors.append(f"Manifest {sid} thiếu URL bài viết chính xác ({expected_url}) trong description của Video Ngắn")
         except Exception as exc:

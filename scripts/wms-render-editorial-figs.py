@@ -20,9 +20,9 @@ import re
 import shutil
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = pathlib.Path("/Users/edwardpham/Documents/Programming/Vibe/where-money-sleeps")
+ROOT = pathlib.Path(__file__).resolve().parent.parent
 BRAND_DIR = ROOT / "public/brand"
-BRAIN_DIR = pathlib.Path("/Users/edwardpham/.gemini/antigravity/brain/7f8bd653-2dd3-4155-8d12-ef6b38dd6a6e")
+BRAIN_DIR = ROOT / ".cache/brain"
 
 W, H = 1200, 675
 LEFT_BOX = (24, 24, 684, 651)
