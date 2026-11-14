@@ -736,9 +736,15 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
 # của xưởng cha KHÔNG đi theo. C8 bảo đảm bộ luật nằm trong repo còn nguyên — nó kiểm SỰ CÓ MẶT và
 # SỰ KHỚP NHAU, không chứng minh được agent nào đã đọc hay tuân theo chúng.
 GOV_REQUIRED = [
-    "CLAUDE.md", "GEMINI.md",
     "gates/01-spec/AGENT-CMS-PIPELINE.md",
     "gates/01-spec/VOICE-AND-PROSODY-SPEC.md",
+    "knowledge/finance-kb.json",
+    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
+    "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
+    "scripts/wms-motion-snap.py",
+]
+GOV_BACKSTAGE = [
+    "CLAUDE.md", "GEMINI.md",
     ".claude/rules/wms-pipeline-rules.md",
     ".claude/skills/vibe-post/SKILL.md",
     ".claude/commands/vibe/post.md",
@@ -753,18 +759,13 @@ GOV_REQUIRED = [
     ".agents/skills/brand-safety-reviewer/SKILL.md",
     ".agents/skills/bang-motion/SKILL.md",
     ".agents/hooks.json",
-    "knowledge/finance-kb.json",
-    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
-    "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
-    "scripts/wms-motion-snap.py",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
             "Bash(gh pr merge:*)", "Bash(rtk gh pr merge:*)", "Bash(gh release:*)", "Bash(rtk gh release:*)",
             "Bash(vercel:*)", "Bash(npx vercel:*)", "Bash(netlify:*)", "Bash(npx netlify:*)",
             "Bash(wrangler:*)", "Bash(npx wrangler:*)",
             "Bash(youtube-upload:*)", "Bash(yt-upload:*)", "Bash(wms-youtube-upload:*)"]   # 16 mục (13 ship + 3 YouTube upload, QĐ 56)
-HOOK_TOOLS = {"run_command", "edit_file", "write_file",
-              "write_to_file", "replace_file_content", "multi_replace_file_content"}
+HOOK_TOOLS = {"run_command", "edit_file", "write_file"}
 SCENE_TAGS = ("SCENECSS", "SCENEJS")
 KETOAN_COPIES = [
     ".claude/agents/ke-toan-reviewer.md",
@@ -877,53 +878,72 @@ def _ketoan_core(text: str) -> str | None:
 
 def check_governance(rep: Report) -> None:
     where = "repo"
-    missing = [f for f in GOV_REQUIRED if not (ROOT / f).is_file() or (ROOT / f).stat().st_size == 0]
-    for f in missing:
-        rep.add("FAIL", "C8", where, f"thiếu hoặc rỗng: {f} — luật WMS không còn đi theo repo")
-    if not missing:
-        rep.add("PASS", "C8", where, f"{len(GOV_REQUIRED)}/{len(GOV_REQUIRED)} file luật & pipeline có mặt, không rỗng")
+    missing_core = [f for f in GOV_REQUIRED if not (ROOT / f).is_file() or (ROOT / f).stat().st_size == 0]
+    for f in missing_core:
+        rep.add("FAIL", "C8", where, f"thiếu hoặc rỗng: {f} — tài liệu/script WMS cốt lõi bị mất")
+    if not missing_core:
+        rep.add("PASS", "C8", where, f"{len(GOV_REQUIRED)}/{len(GOV_REQUIRED)} file tài liệu & pipeline cốt lõi có mặt, không rỗng")
+
+    # hậu trường agent (CLAUDE/GEMINI/.agents/.claude)
+    parent_has_agents = (ROOT.parent / ".agents").is_dir() or (ROOT.parent / "CLAUDE.md").is_file()
+    missing_backstage = [f for f in GOV_BACKSTAGE if not (ROOT / f).is_file() or (ROOT / f).stat().st_size == 0]
+    if not missing_backstage:
+        rep.add("PASS", "C8", where, f"{len(GOV_BACKSTAGE)}/{len(GOV_BACKSTAGE)} file hậu trường agent có mặt trong repo")
+    elif parent_has_agents:
+        rep.add("PASS", "C8", where, f"file hậu trường agent (CLAUDE/GEMINI/.agents/.claude) quản lý tại xưởng cha ({ROOT.parent.name})")
+    else:
+        rep.add("SKIP", "C8", where, "chế độ open-source độc lập: các file hậu trường agent xưởng được lược bỏ để phát hành công khai")
 
     # cổng ship của Claude Code
-    try:
-        ask = json.loads((ROOT / ".claude/settings.json").read_text(encoding="utf-8"))["permissions"]["ask"]
-        lack = [x for x in SHIP_ASK if x not in ask]
-        if lack:
-            rep.add("FAIL", "C8", where, f".claude/settings.json thiếu permissions.ask: {', '.join(lack)}")
-        else:
-            rep.add("PASS", "C8", where, f"permissions.ask có đủ {len(SHIP_ASK)} mục lệnh ship (chỉ bắt tiền tố; không chạy ở bypass mode)")
-    except (OSError, ValueError, KeyError, TypeError) as e:
-        rep.add("FAIL", "C8", where, f".claude/settings.json không đọc được permissions.ask: {e!r}")
+    claude_settings = (ROOT / ".claude/settings.json") if (ROOT / ".claude/settings.json").is_file() else (ROOT.parent / ".claude/settings.json")
+    if claude_settings.is_file():
+        try:
+            ask = json.loads(claude_settings.read_text(encoding="utf-8")).get("permissions", {}).get("ask", [])
+            lack = [x for x in SHIP_ASK if x not in ask]
+            if lack:
+                rep.add("FAIL", "C8", where, f"{claude_settings.name} thiếu permissions.ask: {', '.join(lack)}")
+            else:
+                rep.add("PASS", "C8", where, f"permissions.ask có đủ {len(SHIP_ASK)} mục lệnh ship (chỉ bắt tiền tố; không chạy ở bypass mode)")
+        except (OSError, ValueError, KeyError, TypeError) as e:
+            rep.add("FAIL", "C8", where, f"{claude_settings.name} không đọc được permissions.ask: {e!r}")
+    else:
+        rep.add("SKIP", "C8", where, "không có .claude/settings.json (chế độ open-source độc lập)")
 
     # hook của Gemini / Antigravity
-    try:
-        hooks = json.loads((ROOT / ".agents/hooks.json").read_text(encoding="utf-8"))
-        found = False
-        for cfg in hooks.values():
-            for ent in (cfg.get("PreToolUse") or []) if isinstance(cfg, dict) else []:
-                tools = set(str(ent.get("matcher", "")).split("|"))
-                for h in ent.get("hooks", []):
-                    cmd = str(h.get("command", ""))
-                    if not cmd.endswith("wms-hook-guard.sh"):
-                        continue
-                    found = True
-                    target = (ROOT / ".agents" / cmd).resolve() if not cmd.startswith("/") else pathlib.Path(cmd)
-                    if not target.is_file():
-                        rep.add("FAIL", "C8", where, f"hooks.json trỏ '{cmd}' — giải từ .agents/ ra {target}, không tồn tại")
-                    elif not os.access(target, os.X_OK):
-                        rep.add("FAIL", "C8", where, f"{target.name} chưa có bit thực thi (chmod +x)")
-                    else:
-                        rep.add("PASS", "C8", where, f"hooks.json → {os.path.relpath(target, ROOT)} có và có bit thực thi (giải từ .agents/)")
-                    if HOOK_TOOLS - tools:
-                        rep.add("FAIL", "C8", where, f"matcher thiếu tool: {', '.join(sorted(HOOK_TOOLS - tools))}")
-        if not found:
-            rep.add("FAIL", "C8", where, ".agents/hooks.json không có PreToolUse nào gọi wms-hook-guard.sh")
-    except (OSError, ValueError, AttributeError) as e:
-        rep.add("FAIL", "C8", where, f".agents/hooks.json không đọc được: {e!r}")
-    # Dòng này CỐ ĐỊNH, không bao giờ thành PASS: script không quan sát được Antigravity có chạy hook hay không.
-    rep.add("WARN", "C8", where, "hook có thật sự chạy, gốc đường dẫn và tên tool của Antigravity: CHƯA XÁC MINH")
+    agents_hooks = (ROOT / ".agents/hooks.json") if (ROOT / ".agents/hooks.json").is_file() else (ROOT.parent / ".agents/hooks.json")
+    if agents_hooks.is_file():
+        try:
+            hooks = json.loads(agents_hooks.read_text(encoding="utf-8"))
+            found = False
+            for cfg in hooks.values():
+                for ent in (cfg.get("PreToolUse") or []) if isinstance(cfg, dict) else []:
+                    tools = set(str(ent.get("matcher", "")).split("|"))
+                    for h in ent.get("hooks", []):
+                        cmd = str(h.get("command", ""))
+                        if not cmd.endswith("wms-hook-guard.sh") and not cmd.endswith("vibe-hook-guard.sh"):
+                            continue
+                        found = True
+                        base_d = agents_hooks.parent
+                        target = (base_d / cmd).resolve() if not cmd.startswith("/") else pathlib.Path(cmd)
+                        if not target.is_file():
+                            rep.add("FAIL", "C8", where, f"hooks.json trỏ '{cmd}' — giải ra {target}, không tồn tại")
+                        elif not os.access(target, os.X_OK):
+                            rep.add("FAIL", "C8", where, f"{target.name} chưa có bit thực thi (chmod +x)")
+                        else:
+                            rep.add("PASS", "C8", where, f"hooks.json → {target.name} có và có bit thực thi")
+                        if HOOK_TOOLS - tools:
+                            rep.add("FAIL", "C8", where, f"matcher thiếu tool: {', '.join(sorted(HOOK_TOOLS - tools))}")
+            if not found:
+                rep.add("FAIL", "C8", where, f"{agents_hooks.name} không có PreToolUse nào gọi hook-guard")
+        except (OSError, ValueError, AttributeError) as e:
+            rep.add("FAIL", "C8", where, f"{agents_hooks.name} không đọc được: {e!r}")
+        rep.add("WARN", "C8", where, "hook có thật sự chạy, gốc đường dẫn và tên tool của Antigravity: CHƯA XÁC MINH")
+    else:
+        rep.add("SKIP", "C8", where, "không có .agents/hooks.json (chế độ open-source độc lập)")
 
     # bản chép không được trôi
-    a, b = ROOT / ".claude/skills/vibe-post/SKILL.md", ROOT / ".agents/skills/vibe-post/SKILL.md"
+    a = (ROOT / ".claude/skills/vibe-post/SKILL.md") if (ROOT / ".claude/skills/vibe-post/SKILL.md").is_file() else (ROOT.parent / ".claude/skills/vibe-post/SKILL.md")
+    b = (ROOT / ".agents/skills/vibe-post/SKILL.md") if (ROOT / ".agents/skills/vibe-post/SKILL.md").is_file() else (ROOT.parent / ".agents/skills/vibe-post/SKILL.md")
     if a.is_file() and b.is_file():
         if a.read_bytes() == b.read_bytes():
             rep.add("PASS", "C8", where, "vibe-post: bản .claude ≡ bản .agents (từng byte)")

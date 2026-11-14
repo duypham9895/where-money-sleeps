@@ -78,7 +78,7 @@ chính họ mỗi tuần — và cái tên trả lời câu hỏi đầu tiên: 
 Báo hai số: **chặt** — bài 5 trên bộ storage đã xong bài 1 (`from_start`, tính trên máy) — và **lỏng** — mọi bài 5.
 Lỏng trừ chặt đo được phần thổi do người vào thẳng bài giữa từ link chia sẻ; số chặt còn lệch, chủ yếu về phía xẹp
 (mất storage, đổi trình duyệt) — lập luận, chưa đo. Người tự khai giai đoạn không được đếm; nút gạt VI ⇄ EN không đếm đôi.
-S1 phải định nghĩa cách chống trùng. Cách S1 đề xuất: mỗi bài đếm tối đa một lần trên một bộ storage (`01-spec/TRACKING-PLAN.md` §2).
+S1 phải định nghĩa cách chống trùng. Cách S1 đề xuất: mỗi bài đếm tối đa một lần trên một bộ storage (`gates/01-spec/TRACKING-PLAN.md` §2).
 Bộ đếm tự host, cùng domain, chỉ cộng số, lưu theo ngày; ô dưới 5 lượt không hiện.
 Không đặt ngưỡng trước: Duy đặt sau **≥ 4 tuần** ra mắt **và** bài 1 **≥ 100** lượt, từ số thật. S1 chỉ đặt cách đặt.
 Đặt ngưỡng trên số chặt hay số lỏng: Duy quyết lúc đặt baseline (Data khuyến nghị số chặt).
