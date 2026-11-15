@@ -1,39 +1,43 @@
 1
-00:00:00,250 --> 00:00:05,450
-Sao kê thẻ tín dụng báo mười triệu đồng, kèm lựa chọn trả tối thiểu năm trăm nghìn đồng là đúng hạn.
+00:00:00,250 --> 00:00:05,760
+Trong ví dụ này, sao kê thẻ báo mười triệu đồng, kèm nút trả tối thiểu năm trăm nghìn vẫn tính đúng hạn.
 
 2
-00:00:05,610 --> 00:00:08,010
-Bạn bấm trả năm trăm nghìn...
+00:00:05,760 --> 00:00:11,850
+Bạn chuyển đủ năm trăm nghìn, vậy sao tháng sau nợ lại nhảy lên hơn mười triệu không trăm chín mươi hai nghìn đồng?
 
 3
-00:00:08,040 --> 00:00:11,850
-vì sao tháng sau dư nợ lại vọt lên hơn mười triệu chín mươi hai nghìn?
+00:00:12,690 --> 00:00:18,460
+Bởi ngay hai ngày sau lúc bạn chạm thẻ, ngân hàng đã móc tiền túi trả cho cửa hàng rồi.
 
 4
-00:00:12,690 --> 00:00:18,130
-Bởi vì chỉ hai ngày sau lúc quẹt thẻ, ngân hàng phát hành đã lấy tiền túi ra trả cho cửa hàng.
+00:00:18,460 --> 00:00:23,370
+Bốn mươi lăm ngày miễn lãi chỉ sống sót nếu bạn trả đủ một trăm phần trăm.
 
 5
-00:00:18,610 --> 00:00:23,370
-Bốn mươi lăm ngày miễn lãi chỉ giữ được nếu đến hạn bạn trả đủ một trăm phần trăm.
+00:00:24,090 --> 00:00:29,520
+Ở ngày bốn mươi lăm, bấm trả năm trăm nghìn giúp bạn né phí phạt và không dính nợ xấu.
 
 6
-00:00:24,090 --> 00:00:33,370
-Ở ngày bốn mươi lăm, khi chỉ trả năm trăm nghìn đồng, bạn thoát được phí phạt trễ hạn và nợ xấu, nhưng toàn bộ bốn mươi lăm ngày miễn lãi lập tức bị huỷ bỏ.
+00:00:29,520 --> 00:00:33,370
+Đổi lại, toàn bộ bốn mươi lăm ngày miễn lãi tắt ngay lập tức.
 
 7
-00:00:34,330 --> 00:00:47,810
-Với mức lãi ví dụ không phẩy một phần trăm một ngày, ngân hàng tính lùi từ ngày đầu: bốn trăm năm mươi nghìn đồng cho bốn mươi lăm ngày đầu trên mười triệu, cộng một trăm bốn mươi hai nghìn năm trăm đồng cho mười lăm ngày sau trên chín triệu rưỡi.
+00:00:34,330 --> 00:00:42,130
+Ở mức lãi ví dụ không phẩy một phần trăm mỗi ngày, ngân hàng cộng bốn trăm năm mươi nghìn cho bốn mươi lăm ngày đầu trên mười triệu.
 
 8
-00:00:48,600 --> 00:00:58,170
-Tổng lãi lên tới năm trăm chín mươi hai nghìn năm trăm đồng, lớn hơn cả năm trăm nghìn vừa trả, đẩy dư nợ mới lên mười triệu không trăm chín mươi hai nghìn năm trăm đồng.
+00:00:42,130 --> 00:00:47,810
+Sau đó họ tính thêm một trăm bốn mươi hai nghìn năm trăm cho mười lăm ngày trên chín triệu rưỡi.
 
 9
-00:00:59,060 --> 00:01:03,410
-Trả tối thiểu chỉ là phao cứu hộ khi kẹt dòng tiền.
+00:00:48,600 --> 00:00:58,170
+Tiền lãi năm trăm chín mươi hai nghìn năm trăm đồng vượt luôn số năm trăm nghìn vừa trả, đẩy tổng nợ mới thành mười triệu không trăm chín mươi hai nghìn năm trăm đồng.
 
 10
-00:01:03,650 --> 00:01:09,730
-Khi có đủ số dư, trả trọn một trăm phần trăm sao kê mới giữ được bốn mươi lăm ngày miễn lãi.
+00:00:59,060 --> 00:01:02,690
+Nút tối thiểu chỉ dành lúc kẹt tiền mặt thật sự.
+
+11
+00:01:02,690 --> 00:01:09,730
+Đủ tiền trong tài khoản, trả sạch một trăm phần trăm mới giữ được bốn mươi lăm ngày miễn lãi.

@@ -1,39 +1,39 @@
 1
-00:00:00,250 --> 00:00:10,010
-Why do two 20 million dong transfers chime identically in three seconds, but one moves zero reserve money while the other moves billions across accounts at the central bank?
+00:00:00,250 --> 00:00:06,960
+Tap send on twenty million dong to someone at your own bank, or across town at a rival bank, and both phones chime in three seconds.
 
 2
-00:00:10,730 --> 00:00:14,590
-An intra-bank On-Us transfer never leaves the commercial bank building.
+00:00:06,960 --> 00:00:10,010
+Underneath, reserve money moves in completely opposite ways.
 
 3
-00:00:14,590 --> 00:00:22,050
-The core banking server merely updates two customer lines in its database, keeping one hundred percent of its low-cost CASA deposit pool.
+00:00:10,730 --> 00:00:14,410
+In a same-bank On-Us transfer, zero reserve cash leaves the vault.
 
 4
-00:00:22,850 --> 00:00:26,720
-An inter-bank Off-Us transfer cannot edit another bank's ledger.
+00:00:14,410 --> 00:00:22,050
+The core server trims twenty million off your row, adds twenty million to theirs, and keeps 100% of those cheap customer deposits inside.
 
 5
-00:00:26,720 --> 00:00:36,140
-In three seconds, the national switch validates the sending bank's collateral quota and guarantees instant credit to the recipient under central-bank rules.
+00:00:22,850 --> 00:00:26,710
+Cross-bank Off-Us orders can't touch a rival bank's ledger.
 
 6
-00:00:36,940 --> 00:00:40,730
-Behind the scenes, commercial banks do not shuttle tiny amounts back and forth all day.
+00:00:26,710 --> 00:00:36,140
+At ten PM on Saturday, the receiving bank still pays out in three seconds only because your bank locked pre-funded collateral inside the switch.
 
 7
-00:00:40,730 --> 00:00:49,530
-At clearing cut-off, the switch nets 500 billion in outbound orders against 470 billion in inbound orders into a single 30 billion transfer at the central bank, saving 940 billion in intraday liquidity.
+00:00:36,940 --> 00:00:42,610
+At cutoff, the central bank doesn't wire twenty million every time someone buys lunch.
 
 8
-00:00:50,130 --> 00:00:59,890
-High-value wholesale orders of ten billion or more route through the central bank's RTGS expressway, while year-end delayed transfers must be parked in Account 113 as cash in transit.
+00:00:42,610 --> 00:00:49,530
+The switch nets both sides: 500 billion sent out minus 470 billion sent back leaves just 30 billion dong.
 
 9
-00:01:00,660 --> 00:01:09,440
-That three-second chime is either a simple internal database edit or an engineering masterpiece of national clearing collateral and multilateral net settlement.
+00:00:50,130 --> 00:00:59,890
+The central bank transfers only that 30 billion difference between master reserve accounts, sparing 940 billion dong in liquidity from moving back and forth all day.
 
 10
-00:01:09,440 --> 00:01:12,130
-That is the hidden journey of where money sleeps.
+00:01:00,660 --> 00:01:12,130
+Massive 10-billion-dong wires skip retail netting and run one by one on RTGS, while stalled year-end transfers sit in Account 113 as cash in transit until January clears them.

@@ -29,7 +29,7 @@ blocked_on:
 
 | Thứ cần | Tìm thấy | Kết luận |
 |---|---|---|
-| `VOICE-PROFILE` của xưởng | `../../../docs/departments.md` quy định *"chạy một lần cho cả xưởng, lưu ở docs/VOICE-PROFILE.md"*. **File này không tồn tại** (`find Vibe -iname '*VOICE*'` ra 0 kết quả, 2026-10-24) | **Chưa có.** Writer không tự tạo, vì hai lý do: (1) `ecc:brand-voice` cần 5–20 mẫu viết thật của Duy, và không có mẫu nào; (2) skill đó cấm tạo file vân tay giọng văn trong repo khi người dùng chưa yêu cầu. |
+| `VOICE-PROFILE` của xưởng | `gates/01-spec/VOICE-PROFILE.md` + `anti-ai-writing` (`A1–A5`) | **Đã khởi tạo v1 (2026-11-15)** từ cặp giọng thật của `card` + `ONE-PAGER` + phản hồi đọc thật của Duy/người thân. Mọi lượt soạn & biên tập content (`article`, `beats`, `GLOSS`, `quiz`, `videoScript`, `.srt`, mô tả YouTube) bắt buộc chạy Pass 3b bằng `anti-ai-writing` và đạt cổng `C10`. Chờ vòng `Diff-Distillation` từ 5–8 đoạn Duy tự gạch sửa để khắc sâu thêm dấu ấn riêng. |
 | Schema profile | `ecc:brand-voice/references/voice-profile-schema.md` | §1 dùng **các trục** của schema (nhịp câu, độ nén, cách nêu luận điểm, những gì bị cấm), nhưng là **giọng của sản phẩm**, rút từ ONE-PAGER, không phải giọng của Duy. |
 | Danh sách cấm của brand-voice | `"not X, just Y"`, câu hỏi mồi, giọng thought-leader | Đã áp vào §1 và §4. |
 

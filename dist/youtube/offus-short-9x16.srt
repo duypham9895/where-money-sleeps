@@ -1,39 +1,39 @@
 1
-00:00:00,250 --> 00:00:06,010
-Bạn chuyển khoản hai mươi triệu đồng cùng ngân hàng hay khác ngân hàng thì người nhận đều ting-ting sau ba giây.
+00:00:00,250 --> 00:00:06,240
+Ví dụ hai cú chuyển hai mươi triệu: cùng hay khác ngân hàng, điện thoại đối tác đều reo sau ba giây.
 
 2
-00:00:06,130 --> 00:00:10,010
-Nhưng phía sau màn hình, tiền đi hai đường trái ngược hẳn nhau.
+00:00:06,240 --> 00:00:10,010
+Nhưng phía sau màn hình, tiền dự trữ chạy hai đường trái ngược.
 
 3
-00:00:10,730 --> 00:00:17,970
-Nếu chuyển cùng ngân hàng — gọi là On-Us — ngân hàng chỉ sửa hai dòng nợ phải trả trong cùng một cuốn sổ cái.
+00:00:10,730 --> 00:00:17,220
+Nếu chuyển cùng ngân hàng, máy chủ chỉ sửa hai dòng nợ trong cùng một cuốn sổ cái.
 
 4
-00:00:18,100 --> 00:00:22,050
-Không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.
+00:00:17,220 --> 00:00:22,050
+Không một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.
 
 5
-00:00:22,850 --> 00:00:29,130
-Còn khi chuyển khác ngân hàng — Off-Us — ở giây thứ ba tiền dự trữ thật chưa hề chạy sang.
+00:00:22,850 --> 00:00:29,120
+Còn chuyển khác ngân hàng, ở giây thứ ba tiền dự trữ thật chưa hề chạy sang.
 
 6
-00:00:29,210 --> 00:00:36,140
-Người nhận có tiền tiêu ngay là nhờ ngân hàng của bạn đã đặt cọc sẵn hạn mức ký quỹ bảo chứng tại hệ thống chuyển mạch.
+00:00:29,120 --> 00:00:36,140
+Người nhận tiêu được tiền ngay là nhờ ngân hàng bạn đã đặt cọc sẵn hạn mức bảo chứng.
 
 7
-00:00:36,940 --> 00:00:41,250
-Đến cuối phiên, hệ thống mới gom toàn bộ lệnh hai chiều để bù trừ ròng.
+00:00:36,940 --> 00:00:41,500
+Tới cuối phiên, hệ thống mới gom lệnh hai chiều để bù trừ ròng.
 
 8
-00:00:41,400 --> 00:00:49,530
-Trong ví dụ chiều đi năm trăm tỷ đồng, chiều về bốn trăm bảy mươi tỷ đồng, hai ngân hàng chỉ lệch nhau đúng ba mươi tỷ đồng.
+00:00:41,500 --> 00:00:49,530
+Giả sử chiều đi năm trăm tỷ đồng và chiều về bốn trăm bảy mươi tỷ đồng, hai bên chỉ chênh đúng ba mươi tỷ đồng.
 
 9
 00:00:50,130 --> 00:00:59,890
-Khi đó Ngân hàng Trung ương chỉ cắt chuyển một lệnh duy nhất ba mươi tỷ đồng tiền dự trữ, giúp tiết kiệm chín trăm bốn mươi tỷ đồng thanh khoản phải chạy qua lại.
+Lúc đó Ngân hàng Trung ương chỉ cắt một lệnh duy nhất ba mươi tỷ đồng dự trữ, giữ lại được chín trăm bốn mươi tỷ đồng khỏi phải chuyển qua lại.
 
 10
 00:01:00,660 --> 00:01:12,130
-Và nếu lệnh liên ngân hàng chiều cuối năm bị treo đối soát qua đêm, kế toán phải tạm ghi vào tài khoản 113 Tiền đang chuyển chứ chưa xoá được nợ ngay đâu.
+Và nếu lệnh liên ngân hàng chiều cuối năm bị kẹt đối soát qua đêm, kế toán phải tạm treo trên tài khoản 113 Tiền đang chuyển chứ chưa xoá được nợ ngay đâu.

@@ -33,6 +33,7 @@ import os
 import pathlib
 import re
 import shutil
+import statistics
 import subprocess
 import sys
 import tempfile
@@ -388,6 +389,8 @@ def check_story(k: str, s: dict, ctx: dict, rep: Report) -> None:
 
     # C9 — bài sâu 2 tầng + kịch bản video (từ 2026-11-08)
     check_article(k, s, tt99, rep)
+    # C10 — Anti-AI Writing (A1–A4, VOICE-PROFILE.md · QĐ 65)
+    check_c10_anti_ai(k, s, rep, lang="vi")
 
 
 def check_ledger(led: dict, bw: str, tt99: dict | None, rep: Report) -> None:
@@ -473,7 +476,7 @@ BRANDS = (
     "FE Credit", "Home Credit", "HD Saison", "Mcredit", "Mirae Asset", "Lotte Finance", "SHB Finance", "VietCredit",
     "Kredivo", "Fundiin", "Atome", "Reepay", "Muadee",
     # 5. Ví điện tử & cổng thanh toán
-    "MoMo", "ZaloPay", "Viettel Money", "ShopeePay", "VTC Pay", "Moca", "GrabPay", "Apple Pay", "Google Pay", "Samsung Pay",
+    "MoMo", "ZaloPay", "Viettel Money", "ShopeePay", "VTC Pay", "Moca", "GrabPay", "Apple Pay", "Google Pay", "Samsung Pay", "Face ID", "Touch ID",
     # 6. Chuỗi bán lẻ, sàn TMĐT, hãng thiết bị, F&B & tên quán riêng
     "Thế Giới Di Động", "Điện Máy Xanh", "FPT Shop", "CellphoneS", "Di Động Việt", "Hoàng Hà Mobile",
     "Shopee", "Lazada", "Tiki", "Sendo", "Grab", "Xanh SM", "Gojek",
@@ -774,6 +777,188 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
                 f" | C dài {ln} cảnh · {lvo} từ · {mmss(lend)} — ngắn {sn} cảnh · {svo} từ · {mmss(send)}")
 
 
+# ───────────────────── C10 — Anti-AI Writing & Human Voice (A1–A5, VOICE-PROFILE.md) ─────────────────────
+C10_ABBREV_RE = re.compile(r"\b(e\.g\.|i\.e\.|vs\.|v\.v\.|cf\.)", re.I)
+C10_A1_VI_RE = re.compile(
+    r"(?:sự\s+thật\s+nền\s+tảng|điều\s+kỳ\s+diệu\s+nằm\s+ở|câu\s+trả\s+lời\s+nằm\s+ở"
+    r"|bài\s+khảo\s+cứu\s+này\s+mở|bài\s+viết\s+này\s+sẽ|hãy\s+nhìn\s+vào"
+    r"|hãy\s+nhớ\s+(?:rằng|bản\s+chất)|một\s+câu\s+hỏi\s+bật\s+lên|bức\s+tranh\s+toàn\s+cảnh"
+    r"|số\s+ví\s+dụ\s+xuyên\s+suốt\s+bài\s+này|câu\s+chuyện\s+nằm\s+ngay\s+ở"
+    r"|nhìn\s+xuyên\s+suốt\s+cả\s+năm\s+chặng|ở\s+phía\s+năm\s+ngôi\s+nhà\s+trên\s+con\s+phố\s+này"
+    r"|hiện\s+tượng\s+này\s+xoay\s+quanh)",
+    re.I,
+)
+C10_A3_CALQUE_VI_RE = re.compile(
+    r"(?:(?:^|[.?!…]\s+)Nó\s+(?i:thành|biến\s+thành|có\s+lợi|tiện\s+cho|phát\s+huy)\b"
+    r"|(?i:phát\s+huy\s+đúng\s+tác\s+dụng|trường\s+hợp\s+sau\s+thú\s+vị\s+ở\s+chỗ"
+    r"|giá\s+của\s+thời\s+gian|là\s+bước\s+kế\s+tiếp|mọi\s+chuyện\s+mở\s+đầu\s+bằng"
+    r"|bạn\s+hoặc\s+nhân\s+viên\s+văn\s+phòng|chuyến\s+đi\s+này\s+chỉ\s+mang\s+theo))"
+)
+C10_A1_EN_RE = re.compile(
+    r"(?:\b(?:crucially|furthermore|moreover|notably|importantly|fundamentally)\s*,"
+    r"|\bhere(?:'s|’s|\s+is)\s+why\s+this\s+matters\b)",
+    re.I,
+)
+C10_A3_PASSIVE_VI_RE = re.compile(r"\b(?:được|bị)\b[^.?!]{1,65}\bbởi\b", re.I)
+C10_A3_METAPHOR_VI_RE = re.compile(
+    r"(?:tấm\s+vé\s+bảo\s+hiểm|chiếc\s+cầu\s+bảo\s+hiểm|con\s+dấu\s+bảo\s+chứng"
+    r"|đại\s+lộ\s+thanh\s+toán|miếng\s+bọt\s+biển|biến\s+cố\s+dòng\s+tiền\s+đột\s+xuất)",
+    re.I,
+)
+C10_A3_NOT_BUT_VI_RE = re.compile(r"\bkhông\s+(?:chỉ\s+)?phải\b[^.?!]{1,60}\bmà\s+là\b", re.I)
+C10_A3_NOM_PREV_SKIP = {"công", "nghỉ", "mất", "tìm", "xin", "chuyện", "nhà", "xong", "hết", "đầu", "bàn"}
+C10_A3_NOM_VIEC_SKIP = {"làm", "này", "đó", "ấy", "gì", "nhà", "riêng", "tốt", "xấu", "nhỏ", "lớn"}
+C10_A3_NOM_SU_TARGETS = {
+    "chênh", "khác", "thay", "dịch", "luân", "gia", "sụt", "đứt", "tồn", "vận", "chiếm", "phân", "lệch", "trùng", "cố"
+}
+C10_A4_SLOP_EN_RE = re.compile(
+    r"\b(?:delv(?:e|ed|es|ing)|tapestr(?:y|ies)|ethereal|staggering|juxtapos(?:e|ed|es|ing)"
+    r"|bifurcat(?:e|ed|es|ing)|agonizing|effortless\s+gesture|utterly\s+frictionless"
+    r"|distinct\s+institutional|operational\s+gridlock|unsustainable\s+liquidity"
+    r"|celebrated\s+for|paradigm|synerg(?:y|ies)|testament\s+to|overarching|multifaceted"
+    r"|radically\s+different\s+economic\s+realities)\b",
+    re.I,
+)
+C10_EN_PART_SKIP = {"nothing", "something", "everything", "anything", "morning", "evening", "during", "including", "meaning"}
+C10_STACCATO_EX_EN_RE = re.compile(r",\s*(?:just\s+|only\s+)?(?:an?\s+)?example\s*[.?!]", re.I)
+
+
+def _c10_clean(text: str) -> str:
+    s = TERM.sub(r"\1", text)
+    s = re.sub(r"<[^>]+>", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _c10_sentences(text: str) -> list[str]:
+    cleaned = C10_ABBREV_RE.sub(lambda m: m.group(0).replace(".", "\x00"), _c10_clean(text))
+    parts = re.split(r'[.?!…]+["”’\'\)]*(?=\s|$)', cleaned)
+    return [p.replace("\x00", ".").strip() for p in parts if p.strip()]
+
+
+def _c10_vi_nominalizations(paras: list[str]) -> list[str]:
+    hits = []
+    rx = re.compile(r"\b(việc|quá\s+trình|sự)\s+([^\W\d_]+)", re.I)
+    for p in paras:
+        clean = _c10_clean(p)
+        for m in rx.finditer(clean):
+            lead = re.sub(r"\s+", " ", m.group(1).lower())
+            nxt = m.group(2).lower()
+            before = clean[:m.start()].rstrip().split()
+            prev_w = re.sub(r"[^\wà-ỹ]", "", before[-1].lower()) if before else ""
+            if lead == "việc":
+                if prev_w in C10_A3_NOM_PREV_SKIP or nxt in C10_A3_NOM_VIEC_SKIP:
+                    continue
+                hits.append(m.group(0))
+            elif lead == "quá trình":
+                hits.append(m.group(0))
+            elif lead == "sự" and nxt in C10_A3_NOM_SU_TARGETS and nxt != "cố":
+                hits.append(m.group(0))
+    return hits
+
+
+def check_c10_anti_ai(k: str, s: dict, rep: Report, lang: str = "vi") -> None:
+    """C10 — Kiểm tất định giọng văn con người (anti-ai-writing A1–A4 + VOICE-PROFILE.md)."""
+    w = f"bài '{k}' C10 ({lang.upper()})"
+    n0 = sum(1 for r in rep.rows if r[0] == "FAIL")
+    art = s.get("article") if isinstance(s.get("article"), dict) else {}
+    lay = art.get("lay") if isinstance(art.get("lay"), dict) else {}
+    pro = art.get("pro") if isinstance(art.get("pro"), dict) else {}
+    vid = s.get("videoScript") if isinstance(s.get("videoScript"), dict) else {}
+    secs_ = lay.get("sections") if isinstance(lay.get("sections"), list) else []
+    paras = [p for sec in secs_ if isinstance(sec, dict) for p in (sec.get("paras") or []) if isinstance(p, str) and p.strip()]
+    nv_texts = [_c10_clean(t) for t in _walk_nonvisual(s, []) if t.strip()]
+
+    # A1 — Không bục giảng, không rào đón, không kết đạo lý
+    a1_rx = C10_A1_VI_RE if lang == "vi" else C10_A1_EN_RE
+    a1_hits = sorted({mt.group(0) for t in nv_texts for mt in a1_rx.finditer(t)})
+    if a1_hits:
+        rep.add("FAIL", "C10", w, f"A1 rào đón/bục giảng: {', '.join(repr(h) for h in a1_hits[:5])}")
+
+    # A2 — Nhịp nảy bất đối xứng trên article.lay.sections & trần pro & vo sóng
+    if paras:
+        lens = [len(sent.split()) for p in paras for sent in _c10_sentences(p) if sent.split()]
+        if lens:
+            short_n = sum(1 for L in lens if L <= 8)
+            avg_l = sum(lens) / len(lens)
+            max_l = max(lens)
+            cv = (statistics.stdev(lens) / avg_l) if len(lens) >= 2 and avg_l > 0 else 0.0
+            max_avg = 26.0 if lang == "vi" else 23.0
+            max_sent = 44 if lang == "vi" else 40
+            if short_n < 4:
+                rep.add("FAIL", "C10", w, f"A2 article.lay chỉ có {short_n} câu ngắn <=8 từ (cần >=4 để đóng nhịp)")
+            if avg_l > max_avg:
+                rep.add("FAIL", "C10", w, f"A2 trung bình {avg_l:.1f} từ/câu > trần {max_avg:.0f} ({lang.upper()})")
+            if max_l > max_sent:
+                rep.add("FAIL", "C10", w, f"A2 câu dài nhất {max_l} từ > trần {max_sent} ({lang.upper()})")
+            if cv < 0.42:
+                rep.add("FAIL", "C10", w, f"A2 nhịp phẳng Burstiness CV={cv:.3f} < 0.42")
+        em_over = sum(1 for p in paras if p.count("—") > 1)
+        em_tot = sum(p.count("—") for p in paras)
+        if em_over:
+            rep.add("FAIL", "C10", w, f"A2 có {em_over} đoạn dùng >1 dấu '—'")
+        if em_tot > 10:
+            rep.add("FAIL", "C10", w, f"A2 dùng {em_tot} dấu '—' trong article.lay (>10)")
+
+    pro_texts = (
+        [x.get("p", "") for x in (pro.get("mechanics") or []) if isinstance(x, dict)]
+        + [x for x in (pro.get("accountingNotes") or []) if isinstance(x, str)]
+        + [x.get("p", "") for x in (pro.get("edgeCases") or []) if isinstance(x, dict)]
+    )
+    pro_lens = [len(sent.split()) for t in pro_texts for sent in _c10_sentences(t) if sent.split()]
+    if pro_lens and max(pro_lens) > 56:
+        rep.add("FAIL", "C10", w, f"A2 article.pro có câu {max(pro_lens)} từ (>56)")
+
+    for fmt in ("long", "short"):
+        scs = (vid.get(fmt) or {}).get("scenes") or []
+        vo_all = " ".join(str(sc.get("vo", "")) for sc in scs if isinstance(sc, dict))
+        vo_lens = [len(sent.split()) for sent in _c10_sentences(vo_all) if sent.split()]
+        streak = max_streak = 0
+        for L in vo_lens:
+            streak = streak + 1 if L < 5 else 0
+            max_streak = max(max_streak, streak)
+        if max_streak >= 3:
+            rep.add("FAIL", "C10", w, f"A2 videoScript.{fmt}.vo có {max_streak} câu cụt <5 từ liên tiếp")
+        if lang == "en" and C10_STACCATO_EX_EN_RE.search(vo_all):
+            rep.add("FAIL", "C10", w, f"A2 videoScript.{fmt}.vo kết đuôi ', example.' cụt nhịp")
+
+    # A3 (VI) & A4 (EN)
+    if lang == "vi":
+        noms = _c10_vi_nominalizations(paras)
+        if len(noms) > 4:
+            rep.add("FAIL", "C10", w, f"A3 danh hoá ({len(noms)} > 4): {', '.join(repr(x) for x in noms[:5])}")
+        passives = sorted({mt.group(0) for t in nv_texts for mt in C10_A3_PASSIVE_VI_RE.finditer(t)})
+        if passives:
+            rep.add("FAIL", "C10", w, f"A3 bị động kiểu dịch 'bởi': {', '.join(repr(h) for h in passives[:4])}")
+        metas = sorted({mt.group(0) for t in nv_texts for mt in C10_A3_METAPHOR_VI_RE.finditer(t)})
+        if metas:
+            rep.add("FAIL", "C10", w, f"A3 ẩn dụ văn mẫu: {', '.join(repr(h) for h in metas[:4])}")
+        nb_cnt = sum(len(C10_A3_NOT_BUT_VI_RE.findall(_c10_clean(p))) for p in paras)
+        if nb_cnt > 2:
+            rep.add("FAIL", "C10", w, f"A3 lạm dụng 'Không phải X, mà là Y' ({nb_cnt} > 2)")
+        calques = sorted({mt.group(0).strip() for t in nv_texts for mt in C10_A3_CALQUE_VI_RE.finditer(t)})
+        if calques:
+            rep.add("FAIL", "C10", w, f"A3 văn dịch / khẩu khí sượng kiểu EN: {', '.join(repr(h) for h in calques[:5])}")
+        tks = lay.get("takeaways") if isinstance(lay.get("takeaways"), list) else []
+        q_tks = [t for t in tks if isinstance(t, str) and _c10_clean(t).endswith("?")]
+        if len(q_tks) >= 3:
+            rep.add("FAIL", "C10", w, f"A3 takeaways viết thành {len(q_tks)} câu hỏi kiểm tra bài cũ thay vì điểm chốt gãy gọn")
+    else:
+        slops = sorted({mt.group(0) for t in nv_texts for mt in C10_A4_SLOP_EN_RE.finditer(t)})
+        if slops:
+            rep.add("FAIL", "C10", w, f"A4 LLM slop: {', '.join(repr(h) for h in slops[:5])}")
+        part_hits = []
+        for p in paras:
+            cp = _c10_clean(p)
+            for m in re.finditer(r",\s+([a-z]+ing)\b(?!\s*(?:,|or\b|and\b))", cp):
+                if m.group(1).lower() not in C10_EN_PART_SKIP:
+                    part_hits.append(m.group(0))
+        if len(part_hits) > 5:
+            rep.add("FAIL", "C10", w, f"A4 >5 đuôi ', V-ing' ({len(part_hits)}): {', '.join(repr(x) for x in part_hits[:5])}")
+
+    if sum(1 for r in rep.rows if r[0] == "FAIL") == n0:
+        rep.add("PASS", "C10", w, f"đạt A1–A4 Anti-AI Writing ({lang.upper()})")
+
+
 # ───────────────────── C8 — Scene Engine Sync & Governance Integrity ─────────────────────
 # Vì sao có: repo này có .git riêng. Mở agent thẳng tại đây, hoặc clone riêng repo, thì luật/skill/hook
 # của xưởng cha KHÔNG đi theo. C8 bảo đảm bộ luật nằm trong repo còn nguyên — nó kiểm SỰ CÓ MẶT và
@@ -781,6 +966,7 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
 GOV_REQUIRED = [
     "gates/01-spec/AGENT-CMS-PIPELINE.md",
     "gates/01-spec/VOICE-AND-PROSODY-SPEC.md",
+    "gates/01-spec/VOICE-PROFILE.md",
     "knowledge/finance-kb.json",
     "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh", "scripts/wms-pre-push.sh",
     "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
@@ -795,12 +981,14 @@ GOV_BACKSTAGE = [
     ".claude/agents/tai-chinh-reviewer.md",
     ".claude/agents/brand-safety-reviewer.md",
     ".claude/agents/bang-motion.md",
+    ".claude/agents/anti-ai-writing.md",
     ".claude/settings.json",
     ".agents/skills/vibe-post/SKILL.md",
     ".agents/skills/ke-toan-reviewer/SKILL.md",
     ".agents/skills/tai-chinh-reviewer/SKILL.md",
     ".agents/skills/brand-safety-reviewer/SKILL.md",
     ".agents/skills/bang-motion/SKILL.md",
+    ".agents/skills/anti-ai-writing/SKILL.md",
     ".agents/hooks.json",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
@@ -833,6 +1021,13 @@ BANG_MOTION_COPIES = [
     ".agents/skills/bang-motion/SKILL.md",
     "../.claude/agents/bang-motion.md",                 # xưởng cha — chỉ có khi repo nằm trong Vibe/
     "../.agents/skills/bang-motion/SKILL.md",
+]
+ANTI_AI_COPIES = [
+    ".claude/agents/anti-ai-writing.md",
+    ".agents/skills/anti-ai-writing/SKILL.md",
+    "../.claude/agents/anti-ai-writing.md",            # xưởng cha — chỉ có khi repo nằm trong Vibe/
+    "../.claude/skills/anti-ai-writing/SKILL.md",
+    "../.agents/skills/anti-ai-writing/SKILL.md",
 ]
 
 
@@ -1097,6 +1292,29 @@ def check_governance(rep: Report) -> None:
     if bm_skipped:
         rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so bang-motion với bản của xưởng")
 
+    aai_cores, aai_skipped = {}, []
+    for rel in ANTI_AI_COPIES:
+        p = ROOT / rel
+        if not p.is_file():
+            if rel.startswith(".."):
+                aai_skipped.append(rel)
+            continue
+        try:
+            core = _ketoan_core(p.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError) as e:
+            rep.add("FAIL", "C8", where, f"{rel}: không đọc được ({e})")
+            continue
+        if core is None:
+            rep.add("FAIL", "C8", where, f"{rel}: thiếu mục '## Phạm vi' — không so được với các bản khác")
+        else:
+            aai_cores[rel] = core
+    if len(set(aai_cores.values())) > 1:
+        rep.add("FAIL", "C8", where, f"anti-ai-writing lệch giữa các bản (từ '## Phạm vi'): {', '.join(aai_cores)}")
+    elif aai_cores:
+        rep.add("PASS", "C8", where, f"anti-ai-writing khớp giữa {len(aai_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
+    if aai_skipped:
+        rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so anti-ai-writing với bản của xưởng")
+
     # đường dẫn chép từ xưởng mà quên đổi sang tương đối repo
     # settings.local.json do Claude Code tự sinh (đường dẫn tuyệt đối khi bấm "always allow") — không phải luật, bỏ qua
     def mentions_app_prefix(p: pathlib.Path) -> bool:
@@ -1316,6 +1534,7 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
                             if not str(fitem.get(rq, "")).strip():
                                 rep.add("FAIL", "C11", f"CHAP_FIGS_EN.{k}[{fi}]", f"thiếu '{rq}' tiếng Anh")
                 rep.add("PASS", "C11", f"bài '{k}' EN", "đạt song ngữ LUẬT 11 (đủ cấu trúc · cân sổ Debit=Credit · 0 brand/prop/QĐ41)")
+                check_c10_anti_ai(k, en_s, rep, lang="en")
     if not any(s.get("status") == "published" for s in stories.values()):
         rep.add("WARN", "C7", label, "không còn bài nào 'published' — người đọc thường sẽ thấy trang trống")
 

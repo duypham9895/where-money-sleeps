@@ -1,35 +1,47 @@
 1
-00:00:00,250 --> 00:00:14,410
-Why does a coffee shop lose 2.2% in fees and wait two days when you swipe a card, but receives 100% of your 50,000 VND in three seconds when you scan a QR code?
+00:00:00,250 --> 00:00:04,720
+Same 50,000 VND morning coffee sitting on the counter.
 
 2
-00:00:15,490 --> 00:00:24,410
-A card swipe is a pull payment: the card issuer fronts money for 45 days and charges a 2.2% merchant fee to cover credit default risk.
+00:00:04,720 --> 00:00:14,410
+Why does tapping a credit card cost the shop 2.2%, while scanning a plastic QR stand pays 100% in three seconds flat?
 
 3
-00:00:24,410 --> 00:00:29,730
-A QR code is a push payment: you are directly transferring cash you already own.
+00:00:15,490 --> 00:00:24,960
+When you tap a credit card, the POS terminal sends a pull instruction to advance money from your issuing bank for 45 days, triggering interchange fees.
 
 4
-00:00:30,320 --> 00:00:42,090
-In three seconds, your bank debits your checking balance, the national switch routes the message, and the shop's bank immediately credits their account at T+0 under central-bank settlement guarantees.
+00:00:24,960 --> 00:00:29,730
+Scanning QR pushes cash straight out of your existing CASA checking balance.
 
 5
-00:00:42,970 --> 00:00:45,860
-Commercial banks do not shuttle tiny 50,000 VND amounts back and forth all day.
+00:00:30,320 --> 00:00:35,880
+No bank advances a 45-day loan or absorbs default risk, so standard transfer fees drop to zero.
 
 6
-00:00:45,860 --> 00:00:51,810
-At scheduled cut-off windows, the switch calculates a single multilateral net position, moving only the net difference across reserve accounts at the central bank.
+00:00:35,880 --> 00:00:42,090
+Pre-funded interbank collateral lets the shop's bank credit the full 50,000 VND to Account 112 right away.
 
 7
-00:00:52,760 --> 00:01:03,340
-Banks provide free QR transfers because it anchors immense pools of low-cost CASA checking deposits paying roughly 0.1% interest, which banks re-lend into profitable corporate loans at 8%.
+00:00:42,970 --> 00:00:46,450
+Commercial banks never ship cash for individual 50,000 VND coffees all afternoon.
 
 8
-00:01:04,260 --> 00:01:09,680
-At local counters, scan QR codes to help merchants keep 100% of their earnings.
+00:00:46,450 --> 00:00:51,810
+Millions of two-way transfers offset each other, moving just one net reserve difference at the Central Bank at session close.
 
 9
-00:01:09,680 --> 00:01:16,130
-For unfamiliar online shopping, use credit cards to retain vital chargeback protection rights.
+00:00:52,760 --> 00:00:57,670
+Across 10,000,000 VND in daily cafe sales, cards return 9,780,000 VND two days later.
+
+10
+00:00:57,670 --> 00:01:03,340
+QR keeps the extra 220,000 VND at the counter while holding cheap 0.1% CASA deposits inside banks.
+
+11
+00:01:04,260 --> 00:01:09,100
+At familiar neighborhood counters, scanning QR helps shops keep every dong.
+
+12
+00:01:09,100 --> 00:01:16,130
+When ordering from unfamiliar remote sellers online, remember QR works like cash with zero Chargeback rights.

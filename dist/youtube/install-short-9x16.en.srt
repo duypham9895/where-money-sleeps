@@ -1,55 +1,51 @@
 1
-00:00:00,250 --> 00:00:04,230
-You take home a brand-new twelve-million-dong phone without paying cash today.
+00:00:00,250 --> 00:00:05,100
+You walk out of the shop with a twelve-million-dong phone without paying a single dong upfront.
 
 2
-00:00:04,230 --> 00:00:07,190
-The flyer advertises zero-percent installment financing...
+00:00:05,100 --> 00:00:08,670
+The counter flyer promises zero percent interest over twelve months...
 
 3
-00:00:07,190 --> 00:00:11,370
-but does any lender extend capital for an entire year without collecting interest?
+00:00:08,670 --> 00:00:11,370
+yet who really lends money for a whole year for free?
 
 4
-00:00:12,130 --> 00:00:20,160
-The moment you sign, the installment agreement does not stay with the store; it routes directly to an independent consumer finance company.
+00:00:12,130 --> 00:00:19,690
+The very second you e-sign on the store tablet, your loan skips past the phone shop to an outside finance company.
 
 5
-00:00:20,160 --> 00:00:25,650
-From that second, your legal creditor is the finance company, though zero funds have moved yet.
+00:00:19,690 --> 00:00:25,650
+They own the debt contract from now on, even though zero cash has moved between banks yet.
 
 6
-00:00:26,650 --> 00:00:33,380
-The next morning, the finance company disburses funds to the store, but look closely: only eleven million four hundred thousand dong arrives.
+00:00:26,650 --> 00:00:34,420
+Next morning, the finance company wires payout cash to the store, yet only eleven million four hundred thousand lands in their account.
 
 7
-00:00:33,380 --> 00:00:39,770
-The missing six hundred thousand dong withheld at disbursement is the five-percent interest subsidy the merchant quietly pays for you.
+00:00:34,420 --> 00:00:39,770
+The six hundred thousand withheld is a five-percent interest subsidy paid behind the counter.
 
 8
-00:00:40,730 --> 00:00:44,380
-In return, you repay one million dong each month for twelve months.
+00:00:40,730 --> 00:00:45,800
+Every month you send back one million until twelve million clears.
 
 9
-00:00:44,380 --> 00:00:51,240
-If an upfront cash buyer gets a six hundred thousand discount, you paid twelve million for an eleven point four million phone.
+00:00:45,800 --> 00:00:56,410
+If cash buyers received six hundred thousand off, you effectively borrowed at zero point eight percent monthly — about ten percent a year.
 
 10
-00:00:51,240 --> 00:00:56,410
-Your effective interest rate is zero point eight percent monthly, roughly ten percent annually.
+00:00:57,170 --> 00:01:02,650
+What if cash buyers and installment shoppers both pay the same twelve million flat?
 
 11
-00:00:57,170 --> 00:01:00,150
-What if cash and installment prices are identical?
+00:01:02,650 --> 00:01:09,250
+Then you paid zero interest; the shop absorbed six hundred thousand out of markup to close the sale.
 
 12
-00:01:00,150 --> 00:01:09,250
-Then you pay zero interest, and that six hundred thousand dong fee is absorbed entirely by the store, funded out of retail markups to drive sales volume.
+00:01:10,170 --> 00:01:15,970
+Next time you spot zero percent, ask one blunt question at the register: what is the cash price right now?
 
 13
-00:01:10,170 --> 00:01:15,830
-The next time you see zero percent financing, ask one essential question: what is the cash price if I pay in full today?
-
-14
-00:01:15,830 --> 00:01:18,050
-The discount that appears is the real interest.
+00:01:15,970 --> 00:01:18,050
+Any discount offered is your interest.

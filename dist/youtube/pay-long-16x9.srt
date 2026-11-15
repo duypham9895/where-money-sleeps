@@ -1,339 +1,275 @@
 1
-00:00:00,300 --> 00:00:03,420
-Tối qua điện thoại của bạn báo ghi có mười lăm triệu đồng.
+00:00:00,300 --> 00:00:05,670
+Tối qua điện thoại báo ghi có mười lăm triệu đồng, đúng khoản lương tháng vừa chuyển về.
 
 2
-00:00:03,520 --> 00:00:05,180
-Bạn biết con số ấy từ đâu đến.
+00:00:05,670 --> 00:00:11,830
+Nhưng suốt cả chặng đường đưa con số đó lên màn hình, không một tờ tiền mặt nào chạy qua chạy lại cả.
 
 3
-00:00:05,290 --> 00:00:10,220
-Nhưng bạn có biết, trong suốt chặng đường đó, không một đồng tiền nào thực sự di chuyển không?
+00:00:11,830 --> 00:00:14,700
+Vậy đêm nay, tiền lương của bạn đang ngủ ở đâu?
 
 4
-00:00:10,510 --> 00:00:13,660
-Và đêm nay, tiền lương của bạn đang ngủ ở đâu?
+00:00:14,700 --> 00:00:24,770
+Trong tám phút tới, mình lần theo một tháng lương qua năm chỗ: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và bộ phận điều phối vốn bên trong ngân hàng.
 
 5
-00:00:13,830 --> 00:00:24,620
-Trong vài phút tới, mình đi theo một tháng lương qua năm bên tham gia: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và một bên bạn hiếm khi nghĩ tới.
+00:00:24,770 --> 00:00:28,620
+Mạch chuyện mở ngay từ tờ giấy bạn ký vào sáng đầu tiên đi làm.
 
 6
-00:00:25,060 --> 00:00:28,620
-Câu chuyện bắt đầu từ một tờ giấy bạn ký vào ngày đầu đi làm.
+00:00:29,710 --> 00:00:38,210
+Sáng đầu tiên nhận việc, phòng nhân sự đưa bạn tờ mẫu đăng ký: mở một tài khoản thanh toán tại đúng ngân hàng công ty đang dùng.
 
 7
-00:00:29,710 --> 00:00:35,200
-Ngày đầu đi làm, phòng nhân sự đưa bạn một tờ giấy: mở tài khoản ở đúng ngân hàng này để nhận lương.
+00:00:38,210 --> 00:00:45,850
+Thật ra chuyển lương khác ngân hàng chẳng khó; một tệp danh sách vẫn gửi đi hàng chục ngân hàng khác nhau cùng lúc.
 
 8
-00:00:35,410 --> 00:00:37,520
-Chuyển khoản khác ngân hàng không khó.
+00:00:45,850 --> 00:00:56,340
+Nhưng khi cả công ty gom chung một nơi, doanh nghiệp giảm được phí chuyển khoản, hạn chế lệnh bị trả lại và chỉ cần đối soát gọn trên một bản sao kê duy nhất.
 
 9
-00:00:37,640 --> 00:00:40,400
-Một file chi lương vẫn trả được cho nhiều ngân hàng.
+00:00:56,340 --> 00:01:01,990
+Tờ giấy ngày đầu mới chỉ là lời nhắn mở tài khoản: ngày hôm đó chưa có đồng nào chạy.
 
 10
-00:00:40,530 --> 00:00:52,720
-Nhưng khi cả công ty dùng chung một ngân hàng, công ty có thể tốn ít phí hơn, tiền về sớm hơn, ít lệnh bị trả lại hơn, và việc đối soát, tức so sổ của mình với sao kê ngân hàng, gọn hơn.
+00:01:01,990 --> 00:01:07,040
+Nhưng từ giây đó trở đi, dòng lương của cả tập thể đi qua đúng cánh cửa này.
 
 11
-00:00:53,160 --> 00:01:01,120
-Tờ giấy ấy là thông tin đăng ký đầu tiên gửi sang ngân hàng: công ty báo có thêm một nhân sự, ngân hàng mở thêm một tài khoản.
+00:01:07,910 --> 00:01:15,750
+Tới ngày phát lương, phòng kế toán công ty gửi sang ngân hàng một tệp danh sách điện tử gồm tên, số tài khoản và số tiền.
 
 12
-00:01:01,280 --> 00:01:02,800
-Chưa đồng nào di chuyển.
+00:01:15,750 --> 00:01:19,570
+Tệp đó chỉ là lời nhắn, tự thân nó không chở theo tiền mặt.
 
 13
-00:01:02,980 --> 00:01:07,040
-Nhưng từ hôm nay, tháng nào cũng có tiền chảy vào tài khoản đó.
+00:01:19,570 --> 00:01:26,630
+Vì tài khoản công ty và tài khoản của bạn nằm chung một ngân hàng, ngân hàng chẳng cần chuyển tiền đi đâu cả.
 
 14
-00:01:07,910 --> 00:01:13,300
-Ngày lương, công ty gửi cho ngân hàng một file: tên, số tài khoản, số tiền.
+00:01:26,630 --> 00:01:34,540
+Họ chỉ mở cuốn sổ cái nội bộ và sửa đúng hai dòng: giảm khoản nợ công ty mười lăm triệu, tăng khoản nợ bạn mười lăm triệu.
 
 15
-00:01:13,470 --> 00:01:16,740
-File ấy là một lời nhắn, không chở đồng nào.
+00:01:34,540 --> 00:01:38,360
+Dân trong ngành gọi cách chuyển cùng hệ thống này là On-Us.
 
 16
-00:01:17,030 --> 00:01:21,460
-Vì công ty và bạn cùng một ngân hàng, ngân hàng không gửi tiền đi đâu cả.
+00:01:38,360 --> 00:01:41,210
+Rồi điện thoại bạn hiện tin nhắn báo ghi có.
 
 17
-00:01:21,620 --> 00:01:29,220
-Họ chỉ sửa hai dòng trong cùng một cuốn sổ: bớt khoản đang nợ công ty mười lăm triệu, thêm khoản đang nợ bạn mười lăm triệu.
+00:01:41,210 --> 00:01:47,700
+Chữ ghi có đó là một dòng Credit trên sổ của ngân hàng: tức là ngân hàng đang nợ bạn mười lăm triệu.
 
 18
-00:01:29,360 --> 00:01:32,820
-Người trong nghề gọi kiểu chuyển này là On-Us.
+00:01:48,830 --> 00:01:57,080
+Nhìn ngược sang cuốn sổ kế toán của công ty, lương tháng của bạn không phải mười lăm triệu mà là mười bảy triệu đồng.
 
 19
-00:01:33,300 --> 00:01:37,140
-Rồi lời nhắn thứ hai bay về điện thoại của bạn: ghi có.
+00:01:57,080 --> 00:02:03,210
+Cuối tháng, kế toán ghi đủ mười bảy triệu vào chi phí lương trên tài khoản sáu bốn hai.
 
 20
-00:01:37,400 --> 00:01:43,540
-Chữ ghi có ấy là một dòng Credit trong sổ của ngân hàng, không phải trong sổ của bạn.
+00:02:03,210 --> 00:02:14,420
+Họ giữ lại một triệu bảy trăm tám mươi lăm nghìn đồng bảo hiểm theo mức ví dụ mười phẩy năm phần trăm, cùng hai trăm mười lăm nghìn đồng thuế thu nhập cá nhân.
 
 21
-00:01:43,670 --> 00:01:47,700
-Số dư của bạn, hoá ra, là một khoản ngân hàng đang nợ bạn.
+00:02:14,420 --> 00:02:20,410
+Hai triệu giữ lại vẫn là tiền bạn làm ra; công ty chỉ cầm hộ để nộp cơ quan nhà nước.
 
 22
-00:01:48,830 --> 00:01:50,720
-Giờ nhìn sang cuốn sổ của công ty.
+00:02:20,410 --> 00:02:31,840
+Tới ngày lương, mười lăm triệu thực lĩnh mới rời tài khoản tiền gửi không kỳ hạn bằng một dòng Credit, ngược chiều hoàn toàn với chữ ghi có trên tin nhắn của bạn.
 
 23
-00:01:50,900 --> 00:01:56,080
-Với công ty, lương của bạn không phải mười lăm triệu mà là mười bảy triệu, lương gộp.
+00:02:32,930 --> 00:02:36,910
+Nếu bạn chọn nhận lương ở một ngân hàng khác thì sao?
 
 24
-00:01:56,270 --> 00:02:02,080
-Cuối tháng, công ty ghi mười bảy triệu là chi phí, và ghi rằng mình đang nợ bạn mười bảy triệu.
+00:02:36,910 --> 00:02:39,990
+Con đường lập tức kéo thêm một chặng nữa.
 
 25
-00:02:02,480 --> 00:02:13,200
-Rồi công ty giữ lại một triệu bảy trăm tám mươi lăm nghìn đồng bảo hiểm, tính theo giả định mười phẩy năm phần trăm, chỉ là ví dụ, và hai trăm mười lăm nghìn đồng thuế, một con số minh hoạ.
+00:02:39,990 --> 00:02:47,130
+Lệnh chuyển tiền phải chạy qua hệ thống chuyển mạch liên ngân hàng tới đúng ngân hàng bạn chọn.
 
 26
-00:02:13,420 --> 00:02:17,280
-Hai triệu này vẫn là tiền của bạn; công ty giữ để nộp thay.
+00:02:47,130 --> 00:02:54,040
+Lời nhắn báo chuyển vẫn đi trước nên điện thoại của bạn vẫn báo ghi có gần như ngay lập tức.
 
 27
-00:02:17,460 --> 00:02:22,320
-Ngày lương, mười lăm triệu rời tài khoản công ty bằng một dòng Credit.
+00:02:54,040 --> 00:03:04,930
+Còn tiền thật đi sau: hai ngân hàng quyết toán qua tài khoản tại Ngân hàng Trung ương, gộp hàng loạt lệnh lại rồi chỉ cắt chuyển phần chênh lệch.
 
 28
-00:02:22,440 --> 00:02:31,840
-Cùng chữ Credit với tin nhắn của bạn, nhưng khác sổ, khác chiều: ở ngân hàng nó làm tăng một khoản nợ, ở công ty nó làm giảm một tài sản.
+00:03:04,930 --> 00:03:08,310
+Kiểu chuyển khác ngân hàng này gọi là Off-Us.
 
 29
-00:02:32,930 --> 00:02:36,910
-Nếu bạn nhận lương ở ngân hàng khác, câu chuyện có thêm một chặng.
+00:03:08,310 --> 00:03:17,710
+Chỉ khi đó tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương, kèm khoản phí ví dụ ba nghìn ba trăm đồng một lệnh.
 
 30
-00:02:37,230 --> 00:02:43,870
-Lệnh đi qua kênh liên ngân hàng, có thể qua hệ thống chuyển mạch liên ngân hàng, hoặc một kênh thanh toán liên ngân hàng khác.
+00:03:18,820 --> 00:03:26,500
+Tiền đã về tài khoản, bạn bắt đầu chi tiêu dần cho tiền nhà, ăn uống và hoá đơn cuối tháng, hiếm ai rút sạch ngay ngày đầu.
 
 31
-00:02:44,270 --> 00:02:48,830
-Lời nhắn đi trước, nên ngân hàng của bạn có thể báo ghi có gần như ngay.
+00:03:26,500 --> 00:03:33,250
+Phần tiền chưa tiêu hết cứ nằm yên trong tài khoản thanh toán cả tháng trời để chờ những khoản chi đột xuất.
 
 32
-00:02:49,120 --> 00:02:57,750
-Tiền thật đi sau: hai ngân hàng quyết toán với nhau trên tài khoản thanh toán của họ, có khi gộp nhiều lệnh rồi chỉ chuyển phần chênh.
+00:03:33,250 --> 00:03:36,560
+Ngân hàng gọi loại tiền gửi không kỳ hạn này là CASA.
 
 33
-00:02:57,840 --> 00:03:00,750
-Người trong nghề gọi kiểu này là Off-Us.
+00:03:36,560 --> 00:03:46,060
+Tiền lãi trả cho nó rất thấp, ví dụ không phẩy một phần trăm một năm: mười triệu để yên trọn mười hai tháng chỉ sinh ra khoảng mười nghìn đồng tiền lãi.
 
 34
-00:03:00,920 --> 00:03:06,350
-Trong khoảng giữa lời nhắn và tiền, ngân hàng của bạn đang tin ngân hàng kia sẽ trả.
+00:03:46,060 --> 00:03:51,180
+Nói con số này không phải khuyên bạn chuyển tiền đi đâu, mà chỉ để nhìn rõ cơ chế.
 
 35
-00:03:06,640 --> 00:03:12,590
-Và chỉ trong trường hợp này, tiền gửi của công ty mới thật sự rời khỏi ngân hàng trả lương.
+00:03:51,180 --> 00:03:59,490
+Giờ nhân lên cả công ty: nếu năm trăm đồng nghiệp đều để lại bình quân năm triệu, ngân hàng nắm ngay một bể vốn hai phẩy năm tỷ đồng.
 
 36
-00:03:12,730 --> 00:03:17,710
-Với công ty, mỗi lệnh như vậy có thể tốn phí, ví dụ ba nghìn ba trăm đồng.
+00:04:00,620 --> 00:04:05,840
+Với ngân hàng, hai phẩy năm tỷ đồng từ cả bảng lương là nguồn vốn vừa rẻ vừa bám lâu.
 
 37
-00:03:18,820 --> 00:03:20,290
-Bạn tiêu dần trong tháng.
+00:04:05,840 --> 00:04:15,040
+Tháng nào lương cũng đổ về đều đặn, nhân viên ít ai đổi tài khoản nhận lương, và gần như không bao giờ cả năm trăm người rút sạch tiền trong một ngày.
 
 38
-00:03:20,420 --> 00:03:25,250
-Nhưng hiếm ai rút hết ngay, nên một phần lương cứ nằm yên trong tài khoản thanh toán.
+00:04:15,040 --> 00:04:21,970
+Với lãi suất không phẩy một phần trăm, cả khối hai phẩy năm tỷ ấy chỉ tốn khoảng hai triệu rưỡi tiền lãi mỗi năm.
 
 39
-00:03:25,490 --> 00:03:31,090
-Nó nằm yên vì bạn cần nó sẵn sàng: tiền nhà, tiền ăn, một khoản bất ngờ.
+00:04:21,970 --> 00:04:29,940
+Nếu phải huy động số tiền y hệt bằng sổ tiết kiệm có kỳ hạn ở mức năm phần trăm, họ phải trả tới một trăm hai mươi lăm triệu đồng.
 
 40
-00:03:31,220 --> 00:03:34,610
-Người trong nghề gọi loại tiền gửi này là CASA.
+00:04:29,940 --> 00:04:32,450
+Ngân hàng gộp mọi nguồn vào một bể chung.
 
 41
-00:03:35,010 --> 00:03:38,770
-Lãi của nó rất thấp, ví dụ không phẩy một phần trăm một năm.
+00:04:32,450 --> 00:04:41,150
+Vốn CASA giá rẻ kéo chi phí bình quân xuống, giúp khối tín dụng phía trên có nguồn vốn rẻ để cho vay mua nhà quanh mức tám phẩy năm phần trăm.
 
 42
-00:03:39,130 --> 00:03:43,410
-Mười triệu đồng nằm yên cả năm chỉ sinh ra chừng mười nghìn đồng tiền lãi.
+00:04:42,110 --> 00:04:46,430
+Bên trong ngân hàng, ai được ghi công cho nguồn vốn giá rẻ đó?
 
 43
-00:03:43,690 --> 00:03:48,770
-Đây không phải lời khuyên chuyển tiền đi đâu, chỉ là một con số để thấy cơ chế.
+00:04:46,430 --> 00:04:49,630
+Họ dùng bảng giá chuyển vốn nội bộ gọi là FTP.
 
 44
-00:03:49,170 --> 00:03:55,170
-Giờ nhìn sang bên cạnh: năm trăm đồng nghiệp cũng đang để yên một phần lương, ở cùng một ngân hàng.
+00:04:49,630 --> 00:04:59,370
+Kho bạc nội bộ đứng giữa, mua nguồn CASA từ khối huy động ở mức ví dụ bốn phẩy năm phần trăm, rồi bán sang khối cho vay ở mức sáu phần trăm.
 
 45
-00:03:55,380 --> 00:03:59,490
-Ví dụ mỗi người năm triệu, cả bảng lương là hai phẩy năm tỷ đồng.
+00:04:59,370 --> 00:05:07,580
+Lúc đó khoảng chênh chia thành ba lát rõ rệt: khối huy động trả bạn không phẩy một phần trăm và giữ bốn phẩy bốn điểm.
 
 46
-00:04:00,620 --> 00:04:04,630
-Với ngân hàng, hai phẩy năm tỷ ấy là nguồn vốn rẻ, và dính.
+00:05:07,580 --> 00:05:11,550
+Kho bạc giữ một phẩy năm điểm để gánh rủi ro thanh khoản.
 
 47
-00:04:04,990 --> 00:04:11,270
-Lương về đều đặn mỗi tháng, người nhận ít khi đổi ngân hàng, và hiếm khi năm trăm người rút sạch cùng một lúc.
+00:05:11,550 --> 00:05:18,580
+Khối cho vay thu tám phẩy năm từ người vay mua nhà, trả sáu điểm về kho bạc và giữ hai phẩy năm điểm.
 
 48
-00:04:11,540 --> 00:04:16,310
-Trả lãi không phẩy một phần trăm, cả bảng lương chỉ tốn chừng hai triệu rưỡi một năm.
+00:05:18,580 --> 00:05:25,610
+Ba lát cộng lại bằng đúng tám phẩy bốn điểm, trước khi trừ lương nhân viên và những khoản nợ khó đòi.
 
 49
-00:04:16,750 --> 00:04:23,350
-Huy động cùng số ấy bằng tiền gửi có kỳ hạn, ví dụ ở năm phần trăm, sẽ tốn một trăm hai mươi lăm triệu.
+00:05:26,770 --> 00:05:30,980
+Không phải trăm phần trăm tiền lương của bạn đều được đem ra cho vay.
 
 50
-00:04:23,530 --> 00:04:26,630
-Ngân hàng không đem đúng tờ tiền của bạn đi cho vay.
+00:05:30,980 --> 00:05:37,870
+Theo nguyên tắc an toàn, ngân hàng phải trích một phần tiền gửi nằm tại Ngân hàng Trung ương làm dự trữ bắt buộc.
 
 51
-00:04:26,950 --> 00:04:31,750
-Vốn được gộp chung, và nguồn rẻ như CASA kéo giá vốn bình quân xuống.
+00:05:37,870 --> 00:05:40,800
+Lấy ví dụ tỉ lệ dự trữ ba phần trăm cho dễ tính.
 
 52
-00:04:32,270 --> 00:04:41,150
-Ở chiều ngược lại, giả sử bên cho vay giải ngân mua nhà với lãi quanh tám phẩy năm phần trăm một năm — chênh lệch ấy bắt đầu từ chính phần lương nằm yên.
+00:05:40,800 --> 00:05:48,550
+Trên bể vốn hai phẩy năm tỷ, bảy mươi lăm triệu bị khoá làm dự trữ, còn lại hai tỷ bốn trăm hai mươi lăm triệu làm vốn cho vay.
 
 53
-00:04:42,110 --> 00:04:45,690
-Vậy ai trong ngân hàng được ghi công cho khoản vốn rẻ ấy?
+00:05:48,550 --> 00:05:53,190
+Còn với mười triệu của một cá nhân thì ba trăm nghìn nằm trong phần khoá đó.
 
 54
-00:04:46,050 --> 00:04:51,290
-Câu trả lời là một mức giá vốn nội bộ giữa các bộ phận, gọi là FTP.
+00:05:53,190 --> 00:06:01,850
+Ngân hàng đứng đúng ở khe hở giữa hai nhu cầu trái ngược: bạn muốn rút tiền lúc nào cũng được, còn người vay mua nhà cần trả góp hai mươi năm.
 
 55
-00:04:51,610 --> 00:05:00,010
-Bộ phận quản lý vốn mua tiền gửi từ bên huy động, ví dụ ở bốn phẩy năm phần trăm, rồi bán cho bên cho vay ở sáu phần trăm.
+00:06:02,970 --> 00:06:08,290
+Vậy công ty của bạn được gì khi gom cả tập thể về đúng một ngân hàng?
 
 56
-00:05:00,250 --> 00:05:04,250
-Bên huy động trả bạn không phẩy một, giữ bốn phẩy bốn điểm.
+00:06:08,290 --> 00:06:16,690
+Có sẵn năm trăm tài khoản lương đều đặn trong tay, giám đốc tài chính có thế mặc cả rất rõ trên bàn đàm phán.
 
 57
-00:05:04,470 --> 00:05:09,610
-Bộ phận quản lý vốn giữ một phẩy năm điểm, để gánh rủi ro thanh khoản và lãi suất.
+00:06:16,690 --> 00:06:27,020
+Ngân hàng thường đổi lại bằng cách miễn phí chuyển khoản gói lương, giảm phí giao dịch ngoại tệ, hoặc ưu đãi nhẹ lãi vay vốn lưu động.
 
 58
-00:05:09,810 --> 00:05:14,730
-Bên cho vay thu tám phẩy năm, trả sáu, giữ hai phẩy năm điểm.
+00:06:27,020 --> 00:06:34,420
+Từng hợp đồng mỗi điều kiện riêng; bài viết này chưa kiểm chứng một hợp đồng thật nào ngoài đời.
 
 59
-00:05:14,810 --> 00:05:19,530
-Cộng lại tám phẩy bốn, đúng bằng khoảng cách giữa tám phẩy năm và không phẩy một.
+00:06:34,420 --> 00:06:45,530
+Bạn không phải đóng một đồng phí duy trì nào trên giấy, nhưng chính phần số dư nằm yên của cả tập thể đang tạo đòn bẩy thương lượng cho công ty.
 
 60
-00:05:19,880 --> 00:05:25,610
-Và đó là trước khi trả lương nhân viên, chạy hệ thống, hay gánh khoản vay không đòi được.
+00:06:46,460 --> 00:06:49,410
+Cuối cùng, có ba trục trặc hay gặp với bảng lương.
 
 61
-00:05:26,770 --> 00:05:28,570
-Còn một phần nữa bị khoá lại.
+00:06:49,410 --> 00:06:54,020
+Đầu tiên, gõ nhầm số tài khoản khiến lệnh mười lăm triệu bật ngược về công ty.
 
 62
-00:05:28,720 --> 00:05:36,250
-Theo nguyên tắc, ngân hàng phải giữ một tỉ lệ tiền gửi tại ngân hàng trung ương làm dự trữ bắt buộc, phần này không cho vay được.
+00:06:54,020 --> 00:07:00,580
+Kế toán mở lại khoản nợ lương mười lăm triệu trên tài khoản ba trăm ba mươi tư, đợi sửa đúng số rồi chuyển lại.
 
 63
-00:05:36,690 --> 00:05:45,690
-Lấy ví dụ ba phần trăm: trong hai phẩy năm tỷ, bảy mươi lăm triệu nằm ở dự trữ, chỉ hai tỷ bốn trăm hai mươi lăm triệu được tính giá vốn.
+00:07:00,580 --> 00:07:10,500
+Thứ hai, ngày lương rơi vào cuối tuần hay ngày lễ: lệnh cùng ngân hàng On-Us vẫn chạy ngay khi hệ thống mở, còn lệnh khác ngân hàng Off-Us phải chờ phiên bù trừ mở lại.
 
 64
-00:05:46,050 --> 00:05:50,490
-Tỉ lệ thật do ngân hàng trung ương quy định; con số này chỉ để thấy cơ chế.
+00:07:10,500 --> 00:07:21,610
+Cuối cùng, nếu một ngày công ty dời trọn bảng lương sang ngân hàng khác, hai phẩy năm tỷ CASA rút đi chỉ trong vài kỳ lương, buộc ngân hàng cũ phải đi mua nguồn vốn khác đắt gấp nhiều lần.
 
 65
-00:05:50,730 --> 00:05:56,650
-Ngân hàng đứng giữa người gửi muốn rút lúc nào cũng được và người vay muốn trả trong nhiều năm.
+00:07:23,120 --> 00:07:28,750
+Vậy đêm nay, mười lăm triệu tiền lương của bạn không nằm trong một ngăn tủ khoá riêng mang tên bạn đâu.
 
 66
-00:05:56,970 --> 00:06:01,850
-Số dư nằm yên của người làm lương là một trong những nguồn ổn định nhất cho cái lệch pha đó.
+00:07:28,750 --> 00:07:33,180
+Số tiền đó ngủ gọn trong cuốn sổ kế toán của ngân hàng, dưới dòng họ đang nợ bạn.
 
 67
-00:06:02,970 --> 00:06:05,010
-Còn sếp của bạn được gì?
+00:07:33,180 --> 00:07:39,690
+Cứ mỗi tháng nhận lương xong mà chưa rút hết, bạn lại trở thành một chủ nợ cho ngân hàng vay vốn với lãi suất cực thấp.
 
 68
-00:06:05,100 --> 00:06:08,890
-Mang cả bảng lương về một ngân hàng, công ty có thứ để mặc cả.
+00:07:39,690 --> 00:07:44,560
+Đổi lại, bảo hiểm tiền gửi theo quy định che chắn cho khoản tiền đó tới hạn mức cho phép.
 
 69
-00:06:09,040 --> 00:06:15,530
-Ngân hàng có thể đổi gói chi lương lấy ưu đãi cho doanh nghiệp, có thể là phí dịch vụ, có thể là lãi vay.
-
-70
-00:06:15,890 --> 00:06:19,850
-Mỗi hợp đồng một khác, và bài này chưa xác minh điều khoản thật nào.
-
-71
-00:06:20,130 --> 00:06:25,770
-Bạn không trả phí trực tiếp, nhưng số dư nằm yên của bạn là một phần của cuộc mặc cả ấy.
-
-72
-00:06:26,090 --> 00:06:34,010
-Nhìn lại toàn bộ vòng quay: công ty được gói ưu đãi, ngân hàng được nguồn vốn rẻ, bên cho vay có vốn để cho vay.
-
-73
-00:06:34,330 --> 00:06:38,490
-Còn bạn được sự tiện: lương về trong ngày, rút lúc nào cũng được.
-
-74
-00:06:38,890 --> 00:06:45,530
-Cái bạn bỏ ra là phần lãi mà số dư ấy không sinh ra, và không ai gửi hoá đơn cho phần đó.
-
-75
-00:06:46,460 --> 00:06:49,050
-Ba chuyện có thể trục trặc.
-
-76
-00:06:49,170 --> 00:06:59,370
-Sai số tài khoản, lệnh lương bị trả lại: công ty lại nợ bạn mười lăm triệu cho tới khi chuyển lại thành công, còn chi phí lương của tháng thì giữ nguyên.
-
-77
-00:06:59,500 --> 00:07:06,650
-Ngày lương rơi vào ngày nghỉ: lệnh On-Us vẫn có thể ghi ngay, lệnh Off-Us thì chờ lịch liên ngân hàng.
-
-78
-00:07:06,990 --> 00:07:13,770
-Và nếu công ty chuyển cả bảng lương sang ngân hàng khác, hai phẩy năm tỷ số dư nằm yên rời đi cùng một lúc.
-
-79
-00:07:14,060 --> 00:07:21,610
-Đó mới là điều ngân hàng trả lương sợ nhất: bộ phận quản lý vốn phải tìm nguồn khác, đắt hơn, để lấp chỗ trống.
-
-80
-00:07:23,120 --> 00:07:25,950
-Vậy đêm nay, tiền lương của bạn ngủ ở đâu?
-
-81
-00:07:26,090 --> 00:07:28,910
-Không phải trong một ngăn tủ mang tên bạn.
-
-82
-00:07:29,090 --> 00:07:33,790
-Nó ngủ trong sổ của ngân hàng, dưới dạng một khoản ngân hàng đang nợ bạn.
-
-83
-00:07:34,030 --> 00:07:38,910
-Bạn cho ngân hàng vay mỗi tháng, mà có lẽ chưa bao giờ nghĩ về nó như vậy.
-
-84
-00:07:39,270 --> 00:07:44,950
-Đổi lại, bạn là một chủ nợ, và bảo hiểm tiền gửi chỉ bù tới một hạn mức.
-
-85
-00:07:45,150 --> 00:07:51,710
-Và câu còn lại để bạn tự hỏi: số dư nằm yên của mình, mỗi tháng, đang có ích cho ai?
+00:07:44,560 --> 00:07:51,710
+Và trước ngày lương tháng sau, bạn đã nhìn rõ phần tiền nằm yên mỗi tháng của mình đang chảy qua những tầng sổ nào trong ngân hàng.

@@ -1,415 +1,311 @@
 1
-00:00:00,300 --> 00:00:03,020
-Giả sử bạn mua một chiếc điện thoại giá mười hai triệu đồng.
+00:00:00,300 --> 00:00:05,160
+Chiều thứ Bảy, trong ví dụ này bạn đứng trước tủ kính một tiệm điện thoại, nhắm chiếc máy treo giá mười hai triệu đồng.
 
 2
-00:00:03,150 --> 00:00:08,380
-Trên quầy, tờ rơi ghi trả góp không phần trăm, chia đều mười hai kỳ, mỗi kỳ một triệu.
+00:00:05,160 --> 00:00:09,730
+Tờ rơi đặt ngay quầy in chữ đỏ: trả góp không phần trăm, chia đều mười hai tháng, mỗi tháng đúng một triệu đồng.
 
 3
-00:00:08,560 --> 00:00:13,580
-Bạn ký tên, cầm máy về, và có vẻ không ai thu của bạn một đồng lãi nào.
+00:00:09,730 --> 00:00:14,060
+Bạn đưa căn cước, ký tên trên máy tính bảng, rồi mười lăm phút sau cầm máy đi về mà ví tiền vẫn nguyên si.
 
 4
-00:00:13,700 --> 00:00:16,780
-Nhưng cho vay suốt cả năm mà không lấy lãi...
+00:00:14,060 --> 00:00:18,920
+Nghe nhẹ tới mức ít ai dừng lại tính thử: cho mượn mười hai triệu cả năm mà chẳng thu đồng lãi nào thì ai chịu bỏ công?
 
 5
-00:00:16,840 --> 00:00:17,980
-thì không ai làm.
+00:00:18,920 --> 00:00:21,080
+Tiền lãi của gói không phần trăm này đang trốn ở đâu?
 
 6
-00:00:18,220 --> 00:00:20,860
-Vậy ai đang trả tiền lãi cho khoản vay này?
+00:00:21,080 --> 00:00:25,290
+Tám phút tới, mình lần từ tờ rơi ngoài quầy thu ngân, qua tin nhắn duyệt hồ sơ tới cuốn sổ đêm thứ Bảy.
 
 7
-00:00:20,990 --> 00:00:27,180
-Trong tám phút tới, mình lần theo từng lời nhắn, từng dòng sổ và từng đồng tiền thật...
+00:00:25,290 --> 00:00:29,900
+Sau đó mình chờ dòng tiền thật chạy qua ngân hàng sáng hôm sau để tìm đúng sáu trăm nghìn đồng đang nằm sau quầy.
 
 8
-00:00:27,230 --> 00:00:29,900
-để tìm sáu trăm nghìn đồng đang nằm sau quầy.
+00:00:31,040 --> 00:00:36,010
+Quay lại đúng khoảnh khắc bạn đứng ở quầy trong ví dụ mười hai triệu đồng này.
 
 9
-00:00:31,040 --> 00:00:34,880
-Thứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại.
+00:00:36,010 --> 00:00:40,920
+Nhân viên chụp căn cước, gõ thông tin thu nhập lên máy tính bảng rồi bấm gửi.
 
 10
-00:00:35,000 --> 00:00:41,600
-Chiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu.
+00:00:40,920 --> 00:00:45,890
+Ở giây đầu tiên đó, thứ vừa rời khỏi cửa hàng mới chỉ là một bộ hồ sơ điện tử.
 
 11
-00:00:41,740 --> 00:00:45,840
-Nhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi.
+00:00:45,890 --> 00:00:53,030
+Ngăn kéo tiền mặt không nhúc nhích, và tài khoản ngân hàng của tiệm cũng chưa có lệnh chuyển khoản nào chạy qua.
 
 12
-00:00:46,000 --> 00:00:50,400
-Trên luồng thông tin xét duyệt: thứ vừa gửi đi chỉ là bộ hồ sơ điện tử.
+00:00:53,030 --> 00:01:00,110
+Bộ hồ sơ này không chạy về ngân hàng của tiệm bán máy, mà đi thẳng sang một bên thứ ba đứng tách hẳn bên ngoài.
 
 13
-00:00:50,590 --> 00:00:52,880
-Nó chưa chở đồng tiền nào.
+00:01:00,110 --> 00:01:06,240
+Hợp đồng của bạn ghi không phần trăm, vậy ai là người móc hầu bao trả công cho một năm chờ tiền?
 
 14
-00:00:53,070 --> 00:00:58,960
-Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một bên thứ ba khác.
+00:01:07,340 --> 00:01:11,670
+Bên thứ ba nhận bộ hồ sơ đó là một công ty tài chính tiêu dùng.
 
 15
-00:00:59,310 --> 00:01:06,240
-Giữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?
+00:01:11,670 --> 00:01:18,540
+Hệ thống của họ chấm điểm tín dụng, rà lại lịch sử vay mượn, rồi mười lăm phút sau trả về chữ duyệt.
 
 16
-00:01:07,340 --> 00:01:10,900
-Bên thứ ba đó là một công ty tài chính tiêu dùng.
+00:01:18,540 --> 00:01:23,480
+Ngay tại quầy, bạn ký bản hợp đồng vay điện tử với công ty tài chính đó.
 
 17
-00:01:11,060 --> 00:01:16,820
-Họ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại thông báo xác nhận: duyệt.
+00:01:23,480 --> 00:01:26,570
+Giây bạn đặt bút ký là bước ngoặt ít ai để ý.
 
 18
-00:01:17,260 --> 00:01:24,340
-Rồi một bản hợp đồng điện tử được xác lập thẳng giữa bạn và công ty tài chính: đó là cam kết nhận nợ bạn vừa ký.
+00:01:26,570 --> 00:01:32,680
+Hợp đồng vay này nằm giữa bạn và công ty tài chính, không còn liên quan tới tiệm bán máy.
 
 19
-00:01:24,740 --> 00:01:31,140
-Hợp đồng là một lời hứa trả tiền, nên lúc này mới chỉ có thông tin được ghi nhận, chưa có tiền giải ngân.
+00:01:32,680 --> 00:01:40,370
+Từ lúc đó, người bạn mang nợ mười hai triệu đồng là công ty tài chính, còn cửa hàng giao xong máy là đứng ngoài.
 
 20
-00:01:31,430 --> 00:01:36,660
-Từ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng.
+00:01:40,370 --> 00:01:48,820
+Nửa năm sau bạn đóng trễ một kỳ, bên gõ phí phạt, gọi nhắc nợ và ghi vết lên trung tâm tín dụng chính là công ty tài chính.
 
 21
-00:01:36,840 --> 00:01:40,260
-Nếu bạn trả chậm một kỳ, người tính phạt là họ.
+00:01:49,670 --> 00:01:52,410
+Bạn kẹp hộp điện thoại mới tinh ra về.
 
 22
-00:01:40,500 --> 00:01:41,940
-Cửa hàng chỉ bán hàng.
+00:01:52,410 --> 00:01:57,810
+Tối thứ Bảy, chủ tiệm đóng cửa, kiểm két rồi mở ứng dụng ngân hàng lên xem.
 
 23
-00:01:42,300 --> 00:01:48,820
-Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về phía công ty tài chính.
+00:01:57,810 --> 00:02:06,300
+Ngăn kéo thu ngân không có tờ tiền nào từ bạn, còn tài khoản ngân hàng của tiệm cũng đứng im không nhảy thêm một đồng.
 
 24
-00:01:49,670 --> 00:01:51,490
-Bạn cầm máy về.
+00:02:06,300 --> 00:02:09,470
+Không tiền mặt, cũng chưa tiền chuyển khoản.
 
 25
-00:01:51,690 --> 00:01:53,410
-Tối đó, cửa hàng đóng sổ.
+00:02:09,470 --> 00:02:13,140
+Vậy đêm nay, mười hai triệu bán máy đang ngủ ở đâu?
 
 26
-00:01:53,530 --> 00:01:56,450
-Nếu mở két, bạn sẽ không thấy mười hai triệu.
+00:02:13,140 --> 00:02:16,880
+Mười hai triệu đó ngủ gọn trong một dòng sổ kế toán.
 
 27
-00:01:56,590 --> 00:01:59,890
-Nếu mở tài khoản ngân hàng của cửa hàng, cũng chưa thấy.
+00:02:16,880 --> 00:02:28,830
+Kế toán tiệm ghi doanh thu mười hai triệu đồng, đồng thời mở một dòng phải thu khác mười hai triệu — ghi đích danh người trả là công ty tài chính, không phải tên bạn.
 
 28
-00:02:00,080 --> 00:02:03,730
-Chưa có lệnh chuyển khoản nào chạy, ngân hàng chưa giải ngân.
+00:02:28,830 --> 00:02:32,070
+Bạn mang máy về dùng mà ví chưa sứt một đồng.
 
 29
-00:02:03,860 --> 00:02:05,970
-Không có đồng tiền nào di chuyển.
+00:02:32,070 --> 00:02:34,580
+Khoảng trống đó chính là khoản vay.
 
 30
-00:02:06,130 --> 00:02:09,330
-Vậy đêm nay, tiền mua chiếc điện thoại ngủ ở đâu?
+00:02:35,920 --> 00:02:43,950
+Sáng ngày làm việc tiếp theo, tức ngày T cộng một trong ví dụ, dòng tiền thật mới lần đầu tiên chạy qua ngân hàng.
 
 31
-00:02:09,620 --> 00:02:11,810
-Nó ngủ trong một dòng sổ.
+00:02:43,950 --> 00:02:51,830
+Công ty tài chính chuyển tiền sang ngân hàng của tiệm điện thoại, rồi rót vào tài khoản thanh toán của cửa hàng.
 
 32
-00:02:12,100 --> 00:02:20,530
-Kế toán của cửa hàng ghi một khoản phải thu mười hai triệu đồng, và ghi rõ: phải thu từ công ty tài chính, không phải từ bạn.
+00:02:51,830 --> 00:03:02,040
+Nhưng tin nhắn báo có hiện trên màn hình chủ tiệm chỉ ghi đúng mười một triệu bốn trăm nghìn đồng, không phải mười hai triệu như giá bán tối qua.
 
 33
-00:02:20,730 --> 00:02:28,370
-Trong hệ thống tài khoản kế toán doanh nghiệp, dòng phải thu ấy nằm ở tài khoản phải thu khác, không nằm ở phải thu khách hàng.
+00:03:02,040 --> 00:03:06,760
+Công ty tài chính đã cắt giữ lại sáu trăm nghìn ngay lúc giải ngân.
 
 34
-00:02:28,690 --> 00:02:32,130
-Còn bạn đã có điện thoại trong tay mà chưa trả đồng nào.
+00:03:06,760 --> 00:03:16,260
+Khoản năm phần trăm bị trừ thẳng đó chính là tiền hỗ trợ lãi suất mà cửa hàng chịu cắt để hợp đồng của bạn được in chữ không phần trăm.
 
 35
-00:02:32,340 --> 00:02:34,580
-Đó chính là khoản vay.
+00:03:16,260 --> 00:03:27,660
+Trên sổ sách, tiệm xoá dòng phải thu mười hai triệu: mười một triệu bốn trăm nghìn vào tài khoản, còn sáu trăm nghìn ghi vào chi phí bán hàng hoặc giảm doanh thu.
 
 36
-00:02:35,920 --> 00:02:41,350
-Sáng hôm sau, ví dụ là một ngày làm việc, lệnh giải ngân liên ngân hàng mới thực sự chạy.
+00:03:27,660 --> 00:03:32,790
+Vậy tiền lãi chưa hề biến mất — người trả nó đứng ngay sau quầy thu ngân.
 
 37
-00:02:41,560 --> 00:02:47,270
-Tiền thật chuyển từ công ty tài chính sang ngân hàng của cửa hàng, rồi vào tài khoản của cửa hàng.
+00:03:34,250 --> 00:03:37,930
+Còn phía bạn trong mười hai tháng tiếp theo thì sao?
 
 38
-00:02:47,400 --> 00:02:51,590
-Nhưng nhìn kỹ con số: mười một triệu bốn trăm nghìn đồng.
+00:03:37,930 --> 00:03:48,180
+Cuối mỗi tháng, tài khoản của bạn gửi lệnh trích nợ tới ngân hàng mình dùng, và ngay sau đó một triệu đồng tiền thật chạy sang công ty tài chính.
 
 39
-00:02:51,670 --> 00:02:53,350
-Không phải mười hai triệu.
+00:03:48,180 --> 00:03:55,810
+Đủ mười hai lượt là tròn mười hai triệu đồng, đúng từng đồng như tờ rơi, chẳng thấy chữ lãi nào trên sao kê.
 
 40
-00:02:53,630 --> 00:02:55,350
-Sáu trăm nghìn còn thiếu đi đâu?
+00:03:55,810 --> 00:03:59,060
+Nhưng đặt hai tấm bảng giá cạnh nhau trên bàn.
 
 41
-00:02:55,670 --> 00:03:04,790
-Đó là khoản hỗ trợ lãi suất, ví dụ năm phần trăm giá bán, mà cửa hàng trả cho công ty tài chính để hợp đồng của bạn được ghi không phần trăm.
+00:03:59,060 --> 00:04:08,960
+Giả sử nếu hôm đó trả một lần tiền mặt, cửa hàng bớt ngay sáu trăm nghìn, tức chiếc máy thật sự đáng giá mười một triệu bốn trăm nghìn đồng.
 
 42
-00:03:05,080 --> 00:03:09,830
-Họ cấn trừ thẳng lúc giải ngân, nên cửa hàng chỉ thấy tiền về thiếu.
+00:04:08,960 --> 00:04:13,840
+Bạn chọn trả góp nên góp dần đủ mười hai triệu cho đúng chiếc máy ấy.
 
 43
-00:03:09,980 --> 00:03:19,270
-Trong sổ, khoản phải thu mười hai triệu tối qua được xoá: mười một triệu bốn là tiền đã về, sáu trăm nghìn là chi phí cửa hàng chịu.
+00:04:13,840 --> 00:04:22,810
+Sáu trăm nghìn chênh lên không mang tên tiền lãi trên giấy, nhưng nó trả công cho việc bạn được cầm máy trước rồi trả tiền sau.
 
 44
-00:03:19,620 --> 00:03:21,670
-Vì sao cửa hàng chấp nhận?
+00:04:23,990 --> 00:04:28,530
+Sáu trăm nghìn trong một năm đó tính ra phần trăm thật thì cao cỡ nào?
 
 45
-00:03:21,910 --> 00:03:28,470
-Vì tờ rơi không phần trăm kéo người mua tới quầy, và tiền về sau một ngày, không phải sau một năm.
+00:04:28,530 --> 00:04:36,970
+Đừng lấy sáu trăm nghìn chia cho mười hai triệu rồi tưởng là năm phần trăm, vì bạn đâu có cầm trọn mười một triệu bốn suốt cả năm.
 
 46
-00:03:28,690 --> 00:03:30,470
-Vậy lãi vẫn có.
+00:04:36,970 --> 00:04:40,150
+Tháng nào bạn cũng trả bớt một triệu vào gốc rồi.
 
 47
-00:03:30,570 --> 00:03:32,790
-Chỉ là người trả lãi đứng sau quầy.
+00:04:40,150 --> 00:04:50,920
+Trong tài chính, người ta đưa cả mười hai lần trả một triệu chiết khấu về giá trị hôm nay, tìm mức lãi suất tháng nào làm tổng đó khớp vừa vặn với mười một triệu bốn.
 
 48
-00:03:34,250 --> 00:03:37,130
-Mười hai tháng tiếp theo là phần việc của bạn.
+00:04:50,920 --> 00:04:55,460
+Giải phương trình dòng tiền ra gần không phẩy tám phần trăm mỗi tháng.
 
 49
-00:03:37,450 --> 00:03:41,050
-Mỗi cuối tháng, bạn gửi một lệnh thanh toán tới ngân hàng của mình.
+00:04:55,460 --> 00:05:05,320
+Nhân thẳng mười hai tháng là chín phẩy sáu phần trăm một năm, còn ghép lãi từng tháng lên mười phẩy không một phần trăm — xấp xỉ mười phần trăm một năm.
 
 50
-00:03:41,240 --> 00:03:43,370
-Đó là lệnh uỷ quyền trích nợ.
+00:05:05,320 --> 00:05:15,910
+Nếu tiệm bắt đóng kỳ đầu một triệu ngay lúc ký hợp đồng, lãi thực còn vọt lên khoảng không phẩy chín lăm phần trăm mỗi tháng, tức chừng mười hai phần trăm một năm.
 
 51
-00:03:43,610 --> 00:03:49,610
-Ngay sau đó, một triệu đồng tiền thật rời ngân hàng của bạn, chuyển khoản sang công ty tài chính.
+00:05:17,580 --> 00:05:24,400
+Quay lại câu hỏi thực tế nhất lúc bạn đứng trước quầy: sáu trăm nghìn đó rút từ túi bạn hay túi tiệm?
 
 52
-00:03:49,970 --> 00:03:53,930
-Đủ mười hai lần là mười hai triệu đồng, đúng như tờ rơi hứa.
+00:05:24,400 --> 00:05:26,560
+Ngoài đời chỉ có hai trường hợp.
 
 53
-00:03:54,080 --> 00:03:56,970
-Không một đồng lãi nào hiện trên sao kê.
+00:05:26,560 --> 00:05:35,000
+Một là, nhân viên báo trả thẳng tiền mặt được giảm sáu trăm nghìn, mua trả góp không phần trăm vẫn giữ nguyên mười hai triệu.
 
 54
-00:03:57,100 --> 00:03:59,770
-Nhưng giờ thử đặt hai con số cạnh nhau.
+00:05:35,000 --> 00:05:40,600
+Khi đó chính bạn đang trả trọn sáu trăm nghìn tiền lãi qua khoản giảm giá bị bỏ lỡ.
 
 55
-00:03:59,980 --> 00:04:05,850
-Giả sử ai trả thẳng thì được giảm sáu trăm nghìn, tức món hàng hôm nay chỉ đáng mười một triệu bốn.
+00:05:40,600 --> 00:05:44,790
+Hai là, trả thẳng hay trả góp đều cứng một giá mười hai triệu.
 
 56
-00:04:06,070 --> 00:04:09,770
-Bạn thì trả dần mười hai triệu cho cùng món hàng ấy.
+00:05:44,790 --> 00:05:54,850
+Lúc đó cửa hàng tự bớt sáu trăm nghìn tiền lời để thu tiền tươi ở ngày T cộng một, hoặc đã cộng sẵn năm phần trăm vào giá niêm yết cho mọi người mua.
 
 57
-00:04:09,850 --> 00:04:17,450
-Phần chênh không mang tên lãi, nhưng nó làm đúng việc của tiền lãi: trả cho việc bạn được dùng hàng trước, trả tiền sau.
+00:05:54,850 --> 00:06:06,730
+Đặt cạnh quẹt thẻ thường với mức phí hai phẩy hai phần trăm: quẹt thẻ tiệm chỉ mất hai trăm sáu mươi bốn nghìn, còn gói không phần trăm tốn tới sáu trăm nghìn, đắt hơn gấp đôi.
 
 58
-00:04:17,930 --> 00:04:22,810
-Câu hỏi còn lại là: lãi ấy đắt hay rẻ, nếu quy ra phần trăm?
+00:06:07,920 --> 00:06:14,700
+Còn một ngã rẽ nữa cũng treo biển không phần trăm, nhưng người cho vay đổi hẳn vai: trả góp qua thẻ tín dụng.
 
 59
-00:04:23,990 --> 00:04:30,310
-Để quy ra phần trăm, người ta dùng một ý rất cũ: một đồng nhận hôm nay đáng hơn một đồng nhận sau một năm.
+00:06:14,700 --> 00:06:19,680
+Bạn quẹt đủ mười hai triệu rồi báo ngân hàng phát hành thẻ xin chia mười hai kỳ.
 
 60
-00:04:30,530 --> 00:04:37,350
-Vậy mỗi kỳ một triệu trả ở tháng thứ nhất, thứ hai, cho tới tháng mười hai, phải được quy về giá trị hôm nay.
+00:06:19,680 --> 00:06:26,270
+Cửa hàng thu tiền như một giao dịch thẻ bình thường, còn chủ nợ chuyển sang chính ngân hàng phát hành thẻ.
 
 61
-00:04:37,490 --> 00:04:43,190
-Cách quy là chia mỗi kỳ cho một cộng lãi suất tháng, mũ số tháng phải chờ.
+00:06:26,270 --> 00:06:37,160
+Sao kê hàng tháng vẫn ghi lãi suất không phần trăm, nhưng nhiều ngân hàng thu thêm phí chuyển đổi trả góp ngay tháng đầu — ví dụ ba phần trăm, tức ba trăm sáu mươi nghìn đồng.
 
 62
-00:04:43,380 --> 00:04:50,710
-Cộng mười hai kết quả lại, rồi tìm lãi suất nào làm tổng đúng bằng mười một triệu bốn, giá trị món hàng bạn nhận hôm nay.
+00:06:37,160 --> 00:06:43,690
+Giá trị bạn thực nhận chỉ là mười một triệu sáu trăm bốn mươi nghìn, nhưng bạn vẫn trả đủ mười hai triệu.
 
 63
-00:04:50,860 --> 00:04:54,870
-Trong ví dụ này, kết quả khoảng không phẩy tám phần trăm một tháng.
+00:06:43,690 --> 00:06:51,160
+Tính gộp lại, lãi suất thực vào khoảng không phẩy bốn bảy phần trăm mỗi tháng, tức chừng năm phẩy tám phần trăm một năm.
 
 64
-00:04:54,980 --> 00:04:58,470
-Nhân thẳng mười hai được chừng chín phẩy sáu phần trăm một năm.
+00:06:51,160 --> 00:06:59,870
+Nếu tiệm lại giảm sáu trăm nghìn cho tiền mặt mà bạn vẫn quẹt thẻ chịu thêm phí chuyển đổi, lãi thực vọt lên gần mười bảy phần trăm một năm.
 
 65
-00:04:58,830 --> 00:05:02,150
-Tính lãi chồng lãi thì chừng mười phần trăm một năm.
+00:07:01,170 --> 00:07:06,480
+Giờ thử đặt ba tình huống rắc rối để thấy hai hợp đồng tách nhau rõ tới đâu.
 
 66
-00:05:02,260 --> 00:05:05,110
-Đó là lãi suất thực tế của khoản không phần trăm.
+00:07:06,480 --> 00:07:11,160
+Thứ nhất, tới tháng thứ tư bạn có tiền dư và muốn tất toán một lần.
 
 67
-00:05:05,240 --> 00:05:15,910
-Và nếu kỳ đầu phải trả ngay lúc cầm máy, con số nhảy lên khoảng không phẩy chín lăm phần trăm một tháng, chừng mười hai phần trăm một năm, vì bạn trả sớm hơn mà món hàng vẫn đáng chừng ấy.
+00:07:11,160 --> 00:07:23,310
+Hợp đồng ghi không phần trăm nên nợ gốc còn lại bằng đúng tám kỳ nhân một triệu là tám triệu tròn, không có xu lãi tương lai nào để giảm, nhiều nơi còn thu phí trả trước hạn.
 
 68
-00:05:17,580 --> 00:05:19,370
-Quay lại sáu trăm nghìn đồng.
+00:07:23,310 --> 00:07:29,380
+Thứ hai, tháng thứ năm bạn đóng trễ một tháng và chịu phí phạt một trăm năm mươi nghìn.
 
 69
-00:05:19,580 --> 00:05:21,330
-Ai thật sự trả nó?
+00:07:29,380 --> 00:07:35,730
+Lãi suất thực nhảy lên gần một phần trăm mỗi tháng, kèm vết chậm trả trên lịch sử tín dụng.
 
 70
-00:05:21,550 --> 00:05:26,410
-Câu trả lời tuỳ vào một câu hỏi rất đời thường: trả thẳng thì có rẻ hơn không.
+00:07:35,730 --> 00:07:39,290
+Thứ ba, tuần đầu bạn mang máy ra trả tiệm vì đổi ý.
 
 71
-00:05:26,570 --> 00:05:28,650
-Trường hợp một: có.
+00:07:39,290 --> 00:07:51,780
+Tiệm nhận máy nhưng không tự xoá khoản nợ giúp bạn được — chỉ khi tiệm chuyển hoàn tiền cho công ty tài chính và hai bên chốt xong phần sáu trăm nghìn hỗ trợ, món nợ mới khép lại.
 
 72
-00:05:28,770 --> 00:05:32,570
-Người trả thẳng được giảm sáu trăm nghìn, người trả góp thì không.
+00:07:53,010 --> 00:07:54,960
+Tờ rơi ngoài cửa tiệm không hề nói dối.
 
 73
-00:05:32,790 --> 00:05:37,290
-Khi đó chính bạn trả tiền lãi, qua khoản giảm giá bạn bỏ lỡ.
+00:07:54,960 --> 00:07:57,110
+Hợp đồng ghi đúng lãi suất không phần trăm.
 
 74
-00:05:37,430 --> 00:05:40,570
-Trường hợp hai: giá như nhau cho mọi người.
+00:07:57,110 --> 00:08:01,370
+Nhưng trong tài chính, không có phép màu nào biến một năm chờ tiền thành miễn phí cả.
 
 75
-00:05:40,710 --> 00:05:47,130
-Khi đó hoặc cửa hàng gánh thật, bớt lời trên mỗi máy, hoặc cửa hàng đã tính sẵn khoản này vào giá niêm yết.
+00:08:01,370 --> 00:08:09,940
+Khoản lãi sáu trăm nghìn chỉ dời chỗ từ dòng lãi suất trên hợp đồng vay sang khoảng chênh giữa mười hai triệu niêm yết và mười một triệu bốn trăm nghìn cửa hàng thực nhận.
 
 76
-00:05:47,490 --> 00:05:53,210
-Ở kịch bản sau, người trả thẳng cũng đang góp tiền lãi cho người trả góp, dù họ chẳng vay ai.
+00:08:09,940 --> 00:08:17,250
+Lần tới đứng trước biển trả góp không phần trăm, cứ hỏi thu ngân đúng một câu trước khi ký: nếu trả thẳng tiền mặt ngay bây giờ thì giá bao nhiêu?
 
 77
-00:05:53,490 --> 00:06:02,330
-Một phép so sánh cho thấy cái giá: giả sử khách quẹt thẻ bình thường với phí hai phẩy hai phần trăm, cửa hàng chỉ mất hai trăm sáu mươi tư nghìn.
+00:08:17,250 --> 00:08:20,110
+Khoảng tiền bớt được chính là tiền lãi đang nằm sau quầy.
 
 78
-00:06:02,440 --> 00:06:06,730
-Trả góp không phần trăm tốn sáu trăm nghìn, gấp hơn hai lần.
-
-79
-00:06:07,920 --> 00:06:12,830
-Có một con đường khác dẫn tới cùng chữ không phần trăm: trả góp qua thẻ tín dụng.
-
-80
-00:06:13,190 --> 00:06:16,670
-Lần này bạn quẹt thẻ mười hai triệu như mua bình thường.
-
-81
-00:06:16,850 --> 00:06:21,710
-Sau đó bạn đề nghị ngân hàng phát hành thẻ chia giao dịch ấy thành mười hai kỳ.
-
-82
-00:06:21,840 --> 00:06:25,790
-Người cho vay giờ là ngân hàng của bạn, không phải công ty tài chính.
-
-83
-00:06:26,230 --> 00:06:31,550
-Lãi kỳ góp có thể ghi không phần trăm, nhưng chủ thẻ có thể phải trả phí chuyển đổi.
-
-84
-00:06:31,830 --> 00:06:36,910
-Lấy ví dụ ba phần trăm, tức ba trăm sáu mươi nghìn đồng, thu ngay lúc chuyển đổi.
-
-85
-00:06:37,130 --> 00:06:41,630
-Bạn thực nhận mười một triệu sáu trăm bốn mươi nghìn, trả mười hai triệu.
-
-86
-00:06:41,790 --> 00:06:54,670
-Trong ví dụ này, lãi suất thực tế khoảng không phẩy bốn bảy phần trăm một tháng, chừng năm phẩy tám phần trăm một năm — và nếu người trả thẳng còn được giảm sáu trăm nghìn nữa, con số ấy lên khoảng mười bảy phần trăm một năm.
-
-87
-00:06:55,230 --> 00:06:56,910
-Cùng chữ không phần trăm...
-
-88
-00:06:56,990 --> 00:06:59,870
-nhưng khác người cho vay, khác người trả lãi.
-
-89
-00:07:01,170 --> 00:07:03,570
-Giờ thử làm lệch kế hoạch trong ví dụ này.
-
-90
-00:07:03,930 --> 00:07:07,810
-Lệch thứ nhất: giả sử bạn muốn trả hết ngay cuối tháng thứ tư.
-
-91
-00:07:08,090 --> 00:07:13,330
-Hợp đồng ghi không phần trăm, nên dư nợ còn lại đúng bằng tám kỳ, tám triệu đồng.
-
-92
-00:07:13,460 --> 00:07:15,810
-Không có phần lãi tương lai nào để bớt.
-
-93
-00:07:16,020 --> 00:07:27,650
-Và nếu người trả thẳng được giảm sáu trăm nghìn, kết quả ngược trực giác: cùng khoản lãi ấy, giờ dồn vào bốn tháng, nên lãi suất thực tế của bạn lên khoảng một phẩy bốn tám phần trăm một tháng.
-
-94
-00:07:28,250 --> 00:07:37,250
-Lệch thứ hai: giả sử bạn trễ kỳ thứ năm một tháng và hợp đồng phạt một trăm năm mươi nghìn, lãi suất thực tế lên gần một phần trăm một tháng.
-
-95
-00:07:37,810 --> 00:07:40,530
-Lệch thứ ba: bạn trả lại máy.
-
-96
-00:07:40,890 --> 00:07:43,890
-Cửa hàng nhận máy, nhưng không xoá được khoản vay.
-
-97
-00:07:44,030 --> 00:07:51,780
-Chỉ công ty tài chính làm được việc đó, và sáu trăm nghìn hỗ trợ có được hoàn hay không tuỳ hợp đồng giữa họ với cửa hàng.
-
-98
-00:07:53,010 --> 00:07:54,790
-Vậy tờ rơi không nói dối.
-
-99
-00:07:55,070 --> 00:07:58,150
-Lãi suất trên hợp đồng của bạn đúng là không phần trăm.
-
-100
-00:07:58,310 --> 00:08:00,710
-Chỉ có điều tiền lãi không biến mất.
-
-101
-00:08:00,920 --> 00:08:09,990
-Nó đổi chỗ đứng, từ dòng lãi suất trên hợp đồng sang khoảng chênh giữa mười hai triệu cửa hàng ghi bán và mười một triệu bốn cửa hàng thực nhận.
-
-102
-00:08:10,510 --> 00:08:15,990
-Lần tới thấy chữ không phần trăm, thử hỏi một câu: trả thẳng thì giá bao nhiêu?
-
-103
-00:08:16,210 --> 00:08:18,550
-Khoảng chênh ấy là tiền lãi.
-
-104
-00:08:18,920 --> 00:08:27,430
-Và câu hỏi còn lại chỉ bạn trả lời được: người trả nó là ai, cửa hàng, người mua trả thẳng, hay chính bạn?
+00:08:20,110 --> 00:08:27,430
+Và câu trả lời ngay tại quầy hôm đó sẽ chỉ thẳng tên người trả công chờ một năm cho chiếc máy: cửa hàng, khách trả tiền mặt, hay chính ví của bạn.

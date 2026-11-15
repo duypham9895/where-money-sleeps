@@ -1,39 +1,35 @@
 1
-00:00:00,250 --> 00:00:05,960
-Your credit card statement shows ten million dong, with an option to pay a five percent minimum of five hundred thousand.
+00:00:00,250 --> 00:00:08,050
+Your credit card bill arrives at ten million dong, and tapping the five-hundred-thousand-dong minimum counts as paying on time with zero late penalty.
 
 2
-00:00:05,960 --> 00:00:07,660
-You tap pay five hundred thousand...
+00:00:08,050 --> 00:00:11,850
+So why does next month's debt jump above ten million ninety-two thousand?
 
 3
-00:00:07,660 --> 00:00:11,850
-so why does next month's debt surge to ten million ninety-two thousand five hundred dong?
+00:00:12,690 --> 00:00:18,060
+Because two business days after your swipe, your card issuer already wired real cash to pay the store.
 
 4
-00:00:12,690 --> 00:00:18,030
-Because just two days after you swiped, the issuing bank advanced real cash out of pocket to pay the store.
+00:00:18,060 --> 00:00:23,370
+Those forty-five interest-free days stay intact only when you settle one hundred percent of the bill.
 
 5
-00:00:18,030 --> 00:00:23,370
-The forty-five-day grace period is strictly conditional: it only applies if you settle one hundred percent.
+00:00:24,090 --> 00:00:33,370
+Pay only five hundred thousand on day forty-five and you dodge late penalties and overdue credit marks, yet every single one of those forty-five free days vanishes right away.
 
 6
-00:00:24,090 --> 00:00:33,370
-On day forty-five, paying five hundred thousand prevents late fees and protects credit scores, but paying less than one hundred percent cancels the forty-five-day grace period retroactively.
+00:00:34,330 --> 00:00:47,810
+At an illustrative zero point one percent per day, the bank charges four hundred and fifty thousand for forty-five days on ten million, plus one hundred and forty-two thousand five hundred on nine point five million.
 
 7
-00:00:34,330 --> 00:00:47,810
-At an illustrative zero point one percent daily rate, the bank calculates interest backward from day one: four hundred and fifty thousand on the original ten million, plus one hundred and forty-two thousand five hundred on the remaining nine point five million.
+00:00:48,600 --> 00:00:58,170
+Both slices add up to five hundred and ninety-two thousand five hundred dong — beating your five-hundred-thousand payout and pushing your bill to ten million ninety-two thousand five hundred.
 
 8
-00:00:48,600 --> 00:00:58,170
-Total interest reaches five hundred and ninety-two thousand five hundred dong — exceeding the five hundred thousand you just paid, expanding your new statement balance to ten million ninety-two thousand five hundred dong.
+00:00:59,060 --> 00:01:02,710
+Save that minimum button for genuine cash crunches.
 
 9
-00:00:59,060 --> 00:01:02,530
-The minimum payment is an emergency buffer for cash flow pinches.
-
-10
-00:01:02,530 --> 00:01:09,730
-When funds are available, paying one hundred percent of your statement balance is the only way to keep the forty-five-day grace period.
+00:01:02,710 --> 00:01:09,730
+Whenever checking holds the cash, settle one hundred percent on time to keep forty-five days free.
