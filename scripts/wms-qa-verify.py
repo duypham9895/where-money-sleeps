@@ -20,6 +20,11 @@ import sys
 import threading
 from pathlib import Path
 
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from wms_qa_uiux import runtime_uiux_checks, static_uiux_checks
+
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_HTML = ROOT / "index.html"
 PROTO = ROOT / "docs" / "prototype.html"
@@ -80,7 +85,7 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
         ("minmax(15.5rem,18rem)", ".flow li phải đủ rộng cho cột .who (minmax(15.5rem,18rem)) để không đè cột .what"),
         (".flow .who{display:grid;grid-template-columns:minmax(0,1fr)", ".flow .who phải khoá minmax(0,1fr) và min-width:0"),
         ("width:fit-content;max-width:100%", ".ch phải dùng width:fit-content;max-width:100% thay vì width:max-content"),
-        (".journal .jstep{font:700 11px/1.4 var(--mono);letter-spacing:.06em;color:#94600c;display:block;margin-bottom:4px;padding-right:124px}", ".journal .jstep phải có padding-right:124px để không đè lên .stamp"),
+        (".journal .jstep{font:700 11px/1.4 var(--mono);letter-spacing:.06em;color:#7c4f07;display:block;margin-bottom:4px;padding-right:124px}", ".journal .jstep phải có padding-right:124px để không đè lên .stamp"),
         ("min-height:var(--h,250px);height:auto", ".book phải dùng min-height thay vì height cứng để không tràn chữ trên mobile"),
     ]
     for snippet, msg in required_css_guards:
@@ -398,6 +403,7 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
         errors.append("studio.html vẫn còn inline grid cứng ở #panel-oss hoặc thiếu .oss-cmp-grid")
     if "svg-swipe-hint" not in wf_text or "min-width:720px" not in wf_text:
         errors.append("workflows.html thiếu .svg-swipe-hint hoặc .wf-svg min-width:720px trên mobile (R5)")
+    errors.extend(static_uiux_checks(ROOT))
 
     # 2. Live multi-viewport Chromium checks (Mobile 320·390 + Touch Tablet 768·820·1024 + Desktop 1440px)
     try:
@@ -658,6 +664,10 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                         errors.append(f"[{vw}x{vh}] JS pageerror: {page_errors[0]}")
                     ctx.close()
                     checked_cases += 1
+                ui_ctx = browser.new_context(viewport={"width": 1280, "height": 800})
+                ui_page = ui_ctx.new_page()
+                errors.extend(runtime_uiux_checks(ui_page, base))
+                ui_ctx.close()
             finally:
                 browser.close()
     finally:

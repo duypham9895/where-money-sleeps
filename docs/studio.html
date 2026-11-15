@@ -4,17 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="text-scale" content="scale">
+<meta name="color-scheme" content="light dark">
 <!-- ECC Security + modern-web-guidance: Khoá cứng CSP connect-src 'none', 0 network exfiltration, 0 third-party script -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 <title>WMS Review Studio — Bàn Duyệt Bài Viết &amp; Video (Calm Single-Focus)</title>
+<script>
+(function(){
+  try{
+    var sp = new URLSearchParams(location.search);
+    var qt = sp.get("theme"), ql = sp.get("lang"), savedT = "", savedL = "";
+    try{ savedT = localStorage.getItem("wms-studio-theme") || ""; savedL = localStorage.getItem("wms-lang") || ""; }catch(_){}
+    var sysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var t = (qt === "charcoal" || qt === "paper") ? qt : ((savedT === "charcoal" || savedT === "paper") ? savedT : (sysDark ? "charcoal" : "paper"));
+    var scheme = t === "charcoal" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", t);
+    document.documentElement.style.colorScheme = scheme;
+    var mc = document.querySelector('meta[name="color-scheme"]');
+    if (mc) mc.setAttribute("content", scheme);
+    var l = (ql === "en" || ql === "vi") ? ql : ((savedL === "en" || savedL === "vi") ? savedL : "");
+    if (l) document.documentElement.lang = l;
+  }catch(_){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: "Be Vietnam Pro Fallback";
+  src: local("-apple-system"), local("BlinkMacSystemFont"), local("Segoe UI"), local("Helvetica Neue");
+  size-adjust: 103.5%;
+  ascent-override: 97%;
+  descent-override: 27%;
+}
 /* ══════════════════════════════════════════════════════════════════════════
    1. BẢNG MÀU DỊU MẮT (WARM ARCHIVAL PAPER & WARM CHARCOAL — 0 VIỀN NEON)
    ══════════════════════════════════════════════════════════════════════════ */
 :root, [data-theme="paper"] {
+  color-scheme: light;
   --bg-page: #ede6d6;
   --bg-surface: #f7f2e7;
   --bg-card: #ffffff;
@@ -22,22 +49,25 @@
   --bg-subtle: #e5dec9;
   --ink-1: #1c1917;
   --ink-2: #57534e;
-  --ink-3: #78716c;
+  --ink-3: #5f5852;
   --border: #d6cfc2;
-  --border-strong: #a8a29e;
-  --accent: #b83a22;
-  --accent-soft: rgba(184, 58, 34, 0.10);
-  --ok: #1c5d4b;
-  --ok-soft: rgba(28, 93, 75, 0.12);
-  --warn: #9a5b13;
-  --warn-soft: rgba(154, 91, 19, 0.12);
+  --border-strong: #78716c;
+  --accent: #a3331d;
+  --accent-soft: rgba(163, 51, 29, 0.11);
+  --ok: #1b5e4a;
+  --ok-fill: #1b6b54;
+  --flag-fill: #a3331d;
+  --ok-soft: rgba(27, 94, 74, 0.12);
+  --warn: #7d4908;
+  --warn-soft: rgba(125, 73, 8, 0.12);
   --shadow: 0 8px 24px rgba(28, 25, 23, 0.06);
   --serif: "Fraunces", Georgia, serif;
-  --sans: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+  --sans: "Be Vietnam Pro", "Be Vietnam Pro Fallback", -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: "JetBrains Mono", monospace;
 }
 
 [data-theme="charcoal"] {
+  color-scheme: dark;
   --bg-page: #141312;
   --bg-surface: #1c1b19;
   --bg-card: #242220;
@@ -45,32 +75,67 @@
   --bg-subtle: #2d2a27;
   --ink-1: #f2ece1;
   --ink-2: #b8b0a4;
-  --ink-3: #857e74;
+  --ink-3: #a69e93;
   --border: #33302c;
-  --border-strong: #4a453f;
-  --accent: #d97757;
-  --accent-soft: rgba(217, 119, 87, 0.14);
-  --ok: #34a885;
-  --ok-soft: rgba(52, 168, 133, 0.15);
-  --warn: #d49b4b;
-  --warn-soft: rgba(212, 155, 75, 0.15);
+  --border-strong: #7d756c;
+  --accent: #e08567;
+  --accent-soft: rgba(224, 133, 103, 0.15);
+  --ok: #4cc39e;
+  --ok-fill: #1b6b54;
+  --flag-fill: #b34224;
+  --ok-soft: rgba(76, 195, 158, 0.15);
+  --warn: #e0ab5e;
+  --warn-soft: rgba(224, 171, 94, 0.15);
   --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
 
-html, body {
+html {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+body {
   margin: 0;
   padding: 0;
   background: var(--bg-page);
   color: var(--ink-1);
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
+:focus-visible {
+  outline: 2px solid var(--warn);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.skip-link {
+  position: fixed;
+  top: -140px;
+  left: max(10px, env(safe-area-inset-left));
+  z-index: 120;
+  min-height: 44px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--ink-1);
+  color: var(--bg-card);
+  font: 600 13.5px/1.2 var(--sans);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+.skip-link:focus, .skip-link:focus-visible {
+  top: max(10px, env(safe-area-inset-top));
+  outline: 2px solid var(--warn);
+  outline-offset: 2px;
+}
+#mainContent:focus { outline: none; }
 
 .mono, .tabular, .tp-readout, .sc-wpm, .rp-journal td, #progressBadge {
   font-family: var(--mono);
@@ -82,11 +147,11 @@ html, body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  html { scroll-behavior: auto; }
+  .st-topbar { transition: none; }
+  .calm-dot, .mode-tab, .btn-primary, .btn-secondary, .active-card, .paper-sheet {
+    transition-property: border-color, background-color, color, opacity;
+    transition-duration: 120ms;
   }
 }
 
@@ -121,7 +186,7 @@ html, body {
 
 .story-select-pill {
   appearance: none;
-  width: min(100%, 15rem);
+  width: min(100%, 13rem);
   max-width: 100%;
   min-width: 0;
   overflow: hidden;
@@ -154,9 +219,6 @@ html, body {
   font: 600 12.5px var(--sans);
   cursor: pointer;
 }
-.mode-tab:hover {
-  color: var(--ink-1);
-}
 .mode-tab[aria-selected="true"] {
   background: var(--ink-1);
   color: var(--bg-card);
@@ -168,7 +230,7 @@ html, body {
   gap: 6px;
   padding: 6px 12px;
   border-radius: 99px;
-  border: 1px solid transparent;
+  border: 1px solid var(--ok);
   background: var(--ok-soft);
   color: var(--ok);
   font: 700 11.5px var(--mono);
@@ -176,19 +238,19 @@ html, body {
 }
 .gate-pill-btn.fail {
   background: var(--accent-soft);
+  border-color: var(--accent);
   color: var(--accent);
 }
 
 .btn-primary {
-  border: 1px solid var(--ok);
-  background: var(--ok);
+  border: 1px solid var(--ok-fill);
+  background: var(--ok-fill);
   color: #ffffff;
   padding: 7px 14px;
   border-radius: 8px;
   font: 600 12.5px var(--sans);
   cursor: pointer;
 }
-.btn-primary:hover { filter: brightness(1.06); }
 
 .btn-secondary {
   border: 1px solid var(--border-strong);
@@ -203,8 +265,10 @@ html, body {
   align-items: center;
   gap: 5px;
 }
-.btn-secondary:hover {
-  border-color: var(--ink-1);
+@media (hover: hover) and (pointer: fine) {
+  .mode-tab:hover { color: var(--ink-1); }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-secondary:hover { border-color: var(--ink-1); }
 }
 .btn-secondary[aria-pressed="true"] {
   background: var(--accent-soft);
@@ -315,9 +379,11 @@ html, body {
   font: 600 12px var(--sans);
   cursor: pointer;
 }
-.calm-dot:hover {
-  border-color: var(--border-strong);
-  color: var(--ink-1);
+@media (hover: hover) and (pointer: fine) {
+  .calm-dot:hover {
+    border-color: var(--border-strong);
+    color: var(--ink-1);
+  }
 }
 .calm-dot[aria-current="true"] {
   background: var(--ink-1);
@@ -582,13 +648,13 @@ html, body {
   color: var(--ink-1);
 }
 .vbtn-pass[aria-pressed="true"] {
-  background: var(--ok);
-  border-color: var(--ok);
+  background: var(--ok-fill);
+  border-color: var(--ok-fill);
   color: #ffffff;
 }
 .vbtn-flag[aria-pressed="true"] {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--flag-fill);
+  border-color: var(--flag-fill);
   color: #ffffff;
 }
 .ac-note-input {
@@ -596,7 +662,7 @@ html, body {
   margin-top: 10px;
   padding: 9px 12px;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   background: var(--bg-surface);
   color: var(--ink-1);
   font: 400 13px var(--sans);
@@ -659,7 +725,7 @@ html, body {
   flex-wrap: nowrap;
   min-width: 0;
 }
-.story-select-pill { max-width: clamp(11rem, 15vw, 19rem); flex: 0 0 auto; }
+.story-select-pill { max-width: clamp(9.625rem, 13.5vw, 16.5rem); flex: 0 0 auto; }
 .mode-tabs { display: flex; flex-wrap: nowrap; padding: 2px; gap: 4px; flex: 0 0 auto; max-width: none; }
 .mode-tab, .btn-primary, .btn-secondary, .gate-pill-btn { white-space: nowrap; flex: 0 0 auto; font-size: 12px; padding: 5px 10px; min-height: 28px; }
 .st-topbar.is-hidden:not(:focus-within) { transform: translateY(-100%); }
@@ -706,6 +772,7 @@ button[data-drawer-seek] { min-height: 28px; }
 </style>
 </head>
 <body>
+<a class="skip-link" id="skipLink" href="#mainContent">Bỏ qua đến bàn duyệt chính</a>
 
 <!-- ── THANH ĐIỀU HƯỚNG ĐỈNH 1 HÀNG (54PX — LAYOUT 1A) ── -->
 <header class="st-topbar" aria-label="Thanh điều khiển WMS Review Studio">
@@ -749,7 +816,7 @@ button[data-drawer-seek] { min-height: 28px; }
   <div class="gate-grid" id="specialistGatesGrid"></div>
 </section>
 
-<main class="workbench">
+<main class="workbench" id="mainContent" tabindex="-1">
   <output id="studioToast" aria-live="polite" style="display:block;margin-bottom:8px;font:600 12.5px var(--mono);color:var(--ok)"></output>
 
   <!-- ══════════════════════════════════════════════════════════════════════
@@ -931,11 +998,19 @@ button[data-drawer-seek] { min-height: 28px; }
   const initialMode = ["post", "video", "oss"].includes(params.get("mode")) ? params.get("mode") : "post";
   const initialUnit = params.get("unit") ? Math.max(0, parseInt(params.get("unit"), 10) || 0) : 0;
 
+  const initThemeParam = params.get("theme");
+  let initThemeSaved = "";
+  try { initThemeSaved = localStorage.getItem("wms-studio-theme") || ""; } catch (_) {}
+  const initSysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const initialTheme = (initThemeParam === "charcoal" || initThemeParam === "paper")
+    ? initThemeParam
+    : ((initThemeSaved === "charcoal" || initThemeSaved === "paper") ? initThemeSaved : (initSysDark ? "charcoal" : "paper"));
+
   const ST = {
     lang: initialLang,
     story: initialStory,
     mode: initialMode,      // "post" | "video" | "oss"
-    theme: params.get("theme") === "charcoal" ? "charcoal" : "paper",
+    theme: initialTheme,
     gateDrawerOpen: false,
     // Post review state
     postUnitIdx: initialUnit, // 0=Diorama, 1..5=Ch.01..05, 6=Sổ TT99, 7=Xem cả bài
@@ -953,7 +1028,19 @@ button[data-drawer-seek] { min-height: 28px; }
     reviews: {}
   };
 
-  document.documentElement.setAttribute("data-theme", ST.theme);
+  function syncStudioThemeDOM(t, persist) {
+    const mode = t === "charcoal" ? "charcoal" : "paper";
+    ST.theme = mode;
+    document.documentElement.setAttribute("data-theme", mode);
+    const scheme = mode === "charcoal" ? "dark" : "light";
+    document.documentElement.style.colorScheme = scheme;
+    const mc = document.querySelector('meta[name="color-scheme"]');
+    if (mc) mc.content = scheme;
+    if (persist) {
+      try { localStorage.setItem("wms-studio-theme", mode); } catch (_) {}
+    }
+  }
+  syncStudioThemeDOM(ST.theme, false);
   document.documentElement.lang = ST.lang;
   const origDocTitle = document.title;
   const tldrEl = $(".tldr");
@@ -1113,6 +1200,9 @@ button[data-drawer-seek] { min-height: 28px; }
       renderAll();
     };
 
+    if ($("#skipLink")) {
+      $("#skipLink").textContent = en ? "Skip to main workbench" : "Bỏ qua đến bàn duyệt chính";
+    }
     $("#themeToggleBtn").textContent = ST.theme === "paper"
       ? (en ? "🌙 Muted Charcoal" : "🌙 Nền Than dịu")
       : (en ? "☀️ Warm Paper" : "☀️ Nền Giấy ấm");
@@ -1842,8 +1932,7 @@ button[data-drawer-seek] { min-height: 28px; }
   };
 
   $("#themeToggleBtn").onclick = () => {
-    ST.theme = ST.theme === "paper" ? "charcoal" : "paper";
-    document.documentElement.setAttribute("data-theme", ST.theme);
+    syncStudioThemeDOM(ST.theme === "paper" ? "charcoal" : "paper", true);
     renderTopbarAndGates();
   };
 
@@ -2018,8 +2107,7 @@ button[data-drawer-seek] { min-height: 28px; }
     if (opts.story && curStories[opts.story]) ST.story = opts.story;
     if (opts.mode && ["post", "video", "oss"].includes(opts.mode)) ST.mode = opts.mode;
     if (opts.theme && ["paper", "charcoal"].includes(opts.theme)) {
-      ST.theme = opts.theme;
-      document.documentElement.setAttribute("data-theme", ST.theme);
+      syncStudioThemeDOM(opts.theme, false);
     }
     if (opts.fmt && ["long", "short"].includes(opts.fmt)) ST.fmt = opts.fmt;
     if (typeof opts.hud === "boolean") ST.hud = opts.hud;
