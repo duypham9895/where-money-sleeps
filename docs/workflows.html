@@ -813,7 +813,6 @@ footer.site-footer .theme button[aria-pressed="true"]{
       <div class="ft-wf-right">
         <div class="ft-wf-links">
           <a href="prototype.html" id="ftBackIndex">← Mở Trang đọc chính</a>
-          <a href="studio.html" id="ftOpenStudio">Media &amp; Subtitle Studio</a>
           <a href="https://github.com/duypham9895" target="_blank" rel="noopener noreferrer">github.com/duypham9895 ↗</a>
         </div>
         <div class="theme" role="group" aria-labelledby="ftThemeLbl">
@@ -1732,7 +1731,7 @@ footer.site-footer .theme button[aria-pressed="true"]{
     $("#ftName").textContent = L.ftName;
     $("#wfFooterNote").textContent = L.wfFooterNote;
     $("#ftBackIndex").textContent = L.ftBackIndex;
-    $("#ftOpenStudio").textContent = L.ftOpenStudio;
+    if ($("#ftOpenStudio")) $("#ftOpenStudio").textContent = L.ftOpenStudio;
     $("#ftThemeLbl").textContent = L.ftThemeLbl;
     $("#ftThemeAuto").textContent = L.ftThemeAuto;
     $("#ftThemeLight").textContent = L.ftThemeLight;

@@ -57,34 +57,31 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 
 /* ── mở bài ────────────────────────────────── */
 .hero-kicker{font:500 13px/1.4 var(--sans);color:var(--ink-3);margin:0 0 12px;letter-spacing:.01em}
-.hero{width:var(--wide);margin:0 auto;padding:48px 0 30px;display:grid;
+.hero{width:var(--wide);margin:0 auto;padding:44px 0 30px;display:grid;
   grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
-@media (max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-top:30px}}
-.hero h1{font-weight:500;font-size:clamp(2.3rem,5.6vw,4.1rem);line-height:1.02;letter-spacing:-.03em;margin:0 0 18px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-top:26px}}
+.hero h1{font-weight:500;font-size:clamp(2.3rem,5.4vw,3.95rem);line-height:1.03;letter-spacing:-.03em;margin:0 0 18px}
 .hero h1 em{font-style:italic;color:var(--lamp)}
-.hero .deck{font-size:1.15rem;color:var(--ink-2);max-width:34ch;margin:0 0 22px}
-.aha{border-left:3px solid var(--lamp);padding:2px 0 2px 16px;margin:0;max-width:38ch;font-size:1.12rem}
+.hero .deck{font-size:1.15rem;color:var(--ink-2);max-width:36ch;margin:0 0 20px}
+.aha{border-left:3px solid var(--lamp);padding:2px 0 2px 16px;margin:0 0 22px;max-width:38ch;font-size:1.1rem}
 .aha strong{font-weight:600}
 .hero-art{position:relative;justify-self:center;width:min(340px,86vw);padding:10px 0 20px}
-.phone{position:relative;z-index:2;margin-left:auto;width:min(270px,74vw);aspect-ratio:9/17.5;border-radius:38px;
+.phone{position:relative;z-index:2;margin-left:auto;width:min(266px,74vw);aspect-ratio:9/17.2;border-radius:38px;
   background:linear-gradient(170deg,#2a3150,#10131f 70%);padding:20px 14px;color:#eef0ff;overflow:hidden;transform:rotate(2deg);
   box-shadow:inset 0 0 0 7px #0b0c14,inset 0 0 0 8px #3a3d4c,0 2px 2px var(--sh-2),0 18px 26px -14px var(--sh),0 46px 60px -40px var(--sh)}
 .phone::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:linear-gradient(115deg,rgba(255,255,255,.10) 0 28%,transparent 28.5%)}
-.phone .clock{font-family:var(--sans);text-align:center;margin-top:34px}
-.phone .clock b{display:block;font-size:52px;font-weight:600;letter-spacing:-2px;line-height:1}
+.phone .clock{font-family:var(--sans);text-align:center;margin-top:32px}
+.phone .clock b{display:block;font-size:50px;font-weight:600;letter-spacing:-2px;line-height:1}
 .phone .clock span{font-size:13px;opacity:.75}
-.sms{position:absolute;left:12px;right:12px;top:140px;background:rgba(244,241,232,.95);color:#16182a;
-  border-radius:16px;padding:11px 13px;font-family:var(--sans);font-size:12.5px;line-height:1.4;
-  box-shadow:0 10px 18px -10px rgba(0,0,0,.6);
-  transform:translateY(-14px) scale(.97);opacity:0;transition:transform .6s cubic-bezier(.2,.9,.25,1.15),opacity .45s}
-.sms.in{transform:none;opacity:1}
+.sms{position:absolute;left:12px;right:12px;top:138px;background:rgba(244,241,232,.96);color:#16182a;
+  border-radius:16px;padding:11px 13px;font-family:var(--sans);font-size:12px;line-height:1.4;
+  box-shadow:0 10px 18px -10px rgba(0,0,0,.6);opacity:1}
 .sms .who{display:flex;justify-content:space-between;font-size:11px;color:#55586e;margin-bottom:3px}
 .sms .who b{color:#16182a}
 .sms code{font-family:inherit;letter-spacing:.1px}
-.phone .note{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-family:var(--serif);
-  font-style:italic;font-size:15px;color:#f4c766;opacity:0;transition:opacity .6s .9s}
-.phone .note.in{opacity:1}
+.phone .note{position:absolute;left:0;right:0;bottom:24px;text-align:center;font-family:var(--serif);
+  font-style:italic;font-size:15px;color:#f4c766;opacity:1}
 /* tờ hoá đơn nằm dưới điện thoại */
 .slip{position:absolute;z-index:1;left:0;top:64px;width:168px;padding:14px 14px 16px;transform:rotate(-8deg);
   font-family:var(--mono);font-size:11.5px;line-height:1.5;color:#2b2620;background:#fbf7ec;
@@ -104,31 +101,16 @@ a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 /* ── trước khi bắt đầu ─────────────────────── */
 .before{width:var(--read);margin:10px auto 0;padding:34px 0 10px;border-top:1px solid var(--rule)}
 .eyebrow{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--lamp);margin:0 0 6px}
-.before h2,.sec h2{font-weight:500;font-size:clamp(1.55rem,3.4vw,2.05rem);line-height:1.15;letter-spacing:-.02em;margin:0 0 18px}
+.before h2,.sec h2{font-weight:500;font-size:clamp(1.55rem,3.4vw,2.05rem);line-height:1.15;letter-spacing:-.02em;margin:0 0 16px}
 .three{list-style:none;padding:0;margin:0;counter-reset:q}
 .three li{counter-increment:q;display:grid;grid-template-columns:2.2rem 1fr;gap:6px;padding:12px 0;border-bottom:1px dashed var(--rule-2)}
 .three li:last-child{border-bottom:0}
 .three li::before{content:counter(q);font-style:italic;font-size:1.6rem;line-height:1.1;color:var(--lamp)}
 
-/* ── hai chuyện: hai cuốn sổ tay ───────────── */
-.sec{width:var(--wide);margin:0 auto;padding:46px 0 10px}
+/* ── hai chuyện: khu vực mở rộng ────────────── */
+.sec{width:var(--wide);margin:0 auto;padding:42px 0 10px}
 .sec > .inner{width:var(--read);margin:0 auto}
-.stories{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:8px;padding:6px 4px 10px}
-@media (max-width:720px){.stories{grid-template-columns:1fr}}
-.story{all:unset;box-sizing:border-box;cursor:pointer;display:block;position:relative;padding:22px 24px 22px 40px;
-  border-radius:3px 10px 10px 3px;background:linear-gradient(90deg,rgba(60,40,15,.07) 0 18px,transparent 18px),var(--card);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 1px var(--sh-2),0 8px 16px -10px var(--sh),0 26px 38px -30px var(--sh);
-  transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
-.story::before{content:"";position:absolute;left:18px;top:10px;bottom:10px;border-left:1.5px dashed var(--rule-2)}
-.story:hover{transform:translateY(-3px) rotate(-.3deg)}
-.story[aria-pressed="true"]{transform:translateY(-5px) rotate(-.7deg);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 2px var(--sh-2),0 16px 22px -12px var(--sh),0 40px 50px -34px var(--sh)}
-.story[aria-pressed="true"]::after{content:"";position:absolute;right:26px;top:-5px;width:15px;height:48px;background:var(--lamp);
-  clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%)}
-.story .k{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);font-weight:500}
-.story .h{display:block;font-weight:500;font-size:1.32rem;line-height:1.2;margin:6px 0 8px;letter-spacing:-.01em}
-.story .d{display:block;margin:0;color:var(--ink-2);font-size:1rem}
-.story:focus-visible,.book:focus-visible{outline:2px solid var(--lamp);outline-offset:4px}
+.sec-lead{margin:-8px 0 18px;font-family:var(--sans);font-size:14px;color:var(--ink-2)}
 
 /* ── sân khấu ──────────────────────────────── */
 .stage{width:var(--wide);margin:26px auto 0;scroll-margin-top:var(--sticky,12px)}
@@ -295,41 +277,46 @@ input[type=range]{width:100%;accent-color:var(--lamp);height:28px;cursor:pointer
 .tryhint{font-size:1.02rem;color:var(--ink-2)}
 
 /* kệ sách: sách dựng trên một tấm ván gỗ */
-.shelf{position:relative;display:flex;align-items:flex-end;gap:14px;margin:18px 0 30px;padding:26px 20px 0;
+.shelf-sub{margin:6px 0 0;font-family:var(--sans);font-size:13.5px;color:var(--ink-2);max-width:62ch;text-align:left}
+.shelf{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));align-items:end;gap:34px 14px;margin:18px 0 38px;padding:26px 20px 0;
   background:linear-gradient(180deg,transparent 0 20%,color-mix(in srgb,var(--paper-2) 70%,transparent));border-radius:6px 6px 0 0}
 .shelf::after{content:"";position:absolute;left:-6px;right:-6px;bottom:-20px;height:20px;border-radius:2px;
   background:repeating-linear-gradient(90deg,rgba(0,0,0,.06) 0 1px,transparent 1px 37px),linear-gradient(180deg,#a77650,#7c5133 70%,#5e3c25);
   box-shadow:inset 0 2px 0 rgba(255,255,255,.18),0 16px 20px -10px var(--sh)}
-.book{all:unset;box-sizing:border-box;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:var(--h,250px);height:auto;padding:16px 12px 12px 18px;
+.book{all:unset;box-sizing:border-box;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:var(--h,250px);height:auto;padding:16px 12px 12px 18px;
   border-radius:2px 5px 0 0;color:#fbf6ea;position:relative;transform:rotate(var(--r,0deg));transform-origin:bottom left;transition:transform .35s cubic-bezier(.2,.8,.2,1);
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),linear-gradient(90deg,rgba(0,0,0,.25) 0 7px,rgba(255,255,255,.14) 7px 8px,transparent 8px),var(--c);
   box-shadow:inset 0 -1px 0 rgba(0,0,0,.3),0 6px 10px -6px rgba(0,0,0,.55)}
-.book .t{font-size:1.06rem;line-height:1.2;font-weight:500;padding:6px 0;border-top:1px solid rgba(232,205,146,.7);border-bottom:1px solid rgba(232,205,146,.7)}
-.book .q{font-size:.92rem;line-height:1.35;font-style:italic;opacity:.92;margin-top:10px}
-.book .st{font-family:var(--sans);font-size:11.5px;font-weight:600;opacity:.9;margin-top:12px}
-.book .st::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid currentColor;margin-right:6px}
+.book .t{font-size:1.01rem;line-height:1.22;font-weight:500;padding:6px 0;border-top:1px solid rgba(232,205,146,.7);border-bottom:1px solid rgba(232,205,146,.7)}
+.book .q{font-size:.88rem;line-height:1.35;font-style:italic;opacity:.92;margin-top:10px}
+.book .st{font-family:var(--sans);font-size:11px;font-weight:600;opacity:.92;margin-top:12px;display:grid;gap:6px}
+.book .st-txt::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid currentColor;margin-right:6px;vertical-align:1px}
 .book.open{cursor:pointer}
 .book.open:hover{transform:rotate(var(--r,0deg)) translateY(-8px)}
 .book.open:hover .st{text-decoration:underline}
-.book.open .st::before{background:currentColor}
+.book.open .st-txt::before{background:currentColor}
 .book.open::after{content:"";position:absolute;right:16px;bottom:-26px;width:9px;height:30px;background:#e0b75a;
   clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);z-index:2}
 .book.soon{filter:saturate(.55) brightness(.92)}
 .book.soon::before{content:"đang viết";position:absolute;top:-14px;right:12px;font-family:var(--sans);font-size:10px;font-weight:600;color:#4f4537;
   background:#f7f0e0;padding:2px 6px 6px;transform:rotate(3deg);box-shadow:0 1px 2px rgba(0,0,0,.25)}
 html[lang="en"] .book.soon::before{content:"coming soon"}
-@media (max-width:820px){
-  .shelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 12px;padding:22px 10px 0;background:none}
+@media (max-width:1060px){
+  .shelf{grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:34px 12px;padding:22px 10px 0;background:none}
   .shelf::after{display:none}
-  .book{min-height:230px;height:auto;transform:none;border-bottom:10px solid #7c5133}
+  .book{min-height:220px;height:auto;transform:none;border-bottom:10px solid #7c5133}
   .book.open:hover{transform:translateY(-6px)}
   .book.open::after{bottom:-36px}}
 @media (max-width:460px){.shelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* sổ tay chữ */
-dl.gl{display:grid;grid-template-columns:minmax(9rem,auto) 1fr;gap:0 18px;margin:8px 0 0}
-dl.gl dt{font-style:italic;font-weight:500;padding:10px 0;border-top:1px dashed var(--rule-2)}
-dl.gl dd{margin:0;padding:10px 0;border-top:1px dashed var(--rule-2);font-size:1rem;color:var(--ink-2)}
+dl.gl{display:grid;grid-template-columns:minmax(10.5rem,auto) 1fr;gap:0 18px;margin:6px 0 0}
+dl.gl dt{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.05rem;padding:11px 0;border-top:1px dashed var(--rule-2)}
+dl.gl dd{margin:0;padding:11px 0;border-top:1px dashed var(--rule-2);font-size:.98rem;line-height:1.52;color:var(--ink-2)}
+dl.gl dd .gl-jump-row{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px}
+.gl-jump-chip{border:1px solid var(--rule-2);background:var(--paper);color:var(--ink-3);font:500 11px var(--sans);padding:2px 8px;border-radius:2px;cursor:pointer}
+.gl-jump-chip:hover{border-color:var(--ink);color:var(--ink)}
+.gl-more-tag{font:600 11px var(--mono);color:var(--ink-3);align-self:center;padding:2px 6px}
 @media (max-width:560px){dl.gl{grid-template-columns:1fr}dl.gl dd{border-top:0;padding-top:0}}
 
 /* chú thích nổi */
@@ -341,38 +328,8 @@ dl.gl dd{margin:0;padding:10px 0;border-top:1px dashed var(--rule-2);font-size:1
 #pop button{position:absolute;top:6px;right:8px;border:0;background:none;color:inherit;opacity:.75;cursor:pointer;font-size:20px;line-height:1}
 @keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-footer{width:var(--read);margin:70px auto 0;padding:24px 0 72px;border-top:2px solid var(--rule);font-family:var(--sans);font-size:13px;color:var(--ink-3);line-height:1.6}
+footer{width:var(--wide);margin:44px auto 0;padding:34px 0 24px;border-top:3px double var(--rule-2);font-family:var(--sans);font-size:13px;color:var(--ink-2);line-height:1.6}
 footer p{margin:0 0 8px}
-.ft-archival{display:grid;gap:14px}
-.ft-pipe-band{
-  border:1px solid var(--rule);border-left:3px solid var(--accent, var(--lamp, #B3532B));
-  border-radius:3px;background:color-mix(in srgb,var(--paper) 60%,var(--ink) 3%);
-  padding:12px 14px;display:grid;gap:8px;
-}
-.ft-pipe-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.ft-pipe-kicker{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
-.ft-pipe-lang{display:inline-flex;border:1px solid var(--rule-2);border-radius:3px;overflow:hidden}
-.ft-pipe-lang button{
-  border:0;background:transparent;color:var(--ink-3);padding:2px 8px;cursor:pointer;
-  font-family:var(--mono);font-size:11px;font-weight:700;
-  transition-property:background-color,color;transition-duration:.15s;
-}
-.ft-pipe-lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.ft-pipe-trace{
-  font-family:var(--mono);font-size:11.5px;color:var(--ink-2);line-height:1.5;
-  font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
-}
-.ft-pipe-note{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.55;text-wrap:pretty}
-.ft-pipe-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px}
-.ft-pipe-links a{color:var(--ink);font-weight:600;text-decoration-thickness:1px;text-underline-offset:3px}
-.ft-pipe-links a:hover{color:var(--lamp, var(--ink));text-decoration-thickness:2px}
-.ft-disclaimers{font-size:12.5px;color:var(--ink-3)}
-@media (pointer:coarse){
-  .ft-pipe-lang button,.ft-pipe-links a,footer .theme button{min-height:44px;display:inline-flex;align-items:center}
-}
-footer .theme{margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-footer .theme button{border:1px solid var(--rule-2);background:none;border-radius:999px;padding:3px 10px;cursor:pointer;font-size:12.5px;color:var(--ink-2)}
-footer .theme button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
 /* ── Thanh biên tập 1 hàng 52px (Editorial Masthead + Breadcrumb Pill + Mục lục ⌘K) ── */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -437,11 +394,11 @@ footer .theme button[aria-pressed="true"]{background:var(--ink);color:var(--pape
   border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
   background:color-mix(in srgb,var(--card) 82%,transparent);color:var(--ink-2);
   cursor:pointer;display:inline-grid;place-items:center;font-size:14px;line-height:1;transition:background .15s,color .15s}
-.lang-seg{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:999px;
-  border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
-  background:color-mix(in srgb,var(--card) 82%,transparent);flex:0 0 auto}
+.lang-seg{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:3px;
+  border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);
+  background:var(--card);flex:0 0 auto}
 .lang-seg button{appearance:none;border:0;background:transparent;color:var(--ink-2);
-  border-radius:999px;padding:4px 9px;min-height:28px;cursor:pointer;
+  border-radius:2px;padding:4px 9px;min-height:28px;cursor:pointer;
   font:700 11px/1 var(--mono);letter-spacing:.03em;transition:background .15s,color .15s}
 .lang-seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 @media (pointer:coarse){.lang-seg button{min-height:44px;min-width:44px}}
@@ -854,101 +811,150 @@ p,.prose p,.card-teaser,.chap-fig-desc{text-wrap:pretty}
 @keyframes wmsVtOut{to{opacity:0}}
 @keyframes wmsVtIn{from{opacity:0}}
 
-.atlasbar{border-bottom:1px solid var(--rule-2);background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(8px);position:sticky;top:0;z-index:80}
-.reading-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:color-mix(in srgb,var(--rule-2) 50%,transparent);pointer-events:none;overflow:hidden}
-.reading-bar span{display:block;height:100%;width:100%;background:var(--clay);transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform .12s linear}
-.ab-row{width:100%;max-width:82rem;box-sizing:border-box;margin:0 auto;padding:8px 18px;min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.ab-left{display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto}
-.ab-brand{appearance:none;border:0;background:transparent;padding:4px 0;font:700 15px/1.2 var(--serif);color:var(--ink);cursor:pointer;text-decoration:none;white-space:nowrap;flex:none;letter-spacing:-.01em}
-.ab-brand:hover,.ab-brand:focus-visible{color:var(--clay);outline:none}
-.ab-div{width:1px;height:16px;background:var(--rule-2);flex:none}
+.atlasbar{position:sticky;top:0;z-index:80;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid color-mix(in srgb,var(--ink) 12%,transparent);font-family:var(--sans)}
+.reading-bar{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent;pointer-events:none;overflow:hidden}
+.reading-bar span{display:block;height:100%;width:100%;background:var(--lamp);transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform .08s linear}
+.ab-row{width:var(--wide);box-sizing:border-box;margin:0 auto;min-height:52px;padding:6px 0;display:flex;flex-wrap:nowrap;
+  gap:8px 12px;align-items:center;justify-content:space-between}
+@media (max-width:720px){.ab-row{flex-wrap:wrap}}
+.ab-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto}
+.ab-brand{appearance:none;border:0;background:none;padding:0;cursor:pointer;font:600 italic 1.14rem/1 var(--serif);
+  color:var(--ink);white-space:nowrap;letter-spacing:-.015em;flex:0 0 auto;transition:color .15s}
+.ab-brand:hover,.ab-brand:focus-visible{color:var(--lamp);outline:none}
+.ab-div{width:1px;height:18px;background:color-mix(in srgb,var(--ink) 16%,transparent);flex:0 0 auto}
 .ab-center{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
-.ab-tagline{font:500 12px/1.3 var(--sans);color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
-.ab-back{appearance:none;border:0;background:transparent;color:var(--clay);font:700 12.5px/1.2 var(--sans);padding:5px 7px;border-radius:3px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;flex:none;transition:background .12s}
-.ab-back:hover,.ab-back:focus-visible{background:color-mix(in srgb,var(--clay) 10%,transparent);outline:none}
-.ab-jumps{display:flex;align-items:center;gap:1px;margin-left:auto;margin-right:2px;flex:0 0 auto}
-.ab-jumps a{font:600 11.5px/1 var(--sans);color:var(--ink-2);text-decoration:none;padding:5px 6px;border-radius:3px;white-space:nowrap}
-.ab-jumps a:hover,.ab-jumps a:focus-visible{color:var(--clay);background:color-mix(in srgb,var(--ink) 5%,transparent)}
-.split-pill-wrap{flex:0 1 auto;min-width:0;max-width:100%}
-.split-pill{border-radius:3px;border:1px solid color-mix(in srgb,var(--ink) 32%,transparent);box-shadow:none;background:var(--card)}
-.split-pill > button{padding:4px 8px}
-.split-pill > button.sp-cat{flex:0 1 auto;min-width:8.5rem}
-.split-pill > button.sp-cat .cat-name{max-width:15ch}
-.split-pill > button.sp-post{flex:1 1 auto;min-width:10.5rem}
-.split-pill > button.sp-post .post-title{max-width:24ch}
-.split-pill-trig:hover,.split-pill-trig:focus-visible{background:color-mix(in srgb,var(--ink) 5%,transparent)}
-.ab-act{display:flex;align-items:center;gap:7px;flex:none}
-.ab-btn{border-radius:3px;border:1px solid color-mix(in srgb,var(--ink) 32%,transparent);box-shadow:none;background:transparent;color:var(--ink);padding:5px 9px;gap:6px;display:inline-flex;align-items:center;font:600 12.5px/1.2 var(--sans);cursor:pointer}
-.ab-btn:hover,.ab-btn:focus-visible{transform:none;box-shadow:none;background:color-mix(in srgb,var(--ink) 5%,transparent);border-color:var(--ink);outline:none}
-.ab-ico{width:14px;height:14px;display:inline-block;flex:none;color:var(--ink-2)}
-.ab-badge{background:color-mix(in srgb,var(--clay) 12%,transparent);color:var(--clay);padding:2px 6px;border-radius:2px;font:700 11px/1 var(--mono);font-variant-numeric:tabular-nums}
-.ab-kbd{border-radius:2px;border:1px solid var(--rule-2);background:transparent;color:var(--ink-3);font:600 10.5px/1 var(--mono);padding:2px 5px}
-.ab-theme-btn{appearance:none;width:32px;height:32px;border-radius:3px;border:1px solid var(--rule-2);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:14px}
-.ab-theme-btn:hover,.ab-theme-btn:focus-visible{border-color:var(--ink);background:color-mix(in srgb,var(--ink) 5%,transparent);outline:none}
+.ab-back{appearance:none;border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);background:transparent;
+  color:var(--ink);border-radius:3px;padding:5px 11px;min-block-size:32px;cursor:pointer;font:600 12.5px/1 var(--sans);
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex:0 0 auto;transition:background-color .15s,border-color .15s}
+.ab-back:hover,.ab-back:focus-visible{background:var(--paper-2);border-color:var(--ink);outline:none}
+.ab-tagline{font:500 12.5px var(--sans);color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:780px){.ab-tagline{display:none}}
+.split-pill-wrap{position:relative;min-width:0;flex:0 1 21rem;max-width:100%;display:flex;align-items:center}
+.split-pill{display:inline-flex;align-items:center;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);
+  border-radius:3px;background:var(--card);padding:2px;min-width:0;max-width:100%;gap:2px}
+.split-pill > button{appearance:none;border:0;background:transparent;color:var(--ink);padding:4px 10px;min-block-size:28px;
+  border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font:500 12.5px/1.2 var(--sans);min-width:0;overflow:hidden}
+.split-pill > button:hover,.split-pill > button[aria-expanded="true"]{background:var(--paper-2)}
+.sp-sep{color:var(--ink-3);font-size:12px;opacity:.55;padding:0 1px;flex:0 0 auto}
+.cat-dot{width:7px;height:7px;border-radius:50%;background:var(--c,var(--lamp));flex:0 0 auto}
+.sp-cat .cat-name{min-width:0;max-width:clamp(4.5rem,8.5vw,7.5rem);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-post .post-title{min-width:0;max-width:clamp(5.5rem,11vw,10.5rem);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-post{font-weight:600}.sp-post .post-pos{font:700 11px var(--mono);color:var(--lamp);flex:0 0 auto}
+.sp-caret{font-size:9.5px;color:var(--ink-3);opacity:.75;flex:0 0 auto}
+@media (max-width:860px){.sp-cat .cat-name{display:none}}
+@media (max-width:640px){.ab-left{flex-wrap:wrap;gap:6px 8px}.ab-div{display:none}.atlasbar.is-detail .ab-center{order:3;flex:1 1 100%;justify-content:flex-start}.atlasbar.is-detail .split-pill-wrap{flex:1 1 auto}.sp-post .post-title{max-width:13rem}}
+.ab-jumps{display:inline-flex;gap:4px;align-items:center;flex:0 0 auto}
+.ab-jumps a{text-decoration:none;font:500 12px var(--sans);color:var(--ink-3);padding:4px 8px;border-radius:2px;white-space:nowrap}
+.ab-jumps a:hover,.ab-jumps a:focus-visible{color:var(--ink);background:var(--paper-2);outline:none}
+@media (max-width:1240px){.ab-jumps{display:none}}
+.ab-act{display:flex;gap:8px;align-items:center;flex:0 0 auto}
+.ab-btn{appearance:none;display:inline-flex;align-items:center;gap:6px;border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);
+  background:transparent;color:var(--ink);border-radius:3px;padding:5px 10px;min-block-size:34px;
+  cursor:pointer;font:500 12.5px/1.2 var(--sans);white-space:nowrap;transition:background-color .15s,border-color .15s}
+.ab-btn:hover,.ab-btn:focus-visible{transform:none;box-shadow:none;background:var(--paper-2);border-color:var(--ink);outline:none}
+.ab-btn[aria-expanded="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ab-ico{width:13px;height:13px;display:inline-block;flex:none;opacity:.82}
+.ab-sep{color:var(--ink-3);opacity:.55}
+.ab-badge{font:600 11.5px var(--mono);color:var(--ink-2);background:transparent;padding:0;border-radius:0;font-variant-numeric:tabular-nums}
+.ab-btn[aria-expanded="true"] .ab-badge{background:transparent;color:var(--paper)}
+.ab-kbd{font:500 10.5px var(--mono);padding:0 0 0 7px;margin-left:2px;border:0;border-left:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:0;background:transparent;color:var(--ink-3)}
+.ab-btn[aria-expanded="true"] .ab-kbd{color:color-mix(in srgb,var(--paper) 75%,transparent);border-left-color:color-mix(in srgb,var(--paper) 25%,transparent)}
+@media (max-width:640px){.ab-kbd,.ab-sep{display:none}}
+.ab-theme-btn{appearance:none;min-inline-size:34px;min-block-size:34px;border-radius:3px;border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);
+  background:transparent;color:var(--ink-2);cursor:pointer;display:inline-grid;place-items:center;font-size:14px;transition:background-color .15s,border-color .15s}
+.ab-theme-btn:hover,.ab-theme-btn:focus-visible{background:var(--paper-2);border-color:var(--ink);color:var(--ink);outline:none}
 .atlasbar.is-landing .ab-steps{display:none}
-@media (max-width:1180px){.ab-jumps{display:none}}
-@media (max-width:860px){.ab-tagline,.ab-div{display:none}.atlasbar.is-landing .ab-center{display:none}.split-pill > button.sp-cat{flex:0 0 auto;min-width:0}.split-pill > button.sp-post{min-width:0}}
-@media (max-width:760px){.ab-left{display:contents}.ab-act{order:2;margin-left:auto}.atlasbar.is-detail .ab-center{order:3;flex:1 1 100%;justify-content:flex-start}.atlasbar.is-detail .split-pill-wrap{flex:1 1 auto}}
-@media (max-width:600px){.ab-row{padding:7px 12px;gap:6px 8px}.ab-brand{font-size:13.5px;letter-spacing:-.02em}.ab-act{gap:5px}.ab-btn{padding:4px 7px;font-size:11.5px;gap:4px;min-height:30px}.lang-seg button{padding:3px 7px;font-size:11px}.ab-theme-btn{width:30px;height:30px}.ab-back{padding:4px 5px;font-size:12px}.ab-step{width:26px;height:26px}.ab-kbd,.ab-badge{display:none}.detail-wrap{padding:16px 12px 0}}
+@media (max-width:780px){.ab-div{display:none}}
+@media (max-width:600px){.ab-row{padding:6px 0;gap:6px 8px}.ab-brand{font-size:1rem}.ab-act{gap:5px}.ab-btn{padding:4px 7px;font-size:11.5px;gap:4px;min-height:30px}.lang-seg button{padding:3px 7px;font-size:11px}.ab-theme-btn{min-inline-size:30px;min-block-size:30px}.ab-back{padding:4px 6px;font-size:12px}.ab-badge{display:none}.detail-wrap{padding:16px 12px 0}}
 
-.hero-actions{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;margin-top:20px}
-.hero-cta{appearance:none;border:1.5px solid var(--ink);border-radius:3px;background:var(--clay);color:#fff8ee;font:700 14.5px/1.2 var(--sans);padding:11px 18px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
-.hero-cta:hover,.hero-cta:focus-visible{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink);outline:none}
-.hero-cta.ghost{background:var(--card);color:var(--ink)}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:var(--sans);margin-top:20px}
+.cta-main{appearance:none;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:4px;padding:10px 18px;
+  font:600 14px var(--sans);cursor:pointer;box-shadow:3px 3px 0 var(--lamp);transition:transform .15s,box-shadow .15s}
+.cta-main:hover,.cta-main:focus-visible{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--lamp);outline:none}
+.cta-sub{appearance:none;border:1px solid var(--rule-2);background:var(--card);color:var(--ink);border-radius:4px;padding:10px 15px;
+  font:500 13.5px var(--sans);cursor:pointer;transition:background-color .15s,border-color .15s}
+.cta-sub:hover,.cta-sub:focus-visible{background:var(--paper-2);border-color:var(--ink);outline:none}
 
-.catalog-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 18px;max-width:66rem;margin:0 auto 14px}
-.catalog-head h2,.catalog-head h3{margin:0;text-align:left;font-family:var(--serif);font-size:clamp(1.35rem,2.4vw,1.75rem);font-weight:700}
-.catalog-counter{font:600 12px/1.4 var(--mono);color:var(--ink-3);font-variant-numeric:tabular-nums}
-.catalog-bar{max-width:66rem;margin:0 auto 12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
-.catalog-search{flex:1 1 260px;max-width:28rem;position:relative}
-.catalog-search input{width:100%;box-sizing:border-box;padding:9px 12px 9px 34px;font:500 14px/1.3 var(--sans);border:1px solid var(--rule-2);border-radius:3px;background:var(--card);color:var(--ink)}
-.catalog-search input:focus{outline:2px solid var(--clay);outline-offset:1px;border-color:var(--clay)}
-.catalog-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink-3);pointer-events:none}
-.mode-seg{display:inline-flex;border:1px solid var(--rule-2);border-radius:3px;background:var(--paper-2);padding:2px;gap:2px}
-.mode-seg button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:600 12.5px/1.2 var(--sans);padding:6px 11px;border-radius:2px;cursor:pointer;white-space:nowrap}
-.mode-seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.cat-pills{max-width:66rem;margin:0 auto 20px;display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;gap:18px;border-bottom:1px solid var(--rule);padding:0 2px}
-.cat-pill{appearance:none;border:0;border-bottom:2.5px solid transparent;background:transparent;color:var(--ink-2);font:600 13.5px/1.3 var(--sans);padding:9px 2px 10px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:color .12s,border-color .12s}
-.cat-pill:hover,.cat-pill:focus-visible{color:var(--ink);outline:none}
-.cat-pill[aria-pressed="true"]{color:var(--clay);border-bottom-color:var(--clay);font-weight:700}
+.catalog-bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin:0 auto 14px;max-width:var(--wide);font-family:var(--sans)}
+.bar-field{flex:1 1 18rem;min-width:min(100%,15rem);display:flex;align-items:center;gap:8px}
+.bar-lbl{font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);white-space:nowrap}
+.catalog-search{flex:1 1 auto;min-width:0;border:1.5px solid var(--rule-2);background:var(--card);color:var(--ink);
+  border-radius:3px;padding:8px 13px;min-block-size:40px;font:500 13.5px var(--sans);transition:border-color .15s}
+.catalog-search:focus{outline:none;border-color:var(--ink)}
+.mode-seg-wrap{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.mode-seg{display:inline-flex;flex-wrap:wrap;gap:2px 14px;padding:0;border-radius:0;background:transparent;border:0;border-bottom:1px solid var(--rule-2)}
+.mode-seg button{appearance:none;border:0;border-bottom:2px solid transparent;background:transparent;padding:7px 2px;min-block-size:36px;border-radius:0;font:500 12.5px var(--sans);color:var(--ink-3);cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.mode-seg button:hover,.mode-seg button:focus-visible{color:var(--ink);outline:none}
+.mode-seg button[aria-pressed="true"]{background:transparent;color:var(--ink);font-weight:700;border-bottom-color:var(--clay);box-shadow:none}
+.cat-pills{display:flex;flex-wrap:wrap;gap:2px 16px;margin:0 auto 22px;max-width:var(--wide);font-family:var(--sans);border-bottom:1px solid var(--rule);padding-bottom:0}
+.cat-pill{appearance:none;border:0;border-bottom:2px solid transparent;background:transparent;padding:8px 2px 7px;min-block-size:36px;border-radius:0;font-size:12.5px;
+  font-weight:500;cursor:pointer;color:var(--ink-3);transition:color .15s,border-color .15s;margin-bottom:-1px;display:inline-flex;align-items:center;gap:5px}
+.cat-pill:hover,.cat-pill:focus-visible{color:var(--ink);border-bottom-color:var(--rule-2);outline:none}
+.cat-pill[aria-pressed="true"]{background:transparent;color:var(--ink);border-bottom-color:var(--c,var(--ink));font-weight:700}
 .cat-pill .ct-n{font:600 11px/1 var(--mono);color:var(--ink-3);font-variant-numeric:tabular-nums}
-.stories{max-width:66rem;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,19.5rem),1fr));gap:16px}
-.story-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;background:var(--card);border:1px solid var(--rule-2);border-top:3px solid var(--cat-c,var(--clay));border-radius:3px;box-shadow:none;transition:border-color .15s,background .15s}
-.story-card:hover{border-color:var(--ink);background:color-mix(in srgb,var(--card) 92%,var(--paper-2))}
-.story-card.on{border-color:var(--clay);box-shadow:0 0 0 1px var(--clay)}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20.5rem),1fr));gap:26px;margin-top:8px;padding:6px 4px 12px}
+.story-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:22px 24px 20px 38px;
+  border:0;border-radius:3px 10px 10px 3px;background:linear-gradient(90deg,rgba(60,40,15,.07) 0 18px,transparent 18px),var(--card);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 1px 1px var(--sh-2),0 8px 16px -10px var(--sh),0 26px 38px -30px var(--sh);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.story-card::before{content:"";position:absolute;left:18px;top:10px;bottom:10px;border-left:1.5px dashed var(--rule-2)}
+.story-card:has(.card-link:hover){transform:translateY(-2px);
+  box-shadow:0 1px 0 var(--rule-2),0 8px 18px -10px var(--sh)}
+.story-card:has(.card-link:focus-visible){outline:2px solid var(--lamp);outline-offset:4px}
+.story-card.on{box-shadow:0 0 0 1.5px var(--lamp),0 8px 18px -10px var(--sh)}
 .story-card.soon{opacity:.82}
-.story-card .st-k{font:700 10.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cat-c,var(--clay))}
-.story-card .st-t{margin:0;font:700 1.12rem/1.32 var(--serif);color:var(--ink)}
-.card-link{color:inherit;text-decoration:none}
+.story-card.is-done::after{content:"";position:absolute;right:24px;top:-4px;width:14px;height:42px;background:var(--lamp);
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%)}
+.story-card .k{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;align-items:baseline;font-family:var(--sans);font-size:12px;color:var(--ink-3);font-weight:500;padding-right:22px}
+.story-card .cat{display:inline-block;border-bottom:2px solid var(--c,var(--lamp));padding-bottom:1px;color:var(--ink-2);font-weight:600}
+.story-card .dur{font:600 11.5px var(--mono);color:var(--ink-3)}
+.story-card.is-done .dur{color:var(--moss)}
+.story-card h3{margin:4px 0 2px;font-family:var(--serif);font-weight:500;font-size:1.3rem;line-height:1.24;letter-spacing:-.01em;color:var(--ink)}
+.card-link{all:unset;cursor:pointer;display:inline;text-align:left;color:inherit}
 .card-link::after{content:"";position:absolute;inset:0}
 .card-link:focus-visible{outline:none}
-.story-card:has(.card-link:focus-visible){outline:2px solid var(--clay);outline-offset:2px}
-.story-card .card-teaser{margin:0;font:400 13.5px/1.55 var(--sans);color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.story-card .st-badges{display:flex;flex-wrap:wrap;gap:6px;position:relative;z-index:1}
-.card-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--rule);display:flex;align-items:center;justify-content:space-between;gap:8px;font:600 11.5px/1.2 var(--mono);color:var(--ink-3)}
-.card-go{color:var(--clay);font-weight:700}
+.story-card .d{margin:0;color:var(--ink-2);font-size:.98rem;line-height:1.52}
+.story-card .houses{margin-top:auto;padding-top:10px;border-top:1px dashed var(--rule);font-family:var(--sans);font-size:11.5px;color:var(--ink-3)}
+.story-card .go-hint{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--clay);padding-top:2px}
 .catalog-empty{grid-column:1 / -1;padding:28px 18px;border:1px dashed var(--rule-2);border-radius:3px;text-align:center;color:var(--ink-2);font:500 14px/1.5 var(--sans);background:var(--paper-2)}
-.catalog-more-bar{max-width:66rem;margin:20px auto 0;padding:14px 4px 0;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
-.catalog-range{font:500 12.5px/1.4 var(--sans);color:var(--ink-3);font-variant-numeric:tabular-nums}
-.catalog-pages{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
-.page-btn{appearance:none;min-width:34px;height:34px;padding:0 10px;border:1px solid var(--rule-2);border-radius:3px;background:var(--card);color:var(--ink);font:600 12.5px/1 var(--mono);cursor:pointer;display:inline-grid;place-items:center}
-.page-btn:hover:not(:disabled),.page-btn:focus-visible:not(:disabled){border-color:var(--ink);background:var(--paper-2)}
-.page-btn[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.page-btn:disabled{opacity:.42;cursor:not-allowed}
-.page-ellipsis{padding:0 4px;font:600 12px var(--mono);color:var(--ink-3)}
-.compact-cat-list{max-width:66rem;margin:0 auto;display:grid;gap:14px}
-.compact-cat-group{border:1px solid var(--rule-2);border-top:3px solid var(--cat-c,var(--clay));border-radius:3px;background:var(--card);padding:14px 16px}
-.compact-cat-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
-.compact-cat-head h3{margin:0;font:700 1rem/1.3 var(--serif);color:var(--ink)}
+.catalog-more-bar{margin:22px auto 6px;padding:14px 2px 4px;border:0;border-top:1px solid var(--rule-2);border-radius:0;background:transparent;
+  display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:13.5px;color:var(--ink-2)}
+.pager-meta{font:500 13px var(--sans);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.pager-meta strong{color:var(--ink);font-weight:700}
+.pager-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px}
+.page-btn{appearance:none;min-inline-size:36px;min-block-size:36px;padding:6px 11px;border:1px solid var(--rule-2);background:var(--card);color:var(--ink);
+  border-radius:3px;font:600 13px var(--mono);font-variant-numeric:tabular-nums;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background-color .15s,border-color .15s}
+.page-btn:hover:not(:disabled):not([aria-current="page"]),.page-btn:focus-visible:not(:disabled):not([aria-current="page"]){border-color:var(--ink);background:var(--paper-2)}
+.page-btn[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink);cursor:default}
+.page-btn:disabled{opacity:.42;cursor:not-allowed;background:transparent}
+.page-btn.step{font-family:var(--sans);font-weight:600;padding:6px 13px}
+.page-btn:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
+.page-dots{min-inline-size:24px;text-align:center;font:600 13px var(--mono);color:var(--ink-3);user-select:none}
+.catalog-more-actions{display:flex;flex-wrap:wrap;gap:8px}
+.catalog-more-btn{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:7px 14px;min-block-size:36px;font:600 12.5px var(--sans);cursor:pointer}
+.catalog-more-btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule-2)}
+.catalog-more-btn.ghost:hover{border-color:var(--ink);background:var(--paper-2)}
+.compact-cat-list{display:grid;gap:18px;margin-top:8px}
+.compact-cat-group{background:var(--card);border:1px solid var(--rule-2);border-top:3px solid var(--c,var(--lamp));border-radius:8px;padding:14px 18px;box-shadow:0 2px 6px var(--sh-2)}
+.compact-cat-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:8px;border-bottom:1px dashed var(--rule-2);margin-bottom:8px;font-family:var(--sans)}
+.compact-cat-head h3{margin:0;font-family:var(--serif);font-size:1.18rem;font-weight:500;color:var(--ink)}
 .compact-cat-head span{font:600 11.5px var(--mono);color:var(--ink-3)}
-.compact-items{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,24rem),1fr));gap:6px 18px}
-.compact-item-btn{appearance:none;border:0;background:transparent;width:100%;text-align:left;padding:6px 4px;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px dashed transparent;color:var(--ink);font:500 13.5px/1.4 var(--sans)}
-.compact-item-btn:hover,.compact-item-btn:focus-visible{color:var(--clay);border-bottom-color:var(--rule-2);outline:none}
-.compact-item-meta{font:600 11px var(--mono);color:var(--ink-3);white-space:nowrap}
+.compact-rows{display:grid;gap:6px}
+.compact-row{appearance:none;width:100%;border:1px solid transparent;border-bottom:1px dashed var(--rule);background:transparent;text-align:left;padding:9px 8px;border-radius:5px;
+  cursor:pointer;display:grid;grid-template-columns:3.2rem minmax(0,1fr) auto;gap:8px 12px;align-items:baseline;font-family:var(--sans);color:var(--ink)}
+.compact-row:last-child{border-bottom-color:transparent}
+button.compact-row:hover,button.compact-row:focus-visible{background:var(--paper-2);border-color:var(--rule-2);outline:none}
+.compact-row .cr-idx{font:700 11px var(--mono);color:var(--c,var(--lamp))}
+.compact-row .cr-main b{display:block;font-family:var(--serif);font-size:1.05rem;font-weight:500;color:var(--ink);line-height:1.3}
+.compact-row .cr-main small{display:block;font:400 12px/1.4 var(--sans);color:var(--ink-3);margin-top:2px}
+.compact-row .cr-meta{font:600 11.5px var(--mono);color:var(--clay);white-space:nowrap}
+@media (max-width:640px){.compact-row{grid-template-columns:2.6rem minmax(0,1fr)}.compact-row .cr-meta{grid-column:2;justify-self:start}}
 
-.shelf-sub{max-width:46rem;margin:-4px auto 18px;text-align:center;font:400 14px/1.55 var(--sans);color:var(--ink-2)}
-.book-prog{margin-top:8px;height:4px;background:rgba(255,255,255,.22);border-radius:2px;overflow:hidden}
-.book-prog i{display:block;height:100%;background:#f2d184}
+.shelf-sub{margin:6px 0 0;font-family:var(--sans);font-size:13.5px;color:var(--ink-2);max-width:62ch;text-align:left}
+.book-prog{display:block;height:3px;width:100%;border-radius:1px;background:rgba(255,255,255,.22);overflow:hidden}
+.book-prog > i{display:block;height:100%;background:#f4c766;border-radius:1px;transition:width .25s ease}
 
 .detail-wrap{max-width:68rem;margin:0 auto;padding:22px 18px 0}
 .detail-head{max-width:64rem;margin:0 auto 20px;padding-bottom:16px;border-bottom:1.5px solid var(--ink)}
@@ -981,75 +987,98 @@ p,.prose p,.card-teaser,.chap-fig-desc{text-wrap:pretty}
 .next-triad-foot{margin-top:12px;display:flex;justify-content:flex-end}
 @media (max-width:680px){.triad-grid{grid-template-columns:1fr}}
 
-.gl-sec{width:100%;max-width:66rem;box-sizing:border-box;margin:0 auto;padding:28px 18px 20px}
-.gl-heading-outside{margin:0 0 12px;font:700 1.25rem/1.3 var(--serif);color:var(--ink)}
-.gl-drawer{border:1px solid var(--rule-2);border-radius:3px;background:var(--card)}
-.gl-drawer>summary{list-style:none;cursor:pointer;padding:13px 16px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font:600 14px/1.3 var(--sans);color:var(--ink)}
-.gl-drawer>summary::-webkit-details-marker{display:none}
+.gl-sec{width:var(--read);max-width:none;box-sizing:border-box;margin:34px auto 0;padding:24px 0 42px;border-top:1px solid var(--rule)}
+.gl-heading-outside{font-family:var(--serif);font-weight:500;font-size:clamp(1.4rem,2.8vw,1.8rem);line-height:1.2;margin:0 0 12px;color:var(--ink)}
+.gl-drawer{border:1px solid var(--rule-2);border-radius:6px;background:var(--card);box-shadow:0 2px 4px var(--sh-2)}
+.gl-drawer > summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink)}
+.gl-drawer > summary::-webkit-details-marker{display:none}
+.gl-drawer > summary:hover{background:var(--paper-2)}
 .gl-sum-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.gl-count-pill{font:700 11.5px/1 var(--mono);color:var(--clay);background:color-mix(in srgb,var(--clay) 12%,transparent);padding:4px 8px;border-radius:2px;font-variant-numeric:tabular-nums}
-.gl-chevron{font:700 12px var(--mono);color:var(--ink-3);transition:transform .15s}
-.gl-drawer[open] .gl-chevron{transform:rotate(180deg)}
-.gl-body{padding:0 16px 18px;border-top:1px solid var(--rule)}
-.gl-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:14px 0}
-.gl-scope-row{display:flex;flex-wrap:wrap;gap:6px}
-.gl-chip{appearance:none;border:1px solid var(--rule-2);border-radius:3px;background:var(--paper-2);color:var(--ink-2);font:600 12.5px/1.2 var(--sans);padding:6px 11px;cursor:pointer}
-.gl-chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-#glSearch{flex:1 1 220px;max-width:20rem;padding:7px 10px;font:500 13.5px/1.3 var(--sans);border:1px solid var(--rule-2);border-radius:3px;background:var(--paper);color:var(--ink)}
-.gl-jump-hi{outline:2px solid var(--clay);outline-offset:3px;background:color-mix(in srgb,var(--clay) 12%,var(--card))!important}
+.gl-caret{display:inline-block;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--clay);transition:transform .2s ease;flex:none}
+.gl-drawer[open] > summary .gl-caret{transform:rotate(90deg)}
+.gl-drawer[open] > summary{border-bottom:1px dashed var(--rule-2);background:var(--paper-2)}
+.gl-pill,.gl-count-pill{font:600 11.5px var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--rule-2);padding:3px 9px;border-radius:2px;font-variant-numeric:tabular-nums}
+.gl-body{padding:16px 18px 20px}
+.gl-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px;font-family:var(--sans)}
+.gl-scope-row{display:flex;flex-wrap:wrap;gap:2px 14px;align-items:center}
+.gl-search,#glSearch{border:1px solid var(--rule-2);background:var(--paper);color:var(--ink);border-radius:4px;padding:6px 10px;font:500 13px/1.3 var(--sans);min-width:210px;flex:0 1 16rem;box-sizing:border-box}
+.gl-search:focus,#glSearch:focus{outline:2px solid var(--lamp);outline-offset:1px;border-color:var(--ink)}
+dl.gl{display:grid;grid-template-columns:minmax(10.5rem,auto) 1fr;gap:0 18px;margin:6px 0 0}
+dl.gl dt{font-family:var(--serif);font-style:italic;font-weight:500;font-size:1.05rem;padding:11px 0;border-top:1px dashed var(--rule-2);color:var(--ink)}
+dl.gl dd{margin:0;padding:11px 0;border-top:1px dashed var(--rule-2);font-size:.98rem;line-height:1.52;color:var(--ink-2)}
+dl.gl dd .gl-jump-row{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.gl-chip{border:1px solid var(--rule-2);background:var(--paper);color:var(--ink-3);font:500 11px var(--sans);padding:2px 8px;border-radius:2px;cursor:pointer}
+.gl-chip:hover,.gl-chip:focus-visible{border-color:var(--ink);color:var(--ink);outline:none}
+.gl-more-tag{font:600 11px var(--mono);color:var(--ink-3);align-self:center;padding:2px 6px}
+dl.gl dt.gl-hit,dl.gl dd.gl-hit,.gl-jump-hi{background:var(--lamp-soft)!important;scroll-margin-top:78px}
+@media (max-width:560px){dl.gl{grid-template-columns:1fr}dl.gl dd{border-top:0;padding-top:0}}
 .pop-jump{margin-top:10px;appearance:none;border:0;border-bottom:1px solid currentColor;background:transparent;padding:2px 0;font:600 12.5px/1.3 var(--sans);color:var(--clay);cursor:pointer;display:inline-flex;align-items:center;gap:4px}
 
-footer.site-footer{width:100%;max-width:68rem;box-sizing:border-box;margin:28px auto 0;padding:28px 18px 46px;border-top:1.5px solid var(--ink);text-align:left;color:var(--ink-2)}
-.ft-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:28px 34px;align-items:start}
-@media (max-width:860px){.ft-grid{grid-template-columns:1fr}}
-.ft-kicker{font:700 10.5px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--clay);margin:0 0 6px}
-.ft-name{margin:0 0 8px;font:700 clamp(1.25rem,2.2vw,1.55rem)/1.25 var(--serif);color:var(--ink)}
-.ft-bio{margin:0 0 16px;font:400 14px/1.6 var(--sans);color:var(--ink-2);max-width:44ch}
-.ft-dir{margin:0;padding:0;border-top:1px dashed var(--rule-2)}
-.ft-dir-row{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:8px 16px;padding:10px 0;border-bottom:1px dashed var(--rule-2);align-items:baseline}
-@media (max-width:520px){.ft-dir-row{grid-template-columns:1fr;gap:4px}}
-.ft-dir dt{margin:0;font:700 10.5px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.ft-dir dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-width:0}
-.ft-link{border:0;border-bottom:1px solid var(--rule-2);padding:0 0 1px;color:var(--ink);text-decoration:none;font:600 13.5px/1.4 var(--sans);overflow-wrap:anywhere;word-break:normal;transition:color .12s,border-color .12s}
-.ft-link:hover,.ft-link:focus-visible{color:var(--clay);border-bottom-color:var(--clay);outline:none}
-.ft-copy-btn{position:relative;appearance:none;border:0;background:transparent;padding:4px;margin:-4px 0;color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border-radius:3px}
-.ft-copy-btn:hover,.ft-copy-btn:focus-visible{color:var(--clay);background:color-mix(in srgb,var(--ink) 6%,transparent);outline:none}
-.ft-copy-btn svg{width:15px;height:15px;display:block}
-.ft-copy-btn .ico-check{display:none;color:var(--moss)}
+footer.site-footer,.site-footer{width:var(--wide);max-width:none;box-sizing:border-box;margin:44px auto 0;padding:34px 0 24px;border-top:3px double var(--rule-2);font-family:var(--sans);text-align:left;color:var(--ink-2)}
+.ft-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px 36px;align-items:start}
+@media (max-width:860px){.ft-grid{grid-template-columns:1fr;gap:24px}}
+.ft-eyebrow,.ft-kicker{font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lamp);margin:0 0 6px}
+.ft-author,.ft-name{font-family:var(--serif);font-size:1.38rem;font-weight:500;line-height:1.22;margin:0 0 6px;color:var(--ink)}
+.ft-bio{font-size:13.5px;line-height:1.55;color:var(--ink-2);margin:0 0 14px;max-width:48ch}
+.ft-dir{display:grid;gap:0;margin:0 0 16px;padding:0;border-top:1px dashed var(--rule-2)}
+.ft-dir-row{display:grid;grid-template-columns:9.8rem minmax(0,1fr);gap:4px 14px;padding:9px 0;border-bottom:1px dashed var(--rule-2);align-items:baseline}
+@media (max-width:560px){.ft-dir-row{grid-template-columns:1fr;gap:3px}}
+.ft-dir dt{margin:0;font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.ft-dir dd{margin:0;font:400 12.5px/1.45 var(--sans);color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;min-width:0}
+.ft-link{display:inline-flex;align-items:center;gap:4px;min-block-size:auto;padding:0;border:0;border-radius:0;
+  background:transparent;color:var(--ink);text-decoration:underline;text-decoration-color:var(--rule-2);text-underline-offset:3px;font:600 13px/1.35 var(--sans);cursor:pointer;
+  overflow-wrap:break-word;word-break:normal;transition:color .15s,text-decoration-color .15s}
+.ft-link:hover,.ft-link:focus-visible{color:var(--clay);text-decoration-color:var(--clay);background:transparent;outline:none}
+.ft-link.is-email{text-decoration-color:var(--clay);font-weight:700}
+.ft-copy-btn{position:relative;appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-block-size:26px;min-inline-size:26px;
+  padding:2px 5px;border:0;border-radius:3px;background:transparent;color:var(--ink-3);text-decoration:none;vertical-align:middle;cursor:pointer;
+  transition:color .15s,background-color .15s}
+.ft-copy-btn:hover,.ft-copy-btn:focus-visible{color:var(--clay);background:color-mix(in srgb,var(--lamp) 12%,transparent);outline:none}
+.ft-copy-btn .ico-check,.ft-copy-btn .ft-copy-toast{display:none}
+.ft-copy-btn[data-copied="true"]{color:var(--moss);background:color-mix(in srgb,var(--moss) 12%,transparent)}
 .ft-copy-btn[data-copied="true"] .ico-copy{display:none}
-.ft-copy-btn[data-copied="true"] .ico-check{display:block}
-.ft-copy-toast{display:none;position:absolute;left:calc(100% + 6px);top:50%;transform:translateY(-50%);background:var(--ink);color:var(--paper);font:700 10.5px/1 var(--sans);padding:3px 7px;border-radius:2px;white-space:nowrap;pointer-events:none}
-.ft-copy-btn[data-copied="true"] .ft-copy-toast{display:inline-block}
-.ft-colophon{margin:14px 0 0;font:400 12.5px/1.55 var(--sans);color:var(--ink-3)}
-.ft-controls-row{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
-footer.site-footer .theme{margin:0;padding:0;border:0;justify-content:flex-start}
-footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px dashed var(--rule-2);text-align:left;max-width:none}
+.ft-copy-btn[data-copied="true"] .ico-check{display:inline-block}
+.ft-copy-btn[data-copied="true"] .ft-copy-toast{display:inline;font:600 11px/1 var(--mono);color:var(--moss);white-space:nowrap}
+.ft-colophon{margin:0;font-size:12px;line-height:1.58;color:var(--ink-3);max-width:54ch}
 
-.ft-box{padding:18px 20px;background:var(--card);border:1px solid var(--rule-2);border-top:3px solid var(--clay);border-radius:3px}
-.ft-box h2{margin:0 0 6px;font:700 1.15rem/1.3 var(--serif);color:var(--ink)}
-.ft-box-lead{margin:0 0 12px;font:400 13.5px/1.5 var(--sans);color:var(--ink-2)}
-.fb-tabs{display:inline-flex;border-bottom:1px solid var(--rule);gap:14px;margin-bottom:12px;width:100%}
-.fb-tabs button{appearance:none;border:0;border-bottom:2.5px solid transparent;background:transparent;padding:6px 2px 8px;font:600 13px/1.2 var(--sans);color:var(--ink-2);cursor:pointer}
-.fb-tabs button[aria-pressed="true"]{color:var(--clay);border-bottom-color:var(--clay);font-weight:700}
-.fb-ctx{margin:0 0 10px;padding:7px 10px;background:var(--paper-2);border-left:3px solid var(--clay);font:500 12.5px/1.45 var(--sans);color:var(--ink-2)}
-.fb-chips{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:10px;align-items:center}
-.fb-chip{appearance:none;border:0;border-bottom:1px dashed var(--rule-2);background:transparent;padding:2px 0;font:600 12px/1.35 var(--sans);color:var(--clay);cursor:pointer;text-align:left}
-.fb-chip:hover,.fb-chip:focus-visible{color:var(--ink);border-bottom-color:var(--ink);outline:none}
-.fb-field{margin-bottom:10px}
-.fb-field label{display:block;font:600 12px/1.3 var(--sans);color:var(--ink-2);margin-bottom:4px}
-.fb-field textarea,.fb-field input{width:100%;box-sizing:border-box;padding:9px 11px;border:1px solid var(--rule-2);border-radius:3px;background:var(--paper);color:var(--ink);font:400 13.5px/1.45 var(--sans)}
-.fb-field textarea:focus,.fb-field input:focus{outline:2px solid var(--clay);outline-offset:1px;border-color:var(--clay)}
-.fb-field [aria-invalid="true"]{border-color:#b42318}
-.fb-err{margin:4px 0 0;font:600 12px/1.35 var(--sans);color:#b42318}
-:root[data-theme="dark"] .fb-err{color:#f08a7e}
-:root[data-theme="dark"] .fb-field [aria-invalid="true"]{border-color:#f08a7e}
-.fb-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 14px;margin-top:12px}
-.fb-submit{appearance:none;border:1.5px solid var(--ink);border-radius:3px;background:var(--clay);color:#fff8ee;font:700 13px/1.2 var(--sans);padding:8px 14px;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
-.fb-submit:hover,.fb-submit:focus-visible{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);outline:none}
-.fb-mailto{border:0;border-bottom:1px solid var(--rule-2);padding:0 0 1px;font:600 12.5px/1.3 var(--sans);color:var(--ink-2);text-decoration:none}
-.fb-mailto:hover,.fb-mailto:focus-visible{color:var(--clay);border-bottom-color:var(--clay);outline:none}
-.fb-status{margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--moss);background:color-mix(in srgb,var(--moss) 9%,var(--paper));font:500 13px/1.5 var(--sans);color:var(--ink);display:grid;gap:3px}
-.fb-status b{color:var(--moss)}
+.ft-box{background:var(--card);border:1px solid var(--rule-2);border-top:3px solid var(--lamp);border-radius:4px;padding:20px 22px;box-shadow:0 2px 8px var(--sh-2)}
+.ft-box h2{margin:0 0 4px;font-family:var(--serif);font-weight:500;font-size:1.28rem;line-height:1.25;color:var(--ink)}
+.ft-box-lead{margin:0 0 12px;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.fb-modes,.fb-tabs{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:12px;border-bottom:1px solid var(--rule-2);padding-bottom:0;width:100%}
+.fb-modes-lbl{font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin-right:4px}
+.fb-mode-btn,.fb-tabs button{appearance:none;min-block-size:32px;padding:6px 2px;margin-bottom:-1px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:var(--ink-3);
+  font:600 12.5px var(--sans);cursor:pointer;transition:color .15s,border-color .15s}
+.fb-mode-btn:hover,.fb-tabs button:hover{color:var(--ink)}
+.fb-mode-btn[aria-pressed="true"],.fb-tabs button[aria-pressed="true"]{background:transparent;color:var(--ink);border-bottom-color:var(--clay);font-weight:600}
+.fb-ctx{margin:0 0 10px;padding:4px 0 4px 10px;border-radius:0;background:transparent;border-left:3px solid var(--lamp);
+  font:500 12px/1.45 var(--sans);color:var(--ink-2)}
+.fb-chips-lbl{font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin-right:2px}
+.fb-chips{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:14px}
+.fb-chip{appearance:none;min-block-size:auto;padding:2px 0;border:0;border-radius:0;background:transparent;color:var(--clay);
+  font:500 12px/1.4 var(--sans);cursor:pointer;text-align:left;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px}
+.fb-chip:hover,.fb-chip:focus-visible{color:var(--ink);text-decoration-style:solid;background:transparent;outline:none}
+.fb-field{display:flex;flex-direction:column;align-items:stretch;gap:4px;margin-block-end:14px}
+.fb-label{font:600 12.5px/1.3 var(--sans);color:var(--ink)}
+.fb-hint{font:400 12px/1.45 var(--sans);color:var(--ink-3)}
+.fb-control{width:100%;box-sizing:border-box;font:inherit;font-size:max(16px,.86rem);line-height:1.5;padding:10px 12px;
+  border:1.5px solid var(--rule-2);border-radius:4px;background:var(--paper);color:var(--ink)}
+.fb-control:focus-visible{outline:2px solid var(--lamp);outline-offset:2px;border-color:var(--ink)}
+textarea.fb-control{resize:vertical;min-height:92px}
+.fb-field [aria-invalid="true"],.fb-control.user-invalid-fallback,.fb-control:user-invalid{border-color:var(--clay);background:color-mix(in srgb,var(--clay) 8%,var(--paper))}
+.fb-error,.fb-err{margin:2px 0 0;font:500 12px/1.4 var(--sans);color:var(--clay);display:block}
+.fb-error[hidden],.fb-err[hidden]{display:none!important}
+.fb-actions,.fb-foot{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.fb-submit{appearance:none;min-block-size:42px;padding:9px 16px;border-radius:3px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);
+  font:600 13px var(--sans);cursor:pointer;box-shadow:none;transition:background-color .15s,border-color .15s,color .15s}
+.fb-submit:hover,.fb-submit:focus-visible{background:var(--clay);border-color:var(--clay);color:#fbf6ec;outline:none}
+.fb-submit:disabled{opacity:.65;cursor:wait}
+.fb-mailto{display:inline-flex;align-items:center;min-block-size:auto;padding:4px 0;border:0;border-radius:0;
+  background:transparent;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font:600 12.5px var(--sans)}
+.fb-mailto:hover,.fb-mailto:focus-visible{color:var(--ink);background:transparent;outline:none}
+.fb-status{margin-top:12px;padding:11px 13px;border-radius:4px;border-left:3px solid var(--moss);background:color-mix(in srgb,var(--moss) 11%,var(--paper));
+  font:400 12.5px/1.55 var(--sans);color:var(--ink);display:grid;gap:3px}
+.fb-status strong,.fb-status b{display:block;font-weight:700;color:var(--moss);margin-bottom:2px}
+@media (pointer:coarse){.ab-btn,.ab-theme-btn,.ab-back,.split-pill>button,.cat-pill,.mode-seg button,.page-btn,.beat-btn,.beat-step-btn,.pack-tabs button,.fb-control,.fb-submit,.fb-mode-btn,.lang-seg button{min-block-size:44px}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
@@ -1065,7 +1094,7 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
       <button type="button" class="ab-brand" id="brandMark" title="Về trang chủ tổng quan · Từ tin báo “ghi có” tới sổ sách ngân hàng">Where Money Sleeps</button>
       <span class="ab-div" aria-hidden="true"></span>
       <div class="ab-center">
-        <span class="ab-tagline" id="landingTagline">Bản đồ 5 ngôi nhà · Sổ cái Thông tư 99/2025</span>
+        <span class="ab-tagline" id="landingTagline">Từ tin báo “ghi có” tới sổ sách ngân hàng · 5 ngôi nhà · Thông tư 99/2025</span>
         <button type="button" class="ab-back" id="navBackBtn" hidden>← Tổng quan</button>
         <div class="split-pill-wrap" id="splitPillWrap" hidden>
           <div class="split-pill" role="group" aria-label="Định vị Danh mục và Bài đang đọc">
@@ -1103,9 +1132,10 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
         <button type="button" id="hdrLangEn" data-wms-lang="en" aria-pressed="false">EN</button>
       </div>
       <button type="button" class="ab-btn" id="atlasBtn" aria-expanded="false" aria-controls="atlas" title="Xem toàn bộ 7 chuyên mục, 19 chủ đề &amp; Tìm kiếm nhanh (⌘K / Ctrl+K)">
-        <svg class="ab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <svg class="ab-ico" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.4 10.4 3.6 3.6"/></svg>
         <span id="atlasBtnTxt">Mục lục</span>
-        <span class="ab-badge" id="abSum"></span>
+        <span class="ab-sep" aria-hidden="true">·</span>
+        <span class="ab-badge num" id="abSum">7/19</span>
         <kbd class="ab-kbd">⌘K</kbd>
       </button>
       <button type="button" class="ab-theme-btn" id="navThemeBtn" aria-label="Đổi giao diện Ngày / Đêm" title="Đổi giao diện Ngày / Đêm">
@@ -1130,7 +1160,7 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
         <span class="seg" role="group" aria-label="Lọc theo trạng thái" id="atlasSt">
           <button type="button" data-st="all" aria-pressed="true">Tất cả</button>
           <button type="button" data-st="published" aria-pressed="false">Đang mở đọc</button>
-          <button type="button" data-st="review" aria-pressed="false">Bản nháp chờ Duy</button>
+          <button type="button" data-st="review" aria-pressed="false">Bản nháp chờ duyệt</button>
           <button type="button" data-st="upcoming" aria-pressed="false">Đang biên soạn</button>
         </span>
       </div>
@@ -1145,8 +1175,8 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
   </section>
 </header>
 
-<!-- ── Bàn điều khiển Tác giả của Duy (Ẩn 100% với người đọc cuối; mở qua ?preview=1, ?author=1, #author, Cmd/Ctrl+Shift+D hoặc bấm 3 lần logo) ── -->
-<div class="author-dock" id="authorDock" hidden role="region" aria-label="Công cụ tác giả của Duy">
+<!-- ── Bàn điều khiển Tác giả (Ẩn 100% với người đọc cuối; mở qua ?preview=1, ?author=1, #author, Cmd/Ctrl+Shift+D hoặc bấm 3 lần logo) ── -->
+<div class="author-dock" id="authorDock" hidden role="region" aria-label="Công cụ tác giả">
   <span class="author-dock__tag" id="authorDockTag">Tác giả</span>
   <a href="studio.html?author=1" class="author-dock__btn" id="studioNavLink" title="Mở Studio Duyệt Nội dung &amp; Video Toàn Màn Hình">🎬 Studio Review</a>
   <a href="workflows.html?author=1" class="author-dock__btn" id="agentFlowLink" title="Mở Trung tâm Điều phối Agent &amp; 5 Quy trình">⚡ Sơ đồ Agent</a>
@@ -1161,13 +1191,12 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
 <section class="hero" aria-labelledby="h1">
   <div>
     <p class="hero-kicker" id="heroKicker">Từ tin báo “ghi có” tới sổ sách ngân hàng: tiền của bạn đi qua những đâu.</p>
-    <h1 id="h1">Đêm nay, tiền của bạn đang <em>ngủ</em> ở đâu?</h1>
+    <h1 id="h1" tabindex="-1">Đêm nay, tiền của bạn đang <em>ngủ</em> ở đâu?</h1>
     <p class="deck" id="heroDeck">Một bữa liên hoan ở quán quen. Bạn chạm thẻ, máy kêu “tít”, điện thoại rung. Ai cũng nghĩ thế là xong.</p>
-    <p class="aha" id="heroAha"><strong>Tin nhắn này chưa phải tiền. Nó là một lời hứa: ngân hàng của bạn vừa đồng ý sẽ trả.</strong>
-      Phải qua bốn bên và hai ngày làm việc, lời hứa ấy mới thành tiền thật — và về tới quán thì đã hụt mất 220.000 đồng <span class="ex">ví dụ</span>.</p>
-    <div class="hero-actions">
-      <button type="button" class="hero-cta" id="heroStartBtn">Mở bài mẫu 10 triệu →</button>
-      <button type="button" class="hero-cta ghost" id="heroScrollBtn">Duyệt 7 chuyên mục ↓</button>
+    <p class="aha" id="heroAha">Mỗi bài viết đi theo một giao dịch đời thường qua năm ngôi nhà, năm lát cắt thời gian và sổ kế toán Thông tư 99/2025.</p>
+    <div class="hero-cta-row">
+      <button type="button" class="cta-main" id="heroStartBtn">Đọc bài 01: 10 triệu quẹt thẻ →</button>
+      <button type="button" class="cta-sub" id="heroScrollBtn">Chọn trong 7 bài đang mở ↓</button>
     </div>
   </div>
   <div class="hero-art">
@@ -1190,43 +1219,46 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
 
 <!-- ── Trước khi bắt đầu ─────────────────────────────────────── -->
 <section class="before" aria-labelledby="before-h">
-  <p class="eyebrow" id="beforeEyebrow">Trước khi bắt đầu</p>
-  <h2 id="before-h">Ba điều bạn sẽ tự trả lời được, sau chừng ba phút</h2>
+  <p class="eyebrow" id="beforeEyebrow">Trước khi chọn bài đọc</p>
+  <h2 id="before-h">Ba điều bạn sẽ tự trả lời được, sau chừng vài phút</h2>
   <ol class="three" id="beforeThree">
-    <li><span>Vì sao hoá đơn 10 triệu mà quán chỉ nhận về 9.780.000 đồng, và vì sao phải đợi hai ngày làm việc mới nhận.</span></li>
-    <li><span>Tổ chức chuyển mạch thẻ không cho bạn vay đồng nào. Vậy họ thu tiền từ đâu, và thật ra ai đang trả tiền hoàn cho bạn?</span></li>
-    <li><span>Vì sao ngày đầu đi làm, công ty bảo bạn mở tài khoản ở đúng một ngân hàng — và số dư của bạn thật ra là khoản nợ của ai.</span></li>
+    <li><span>Vì sao hoá đơn 10 triệu mà quán chỉ nhận về 9.780.000 đồng, và phải đợi hai ngày làm việc mới nhận.</span></li>
+    <li><span>Tổ chức chuyển mạch thẻ không cho ai vay đồng nào. Vậy họ thu tiền từ đâu, và ai đang trả tiền hoàn cho bạn?</span></li>
+    <li><span>Vì sao công ty báo lãi 2 tỷ nhưng chiều 31/12 két tiền TK 112 chỉ còn 50 triệu để trả lương?</span></li>
   </ol>
 </section>
 
-<!-- ── Hai chuyện ────────────────────────────────────────────── -->
+<!-- ── Danh mục bài viết ─────────────────────────────────────── -->
 <section class="sec" id="chuyen" aria-labelledby="stories-h">
-  <div class="catalog-head">
-    <h2 id="stories-h">Các bài đang mở, mỗi bài chừng một phút rưỡi</h2>
-    <span class="catalog-counter" id="catalogCounter"></span>
+  <div class="inner">
+    <h2 id="stories-h">Các bài đang mở — bấm chọn một cuốn sổ để mở trang chi tiết</h2>
+    <p class="sec-lead" id="catalogCounter">Hiển thị bài viết đã kiểm định · Không tải sẵn nội dung chi tiết ở trang chủ.</p>
   </div>
   <div class="catalog-bar">
-    <label class="catalog-search" for="landingSearch">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input type="search" id="landingSearch" placeholder="Tìm theo tình huống, thẻ, QR, lãi suất, TT 99/2025..." autocomplete="off">
+    <label class="bar-field" for="landingSearch">
+      <span class="bar-lbl" id="landingSearchLbl">Tìm bài:</span>
+      <input type="search" id="landingSearch" class="catalog-search" placeholder="trả góp, tỷ giá, bảo hiểm, TK 112, QR…" autocomplete="off">
     </label>
-    <div class="mode-seg" id="gridModeSeg" role="group" aria-label="Chế độ xem danh sách bài">
-      <button type="button" data-grid-mode="curated" aria-pressed="true">Chọn lọc (6/trang)</button>
-      <button type="button" data-grid-mode="all" aria-pressed="false">Xem tất cả</button>
-      <button type="button" data-grid-mode="compact" aria-pressed="false">Mục lục gọn</button>
+    <div class="mode-seg-wrap">
+      <span class="bar-lbl" id="gridModeLbl">Bố cục kệ:</span>
+      <div class="mode-seg" id="gridModeSeg" role="group" aria-label="Cách hiển thị danh sách bài">
+        <button type="button" data-grid-mode="curated" aria-pressed="true">Phân trang (6 bài / trang)</button>
+        <button type="button" data-grid-mode="all" aria-pressed="false">Danh sách đầy đủ</button>
+        <button type="button" data-grid-mode="compact" aria-pressed="false">Xếp theo 7 nhánh</button>
+      </div>
     </div>
   </div>
-  <div class="cat-pills" id="catPills" role="group" aria-label="Lọc theo chuyên mục"></div>
+  <div class="cat-pills" id="catPills" role="group" aria-label="Lọc bài theo danh mục"></div>
   <!-- sinh từ STORIES + CATEGORIES: chỉ bài đã đăng; bản nháp chỉ hiện ở chế độ duyệt bài -->
   <div class="stories" id="storyList" role="group" aria-label="Chọn bài"></div>
-  <div class="catalog-more-bar" id="catalogMoreBar" hidden></div>
+  <nav class="catalog-more-bar" id="catalogMoreBar" aria-label="Phân trang danh sách bài viết" hidden></nav>
 </section>
 
 <section class="sec" id="shelfSec" aria-labelledby="shelf-h">
   <div class="inner">
-    <h2 id="shelf-h">Kệ sách: các danh mục tiền của bạn đi qua</h2>
+    <h2 id="shelf-h">Kệ sách theo dòng chảy của tiền (7 nhánh cốt lõi)</h2>
+    <p class="shelf-sub" id="shelfSub">Bảy nhánh cơ chế từ lương tháng tới thanh toán xuyên biên giới · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.</p>
   </div>
-  <p class="shelf-sub" id="shelfSub">Mỗi cuốn là một chuyên mục — bấm để lọc nhanh danh sách bài hoặc theo dõi số bài bạn đã mở.</p>
   <div class="shelf" id="shelf"></div>
 </section>
 </div><!-- /#landingView -->
@@ -1525,22 +1557,24 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
 
 <!-- ── Sổ tay chữ ───────────────────────────────────────────── -->
 <section class="gl-sec" id="glSec" aria-labelledby="gl-h">
-  <h2 class="gl-heading-outside" id="gl-h">Từ điển thuật ngữ — giải nghĩa bằng tiếng đời thường</h2>
+  <h2 class="gl-heading-outside" id="gl-h">Giải nghĩa từ — tiếng ngành kế toán &amp; ngân hàng nói bằng lời thường</h2>
   <details class="gl-drawer" id="glDrawer">
     <summary>
       <span class="gl-sum-left">
-        <span id="glSumLabel">Mở bảng tra cứu toàn bộ thuật ngữ kế toán &amp; ngân hàng</span>
-        <span class="gl-count-pill" id="glCountPill"></span>
+        <span class="gl-caret" aria-hidden="true"></span>
+        <span id="glSumLabel">Thu gọn mặc định — bấm để xem toàn bộ thuật ngữ tiếng Anh</span>
       </span>
-      <span class="gl-chevron" aria-hidden="true">▾</span>
+      <span class="gl-pill" id="glCountPill"></span>
     </summary>
     <div class="gl-body">
-      <div class="gl-tools">
+      <div class="gl-tools" id="glTools">
         <div class="gl-scope-row" id="glScopeRow" role="group" aria-label="Phạm vi từ điển">
-          <button type="button" class="gl-chip" id="glScopeAllBtn" data-gl-scope="all" aria-pressed="true">Tất cả thuật ngữ</button>
-          <button type="button" class="gl-chip" id="glScopeStoryBtn" data-gl-scope="story" aria-pressed="false" hidden>Trong bài đang xem</button>
+          <button type="button" class="cat-pill" id="glScopeStoryBtn" data-gl-scope="story" aria-pressed="false" hidden>Trong bài này</button>
+          <button type="button" class="cat-pill" id="glScopeAllBtn" data-gl-scope="all" aria-pressed="true">Tất cả 52 từ</button>
         </div>
-        <input type="search" id="glSearch" placeholder="Tìm thuật ngữ (MDR, TT 99/2025, T+2, CASA...)" aria-label="Tìm thuật ngữ trong từ điển" autocomplete="off">
+        <label for="glSearch"><span class="vh" id="glSearchSr">Tìm thuật ngữ</span>
+          <input type="search" id="glSearch" class="gl-search" placeholder="Tìm nhanh: MDR, CASA, EIR, RTGS…" aria-label="Tìm thuật ngữ trong từ điển" autocomplete="off">
+        </label>
       </div>
       <dl class="gl" id="gl"></dl>
     </div>
@@ -1548,20 +1582,20 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
 </section>
 </main>
 
-<footer class="site-footer" id="siteFooter" aria-labelledby="ftPipeHeading">
+<footer class="site-footer" id="siteFooter" aria-labelledby="ftAuthor">
   <div class="ft-grid">
     <div class="ft-info">
-      <p class="ft-kicker">WHERE MONEY SLEEPS · TÁC GIẢ &amp; MINH BẠCH HỌC THUẬT</p>
-      <h2 class="ft-name">Duy Pham — Technical Product Manager &amp; Builder</h2>
-      <p class="ft-bio">Dự án giải phẫu dòng tiền đời thường qua 5 ngôi nhà và sổ kế toán Thông tư 99/2025/TT-BTC. Bạn có thể đọc thêm các thử nghiệm khác hoặc trao đổi trực tiếp qua danh mục liên hệ dưới đây.</p>
+      <p class="ft-eyebrow" id="ftEyebrow">Where Money Sleeps · Tác giả &amp; Minh bạch học thuật</p>
+      <h2 class="ft-author" id="ftAuthor">Technical Product Manager &amp; Independent Builder</h2>
+      <p class="ft-bio" id="ftBio">Dự án giải phẫu dòng tiền đời thường qua 5 ngôi nhà và sổ kế toán Thông tư 99/2025/TT-BTC. Bạn có thể đọc thêm các thử nghiệm khác hoặc trao đổi trực tiếp qua email bên dưới.</p>
       <dl class="ft-dir">
         <div class="ft-dir-row">
           <dt>Liên hệ trực tiếp</dt>
           <dd>
-            <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a>
+            <a class="ft-link is-email" href="mailto:hello@duypham.me">hello@duypham.me</a>
             <button type="button" class="ft-copy-btn" id="ftCopyEmailBtn" data-copy="hello@duypham.me" data-copied="false" aria-label="Sao chép email hello@duypham.me" title="Sao chép email hello@duypham.me">
-              <svg class="ico-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <svg class="ico-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="ico-copy" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.2"/><path d="M3.5 10.5H2.8A1.3 1.3 0 0 1 1.5 9.2V2.8A1.3 1.3 0 0 1 2.8 1.5h6.4a1.3 1.3 0 0 1 1.3 1.3v.7"/></svg>
+              <svg class="ico-check" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>
               <span class="ft-copy-toast" aria-hidden="true">Đã chép</span>
             </button>
           </dd>
@@ -1577,68 +1611,44 @@ footer.site-footer .ft-pipe-band{margin-top:18px;padding-top:14px;border-top:1px
         <div class="ft-dir-row">
           <dt>Mã nguồn &amp; Kênh phát</dt>
           <dd>
-            <a class="ft-link" href="https://github.com/duypham9895/where-money-sleeps" target="_blank" rel="noopener noreferrer">github.com/duypham9895/where-money-sleeps ↗</a>
+            <a class="ft-link" href="https://github.com/duypham9895/where-money-sleeps" target="_blank" rel="noopener noreferrer">github.com/duypham9895 ↗</a>
             <a class="ft-link" href="https://www.youtube.com/@WhereMoneySleeps" target="_blank" rel="noopener noreferrer">@WhereMoneySleeps ↗</a>
           </dd>
         </div>
         <div class="ft-dir-row">
           <dt>Quy trình &amp; Tự động hoá</dt>
           <dd>
-            <a class="ft-link" href="workflows.html">Sơ đồ Full-Agent ↗</a>
-            <a class="ft-link" href="studio.html">Studio sản xuất ↗</a>
+            <a class="ft-link" href="workflows.html">Sơ đồ Full-Agent (T0–T4) &amp; Sổ trung thực (VI / EN) →</a>
           </dd>
         </div>
       </dl>
-      <div class="ft-archival">
-        <section class="ft-pipe-band" id="ftPipeBand">
-          <div class="ft-pipe-head">
-            <span class="ft-pipe-kicker" id="ftPipeHeading">ẤN PHẨM LƯU TRỮ &amp; QUY TRÌNH TẠO BÀI</span>
-            <div class="ft-pipe-lang" role="group" aria-label="Colophon language">
-              <button type="button" id="ftLangVi" data-wms-lang="vi" aria-pressed="true">VI</button>
-              <button type="button" id="ftLangEn" data-wms-lang="en" aria-pressed="false">EN</button>
-            </div>
-          </div>
-          <div class="ft-pipe-trace" id="ftPipeTrace">01 Ý tưởng C9 → 02 Bổ sổ TT 99/2025 → 03 Kiểm toán Python T0 &amp; Chuyên gia K·F·B·M → 04 30fps Vector + Voice TTS → 05 Duy duyệt ký phát hành</div>
-          <p class="ft-pipe-note" id="ftPipeNote">Mỗi bài khảo cứu và video được soạn qua chuỗi đa agent đối kháng (định tuyến T0–T4), khóa cân bằng Σ Nợ = Σ Có và toán IRR/EIR bằng script Python tất định trước khi Duy kiểm tra thủ công. Không có hệ thống tự động nào thay thế chữ ký phát hành.</p>
-          <div class="ft-pipe-links">
-            <a href="workflows.html" id="ftWfLink">Mở Sơ đồ Full-Agent &amp; Sổ kiểm chứng (VI / EN) →</a>
-            <a href="studio.html" id="ftStudioLink">Studio Âm thanh &amp; Phụ đề</a>
-          </div>
-        </section>
-        <div class="ft-disclaimers" id="ftDisclaimers">
-          <p>Nội dung giải thích cơ chế vận hành của tiền &amp; bút toán theo Thông tư 99/2025/TT-BTC; không phải lời khuyên tài chính, thuế hay đầu tư.</p>
-          <p>Mọi số tiền, lãi suất và mốc thời gian là ví dụ minh hoạ cơ chế, không đại diện biểu phí của bất kỳ ngân hàng hay tổ chức thẻ nào.</p>
-          <p><strong>Giới hạn trung thực:</strong> Bảng đối chiếu tài khoản là bản tóm tắt phi chính thức của Thông tư 99/2025/TT-BTC (<span lang="en">unofficial summary of Circular 99/2025/TT-BTC</span>), chưa được kế toán trưởng/CPA độc lập ký đối chiếu Phụ lục II chính thức.</p>
-        </div>
-        <div class="theme" role="group" aria-label="Giao diện" id="ftThemeGroup"><span id="ftThemeLbl">Giao diện:</span>
-          <button data-theme-set="auto" aria-pressed="true" id="ftThemeAuto">Theo máy</button>
-          <button data-theme-set="light" aria-pressed="false" id="ftThemeLight">Ngày</button>
-          <button data-theme-set="dark" aria-pressed="false" id="ftThemeDark">Đêm</button>
-        </div>
-      </div>
+      <p class="ft-colophon" id="ftColophon">Ấn phẩm lưu trữ độc lập · Đối chiếu 4 cổng kiểm định kế toán TT 99/2025 (K1–K4), cơ chế ngân hàng (F1–F4), an toàn thương hiệu (B1–B4) &amp; chuyển động (M1–M4) · Nội dung giải thích cơ chế vận hành của tiền, không phải lời khuyên tài chính, thuế hay đầu tư · Bảng tài khoản là bản tóm tắt phi chính thức (<span lang="en">unofficial summary of Circular 99/2025/TT-BTC</span>).</p>
     </div>
 
     <section class="ft-box" aria-labelledby="fbFormHeading">
       <h2 id="fbFormHeading">Hộp thư Góp ý &amp; Đề xuất bài viết mới</h2>
-      <p class="ft-box-lead">Ý kiến của bạn được gắn ngữ cảnh bài đang đọc (nếu đang mở bài chi tiết) và chuẩn bị gửi tới <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a>.</p>
-      <div class="fb-tabs" role="group" aria-label="Loại thư gửi">
-        <button type="button" data-fb-kind="topic" aria-pressed="true">Đề xuất bài viết mới</button>
-        <button type="button" data-fb-kind="feedback" aria-pressed="false">Góp ý chỉnh sửa / Sổ TT 99</button>
+      <p class="ft-box-lead" id="fbBoxLead">Gửi thẳng câu hỏi tài chính đời thường hoặc góp ý số liệu về <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> qua Worker cùng nguồn (0 script theo dõi bên thứ ba).</p>
+      <div class="fb-modes fb-tabs" role="group" aria-label="Loại thư gửi">
+        <span class="fb-modes-lbl" id="fbModesLbl">Mục đích gửi:</span>
+        <button type="button" class="fb-mode-btn" data-fb-kind="topic" aria-pressed="true">Đề xuất bài viết mới</button>
+        <button type="button" class="fb-mode-btn" data-fb-kind="feedback" aria-pressed="false">Góp ý / Báo sai số bài</button>
       </div>
       <div class="fb-ctx" id="fbCtxBanner" hidden></div>
       <div class="fb-chips" id="fbQuickChips" aria-label="Gợi ý nhanh"></div>
       <form id="fbForm" action="/api/feedback" method="POST" aria-labelledby="fbFormHeading" novalidate>
         <div class="fb-field">
-          <label for="fbMessage" id="fbMessageLabel">Chủ đề bạn muốn mình mổ xẻ hoặc góp ý</label>
-          <textarea id="fbMessage" name="message" rows="3" minlength="8" maxlength="2000" required placeholder="Ví dụ: Tiền cọc mua nhà qua sàn trung gian nằm ở tài khoản nào? Hoặc góp ý phép tính..." aria-describedby="fbMessageError"></textarea>
-          <p class="fb-err" id="fbMessageError" role="alert" hidden></p>
+          <label class="fb-label" for="fbMessage" id="fbMessageLabel">Nội dung góp ý hoặc đề xuất chủ đề <span aria-hidden="true">*</span></label>
+          <span class="fb-hint" id="fbMessageHint">Tối thiểu 8 ký tự, tối đa 800 ký tự · Không dùng cookie hay định danh người đọc.</span>
+          <textarea class="fb-control" id="fbMessage" name="message" rows="3" minlength="8" maxlength="800" required placeholder="Ví dụ: Tiền cọc mua nhà qua sàn trung gian nằm ở tài khoản nào? Hoặc góp ý phép tính..." aria-describedby="fbMessageHint" aria-invalid="false" data-error="fbMessageError"></textarea>
+          <p class="fb-error fb-err" id="fbMessageError" role="alert" hidden></p>
         </div>
         <div class="fb-field">
-          <label for="fbEmail">Email để nhận phản hồi (tuỳ chọn)</label>
-          <input id="fbEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tenban@domain.com" aria-describedby="fbEmailError">
-          <p class="fb-err" id="fbEmailError" role="alert" hidden></p>
+          <label class="fb-label" for="fbEmail" id="fbEmailLabel">Email nhận phản hồi khi bài lên sóng (tuỳ chọn)</label>
+          <span class="fb-hint" id="fbEmailHint">Để trống nếu bạn chỉ muốn gửi ẩn danh; nhập dạng ten@domain.com nếu muốn nhận phản hồi.</span>
+          <input class="fb-control" id="fbEmail" name="email" type="email" inputmode="email" autocomplete="email" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="ten-cua-ban@example.com" aria-describedby="fbEmailHint" aria-invalid="false" data-error="fbEmailError">
+          <p class="fb-error fb-err" id="fbEmailError" role="alert" hidden></p>
         </div>
-        <div class="fb-foot">
+        <div class="fb-actions fb-foot">
           <button type="submit" class="fb-submit" id="fbSubmitBtn">Gửi đề xuất về hello@duypham.me</button>
           <a class="fb-mailto" id="fbMailtoLink" href="mailto:hello@duypham.me?subject=%5BWMS%5D%20%C4%90%E1%BB%81%20xu%E1%BA%A5t%20b%C3%A0i%20vi%E1%BA%BFt%20m%E1%BB%9Bi">Mở ứng dụng Mail ↗</a>
         </div>
@@ -2684,7 +2694,7 @@ const STORIES = {
     videoScript:{
  "long": {
   "title": "Lương về 15 triệu mà không đồng nào di chuyển: đêm nay tiền của bạn ngủ ở đâu?",
-  "hookNote": "Nhịp chậm, tò mò; 30 giây đầu chỉ một hình: điện thoại sáng trong phố tối, ống ngầm tắt. Câu mồi ở giây thứ 10: “bạn có biết không một đồng tiền nào thực sự di chuyển không?” — trả lời ở cảnh Ngày lương (beat 1), không trước. Phát âm: On-Us, Off-Us, Credit đọc theo tiếng Anh; CASA, FTP đọc liền hay đánh vần cần Duy chọn và khoá trong từ điển phát âm của công cụ giọng đọc trước khi dựng.",
+  "hookNote": "Nhịp chậm, tò mò; 30 giây đầu chỉ một hình: điện thoại sáng trong phố tối, ống ngầm tắt. Câu mồi ở giây thứ 10: “bạn có biết không một đồng tiền nào thực sự di chuyển không?” — trả lời ở cảnh Ngày lương (beat 1), không trước. Phát âm: On-Us, Off-Us, Credit đọc theo tiếng Anh; CASA, FTP đọc liền hay đánh vần cần người duyệt chọn và khoá trong từ điển phát âm trước khi dựng.",
   "youtubeId": "OET3IUPC6Qs",
   "embedStatus": "uploaded_public",
   "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
@@ -12602,8 +12612,8 @@ const visible = k => getStories()[k].status === "published" || CMS.on;
 // người đọc thường thấy bản nháp như "đang biên soạn"; ở chế độ duyệt mới thấy đúng trạng thái
 const shownStatus = tp => { const s = stStatus(tp); return s === "review" && !CMS.on ? "upcoming" : s; };
 const getStLabel = () => isEn()
-  ? {published:"Open to read", review:"Pending Duy's review", upcoming:"In drafting"}
-  : {published:"Đang mở đọc", review:"Bản nháp chờ Duy", upcoming:"Đang biên soạn"};
+  ? {published:"Open to read", review:"Pending manual review", upcoming:"In drafting"}
+  : {published:"Đang mở đọc", review:"Bản nháp chờ duyệt", upcoming:"Đang biên soạn"};
 const order = () => getCategories().flatMap(c => c.topics.filter(tp => tp.story && visible(tp.story)).map(tp => tp.story));
 function counts(){
   const cats = getCategories(), all = cats.flatMap(c => c.topics), n = {published:0, review:0, upcoming:0};
@@ -12793,7 +12803,7 @@ function renderYtEmbedHTML(s, fmt, scope){
       + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 ${enMode ? "Short 9:16" : "Video Dọc 9:16"}</button></div>`;
   return `<section class="yt-embed" data-yt-box="${scope}" aria-label="${enMode ? "Lesson explainer video" : "Video minh hoạ bài viết"}">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice"><a href="${watchUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">${enMode ? "Open on @WhereMoneySleeps ↗" : "Mở trên @WhereMoneySleeps ↗"}</a> · ${enMode ? "Tam's Voice (VI) · Diorama v3.0" : "Giọng Tâm · Mặt cắt Diorama v3.0"}${ytId ? ` · ID: ${esc(ytId)}` : ""}</span></div>`
+    + `<span class="yt-voice"><a href="${watchUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">${enMode ? "Open on @WhereMoneySleeps ↗" : "Mở trên @WhereMoneySleeps ↗"}</a></span></div>`
     + `${rightBarHTML}</div>`
     + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">${playerHTML}</div>`
     + `<div class="yt-chaps"><b>${enMode ? "Video Chapters:" : "Chương Video:"}</b>${chaps}</div>${cmsBar}</div></section>`;
@@ -13417,8 +13427,8 @@ function renderPack(){
   const L = a.lay, P = a.pro, arr = x => Array.isArray(x) ? x : [];
   const draft = s.status !== "published"
     ? (enMode
-        ? `<p class="pack-note"><b>Draft pending Duy's approval.</b> Numbers are illustrative; account codes follow an unofficial summary of Circular 99/2025/TT-BTC. Ledger check agent: ${esc((s.review && s.review.ketoan) || "pending")}.</p>`
-        : `<p class="pack-note"><b>Bản nháp chờ Duy duyệt.</b> Số liệu là ví dụ để thấy cơ chế; tên tài khoản theo bản chép thứ cấp của Thông tư 99/2025. Kế toán — agent soát: ${esc((s.review && s.review.ketoan) || "chưa chạy")}.</p>`)
+        ? `<p class="pack-note"><b>Draft pending manual approval.</b> Numbers are illustrative; account codes follow an unofficial summary of Circular 99/2025/TT-BTC. Ledger check agent: ${esc((s.review && s.review.ketoan) || "pending")}.</p>`
+        : `<p class="pack-note"><b>Bản nháp chờ duyệt.</b> Số liệu là ví dụ để thấy cơ chế; tên tài khoản theo bản chép thứ cấp của Thông tư 99/2025. Kế toán — agent soát: ${esc((s.review && s.review.ketoan) || "chưa chạy")}.</p>`)
     : "";
   const packVidEl = $("#packVideoEmbed");
   if (packVidEl) {
@@ -13498,8 +13508,8 @@ function renderVid(s, draft){
       + `<div class="f"><span>${enMode?"Visual":"Hình ảnh"}</span><p>${esc(x.visual)}</p></div><div class="f vo"><span>${enMode?"Voiceover":"Lời bình"}</span><p>${esc(x.vo)}</p></div>`
       + `<div class="f os"><span>${enMode?"On-Screen · SFX":"Chữ · SFX"}</span><p>${esc(x.onScreen)}</p></div></div></li>`).join("")}</ol>`
     + (enMode
-        ? `<p class="pack-note"><b>Video Build &amp; Embed Pipeline (QĐ 56):</b> (5A) Render voiceover (<code>vo</code>) with word-level timestamps and SHA-256 cached SFX cues; (5B) Composite night-Risograph architectural cutaways in both <code>16:9</code> and <code>9:16</code> via Locked-Stage 30fps Compositor + Diorama v3.0 overlays at <code>-14 LUFS</code>; (5C–5D) Upload unlisted to <code>@WhereMoneySleeps</code> and bind <code>youtubeId</code> into <code>videoScript.{long,short}</code> ahead of Duy's sign-off.</p>`
-        : `<p class="pack-note"><b>Quy trình dựng Video minh hoạ &amp; nhúng vào bài viết (QĐ 56):</b> (5A) Thu âm lời bình (<code>vo</code>) với timestamps từng từ và tạo hiệu ứng âm thanh chuyển cảnh (<code>onScreen</code> SFX, có bộ nhớ đệm SHA-256); (5B) Dựng hình ảnh mặt cắt Risograph đêm cho cả khung ngang <code>16:9</code> lẫn khung dọc <code>9:16</code>, kết hợp chuyển cảnh cross-dissolve mượt mà, lớp Mặt cắt Diorama v3.0 và bảng bút toán kế toán sắc nét (chuẩn âm lượng <code>-14 LUFS</code>); (5C–5D) Tải lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code> và tự động gắn mã <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát nhúng thẳng vào bài viết chờ Duy duyệt.</p>`)
+        ? `<p class="pack-note"><b>Video Build &amp; Embed Pipeline (QĐ 56):</b> (5A) Render voiceover (<code>vo</code>) with word-level timestamps and SHA-256 cached SFX cues; (5B) Composite night-Risograph architectural cutaways in both <code>16:9</code> and <code>9:16</code> via Locked-Stage 30fps Compositor + Diorama v3.0 overlays at <code>-14 LUFS</code>; (5C–5D) Upload unlisted to <code>@WhereMoneySleeps</code> and bind <code>youtubeId</code> into <code>videoScript.{long,short}</code> ahead of manual sign-off.</p>`
+        : `<p class="pack-note"><b>Quy trình dựng Video minh hoạ &amp; nhúng vào bài viết (QĐ 56):</b> (5A) Thu âm lời bình (<code>vo</code>) với timestamps từng từ và tạo hiệu ứng âm thanh chuyển cảnh (<code>onScreen</code> SFX, có bộ nhớ đệm SHA-256); (5B) Dựng hình ảnh mặt cắt Risograph đêm cho cả khung ngang <code>16:9</code> lẫn khung dọc <code>9:16</code>, kết hợp chuyển cảnh cross-dissolve mượt mà, lớp Mặt cắt Diorama v3.0 và bảng bút toán kế toán sắc nét (chuẩn âm lượng <code>-14 LUFS</code>); (5C–5D) Tải lên kênh <code>@WhereMoneySleeps</code> ở chế độ <code>unlisted</code> và tự động gắn mã <code>youtubeId</code> vào <code>videoScript.{long,short}</code> để trình phát nhúng thẳng vào bài viết chờ ký duyệt.</p>`)
     + draft;
   bindYtEmbed("vid", s, draft);
   const btns = $$("#pnl-vid .fmt button");
@@ -13569,7 +13579,7 @@ function exportVO(k){
         engine:"WMS Locked-Stage 30fps Compositor v4.3 + Diorama v3.0 SVG/TT99 Overlay + FFmpeg (loudnorm=-14 LUFS)",
         outputs:[`dist/youtube/${k}-long-16x9.mp4`, `dist/youtube/${k}-short-9x16.mp4`, `public/media/${k}/beats.mp3`]
       },
-      youtubeGate:"Mặc định upload ở privacyStatus='private' (hoặc 'unlisted'); chỉ Duy duyệt và chuyển sang 'public' (WMS-R4)."
+      youtubeGate:"Mặc định upload ở privacyStatus='private' (hoặc 'unlisted'); chỉ người duyệt thủ công mới chuyển sang 'public' (WMS-R4)."
     },
     long:pack("long"), short:pack("short")};
   const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"}));
@@ -14077,7 +14087,7 @@ function syncBarOpenState(){
 }
 function renderNav(){
   const n = counts(), p = position(S.story), stories = getStories(), s = stories[S.story], enMode = isEn();
-  $("#abSum").textContent = enMode ? `${n.cats} cats · ${n.published}/${n.topics} live` : `${n.cats} mục · ${n.published}/${n.topics} bài`;
+  $("#abSum").textContent = `${n.published}/${n.topics}`;
   const catBtn = $("#catPillBtn"), postBtn = $("#postPillBtn");
   catBtn.style.setProperty("--c", p.c.c);
   catBtn.innerHTML = `<span class="cat-dot" aria-hidden="true"></span>`
@@ -14315,27 +14325,49 @@ function buildPageList(cur, total){
   }
   return out;
 }
+function storyWordStats(k){
+  const s = getStories()[k];
+  if (!s) return {lay: 0, pro: 0, min: 4};
+  const lay = ((s.article && s.article.lay && s.article.lay.sections) || []).reduce((n, x) => n + nw(...(x.paras || [])), 0);
+  const beatW = (s.beats || []).reduce((n, b) => n + nw(...(b.say || [])), 0);
+  const min = Math.max(4, Math.round((lay + beatW) / 185));
+  return {lay, pro: 0, min};
+}
+function diverseCatalogOrder(keys){
+  const prog = loadWmsProgress(), stories = getStories(), cats = getCategories();
+  const picked = [], seen = new Set();
+  cats.forEach(c => {
+    const firstUnread = keys.find(k => catIdOf(stories[k]) === c.id && !(prog.completed && prog.completed[k]) && !seen.has(k));
+    const firstAny = firstUnread || keys.find(k => catIdOf(stories[k]) === c.id && !seen.has(k));
+    if (firstAny) { picked.push(firstAny); seen.add(firstAny); }
+  });
+  keys.forEach(k => { if (!seen.has(k)) picked.push(k); });
+  return picked;
+}
 function renderStories(){
   const box = $("#storyList"), pills = $("#catPills"), more = $("#catalogMoreBar"), cnt = $("#catalogCounter");
   if (!box) return;
   const o = order(), n = counts(), prog = loadWmsProgress(), stories = getStories(), cats = getCategories(), enMode = isEn();
   const qNorm = normVi(S.landingQ);
+  const heroScrollBtn = $("#heroScrollBtn");
+  if (heroScrollBtn) heroScrollBtn.textContent = enMode ? `Choose from ${o.length} open lessons ↓` : `Chọn trong ${o.length} bài đang mở ↓`;
 
   if (pills){
     pills.innerHTML = "";
-    const mkPill = (id, label, count) => {
+    const mkPill = (id, label, count, color) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "cat-pill";
+      if (color) btn.style.setProperty("--c", color);
       btn.setAttribute("aria-pressed", String(S.catFilter === id));
-      btn.innerHTML = `<span>${esc(label)}</span><span class="ct-n">${count}</span>`;
+      btn.textContent = `${label} (${count})`;
       btn.onclick = () => { S.catFilter = id; S.page = 1; renderStories(); renderShelf(); };
       pills.appendChild(btn);
     };
-    mkPill("all", enMode ? "All" : "Tất cả", o.length);
+    mkPill("all", enMode ? `All · open` : `Tất cả · đang mở`, o.length, "var(--ink)");
     cats.forEach(c => {
       const cCount = o.filter(k => catIdOf(stories[k]) === c.id).length;
-      mkPill(c.id, c.name, cCount);
+      mkPill(c.id, c.name, cCount, c.c);
     });
   }
 
@@ -14347,22 +14379,17 @@ function renderStories(){
     const s = stories[k], p = position(k);
     if (S.catFilter !== "all" && catIdOf(s) !== S.catFilter) return false;
     if (!qNorm) return true;
-    return normVi(`${s.title} ${s.teaser} ${p.c.name} ${k}`).includes(qNorm);
+    const hTxt = (s.houses || []).map(h => h.label).join(" ");
+    return normVi(`${s.title} ${s.teaser} ${s.name || ""} ${p.c.name} ${hTxt} ${k}`).includes(qNorm);
   });
 
-  if (cnt){
-    cnt.textContent = enMode
-      ? `${filtered.length}/${o.length} lessons live · ${n.topics} topics / ${n.cats} branches`
-      : `${filtered.length}/${o.length} bài đang mở · ${n.topics} chủ đề / ${n.cats} nhánh`;
-  }
-
+  const isFiltered = S.catFilter !== "all" || !!qNorm;
   box.innerHTML = "";
   if (S.gridMode === "compact"){
     box.className = "compact-cat-list";
-    if (more) more.hidden = true;
     const catsToShow = S.catFilter === "all" ? cats : cats.filter(c => c.id === S.catFilter);
     let renderedAny = 0;
-    catsToShow.forEach(c => {
+    catsToShow.forEach((c, ci) => {
       const topics = c.topics.filter(tp => {
         const title = tp.story && stories[tp.story] ? stories[tp.story].title : stTitle(tp);
         const teaser = tp.story && stories[tp.story] ? stories[tp.story].teaser : "";
@@ -14375,42 +14402,60 @@ function renderStories(){
       renderedAny++;
       const grp = document.createElement("section");
       grp.className = "compact-cat-group";
-      grp.style.setProperty("--cat-c", c.c);
+      grp.style.setProperty("--c", c.c);
       const openCnt = topics.filter(tp => tp.story && visible(tp.story)).length;
-      grp.innerHTML = `<div class="compact-cat-head"><h3>${esc(c.name)}</h3><span>${openCnt}/${topics.length} ${enMode?"live":"bài đã mở"}</span></div><ul class="compact-items"></ul>`;
-      const ul = $("ul", grp);
-      topics.forEach(tp => {
-        const li = document.createElement("li");
+      grp.innerHTML = `<div class="compact-cat-head"><h3>${String(ci + 1).padStart(2, "0")} · ${esc(c.name)}</h3><span>${openCnt}/${topics.length} ${enMode ? "live" : "bài đang mở"}</span></div><div class="compact-rows"></div>`;
+      const rowsEl = $(".compact-rows", grp);
+      topics.forEach((tp, idx) => {
         const isOpen = tp.story && visible(tp.story);
         if (isOpen){
-          const k = tp.story, s = stories[k];
-          const meta = prog.completed[k] ? (enMode?"✓ Completed":"✓ Đã đọc") : s.status !== "published" ? (enMode?"Draft":"Bản nháp") : (enMode?"Read now →":"Đọc ngay →");
+          const k = tp.story, s = stories[k], st = storyWordStats(k), done = !!(prog.completed && prog.completed[k]);
+          const meta = done ? (enMode ? "✓ Read" : "✓ Đã đọc") : (s.status !== "published" ? (enMode ? "Draft" : "Bản nháp") : (enMode ? `~${st.min} min →` : `~${st.min} phút →`));
           const btn = document.createElement("button");
           btn.type = "button";
-          btn.className = "compact-item-btn";
-          btn.innerHTML = `<span>${esc(s.title)}</span><span class="compact-item-meta">${meta}</span>`;
+          btn.className = "compact-row";
+          btn.dataset.open = k;
+          btn.innerHTML = `<span class="cr-idx">${String(idx + 1).padStart(2, "0")}</span>`
+            + `<span class="cr-main"><b>${esc(s.title)}</b><small>${esc((s.houses || []).map(h => h.label).join(" → "))}</small></span>`
+            + `<span class="cr-meta">${meta}</span>`;
           btn.onclick = () => openStory(k);
-          li.appendChild(btn);
+          rowsEl.appendChild(btn);
         } else {
-          const span = document.createElement("div");
-          span.className = "compact-item-btn";
-          span.style.opacity = ".62";
-          span.style.cursor = "default";
-          span.innerHTML = `<span>${esc(stTitle(tp))}</span><span class="compact-item-meta">${enMode?"In drafting":"Đang biên soạn"}</span>`;
-          li.appendChild(span);
+          const row = document.createElement("div");
+          row.className = "compact-row";
+          row.style.opacity = ".62";
+          row.style.cursor = "default";
+          row.innerHTML = `<span class="cr-idx">${String(idx + 1).padStart(2, "0")}</span>`
+            + `<span class="cr-main"><b>${esc(stTitle(tp))}</b><small>${esc(c.name)}</small></span>`
+            + `<span class="cr-meta">${enMode ? "In drafting" : "Đang biên soạn"}</span>`;
+          rowsEl.appendChild(row);
         }
-        ul.appendChild(li);
       });
       box.appendChild(grp);
     });
+    if (cnt){
+      cnt.textContent = enMode
+        ? `${catsToShow.length}-branch compact directory · ${filtered.length}/${o.length} lessons live (${n.topics} total topics)`
+        : `Danh bạ ${catsToShow.length} nhánh: hiển thị ${filtered.length}/${o.length} bài đang mở (${n.topics} chủ đề toàn kho)`;
+    }
     if (!renderedAny){
       box.innerHTML = `<div class="catalog-empty">${enMode ? `No topics matched “${esc(S.landingQ)}”. Clear filters or pick “All”.` : `Không tìm thấy chủ đề nào khớp với “${esc(S.landingQ)}”. Thử bỏ bớt từ khoá hoặc bấm “Tất cả”.`}</div>`;
+      if (more) more.hidden = true;
+    } else if (more){
+      more.hidden = false;
+      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${o.length} live lessons</strong> across ${catsToShow.length} branches.` : `Đang hiển thị <strong>${o.length} bài đang mở</strong> trong ${catsToShow.length} nhóm.`}</span>`
+        + `<div class="catalog-more-actions"><button type="button" class="catalog-more-btn ghost" id="toCuratedBtn">${enMode ? "Back to notebook cards (6/page)" : "Quay về thẻ Sổ tay (6 bài/trang)"}</button></div>`;
+      const tcBtn = $("#toCuratedBtn", more);
+      if (tcBtn) tcBtn.onclick = () => { S.gridMode = "curated"; S.page = 1; renderStories(); };
     }
     return;
   }
 
   box.className = "stories";
   if (!filtered.length){
+    if (cnt){
+      cnt.textContent = enMode ? "No lessons match your current filter." : "Không có bài viết nào khớp bộ lọc hiện tại.";
+    }
     const catObj = S.catFilter !== "all" ? cats.find(c => c.id === S.catFilter) : null;
     if (catObj && !qNorm && catObj.topics.length){
       const items = catObj.topics.map(tp => `<li>${esc(stTitle(tp))}</li>`).join("");
@@ -14420,64 +14465,100 @@ function renderStories(){
       const rb = $("#emptyResetCat", box); if (rb) rb.onclick = () => { S.catFilter = "all"; S.page = 1; renderStories(); renderShelf(); };
       const cb = $("#emptyCompactCat", box); if (cb) cb.onclick = () => { S.gridMode = "compact"; renderStories(); renderShelf(); };
     } else {
-      box.innerHTML = `<div class="catalog-empty">${enMode ? "No lessons match your current filter." : "Không có bài viết nào khớp với bộ lọc hiện tại."}</div>`;
+      box.innerHTML = `<div class="catalog-empty">${enMode ? `No lessons matched “${esc(S.landingQ)}”.` : `Không có bài viết nào khớp từ khoá “${esc(S.landingQ)}”.`}</div>`;
     }
     if (more) more.hidden = true;
     return;
   }
 
-  const perPage = S.gridMode === "all" ? filtered.length : S.pageSize;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
-  if (S.page > totalPages) S.page = totalPages;
-  if (S.page < 1) S.page = 1;
-  const start = (S.page - 1) * perPage;
-  const end = Math.min(filtered.length, start + perPage);
-  const pageKeys = filtered.slice(start, end);
+  let shown = filtered, start = 0, total = filtered.length, totalPages = 1;
+  if (S.gridMode === "curated"){
+    const ordered = isFiltered ? filtered : diverseCatalogOrder(filtered);
+    total = ordered.length;
+    totalPages = Math.max(1, Math.ceil(total / S.pageSize));
+    if (S.page > totalPages) S.page = totalPages;
+    if (S.page < 1) S.page = 1;
+    start = (S.page - 1) * S.pageSize;
+    shown = ordered.slice(start, start + S.pageSize);
+  }
 
-  pageKeys.forEach(k => {
-    const s = stories[k], p = position(k);
+  shown.forEach(k => {
+    const s = stories[k], p = position(k), st = storyWordStats(k);
+    const isDone = !!(prog.completed && prog.completed[k]);
     const card = document.createElement("article");
-    card.className = "story-card" + (k === S.story ? " on" : "");
-    card.style.setProperty("--cat-c", p.c.c);
+    card.className = "story-card" + (isDone ? " is-done" : "") + (k === S.story ? " on" : "");
+    card.style.setProperty("--c", p.c.c);
     card.dataset.story = k;
-    const isDone = !!prog.completed[k];
-    const footLeft = isDone
-      ? (enMode ? "✓ Completed" : "✓ Đã hoàn thành")
-      : (s.status !== "published" ? (enMode ? "Draft" : "Bản nháp") : (enMode ? "Cutaway · TT 99 Ledger" : "Mặt cắt · Sổ TT 99"));
-    card.innerHTML = `<span class="st-k">${esc(p.c.name)} · ${enMode?"Lesson":"Bài"} ${p.ti}/${p.tn}${s.status !== "published" ? ` <span class="draft">${enMode?"draft":"bản nháp"}</span>` : ""}</span>`
-      + `<h3 class="st-t"><a class="card-link" href="?story=${encodeURIComponent(k)}&lang=${getLang()}" data-open="${esc(k)}">${esc(s.title)}</a></h3>`
-      + `<p class="card-teaser">${esc(s.teaser)}</p>`
-      + `<div class="card-foot"><span>${footLeft}</span><span class="card-go">${enMode?"Read &amp; Test →":"Đọc &amp; Thử →"}</span></div>`;
-    const link = $("[data-open]", card);
-    link.onclick = e => { e.preventDefault(); openStory(k); };
+    const houseNames = (s.houses || []).map(h => h.label).join(" → ");
+    const numLabel = o.indexOf(k) + 1;
+    const secCnt = (s.article && s.article.lay && Array.isArray(s.article.lay.sections)) ? s.article.lay.sections.length : 5;
+    const durTxt = isDone
+      ? (enMode ? "✓ Read" : "✓ Đã đọc")
+      : (s.status !== "published" ? (enMode ? "Draft" : "Bản nháp") : (enMode ? `~${st.min} min read · ${s.beats.length} beats` : `~${st.min} phút đọc · ${s.beats.length} lát cắt`));
+    const hintLeft = enMode
+      ? `Lesson ${String(numLabel).padStart(2, "0")}/${o.length} · ${secCnt}-ch. essay`
+      : `Bài ${String(numLabel).padStart(2, "0")}/${o.length} · Khảo cứu ${secCnt} chương`;
+    card.innerHTML = `<div class="k"><span class="cat">${esc(p.c.name)}</span><span class="dur">${durTxt}</span></div>`
+      + `<h3><button type="button" class="card-link" data-open="${esc(k)}">${esc(s.title)}</button></h3>`
+      + `<p class="d">${esc(s.teaser)}</p>`
+      + `<div class="houses"><b>${enMode ? "5 institutions:" : "5 ngôi nhà:"}</b> ${esc(houseNames)}</div>`
+      + `<div class="go-hint"><span>${hintLeft}</span><span>${enMode ? "Read lesson →" : "Đọc chi tiết →"}</span></div>`;
+    const btn = $("[data-open]", card);
+    btn.onclick = () => openStory(k);
     box.appendChild(card);
   });
 
-  if (more){
-    if (S.gridMode === "curated" && totalPages > 1){
-      more.hidden = false;
-      const pages = buildPageList(S.page, totalPages);
-      const btns = pages.map(pg => pg === "…"
-        ? `<span class="page-ellipsis" aria-hidden="true">…</span>`
-        : `<button type="button" class="page-btn" data-page="${pg}"${pg === S.page ? ` aria-current="page"` : ""}>${pg}</button>`).join("");
-      more.innerHTML = `<span class="catalog-range">${enMode ? `Showing ${start + 1}–${end} of ${filtered.length} lessons · Page ${S.page}/${totalPages}` : `Hiển thị ${start + 1}–${end} trong ${filtered.length} bài · Trang ${S.page}/${totalPages}`}</span>`
-        + `<div class="catalog-pages" role="navigation" aria-label="${enMode?"Lesson pagination":"Phân trang danh sách bài"}">`
-        + `<button type="button" class="page-btn" data-page="${S.page - 1}"${S.page <= 1 ? " disabled" : ""}>${enMode?"← Prev":"← Trước"}</button>`
-        + btns
-        + `<button type="button" class="page-btn" data-page="${S.page + 1}"${S.page >= totalPages ? " disabled" : ""}>${enMode?"Next →":"Tiếp →"}</button>`
-        + `</div>`;
-      $$("[data-page]", more).forEach(btn => {
-        btn.onclick = () => {
-          const next = Number(btn.dataset.page);
-          if (!Number.isFinite(next) || next < 1 || next > totalPages || next === S.page) return;
-          S.page = next;
-          renderStories();
-          $("#chuyen").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-        };
-      });
-    } else {
-      more.hidden = true;
+  if (S.gridMode === "curated"){
+    if (cnt){
+      cnt.textContent = enMode
+        ? `Showing ${start + 1}–${start + shown.length} of ${total} open lessons · Page ${S.page}/${totalPages} (${S.pageSize}/page)`
+        : `Hiển thị bài ${start + 1}–${start + shown.length} trên tổng ${total} bài đang mở · Trang ${S.page}/${totalPages} (${S.pageSize} bài/trang)`;
     }
+    if (more){
+      if (total > S.pageSize || totalPages > 1){
+        more.hidden = false;
+        const pageBtns = buildPageList(S.page, totalPages).map(pg => pg === "…"
+          ? `<span class="page-dots" aria-hidden="true">…</span>`
+          : `<button type="button" class="page-btn" data-page="${pg}"${pg === S.page ? ' aria-current="page"' : ''} aria-label="${enMode ? `Page ${pg}` : `Trang ${pg}`}">${pg}</button>`).join("");
+        more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${start + 1}–${start + shown.length}</strong> of <strong>${total}</strong> open lessons · Page <strong>${S.page}</strong> / ${totalPages}` : `Hiển thị <strong>${start + 1}–${start + shown.length}</strong> trong <strong>${total}</strong> bài viết · Trang <strong>${S.page}</strong> / ${totalPages}`}</span>`
+          + `<div class="pager-nav" role="navigation" aria-label="${enMode ? "Lesson pagination" : "Phân trang danh sách bài"}">`
+          + `<button type="button" class="page-btn step" data-page="${S.page - 1}"${S.page <= 1 ? " disabled" : ""} aria-label="${enMode ? "Previous page" : "Trang trước"}">${enMode ? "‹ Prev" : "‹ Trước"}</button>`
+          + pageBtns
+          + `<button type="button" class="page-btn step" data-page="${S.page + 1}"${S.page >= totalPages ? " disabled" : ""} aria-label="${enMode ? "Next page" : "Trang tiếp"}">${enMode ? "Next ›" : "Tiếp ›"}</button>`
+          + `</div>`;
+        $$("[data-page]", more).forEach(btn => {
+          btn.onclick = () => {
+            const next = Number(btn.dataset.page);
+            if (!Number.isFinite(next) || next < 1 || next > totalPages || next === S.page) return;
+            S.page = next;
+            renderStories();
+            const curBtn = $(`[data-page="${S.page}"][aria-current="page"]`, more);
+            if (curBtn) curBtn.focus({preventScroll: true});
+          };
+        });
+      } else {
+        more.hidden = true;
+      }
+    }
+  } else if ((S.gridMode === "all" || S.gridMode === "flat") && !isFiltered && filtered.length > 6){
+    if (cnt){
+      cnt.textContent = enMode ? `Showing all ${shown.length}/${o.length} open lessons` : `Hiển thị toàn bộ ${shown.length}/${o.length} bài viết theo danh sách đầy đủ`;
+    }
+    if (more){
+      more.hidden = false;
+      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing all ${o.length} open lessons on this page.` : `Đang hiển thị toàn bộ ${o.length} bài viết trên trang này.`}</span>`
+        + `<div class="catalog-more-actions">`
+        + `<button type="button" class="catalog-more-btn" id="backCuratedBtn">${enMode ? "Back to 6/page ↑" : "Quay về 6 bài/trang ↑"}</button>`
+        + `<button type="button" class="catalog-more-btn ghost" id="toCompactBtn">${enMode ? "Group by 7 branches" : "Xếp theo 7 nhánh"}</button>`
+        + `</div>`;
+      const bc = $("#backCuratedBtn", more); if (bc) bc.onclick = () => { S.gridMode = "curated"; S.page = 1; renderStories(); $("#chuyen").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); };
+      const tc = $("#toCompactBtn", more); if (tc) tc.onclick = () => { S.gridMode = "compact"; renderStories(); $("#chuyen").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); };
+    }
+  } else {
+    if (cnt){
+      cnt.textContent = enMode ? `Showing ${shown.length}/${o.length} matching lessons · pick any notebook to inspect` : `Hiển thị ${shown.length}/${o.length} bài viết khớp bộ lọc · bấm chọn một cuốn sổ để xem chi tiết`;
+    }
+    if (more) more.hidden = true;
   }
 }
 
@@ -14506,8 +14587,8 @@ function gates(k){
   g.push([ktState, `${enMode ? "TT 99/2025 Ledger Agent" : "Kế toán TT 99/2025 — agent soát"}: ${kt}`]);
   if (s.status === "published")
     g.push([/demo/i.test(s.approvedBy) || !s.approvedBy ? "bad" : "ok",
-      /demo/i.test(s.approvedBy) ? (enMode ? "Published in browser demo — not official sign-off" : "Đã đăng ở chế độ demo — chưa phải Duy duyệt thật") : `${enMode ? "Approved" : "Duy duyệt"} ${s.approvedAt}`]);
-  else g.push(["wait", enMode ? "Pending Duy's approval" : "Chờ Duy duyệt"]);
+      /demo/i.test(s.approvedBy) ? (enMode ? "Published in browser demo — not official sign-off" : "Đã đăng ở chế độ demo — chưa phải ký duyệt thật") : `${enMode ? "Approved" : "Đã ký duyệt"} ${s.approvedAt}`]);
+  else g.push(["wait", enMode ? "Pending manual approval" : "Chờ ký duyệt"]);
   return g;
 }
 function gateC9(s, chanMap){
@@ -14604,7 +14685,7 @@ $("#gatesSum").onclick = e => e.currentTarget.setAttribute("aria-expanded", e.cu
 $("#editBtn").onclick = () => { setEdit(!CMS.edit); renderCMS(); if (CMS.edit) $("#tell").focus(); };
 $("#approveBtn").onclick = () => {
   const s = getStories()[S.story]; if (s.status === "published") return;
-  const stamp = isEn() ? "Duy — browser demo, unsaved" : "Duy — demo trên trình duyệt, chưa lưu";
+  const stamp = isEn() ? "Author — browser demo, unsaved" : "Tác giả — demo trên trình duyệt, chưa lưu";
   const dt = new Date().toISOString().slice(0,10);
   [STORIES[S.story], (typeof STORIES_EN !== "undefined" ? STORIES_EN[S.story] : null)].forEach(x => {
     if (x) { x.status = "published"; x.approvedBy = stamp; x.approvedAt = dt; }
@@ -14617,6 +14698,9 @@ const BOOK_H = [262,246,232,270,240,254,248], BOOK_R = [0,0,0,-1.2,0,1.4,0];
 function renderShelf(){
   const prog = loadWmsProgress(), shelf = $("#shelf"), cats = getCategories(), stories = getStories(), enMode = isEn();
   if (!shelf) return;
+  const shelfHeading = $("#shelf-h");
+  if (shelfHeading) shelfHeading.textContent = enMode ? `Bookshelf by money flow (${cats.length} core branches)` : `Kệ sách theo dòng chảy của tiền (${cats.length} nhánh cốt lõi)`;
+  shelf.classList.toggle("is-multi-row", cats.length > 7);
   shelf.innerHTML = "";
   cats.forEach((c, i) => {
     const openTopics = c.topics.filter(tp => tp.story && stories[tp.story] && visible(tp.story));
@@ -14633,14 +14717,15 @@ function renderShelf(){
     el.setAttribute("aria-pressed", String(active));
     const q = first ? stories[first.story].title : stTitle(c.topics[0]);
     const stText = openTopics.length
-      ? `${done}/${openTopics.length} ${enMode ? "done" : "bài đã đọc"}`
-      : (enMode ? "Upcoming" : "Sắp mở");
+      ? (enMode ? `Open ${openTopics.length} · Read ${done}/${openTopics.length} · ${c.topics.length} topics` : `Đã mở ${openTopics.length} · Đã đọc ${done}/${openTopics.length} · ${c.topics.length} chủ đề`)
+      : (enMode ? `In drafting · ${c.topics.length} topics` : `Đang viết · ${c.topics.length} chủ đề`);
     el.innerHTML = `<div><div class="t">${esc(c.name)}</div><div class="q">${esc(q)}</div></div>`
-      + `<div class="st">${stText} <span class="cnt">· ${c.topics.length} ${enMode ? "topics" : "chủ đề"}</span>`
+      + `<div class="st"><span class="st-txt">${stText}</span>`
       + `<span class="book-prog" aria-hidden="true"><i style="width:${pct}%"></i></span></div>`;
     el.onclick = () => {
       S.catFilter = S.catFilter === c.id ? "all" : c.id;
       S.page = 1;
+      if (S.gridMode === "compact") S.gridMode = "curated";
       renderStories();
       renderShelf();
       $("#chuyen").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
@@ -15382,7 +15467,7 @@ function renderLessonQuizAndProgress(storyKey){
 
   let html = `<div style="max-width:52rem;margin:0 auto;display:grid;gap:14px">`
     + `<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;border-bottom:1.5px solid var(--ink);padding-bottom:8px">`
-    + `<div><span style="font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--clay)">${enMode ? "Mechanism Check (Answer ≥ 1 question to complete lesson · Drafted with AI assistance · Verification: agent ke-toan-reviewer · Approved: Duy)" : "Kiểm chứng cơ chế (Trả lời ≥ 1 câu để hoàn thành bài · Soạn với hỗ trợ AI · Soát: agent ke-toan-reviewer · Ký: Duy)"}</span>`
+    + `<div><span style="font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--clay)">${enMode ? "Mechanism Check (Answer ≥ 1 question to complete lesson · Drafted with AI assistance · Verification: agent ke-toan-reviewer · Human sign-off)" : "Kiểm chứng cơ chế (Trả lời ≥ 1 câu để hoàn thành bài · Soạn với hỗ trợ AI · Soát: agent ke-toan-reviewer · Ký duyệt thủ công)"}</span>`
     + `<h4 style="margin:2px 0 0;font:700 1.15rem/1.3 var(--serif)">${enMode ? "Self-Check Quiz Cards &amp; Local Progress" : "Thẻ Trắc Nghiệm Tự Soi &amp; Tiến Độ Cục Bộ"}</h4></div>`
     + `<span id="quizLessonBadge" style="font:700 11.5px var(--mono);padding:4px 10px;border:1.5px solid var(--ink);border-radius:3px;background:${isDone ? "color-mix(in srgb,var(--moss) 16%,var(--paper))" : "var(--card)"};color:${isDone ? "var(--moss)" : "var(--ink)"}">${enMode ? `${isDone ? "✓ Completed" : "In progress"} · ${doneCount}/${totalLessons} lessons` : `${isDone ? "✓ Đã hoàn thành bài này" : "Chưa hoàn thành"} · Đã xong ${doneCount}/${totalLessons} bài`}</span>`
     + `</div>`;
@@ -15581,14 +15666,13 @@ function applyStaticChrome(lang){
     : VI_CHROME_CACHE.get("__docTitle__").val;
 
   [
-    ["#hdrLangVi", !enMode], ["#hdrLangEn", enMode],
-    ["#ftLangVi", !enMode], ["#ftLangEn", enMode]
+    ["#hdrLangVi", !enMode], ["#hdrLangEn", enMode]
   ].forEach(([sel, pressed]) => { const b = $(sel); if (b) b.setAttribute("aria-pressed", String(pressed)); });
 
   // Header & Atlas
   cacheAndSetAttr("#atlasbar .ab-row", "aria-label", "Category and reading position", enMode);
   cacheAndSetAttr("#brandMark", "title", "Back to overview · From bank alert to bank ledger", enMode);
-  cacheAndSetText("#landingTagline", "5-Institution Atlas · Circular 99/2025 Ledger", enMode);
+  cacheAndSetText("#landingTagline", "From bank “credited” alert to bank ledgers · 5 institutions · Circular 99/2025", enMode);
   cacheAndSetText("#navBackBtn", "← Overview", enMode);
   cacheAndSetAttr("#splitPillWrap .split-pill", "aria-label", "Current category and lesson", enMode);
   cacheAndSetAttr("#postPop", "aria-label", "Lessons in this category", enMode);
@@ -15610,7 +15694,7 @@ function applyStaticChrome(lang){
   cacheAndSetText("#atlasEmpty", "No matching topics found.", enMode);
 
   // Author Dock
-  cacheAndSetAttr("#authorDock", "aria-label", "Duy's Author Tools", enMode);
+  cacheAndSetAttr("#authorDock", "aria-label", "Author Tools", enMode);
   cacheAndSetText("#authorDockTag", "Author", enMode);
   cacheAndSetText("#studioNavLink", "🎬 Studio Review", enMode);
   cacheAndSetAttr("#studioNavLink", "title", "Open Fullscreen Content & Video Studio", enMode);
@@ -15624,9 +15708,9 @@ function applyStaticChrome(lang){
   cacheAndSetText("#heroKicker", "From a “credited” text alert to bank ledgers: where your money really goes.", enMode);
   cacheAndSetHtml("#h1", "Where does your money <em>sleep</em> tonight?", enMode);
   cacheAndSetText("#heroDeck", "Dinner at a neighborhood spot. You tap your card, the terminal beeps, your phone buzzes. Everyone assumes the money just arrived.", enMode);
-  cacheAndSetHtml("#heroAha", '<strong>That notification is not cash. It is an enforceable promise: your bank just agreed to pay.</strong> Four parties and two business days stand between that beep and settled funds — and by the time it reaches the shop, 220,000 VND <span class="ex">example</span> has already been taken out.', enMode);
-  cacheAndSetText("#heroStartBtn", "Open 10M VND walkthrough →", enMode);
-  cacheAndSetText("#heroScrollBtn", "Browse 7 chapters ↓", enMode);
+  cacheAndSetHtml("#heroAha", "Each walkthrough follows one everyday transaction across five institutions, five moments in time, and Circular 99/2025 accounting ledgers.", enMode);
+  cacheAndSetText("#heroStartBtn", "Read Lesson 01: 10M card swipe →", enMode);
+  cacheAndSetText("#heroScrollBtn", "Choose from 7 open lessons ↓", enMode);
   cacheAndSetHtml("#heroSlip", '<b>LOCAL BISTRO</b><span class="c">table 6 · 22:47</span><hr><span class="r"><span>TOTAL</span><span>10,000,000</span></span><span class="r"><span>CARD</span><span>****4821</span></span><hr><span class="ok">APPROVED</span>', enMode);
   cacheAndSetAttr("#heroPhone", "aria-label", "Lock screen at 22:47 displaying a card authorization SMS", enMode);
   cacheAndSetText("#heroPhoneDate", "Saturday, Nov 7", enMode);
@@ -15635,24 +15719,26 @@ function applyStaticChrome(lang){
   cacheAndSetText("#heroSmsCode", "Credit card ****4821 TXN -10,000,000 VND at 22:47 07/11 at LOCAL BISTRO. Available limit: 18,500,000 VND.", enMode);
   cacheAndSetText("#smsnote", "not a single dong has settled yet…", enMode);
 
-  cacheAndSetText("#beforeEyebrow", "Before we begin", enMode);
-  cacheAndSetText("#before-h", "Three things you will be able to explain yourself in three minutes", enMode);
+  cacheAndSetText("#beforeEyebrow", "Before you pick a lesson", enMode);
+  cacheAndSetText("#before-h", "Three questions you will answer yourself in a few minutes", enMode);
   cacheAndSetList("#beforeThree li span", [
-    "Why a 10M VND bill leaves only 9,780,000 VND in the merchant's account — and why it waits two business days.",
-    "The card network never lends you a cent. Where does its cut come from, and who really funds your cashback?",
-    "Why your employer asked you to open payroll at one specific bank — and whose liability your balance actually is."
+    "Why a 10M VND bill leaves only 9,780,000 VND in the merchant's account — and why settlement takes two business days.",
+    "The card network never lends you a cent. Where does its fee come from, and who really funds your cashback?",
+    "Why a firm books 2B VND in profit yet only has 50M VND in Bank Cash (Account 112) on Dec 31 to make payroll."
   ], false, enMode);
 
-  cacheAndSetText("#stories-h", "Open lessons — about 90 seconds each", enMode);
-  cacheAndSetAttr("#landingSearch", "placeholder", "Search scenarios, cards, QR, interest, Circular 99/2025...", enMode);
-  cacheAndSetAttr("#gridModeSeg", "aria-label", "Catalog display mode", enMode);
-  cacheAndSetText('#gridModeSeg [data-grid-mode="curated"]', "Curated (6/page)", enMode);
-  cacheAndSetText('#gridModeSeg [data-grid-mode="all"]', "Show all", enMode);
-  cacheAndSetText('#gridModeSeg [data-grid-mode="compact"]', "Compact index", enMode);
-  cacheAndSetAttr("#catPills", "aria-label", "Filter by category", enMode);
+  cacheAndSetText("#stories-h", "Open lessons — click any stitched notebook to inspect", enMode);
+  cacheAndSetText("#landingSearchLbl", "Search:", enMode);
+  cacheAndSetAttr("#landingSearch", "placeholder", "installment, FX rate, Account 112, QR…", enMode);
+  cacheAndSetText("#gridModeLbl", "Shelf layout:", enMode);
+  cacheAndSetAttr("#gridModeSeg", "aria-label", "Catalog display layout", enMode);
+  cacheAndSetText('#gridModeSeg [data-grid-mode="curated"]', "Paginated (6 / page)", enMode);
+  cacheAndSetText('#gridModeSeg [data-grid-mode="all"]', "Full list", enMode);
+  cacheAndSetText('#gridModeSeg [data-grid-mode="compact"]', "Group by 7 branches", enMode);
+  cacheAndSetAttr("#catPills", "aria-label", "Filter lessons by category", enMode);
   cacheAndSetAttr("#storyList", "aria-label", "Select a lesson", enMode);
-  cacheAndSetText("#shelf-h", "Bookshelf: the categories your money passes through", enMode);
-  cacheAndSetText("#shelfSub", "Each spine represents one financial pillar — click to filter lessons or track your progress.", enMode);
+  cacheAndSetText("#shelf-h", "Bookshelf by money flow (7 core branches)", enMode);
+  cacheAndSetText("#shelfSub", "Seven core money-flow pillars from monthly payroll to cross-border settlement · Click any spine to filter or check reading progress.", enMode);
 
   // Detail stage
   cacheAndSetText("#detailReadTime", "~90s cutaway", enMode);
@@ -15699,44 +15785,33 @@ function applyStaticChrome(lang){
   cacheAndSetText("#closeStudioDrawerBtn", "Collapse script drawer ✕", enMode);
 
   // Glossary
-  cacheAndSetText("#gl-h", "Glossary — financial & accounting terms in plain English", enMode);
-  cacheAndSetText("#glSumLabel", "Open full accounting & banking glossary", enMode);
+  cacheAndSetText("#gl-h", "Glossary — accounting & banking jargon in plain English", enMode);
+  cacheAndSetText("#glSumLabel", "Collapsed by default — click to view all English & Vietnamese terms", enMode);
   cacheAndSetAttr("#glScopeRow", "aria-label", "Glossary scope", enMode);
-  cacheAndSetText("#glScopeAllBtn", "All terms", enMode);
-  cacheAndSetText("#glScopeStoryBtn", "In current lesson", enMode);
-  cacheAndSetAttr("#glSearch", "placeholder", "Search terms (MDR, TT 99/2025, T+2, CASA...)", enMode);
+  cacheAndSetText("#glSearchSr", "Search glossary", enMode);
+  cacheAndSetAttr("#glSearch", "placeholder", "Quick search: MDR, CASA, EIR, RTGS…", enMode);
   cacheAndSetAttr("#glSearch", "aria-label", "Search glossary terms", enMode);
 
   // Footer & Feedback Box
-  cacheAndSetText("#siteFooter .ft-kicker", "WHERE MONEY SLEEPS · AUTHORSHIP & TRANSPARENCY", enMode);
-  cacheAndSetText("#siteFooter .ft-bio", "An anatomical map of everyday money flows across 5 financial institutions and Circular 99/2025/TT-BTC ledgers. Browse more experiments or reach out directly below.", enMode);
+  cacheAndSetText("#ftEyebrow", "Where Money Sleeps · Authorship & Transparency", enMode);
+  cacheAndSetText("#siteFooter .ft-bio", "An anatomical map of everyday money flows across 5 institutions and Circular 99/2025/TT-BTC ledgers. Browse more experiments or reach out directly below.", enMode);
   cacheAndSetList("#siteFooter .ft-dir-row dt", ["Direct contact", "Profile & Writing", "Experiments Lab", "Source & Channel", "Workflow & Automation"], false, enMode);
   cacheAndSetText("#siteFooter .ft-copy-toast", "Copied", enMode);
   cacheAndSetAttr("#ftCopyEmailBtn", "aria-label", "Copy email hello@duypham.me", enMode);
   cacheAndSetAttr("#ftCopyEmailBtn", "title", "Copy email hello@duypham.me", enMode);
-  cacheAndSetList("#siteFooter .ft-dir-row:last-child dd a", ["Full-Agent Blueprint ↗", "Production Studio ↗"], false, enMode);
-  cacheAndSetText("#ftPipeHeading", "ARCHIVAL EDITION & PRODUCTION PIPELINE", enMode);
-  cacheAndSetText("#ftPipeTrace", "01 C9 Concept → 02 TT 99/2025 Ledger Split → 03 Python T0 Audit & K·F·B·M Reviewers → 04 30fps Vector + Voice TTS → 05 Duy's Final Release Sign-off", enMode);
-  cacheAndSetText("#ftPipeNote", "Every essay and video passes an adversarial multi-agent pipeline (T0–T4 routing), deterministic Python Σ Debit = Σ Credit ledger verification, and IRR/EIR validation before Duy's manual check. No automated process replaces human release approval.", enMode);
-  cacheAndSetText("#ftWfLink", "Open Full-Agent Blueprint & Verification Ledger (VI / EN) →", enMode);
-  cacheAndSetText("#ftStudioLink", "Audio & Subtitles Studio", enMode);
-  cacheAndSetHtml("#ftDisclaimers",
-    '<p>This content explains how payment rails and journal entries work under Circular 99/2025/TT-BTC; it is not financial, tax, or investment advice.</p>'
-    + '<p>All figures, interest rates, and settlement windows are illustrative teaching examples and do not represent any specific bank or card network tariff.</p>'
-    + '<p><strong>Honesty boundary:</strong> The account code tables represent an unofficial summary of Circular 99/2025/TT-BTC and have not yet been formally cross-checked against official Appendix II.</p>',
-    enMode);
-  cacheAndSetText("#ftThemeLbl", "Theme:", enMode);
-  cacheAndSetText("#ftThemeAuto", "System", enMode);
-  cacheAndSetText("#ftThemeLight", "Day", enMode);
-  cacheAndSetText("#ftThemeDark", "Night", enMode);
+  cacheAndSetList("#siteFooter .ft-dir-row:last-child dd a", ["Full-Agent Blueprint (T0–T4) & Integrity Ledger (VI / EN) →"], false, enMode);
+  cacheAndSetHtml("#ftColophon", 'Independent archival edition · Verified against 4 gates: Circular 99/2025 accounting (K1–K4), banking mechanics (F1–F4), brand safety (B1–B4) &amp; motion (M1–M4) · Explains how money moves and settles; not financial, tax, or investment advice · Account tables represent an <span lang="en">unofficial summary of Circular 99/2025/TT-BTC</span>.', enMode);
 
   cacheAndSetText("#fbFormHeading", "Feedback & Topic Suggestion Box", enMode);
-  cacheAndSetHtml("#siteFooter .ft-box-lead", 'Your note attaches the lesson currently in view (if any) and prepares a message for <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a>.', enMode);
-  cacheAndSetAttr("#siteFooter .fb-tabs", "aria-label", "Message type", enMode);
+  cacheAndSetHtml("#fbBoxLead", 'Send everyday money questions or ledger corrections straight to <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> via same-origin Worker (0 third-party trackers).', enMode);
+  cacheAndSetAttr("#siteFooter .fb-tabs", "aria-label", "Message purpose", enMode);
+  cacheAndSetText("#fbModesLbl", "Purpose:", enMode);
   cacheAndSetText('#siteFooter [data-fb-kind="topic"]', "Suggest a new topic", enMode);
   cacheAndSetText('#siteFooter [data-fb-kind="feedback"]', "Fix / TT 99 Ledger Note", enMode);
+  cacheAndSetText("#fbMessageHint", "Minimum 8 characters, maximum 800 characters · No cookies or reader tracking.", enMode);
   cacheAndSetAttr("#fbMessage", "placeholder", "Example: How is real estate brokerage escrow accounted for? Or suggest a calculator adjustment...", enMode);
-  cacheAndSetText('label[for="fbEmail"]', "Reply email (optional)", enMode);
+  cacheAndSetText("#fbEmailLabel", "Reply email when published (optional)", enMode);
+  cacheAndSetText("#fbEmailHint", "Leave blank to submit anonymously; enter name@domain.com if you want a reply.", enMode);
   cacheAndSetAttr("#fbEmail", "placeholder", "yourname@domain.com", enMode);
   cacheAndSetText("#fbMailtoLink", "Open Mail App ↗", enMode);
 
@@ -15801,14 +15876,20 @@ function extractStoryTerms(k){
 function renderGlossary(){
   const glEl = $("#gl"), pill = $("#glCountPill"), storyBtn = $("#glScopeStoryBtn"), allBtn = $("#glScopeAllBtn");
   if (!glEl) return;
-  const gl = getGloss(), enMode = isEn();
+  const gl = getGloss(), enMode = isEn(), o = order(), stories = getStories(), totalAll = Object.keys(gl).length;
   const isDetail = S.view === "detail";
-  if (storyBtn) storyBtn.hidden = !isDetail;
-  if (!isDetail && S.glScope === "story") S.glScope = "all";
-  if (allBtn) allBtn.setAttribute("aria-pressed", String(S.glScope === "all"));
-  if (storyBtn) storyBtn.setAttribute("aria-pressed", String(S.glScope === "story"));
-
   const storySet = isDetail ? extractStoryTerms(S.story) : null;
+  if (!isDetail && S.glScope === "story") S.glScope = "all";
+  if (storyBtn){
+    storyBtn.hidden = !isDetail;
+    storyBtn.textContent = enMode ? `In this lesson (${storySet ? storySet.size : 0})` : `Trong bài này (${storySet ? storySet.size : 0})`;
+    storyBtn.setAttribute("aria-pressed", String(S.glScope === "story"));
+  }
+  if (allBtn){
+    allBtn.textContent = enMode ? `All ${totalAll} terms` : `Tất cả ${totalAll} từ`;
+    allBtn.setAttribute("aria-pressed", String(S.glScope === "all"));
+  }
+
   const qNorm = normVi(S.glQ);
   const keys = Object.keys(gl).filter(k => {
     if (S.glScope === "story" && storySet && !storySet.has(k)) return false;
@@ -15818,10 +15899,9 @@ function renderGlossary(){
   });
 
   if (pill){
-    const totalAll = Object.keys(gl).length;
     pill.textContent = S.glScope === "story" && storySet
       ? `${keys.length}/${storySet.size} ${enMode ? "in lesson" : "trong bài"}`
-      : `${keys.length}/${totalAll} ${enMode ? "terms" : "thuật ngữ"}`;
+      : `${keys.length} / ${totalAll} ${enMode ? "terms" : "thuật ngữ"}`;
   }
   glEl.innerHTML = "";
   if (!keys.length){
@@ -15836,9 +15916,17 @@ function renderGlossary(){
     dt.id = `gl-t-${k}`;
     dt.textContent = g.t;
     const dd = document.createElement("dd");
-    dd.innerHTML = `<b>${esc(g.en)}.</b> ${esc(g.d)}`;
+    dd.id = `gl-d-${k}`;
+    const appearKeys = o.filter(sk => extractStoryTerms(sk).has(k));
+    const chipsHtml = appearKeys.length
+      ? `<div class="gl-jump-row"><span style="font:600 10.5px var(--mono);color:var(--ink-3);align-self:center">${enMode ? "Appears in:" : "Gặp ở:"}</span>${appearKeys.slice(0, 4).map(sk => `<button type="button" class="gl-chip gl-jump-chip" data-open-gl="${esc(sk)}">${esc((stories[sk] && (stories[sk].name || stories[sk].title)) || sk)}</button>`).join("")}${appearKeys.length > 4 ? `<span class="gl-more-tag">${enMode ? `+${appearKeys.length - 4} more` : `+${appearKeys.length - 4} bài khác`}</span>` : ""}</div>`
+      : "";
+    dd.innerHTML = `<b>${esc(g.en)}.</b> ${esc(g.d)}${chipsHtml}`;
     glEl.appendChild(dt);
     glEl.appendChild(dd);
+  });
+  $$("[data-open-gl]", glEl).forEach(b => {
+    b.onclick = () => openStory(b.dataset.openGl);
   });
 }
 
@@ -16038,14 +16126,24 @@ const FB_CHIPS_BY_LANG = {
     ]
   }
 };
+function setFbFieldError(inputEl, errEl, hintId, shown, txt){
+  if (!inputEl) return;
+  inputEl.setAttribute("aria-invalid", shown ? "true" : "false");
+  inputEl.classList.toggle("user-invalid-fallback", Boolean(shown));
+  if (errEl){
+    errEl.textContent = shown ? txt : "";
+    errEl.hidden = !shown;
+  }
+  inputEl.setAttribute("aria-describedby", shown && errEl ? `${hintId} ${errEl.id}` : hintId);
+}
 function syncFeedbackUi(){
   const form = $("#fbForm"), mailtoEl = $("#fbMailtoLink"), ctxEl = $("#fbCtxBanner"), chipsEl = $("#fbQuickChips"), msgEl = $("#fbMessage"), emailEl = $("#fbEmail"), submitBtn = $("#fbSubmitBtn"), lblEl = $("#fbMessageLabel");
   if (!form) return;
   const enMode = isEn(), isTopic = S.fbKind !== "feedback", stories = getStories();
   $$("[data-fb-kind]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.fbKind === S.fbKind)));
-  if (lblEl) lblEl.textContent = enMode
+  if (lblEl) lblEl.innerHTML = (enMode
     ? (isTopic ? "Topic you want broken down" : "Edit suggestion / Circular 99 Ledger Note")
-    : (isTopic ? "Chủ đề bạn muốn mình mổ xẻ" : "Góp ý chỉnh sửa / Đối chiếu sổ TT 99/2025");
+    : (isTopic ? "Chủ đề bạn muốn mình mổ xẻ" : "Góp ý chỉnh sửa / Đối chiếu sổ TT 99/2025")) + ` <span aria-hidden="true">*</span>`;
   if (submitBtn) submitBtn.textContent = enMode
     ? (isTopic ? "Send suggestion to hello@duypham.me" : "Send note to hello@duypham.me")
     : (isTopic ? "Gửi đề xuất về hello@duypham.me" : "Gửi góp ý về hello@duypham.me");
@@ -16066,7 +16164,7 @@ function syncFeedbackUi(){
   const chipRenderKey = `${getLang()}:${S.fbKind}`;
   if (chipsEl && chipsEl.dataset.renderedKind !== chipRenderKey){
     chipsEl.dataset.renderedKind = chipRenderKey;
-    chipsEl.innerHTML = "";
+    chipsEl.innerHTML = `<span class="fb-chips-lbl">${enMode ? "Quick-fill prompt:" : "Chèn nhanh câu hỏi:"}</span>`;
     ((FB_CHIPS_BY_LANG[getLang()] || FB_CHIPS_BY_LANG.vi)[S.fbKind] || []).forEach(txt => {
       const chip = document.createElement("button");
       chip.type = "button";
@@ -16078,8 +16176,7 @@ function syncFeedbackUi(){
         const cur = msgEl.value.trim();
         if (!cur) msgEl.value = txt;
         else if (!cur.includes(txt)) msgEl.value = cur + "\n" + txt;
-        msgEl.setAttribute("aria-invalid", "false");
-        if ($("#fbMessageError")) { $("#fbMessageError").hidden = true; $("#fbMessageError").textContent = ""; }
+        setFbFieldError(msgEl, $("#fbMessageError"), "fbMessageHint", false, "");
         syncFeedbackUi();
         msgEl.focus();
       };
@@ -16111,16 +16208,14 @@ function syncFeedbackUi(){
   });
   msgEl.addEventListener("input", () => {
     if (msgEl.value.trim().length >= 8){
-      msgEl.setAttribute("aria-invalid", "false");
-      if (msgErr){ msgErr.hidden = true; msgErr.textContent = ""; }
+      setFbFieldError(msgEl, msgErr, "fbMessageHint", false, "");
     }
     syncFeedbackUi();
   });
   emailEl.addEventListener("input", () => {
     const v = emailEl.value.trim();
     if (!v || EMAIL_RE.test(v)){
-      emailEl.setAttribute("aria-invalid", "false");
-      if (emailErr){ emailErr.hidden = true; emailErr.textContent = ""; }
+      setFbFieldError(emailEl, emailErr, "fbEmailHint", false, "");
     }
     syncFeedbackUi();
   });
@@ -16130,22 +16225,34 @@ function syncFeedbackUi(){
     const enMode = isEn();
     const rawMsg = msgEl.value.trim(), rawEmail = emailEl.value.trim();
     if (rawMsg.length < 8){
-      msgEl.setAttribute("aria-invalid", "true");
-      if (msgErr){ msgErr.textContent = enMode ? "Please enter at least 8 non-space characters so your note is clear." : "Vui lòng nhập ít nhất 8 ký tự (khác khoảng trắng) để Duy hiểu rõ ý bạn."; msgErr.hidden = false; }
+      setFbFieldError(
+        msgEl,
+        msgErr,
+        "fbMessageHint",
+        true,
+        enMode
+          ? "Please enter at least 8 non-space characters so your note is clear."
+          : "Vui lòng nhập ít nhất 8 ký tự (khác khoảng trắng) để tác giả hiểu rõ ý bạn."
+      );
       msgEl.focus();
       return;
     }
-    msgEl.setAttribute("aria-invalid", "false");
-    if (msgErr){ msgErr.hidden = true; msgErr.textContent = ""; }
+    setFbFieldError(msgEl, msgErr, "fbMessageHint", false, "");
 
     if (rawEmail && !EMAIL_RE.test(rawEmail)){
-      emailEl.setAttribute("aria-invalid", "true");
-      if (emailErr){ emailErr.textContent = enMode ? "Invalid email format (e.g., name@domain.com), or leave blank for anonymous." : "Định dạng email chưa hợp lệ (ví dụ: ten@domain.com), hoặc bỏ trống để gửi ẩn danh."; emailErr.hidden = false; }
+      setFbFieldError(
+        emailEl,
+        emailErr,
+        "fbEmailHint",
+        true,
+        enMode
+          ? "Invalid email format (e.g., name@domain.com), or leave blank for anonymous."
+          : "Định dạng email chưa hợp lệ (ví dụ: ten@domain.com), hoặc bỏ trống để gửi ẩn danh."
+      );
       emailEl.focus();
       return;
     }
-    emailEl.setAttribute("aria-invalid", "false");
-    if (emailErr){ emailErr.hidden = true; emailErr.textContent = ""; }
+    setFbFieldError(emailEl, emailErr, "fbEmailHint", false, "");
 
     const payload = {
       kind: S.fbKind,
@@ -16177,7 +16284,7 @@ if ($("#brandMark")){
   });
 }
 if ($("#navBackBtn")) $("#navBackBtn").onclick = () => setView("landing", null, "top", true);
-if ($("#heroStartBtn")) $("#heroStartBtn").onclick = () => openStory(S.story);
+if ($("#heroStartBtn")) $("#heroStartBtn").onclick = () => openStory("card");
 if ($("#heroScrollBtn")) $("#heroScrollBtn").onclick = () => {
   const ch = $("#chuyen");
   if (ch) ch.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
