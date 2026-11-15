@@ -399,7 +399,7 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
     if "svg-swipe-hint" not in wf_text or "min-width:720px" not in wf_text:
         errors.append("workflows.html thiếu .svg-swipe-hint hoặc .wf-svg min-width:720px trên mobile (R5)")
 
-    # 2. Live multi-viewport Chromium checks (320 / 390 / 768 / 1440px)
+    # 2. Live multi-viewport Chromium checks (Mobile 320·390 + Touch Tablet 768·820·1024 + Desktop 1440px)
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
@@ -419,11 +419,33 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
     try:
         base = f"http://127.0.0.1:{port}"
         viewports = [
-            (320, 568, True),
-            (390, 844, True),
-            (768, 1024, False),
-            (1440, 900, False),
+            (320, 568, True),    # Mobile small (touch)
+            (390, 844, True),    # Mobile standard (touch)
+            (768, 1024, True),   # Tablet portrait iPad (touch)
+            (820, 1180, True),   # Tablet portrait iPad Air (touch)
+            (1024, 768, True),   # Tablet landscape iPad (touch)
+            (1440, 900, False),  # Desktop standard (fine pointer)
         ]
+        control_scan_js = """({isMob}) => {
+          const minH = isMob ? 43.5 : 23.5;
+          const bad = [];
+          for (const el of document.querySelectorAll('button, a, input, select, textarea, summary, [role="button"], [role="tab"]')) {
+            if (el.matches('p a, li a, figcaption a, td a, .cite a, button.gl, .term, .fn-ref, .skip-link, input[type="checkbox"], input[type="radio"]')) continue;
+            const cs = getComputedStyle(el);
+            if (cs.display === 'inline') continue;
+            const r = el.getBoundingClientRect();
+            if (r.width <= 0 || r.height <= 0) continue;
+            if (r.height < minH || r.width < minH) {
+              bad.push(`${el.tagName}#${el.id || ''}.${(el.className || '').toString().trim().split(/\\s+/)[0] || ''}:${Math.round(r.width)}x${Math.round(r.height)}`);
+            }
+          }
+          return bad.slice(0, 8);
+        }"""
+        input_font_js = """() => [...document.querySelectorAll('input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),select,textarea')].filter(el => {
+          const r = el.getBoundingClientRect();
+          return r.width > 0 && r.height > 0 && parseFloat(getComputedStyle(el).fontSize) < 15.9;
+        }).map(el => el.id || el.name || el.tagName)"""
+
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             try:
@@ -449,36 +471,43 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     if bar_h > vh * 0.12:
                         errors.append(f"[{vw}x{vh}] prototype Landing #atlasbar cao {bar_h:.1f}px > 12% dvh ({vh*0.12:.1f}px)")
 
-                    if vw <= 768:
-                        small_inputs = page.evaluate("""() => [...document.querySelectorAll('input,select,textarea')].filter(el => {
-                          const r = el.getBoundingClientRect();
-                          return r.width > 0 && r.height > 0 && parseFloat(getComputedStyle(el).fontSize) < 15.9;
-                        }).map(el => el.id || el.name || el.tagName)""")
-                        if small_inputs:
-                            errors.append(f"[{vw}x{vh}] prototype input font-size < 16px: {small_inputs}")
+                    if vw <= 900:
+                        pill_rows = page.evaluate("""() => {
+                          const tops = [...document.querySelectorAll('#catPills .cat-pill')]
+                            .filter(el => el.getBoundingClientRect().width > 0)
+                            .map(el => Math.round(el.getBoundingClientRect().top / 4));
+                          return new Set(tops).size;
+                        }""")
+                        if pill_rows > 1:
+                            errors.append(f"[{vw}x{vh}] Landing #catPills rớt {pill_rows} hàng (> 1 hàng vuốt ngang)")
 
                     if is_mob:
-                        small_btns = page.evaluate("""() => ['#themeBtn', '#langToggle button', '#atlasBtn', '.lang-seg button'].flatMap(sel => [...document.querySelectorAll(sel)]).filter(el => {
-                          const r = el.getBoundingClientRect();
-                          return r.width > 0 && r.height > 0 && (r.height < 43.5 || (r.width < 43.5 && !el.closest('.lang-seg')));
-                        }).map(el => el.id || el.textContent.trim())""")
-                        if small_btns:
-                            errors.append(f"[{vw}x{vh}] prototype touch target < 44px: {small_btns}")
+                        small_inputs = page.evaluate(input_font_js)
+                        if small_inputs:
+                            errors.append(f"[{vw}x{vh}] prototype Landing input font-size < 16px: {small_inputs}")
 
-                    # Open #atlas drawer and clamp inside viewport
+                    small_land = page.evaluate(control_scan_js, {"isMob": is_mob})
+                    if small_land:
+                        errors.append(f"[{vw}x{vh}] prototype Landing controls < {'44px' if is_mob else '24px'}: {small_land}")
+
+                    # Open #atlas drawer and clamp inside viewport (+ 2-col parity at 1440px)
                     page.click("#atlasBtn")
                     page.wait_for_timeout(120)
                     atlas_box = page.evaluate("""() => {
                       const a = document.getElementById('atlas');
                       const r = a && !a.hidden ? a.getBoundingClientRect() : null;
-                      return r ? {top: r.top, left: r.left, right: r.right, bottom: r.bottom} : null;
+                      const m = a ? a.querySelector('.atlas-master')?.getBoundingClientRect() : null;
+                      const d = a ? a.querySelector('.atlas-detail-wrap')?.getBoundingClientRect() : null;
+                      return r ? {top: r.top, left: r.left, right: r.right, bottom: r.bottom, twoCol: !!(m && d && m.right <= d.left + 4)} : null;
                     }""")
                     if not atlas_box or atlas_box["right"] > vw + 1 or atlas_box["bottom"] > vh + 1 or atlas_box["left"] < -1 or atlas_box["top"] < -1:
                         errors.append(f"[{vw}x{vh}] #atlas vượt khung hình: {atlas_box}")
+                    if vw >= 1280 and atlas_box and not atlas_box["twoCol"]:
+                        errors.append(f"[{vw}x{vh}] #atlas mất bố cục 2 cột Desktop master-detail")
                     page.keyboard.press("Escape")
                     page.wait_for_timeout(80)
 
-                    # Navigate to Detail view (?story=card), test #postPop, #pop, and scroll-hide
+                    # Navigate to Detail view (?story=card), test Split-Pill width, #postPop, #pop, Verdict parity, and scroll-hide
                     page.goto(f"{base}/docs/prototype.html?story=card", wait_until="domcontentloaded")
                     page.wait_for_selector("#postPillBtn")
                     page.wait_for_timeout(150)
@@ -488,6 +517,36 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     bar_hd = page.evaluate("() => document.getElementById('atlasbar')?.getBoundingClientRect().height || 0")
                     if bar_hd > vh * 0.12:
                         errors.append(f"[{vw}x{vh}] prototype Detail #atlasbar cao {bar_hd:.1f}px > 12% dvh ({vh*0.12:.1f}px)")
+
+                    pills_dim = page.evaluate("""() => {
+                      const c = document.getElementById('catPillBtn')?.getBoundingClientRect();
+                      const p = document.getElementById('postPillBtn')?.getBoundingClientRect();
+                      const vCards = [...document.querySelectorAll('.verdict section')].filter(s => s.getBoundingClientRect().width > 0);
+                      const vTwoCol = vCards.length >= 2 && vCards[0].getBoundingClientRect().right <= vCards[1].getBoundingClientRect().left + 4;
+                      return {
+                        catW: c ? c.width : 0,
+                        catH: c ? c.height : 0,
+                        postW: p ? p.width : 0,
+                        postH: p ? p.height : 0,
+                        vTwoCol,
+                      };
+                    }""")
+                    min_pill_w = 43.5 if is_mob else 56.0
+                    if pills_dim["postW"] < min_pill_w:
+                        errors.append(f"[{vw}x{vh}] #postPillBtn bị ép hẹp còn {pills_dim['postW']:.1f}px < {min_pill_w}px")
+                    if vw > 480 and pills_dim["catW"] < min_pill_w:
+                        errors.append(f"[{vw}x{vh}] #catPillBtn bị ép hẹp còn {pills_dim['catW']:.1f}px < {min_pill_w}px")
+                    if vw >= 1280 and not pills_dim["vTwoCol"]:
+                        errors.append(f"[{vw}x{vh}] Detail .verdict mất bố cục 2 cột Desktop")
+
+                    if is_mob:
+                        small_inputs_d = page.evaluate(input_font_js)
+                        if small_inputs_d:
+                            errors.append(f"[{vw}x{vh}] prototype Detail input font-size < 16px: {small_inputs_d}")
+
+                    small_det = page.evaluate(control_scan_js, {"isMob": is_mob})
+                    if small_det:
+                        errors.append(f"[{vw}x{vh}] prototype Detail controls < {'44px' if is_mob else '24px'}: {small_det}")
 
                     page.click("#postPillBtn")
                     page.wait_for_timeout(100)
@@ -515,11 +574,13 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                         if page.locator("#popX").is_visible():
                             page.click("#popX")
 
-                    # Scroll-hide test
-                    page.evaluate("window.scrollTo(0, 500)")
+                    # Scroll-hide test (reset to top first because clicking .gl may have scrolled down)
+                    page.evaluate("window.scrollTo({top: 0, behavior: 'instant'})")
+                    page.wait_for_timeout(120)
+                    page.evaluate("window.scrollTo({top: 500, behavior: 'instant'})")
                     page.wait_for_timeout(200)
                     hidden_down = page.evaluate("() => document.getElementById('atlasbar')?.classList.contains('is-hidden')")
-                    page.evaluate("window.scrollTo(0, 0)")
+                    page.evaluate("window.scrollTo({top: 0, behavior: 'instant'})")
                     page.wait_for_timeout(200)
                     shown_up = page.evaluate("() => !document.getElementById('atlasbar')?.classList.contains('is-hidden')")
                     if not hidden_down or not shown_up:
@@ -535,6 +596,9 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     wf_bar_h = page.evaluate("() => document.querySelector('.atlasbar')?.getBoundingClientRect().height || 0")
                     if wf_bar_h > vh * 0.12:
                         errors.append(f"[{vw}x{vh}] workflows.html .atlasbar cao {wf_bar_h:.1f}px > 12% dvh")
+                    small_wf = page.evaluate(control_scan_js, {"isMob": is_mob})
+                    if small_wf:
+                        errors.append(f"[{vw}x{vh}] workflows.html controls < {'44px' if is_mob else '24px'}: {small_wf}")
                     if vw <= 860:
                         min_svg_px = page.evaluate("""() => {
                           const svg = document.getElementById('wfSvg');
@@ -546,7 +610,7 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                         if min_svg_px["minPx"] < 9.95:
                             errors.append(f"[{vw}x{vh}] workflows.html #wfSvg text thu nhỏ còn {min_svg_px['minPx']:.2f}px < 10px (svg w={min_svg_px['w']:.1f})")
 
-                    # C. studio.html — overflow, sticky topbar <= 12% dvh, video/oss tabs
+                    # C. studio.html — overflow, sticky topbar <= 12% dvh, touch input >= 16px, controls >= 44/24px, video/oss tabs
                     page.goto(f"{base}/docs/studio.html", wait_until="domcontentloaded")
                     page.wait_for_selector(".st-topbar")
                     page.wait_for_timeout(150)
@@ -556,20 +620,39 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                         ov_st = page.evaluate("() => document.documentElement.scrollWidth - window.innerWidth")
                         if ov_st > 0:
                             errors.append(f"[{vw}x{vh}] studio.html mode={m} tràn ngang +{ov_st}px")
+                        if m == "post" and is_mob:
+                            small_st_inps = page.evaluate(input_font_js)
+                            if small_st_inps:
+                                errors.append(f"[{vw}x{vh}] studio.html input font-size < 16px: {small_st_inps}")
+                        small_st = page.evaluate(control_scan_js, {"isMob": is_mob})
+                        if small_st:
+                            errors.append(f"[{vw}x{vh}] studio.html mode={m} controls < {'44px' if is_mob else '24px'}: {small_st}")
                     st_bar_h = page.evaluate("() => document.querySelector('.st-topbar')?.getBoundingClientRect().height || 0")
                     if st_bar_h > vh * 0.125:
                         errors.append(f"[{vw}x{vh}] studio.html .st-topbar cao {st_bar_h:.1f}px > 12.5% dvh")
 
-                    # D. s6.html — shared doc.css check
+                    # D. s6.html — shared doc.css check (1-row nav <= 12.5% dvh + controls >= 44/24px)
                     page.goto(f"{base}/docs/s6.html", wait_until="domcontentloaded")
                     page.wait_for_selector("nav .in")
                     page.wait_for_timeout(100)
                     ov_s6 = page.evaluate("() => document.documentElement.scrollWidth - window.innerWidth")
                     if ov_s6 > 0:
                         errors.append(f"[{vw}x{vh}] s6.html tràn ngang +{ov_s6}px")
-                    s6_nav_h = page.evaluate("() => document.querySelector('nav')?.getBoundingClientRect().height || 0")
-                    if s6_nav_h > vh * 0.125:
-                        errors.append(f"[{vw}x{vh}] s6.html nav cao {s6_nav_h:.1f}px > 12.5% dvh")
+                    s6_nav = page.evaluate("""() => {
+                      const h = document.querySelector('nav')?.getBoundingClientRect().height || 0;
+                      const mids = [...document.querySelectorAll('nav .in > *')]
+                        .map(e => e.getBoundingClientRect())
+                        .filter(r => r.width > 0)
+                        .map(r => Math.round(((r.top + r.bottom) / 2) / 8));
+                      return { h, rows: new Set(mids).size };
+                    }""")
+                    if s6_nav["h"] > vh * 0.125:
+                        errors.append(f"[{vw}x{vh}] s6.html nav cao {s6_nav['h']:.1f}px > 12.5% dvh")
+                    if s6_nav["rows"] > 1:
+                        errors.append(f"[{vw}x{vh}] s6.html nav rớt {s6_nav['rows']} hàng (> 1 hàng)")
+                    small_s6 = page.evaluate(control_scan_js, {"isMob": is_mob})
+                    if small_s6:
+                        errors.append(f"[{vw}x{vh}] s6.html controls < {'44px' if is_mob else '24px'}: {small_s6}")
 
                     if page_errors:
                         errors.append(f"[{vw}x{vh}] JS pageerror: {page_errors[0]}")
@@ -580,7 +663,7 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
     finally:
         httpd.shutdown()
 
-    return errors, f"static + {checked_cases}/4 Playwright viewports (320·390·768·1440px)"
+    return errors, f"static + {checked_cases}/6 Playwright viewports (320·390·768·820·1024·1440px)"
 
 
 def main() -> int:
