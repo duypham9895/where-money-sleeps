@@ -15,6 +15,11 @@ set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || exit 2
 cd "$ROOT" || exit 2
 
+# LUẬT 12 (QĐ 64): tự cài symlink .git/hooks/pre-push khi clone mới hoặc chạy CI
+if [ -d .git/hooks ] && [ -f scripts/wms-pre-push.sh ] && [ ! -e .git/hooks/pre-push ]; then
+  ln -sf ../../scripts/wms-pre-push.sh .git/hooks/pre-push 2>/dev/null || true
+fi
+
 rc=0
 echo "════ [1/5] check-story.py ════"
 python3 -I scripts/check-story.py "$@" || rc=1

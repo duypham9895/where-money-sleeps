@@ -753,7 +753,7 @@ GOV_REQUIRED = [
     "gates/01-spec/AGENT-CMS-PIPELINE.md",
     "gates/01-spec/VOICE-AND-PROSODY-SPEC.md",
     "knowledge/finance-kb.json",
-    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh",
+    "scripts/check-story.py", "scripts/wms-check.sh", "scripts/wms-hook-guard.sh", "scripts/wms-pre-push.sh",
     "scripts/wms-media-pipeline.py", "scripts/wms-finance-kb.py", "scripts/wms-render-editorial-figs.py",
     "scripts/wms-motion-snap.py",
 ]
@@ -954,6 +954,19 @@ def check_governance(rep: Report) -> None:
         rep.add("WARN", "C8", where, "hook có thật sự chạy, gốc đường dẫn và tên tool của Antigravity: CHƯA XÁC MINH")
     else:
         rep.add("SKIP", "C8", where, "không có .agents/hooks.json (chế độ open-source độc lập)")
+
+    # LUẬT 12 (QĐ 64): khoá git pre-push chặn push thẳng vào main
+    pre_push_src = ROOT / "scripts/wms-pre-push.sh"
+    if not pre_push_src.is_file() or not os.access(pre_push_src, os.X_OK):
+        rep.add("FAIL", "C8", where, "scripts/wms-pre-push.sh thiếu hoặc chưa có bit thực thi (chmod +x) — vi phạm LUẬT 12")
+    elif (ROOT / ".git/hooks").is_dir():
+        pre_push_hook = ROOT / ".git/hooks/pre-push"
+        if not pre_push_hook.is_file() or not os.access(pre_push_hook, os.X_OK):
+            rep.add("FAIL", "C8", where, ".git/hooks/pre-push thiếu hoặc chưa thực thi (chạy bash scripts/wms-check.sh để tự liên kết)")
+        else:
+            rep.add("PASS", "C8", where, "LUẬT 12 (QĐ 64): .git/hooks/pre-push → wms-pre-push.sh đang khoá chặn push thẳng vào main")
+    else:
+        rep.add("PASS", "C8", where, "LUẬT 12 (QĐ 64): scripts/wms-pre-push.sh có mặt và có bit thực thi")
 
     # bản chép không được trôi
     a = (ROOT / ".claude/skills/vibe-post/SKILL.md") if (ROOT / ".claude/skills/vibe-post/SKILL.md").is_file() else (ROOT.parent / ".claude/skills/vibe-post/SKILL.md")

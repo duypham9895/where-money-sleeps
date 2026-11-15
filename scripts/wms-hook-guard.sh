@@ -20,12 +20,55 @@
 import json
 import pathlib
 import re
+import shlex
 import sys
 
 SHIP = re.compile(
     r"(?:^|[;&|]\s*)(?:rtk\s+(?:proxy\s+)?)?(?:npx\s+)?"
-    r"(?:git\s+push|gh\s+pr\s+merge|gh\s+release|vercel|netlify|wrangler|youtube-upload|yt-upload|wms-youtube-upload)\b"
+    r"(?:git\b[^\n;&|]*\bpush|gh\s+pr\s+(?:create|merge)|gh\s+release|vercel|netlify|wrangler|youtube-upload|yt-upload|wms-youtube-upload)\b"
 )
+GIT_OPTS_WITH_VAL = {"-C", "-c", "--git-dir", "--work-tree", "--namespace", "--super-prefix"}
+
+
+def _is_direct_main_push(cmd: str) -> bool:
+    for seg in re.split(r"(?:&&|\|\||[;\n|])", cmd):
+        s = seg.strip()
+        if not s:
+            continue
+        try:
+            toks = shlex.split(s, posix=True)
+        except ValueError:
+            toks = s.split()
+        i = 0
+        while i < len(toks) and (
+            ("=" in toks[i] and not toks[i].startswith("-"))
+            or pathlib.PurePosixPath(toks[i]).name in ("rtk", "proxy", "command", "nohup", "time", "env")
+        ):
+            i += 1
+        if i >= len(toks) or pathlib.PurePosixPath(toks[i]).name != "git":
+            continue
+        j = i + 1
+        sub_idx = None
+        while j < len(toks):
+            t = toks[j]
+            if t in GIT_OPTS_WITH_VAL:
+                j += 2
+                continue
+            if t.startswith("-"):
+                j += 1
+                continue
+            if t == "push":
+                sub_idx = j
+            break
+        if sub_idx is None:
+            continue
+        for t in toks[sub_idx + 1 :]:
+            if t == "--no-verify":
+                return True
+            ref = t.split(":")[-1]
+            if ref in ("main", "master", "refs/heads/main", "refs/heads/master"):
+                return True
+    return False
 APPROVED = re.compile(r"""["'`]?approvedBy["'`]?\s*[:=]\s*(["'`])(.*?)\1""")
 PUBLISHED = re.compile(r"""["'`]?status["'`]?\s*[:=]\s*["'`]published["'`]""")
 UPLOADED_PUBLIC = re.compile(r"""["'`]?embedStatus["'`]?\s*[:=]\s*["'`]uploaded_public["'`]""")
@@ -84,6 +127,8 @@ def main() -> None:
 
     if name == "run_command":
         cmd = str(args.get("CommandLine") or args.get("command") or "")
+        if _is_direct_main_push(cmd):
+            out("force_ask", "VI PHẠM LUẬT 12 (QĐ 64): CẤM push thẳng vào nhánh main (hoặc --no-verify)! Bắt buộc đẩy nhánh phụ và mở Pull Request (gh pr create --base main).")
         if SHIP.search(cmd.strip()):
             out("force_ask", "CỔNG SHIP WMS: lệnh đẩy code / phát hành ra ngoài cần Duy xác nhận trực tiếp.")
         if approved_count(cmd) or published_count(cmd) or uploaded_public_count(cmd):
