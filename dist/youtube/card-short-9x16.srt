@@ -1,63 +1,63 @@
 1
-00:00:00,000 --> 00:00:03,990
+00:00:00,250 --> 00:00:04,170
 Giả sử bạn quẹt thẻ tín dụng mười triệu và vừa nhận một trăm nghìn tiền hoàn.
 
 2
-00:00:03,990 --> 00:00:05,180
+00:00:04,360 --> 00:00:06,090
 Nghe như một món quà...
 
 3
-00:00:05,180 --> 00:00:07,000
+00:00:06,100 --> 00:00:07,850
 nhưng thật ra ai đang trả khoản đó?
 
 4
-00:00:07,000 --> 00:00:15,060
+00:00:08,850 --> 00:00:15,890
 Ngay lúc bạn chạm thẻ trả hoá đơn mười triệu: chưa có đồng tiền nào chuyển đi cả, ngân hàng của bạn chỉ tạm giữ chỗ trên hạn mức.
 
 5
-00:00:15,060 --> 00:00:16,250
+00:00:16,050 --> 00:00:17,570
 Hoá đơn đã in ra...
 
 6
-00:00:16,250 --> 00:00:18,000
+00:00:17,600 --> 00:00:19,170
 nhưng tiền thật vẫn nằm yên.
 
 7
-00:00:18,000 --> 00:00:22,240
+00:00:19,770 --> 00:00:24,730
 Trong ví dụ này, phải hai ngày làm việc sau, ngân hàng mới chuyển tiền thật về quán.
 
 8
-00:00:22,240 --> 00:00:25,120
+00:00:24,820 --> 00:00:28,250
 Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn...
 
 9
-00:00:25,120 --> 00:00:29,000
+00:00:28,330 --> 00:00:32,330
 vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.
 
 10
-00:00:29,000 --> 00:00:36,040
+00:00:33,060 --> 00:00:41,290
 Nhìn kỹ phần phí ấy: khoảng một trăm năm mươi nghìn chạy ngược về ngân hàng đã phát hành thẻ cho bạn — gọi là phí interchange.
 
 11
-00:00:36,040 --> 00:00:40,000
+00:00:41,390 --> 00:00:46,050
 Ngân hàng của quán chỉ giữ phần nhỏ còn lại và trả phí cho tổ chức thẻ.
 
 12
-00:00:40,000 --> 00:00:46,660
+00:00:46,730 --> 00:00:52,770
 Cuối kỳ, bạn trả đủ mười triệu cho ngân hàng của mình và nhận lại một trăm nghìn tiền hoàn.
 
 13
-00:00:46,660 --> 00:00:55,000
+00:00:52,840 --> 00:00:59,210
 Chính khoản interchange một trăm năm mươi nghìn thu từ quán là nguồn để ngân hàng trích trả bạn một trăm nghìn ấy.
 
 14
-00:00:55,000 --> 00:01:01,050
+00:01:00,010 --> 00:01:03,890
 Mà nhiều quán đã cộng sẵn phí nhận thẻ vào giá món ăn trên thực đơn.
 
 15
-00:01:01,050 --> 00:01:02,560
+00:01:04,130 --> 00:01:05,650
 Nên rất có thể...
 
 16
-00:01:02,560 --> 00:01:08,000
+00:01:05,680 --> 00:01:09,490
 tiền hoàn bạn nhận chính là tiền của bạn vừa đi hết một vòng.

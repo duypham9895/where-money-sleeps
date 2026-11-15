@@ -429,35 +429,21 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
         f"[5.0b Financial Specialist PASS] F1–F4 sạch (KB: {fin_audit['kbLastCrawledAt']}) trước khi upload {mp4_path.name}"
     )
     access_token = get_youtube_access_token()
-    fobj = (story.get("videoScript") or {}).get(fmt) or {}
-    scenes = fobj.get("scenes") or []
-    raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
-    title = f"{raw_title} #Shorts" if fmt == "short" and "#Shorts" not in raw_title else raw_title
-    desc = build_youtube_description(story_key, story, fmt)
+    src_html = DEFAULT_HTML.read_text(encoding="utf-8") if DEFAULT_HTML.is_file() else ""
+    story_en = extract_stories_en(src_html).get(story_key) if src_html else None
+    meta_dict = build_youtube_video_metadata(story_key, story, story_en, fmt)
     privacy = "unlisted" if story.get("status") != "published" else "unlisted"
-    meta_body = json.dumps(
-        {
-            "snippet": {
-                "title": title[:100],
-                "description": desc,
-                "tags": ["WhereMoneySleeps", "TaiChinhCaNhan", "KeToan", "TraGop0PhanTram", "Shorts" if fmt == "short" else "Explainer"],
-                "categoryId": "27",
-                "defaultLanguage": "vi",
-                "defaultAudioLanguage": "vi",
-            },
-            "status": {
-                "privacyStatus": privacy,
-                "embeddable": True,
-                "publicStatsViewable": True,
-                "selfDeclaredMadeForKids": False,
-                "containsSyntheticMedia": True,
-            },
-        },
-        ensure_ascii=False,
-    ).encode("utf-8")
+    meta_dict["status"] = {
+        "privacyStatus": privacy,
+        "embeddable": True,
+        "publicStatsViewable": True,
+        "selfDeclaredMadeForKids": False,
+        "containsSyntheticMedia": True,
+    }
+    meta_body = json.dumps(meta_dict, ensure_ascii=False).encode("utf-8")
 
     mp4_bytes = mp4_path.read_bytes()
-    init_url = "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status"
+    init_url = "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,localizations,status"
     init_req = urllib.request.Request(
         init_url,
         data=meta_body,
@@ -573,6 +559,14 @@ def extract_stories(src: str) -> dict:
     return mod.extract(src, "STORIES")
 
 
+def extract_stories_en(src: str) -> dict:
+    """Trích object JS `const STORIES_EN = {...}` từ HTML bằng JSLiteral của check-story.py."""
+    if "const STORIES_EN" not in src:
+        return {}
+    mod = _load_check_story()
+    return mod.extract(src, "STORIES_EN")
+
+
 def find_story_videoscript_span(src: str, story_key: str) -> tuple[dict, int, int]:
     """Tìm vị trí khối JSON `videoScript:{...}` của `story_key` trong HTML để ghi ngược ở Bước 5D."""
     m_stories = re.search(r"\bconst\s+STORIES\s*=\s*\{", src)
@@ -652,47 +646,254 @@ def veo_scene_cache_key(veo_model: str, aspect: str, idx: int, visual: str) -> s
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+STORY_TAGS_MAP: dict[str, list[str]] = {
+    "card": ["WhereMoneySleeps", "CreditCardMechanics", "InterchangeFee", "TheTinDung", "HoanTien", "TaiChinhCaNhan", "KeToanKep", "TT992025", "FinancialLiteracy"],
+    "pay": ["WhereMoneySleeps", "PayrollMechanics", "CASA", "OnUsClearing", "NhanLuong", "TaiChinhCaNhan", "KeToanKep", "TT992025", "BankingMechanics"],
+    "install": ["WhereMoneySleeps", "ZeroPercentInstallment", "EffectiveInterestRate", "TraGop0PhanTram", "TaiChinhCaNhan", "KeToanKep", "TT992025", "ConsumerFinance"],
+    "minpay": ["WhereMoneySleeps", "MinimumPaymentTrap", "CreditCardInterest", "TraToiThieu", "MienLai45Ngay", "TaiChinhCaNhan", "KeToanKep", "TT992025", "FinancialLiteracy"],
+    "qr": ["WhereMoneySleeps", "QRPayments", "NetSettlement", "CASA", "QuetMaQR", "ChuyenKhoan247", "KeToanKep", "TT992025", "BankingMechanics"],
+    "profitcash": ["WhereMoneySleeps", "ProfitVsCashFlow", "AccrualAccounting", "OperatingCashFlow", "LoiNhuanVaTienMat", "KeToanKep", "TT992025", "CorporateFinance"],
+    "offus": ["WhereMoneySleeps", "OnUsVsOffUs", "InterbankSettlement", "NetDebitCap", "ChuyenKhoanLienNganHang", "KeToanKep", "TT992025", "BankingMechanics"],
+}
+
+
 def parse_start_mmss(time_range: str) -> str:
     m = re.match(r"^\s*(\d+:\d{2})\s*[–-]\s*(\d+:\d{2})", str(time_range or ""))
     return m.group(1) if m else "0:00"
 
 
-def build_article_url(story_key: str) -> str:
+def _sanitize_yt_text(text: str) -> str:
+    return str(text or "").replace("<", "").replace(">", "").strip()
+
+
+def build_article_url(story_key: str, lang: str = "vi") -> str:
     base = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
+    if lang == "en":
+        return f"{base}/?story={urllib.parse.quote(story_key)}&lang=en"
     return f"{base}/?story={urllib.parse.quote(story_key)}"
 
 
-def build_youtube_chapters(scenes: list[dict], story_title: str) -> str:
-    lines = [f"0:00 Mở đầu — {story_title}"]
+def _compose_yt_title(story_obj: dict, fmt: str, fallback_key: str) -> str:
+    vid = story_obj.get("videoScript") or {}
+    fobj = vid.get(fmt) or {}
+    raw_title = _sanitize_yt_text(str(fobj.get("title") or story_obj.get("title") or fallback_key))
+    if fmt == "short" and "#Shorts" not in raw_title:
+        title = f"{raw_title} #Shorts"
+    else:
+        title = raw_title
+    if len(title) > 100:
+        raise ValueError(
+            f"Tiêu đề YouTube vượt giới hạn 100 ký tự ({len(title)}c): {title!r} — hãy rút gọn trong prototype.html thay vì cắt cụt chữ"
+        )
+    return title
+
+
+def build_youtube_chapters(scenes: list[dict], fallback_first: str) -> str:
+    lines: list[str] = []
+    seen_ts: set[str] = set()
     for idx, sc in enumerate(scenes):
-        t0 = parse_start_mmss(sc.get("time", ""))
-        beat = sc.get("beat")
-        label = "Hook mở đầu" if idx == 0 else ("Cảnh kết" if idx == len(scenes) - 1 else f"Đoạn {int(beat) + 1}" if isinstance(beat, int) else f"Cảnh {idx + 1}")
-        if t0 != "0:00":
-            lines.append(f"{t0} {label}")
+        t0 = "0:00" if idx == 0 else parse_start_mmss(sc.get("time", ""))
+        if t0 in seen_ts:
+            continue
+        seen_ts.add(t0)
+        raw_ch = _sanitize_yt_text(str(sc.get("chapter") or ""))
+        if not raw_ch:
+            raw_ch = fallback_first if idx == 0 else f"Scene {idx + 1}"
+        lines.append(f"{t0} {raw_ch}")
+    if not lines:
+        lines.append(f"0:00 {fallback_first}")
     return "\n".join(lines)
 
 
-def build_youtube_description(story_key: str, story: dict, fmt: str) -> str:
-    vid = story.get("videoScript") or {}
-    fobj = vid.get(fmt) or {}
-    scenes = fobj.get("scenes") or []
-    raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
-    chapters = build_youtube_chapters(scenes, raw_title)
-    article_url = build_article_url(story_key)
-    long_yt_id = str((vid.get("long") or {}).get("youtubeId") or "").strip()
-    long_line = f"▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/{long_yt_id}\n" if (fmt == "short" and long_yt_id) else ""
-    return (
-        f"📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: {article_url}\n"
-        f"{long_line}\n"
-        f"{story.get('teaser', '')}\n\n"
-        f"Mục lục chương:\n{chapters}\n\n"
-        f"---\n"
-        f"Bài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): {article_url}\n"
-        f"Kênh: Where Money Sleeps ({DEFAULT_YT_HANDLE})\n"
-        f"Lưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\n"
-        f"Where Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+def build_youtube_description(
+    story_key: str,
+    story_vi: dict,
+    story_en: dict | None,
+    fmt: str,
+    lang_first: str = "vi",
+) -> str:
+    base_url = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
+    url_vi = build_article_url(story_key, "vi")
+    url_en = build_article_url(story_key, "en")
+    vid_vi = story_vi.get("videoScript") or {}
+    f_vi = vid_vi.get(fmt) or {}
+    scenes_vi = f_vi.get("scenes") or []
+    chapters_vi = build_youtube_chapters(scenes_vi, _sanitize_yt_text(str(f_vi.get("title") or story_key)))
+
+    vid_en = (story_en or {}).get("videoScript") or {}
+    f_en = vid_en.get(fmt) or {}
+    scenes_en = f_en.get("scenes") or []
+    chapters_en = build_youtube_chapters(scenes_en, _sanitize_yt_text(str(f_en.get("title") or story_key)))
+
+    other_fmt = "long" if fmt == "short" else "short"
+    other_id = str((vid_vi.get(other_fmt) or {}).get("youtubeId") or "").strip()
+    if fmt == "short" and other_id:
+        cross_vi = f"▶ Xem bài giảng 16:9 đầy đủ: https://youtu.be/{other_id}\n"
+        cross_en = f"▶ Watch the Full 16:9 Deep Dive: https://youtu.be/{other_id}\n"
+    elif fmt == "long" and other_id:
+        cross_vi = f"▶ Xem bản tóm tắt dọc 9:16 (Shorts): https://youtu.be/{other_id}\n"
+        cross_en = f"▶ Watch the 9:16 Quick Summary (Shorts): https://youtu.be/{other_id}\n"
+    else:
+        cross_vi = ""
+        cross_en = ""
+
+    teaser_vi = _sanitize_yt_text(str(story_vi.get("teaser") or story_vi.get("title") or ""))
+    teaser_en = _sanitize_yt_text(str((story_en or {}).get("teaser") or (story_en or {}).get("title") or ""))
+
+    vi_block = (
+        f"[TIẾNG VIỆT]\n"
+        f"📖 Đọc bài khảo cứu tương tác (Sổ kế toán TT 99/2025 + Máy tính dòng tiền): {url_vi}\n"
+        f"{cross_vi}"
+        f"🌐 Trang chủ dự án: {base_url}\n\n"
+        f"{teaser_vi}\n\n"
+        f"Mục lục chương:\n{chapters_vi}\n\n"
+        f"Lưu ý: Số liệu và tình huống trong video là ví dụ minh hoạ cơ chế dòng tiền và bút toán kế toán, không nhắc tới bất kỳ thương hiệu cụ thể nào và không phải lời khuyên tài chính."
     )
+
+    en_block = (
+        f"[ENGLISH]\n"
+        f"📖 Interactive Essay, Circular 99 ⇄ IFRS/GAAP Double-Entry Ledger & Calculators: {url_en}\n"
+        f"{cross_en}"
+        f"🌐 Project Portal: {base_url}/?lang=en\n\n"
+        f"{teaser_en}\n\n"
+        f"Chapters:\n{chapters_en}\n\n"
+        f"Disclaimer: All figures and scenarios are illustrative examples demonstrating cash-flow mechanics and double-entry bookkeeping. Zero real brands referenced; educational purposes only, not financial advice."
+    )
+
+    footer = f"Where Money Sleeps ({DEFAULT_YT_HANDLE}) · {base_url}"
+    if lang_first == "en":
+        full_desc = f"{en_block}\n\n{'─' * 24}\n\n{vi_block}\n\n{footer}"
+    else:
+        full_desc = f"{vi_block}\n\n{'─' * 24}\n\n{en_block}\n\n{footer}"
+    full_desc = _sanitize_yt_text(full_desc)
+    if len(full_desc) > 4950:
+        raise ValueError(f"YouTube description quá dài ({len(full_desc)} > 4950 chars) cho '{story_key}' ({fmt})")
+    return full_desc
+
+
+def build_youtube_video_metadata(
+    story_key: str,
+    story_vi: dict,
+    story_en: dict | None,
+    fmt: str,
+) -> dict:
+    title_vi = _compose_yt_title(story_vi, fmt, story_key)
+    desc_vi = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="vi")
+
+    tags = list(STORY_TAGS_MAP.get(story_key, ["WhereMoneySleeps", "FinancialLiteracy", "TaiChinhCaNhan", "KeToanKep"]))
+    format_tag = "Shorts" if fmt == "short" else "DeepDiveExplainer"
+    if format_tag not in tags:
+        tags.append(format_tag)
+
+    payload: dict = {
+        "snippet": {
+            "title": title_vi,
+            "description": desc_vi,
+            "tags": tags,
+            "categoryId": "27",
+            "defaultLanguage": "vi",
+            "defaultAudioLanguage": "vi",
+        },
+        "localizations": {
+            "vi": {
+                "title": title_vi,
+                "description": desc_vi,
+            }
+        },
+    }
+    if story_en:
+        title_en = _compose_yt_title(story_en, fmt, story_key)
+        desc_en = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="en")
+        payload["localizations"]["en"] = {
+            "title": title_en,
+            "description": desc_en,
+        }
+    return payload
+
+
+def step_5c_update_youtube_channel() -> str:
+    """Cập nhật mô tả kênh @WhereMoneySleeps kèm domain chính thức & nội dung song ngữ VI/EN (0 đạo cụ sân khấu, 0 tên riêng)."""
+    base_url = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
+    desc_vi = _sanitize_yt_text(
+        f"🌐 Khảo cứu tương tác & Sổ kế toán kép: {base_url}\n\n"
+        f"Từ tin báo “ghi có” tới sổ sách ngân hàng: Đêm nay, tiền của bạn ngủ ở đâu?\n"
+        f"Mỗi tập mổ xẻ dòng tiền qua mô hình 5 định chế, đối chiếu bút toán kép (TT 99/2025/TT-BTC ⇄ IFRS/GAAP) "
+        f"và phân biệt tín hiệu thanh toán tức thời với dòng tiền quyết toán thực tế.\n\n"
+        f"───\n"
+        f"🌐 Interactive Essays & Double-Entry Ledger: {base_url}/?lang=en\n"
+        f"From the bank alert to the double-entry ledger: Where does your money sleep tonight? "
+        f"Deep dives into banking settlement mechanics, Circular 99 ⇄ IFRS/GAAP accounting, and cash-flow math.\n\n"
+        f"Số liệu minh hoạ cơ chế tài chính – kế toán; không phải lời khuyên đầu tư. / Educational examples only; not financial advice."
+    )
+    desc_en = _sanitize_yt_text(
+        f"🌐 Interactive Essays, Double-Entry Ledger & Calculators: {base_url}/?lang=en\n\n"
+        f"From the bank alert to the ledger: Where does your money sleep tonight?\n"
+        f"Each episode traces money across 5 financial institutions, compares surface notifications with real interbank clearing, "
+        f"and balances every entry under Circular 99/2025 ⇄ IFRS/GAAP standards.\n\n"
+        f"───\n"
+        f"🌐 Bản tiếng Việt: {base_url}\n"
+        f"Từ tin báo “ghi có” tới sổ sách ngân hàng: Khám phá cơ chế dòng tiền, thẻ tín dụng, lãi suất thực tế và kế toán kép.\n\n"
+        f"Educational examples only; zero real brands; not financial advice. / Ví dụ minh hoạ cơ chế; không phải lời khuyên tài chính."
+    )
+    for lbl, d in (("vi", desc_vi), ("en", desc_en)):
+        if len(d) > 1000:
+            raise ValueError(f"Channel description ({lbl}) vượt giới hạn 1000 ký tự ({len(d)}c)")
+
+    access_token = get_youtube_access_token()
+    get_req = urllib.request.Request(
+        "https://www.googleapis.com/youtube/v3/channels?part=snippet,brandingSettings,localizations&mine=true",
+        headers={"Authorization": f"Bearer {access_token}"},
+        method="GET",
+    )
+    with urllib.request.urlopen(get_req, timeout=30) as resp:
+        ch_data = json.loads(resp.read().decode("utf-8"))
+    items = ch_data.get("items") or []
+    if not items:
+        raise RuntimeError("Không tìm thấy kênh YouTube đã xác thực cho access token hiện tại")
+    ch = items[0]
+    ch_id = str(ch["id"])
+    ch_brand = dict((ch.get("brandingSettings") or {}).get("channel") or {})
+    ch_brand.update({
+        "description": desc_vi,
+        "keywords": 'WhereMoneySleeps "TaiChinhCaNhan" "KeToanKep" "TT992025" "FinancialLiteracy" "BankingMechanics" "DoubleEntryBookkeeping"',
+        "defaultLanguage": "vi",
+        "country": ch_brand.get("country") or "VN",
+    })
+    ch_brand.pop("title", None)
+
+    def _put_channel(part: str, body_dict: dict) -> dict:
+        req = urllib.request.Request(
+            f"https://www.googleapis.com/youtube/v3/channels?part={part}",
+            data=json.dumps(body_dict, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {access_token}",
+                "Content-Type": "application/json; charset=UTF-8",
+            },
+            method="PUT",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            err_raw = exc.read().decode("utf-8", errors="replace")
+            raise RuntimeError(f"YouTube channels.update?part={part} HTTP {exc.code}: {err_raw}") from exc
+
+    res_ch = _put_channel(
+        "brandingSettings",
+        {"id": ch_id, "brandingSettings": {"channel": ch_brand}},
+    )
+    _put_channel(
+        "localizations",
+        {
+            "id": ch_id,
+            "localizations": {
+                "vi": {"title": "Where Money Sleeps", "description": desc_vi},
+                "en": {"title": "Where Money Sleeps", "description": desc_en},
+            },
+        },
+    )
+    print(f"[5C Channel PASS] Updated {ch_id} ({DEFAULT_YT_HANDLE}) -> domain={base_url} · VI+EN localizations ({len(desc_vi)}c / {len(desc_en)}c)")
+    return str(res_ch.get("id") or ch_id)
 
 
 def step_5c_update_youtube_description(
@@ -700,8 +901,9 @@ def step_5c_update_youtube_description(
     story: dict,
     fmt: str,
     privacy_status: str | None = None,
+    story_en: dict | None = None,
 ) -> str:
-    """Cập nhật snippet.description (kèm URL chính xác của bài viết) và status.privacyStatus trên YouTube qua videos.update."""
+    """Cập nhật snippet + localizations (VI/EN) kèm URL song ngữ của bài viết trên YouTube qua videos.update."""
     step_5_0_brand_safety_audit(story_key, story)
     vid = story.get("videoScript") or {}
     fobj = vid.get(fmt) or {}
@@ -710,22 +912,12 @@ def step_5c_update_youtube_description(
         raise ValueError(f"Bài '{story_key}' ({fmt}) chưa có youtubeId hợp lệ để cập nhật description")
     if privacy_status == "public" and story.get("status") != "published":
         raise PermissionError(f"CỔNG WMS-R4: Bài '{story_key}' chưa ở status='published', cấm bật public")
+    if story_en is None and DEFAULT_HTML.is_file():
+        story_en = extract_stories_en(DEFAULT_HTML.read_text(encoding="utf-8")).get(story_key)
     access_token = get_youtube_access_token()
-    raw_title = str(fobj.get("title") or story.get("title") or story_key).strip()
-    title = f"{raw_title} #Shorts" if fmt == "short" and "#Shorts" not in raw_title else raw_title
-    desc = build_youtube_description(story_key, story, fmt)
-    payload: dict = {
-        "id": yt_id,
-        "snippet": {
-            "title": title[:100],
-            "description": desc,
-            "tags": ["WhereMoneySleeps", "TaiChinhCaNhan", "KeToan", "TraGop0PhanTram", "Shorts" if fmt == "short" else "Explainer"],
-            "categoryId": "27",
-            "defaultLanguage": "vi",
-            "defaultAudioLanguage": "vi",
-        },
-    }
-    part_q = "snippet"
+    payload = build_youtube_video_metadata(story_key, story, story_en, fmt)
+    payload["id"] = yt_id
+    part_q = "snippet,localizations"
     if privacy_status in ("public", "unlisted", "private"):
         payload["status"] = {
             "privacyStatus": privacy_status,
@@ -734,7 +926,7 @@ def step_5c_update_youtube_description(
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": True,
         }
-        part_q = "snippet,status"
+        part_q = "snippet,localizations,status"
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     req = urllib.request.Request(
         f"https://www.googleapis.com/youtube/v3/videos?part={part_q}",
@@ -750,10 +942,16 @@ def step_5c_update_youtube_description(
             res_data = json.loads(resp.read().decode("utf-8"))
         out_id = str(res_data.get("id") or yt_id).strip()
         out_priv = str((res_data.get("status") or {}).get("privacyStatus") or privacy_status or "unchanged")
-        print(f"[5C Update Desc PASS] {story_key} ({fmt} · {out_id} · privacy={out_priv}) -> {build_article_url(story_key)}")
+        t_vi_len = len(payload["snippet"]["title"])
+        t_en_len = len((payload.get("localizations", {}).get("en") or {}).get("title", ""))
+        print(f"[5C Update Desc PASS] {story_key} ({fmt} · {out_id} · VI={t_vi_len}c · EN={t_en_len}c · privacy={out_priv}) -> {build_article_url(story_key)}")
         return out_id
     except urllib.error.HTTPError as exc:
         err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and "quotaExceeded" in err_raw:
+            raise RuntimeError(
+                f"[QUOTA EXCEEDED] YouTube videos.update dừng tại '{story_key}' ({fmt} · {yt_id}) — chờ reset quota 00:00 PT"
+            ) from exc
         if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
             print(
                 f"[5C Update Desc INFO] {story_key} ({fmt} · {yt_id}): Đã ghi description chuẩn kèm URL {build_article_url(story_key)} vào manifest. "
@@ -763,60 +961,42 @@ def step_5c_update_youtube_description(
         raise RuntimeError(f"YouTube videos.update trả về HTTP {exc.code}: {err_raw}") from exc
 
 
-def step_5c_upload_youtube_captions(
+def _upsert_caption_track(
+    access_token: str,
+    yt_id: str,
+    target_srt: pathlib.Path,
+    lang_code: str,
+    track_name: str,
+    existing_items: list[dict],
     story_key: str,
-    story: dict,
     fmt: str,
-    srt_path: pathlib.Path | None = None,
+    overwrite_existing: bool = False,
 ) -> str:
-    """Tải phụ đề chuẩn `.srt` (tiếng Việt) lên video YouTube qua YouTube Data API v3 Captions API (cần scope youtube.force-ssl)."""
-    vid = story.get("videoScript") or {}
-    fobj = vid.get(fmt) or {}
-    yt_id = str(fobj.get("youtubeId") or "").strip()
-    if not YT_ID_RE.match(yt_id):
-        return ""
-    suffix = "short-9x16.srt" if fmt == "short" else "long-16x9.srt"
-    target_srt = srt_path or (DIST_DIR / f"{story_key}-{suffix}")
     if not target_srt.is_file():
-        print(f"  [WARN] Chưa thấy file phụ đề {target_srt.relative_to(ROOT)} để upload cho {story_key} ({fmt})")
-        return yt_id
-
-    access_token = get_youtube_access_token()
+        print(f"  [WARN] Chưa thấy file phụ đề {target_srt.relative_to(ROOT)} để upload ({lang_code}) cho {story_key} ({fmt})")
+        return ""
     existing_caption_id = ""
-    try:
-        list_req = urllib.request.Request(
-            f"https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId={urllib.parse.quote(yt_id)}",
-            headers={"Authorization": f"Bearer {access_token}"},
-            method="GET",
-        )
-        with urllib.request.urlopen(list_req, timeout=30) as resp:
-            caps_data = json.loads(resp.read().decode("utf-8"))
-        for item in caps_data.get("items") or []:
-            snip = item.get("snippet") or {}
-            if snip.get("language") == "vi" and str(snip.get("trackKind") or "").lower() != "asr":
-                existing_caption_id = str(item.get("id") or "").strip()
-                break
-    except urllib.error.HTTPError as exc:
-        err_raw = exc.read().decode("utf-8", errors="replace")
-        if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
-            print(
-                f"  [WARN] Token hiện tại thiếu scope youtube.force-ssl cho Captions API ({story_key} {fmt} · {yt_id}); "
-                "chạy `--auth-youtube` 1 lần để cấp quyền."
-            )
-            return yt_id
-        raise RuntimeError(f"YouTube captions.list trả về HTTP {exc.code}: {err_raw}") from exc
+    for item in existing_items:
+        snip = item.get("snippet") or {}
+        if snip.get("language") == lang_code and str(snip.get("trackKind") or "").lower() != "asr":
+            existing_caption_id = str(item.get("id") or "").strip()
+            break
+
+    if existing_caption_id and not overwrite_existing:
+        print(f"[5C Captions SKIP-EXISTING] {story_key} ({fmt} · {yt_id} · {lang_code}) đã có track {existing_caption_id} (bỏ qua PUT để tiết kiệm 450 quota; dùng --overwrite-captions nếu cần ghi đè)")
+        return existing_caption_id
 
     snippet_meta: dict = {
         "snippet": {
             "videoId": yt_id,
-            "language": "vi",
-            "name": "Tiếng Việt (Chuẩn khớp lời bình)",
+            "language": lang_code,
+            "name": track_name,
             "isDraft": False,
         }
     }
     method = "POST"
     if existing_caption_id:
-        snippet_meta = {"id": existing_caption_id, "snippet": {"name": "Tiếng Việt (Chuẩn khớp lời bình)", "isDraft": False}}
+        snippet_meta = {"id": existing_caption_id, "snippet": {"name": track_name, "isDraft": False}}
         method = "PUT"
 
     boundary = f"wms_cap_{os.urandom(12).hex()}"
@@ -840,21 +1020,79 @@ def step_5c_upload_youtube_captions(
         },
         method=method,
     )
+    with urllib.request.urlopen(up_req, timeout=60) as resp:
+        cap_res = json.loads(resp.read().decode("utf-8"))
+    cap_id = str(cap_res.get("id") or existing_caption_id or "").strip()
+    print(f"[5C Captions PASS] {story_key} ({fmt} · {yt_id} · {lang_code} · {method}) <- {target_srt.name} (captionId={cap_id})")
+    return cap_id
+
+
+def step_5c_upload_youtube_captions(
+    story_key: str,
+    story: dict,
+    fmt: str,
+    srt_path: pathlib.Path | None = None,
+    overwrite_existing: bool = False,
+) -> str:
+    """Tải song song CẢ hai track phụ đề chuẩn `.srt` (Tiếng Việt) và `.en.srt` (English) lên YouTube Captions API."""
+    vid = story.get("videoScript") or {}
+    fobj = vid.get(fmt) or {}
+    yt_id = str(fobj.get("youtubeId") or "").strip()
+    if not YT_ID_RE.match(yt_id):
+        return ""
+    prefix = "short-9x16" if fmt == "short" else "long-16x9"
+    vi_srt = srt_path or (DIST_DIR / f"{story_key}-{prefix}.srt")
+    en_srt = DIST_DIR / f"{story_key}-{prefix}.en.srt"
+
+    access_token = get_youtube_access_token()
+    existing_items: list[dict] = []
     try:
-        with urllib.request.urlopen(up_req, timeout=60) as resp:
-            cap_res = json.loads(resp.read().decode("utf-8"))
-        cap_id = str(cap_res.get("id") or existing_caption_id or "").strip()
-        print(f"[5C Captions PASS] {story_key} ({fmt} · {yt_id} · {method}) <- {target_srt.name} (captionId={cap_id})")
-        return yt_id
+        list_req = urllib.request.Request(
+            f"https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId={urllib.parse.quote(yt_id)}",
+            headers={"Authorization": f"Bearer {access_token}"},
+            method="GET",
+        )
+        with urllib.request.urlopen(list_req, timeout=30) as resp:
+            caps_data = json.loads(resp.read().decode("utf-8"))
+        existing_items = caps_data.get("items") or []
     except urllib.error.HTTPError as exc:
         err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and "quotaExceeded" in err_raw:
+            raise RuntimeError(
+                f"[QUOTA EXCEEDED] YouTube captions.list dừng tại '{story_key}' ({fmt} · {yt_id}) — chờ reset quota 00:00 PT"
+            ) from exc
         if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
             print(
                 f"  [WARN] Token hiện tại thiếu scope youtube.force-ssl cho Captions API ({story_key} {fmt} · {yt_id}); "
                 "chạy `--auth-youtube` 1 lần để cấp quyền."
             )
             return yt_id
-        raise RuntimeError(f"YouTube captions.{method.lower()} trả về HTTP {exc.code}: {err_raw}") from exc
+        raise RuntimeError(f"YouTube captions.list trả về HTTP {exc.code}: {err_raw}") from exc
+
+    try:
+        _upsert_caption_track(
+            access_token, yt_id, vi_srt, "vi", "Tiếng Việt (Chuẩn khớp lời bình)", existing_items, story_key, fmt,
+            overwrite_existing=overwrite_existing,
+        )
+        if srt_path is None:
+            _upsert_caption_track(
+                access_token, yt_id, en_srt, "en", "English (Full Script Subtitles)", existing_items, story_key, fmt,
+                overwrite_existing=overwrite_existing,
+            )
+        return yt_id
+    except urllib.error.HTTPError as exc:
+        err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and "quotaExceeded" in err_raw:
+            raise RuntimeError(
+                f"[QUOTA EXCEEDED] YouTube captions upsert dừng tại '{story_key}' ({fmt} · {yt_id}) — chờ reset quota 00:00 PT"
+            ) from exc
+        if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
+            print(
+                f"  [WARN] Token hiện tại thiếu scope youtube.force-ssl cho Captions API ({story_key} {fmt} · {yt_id}); "
+                "chạy `--auth-youtube` 1 lần để cấp quyền."
+            )
+            return yt_id
+        raise RuntimeError(f"YouTube captions upsert trả về HTTP {exc.code}: {err_raw}") from exc
 
 
 def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
@@ -1011,7 +1249,12 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "selfDeclaredMadeForKids": False,
                 "containsSyntheticMedia": True,
                 "chaptersDescription": build_youtube_chapters(scenes, str(fobj.get("title") or story.get("title") or "")),
-                "description": build_youtube_description(story_key, story, fmt),
+                "description": build_youtube_description(
+                    story_key,
+                    story,
+                    extract_stories_en(DEFAULT_HTML.read_text(encoding="utf-8")).get(story_key) if DEFAULT_HTML.is_file() else None,
+                    fmt,
+                ),
             },
             "scenes": scene_plan,
         }
@@ -1120,8 +1363,10 @@ def main() -> int:
     ap.add_argument("--bind-short-id", default=None, help="Gán mã YouTube Video ID 11 ký tự cho bản Shorts 9:16 và nhúng vào bài")
     ap.add_argument("--upload-short", action="store_true", help="Upload dist/youtube/<story>-short-9x16.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
     ap.add_argument("--upload-long", action="store_true", help="Upload dist/youtube/<story>-long-16x9.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
-    ap.add_argument("--update-youtube-desc", action="store_true", help="Cập nhật description chứa URL chính xác của bài viết lên YouTube cho video ngắn (và dài)")
-    ap.add_argument("--upload-captions", action="store_true", help="Tải phụ đề .srt lên YouTube qua Captions API (cần scope youtube.force-ssl)")
+    ap.add_argument("--update-youtube-desc", action="store_true", help="Cập nhật title, description song ngữ, tags & localizations (VI/EN) lên YouTube")
+    ap.add_argument("--update-channel", action="store_true", help="Cập nhật mô tả & localizations song ngữ (kèm domain) cho kênh @WhereMoneySleeps")
+    ap.add_argument("--upload-captions", action="store_true", help="Tải phụ đề .srt (VI) và .en.srt (EN) lên YouTube qua Captions API")
+    ap.add_argument("--overwrite-captions", action="store_true", help="Ghi đè track phụ đề đã tồn tại (tốn 450 quota/track; mặc định bỏ qua nếu đã có)")
     ap.add_argument("--all-stories", action="store_true", help="Chạy cho toàn bộ 7 bài trong STORIES")
     ap.add_argument(
         "--embed-status",
@@ -1137,8 +1382,14 @@ def main() -> int:
     if args.auth_youtube:
         return run_auth_youtube()
 
+    if args.update_channel:
+        step_5c_update_youtube_channel()
+        if not args.all_stories and not args.story:
+            return 0
+
     src = args.html.read_text(encoding="utf-8")
     stories = extract_stories(src)
+    stories_en = extract_stories_en(src)
 
     if args.all_stories:
         priv_map = {
@@ -1147,33 +1398,59 @@ def main() -> int:
             "uploaded_private": "private",
         }
         target_priv = priv_map.get(args.embed_status or "")
-        for sk in list(stories.keys()):
-            if args.embed_status is not None:
+        story_keys = list(stories.keys())
+        quota_err: RuntimeError | None = None
+
+        if args.embed_status is not None:
+            for sk in story_keys:
                 step_5d_embed_into_post(args.html, sk, None, None, args.embed_status)
-                src = args.html.read_text(encoding="utf-8")
-                stories = extract_stories(src)
-            if args.update_youtube_desc:
-                step_5c_update_youtube_description(sk, stories[sk], "short", privacy_status=target_priv)
-                step_5c_update_youtube_description(sk, stories[sk], "long", privacy_status=target_priv)
-            if args.upload_captions:
-                step_5c_upload_youtube_captions(sk, stories[sk], "short")
-                step_5c_upload_youtube_captions(sk, stories[sk], "long")
+            src = args.html.read_text(encoding="utf-8")
+            stories = extract_stories(src)
+            stories_en = extract_stories_en(src)
+
+        # Phase 1: Lightweight metadata updates (50 quota units/video) across ALL stories first
+        if args.update_youtube_desc:
+            try:
+                for sk in story_keys:
+                    step_5c_update_youtube_description(sk, stories[sk], "short", privacy_status=target_priv, story_en=stories_en.get(sk))
+                    step_5c_update_youtube_description(sk, stories[sk], "long", privacy_status=target_priv, story_en=stories_en.get(sk))
+            except RuntimeError as exc:
+                if "[QUOTA EXCEEDED]" not in str(exc):
+                    raise
+                print(exc, file=sys.stderr)
+                quota_err = exc
+
+        # Phase 2: Offline manifests (0 quota units) always succeed for all 7 stories
+        for sk in story_keys:
             step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode)
-        return 0
+
+        # Phase 3: Heavy caption uploads (400-450 quota units/track) last
+        if args.upload_captions and quota_err is None:
+            try:
+                for sk in story_keys:
+                    step_5c_upload_youtube_captions(sk, stories[sk], "short", overwrite_existing=args.overwrite_captions)
+                    step_5c_upload_youtube_captions(sk, stories[sk], "long", overwrite_existing=args.overwrite_captions)
+            except RuntimeError as exc:
+                if "[QUOTA EXCEEDED]" not in str(exc):
+                    raise
+                print(exc, file=sys.stderr)
+                quota_err = exc
+
+        return 1 if quota_err is not None else 0
 
     if not args.story:
-        ap.error("Cần truyền `--story <slug>` (hoặc `--all-stories` / `--check-env` / `--auth-youtube`)")
+        ap.error("Cần truyền `--story <slug>` (hoặc `--all-stories` / `--update-channel` / `--check-env` / `--auth-youtube`)")
 
     if args.story not in stories:
         print(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES", file=sys.stderr)
         return 1
 
     if args.update_youtube_desc:
-        step_5c_update_youtube_description(args.story, stories[args.story], "short")
-        step_5c_update_youtube_description(args.story, stories[args.story], "long")
+        step_5c_update_youtube_description(args.story, stories[args.story], "short", story_en=stories_en.get(args.story))
+        step_5c_update_youtube_description(args.story, stories[args.story], "long", story_en=stories_en.get(args.story))
     if args.upload_captions:
-        step_5c_upload_youtube_captions(args.story, stories[args.story], "short")
-        step_5c_upload_youtube_captions(args.story, stories[args.story], "long")
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "short", overwrite_existing=args.overwrite_captions)
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "long", overwrite_existing=args.overwrite_captions)
 
     if args.upload_short:
         mp4_short = DIST_DIR / f"{args.story}-short-9x16.mp4"

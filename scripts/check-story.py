@@ -448,7 +448,7 @@ C9_MIN = {"myths": 3, "myth": 10, "truth": 10, "sections": 4, "sections_words": 
 # Khung thời lượng. Duy viết hai khung trong cùng yêu cầu 2026-11-08 (§1 nội dung · §3 script):
 # FAIL ngoài khung lỏng (§3), WARN trong khe giữa hai khung. Trình duyệt chỉ soi mức FAIL.
 VIDEO = {
-    "long":  {"scenes": 10, "vo_lo": 1350, "vo_hi": None, "end_fail": (450, 660), "end_warn": (450, 630),
+    "long":  {"scenes": 10, "vo_lo": 1350, "vo_hi": None, "end_fail": (420, 660), "end_warn": (420, 630),
               "need": ("time", "chapter", "visual", "vo", "onScreen"), "head": ("title", "hookNote"), "cover": True},
     "short": {"scenes": 5, "vo_lo": 150, "vo_hi": 260, "end_fail": (55, 95), "end_warn": (55, 90),
               "need": ("time", "visual", "vo", "onScreen"), "head": ("title", "angle"), "cover": False},
@@ -516,6 +516,28 @@ def _walk(x, out: list[str]) -> list[str]:
     return out
 
 
+def _walk_nonvisual(x, out: list[str]) -> list[str]:
+    """Thu thập toàn bộ chuỗi hướng người đọc/người xem, bỏ qua chỉ dẫn quay Diorama (`visual`, `dioramaSpec`)."""
+    if isinstance(x, str):
+        out.append(x)
+    elif isinstance(x, list):
+        for y in x:
+            _walk_nonvisual(y, out)
+    elif isinstance(x, dict):
+        for k, y in x.items():
+            if k in ("visual", "dioramaSpec"):
+                continue
+            _walk_nonvisual(y, out)
+    return out
+
+
+NONVISUAL_STAGE_LEAK_RE = re.compile(
+    r"(?:dưới\s+lòng\s+đất|trên\s+mặt\s+đất|dưới\s+tầng\s+hầm|ống\s+ngầm|ống\s+quyết\s+toán|dây\s+điện|dây\s+tín\s+hiệu"
+    r"|underground|basement|power\s+line|settlement\s+pipe|signal\s+wire|utility\s+pole)",
+    flags=re.I,
+)
+
+
 def article_text(story: dict) -> list[str]:
     """Mọi chuỗi trong article + videoScript — cho C5 (thuật ngữ) và grep C9. C6v vẫn chỉ đọc 5 đoạn."""
     return _walk(story.get("videoScript"), _walk(story.get("article"), []))
@@ -555,9 +577,12 @@ def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, in
     for f in cfg["head"]:
         if not isinstance(v.get(f), str) or not v.get(f).strip():
             rep.add("FAIL", "C9", w, f"{tag} thiếu `{f}`")
-    # VOICE-AND-PROSODY-SPEC.md §1 — Kiểm Luật Đủ 3 Điểm Neo Ngữ cảnh ở tiêu đề video
+    # VOICE-AND-PROSODY-SPEC.md §1 — Kiểm Luật Đủ 3 Điểm Neo Ngữ cảnh & Giới hạn 100 ký tự YouTube ở tiêu đề video
     v_title = str(v.get("title", "")).strip()
     if v_title:
+        max_title_len = 92 if fmt == "short" else 100
+        if len(v_title) > max_title_len:
+            rep.add("FAIL", "C9", w, f"{tag}.title quá dài ({len(v_title)} > {max_title_len} ký tự) — sẽ bị YouTube cắt cụt chữ khi upload (cần giữ <= {max_title_len})")
         if nwords(v_title) < 8:
             rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} quá ngắn ({nwords(v_title)} từ < 8 từ) — thiếu ngữ cảnh tự thân (cần đủ 3 điểm neo: Hành động + Giá gốc → Cơ chế → Sự thật hệ thống)")
         if not re.search(r"\d+", v_title):
@@ -732,6 +757,10 @@ def check_article(k: str, s: dict, tt99: dict | None, rep: Report) -> None:
         hits = sorted({mt.group(0) for t in texts for mt in rx.finditer(t)})
         if hits:
             rep.add("FAIL", "C9", w, f"grep: {why}: {', '.join(repr(h) for h in hits[:5])}")
+    nv_texts = _walk_nonvisual(s, [])
+    nv_hits = sorted({mt.group(0) for t in nv_texts for mt in NONVISUAL_STAGE_LEAK_RE.finditer(t)})
+    if nv_hits:
+        rep.add("FAIL", "C9", w, f"LUẬT 7 đạo cụ sân khấu ngoài visual: {', '.join(repr(h) for h in nv_hits[:5])}")
 
     # PHẦN C — Studio Kịch bản Video 2 định dạng
     if "scenes" in vid:
@@ -1169,6 +1198,10 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
                 if fig_hits:
                     rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]",
                             f"tên thương hiệu / nhãn hàng có thật (LUẬT 4): {', '.join(repr(h) for h in fig_hits[:5])}")
+                fig_nv = sorted({mt.group(0) for t in _walk(fg, []) for mt in NONVISUAL_STAGE_LEAK_RE.finditer(t)})
+                if fig_nv:
+                    rep.add("FAIL", "C9", f"bài '{k}' · CHAP_FIGS[{idx}]",
+                            f"từ lóng đạo cụ sân khấu (LUẬT 7): {', '.join(repr(h) for h in fig_nv[:5])}")
             rep.add("PASS", "C9", f"bài '{k}' · CHAP_FIGS",
                     "LUẬT 9 đạt: 4 hình mặt cắt 16:9 ở Chương 02–05 (Advance Organizer sau đoạn 1 + 3-Layer Figure-Caption)")
     if not only:
@@ -1244,6 +1277,10 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
                 for fmt, min_w in (("long", 750), ("short", 110)):
                     ev = en_vid.get(fmt) or {}
                     vv = vi_vid.get(fmt) or {}
+                    ev_title = str(ev.get("title", "")).strip()
+                    max_en_len = 92 if fmt == "short" else 100
+                    if ev_title and len(ev_title) > max_en_len:
+                        rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", f"tiêu đề EN quá dài ({len(ev_title)} > {max_en_len} ký tự) — sẽ bị YouTube cắt cụt chữ")
                     es, vs = ev.get("scenes") or [], vv.get("scenes") or []
                     if len(es) != len(vs):
                         rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", f"số cảnh ({len(es)}) ≠ VI ({len(vs)})")
@@ -1260,6 +1297,9 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
                     hits = sorted({mt.group(0) for t in en_texts for mt in rx.finditer(t)})
                     if hits:
                         rep.add("FAIL", "C11", f"STORIES_EN.{k}", f"vi phạm {why}: {', '.join(repr(h) for h in hits[:5])}")
+                en_nv_hits = sorted({mt.group(0) for t in _walk_nonvisual(en_s, []) for mt in NONVISUAL_STAGE_LEAK_RE.finditer(t)})
+                if en_nv_hits:
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", f"vi phạm LUẬT 7 đạo cụ sân khấu ngoài visual: {', '.join(repr(h) for h in en_nv_hits[:5])}")
                 ef = figs_en.get(k) if isinstance(figs_en, dict) else None
                 vf = chap_figs_vi.get(k) if isinstance(chap_figs_vi, dict) else None
                 if not isinstance(ef, list) or not isinstance(vf, list) or len(ef) != len(vf) or ef[0] is not None:

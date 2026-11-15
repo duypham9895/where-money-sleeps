@@ -1,239 +1,239 @@
 1
-00:00:00,000 --> 00:00:03,770
+00:00:00,300 --> 00:00:04,060
 Giả sử đầu tháng bạn quẹt thẻ tín dụng mua một món đồ mười triệu đồng.
 
 2
-00:00:03,770 --> 00:00:06,300
+00:00:04,300 --> 00:00:07,340
 Cuối tháng, ngân hàng gửi sao kê về điện thoại.
 
 3
-00:00:06,300 --> 00:00:18,040
+00:00:07,530 --> 00:00:21,100
 Trên màn hình có hai lựa chọn đặt cạnh nhau: một là trả đủ mười triệu đồng, hai là chỉ cần trả mức tối thiểu năm phần trăm, tức năm trăm nghìn đồng, là đã được tính đúng hạn, không bị phạt trễ hạn, không bị ghi nợ xấu.
 
 4
-00:00:18,040 --> 00:00:19,870
+00:00:21,380 --> 00:00:23,740
 Năm trăm nghìn đồng nghe nhẹ tênh.
 
 5
-00:00:19,870 --> 00:00:27,300
+00:00:23,880 --> 00:00:31,500
 Bạn bấm chuyển khoản năm trăm nghìn, đinh ninh rằng mình chỉ còn nợ chín triệu rưỡi và chỉ chịu một chút tiền lãi cho nửa tháng tiếp theo.
 
 6
-00:00:27,300 --> 00:00:35,810
+00:00:31,650 --> 00:00:41,100
 Nhưng khi tờ sao kê tháng sau mở ra, số tiền bạn đang nợ không phải chín triệu rưỡi, mà vọt lên thành mười triệu không trăm chín mươi hai nghìn năm trăm đồng.
 
 7
-00:00:35,810 --> 00:00:42,000
+00:00:41,260 --> 00:00:47,180
 Vì sao bạn vừa trả năm trăm nghìn đồng mà lại bị cộng thêm tới năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi?
 
 8
-00:00:42,000 --> 00:00:47,160
+00:00:48,050 --> 00:00:51,970
 Để thấy chiếc bẫy nằm ở đâu, hãy bắt đầu từ ngày đầu tiên của kỳ sao kê.
 
 9
-00:00:47,160 --> 00:00:52,400
+00:00:52,250 --> 00:00:56,690
 Hôm đó bạn bước vào cửa hàng thiết bị, chạm thẻ tín dụng mười triệu đồng.
 
 10
-00:00:52,400 --> 00:01:02,010
+00:00:56,810 --> 00:01:04,050
 Trong vài giây đầu tiên, luồng thông tin xác nhận chạy từ máy quẹt thẻ qua ngân hàng của cửa hàng tới ngân hàng phát hành thẻ của bạn.
 
 11
-00:01:02,010 --> 00:01:08,180
+00:01:04,200 --> 00:01:09,810
 Ngân hàng phát hành gạt chốt giữ chỗ mười triệu đồng trên hạn mức thẻ, rồi báo đồng ý.
 
 12
-00:01:08,180 --> 00:01:12,630
+00:01:10,210 --> 00:01:13,890
 Lúc này, chưa có một đồng tiền thật nào rời tài khoản của bạn.
 
 13
-00:01:12,630 --> 00:01:25,470
+00:01:14,070 --> 00:01:23,810
 Nếu đây là chiếc thẻ tín dụng của một doanh nghiệp nhỏ mua thiết bị văn phòng, kế toán chỉ vừa ghi tăng chi phí mười triệu đồng và treo một khoản phải trả mười triệu đồng trên sổ.
 
 14
-00:01:25,470 --> 00:01:32,000
+00:01:24,050 --> 00:01:29,810
 Bạn cầm món đồ về dùng ngay, cùng lời hứa quen thuộc: có tối đa bốn mươi lăm ngày miễn lãi.
 
 15
-00:01:32,000 --> 00:01:41,210
+00:01:30,990 --> 00:01:38,070
 Nhiều người thắc mắc: mình chưa trả tiền cho tới ngày bốn mươi lăm, vậy tại sao ngân hàng lại đòi tính lãi lùi về tận ngày đầu tiên?
 
 16
-00:01:41,210 --> 00:01:45,470
+00:01:38,550 --> 00:01:42,390
 Câu trả lời nằm ở ngày làm việc thứ hai sau khi bạn quẹt thẻ.
 
 17
-00:01:45,470 --> 00:01:48,540
+00:01:42,710 --> 00:01:45,040
 Cửa hàng không hề chờ bạn bốn mươi lăm ngày.
 
 18
-00:01:48,540 --> 00:01:58,100
+00:01:45,200 --> 00:01:53,920
 Chỉ hai ngày làm việc sau đó, ngân hàng phát hành thẻ đã phải lấy tiền thật từ quỹ của chính họ để quyết toán cho ngân hàng của cửa hàng.
 
 19
-00:01:58,100 --> 00:02:06,060
+00:01:54,020 --> 00:02:00,720
 Trong ví dụ phí nhận thẻ hai phần trăm, cửa hàng thực nhận chín triệu tám trăm nghìn đồng tiền tươi vào tài khoản.
 
 20
-00:02:06,060 --> 00:02:13,390
+00:02:00,860 --> 00:02:06,800
 Nghĩa là từ ngày thứ hai trở đi, người đang bỏ tiền túi ra cho bạn tiêu chính là ngân hàng phát hành thẻ.
 
 21
-00:02:13,390 --> 00:02:24,000
+00:02:07,060 --> 00:02:16,610
 Họ chỉ đồng ý miễn tiền lãi của bốn mươi lăm ngày ứng vốn ấy dưới một điều kiện duy nhất: đến ngày bốn mươi lăm, bạn phải trả lại đủ một trăm phần trăm.
 
 22
-00:02:24,000 --> 00:02:31,640
+00:02:17,850 --> 00:02:25,130
 Đến ngày thứ ba mươi, ngân hàng phát hành thẻ khoá sổ kỳ sao kê đầu tiên và gửi thông báo về điện thoại của bạn.
 
 23
-00:02:31,640 --> 00:02:37,980
+00:02:25,280 --> 00:02:30,850
 Từ ngày ba mươi đến ngày bốn mươi lăm là mười lăm ngày ân hạn để bạn thu xếp tiền thanh toán.
 
 24
-00:02:37,980 --> 00:02:41,320
+00:02:31,290 --> 00:02:34,450
 Tờ sao kê đặt trước mặt bạn hai con đường rất rõ.
 
 25
-00:02:41,320 --> 00:02:52,710
+00:02:34,630 --> 00:02:44,890
 Con đường thứ nhất: thanh toán đủ mười triệu đồng vào hoặc trước ngày bốn mươi lăm, toàn bộ bốn mươi lăm ngày ngân hàng ứng vốn cho bạn sẽ có giá đúng bằng không đồng.
 
 26
-00:02:52,710 --> 00:02:58,370
+00:02:45,040 --> 00:02:49,730
 Con đường thứ hai: thanh toán mức tối thiểu năm phần trăm, tức năm trăm nghìn đồng.
 
 27
-00:02:58,370 --> 00:03:14,000
+00:02:49,950 --> 00:03:04,450
 Con số năm trăm nghìn đồng này được thiết kế vừa đủ nhỏ để ai đang kẹt tiền mặt cũng bấm trả được ngay, nhưng hầu hết mọi người không đọc dòng chữ nhỏ đi kèm: trả mức tối thiểu đồng nghĩa từ bỏ toàn bộ bốn mươi lăm ngày miễn lãi.
 
 28
-00:03:14,000 --> 00:03:23,600
+00:03:05,510 --> 00:03:11,810
 Ngày thứ bốn mươi lăm, bạn chọn bấm chuyển năm trăm nghìn đồng từ tài khoản thanh toán của mình sang ngân hàng phát hành thẻ.
 
 29
-00:03:23,600 --> 00:03:32,660
+00:03:12,050 --> 00:03:19,170
 Tiền thật đã đi qua hệ thống thanh toán và giảm nợ gốc của bạn từ mười triệu xuống còn chín triệu năm trăm nghìn đồng.
 
 30
-00:03:32,660 --> 00:03:42,720
+00:03:19,470 --> 00:03:27,010
 Trên sổ kế toán doanh nghiệp, khoản phải trả thẻ tín dụng giảm năm trăm nghìn đồng, tiền gửi không kỳ hạn giảm năm trăm nghìn đồng.
 
 31
-00:03:42,720 --> 00:03:51,630
+00:03:27,250 --> 00:03:35,050
 Nhờ năm trăm nghìn đồng đến đúng hạn này, bạn không bị thu phí phạt trễ hạn, và hồ sơ tín dụng của bạn vẫn sạch đẹp.
 
 32
-00:03:51,630 --> 00:04:08,000
+00:03:35,140 --> 00:03:47,730
 Nhưng ngay khi đồng hồ điểm qua nửa đêm ngày bốn mươi lăm mà chín triệu năm trăm nghìn đồng kia vẫn chưa về, chiếc công tắc miễn lãi trong hệ thống ngân hàng lập tức gạt sang chế độ huỷ toàn bộ thời gian miễn lãi.
 
 33
-00:04:08,000 --> 00:04:14,210
+00:03:49,090 --> 00:03:54,150
 Hãy nhìn cách máy tính của ngân hàng cộng tiền lãi vào ngày thứ sáu mươi, kỳ sao kê thứ hai.
 
 34
-00:04:14,210 --> 00:04:24,610
+00:03:54,470 --> 00:04:03,590
 Giả sử lãi suất thẻ tín dụng của bạn là ba mươi sáu phần trăm một năm, tức khoảng ba phần trăm một tháng hay không phẩy một phần trăm một ngày để dễ nhẩm.
 
 35
-00:04:24,610 --> 00:04:27,850
+00:04:03,810 --> 00:04:06,790
 Máy tính không hề tính lãi từ ngày bốn mươi sáu.
 
 36
-00:04:27,850 --> 00:04:31,090
+00:04:06,950 --> 00:04:09,750
 Nó quay ngược kim đồng hồ về đúng ngày đầu tiên.
 
 37
-00:04:31,090 --> 00:04:38,180
+00:04:09,990 --> 00:04:17,350
 Khúc thứ nhất, từ ngày một đến ngày bốn mươi lăm: suốt bốn mươi lăm ngày đó, bạn nợ trọn mười triệu đồng.
 
 38
-00:04:38,180 --> 00:04:45,400
+00:04:17,430 --> 00:04:23,830
 Mười triệu nhân không phẩy một phần trăm một ngày nhân bốn mươi lăm ngày bằng bốn trăm năm mươi nghìn đồng.
 
 39
-00:04:45,400 --> 00:04:55,120
+00:04:24,020 --> 00:04:33,670
 Khúc thứ hai, từ ngày bốn mươi sáu đến ngày sáu mươi: sau khi trừ năm trăm nghìn bạn đã trả, nợ gốc còn chín triệu rưỡi, nằm thêm mười lăm ngày.
 
 40
-00:04:55,120 --> 00:05:02,680
+00:04:33,970 --> 00:04:41,030
 Chín triệu rưỡi nhân không phẩy một phần trăm nhân mười lăm ngày bằng một trăm bốn mươi hai nghìn năm trăm đồng.
 
 41
-00:05:02,680 --> 00:05:12,000
+00:04:41,150 --> 00:04:49,430
 Cộng hai khúc lại: bốn trăm năm mươi nghìn cộng một trăm bốn mươi hai nghìn năm trăm bằng đúng năm trăm chín mươi hai nghìn năm trăm đồng.
 
 42
-00:05:12,000 --> 00:05:16,470
+00:04:50,980 --> 00:04:55,020
 Đặt các con số cạnh nhau, bạn sẽ thấy nghịch lý của khoản trả tối thiểu.
 
 43
-00:05:16,470 --> 00:05:20,940
+00:04:55,300 --> 00:04:59,260
 Ở ngày bốn mươi lăm, bạn bỏ ra năm trăm nghìn đồng để trả cho ngân hàng.
 
 44
-00:05:20,940 --> 00:05:33,230
+00:04:59,540 --> 00:05:10,900
 Đến ngày sáu mươi, ngân hàng cộng thêm năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi vào gốc chín triệu rưỡi, biến tổng dư nợ mới thành mười triệu không trăm chín mươi hai nghìn năm trăm đồng.
 
 45
-00:05:33,230 --> 00:05:39,120
+00:05:11,010 --> 00:05:17,420
 Nghĩa là sau khi trả tiền, bạn lại nợ nhiều hơn lúc chưa trả chín mươi hai nghìn năm trăm đồng.
 
 46
-00:05:39,120 --> 00:05:53,020
+00:05:17,630 --> 00:05:30,220
 Và nếu nhìn vào bản chất kinh tế: để giữ lại chín triệu rưỡi trong túi thêm đúng mười lăm ngày, bạn đã phải trả cái giá năm trăm chín mươi hai nghìn năm trăm đồng tiền lãi, tức hơn sáu phẩy hai phần trăm chỉ trong nửa tháng.
 
 47
-00:05:53,020 --> 00:06:04,000
+00:05:30,620 --> 00:05:40,620
 Còn nếu cứ để dư nợ ấy cuốn chiếu từ tháng này sang tháng khác ở mức ba phần trăm một tháng nhập gốc, lãi suất thực tế một năm sẽ lên tới khoảng bốn mươi hai phẩy sáu phần trăm.
 
 48
-00:06:04,000 --> 00:06:12,290
+00:05:41,830 --> 00:05:47,610
 Chưa hết, chiếc thẻ đang trả tối thiểu còn kéo theo một hiệu ứng dây chuyền sang các giao dịch mới.
 
 49
-00:06:12,290 --> 00:06:23,090
+00:05:47,970 --> 00:05:55,450
 Ở kỳ đầu tiên, khi thẻ của bạn chưa có nợ cũ, mỗi lần quẹt thẻ đều được tặng một đường băng miễn lãi cho tới ngày hẹn thanh toán.
 
 50
-00:06:23,090 --> 00:06:37,660
+00:05:55,590 --> 00:06:06,090
 Nhưng một khi bạn chỉ trả tối thiểu năm trăm nghìn ở ngày bốn mươi lăm và để chín triệu rưỡi chảy sang kỳ thứ hai, chiếc thẻ của bạn đã bước vào trạng thái mang nợ quay vòng.
 
 51
-00:06:37,660 --> 00:06:56,000
+00:06:06,470 --> 00:06:20,890
 Từ giây phút đó, nếu bạn cầm chính chiếc thẻ ấy đi siêu thị hay đổ xăng thêm bất kỳ món nào mới, món mới đó thường mất luôn quyền miễn lãi và bị tính lãi không phẩy một phần trăm một ngày ngay từ giây chạm thẻ tại quầy.
 
 52
-00:06:56,000 --> 00:06:59,900
+00:06:21,990 --> 00:06:26,230
 Trong thực tế còn ba tình huống rất dễ làm người dùng thẻ sập bẫy.
 
 53
-00:06:59,900 --> 00:07:08,940
+00:06:26,440 --> 00:06:35,750
 Thứ nhất: giả sử ở ngày bốn mươi lăm bạn chuyển khoản trả chín triệu chín trăm chín mươi nghìn đồng, tức chỉ thiếu đúng mười nghìn đồng số lẻ do gõ nhầm.
 
 54
-00:07:08,940 --> 00:07:18,750
+00:06:36,010 --> 00:06:45,830
 Vì chưa trả đủ một trăm phần trăm sao kê, hệ thống máy tính vẫn huỷ toàn bộ bốn mươi lăm ngày miễn lãi và thu bốn trăm năm mươi nghìn đồng tiền lãi của giai đoạn đầu.
 
 55
-00:07:18,750 --> 00:07:31,220
+00:06:46,310 --> 00:06:59,750
 Thứ hai: nếu bạn dùng thẻ tín dụng rút tiền mặt tại cây rút tiền tự động, giao dịch đó không có bất kỳ ngày miễn lãi nào, vừa mất ngay khoảng bốn phần trăm phí rút tiền vừa bị tính lãi ngày từ giây tiền rời máy.
 
 56
-00:07:31,220 --> 00:07:44,000
+00:07:00,170 --> 00:07:14,790
 Thứ ba: ngay cả khi sang kỳ hai bạn trả đủ mười triệu không trăm chín mươi hai nghìn năm trăm đồng, những ngày chờ từ lúc chốt sao kê kỳ hai đến lúc bạn bấm trả vẫn tiếp tục đẻ ra một khoản lãi phần đuôi ở kỳ thứ ba.
 
 57
-00:07:44,000 --> 00:07:54,730
+00:07:16,300 --> 00:07:29,610
 Vậy con số thanh toán tối thiểu năm phần trăm không phải là món quà giảm giá, mà là một chiếc phao cứu hộ khẩn cấp để bạn không bị phạt trễ hạn và không bị ghi nhận nợ quá hạn khi kẹt dòng tiền thật sự.
 
 58
-00:07:54,730 --> 00:08:00,460
+00:07:30,050 --> 00:07:36,570
 Đổi lại, bạn phải trả tiền thuê vốn cho cả quãng thời gian bốn mươi lăm ngày ngân hàng đã ứng tiền trước đó.
 
 59
-00:08:00,460 --> 00:08:13,360
+00:07:37,210 --> 00:07:52,010
 Lần tới khi nhìn thấy nút thanh toán tối thiểu năm trăm nghìn đồng nằm cạnh con số mười triệu trên màn hình, chỉ cần nhớ một phép tính nhẩm: trả năm trăm nghìn hôm nay, kỳ sau tiền lãi cộng vào đã là năm trăm chín mươi hai nghìn năm trăm đồng.
 
 60
-00:08:13,360 --> 00:08:20,000
+00:07:52,300 --> 00:08:00,330
 Và chỉ khi nào bạn trả đủ một trăm phần trăm dư nợ sao kê, chiếc đồng hồ bốn mươi lăm ngày miễn lãi mới thật sự quay trở lại.

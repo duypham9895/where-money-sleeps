@@ -1,63 +1,63 @@
 1
-00:00:00,000 --> 00:00:01,440
+00:00:00,250 --> 00:00:02,410
 Điện thoại báo lương về mười lăm triệu...
 
 2
-00:00:01,440 --> 00:00:04,000
+00:00:02,440 --> 00:00:05,850
 nhưng giữa các ngân hàng, không một đồng tiền nào thực sự phải chuyển đi.
 
 3
-00:00:04,000 --> 00:00:09,340
+00:00:06,580 --> 00:00:11,490
 Vì công ty và bạn mở tài khoản ở cùng một ngân hàng, tiền không hề rời toà nhà.
 
 4
-00:00:09,340 --> 00:00:14,140
+00:00:11,620 --> 00:00:16,610
 Ngân hàng chỉ sửa hai dòng sổ: bớt khoản nợ công ty, tăng khoản nợ bạn.
 
 5
-00:00:14,140 --> 00:00:18,000
+00:00:16,820 --> 00:00:20,290
 Số dư trên màn hình chính là khoản ngân hàng đang nợ bạn.
 
 6
-00:00:18,000 --> 00:00:24,430
+00:00:21,130 --> 00:00:28,570
 Phần lương chưa tiêu hết nằm yên trong tài khoản gọi là CASA — trong ví dụ này lãi chỉ không phẩy một phần trăm một năm.
 
 7
-00:00:24,430 --> 00:00:27,480
+00:00:28,860 --> 00:00:32,650
 Giả sử năm trăm đồng nghiệp mỗi người để yên năm triệu...
 
 8
-00:00:27,480 --> 00:00:30,000
+00:00:32,680 --> 00:00:35,090
 ngân hàng có ngay hai phẩy năm tỷ đồng nằm chờ.
 
 9
-00:00:30,000 --> 00:00:36,480
+00:00:35,650 --> 00:00:41,010
 Cho cả khối hai phẩy năm tỷ đó, ngân hàng chỉ trả chừng hai triệu rưỡi tiền lãi một năm.
 
 10
-00:00:36,480 --> 00:00:47,240
+00:00:41,290 --> 00:00:50,610
 Nếu phải huy động bằng tiền gửi có kỳ hạn năm phần trăm, họ sẽ tốn một trăm hai mươi lăm triệu — đắt gấp năm mươi lần, chưa tính chi phí vận hành.
 
 11
-00:00:47,240 --> 00:00:51,000
+00:00:50,930 --> 00:00:54,410
 Chênh lệch ấy là lý do họ muốn giữ trọn bảng lương.
 
 12
-00:00:51,000 --> 00:00:56,250
+00:00:55,170 --> 00:00:59,690
 Đổi lại, công ty có thể nhận ưu đãi phí chi lương hoặc lãi vay...
 
 13
-00:00:56,250 --> 00:00:59,000
+00:00:59,720 --> 00:01:01,450
 tuỳ theo thoả thuận từng hợp đồng.
 
 14
-00:00:59,000 --> 00:01:02,440
+00:01:02,510 --> 00:01:05,170
 Vậy đêm nay tiền lương của bạn ngủ ở đâu?
 
 15
-00:01:02,440 --> 00:01:05,210
+00:01:05,300 --> 00:01:07,890
 Trong sổ kế toán của ngân hàng...
 
 16
-00:01:05,210 --> 00:01:10,000
+00:01:07,970 --> 00:01:11,730
 và số dư nằm yên ấy đang âm thầm làm việc cho người khác.

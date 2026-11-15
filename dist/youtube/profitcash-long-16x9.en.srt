@@ -1,179 +1,179 @@
 1
-00:00:00,000 --> 00:00:07,270
+00:00:00,300 --> 00:00:07,610
 At four o'clock on the afternoon of December thirty-first, the executive director of a distribution company places two sheets of paper side by side across his desk.
 
 2
-00:00:07,270 --> 00:00:19,900
+00:00:07,610 --> 00:00:20,310
 The document on the left is the full-year audited Income Statement: in this illustrative example, the business delivered ten billion dong in annual sales, and after deducting all cost of goods sold and operating expenses, it officially records a net profit of exactly two billion dong.
 
 3
-00:00:19,900 --> 00:00:33,460
+00:00:20,310 --> 00:00:33,940
 But the screen on the right is the corporate online banking dashboard: the actual cash balance remaining inside the checking account stands at exactly fifty million dong, while the December payroll sheet for fifty employees — totaling five hundred million dong — must be executed before five o'clock today.
 
 4
-00:00:33,460 --> 00:00:37,050
+00:00:33,940 --> 00:00:37,550
 Nobody embezzled corporate funds, and not a single ledger line was miscalculated.
 
 5
-00:00:37,050 --> 00:00:42,000
+00:00:37,550 --> 00:00:42,540
 Where, then, did the two billion dong in net profit plus the one billion dong in initial cash capital vanish to?
 
 6
-00:00:42,000 --> 00:00:51,970
+00:00:44,000 --> 00:00:51,790
 To discover where the dormant cash went to sleep, we must travel back ninety days to October first, when the company began preparing inventory for its major year-end supply contract.
 
 7
-00:00:51,970 --> 00:00:58,330
+00:00:51,790 --> 00:00:56,760
 At the beginning of the quarter, suppose the corporate bank account held one billion dong in liquid working capital.
 
 8
-00:00:58,330 --> 00:01:10,550
+00:00:56,760 --> 00:01:06,310
 In order to convince manufacturing suppliers to deliver the required industrial equipment on schedule and secure favorable volume pricing discounts, the company had to wire a total of 7.45 billion dong in hard cash upfront.
 
 9
-00:01:10,550 --> 00:01:24,030
+00:01:06,310 --> 00:01:16,840
 Within that outlay, 6.5 billion dong represented the cost of goods sold destined for the wholesale buyer, while 950 million dong represented safety buffer inventory procured to cushion operations against early next year's potential supply shocks.
 
 10
-00:01:24,030 --> 00:01:34,000
+00:01:16,840 --> 00:01:24,640
 Right at this very first step, 7.45 billion dong of real, liquid cash departed the corporate bank account, transforming into physical merchandise neatly stacked inside the warehouse.
 
 11
-00:01:34,000 --> 00:01:46,330
+00:01:25,980 --> 00:01:35,940
 On November fifteenth, the company successfully hands over the entire shipment under the ten billion dong contract to the wholesale partner, and both parties formally sign the delivery acceptance protocol.
 
 12
-00:01:46,330 --> 00:01:52,830
+00:01:35,940 --> 00:01:41,190
 Here, the single most critical principle in corporate finance takes effect: the accrual basis of accounting.
 
 13
-00:01:52,830 --> 00:02:13,340
+00:01:41,190 --> 00:01:57,760
 Under the statutory guidelines of Circular 99 of 2025 issued by the Ministry of Finance, the moment physical goods are delivered and the client executes acceptance, the accounting department is legally obligated to record the full ten billion dong into sales revenue, regardless of whether a single dong of physical money has been collected.
 
 14
-00:02:13,340 --> 00:02:24,230
+00:01:57,760 --> 00:02:06,550
 In actual practice, the wholesale partner transfers an initial installment of only 7.5 billion dong, deferring the remaining 2.5 billion dong under sixty to ninety day credit terms.
 
 15
-00:02:24,230 --> 00:02:30,000
+00:02:06,550 --> 00:02:11,210
 On paper, sales show ten billion, but the corporate bank account collects only 7.5 billion dong.
 
 16
-00:02:30,000 --> 00:02:36,140
+00:02:12,210 --> 00:02:17,780
 On December twenty-fifth, the accounting department closes the ledger to prepare the annual Income Statement.
 
 17
-00:02:36,140 --> 00:02:48,870
+00:02:17,780 --> 00:02:29,320
 The mathematical calculation on this report conforms perfectly with statutory accounting standards: take ten billion dong in gross sales revenue, and subtract 6.5 billion dong in cost of goods sold for the shipped merchandise.
 
 18
-00:02:48,870 --> 00:02:59,620
+00:02:29,320 --> 00:02:39,070
 Notice that the 950 million dong of additional buffer inventory remains parked on the balance sheet inside Account 156 and is not deducted as a period expense because the goods remain unsold.
 
 19
-00:02:59,620 --> 00:03:13,080
+00:02:39,070 --> 00:02:51,270
 Next, the accountant deducts 1.5 billion dong in operating overhead — encompassing one billion dong in warehouse leases, transportation, and logistics paid in hard cash, plus five hundred million dong in accrued December employee salaries.
 
 20
-00:03:13,080 --> 00:03:18,940
+00:02:51,270 --> 00:02:56,580
 Ten billion minus 6.5 billion minus 1.5 billion yields exactly two billion dong in net profit after tax.
 
 21
-00:03:18,940 --> 00:03:24,000
+00:02:56,580 --> 00:03:01,180
 The statement reflects undeniable accounting success and record operational profitability.
 
 22
-00:03:24,000 --> 00:03:38,910
+00:03:02,160 --> 00:03:14,100
 Yet on the afternoon of December thirty-first, when the executive director logs into the mobile banking system to authorize five hundred million dong in December employee salaries, the portal rejects the instruction due to insufficient funds.
 
 23
-00:03:38,910 --> 00:03:55,300
+00:03:14,100 --> 00:03:27,230
 Perform a simple, unadorned arithmetic calculation of physical cash flow: at the beginning of the period, the bank vault held one billion dong; add 7.5 billion dong in actual cash collected from the wholesale partner, and total cash inflows reached 8.5 billion dong.
 
 24
-00:03:55,300 --> 00:04:08,360
+00:03:27,230 --> 00:03:37,690
 In the opposite direction, the enterprise wired 7.45 billion dong to inventory suppliers and disbursed one billion dong in hard cash for operating overhead; total physical cash outflows equaled 8.45 billion dong.
 
 25
-00:04:08,360 --> 00:04:20,000
+00:03:37,690 --> 00:03:47,020
 Subtracting 8.45 billion from 8.5 billion leaves exactly fifty million dong in available checking balances — a catastrophic shortfall of four hundred and fifty million dong to meet payroll.
 
 26
-00:04:20,000 --> 00:04:31,160
+00:03:48,080 --> 00:03:56,750
 If you inspect the corporate balance sheet at this precise moment, you will immediately identify two colossal sponges that have absorbed the entire liquid cash pool of the business.
 
 27
-00:04:31,160 --> 00:04:47,990
+00:03:56,750 --> 00:04:09,820
 The company's total assets expanded from one billion dong at the start of the year to 3.5 billion dong at year-end — comprising one billion in initial equity capital, two billion in net accounting profit, and five hundred million dong in accrued unpaid payroll liabilities.
 
 28
-00:04:47,990 --> 00:05:00,380
+00:04:09,820 --> 00:04:19,450
 But within that 3.5 billion dong in total assets, a massive 2.5 billion dong is sleeping peacefully inside the wholesale partner's pocket under the balance sheet title Trade Receivables on Account 131.
 
 29
-00:05:00,380 --> 00:05:07,780
+00:04:19,450 --> 00:04:25,200
 Furthermore, 950 million dong is sleeping on steel warehouse racks under the title Merchandise Inventory on Account 156.
 
 30
-00:05:07,780 --> 00:05:14,000
+00:04:25,200 --> 00:04:30,030
 Combining those two items traps 3.45 billion dong, leaving a meager fifty million dong of live money.
 
 31
-00:05:14,000 --> 00:05:23,530
+00:04:31,180 --> 00:04:39,580
 On the Statement of Cash Flows prepared under the indirect method, corporate financial analysts deploy a bridging equation to expose this dangerous dislocation.
 
 32
-00:05:23,530 --> 00:05:35,910
+00:04:39,580 --> 00:04:50,500
 We begin with net accounting profit of positive two billion dong: because trade receivables expanded by 2.5 billion dong (meaning sales were recorded without collecting cash), we must deduct 2.5 billion dong.
 
 33
-00:05:35,910 --> 00:05:46,920
+00:04:50,500 --> 00:05:00,210
 Because merchandise inventory expanded by 950 million dong (meaning cash was disbursed to purchase goods sitting unsold in the warehouse), we must deduct an additional 950 million dong.
 
 34
-00:05:46,920 --> 00:05:57,400
+00:05:00,210 --> 00:05:09,450
 Adding back the five hundred million dong in accrued salary expenses that have not yet been disbursed in cash, we arrive at an Operating Cash Flow of negative 950 million dong.
 
 35
-00:05:57,400 --> 00:06:08,000
+00:05:09,450 --> 00:05:18,810
 Net profit is positive two billion, but operational cash flow is negative 950 million — completely devouring the initial one billion cash buffer to leave only fifty million dong.
 
 36
-00:06:08,000 --> 00:06:31,390
+00:05:20,070 --> 00:05:36,620
 At four-thirty on the afternoon of December thirty-first, in order to ensure that staff salaries arrive in personal bank accounts on schedule before the new year, the executive director is forced to execute an emergency short-term bank overdraft facility of four hundred and fifty million dong, pooling it with the company's final fifty million dong in cash to disburse the five hundred million dong payroll.
 
 37
-00:06:31,390 --> 00:06:48,880
+00:05:36,620 --> 00:05:48,990
 Observe the bitter irony of the cash conversion cycle: your company is providing an interest-free loan of 2.5 billion dong to its wholesale partner for ninety days, yet your company must turn around and borrow 450 million dong from a commercial lender at high interest rates just to pay its own employees.
 
 38
-00:06:48,880 --> 00:06:58,000
+00:05:48,990 --> 00:05:55,440
 The enterprise must bear substantial financial interest expenses on Account 635, directly eroding its operating profit margins for the upcoming fiscal quarter.
 
 39
-00:06:58,000 --> 00:07:07,250
+00:05:56,890 --> 00:06:04,110
 In corporate financial management, this structural trap is known as overtrading: expanding sales volume beyond the capacity of an enterprise's permanent working capital base.
 
 40
-00:07:07,250 --> 00:07:21,230
+00:06:04,110 --> 00:06:15,020
 When the cash conversion cycle — measured by days inventory outstanding plus days sales outstanding minus days payables outstanding — stretches outward to sixty or ninety days, every new sales contract signed immediately bleeds the company's liquid cash reserves.
 
 41
-00:07:21,230 --> 00:07:37,380
+00:06:15,020 --> 00:06:27,630
 If company directors glance at an annual report reporting two billion dong in net profit and prematurely distribute massive executive bonuses or invest in illiquid fixed assets, the enterprise will experience sudden cash flow insolvency in the following quarter despite booking record accounting profits.
 
 42
-00:07:37,380 --> 00:07:42,000
+00:06:27,630 --> 00:06:31,240
 Rapid growth without matching cash liquidity is an express route to corporate collapse.
 
 43
-00:07:42,000 --> 00:07:58,240
+00:06:32,660 --> 00:06:48,990
 The ten billion dong contract concludes with an indispensable survival maxim: net profit of two billion dong on an Income Statement is an accounting opinion calculated under accrual conventions, but fifty million dong in a checking account is the live oxygen that preserves corporate life every single day.
 
 44
-00:07:58,240 --> 00:08:06,730
+00:06:48,990 --> 00:06:57,530
 A dong of profit truly belongs to you only when it has departed the receivable ledger and warehouse shelves to rest securely inside your corporate bank account.
 
 45
-00:08:06,730 --> 00:08:20,000
+00:06:57,530 --> 00:07:10,880
 Whenever you evaluate a corporate financial statement, always place the Income Statement directly beside the Statement of Cash Flows — so you always know whether real money is awake and ready to work, or sleeping soundly inside someone else's ledger.

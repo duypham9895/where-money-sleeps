@@ -1,39 +1,39 @@
 1
-00:00:00,000 --> 00:00:09,950
+00:00:00,250 --> 00:00:08,410
 Chiều ba mươi mốt tháng mười hai, báo cáo công ty ghi lãi ròng hai tỷ đồng, nhưng két ngân hàng chỉ còn năm mươi triệu — thiếu bốn trăm năm mươi triệu trả lương.
 
 2
-00:00:09,950 --> 00:00:11,000
+00:00:08,570 --> 00:00:09,690
 Tiền thật đi đâu?
 
 3
-00:00:11,000 --> 00:00:23,000
+00:00:10,960 --> 00:00:22,010
 Lý do đầu tiên: vừa giao hàng xong cho hợp đồng mười tỷ, sổ sách đã ghi đủ doanh thu ngay dù khách sỉ mới trả bảy phẩy năm tỷ, còn nợ hai phẩy năm tỷ hẹn chín mươi ngày sau.
 
 4
-00:00:23,000 --> 00:00:25,200
+00:00:22,760 --> 00:00:25,930
 Lý do thứ hai là tiền hàng tồn kho.
 
 5
-00:00:25,200 --> 00:00:35,000
+00:00:26,090 --> 00:00:35,650
 Đầu kỳ két có một tỷ, cộng bảy phẩy năm tỷ thu khách là tám phẩy năm tỷ, nhưng công ty đã chi tiền mặt bảy phẩy bốn mươi lăm tỷ mua hàng và một tỷ vận hành.
 
 6
-00:00:35,000 --> 00:00:41,620
+00:00:36,450 --> 00:00:42,690
 Tám phẩy năm tỷ tiền vào trừ tám phẩy bốn mươi lăm tỷ tiền ra, két còn đúng năm mươi triệu đồng.
 
 7
-00:00:41,620 --> 00:00:47,000
+00:00:43,040 --> 00:00:47,810
 Ba phẩy bốn mươi lăm tỷ đồng đang ngủ ở công nợ khách hàng và kệ hàng tồn kho.
 
 8
-00:00:47,000 --> 00:00:59,000
+00:00:48,570 --> 00:00:59,970
 Trên báo cáo lưu chuyển tiền tệ, lợi nhuận ròng dương hai tỷ đồng nhưng dòng tiền thuần từ hoạt động kinh doanh lại âm chín trăm năm mươi triệu đồng vì tiền bị giam vào công nợ và hàng tồn kho.
 
 9
-00:00:59,000 --> 00:01:06,610
+00:01:00,650 --> 00:01:08,850
 Chiều cuối năm, công ty lãi hai tỷ phải vay ngắn hạn ngân hàng bốn trăm năm mươi triệu đồng để trả đủ năm trăm triệu tiền lương.
 
 10
-00:01:06,610 --> 00:01:10,000
+00:01:09,290 --> 00:01:13,650
 Lợi nhuận là chữ trên sổ, dòng tiền mới giữ công ty sống.
