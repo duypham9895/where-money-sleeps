@@ -25,6 +25,7 @@ Cách gọi:
 from __future__ import annotations
 
 import argparse
+import errno
 import hashlib
 import http.server
 import importlib.util
@@ -34,6 +35,7 @@ import pathlib
 import re
 import shutil
 import sys
+import time
 import urllib.parse
 import urllib.request
 import webbrowser
@@ -133,20 +135,7 @@ def run_auth_youtube(port: int = 8765) -> int:
     client_secret = cfg.get("client_secret", "")
     auth_uri = cfg.get("auth_uri", "https://accounts.google.com/o/oauth2/auth")
     token_uri = cfg.get("token_uri", "https://oauth2.googleapis.com/token")
-    redirect_uri = f"http://localhost:{port}"
     scopes = "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl"
-
-    params = urllib.parse.urlencode(
-        {
-            "client_id": client_id,
-            "redirect_uri": redirect_uri,
-            "response_type": "code",
-            "scope": scopes,
-            "access_type": "offline",
-            "prompt": "consent",
-        }
-    )
-    auth_url = f"{auth_uri}?{params}"
     captured: dict[str, str] = {}
 
     class OAuthHandler(http.server.BaseHTTPRequestHandler):
@@ -172,15 +161,49 @@ def run_auth_youtube(port: int = 8765) -> int:
         def log_message(self, format, *args):  # noqa: A002
             return
 
-    print("=== ĐĂNG NHẬP OAUTH 2.0 CHO KÊNH @WhereMoneySleeps ===")
-    print(f"1. Mở URL sau trên trình duyệt (chọn đúng tài khoản quản lý kênh @WhereMoneySleeps):\n   {auth_url}\n", flush=True)
-    try:
-        webbrowser.open(auth_url)
-    except Exception:
-        pass
-    print(f"2. Đang chờ Google gọi ngược về {redirect_uri} ...", flush=True)
-    with http.server.HTTPServer(("127.0.0.1", port), OAuthHandler) as httpd:
+    httpd: http.server.HTTPServer | None = None
+    last_err: OSError | None = None
+    for candidate_port in (port, *range(8766, 8776), 0):
+        try:
+            httpd = http.server.HTTPServer(("127.0.0.1", candidate_port), OAuthHandler)
+            break
+        except OSError as exc:
+            if exc.errno == errno.EADDRINUSE:
+                last_err = exc
+                continue
+            raise
+    if httpd is None:
+        raise last_err or OSError(errno.EADDRINUSE, "Không tìm được cổng localhost trống cho OAuth")
+
+    with httpd:
+        actual_port = httpd.server_port
+        redirect_uri = f"http://localhost:{actual_port}"
+        params = urllib.parse.urlencode(
+            {
+                "client_id": client_id,
+                "redirect_uri": redirect_uri,
+                "response_type": "code",
+                "scope": scopes,
+                "access_type": "offline",
+                "prompt": "consent",
+            }
+        )
+        auth_url = f"{auth_uri}?{params}"
+
+        print("=== ĐĂNG NHẬP OAUTH 2.0 CHO KÊNH @WhereMoneySleeps ===")
+        print(f"1. Mở URL sau trên trình duyệt (chọn đúng tài khoản quản lý kênh @WhereMoneySleeps):\n   {auth_url}\n", flush=True)
+        try:
+            webbrowser.open(auth_url)
+        except Exception:
+            pass
+        print(f"2. Đang chờ Google gọi ngược về {redirect_uri} (tối đa 180s) ...", flush=True)
+        deadline = time.monotonic() + 180.0
         while "code" not in captured and "error" not in captured:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                captured["error"] = "timeout"
+                break
+            httpd.timeout = remaining
             httpd.handle_request()
 
     if "code" not in captured:
@@ -769,7 +792,8 @@ def step_5c_upload_youtube_captions(
         with urllib.request.urlopen(list_req, timeout=30) as resp:
             caps_data = json.loads(resp.read().decode("utf-8"))
         for item in caps_data.get("items") or []:
-            if (item.get("snippet") or {}).get("language") == "vi":
+            snip = item.get("snippet") or {}
+            if snip.get("language") == "vi" and str(snip.get("trackKind") or "").lower() != "asr":
                 existing_caption_id = str(item.get("id") or "").strip()
                 break
     except urllib.error.HTTPError as exc:
