@@ -1591,6 +1591,32 @@ textarea.fb-control{resize:vertical;min-height:92px}
       <div class="bars" aria-hidden="true"></div>
     </div>
   </div>
+  <div class="try" id="tryTermdep" hidden>
+    <div>
+      <div class="preset-row" role="group" aria-label="Ví dụ nhanh tiền gửi có kỳ hạn">
+        <span class="preset-lbl">Ví dụ nhanh:</span>
+        <button type="button" class="preset-btn" data-calc="tryTermdep" data-set='{"tdAmt":100000000,"tdMo":9}' aria-pressed="true">100 tr · Rút ở tháng 9</button>
+        <button type="button" class="preset-btn" data-calc="tryTermdep" data-set='{"tdAmt":100000000,"tdMo":12}'>100 tr · Giữ đủ 12 tháng</button>
+        <button type="button" class="preset-btn" data-calc="tryTermdep" data-set='{"tdAmt":300000000,"tdMo":6}'>300 tr · Rút ở tháng 6</button>
+      </div>
+      <p class="tryhint" data-wmi-h="ttdHint">Kéo để đổi khoản tiền gửi kỳ hạn 12 tháng (5,5%/năm <span class="ex">ví dụ</span>) và tháng bạn rút tiền tất toán. Nếu rút toàn bộ trước tháng 12, toàn bộ lãi quay về mức không kỳ hạn <button class="term" data-term="casa">CASA</button> 0,1%/năm <span class="ex">ví dụ</span>.</p>
+      <div class="field"><label for="tdAmt"><span class="flbl" data-wmi-h="ttdA">Số tiền gửi kỳ hạn 12 tháng (<button class="term" data-term="term_deposit">TK 1281</button>)</span> <output id="tdAmtOut" class="num"></output></label>
+        <input type="range" id="tdAmt" min="20000000" max="500000000" step="10000000" value="100000000"></div>
+      <div class="field"><label for="tdMo"><span class="flbl" data-wmi="ttdM">Tháng tất toán rút sổ</span> <output id="tdMoOut" class="num"></output></label>
+        <input type="range" id="tdMo" min="1" max="12" step="1" value="9"></div>
+    </div>
+    <div class="receipt">
+      <h4 data-wmi="ttdRcH">Đối chiếu sổ tiền gửi khi rút (TK 1281 → TK 112)</h4>
+      <p class="sub" data-wmi-h="ttdRcSub">Kỳ hạn 12 tháng 5,5%/năm · Rút trước hạn về CASA 0,1%/năm <span class="ex">ví dụ</span></p>
+      <div class="row"><span data-wmi="ttdR1">Tiền gốc gửi ban đầu (TK 1281)</span><span class="num" id="tdPrin"></span></div>
+      <div class="row"><span data-wmi="ttdR2">Lãi đáng lẽ tích luỹ ở 5,5%/năm</span><span class="num" id="tdEarned"></span></div>
+      <div class="row"><span data-wmi="ttdR3">Tiền lãi thực nhận khi tất toán</span><span class="num plus" id="tdPaidInt"></span></div>
+      <div class="row"><span data-wmi="ttdR4">Phần lãi bị mất do phá kỳ hạn</span><span class="num minus" id="tdLost"></span></div>
+      <div class="row total"><span data-wmi="ttdR5">Tổng tiền thực nhận về TK 112</span><span class="num" id="tdTotal"></span></div>
+      <p class="note" id="tdNote"></p>
+      <div class="bars" aria-hidden="true"></div>
+    </div>
+  </div>
 </section>
 
 <!-- ── Bài khảo cứu toàn cảnh & Đối chiếu sổ kế toán (Reader View — Tách biệt khỏi Studio Kịch bản theo QĐ 59) ── -->
@@ -1821,7 +1847,10 @@ const GLOSS = {
   ccc:{"t": "Cash conversion cycle", "en": "vòng quay tiền mặt (CCC)", "d": "Số ngày tính từ lúc công ty xuất tiền mặt trả nhà cung cấp để nhập hàng cho tới lúc thu hồi được tiền mặt từ khách hàng. Vòng quay này càng dài, doanh nghiệp càng dễ thiếu tiền mặt dù bán hàng rất lãi."},
   ocf:{"t": "Operating cash flow", "en": "dòng tiền thuần từ hoạt động kinh doanh", "d": "Lượng tiền mặt thực tế chảy vào hoặc chảy ra từ việc mua bán và vận hành của doanh nghiệp trong kỳ — khác với lợi nhuận kế toán trên báo cáo kết quả kinh doanh."},
   rtgs:{"t": "RTGS — Real-Time Gross Settlement", "en": "thanh toán tổng tức thời từng lệnh", "d": "Hệ thống tại Ngân hàng Trung ương nơi các khoản chuyển tiền giá trị lớn giữa các ngân hàng được quyết toán tức thời từng lệnh một bằng tiền dự trữ, không chờ gom bù trừ ròng cuối phiên."},
-  prefund:{"t": "Pre-funded net debit cap", "en": "hạn mức ký quỹ bảo chứng", "d": "Khoản tiền hoặc giấy tờ có giá mà ngân hàng thành viên ký quỹ sẵn tại hệ thống chuyển mạch để bảo chứng cho các lệnh chuyển tiền nhanh 24/7, giúp ngân hàng người nhận yên tâm ghi Có ngay sau vài giây trước khi hai ngân hàng quyết toán ròng."}
+  prefund:{"t": "Pre-funded net debit cap", "en": "hạn mức ký quỹ bảo chứng", "d": "Khoản tiền hoặc giấy tờ có giá mà ngân hàng thành viên ký quỹ sẵn tại hệ thống chuyển mạch để bảo chứng cho các lệnh chuyển tiền nhanh 24/7, giúp ngân hàng người nhận yên tâm ghi Có ngay sau vài giây trước khi hai ngân hàng quyết toán ròng."},
+  term_deposit:{t:"Term deposit",en:"tiền gửi có kỳ hạn",d:"Khoản tiền cá nhân hoặc doanh nghiệp gửi vào ngân hàng với cam kết giữ đến ngày đáo hạn xác định để hưởng lãi suất cố định cao hơn tiền gửi không kỳ hạn (ở bài này lấy ví dụ 5,5%/năm). Rút toàn bộ trước hạn thường đưa lãi suất về mức không kỳ hạn (ví dụ 0,1%/năm)."},
+  maturity_trans:{t:"Maturity transformation",en:"chuyển hoá kỳ hạn",d:"Chức năng trung gian của ngân hàng thương mại: gom các khoản tiền gửi ngắn hoặc trung hạn từ hàng nghìn người gửi thành một bể vốn tập trung để cho vay các kỳ hạn dài hơn, đồng thời chừa lại tỷ lệ dự trữ thanh khoản và dự trữ bắt buộc."},
+  nim:{t:"NIM — Net Interest Margin",en:"biên lãi ròng",d:"Chênh lệch giữa thu nhập lãi từ tài sản sinh lãi (cho vay, trái phiếu) trừ chi phí trả lãi huy động, chia cho tổng tài sản sinh lãi bình quân. Khoản chênh lệch này phải gánh phần dự trữ không sinh lãi, chi phí vận hành và dự phòng rủi ro tín dụng trước khi tạo ra lợi nhuận ròng."}
 };
 
 const STORIES = {
@@ -5961,6 +5990,877 @@ const STORIES = {
       }
     }
   ]
+},
+  termdep:{
+  "name": "Gửi kỳ hạn 100 triệu: lãi 5,5%/năm rút sớm còn 0,1% và nguồn trả",
+  "title": "Gửi kỳ hạn 100 triệu lãi 5,5%/năm: Ngân hàng lấy gì trả và vì sao rút sớm còn 0,1%?",
+  "teaser": "Bạn gửi 100 triệu đồng kỳ hạn 12 tháng để hưởng 5,5%/năm, nhưng tất toán ở tháng 9 chỉ nhận 75.000 đ lãi (tụt về 0,1%/năm, mất 4,05 triệu đ); phía sau, ngân hàng gom 100 tỷ đồng, giữ 15% dự trữ và cho vay 85% để tạo NIM ròng 2,575%.",
+  "category": "c1",
+  "status": "review",
+  "approvedBy": "",
+  "approvedAt": "",
+  "review": {
+    "ketoan": "Tổng: PASS 9 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 9 · FLAG 5",
+    "ketoanAt": "2026-11-15",
+    "draftedBy": "agent",
+    "draftedAt": "2026-11-15"
+  },
+  "article": {
+    "lay": {
+      "myths": [
+        {
+          "myth": "Ngân hàng cất riêng 100 triệu đồng của bạn vào một hộc tủ khoá kín rồi đưa đúng xấp tiền đó cho một người khác vay lấy lãi 9,5%/năm để trả cho bạn 5,5%/năm.",
+          "truth": "100 triệu của bạn hoà vào bể vốn cộng gộp cùng hàng nghìn người gửi khác (ví dụ 1.000 sổ tạo thành 100 tỷ đồng). Ngân hàng thực hiện [[chuyển hoá kỳ hạn|maturity_trans]]: giữ lại 15% (15 tỷ đồng) làm dự trữ bắt buộc và đệm thanh khoản, còn 85% (85 tỷ đồng) mới đem cho vay sản xuất kinh doanh."
+        },
+        {
+          "myth": "Nếu hợp đồng ghi lãi suất 5,5%/năm cho kỳ hạn 12 tháng thì khi cần việc gấp ở tháng thứ 9, bạn rút tiền sớm vẫn nhận trọn phần lãi 5,5% tương ứng cho 9 tháng đã gửi (4.125.000 đ).",
+          "truth": "Khi phá vỡ cam kết kỳ hạn để rút toàn bộ 100 triệu ở tháng thứ 9, ngân hàng áp dụng điều khoản tất toán trước hạn: toàn bộ thời gian đã gửi quay về lãi suất không kỳ hạn [[CASA|casa]] 0,1%/năm (ví dụ chỉ còn 75.000 đ), làm bạn mất đứt 4.050.000 đ tiền lãi."
+        },
+        {
+          "myth": "Lấy lãi suất cho vay 9,5%/năm trừ đi lãi suất huy động 5,5%/năm, ngân hàng đang bỏ túi trọn vẹn 4,0%/năm tiền chênh lệch trên từng đồng vốn huy động.",
+          "truth": "Vì 15% bể vốn phải nằm ở quỹ [[dự trữ|reserve]] và đệm thanh khoản không mang lại lãi cho vay 9,5%, tổng thu từ 85 tỷ đồng cho vay chỉ là 8,075 tỷ đồng. Trừ 5,5 tỷ đồng trả người gửi, thu nhập lãi ròng thực sự chỉ là 2,575 tỷ đồng — tức [[biên lãi ròng|nim]] (NIM) đạt 2,575% (làm tròn 2,58%/năm), trước khi trừ chi phí vận hành và dự phòng rủi ro tín dụng."
+        },
+        {
+          "myth": "Sổ tiết kiệm gửi ngày 01/04 năm nay tới ngày 01/04 năm sau mới đáo hạn nhận lãi, nên tại ngày khoá sổ năm 31/12 doanh nghiệp không cần ghi chép gì vào báo cáo tài chính.",
+          "truth": "Theo nguyên tắc [[kế toán dồn tích|accrual]] của Thông tư 99/2025/TT-BTC, tại 31/12 kế toán phải tính phần lãi 9 tháng đã phát sinh trong năm (4.125.000 đ) để ghi Nợ TK 1388 (Phải thu khác) / Có TK 515 (Doanh thu hoạt động tài chính), chứ không chờ đến lúc tiền về TK 112 mới ghi nhận."
+        }
+      ],
+      "sections": [
+        {
+          "h": "Ngày 01/04 gửi 100 triệu đồng ở quầy giao dịch: tờ giấy kỳ hạn 12 tháng hứa 5,5%/năm nhưng kịch bản tháng 9 chỉ còn 75.000 đồng",
+          "paras": [
+            "Sáng ngày 01/04, phòng tài chính của một doanh nghiệp nhỏ mở khoản [[tiền gửi có kỳ hạn|term_deposit]] 100.000.000 đồng thời hạn 12 tháng với mức lãi suất ví dụ 5,5%/năm. Con số trên hợp đồng nhìn rất bình dị và dễ đoán: nếu giữ nguyên cuốn sổ này đủ 12 tháng tới ngày 01/04 năm sau, số tiền lãi thu về sẽ là 5.500.000 đồng, cộng với tiền gốc thành tròn 105.500.000 đồng chảy về tài khoản thanh toán.",
+            "Thế nhưng đằng sau tấm chứng chỉ tiền gửi tưởng chừng yên ả ấy lại có hai nghịch lý khiến nhiều người gửi lẫn chủ doanh nghiệp giật mình khi đụng chuyện. Nghịch lý thứ nhất nằm ở phía người gửi: giả sử tới cuối tháng thứ 9 (sau tròn 9 tháng), công ty cần gấp tiền mặt nên tất toán rút toàn bộ sổ 100.000.000 đồng. Nếu tính theo tỷ lệ 9/12 tháng ở mức 5,5%/năm, số lãi lẽ ra đã tích luỹ được là 4.125.000 đồng; nhưng trên sao kê thực nhận, ngân hàng chỉ trả đúng 75.000 đồng (tính theo lãi suất [[không kỳ hạn|casa]] ví dụ 0,1%/năm), tức bốc hơi ngay 4.050.000 đồng chỉ vì rút sớm ba tháng.",
+            "Nghịch lý thứ hai nằm ở phía toà nhà ngân hàng: ngân hàng không tự sản xuất hàng hoá hay buôn bán thiết bị để đẻ ra 5.500.000 đồng tiền lãi trả cho bạn. Vậy ngân hàng lấy tiền của ai để trả lãi suất 5,5%/năm cho hàng nghìn người gửi, vì sao họ có thể cho doanh nghiệp khác vay kỳ hạn dài hơn trong khi bạn vẫn giữ quyền phá sổ rút tiền bất cứ lúc nào, và điều gì xảy ra trên sổ sách kế toán của cả hai phía trong suốt 12 tháng đó?"
+          ]
+        },
+        {
+          "h": "Bí mật bể vốn 100 tỷ đồng và cơ chế chuyển hoá kỳ hạn của ngân hàng",
+          "paras": [
+            "Khoảnh khắc bạn chuyển 100.000.000 đồng từ tài khoản thanh toán sang hợp đồng tiền gửi kỳ hạn 12 tháng, số tiền đó không nằm cô đơn trong một chiếc két sắt dán tên bạn. Trên thực tế, ngân hàng nhận tiền gửi từ hàng nghìn cá nhân và doanh nghiệp khác nhau: trong ví dụ minh hoạ của bài này, hãy hình dung có 1.000 người gửi cùng đặt mỗi người 100.000.000 đồng, tạo thành một bể vốn kỳ hạn cộng gộp trị giá 100.000.000.000 đồng (100 tỷ đồng).",
+            "Nhờ quy luật số đông của bể 1.000 người gửi này, dù một vài cá nhân bất ngờ đến quầy tất toán sớm ở tháng 6 hay tháng 9, đại đa số người gửi vẫn giữ tiền lại tới ngày đáo hạn. Chính sự ổn định thống kê ấy cho phép ngân hàng thực hiện chức năng [[chuyển hoá kỳ hạn|maturity_trans]]: biến những dòng tiền gửi ngắn hạn rải rác của công chúng thành các khoản cho vay trung và dài hạn cho các doanh nghiệp đang cần mở rộng nhà xưởng hoặc nhập nguyên liệu.",
+            "Tuy nhiên, ngân hàng không bao giờ được phép đem 100% bể vốn 100 tỷ đồng đó đi cho vay hết. Trước hết, ngân hàng phải tách ngay một phần tiền đưa về tài khoản [[dự trữ bắt buộc|reserve]] tại Ngân hàng Trung ương cộng thêm đệm thanh khoản sẵn sàng chi trả cho những người cần rút tiền bất chợt — trong ví dụ này là 15% tổng huy động, tương đương 15 tỷ đồng nằm ở két dự trữ an toàn. Chỉ 85% còn lại, tức 85 tỷ đồng, mới được giải ngân sang phía doanh nghiệp vay vốn ở mức lãi suất cho vay ví dụ 9,5%/năm."
+          ]
+        },
+        {
+          "h": "Vì sao cho vay 9,5% và trả gửi 5,5% nhưng ngân hàng không bỏ túi 4,0% — Toán học NIM 2,575%",
+          "paras": [
+            "Nhiều người làm phép trừ nhẩm rất nhanh: lấy 9,5%/năm lãi cho vay trừ đi 5,5%/năm lãi tiền gửi bằng 4,0%/năm, rồi cho rằng ngân hàng kiếm trọn 4% lợi nhuận trên số tiền họ gửi. Phép trừ đó bỏ sót hai mắt xích quan trọng nhất của bảng cân đối kế toán ngân hàng.",
+            "Mắt xích đầu tiên là 15 tỷ đồng đang nằm trong kho dự trữ thanh khoản không tạo ra mức sinh lời 9,5%/năm (trong khung tính minh hoạ này coi mức sinh lời phần dự trữ bằng 0% để thấy rõ tác động kéo giảm biên lãi). Chỉ có 85 tỷ đồng thực sự đi qua hợp đồng tín dụng mới sinh ra tiền lãi: lấy 85 tỷ nhân 9,5%/năm, tổng thu nhập lãi từ cho vay cả năm đạt 8.075.000.000 đồng (8,075 tỷ đồng). Trong khi đó, ngân hàng phải trả lãi 5,5%/năm trên toàn bộ 100 tỷ đồng của 1.000 người gửi, tức chi phí lãi tiền gửi là 5.500.000.000 đồng (5,5 tỷ đồng).",
+            "Lấy 8,075 tỷ đồng thu nhập lãi trừ đi 5,5 tỷ đồng chi phí trả lãi tiền gửi, ngân hàng thu về đúng 2.575.000.000 đồng (2,575 tỷ đồng) thu nhập lãi thuần trên quy mô 100 tỷ đồng. Chia trên tổng quy mô bể vốn huy động 100 tỷ đồng (trong đó 15% dự trữ không cho vay 9,5%), [[biên lãi ròng|nim]] (NIM) của cả bể đạt đúng 2,575% (làm tròn 2,58%/năm) chứ không phải 4,0% — nếu chỉ chia riêng cho dư nợ cho vay 85 tỷ thì tỷ lệ thu về trên vốn vay là 3,03%. Khoản 2,575 tỷ đồng đó cũng chưa phải lợi nhuận bỏ túi: từ con số này, ngân hàng còn phải trang trải chi phí lương nhân viên, vận hành chi nhánh, hạ tầng công nghệ lõi và trích lập dự phòng [[rủi ro tín dụng|creditrisk]] cho những doanh nghiệp vay có nguy cơ chậm trả nợ."
+          ]
+        },
+        {
+          "h": "Cái giá mất 4,05 triệu đồng khi phá sổ tháng thứ 9 — và cách tách sổ 30/70 giữ lại 3.872.500 đồng tiền lãi",
+          "paras": [
+            "Hãy quay lại câu chuyện lúc mở đầu: vì sao điều khoản hợp đồng lại phạt nặng đến vậy khi bạn rút sổ sớm ở tháng thứ 9? Lý do xuất phát thẳng từ cơ chế chuyển hoá kỳ hạn vừa phân tích: khi bạn ký hợp đồng 12 tháng, ngân hàng đã dựa vào cam kết đó để giải ngân 85% sang các khoản vay dài hơn với lãi suất cố định hoặc kỳ hạn trả nợ khớp dòng tiền doanh nghiệp. Nếu người gửi rút ồ ạt trước hạn mà vẫn hưởng lãi suất cao, ngân hàng sẽ gãy cân đối thanh khoản hoặc phải đi vay nóng thị trường liên ngân hàng với chi phí đắt hơn để bù vào chỗ trống.",
+            "Trên con số ví dụ 100.000.000 đồng gửi ở 5,5%/năm (áp dụng quy ước tính tròn 9/12 tháng minh hoạ thay vì đếm ngày thực tế N/365 trên hợp đồng thực tế), tiền lãi kỳ hạn tích luỹ đến hết tháng 9 là 4.125.000 đồng. Khi phá sổ ở tháng 9 để rút toàn bộ 100 triệu đồng, lãi bị kéo về mức không kỳ hạn [[CASA|casa]] 0,1%/năm, chỉ còn 100.000.000 × 0,1% × 9/12 = 75.000 đồng. Phần lãi bốc hơi đúng bằng 4.125.000 − 75.000 = 4.050.000 đồng; tổng tiền về tài khoản chỉ còn 100.075.000 đồng.",
+            "Một kỹ thuật thực hành quan trọng giúp bảo vệ tiền lãi khi bạn chỉ cần một phần tiền mặt — ví dụ chỉ cần rút gấp 30.000.000 đồng ở tháng 9 — là rút một phần gốc (hoặc ngay từ lúc mở đã tách thành nhiều sổ nhỏ 30 triệu và 70 triệu, tuỳ quy chế sản phẩm từng ngân hàng). Phần 30.000.000 đồng rút ở tháng 9 nhận lãi không kỳ hạn 30.000.000 × 0,1% × 9/12 = 22.500 đồng; nhưng phần 70.000.000 đồng còn lại vẫn tiếp tục chạy hết tháng 12 để hưởng trọn 5,5%/năm = 3.850.000 đồng. Tổng tiền lãi bạn nhận về đạt 3.872.500 đồng — giữ lại nhiều hơn tới 3.797.500 đồng so với việc bấm nút tất toán cả cuốn sổ 100 triệu đồng."
+          ]
+        },
+        {
+          "h": "Hai cuốn sổ kế toán Thông tư 99/2025/TT-BTC: dự thu 31/12 của người gửi (TK 1388 / TK 515) và chi phí bên vay (TK 635 / TK 335)",
+          "paras": [
+            "Nếu bạn là doanh nghiệp mở hợp đồng tiền gửi kỳ hạn 12 tháng vào ngày 01/04, tiền gửi của bạn dịch chuyển giữa hai tài khoản ngay trên bảng cân đối kế toán theo Thông tư 99/2025/TT-BTC: ghi Nợ TK 1281 (Tiền gửi có kỳ hạn — tiểu khoản thuộc nhóm TK 128 Đầu tư nắm giữ đến ngày đáo hạn) 100.000.000 đồng và ghi Có TK 112 (Tiền gửi không kỳ hạn) 100.000.000 đồng. Về bản chất, tổng tài sản của công ty không đổi, chỉ chuyển từ trạng thái chi tiêu tức thời sang khoản đầu tư chờ đáo hạn.",
+            "Đến chiều 31/12 là thời điểm khoá sổ lập báo cáo tài chính năm, sổ tiền gửi của bạn vẫn còn 3 tháng nữa mới tới ngày 01/04 năm sau nên ngân hàng chưa chuyển một đồng tiền lãi nào vào TK 112. Tuy vậy, trong 9 tháng từ 01/04 đến 31/12, khoản lãi 4.125.000 đồng đã thuộc quyền hưởng của doanh nghiệp trong năm hiện hành. Kế toán ghi nhận phần lãi dồn tích 9 tháng bằng bút toán Nợ TK 1388 (Phải thu khác: 4.125.000 đồng) đối ứng Có TK 515 (Doanh thu hoạt động tài chính: 4.125.000 đồng) — lưu ý tuyệt đối không dùng TK 131 vì TK 131 chỉ dành cho phải thu bán hàng hoá và dịch vụ thương mại.",
+            "Đến ngày 01/04 năm sau khi đáo hạn, ngân hàng trả tổng cộng 105.500.000 đồng vào TK 112: kế toán ghi Nợ TK 112 (105.500.000 đồng), đối ứng Có TK 1281 tất toán gốc 100.000.000 đồng, Có TK 1388 xoá khoản lãi đã dự thu 4.125.000 đồng từ năm cũ, và Có TK 515 ghi nhận nốt 1.375.000 đồng doanh thu lãi của 3 tháng đầu năm mới. Ở phía bên kia dòng chảy, doanh nghiệp vay 100.000.000 đồng trong 12 tháng ở lãi suất 9,5%/năm hạch toán song song khoản tiền lãi phải trả 9.500.000 đồng vào Nợ TK 635 (Chi phí tài chính) / Có TK 335 (Chi phí phải trả), hoàn chỉnh vòng tuần hoàn hai đầu của dòng tiền kỳ hạn."
+          ]
+        }
+      ],
+      "flowSummary": [
+        {
+          "step": "Bước 1 (01/04 · Mở sổ) · Gửi 100 triệu đồng từ TK thanh toán sang kỳ hạn 12 tháng",
+          "fromTo": "Doanh nghiệp gửi kỳ hạn → Ngân hàng nhận gửi",
+          "channel": "book",
+          "amount": "100.000.000 đồng (5,5%/năm)",
+          "essence": "Trên sổ doanh nghiệp (TT 99/2025): Nợ TK 1281 (Tiền gửi có kỳ hạn) / Có TK 112 (Tiền gửi không kỳ hạn). Số tiền 100 triệu hoà vào bể vốn [[tiền gửi có kỳ hạn|term_deposit]] cộng gộp."
+        },
+        {
+          "step": "Bước 2 (Phân bổ bể 100 tỷ) · Giữ lại 15% dự trữ an toàn tại Ngân hàng Trung ương",
+          "fromTo": "Bể kỳ hạn cộng gộp → Ngân hàng nhận gửi → Ngân hàng Trung ương",
+          "channel": "pipe",
+          "amount": "15.000.000.000 đồng (15%)",
+          "essence": "Từ 1.000 sổ tạo thành bể 100 tỷ đồng, ngân hàng tách ngay 15% (15 tỷ) giữ làm [[dự trữ bắt buộc|reserve]] và đệm thanh khoản, không đem toàn bộ đi cho vay."
+        },
+        {
+          "step": "Bước 3 (Cho vay) · Giải ngân 85% bể vốn cho doanh nghiệp vay ở 9,5%/năm",
+          "fromTo": "Ngân hàng nhận gửi → Doanh nghiệp vay vốn",
+          "channel": "pipe",
+          "amount": "85.000.000.000 đồng (85%)",
+          "essence": "Thông qua cơ chế [[chuyển hoá kỳ hạn|maturity_trans]], ngân hàng cho vay 85 tỷ đồng lãi suất ví dụ 9,5%/năm để thu 8,075 tỷ đồng tiền lãi, trả người gửi 5,5 tỷ đồng và giữ [[NIM|nim]] 2,575% (2,575 tỷ đồng)."
+        },
+        {
+          "step": "Bước 4 (31/12 · Khoá sổ) · Hạch toán dự thu lãi dồn tích 9 tháng trước ngày đáo hạn",
+          "fromTo": "Ngân hàng nhận gửi ↔ Doanh nghiệp gửi kỳ hạn",
+          "channel": "wire",
+          "amount": "4.125.000 đồng (dự thu 9 tháng)",
+          "essence": "Theo nguyên tắc [[dồn tích|accrual]] (TT 99/2025), doanh nghiệp gửi ghi Nợ TK 1388 (Phải thu khác) / Có TK 515 (Doanh thu hoạt động tài chính) dù tiền chưa về tài khoản."
+        },
+        {
+          "step": "Bước 5 (Đáo hạn vs Rút sớm) · Trả đủ 105,5 triệu hoặc tụt lãi về 75.000 đ nếu rút hết tháng 9",
+          "fromTo": "Doanh nghiệp vay vốn → Ngân hàng nhận gửi → Doanh nghiệp gửi kỳ hạn",
+          "channel": "pipe",
+          "amount": "105.500.000 đ (đủ kỳ) | 100.075.000 đ (rút tháng 9)",
+          "essence": "Đáo hạn 12 tháng thu đủ 5.500.000 đ lãi (Nợ 112 / Có 1281, 1388, 515); còn rút toàn bộ ở tháng 9 tụt về [[CASA|casa]] 0,1% nhận 75.000 đ, mất 4.050.000 đ (nếu chỉ rút 30 triệu giữ 70 triệu thì giữ được 3.872.500 đ lãi)."
+        }
+      ],
+      "roles": [
+        {
+          "who": "Doanh nghiệp gửi kỳ hạn",
+          "pays": "Đánh đổi quyền rút tiền tự do suốt 12 tháng; nếu rút toàn bộ trước hạn ở tháng 9 phải trả giá bằng việc mất 4.050.000 đ tiền lãi (hạ từ 5,5% về 0,1%/năm).",
+          "gains": "Nhận lãi suất ổn định 5,5%/năm (5.500.000 đ khi giữ đủ 12 tháng) cao gấp nhiều lần [[CASA|casa]], hạch toán minh bạch trên TK 1281 và TK 515.",
+          "risk": "Rủi ro thanh khoản đột xuất phải phá sổ hoặc không kịp tận dụng cơ hội tách rút từng phần (ví dụ rút 30 triệu vẫn giữ 70 triệu ở lãi suất 5,5%)."
+        },
+        {
+          "who": "Bể kỳ hạn cộng gộp",
+          "pays": "1.000 người gửi nhỏ lẻ cùng cam kết giữ 100.000.000 đ kỳ hạn 12 tháng để ngân hàng có nguồn vốn quy mô lớn 100 tỷ đồng.",
+          "gains": "Tạo tính ổn định thống kê cho nguồn vốn giúp ngân hàng hoạch định giải ngân trung hạn mà vẫn đáp ứng được tỷ lệ rút trước hạn bình thường.",
+          "risk": "Nếu xảy ra rút tiền hàng loạt bất thường vượt qua đệm thanh khoản 15%, tính ổn định của bể vốn bị thử thách trực tiếp."
+        },
+        {
+          "who": "Ngân hàng nhận gửi",
+          "pays": "Cam kết trả 5,5 tỷ đồng tiền lãi kỳ hạn (5,5%/năm trên cả 100 tỷ đồng), trích 15% vào quỹ [[dự trữ|reserve]]/thanh khoản và chịu chi phí vận hành cùng dự phòng rủi ro.",
+          "gains": "Thu 8,075 tỷ đồng lãi từ 85 tỷ đồng cho vay (9,5%/năm), tạo thu nhập lãi thuần 2,575 tỷ đồng và biên lãi ròng [[NIM|nim]] = 2,575% (~2,58%/năm).",
+          "risk": "Rủi ro lệch kỳ hạn tài sản–nợ (chuyển hoá kỳ hạn) và [[rủi ro tín dụng|creditrisk]] nếu doanh nghiệp vay mất khả năng trả nợ gốc lẫn lãi."
+        },
+        {
+          "who": "Doanh nghiệp vay vốn",
+          "pays": "Chịu lãi suất vay 9,5%/năm (hạch toán Nợ TK 635 Chi phí tài chính / Có TK 335 Chi phí phải trả: 9.500.000 đ trên mỗi lát cắt vay 100.000.000 đ).",
+          "gains": "Tiếp cận nguồn vốn quy mô lớn 85 tỷ đồng ở kỳ hạn dài hơn để đầu tư máy móc, hàng hoá hoặc vốn lưu động mà từng người gửi lẻ không tự cho vay được.",
+          "risk": "Áp lực dòng tiền trả gốc và lãi đúng kỳ hạn hợp đồng bất kể biến động doanh thu hay lãi suất thị trường."
+        },
+        {
+          "who": "Ngân hàng Trung ương",
+          "pays": "Vận hành cơ chế tỷ lệ [[dự trữ bắt buộc|reserve]], giám sát tỷ lệ an toàn thanh khoản và cung ứng thanh khoản cứu cánh khi hệ thống căng vốn.",
+          "gains": "Giữ ổn định thanh khoản cho toàn hệ thống tiền tệ quốc gia và điều tiết cung tiền qua tỷ lệ dự trữ.",
+          "risk": "Rủi ro lan truyền hệ thống nếu một ngân hàng thương mại mất cân đối [[chuyển hoá kỳ hạn|maturity_trans]] nghiêm trọng."
+        }
+      ],
+      "whenHelps": [
+        "Sản phẩm [[tiền gửi có kỳ hạn|term_deposit]] phát huy giá trị tốt nhất cho phần vốn nhàn rỗi thực sự chưa dùng tới trong 6–12 tháng của cá nhân hoặc doanh nghiệp (ghi nhận trên TK 1281), giúp tăng thu nhập tài chính an toàn thay vì để nằm yên ở mức lãi [[CASA|casa]] ~0,1%.",
+        "Việc tách một khoản tiền lớn 100.000.000 đ thành các phần kỳ hạn nhỏ hoặc sử dụng tính năng rút một phần gốc giúp người gửi ứng phó nhu cầu tiền mặt 30.000.000 đ đột xuất mà vẫn bảo toàn được 3.850.000 đ tiền lãi của phần 70.000.000 đ còn lại.",
+        "Ở tầm vĩ mô, cơ chế gom vốn cộng gộp và [[chuyển hoá kỳ hạn|maturity_trans]] tại ngân hàng kết nối các khoản tiết kiệm nhỏ lẻ thành nguồn vốn sản xuất 85 tỷ đồng với quy trình thẩm định tập trung."
+      ],
+      "whenTraps": [
+        "Nó biến thành bẫy mất lãi khi bạn dồn cả phần quỹ dự phòng chi tiêu ngắn hạn vào một cuốn sổ kỳ hạn duy nhất: rút sớm ở tháng 9 làm toàn bộ 100.000.000 đ bị hạ lãi xuống 0,1%/năm và mất đứt 4.050.000 đ tiền lãi tích luỹ.",
+        "Nó trở thành sai sót báo cáo tài chính khi doanh nghiệp quên trích trước lãi [[dồn tích|accrual]] cuối năm 31/12 (hoặc hạch toán nhầm lãi tiền gửi ngân hàng vào TK 131 Phải thu của khách hàng thay vì TK 1388 Phải thu khác theo Thông tư 99/2025/TT-BTC).",
+        "Nó tạo ra ngộ nhận nguy hiểm khi đánh giá hoạt động ngân hàng bằng phép trừ thô 9,5% − 5,5% = 4,0% mà bỏ qua phần dự trữ 15% không sinh lãi cho vay (kéo [[NIM|nim]] thực về 2,575%) và chi phí dự phòng nợ xấu."
+      ],
+      "takeaways": [
+        "Vì sao rút toàn bộ sổ 100 triệu đồng trước hạn ở tháng thứ 9 khiến lãi suất bị kéo từ 5,5%/năm xuống còn 0,1%/năm (chỉ nhận 75.000 đ, mất 4.050.000 đ), và tách rút 30 triệu giữ lại 70 triệu giữ được bao nhiêu?",
+        "Nếu ngân hàng huy động 100 tỷ đồng ở mức 5,5%/năm nhưng phải giữ 15% (15 tỷ) dự trữ và chỉ cho vay 85% (85 tỷ) ở mức 9,5%/năm, thu nhập lãi thuần và NIM ròng thực tế bằng bao nhiêu phần trăm?",
+        "Cuối năm tài chính 31/12, khoản lãi tiền gửi có kỳ hạn 9 tháng (4.125.000 đ) chưa đến ngày nhận tiền phải hạch toán vào tài khoản nào theo Thông tư 99/2025/TT-BTC — và vì sao không được ghi vào TK 131?",
+        "Ở đầu bên kia của sổ cái, doanh nghiệp đi vay từ bể vốn ngân hàng ở lãi suất 9,5%/năm hạch toán khoản lãi vay phải trả vào những tài khoản nào?"
+      ]
+    },
+    "pro": {
+      "mechanics": [
+        {
+          "h": "1 · Cơ chế Chuyển hoá kỳ hạn (Maturity Transformation) & Bể thanh khoản gộp 100 tỷ đồng",
+          "p": "Trên bảng cân đối kế toán của ngân hàng thương mại, khoản [[tiền gửi có kỳ hạn|term_deposit]] 100.000.000 đồng của khách hàng được ghi nhận bên phần Nguồn vốn (Nợ phải trả theo kỳ hạn hợp đồng 12 tháng), ngược chiều với sổ kế toán doanh nghiệp gửi tiền ghi nhận bên Tài sản trên TK 1281. Về mặt vận hành kho quỹ, ngân hàng không quản lý tách biệt từng khoản tiền gửi 1-1 với từng hợp đồng cho vay mà tập trung 1.000 sổ tiền gửi (mỗi sổ 100 triệu đồng) vào một bể vốn cộng gộp quy mô 100.000.000.000 đồng (100 tỷ đồng). Nhờ phân phối xác suất rút tiền của số đông người gửi, ngân hàng thực hiện chức năng [[chuyển hoá kỳ hạn|maturity_trans]]: biến nguồn huy động 12 tháng thành các khoản tín dụng trung–dài hạn cho doanh nghiệp sản xuất, đồng thời giữ lại một lớp đệm dự trữ thanh khoản và [[dự trữ bắt buộc|reserve]] (ví dụ tổng cộng 15% = 15 tỷ đồng) để chi trả cho các yêu cầu rút tiền trước hạn phát sinh hàng ngày mà không làm gián đoạn dòng giải ngân tín dụng."
+        },
+        {
+          "h": "2 · Toán học Biên lãi ròng (NIM = 2,575%) dưới áp lực phần Dự trữ 15% không cho vay",
+          "p": "Một sai lầm phổ biến khi phân tích mô hình kinh doanh ngân hàng là lấy trực tiếp lãi suất cho vay trừ lãi suất huy động (9,5% − 5,5% = 4,0%/năm) rồi xem đó là tỷ suất lợi nhuận trên vốn huy động. Trong cấu trúc bảng cân đối chuẩn tắc của ví dụ bể 100 tỷ đồng: ngân hàng phải trích 15% (15 tỷ đồng) giữ tại quỹ dự trữ thanh khoản và tài khoản dự trữ tại Ngân hàng Trung ương (trong mô hình ví dụ thuần giản lược coi mức sinh lời cho vay trên phần dự trữ bằng 0% để tách bạch đòn bẩy tỷ lệ dự trữ). Chỉ 85% vốn huy động, tức 85 tỷ đồng, được đưa vào tài sản sinh lãi cho vay ở mức 9,5%/năm. Do đó: Thu nhập lãi cho vay = 85.000.000.000 × 9,5% = 8.075.000.000 đồng (8,075 tỷ đồng); Chi phí lãi huy động phải trả cho 1.000 người gửi trên đủ 100% quy mô nhận gửi = 100.000.000.000 × 5,5% = 5.500.000.000 đồng (5,5 tỷ đồng). Thu nhập lãi thuần còn lại là 8,075 tỷ − 5,5 tỷ = 2.575.000.000 đồng (2,575 tỷ đồng). Tính trên tổng quy mô bể 100 tỷ đồng, [[biên lãi ròng|nim]] đạt chính xác NIM = 2,575 tỷ / 100 tỷ = 2,575% (hiển thị làm tròn 2,58%/năm). Khoản chênh lệch 2,575% này tiếp tục phải trang trải chi phí hoạt động (nhân sự, chi nhánh, công nghệ) và chi phí dự phòng [[rủi ro tín dụng|creditrisk]] trước khi trở thành lợi nhuận ròng."
+        },
+        {
+          "h": "3 · Cơ chế Phạt lãi Rút trước hạn (0,1%/năm) & Lợi ích toán học của Tách sổ / Rút một phần",
+          "p": "Hợp đồng tiền gửi kỳ hạn 12 tháng là một quyền chọn thanh khoản nghiêng về phía người gửi: ngân hàng cam kết mức lãi cố định 5,5%/năm chỉ khi bạn giữ đúng kỳ hạn, giúp họ khoá ổn định cấu trúc kỳ hạn tài sản–nợ. Khi khách hàng thực hiện rút toàn bộ gốc 100.000.000 đồng tại tháng thứ 9 (sử dụng quy ước tỷ lệ 9/12 năm minh hoạ; lưu ý các hợp đồng ngân hàng thực tế tính lãi theo số ngày nắm giữ thực tế N/365), ngân hàng thu hồi toàn bộ chênh lệch kỳ hạn bằng cách hạ lãi suất về mức không kỳ hạn [[CASA|casa]] 0,1%/năm. Lúc đó, tiền lãi tích luỹ 9 tháng lẽ ra bằng 100.000.000 × 5,5% × 9/12 = 4.125.000 đồng bị giảm xuống còn 100.000.000 × 0,1% × 9/12 = 75.000 đồng — tương ứng mức lãi bị mất đúng 4.050.000 đồng (tổng nhận 100.075.000 đồng). Ngược lại, nếu khách hàng chỉ rút một phần 30.000.000 đồng ở tháng 9 và giữ nguyên 70.000.000 đồng tới hết tháng 12, chỉ phần rút sớm chịu lãi 0,1% (30.000.000 × 0,1% × 9/12 = 22.500 đồng), còn 70.000.000 đồng giữ trọn kỳ 5,5% mang về 3.850.000 đồng. Tổng lãi nhận được đạt 3.872.500 đồng, nhiều hơn tới 3.797.500 đồng so với việc phá sạch toàn bộ cuốn sổ 100 triệu đồng."
+        },
+        {
+          "h": "4 · Hạch toán song song hai đầu theo Thông tư 99/2025/TT-BTC: TK 1281, TK 1388, TK 515 và TK 635 / TK 335",
+          "p": "Trên sổ kế toán doanh nghiệp Việt Nam theo Thông tư 99/2025/TT-BTC, khoản tiền gửi có kỳ hạn không còn nằm ở TK 112 (vốn mang tên chính thức mới là Tiền gửi không kỳ hạn) mà phải phân loại vào TK 128 (Đầu tư nắm giữ đến ngày đáo hạn), cụ thể là tiểu khoản TK 1281 (Tiền gửi có kỳ hạn). Tại thời điểm khoá sổ tài chính cuối năm 31/12 (sau 9 tháng kể từ ngày gửi 01/04), theo nguyên tắc [[kế toán dồn tích|accrual]], doanh nghiệp phải ghi nhận phần thu nhập lãi 9 tháng là 4.125.000 đồng vào Nợ TK 1388 (Phải thu khác) / Có TK 515 (Doanh thu hoạt động tài chính) — tuyệt đối tách bạch khỏi TK 131 vốn chỉ phản ánh phải thu khách hàng thương mại. Đến ngày đáo hạn 01/04 năm sau, khi nhận 105.500.000 đồng về TK 112, kế toán ghi Có TK 1281 (100.000.000 đ) tất toán gốc, Có TK 1388 (4.125.000 đ) xoá khoản đã dự thu cuối năm trước, và Có TK 515 (1.375.000 đ) ghi nhận phần lãi 3 tháng còn lại của năm mới. Ở đầu bên kia trên sổ của doanh nghiệp đi vay 100.000.000 đồng với lãi suất 9,5%/năm, chi phí lãi vay cả năm 9.500.000 đồng được ghi nhận tương ứng vào Nợ TK 635 (Chi phí tài chính) / Có TK 335 (Chi phí phải trả) hoặc chi trực tiếp Có TK 112 khi thanh toán."
+        }
+      ],
+      "accountingNotes": [
+        "Theo Phụ lục II Thông tư 99/2025/TT-BTC, TK 112 có tên chính thức là “Tiền gửi không kỳ hạn” (phản ánh tiền thanh toán rút bất kỳ lúc nào), còn các hợp đồng tiền gửi có kỳ hạn của doanh nghiệp phải hạch toán riêng vào TK 128 (“Đầu tư nắm giữ đến ngày đáo hạn”), tiểu khoản TK 1281 (“Tiền gửi có kỳ hạn”).",
+        "Khoản lãi tiền gửi có kỳ hạn tính dồn tích đến ngày 31/12 (chưa đến kỳ trả lãi của ngân hàng) phải ghi nhận vào Nợ TK 1388 (“Phải thu khác”) đối ứng Có TK 515 (“Doanh thu hoạt động tài chính”), KHÔNG hạch toán vào TK 131 (“Phải thu của khách hàng”) vì ngân hàng nhận tiền gửi không phải khách mua hàng hoá hay dịch vụ của doanh nghiệp.",
+        "Trên sổ kế toán của doanh nghiệp đi vay vốn từ ngân hàng thương mại (theo TT 99/2025/TT-BTC), số tiền gốc vay được theo dõi trên TK 341 (“Vay và nợ thuê tài chính”), còn chi phí lãi vay phát sinh theo kỳ kế toán chưa đến hạn trả được ghi Nợ TK 635 (“Chi phí tài chính”) / Có TK 335 (“Chi phí phải trả”).",
+        "Lưu ý tách bạch hai hệ thống tài khoản: các bút toán T-Account ở mục này trình bày sổ kế toán doanh nghiệp Việt Nam theo Thông tư 99/2025/TT-BTC (bên gửi tiền và bên vay tiền). Riêng ngân hàng thương mại hạch toán theo Hệ thống tài khoản kế toán các tổ chức tín dụng do Ngân hàng Nhà nước ban hành, ghi nhận tiền gửi khách hàng là nợ phải trả và khoản cho vay là tài sản có sinh lãi."
+      ],
+      "journal": [
+        {
+          "step": "Bút toán 1 (01/04 · Doanh nghiệp gửi tiền mở sổ kỳ hạn 12 tháng)",
+          "book": "Sổ kế toán doanh nghiệp gửi tiền (TT 99/2025)",
+          "assume": "Ngày 01/04, doanh nghiệp trích 100.000.000 đồng từ tài khoản thanh toán không kỳ hạn (TK 112) để gửi hợp đồng tiền gửi có kỳ hạn 12 tháng hưởng lãi suất ví dụ 5,5%/năm.",
+          "rows": [
+            [
+              "Nợ",
+              "1281",
+              "Tiền gửi có kỳ hạn",
+              "ghi tăng khoản đầu tư nắm giữ đến ngày đáo hạn tại ngân hàng (thuộc TK 128)",
+              "Chuyển 100 triệu đồng sang hợp đồng kỳ hạn 12 tháng",
+              100000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "giảm số dư tiền gửi thanh toán đang nằm trên tài khoản không kỳ hạn",
+              "Trừ 100 triệu đồng khỏi tài khoản thanh toán hàng ngày",
+              100000000
+            ]
+          ],
+          "note": "Σ Debit = 100.000.000 = Σ Credit. Tổng tài sản không thay đổi; cơ cấu chuyển từ tiền thanh toán tức thời (TK 112) sang tiền gửi có kỳ hạn (TK 1281 thuộc TK 128 Đầu tư nắm giữ đến ngày đáo hạn). Lưu ý: tin nhắn biến động số dư từ ngân hàng báo trừ tiền từ góc nhìn nợ phải trả của ngân hàng, còn trên sổ tài sản của doanh nghiệp thì giảm tiền trên TK 112 ghi bên Có.",
+          "lifeNote": "100 triệu đồng rời tài khoản thanh toán hàng ngày để bước vào hợp đồng khoá kỳ hạn 12 tháng."
+        },
+        {
+          "step": "Bút toán 2 (31/12 · Trích trước doanh thu lãi 9 tháng cuối năm tài chính)",
+          "book": "Sổ kế toán doanh nghiệp gửi tiền ngày 31/12 (TT 99/2025)",
+          "assume": "Tính đến 31/12 (9 tháng kể từ 01/04, quy ước minh hoạ 9/12 năm), doanh nghiệp ghi nhận phần lãi dồn tích 100.000.000 × 5,5% × 9/12 = 4.125.000 đồng dù chưa tới ngày nhận tiền mặt.",
+          "rows": [
+            [
+              "Nợ",
+              "1388",
+              "Phải thu khác",
+              "ghi nhận quyền thu khoản lãi tiền gửi dồn tích cuối năm (không dùng TK 131)",
+              "Lãi 9 tháng đã tích luỹ chờ ngân hàng trả khi đáo hạn",
+              4125000
+            ],
+            [
+              "Có",
+              "515",
+              "Doanh thu hoạt động tài chính",
+              "phản ánh doanh thu lãi tiền gửi phát sinh đúng năm tài chính hiện hành",
+              "Ghi nhận 4,125 triệu đồng thu nhập lãi của 9 tháng đầu",
+              4125000
+            ]
+          ],
+          "note": "Σ Debit = 4.125.000 = Σ Credit. Ghi vào TK 1388 (Phải thu khác) tuân thủ đúng bản chất công nợ ngoài bán hàng hoá/dịch vụ của Thông tư 99/2025/TT-BTC.",
+          "lifeNote": "Dù chưa có tiền thật chảy về, 4,125 triệu đồng lãi của 9 tháng năm nay vẫn phải lên sổ doanh thu đúng kỳ."
+        },
+        {
+          "step": "Bút toán 3 (01/04 năm sau · Đáo hạn 12 tháng nhận đủ gốc 100 triệu + lãi 5,5 triệu)",
+          "book": "Sổ kế toán doanh nghiệp gửi tiền khi đáo hạn (TT 99/2025)",
+          "assume": "Giữ trọn 12 tháng tới ngày đáo hạn 01/04 năm sau, ngân hàng thanh toán đủ gốc 100.000.000 đ và tổng lãi 5.500.000 đ (gồm 4.125.000 đ đã dự thu cuối năm trước + 1.375.000 đ lãi 3 tháng còn lại).",
+          "rows": [
+            [
+              "Nợ",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "ngân hàng chuyển trả đủ gốc và 12 tháng tiền lãi về tài khoản thanh toán",
+              "Tiền thật cộng về tài khoản thanh toán là 105,5 triệu đồng",
+              105500000
+            ],
+            [
+              "Có",
+              "1281",
+              "Tiền gửi có kỳ hạn",
+              "tất toán hoàn trả phần tiền gốc 100.000.000 đ khi sổ đáo hạn",
+              "Đóng hợp đồng tiền gửi kỳ hạn 100 triệu đồng",
+              100000000
+            ],
+            [
+              "Có",
+              "1388",
+              "Phải thu khác",
+              "thu hồi hết khoản lãi 9 tháng đã ghi nhận phải thu tại 31/12 năm trước",
+              "Xoá số dư lãi dự thu 4,125 triệu đồng của năm cũ",
+              4125000
+            ],
+            [
+              "Có",
+              "515",
+              "Doanh thu hoạt động tài chính",
+              "ghi nhận bổ sung phần lãi 3 tháng đầu năm mới (100.000.000 × 5,5% × 3/12)",
+              "Doanh thu lãi cho 3 tháng cuối của kỳ hạn",
+              1375000
+            ]
+          ],
+          "note": "Σ Debit = 105.500.000 = Σ Credit (100.000.000 + 4.125.000 + 1.375.000). Không bị trùng doanh thu giữa hai năm tài chính.",
+          "lifeNote": "Đủ 12 tháng, 105,5 triệu đồng đổ về tài khoản thanh toán và khép lại sổ kỳ hạn trọn vẹn."
+        },
+        {
+          "step": "Bút toán 4 (Phía Doanh nghiệp vay vốn từ bể ngân hàng · Lãi vay 9,5%/năm trên 100 triệu)",
+          "book": "Sổ kế toán doanh nghiệp vay vốn (TT 99/2025)",
+          "assume": "Trên lát cắt khoản vay 100.000.000 đồng giải ngân từ bể vốn kỳ hạn của ngân hàng với lãi suất ví dụ 9,5%/năm trong 12 tháng (gốc theo dõi trên TK 341 Vay và nợ thuê tài chính), chi phí lãi vay tích luỹ trong kỳ là 9.500.000 đồng.",
+          "rows": [
+            [
+              "Nợ",
+              "635",
+              "Chi phí tài chính",
+              "phản ánh chi phí lãi vay phải trả cho ngân hàng phát sinh trong kỳ",
+              "Chi phí sử dụng vốn vay 9,5 triệu đồng một năm",
+              9500000
+            ],
+            [
+              "Có",
+              "335",
+              "Chi phí phải trả",
+              "trích trước nghĩa vụ lãi vay phải thanh toán theo hợp đồng tín dụng",
+              "Khoản lãi vay đang nợ chờ ngày trả cho ngân hàng",
+              9500000
+            ]
+          ],
+          "note": "Σ Debit = 9.500.000 = Σ Credit. Chính khoản chi phí lãi vay (TK 635) mà doanh nghiệp vay vốn trả cho ngân hàng (8,075 tỷ đồng trên 85 tỷ cho vay của bể) là nguồn lực tài chính để ngân hàng trả lãi 5,5% cho người gửi.",
+          "lifeNote": "Lãi của người gửi không từ trên trời rơi xuống mà đi ra từ chi phí lãi vay của doanh nghiệp sản xuất."
+        }
+      ],
+      "edgeCases": [
+        {
+          "h": "Rút một phần (tách sổ 30 triệu / 70 triệu) hoặc cầm cố sổ tiết kiệm thay vì phá toàn bộ ở tháng 9",
+          "p": "Khi cần gấp 30.000.000 đồng ở tháng thứ 9, việc phá toàn bộ cuốn sổ 100.000.000 đồng khiến lãi tổng giảm từ 4.125.000 đ xuống còn 75.000 đ (thiệt hại 4.050.000 đ). Trong khi đó, giải pháp tách sổ ngay khi mở hoặc rút một phần gốc (với sản phẩm cho phép rút linh hoạt một phần) giúp 30.000.000 đ rút ra nhận 22.500 đ lãi không kỳ hạn, còn 70.000.000 đ tiếp tục nhận 3.850.000 đ ở tháng 12 — tổng đạt 3.872.500 đ (giữ lại hơn 3.797.500 đ). Trong thực tế doanh nghiệp cần tiền mặt ngắn hạn vài tuần sát ngày đáo hạn, một số tổ chức còn tính phương án vay cầm cố chính hợp đồng tiền gửi đó nếu tiền lãi giữ được (4.050.000 đ) lớn hơn chi phí lãi vay ngắn ngày."
+        },
+        {
+          "h": "Đã dự thu 4.125.000 đ ở ngày 31/12 trên TK 1388 / TK 515 nhưng sang tháng 1 năm sau lại rút trước hạn",
+          "p": "Nếu hợp đồng gửi ngày 01/04 đã khoá sổ 31/12 với bút toán dự thu Nợ TK 1388 / Có TK 515 là 4.125.000 đồng, nhưng sang Quý 1 năm sau doanh nghiệp tất toán sớm toàn bộ sổ và chỉ nhận lãi không kỳ hạn (ví dụ 75.000 đ hoặc 83.000 đ trên sao kê ngân hàng): khi nhận tiền, kế toán ghi Nợ TK 112 phần thực thu, Có TK 1281 tất toán gốc 100.000.000 đ, đồng thời xoá phần phải thu TK 1388 (4.125.000 đ) không còn được nhận và điều chỉnh giảm phần chênh lệch lãi bị mất (ghi nhận vào bên Nợ TK 515 hoặc chi phí tài chính TK 635, hoặc điều chỉnh báo cáo tài chính trước ngày phát hành theo VAS 23 và Thông tư 99/2025/TT-BTC)."
+        },
+        {
+          "h": "Tái tục tự động (Auto-rollover) gốc lẫn lãi ở ngày đáo hạn & Quy ước đếm ngày N/365 vs 9/12",
+          "p": "Tại ngày 01/04 năm sau, nếu hợp đồng không tất toán về TK 112 mà bật cơ chế tái tục tự động, cả gốc 100.000.000 đ (hoặc gốc + lãi = 105.500.000 đ) sẽ quay vòng sang một kỳ hạn 12 tháng mới nhưng theo biểu lãi suất công bố ngay tại ngày đáo hạn chứ không giữ mãi 5,5%. Ngoài ra, bài toán này sử dụng quy ước chia tròn 9/12 tháng để dễ kiểm chứng nhẩm; trên chứng từ ngân hàng thật, lãi suất năm được nhân với số ngày gửi thực tế chia 365 (N/365) nên tháng có 30 hay 31 ngày sẽ tạo chênh lệch vài nghìn đồng nhỏ."
+        }
+      ]
+    }
+  },
+  "videoScript": {
+    "long": {
+      "title": "Gửi kỳ hạn 100 triệu lãi 5,5%/năm: Ngân hàng lấy gì trả và vì sao rút sớm còn 0,1%?",
+      "hookNote": "Đặt hai kịch bản song song từ một tờ chứng chỉ 100 triệu đồng gửi ngày 01/04 ở lãi suất 5,5%/năm: kịch bản giữ đủ 12 tháng nhận 105,5 triệu đồng, kịch bản rút sớm ở tháng 9 tụt về 0,1%/năm chỉ còn 75.000 đồng (mất 4,05 triệu) — rồi lật mở bể vốn 100 tỷ đồng phía sau ngân hàng để thấy 15% nằm dự trữ, 85% đem cho vay 9,5% tạo NIM 2,575% và hai cuốn sổ TT 99/2025/TT-BTC.",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "scenes": [
+        {
+          "time": "0:00 – 0:46",
+          "beat": null,
+          "chapter": "Một tờ sổ 100 triệu và cú sốc mất 4,05 triệu ở tháng thứ 9",
+          "visual": "Mặt cắt 5 định chế sáng dịu ngày 01/04: tại nhà Doanh nghiệp gửi kỳ hạn, hợp đồng 100.000.000 đồng kỳ hạn 12 tháng hiện mức lãi suất cam kết 5,5%/năm, cạnh cột so sánh rút ở tháng 9 chỉ nhận 75.000 đồng.",
+          "vo": "Sáng ngày một tháng tư, bạn mang một trăm triệu đồng gửi tiết kiệm có kỳ hạn mười hai tháng với lãi suất trong ví dụ này là năm phẩy năm phần trăm một năm. Tính nhẩm thật dễ chịu: hết một năm bạn nhận năm triệu rưỡi tiền lãi, tổng cộng một trăm lẻ năm triệu năm trăm nghìn đồng. Nhưng điều gì xảy ra nếu sau tròn chín tháng bạn có việc gấp và cần rút toàn bộ một trăm triệu này ra trước ba tháng? Theo đúng phép nhân chín phần mười hai tháng, đáng lẽ bạn đã tích luỹ được bốn triệu một trăm hai mươi lăm nghìn đồng tiền lãi rồi. Thế nhưng trên màn hình tất toán, số lãi bạn thực sự nhận về chỉ là bảy mươi lăm nghìn đồng — tương ứng mức lãi không kỳ hạn không phẩy một phần trăm một năm — bốc hơi ngay hơn bốn triệu đồng chỉ sau một nút bấm. Vì sao ngân hàng phạt nặng như vậy, và thực chất tiền trả lãi năm phẩy năm phần trăm cho bạn lấy từ đâu ra? Hãy cùng mở mặt cắt phía sau quầy giao dịch.",
+          "onScreen": "100.000.000 đ (5,5%/năm) · Giữ 12 tháng: +5.500.000 đ · Rút tháng 9: chỉ +75.000 đ (0,1%)"
+        },
+        {
+          "time": "0:46 – 1:40",
+          "beat": 0,
+          "chapter": "Ngày 01/04 mở sổ: 100 triệu đồng đổi vị trí từ TK 112 sang TK 1281",
+          "visual": "Tại nhà Doanh nghiệp gửi kỳ hạn (nhà 0) và Ngân hàng nhận gửi (nhà 2): luồng tiền 100.000.000 đ chảy sang sổ kỳ hạn 12 tháng; sổ kế toán TT 99/2025 hiện bút toán Nợ TK 1281 / Có TK 112: 100.000.000 đồng.",
+          "vo": "Hãy bắt đầu ở ngày đầu tiên, mồng một tháng tư. Khi doanh nghiệp của bạn ký hợp đồng gửi một trăm triệu đồng kỳ hạn mười hai tháng, số tiền này không biến mất mà chỉ đổi áo khoác thanh khoản. Trên sổ kế toán doanh nghiệp theo Thông tư 99 năm 2025, kế toán ghi Nợ tài khoản 1281 Tiền gửi có kỳ hạn một trăm triệu đồng, và ghi Có tài khoản 112 Tiền gửi không kỳ hạn một trăm triệu đồng. Tổng tài sản của công ty vẫn y nguyên, chỉ chuyển từ dòng tiền rút tiêu tự do sang khoản đầu tư nắm giữ đến ngày đáo hạn. Còn về phía ngân hàng, một trăm triệu đồng bạn vừa nộp vào không bị cất riêng vào một chiếc két sắt dán tên bạn đâu. Ngân hàng vừa ghi nhận một khoản nợ phải trả có kỳ hạn mười hai tháng đối với bạn, và ngay lập tức đưa số tiền đó hoà chung vào một dòng chảy lớn hơn rất nhiều.",
+          "onScreen": "01/04 Mở sổ: Nợ TK 1281 (Tiền gửi có kỳ hạn) / Có TK 112: 100.000.000 đ"
+        },
+        {
+          "time": "1:40 – 2:34",
+          "beat": 1,
+          "chapter": "Bể 100 tỷ đồng & Chuyển hoá kỳ hạn: 15% dự trữ, 85% đi cho vay",
+          "visual": "Nhà 1 (Bể kỳ hạn cộng gộp) hiển thị 1.000 người gửi × 100 triệu = 100 tỷ đồng. Từ nhà 2 (Ngân hàng), 15 tỷ đồng đi qua nhà 4 (Ngân hàng Trung ương) làm dự trữ và 85 tỷ đồng chảy sang nhà 3 (Doanh nghiệp vay vốn).",
+          "vo": "Hãy lùi ống kính ra toàn cảnh thành phố để nhìn vào bể vốn của ngân hàng. Ngoài một trăm triệu đồng của bạn, còn có thêm chín trăm chín mươi chín người gửi khác cùng mở những khoản gửi tương tự. Trong ví dụ quy mô này, một nghìn người gửi gom lại đã tạo thành một bể vốn kỳ hạn đúng một trăm tỷ đồng nằm trong bảng cân đối của ngân hàng. Nhờ quy luật số đông — không bao giờ cả nghìn người đồng loạt đòi rút tiền trong cùng một buổi sáng — ngân hàng mới làm được phép màu cốt lõi của ngành tài chính là chuyển hoá kỳ hạn: lấy vốn ngắn và trung hạn của công chúng để giải ngân những khoản vay dài hơi hơn cho sản xuất. Nhưng luật an toàn ngân hàng không cho phép đem cả một trăm tỷ đồng đi cho vay sạch. Ngân hàng buộc phải trích trước mười lăm phần trăm — tức mười lăm tỷ đồng — giữ ở tài khoản dự trữ bắt buộc tại Ngân hàng Trung ương và đệm thanh khoản. Chỉ có tám mươi lăm tỷ đồng còn lại thực sự chảy sang các doanh nghiệp vay vốn.",
+          "onScreen": "1.000 sổ × 100 tr = 100 tỷ · Giữ 15% (15 tỷ) dự trữ · Cho vay 85% (85 tỷ)"
+        },
+        {
+          "time": "2:34 – 3:28",
+          "beat": 1,
+          "chapter": "Toán học NIM: Cho vay 9,5% trừ trả gửi 5,5% không bằng lãi ròng 4%!",
+          "visual": "Màn hình đối chiếu thu–chi tại Ngân hàng nhận gửi (nhà 2): 85 tỷ × 9,5% = +8,075 tỷ thu lãi cho vay; trừ 100 tỷ × 5,5% = −5,5 tỷ trả người gửi; kết quả thu nhập lãi thuần = 2,575 tỷ đ (NIM = 2,575%, ~2,58%).",
+          "vo": "Đây là chỗ nhiều người tính nhẩm bị hụt nhịp nhất. Bạn nghe ngân hàng huy động năm phẩy năm phần trăm rồi cho doanh nghiệp vay chín phẩy năm phần trăm, bèn lấy hai số trừ thẳng cho nhau ra bốn phần trăm và nghĩ ngân hàng bỏ túi gọn bốn phần trăm tiền lời. Nhưng phép trừ đó sai ngay từ gốc vì mười lăm tỷ đồng dự trữ an toàn không đem đi cho vay chín phẩy năm phần trăm được! Hãy nhân đúng theo ví dụ này: chỉ có tám mươi lăm tỷ đồng thực cho vay với lãi suất chín phẩy năm phần trăm một năm, mang về tám phẩy không bảy lăm tỷ đồng tiền lãi thu vào. Trong khi đó, ngân hàng vẫn phải trả lãi năm phẩy năm phần trăm trên đủ toàn bộ một trăm tỷ đồng của một nghìn người gửi — tức chi ra năm tỷ rưỡi đồng. Lấy tám phẩy không bảy lăm tỷ trừ năm tỷ rưỡi, ngân hàng chỉ giữ lại đúng hai phẩy năm bảy lăm tỷ đồng thu nhập lãi thuần, tương đương biên lãi ròng NIM đúng hai phẩy năm bảy lăm phần trăm, làm tròn khoảng hai phẩy năm tám phần trăm một năm.",
+          "onScreen": "Thu 85 tỷ × 9,5% = 8,075 tỷ · Trả 100 tỷ × 5,5% = 5,5 tỷ · Còn 2,575 tỷ (NIM 2,575%)"
+        },
+        {
+          "time": "3:28 – 4:18",
+          "beat": 1,
+          "chapter": "Biên lãi 2,575% phải trả lương, vận hành và gánh rủi ro nợ xấu",
+          "visual": "Cận cảnh bể vốn bên trong Ngân hàng nhận gửi (nhà 2) và Doanh nghiệp vay vốn (nhà 3): con số 2,575 tỷ đ tách qua 3 khối chi phí nhân sự vận hành, hạ tầng hệ thống và quỹ dự phòng rủi ro tín dụng.",
+          "vo": "Khoan vội tưởng hai phẩy năm bảy lăm tỷ đồng đó đã là lợi nhuận ròng ngân hàng mang chia cổ tức ngay lập tức. Từ chính biên lãi ròng hai phẩy năm tám phần trăm ấy, ngân hàng còn phải thanh toán tiền lương cho nhân sự quầy giao dịch, nhân viên thẩm định tín dụng, thuê mặt bằng mạng lưới, vận hành hệ thống công nghệ thông tin hai mươi bốn giờ mỗi ngày, và quan trọng nhất là trích quỹ dự phòng rủi ro tín dụng. Bởi vì khác với sổ tiền gửi có nghĩa vụ trả đủ gốc cho bạn bất kỳ hoàn cảnh nào, một phần trong tám mươi lăm tỷ đồng đã cho doanh nghiệp vay luôn đối mặt nguy cơ kinh doanh thua lỗ hoặc chậm trả nợ. Chính phần đệm lãi hai phẩy năm bảy lăm phần trăm này là chiếc áo giáp giúp ngân hàng đứng vững bảo vệ tiền gốc cho người gửi.",
+          "onScreen": "NIM 2,575% phải gánh: Lương & Vận hành + Công nghệ + Dự phòng Nợ xấu"
+        },
+        {
+          "time": "4:18 – 5:12",
+          "beat": 2,
+          "chapter": "Chiều 31/12 khoá sổ năm: Vì sao chưa nhận tiền mặt vẫn ghi Có TK 515?",
+          "visual": "Tại nhà Doanh nghiệp gửi kỳ hạn (nhà 0): đồng hồ điểm 31/12 (9 tháng sau 01/04). Sổ kế toán TT 99/2025 bật sáng bút toán dự thu: Nợ TK 1388 (Phải thu khác: 4.125.000 đ) / Có TK 515 (Doanh thu hoạt động tài chính: 4.125.000 đ).",
+          "vo": "Bây giờ hãy tua nhanh tới ngày ba mươi mốt tháng mười hai, thời điểm doanh nghiệp của bạn khoá sổ lập báo cáo tài chính năm. Khoản tiền gửi một trăm triệu đồng mở từ mồng một tháng tư vẫn còn ba tháng nữa mới đáo hạn, nên thực tế ngân hàng chưa chuyển một đồng tiền lãi nào vào tài khoản thanh toán của bạn. Nhưng về mặt bản chất kinh tế, chín tháng đã trôi qua trong năm tài chính hiện tại, tức bốn triệu một trăm hai mươi lăm nghìn đồng tiền lãi theo quy ước minh hoạ chín phần mười hai tháng đã thuộc quyền hưởng của công ty năm nay. Do đó theo nguyên tắc kế toán dồn tích của Thông tư 99 năm 2025, kế toán phải ghi Nợ tài khoản 1388 Phải thu khác bốn triệu một trăm hai mươi lăm nghìn đồng, đối ứng Có tài khoản 515 Doanh thu hoạt động tài chính — tuyệt đối không dùng tài khoản 131 vốn chỉ dành cho khách mua hàng hoá dịch vụ.",
+          "onScreen": "31/12 Dự thu 9 tháng: Nợ TK 1388 (Phải thu khác) / Có TK 515: 4.125.000 đ"
+        },
+        {
+          "time": "5:12 – 6:06",
+          "beat": 3,
+          "chapter": "Ngày 01/04 năm sau đáo hạn đủ 12 tháng: Tất toán 105,5 triệu vào TK 112",
+          "visual": "Luồng tiền 105.500.000 đ chạy từ Ngân hàng nhận gửi (nhà 2) về Doanh nghiệp gửi (nhà 0). Sổ kế toán 4 dòng cân đối: Nợ TK 112 (105.500.000) / Có TK 1281 (100.000.000), Có TK 1388 (4.125.000), Có TK 515 (1.375.000).",
+          "vo": "Nếu bạn giữ bình tĩnh chờ đúng ngày đáo hạn mồng một tháng tư năm sau, toàn bộ chu trình kế toán sẽ khép lại đẹp như sách giáo khoa. Đúng ngày hôm đó, ngân hàng chuyển trả về tài khoản thanh toán không kỳ hạn của bạn tổng cộng một trăm lẻ năm triệu năm trăm nghìn đồng tiền tươi. Trên sổ sách kế toán của doanh nghiệp gửi tiền, kế toán ghi Nợ tài khoản 112 Tiền gửi không kỳ hạn một trăm lẻ năm triệu năm trăm nghìn đồng. Đối ứng bên Có gồm đúng ba dòng sạch sẽ: Có tài khoản 1281 tất toán một trăm triệu tiền gốc ban đầu, Có tài khoản 1388 xoá gọn bốn triệu một trăm hai mươi lăm nghìn đồng tiền lãi đã dự thu hồi tháng mười hai năm cũ, và Có tài khoản 515 ghi nhận nốt một triệu ba trăm bảy mươi lăm nghìn đồng tiền lãi của ba tháng đầu năm mới. Không có đồng doanh thu nào bị tính trùng hai lần giữa hai năm cả.",
+          "onScreen": "01/04 Đáo hạn: Nợ 112 (105,5 tr) / Có 1281 (100 tr) · 1388 (4,125 tr) · 515 (1,375 tr)"
+        },
+        {
+          "time": "6:06 – 7:02",
+          "beat": 4,
+          "chapter": "Cạm bẫy phá sổ tháng 9: Mất 4,05 triệu vs Kỹ thuật tách rút 30 triệu",
+          "visual": "So sánh đôi cột tại tháng 9: bên trái rút hết 100 triệu → lãi tụt 0,1% còn 75.000 đ (mất 4.050.000 đ); bên phải rút một phần 30 triệu (22.500 đ) giữ 70 triệu đủ 12 tháng (3.850.000 đ) → nhận tổng 3.872.500 đ.",
+          "vo": "Nhưng kịch bản lại rẽ hoàn toàn nếu bạn cần tiền mặt đột xuất và bấm nút tất toán toàn bộ sổ ở tháng thứ chín. Vì ngân hàng đã đem phần lớn bể vốn giải ngân thành những khoản vay kỳ hạn dài hơn, việc phá hợp đồng buộc ngân hàng phải tự gánh chi phí cân đối thanh khoản thay thế, nên mức lãi bị đưa thẳng về lãi suất không kỳ hạn không phẩy một phần trăm một năm — chỉ còn bảy mươi lăm nghìn đồng, mất đứt bốn triệu không trăm năm mươi nghìn đồng. Ngược lại, khi nhu cầu tiền mặt thực tế chỉ là ba mươi triệu đồng, cơ chế tách thành nhiều sổ nhỏ từ đầu hoặc rút một phần gốc tạo ra kết quả hoàn toàn khác: chỉ riêng ba mươi triệu đồng rút ra mới chịu lãi không kỳ hạn hai mươi hai nghìn năm trăm đồng, còn bảy mươi triệu đồng ở lại vẫn chạy tới tháng mười hai thu đủ ba triệu tám trăm năm mươi nghìn đồng. Tổng lãi nhận ba triệu tám trăm bảy mươi hai nghìn năm trăm đồng — giữ lại hơn tới gần ba triệu tám trăm nghìn đồng.",
+          "onScreen": "Rút hết tháng 9: nhận 75.000 đ (mất 4,05 tr) · Tách rút 30 tr giữ 70 tr: nhận 3.872.500 đ"
+        },
+        {
+          "time": "7:02 – 7:50",
+          "beat": 4,
+          "chapter": "Nhìn sang đầu bên kia: Bên vay vốn hạch toán Nợ TK 635 / Có TK 335",
+          "visual": "Cận cảnh Doanh nghiệp vay vốn (nhà 3): hợp đồng vay 100.000.000 đ ở 9,5%/năm hiện bút toán Nợ TK 635 (Chi phí tài chính: 9.500.000 đ) / Có TK 335 (Chi phí phải trả: 9.500.000 đ).",
+          "vo": "Để thấy bức tranh hoàn chỉnh từ hai đầu dòng chảy, hãy bước sang phòng kế toán của doanh nghiệp đi vay vốn ở cuối chuỗi. Trên cùng một lát cắt quy mô một trăm triệu đồng được ngân hàng giải ngân từ bể tiền gửi kỳ hạn với lãi suất chín phẩy năm phần trăm một năm, kế toán của doanh nghiệp vay vốn ghi nhận chi phí lãi vay trọn một năm là chín triệu rưỡi đồng vào Nợ tài khoản 635 Chi phí tài chính và Có tài khoản 335 Chi phí phải trả trong thời gian chưa tới kỳ thanh toán, còn gốc vay theo dõi trên tài khoản 341. Chính khoản chi phí tài chính chín phẩy năm phần trăm mà doanh nghiệp sản xuất kinh doanh trả cho ngân hàng ấy đã đi xuyên qua mạng lưới chuyển hoá kỳ hạn để hoá thân thành năm triệu rưỡi tiền lãi nằm trong sổ của bạn.",
+          "onScreen": "Sổ DN vay (TT 99): Nợ TK 635 (Chi phí tài chính) / Có TK 335: 9.500.000 đ"
+        },
+        {
+          "time": "7:50 – 8:30",
+          "beat": null,
+          "chapter": "Nhìn thấu mặt sau cuốn sổ tiết kiệm 5,5%/năm trước khi gửi",
+          "visual": "Toàn cảnh 5 định chế sáng dịu cân bằng: dòng vốn kỳ hạn chạy thông qua bể 100 tỷ, nhánh dự trữ 15%, nhánh cho vay 85% và sổ hai đầu TT 99.",
+          "vo": "Từ hôm nay, mỗi khi nhìn thấy con số năm phẩy năm phần trăm một năm trên bảng lãi suất tiền gửi có kỳ hạn, bạn sẽ đọc được cùng lúc cả ba tầng vận hành ẩn phía sau. Thứ nhất, tiền gửi của bạn đang hoà vào bể vốn chung để giữ mười lăm phần trăm dự trữ an toàn và bơm tám mươi lăm phần trăm vào doanh nghiệp vay vốn tạo biên lãi ròng hai phẩy năm bảy lăm phần trăm cho ngân hàng. Thứ hai, mức lãi suất cao đó là phần thưởng đổi lấy cam kết giữ trọn kỳ hạn nên rút toàn bộ giữa chừng sẽ tụt ngay về không phẩy một phần trăm. Và thứ ba, sổ doanh nghiệp luôn có cột mốc dự thu ba mươi mốt tháng mười hai trên tài khoản 1388. Đó là nơi đồng tiền gửi kỳ hạn thực sự làm việc.",
+          "onScreen": "Bể 100 tỷ (15% dự trữ · 85% vay 9,5% → NIM 2,575%) · Tách sổ giữ lãi · Dự thu TK 1388"
+        }
+      ]
+    },
+    "short": {
+      "title": "Gửi kỳ hạn 100 triệu lãi 5,5%: Rút sớm tụt về 0,1% mất 4,05 triệu và tiền đi đâu?",
+      "angle": "Mở đầu bằng cú sốc rút sớm sổ 100 triệu ở tháng 9 tụt từ 5,5% xuống 0,1% (mất 4,05 triệu đ), rồi giải phẫu bể 100 tỷ đ (15% dự trữ / 85% vay 9,5% -> NIM 2,575%), cơ chế tách 30 triệu / 70 triệu và bút toán dự thu 31/12 TK 1388.",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "scenes": [
+        {
+          "time": "0:00 – 0:12",
+          "beat": null,
+          "visual": "9:16 dọc: Một sổ gửi kỳ hạn 100.000.000 đ (12 tháng, 5,5%/năm) đứng cạnh màn hình rút sớm ở tháng thứ 9 chỉ hiện +75.000 đ.",
+          "vo": "Bạn gửi một trăm triệu đồng kỳ hạn một năm lãi năm phẩy năm phần trăm, nhưng mới tới tháng chín rút hết thì chỉ nhận đúng bảy mươi lăm nghìn đồng lãi — mất đứt hơn bốn triệu đồng!",
+          "onScreen": "Gửi 100 tr (5,5%/năm) · Rút tháng 9: chỉ còn 75.000 đ (0,1%)"
+        },
+        {
+          "time": "0:12 – 0:24",
+          "beat": 0,
+          "visual": "9:16 dọc: Doanh nghiệp gửi ghi Nợ TK 1281 / Có TK 112: 100.000.000 đ; sổ nhập vào Bể cộng gộp 1.000 người gửi.",
+          "vo": "Khi bạn mở sổ, doanh nghiệp chuyển tiền từ tài khoản 112 sang tài khoản 1281, còn ngân hàng gom một nghìn người gửi thành bể vốn chung một trăm tỷ đồng.",
+          "onScreen": "Sổ DN: Nợ TK 1281 / Có TK 112 · Bể ngân hàng: 1.000 sổ = 100 tỷ đ"
+        },
+        {
+          "time": "0:24 – 0:38",
+          "beat": 1,
+          "visual": "9:16 dọc: Bể 100 tỷ đ tách đôi: 15% (15 tỷ đ) vào quỹ dự trữ và 85% (85 tỷ đ) cho vay @ 9,5%/năm.",
+          "vo": "Ngân hàng phải giữ lại mười lăm tỷ đồng dự trữ an toàn và chỉ cho doanh nghiệp vay tám mươi lăm tỷ ở mức chín phẩy năm phần trăm, thu tám phẩy không bảy lăm tỷ đồng.",
+          "onScreen": "Giữ 15% dự trữ · Vay 85% @ 9,5% = 8,075 tỷ đ thu lãi"
+        },
+        {
+          "time": "0:38 – 0:50",
+          "beat": 2,
+          "visual": "9:16 dọc: Biên lãi ròng NIM = 2,575 tỷ đ (2,575%) + sổ 31/12 dự thu Nợ TK 1388 / Có TK 515: 4.125.000 đ.",
+          "vo": "Trừ năm tỷ rưỡi trả người gửi, biên lãi ròng chỉ còn hai phẩy năm bảy lăm phần trăm chứ không phải bốn phần trăm, và cuối năm doanh nghiệp dự thu vào tài khoản 1388.",
+          "onScreen": "NIM ròng = 2,575% (~2,58%) · Khoá sổ 31/12: Nợ 1388 / Có 515"
+        },
+        {
+          "time": "0:50 – 1:02",
+          "beat": 3,
+          "visual": "9:16 dọc: Đáo hạn 12 tháng nhận 105.500.000 đ; nếu vay vốn bên kia hạch toán Nợ TK 635 / Có TK 335: 9.500.000 đ.",
+          "vo": "Giữ trọn mười hai tháng bạn nhận đủ một trăm lẻ năm triệu rưỡi đồng, lấy từ chi phí lãi vay chín phẩy năm phần trăm trên tài khoản 635 của doanh nghiệp vay vốn.",
+          "onScreen": "Đủ 12 tháng: +5.500.000 đ lãi · Bên vay: Nợ TK 635 / Có TK 335"
+        },
+        {
+          "time": "1:02 – 1:14",
+          "beat": 4,
+          "visual": "9:16 dọc: Tách rút 30 tr (22.500 đ) + giữ 70 tr đủ kỳ (3.850.000 đ) = 3.872.500 đ lãi thay vì rút trắng 100 tr còn 75.000 đ.",
+          "vo": "Khi tách sổ chỉ rút ba mươi triệu và giữ bảy mươi triệu đến cuối kỳ, người gửi giữ lại ba triệu tám trăm bảy mươi hai nghìn năm trăm đồng tiền lãi thay vì bảy mươi lăm nghìn đồng.",
+          "onScreen": "Tách rút 30 tr giữ 70 tr: nhận 3.872.500 đ lãi thay vì 75.000 đ"
+        }
+      ]
+    }
+  },
+  "houses": [
+    {
+      "type": "home",
+      "label": "Doanh nghiệp gửi kỳ hạn",
+      "sign": "NGƯỜI GỬI",
+      "fxText": {
+        "phone": "mở sổ 100.000.000 đ · kỳ hạn 12 tháng 5,5%"
+      }
+    },
+    {
+      "type": "crowd",
+      "label": "Bể kỳ hạn cộng gộp",
+      "sign": "1.000 NGƯỜI GỬI",
+      "fxText": {
+        "idle": "1.000 sổ × 100 triệu = 100 tỷ đồng vốn kỳ hạn"
+      }
+    },
+    {
+      "type": "iss",
+      "label": "Ngân hàng nhận gửi",
+      "sign": "NGÂN HÀNG",
+      "fxText": {
+        "iledger": "huy động 5,5 tỷ lãi · giữ 15% dự trữ, vay 85%",
+        "hold": "khoá 15% (15 tỷ) dự trữ & thanh khoản chờ rút",
+        "release": "giải ngân 85 tỷ @ 9,5%/năm → thu 8,075 tỷ đ"
+      }
+    },
+    {
+      "type": "co",
+      "label": "Doanh nghiệp vay vốn",
+      "sign": "BÊN VAY VỐN",
+      "fxText": {
+        "hr": "vay 85 tỷ đ kỳ hạn dài hơn · trả lãi 9,5%/năm",
+        "deal": "Nợ TK 635 / Có TK 335: lãi vay 9,5%/năm"
+      }
+    },
+    {
+      "type": "pbank",
+      "label": "Ngân hàng Trung ương",
+      "sign": "NH TRUNG ƯƠNG",
+      "fxText": {
+        "two": "quy định dự trữ bắt buộc trên tổng tiền gửi",
+        "pool": "giữ 15 tỷ đ dự trữ & thanh khoản an toàn"
+      }
+    }
+  ],
+  "beats": [
+    {
+      "when": "01/04 · Mở sổ",
+      "sub": "gửi 100 triệu kỳ hạn 12 tháng",
+      "title": "Ngày 01/04 mở sổ: Chuyển 100.000.000 đ từ TK 112 sang TK 1281 (kỳ hạn 12 tháng 5,5%)",
+      "say": [
+        "Sáng 01/04, doanh nghiệp trích 100.000.000 đồng từ tài khoản thanh toán mở hợp đồng [[tiền gửi có kỳ hạn|term_deposit]] 12 tháng với mức lãi suất ví dụ 5,5%/năm.",
+        "Theo Thông tư 99/2025/TT-BTC, số tiền gửi không biến mất mà chuyển từ dòng tiền chi tiêu hàng ngày (TK 112) sang tiểu khoản TK 1281 — Tiền gửi có kỳ hạn.",
+        "Về phía ngân hàng, 100 triệu đồng vừa nộp không nằm trong két sắt riêng mang tên bạn mà nhập thẳng vào bể huy động vốn trả lãi 5,5%/năm."
+      ],
+      "lit": [
+        0,
+        2
+      ],
+      "tags": {
+        "0": [
+          "Nợ 1281 / Có 112: 100 tr",
+          "minus"
+        ],
+        "2": [
+          "vốn 12 tháng · lãi 5,5%",
+          "plus"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          2,
+          "money"
+        ]
+      ],
+      "fx": [
+        "phone",
+        "iledger"
+      ],
+      "life": "Bạn đổi quyền rút tiền tự do lấy mức lãi 5,5%/năm trong 12 tháng, còn ngân hàng nhận về nguồn vốn ổn định để đưa vào bể giải ngân.",
+      "sys": "Sổ doanh nghiệp gửi (TT 99/2025/TT-BTC): Nợ TK 1281 (Tiền gửi có kỳ hạn: 100.000.000) / Có TK 112 (Tiền gửi không kỳ hạn: 100.000.000).",
+      "ledger": {
+        "book": "Sổ doanh nghiệp mở sổ tiền gửi kỳ hạn ngày 01/04 (TT 99/2025)",
+        "assume": "Doanh nghiệp chuyển 100.000.000 đồng từ tài khoản thanh toán TK 112 sang hợp đồng tiền gửi có kỳ hạn 12 tháng với lãi suất ví dụ 5,5%/năm.",
+        "rows": [
+          [
+            "Nợ",
+            "1281",
+            "Tiền gửi có kỳ hạn",
+            "phản ánh khoản tiền gửi khoá kỳ hạn 12 tháng (thuộc TK 128 Đầu tư nắm giữ đến ngày đáo hạn)",
+            "Tiền được khoá vào sổ kỳ hạn 12 tháng",
+            100000000
+          ],
+          [
+            "Có",
+            "112",
+            "Tiền gửi không kỳ hạn",
+            "giảm số dư tài khoản thanh toán hàng ngày tương ứng 100.000.000 đồng",
+            "Tiền trong tài khoản thanh toán giảm 100 triệu đồng",
+            100000000
+          ]
+        ],
+        "note": "Σ Debit = 100.000.000 = Σ Credit. Cơ cấu tài sản tiền dịch chuyển từ TK 112 sang TK 1281 theo đúng Phụ lục II TT 99/2025/TT-BTC (trên tin nhắn ngân hàng báo trừ số dư là góc nhìn nợ phải trả của ngân hàng, còn sổ tài sản doanh nghiệp ghi Có TK 112).",
+        "lifeNote": "100 triệu đồng vẫn thuộc tài sản công ty bạn, chỉ bước từ ngăn chi tiêu tự do sang ngăn hưởng lãi kỳ hạn."
+      }
+    },
+    {
+      "when": "Gom bể 100 tỷ",
+      "sub": "15% dự trữ · 85% cho vay",
+      "title": "Chuyển hoá kỳ hạn trên bể 100 tỷ đồng: Giữ 15% dự trữ và cho vay 85% ở 9,5%/năm",
+      "say": [
+        "1.000 người gửi như bạn cùng đặt mỗi sổ 100.000.000 đồng, gom thành một bể vốn kỳ hạn cộng gộp quy mô 100 tỷ đồng tại ngân hàng.",
+        "Nhờ quy luật số đông, ngân hàng trích 15% (15 tỷ đồng) đưa vào [[dự trữ bắt buộc|reserve]] tại Ngân hàng Trung ương và đệm thanh khoản, còn 85% (85 tỷ đồng) thực hiện [[chuyển hoá kỳ hạn|maturity_trans]] cho doanh nghiệp vay ở lãi suất ví dụ 9,5%/năm.",
+        "85 tỷ đồng cho vay thu về 8,075 tỷ đồng lãi một năm; trừ 5,5 tỷ đồng trả 1.000 người gửi còn lại 2,575 tỷ đồng thu nhập lãi thuần — tức biên lãi ròng [[NIM|nim]] = 2,575% (làm tròn 2,58%/năm), chứ không phải 4,0%."
+      ],
+      "lit": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "tags": {
+        "1": [
+          "1.000 sổ = 100 tỷ đ",
+          "plain"
+        ],
+        "2": [
+          "NIM ròng 2,575% (2,575 tỷ)",
+          "plus"
+        ],
+        "3": [
+          "vay 85 tỷ @ 9,5%/năm",
+          "plus"
+        ],
+        "4": [
+          "dự trữ an toàn 15% (15 tỷ)",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4,
+          "money"
+        ],
+        [
+          2,
+          3,
+          "money"
+        ]
+      ],
+      "fx": [
+        "idle",
+        "hold",
+        "deal",
+        "pool"
+      ],
+      "life": "Ngân hàng không giữ 100 triệu của bạn trong két riêng, cũng không đem 100% đi cho vay: 15% luôn phải nằm kho giữ an toàn thanh khoản nên biên lãi thực chỉ còn 2,575%.",
+      "sys": "Thu lãi cho vay = 85 tỷ × 9,5% = 8,075 tỷ đ; Chi trả lãi tiền gửi = 100 tỷ × 5,5% = 5,5 tỷ đ; Thu nhập lãi ròng (NII) = 2,575 tỷ đ (NIM = 2,575% ≈ 2,58%/năm trên 100 tỷ bể huy động).",
+      "ledger": null
+    },
+    {
+      "when": "31/12 · Khoá sổ năm",
+      "sub": "dự thu lãi 9 tháng (4,125 triệu)",
+      "title": "Khoá sổ 31/12: Hạch toán dự thu lãi 9 tháng 4.125.000 đ vào TK 1388 / TK 515",
+      "say": [
+        "Đến ngày khoá sổ năm 31/12 (9 tháng tính từ 01/04 theo quy ước minh hoạ 9/12 năm), sổ kỳ hạn của bạn vẫn còn 3 tháng nữa mới đến ngày đáo hạn nhận tiền.",
+        "Theo nguyên tắc [[kế toán dồn tích|accrual]] của Thông tư 99/2025/TT-BTC, 4.125.000 đồng tiền lãi tích luỹ trong năm nay vẫn phải được ghi nhận đúng kỳ vào doanh thu hoạt động tài chính TK 515.",
+        "Khoản lãi chưa nhận tiền mặt này được ghi Nợ TK 1388 (Phải thu khác: 4.125.000 đ), tuyệt đối không dùng TK 131 vốn chỉ dành cho phải thu bán hàng thương mại."
+      ],
+      "lit": [
+        0,
+        2
+      ],
+      "tags": {
+        "0": [
+          "Nợ 1388 / Có 515: +4,125 tr",
+          "plus"
+        ],
+        "2": [
+          "nợ lãi tích luỹ 4,125 tr",
+          "minus"
+        ]
+      },
+      "msgs": [
+        [
+          2,
+          0
+        ]
+      ],
+      "fx": [
+        "phone",
+        "iledger"
+      ],
+      "life": "Dù tiền chưa đổ về tài khoản ngân hàng, doanh nghiệp vẫn phải ghi nhận 4,125 triệu đồng tiền lãi đã sinh ra trong năm nay trước khi khoá sổ 31/12.",
+      "sys": "Bút toán điều chỉnh 31/12 (TT 99/2025/TT-BTC): Nợ TK 1388 (Phải thu khác: 4.125.000) / Có TK 515 (Doanh thu hoạt động tài chính: 4.125.000).",
+      "ledger": {
+        "book": "Sổ kế toán doanh nghiệp gửi tiền tại ngày khoá sổ 31/12 (TT 99/2025)",
+        "assume": "Trích trước doanh thu lãi 9 tháng (01/04–31/12, quy ước minh hoạ 9/12 năm): 100.000.000 × 5,5% × 9/12 = 4.125.000 đồng.",
+        "rows": [
+          [
+            "Nợ",
+            "1388",
+            "Phải thu khác",
+            "lãi tiền gửi đã tích luỹ cuối năm nhưng ngân hàng chưa thanh toán (không dùng TK 131)",
+            "Quyền nhận 4,125 triệu đồng tiền lãi năm nay",
+            4125000
+          ],
+          [
+            "Có",
+            "515",
+            "Doanh thu hoạt động tài chính",
+            "ghi nhận thu nhập từ hoạt động tiền gửi đúng kỳ kế toán năm hiện hành",
+            "Ghi tăng doanh thu tài chính năm nay thêm 4,125 triệu đồng",
+            4125000
+          ]
+        ],
+        "note": "Σ Debit = 4.125.000 = Σ Credit. Dùng TK 1388 (Phải thu khác) đúng chuẩn TT 99/2025/TT-BTC.",
+        "lifeNote": "4,125 triệu đồng tiền lãi đã chạy đủ 9 tháng năm nay nên thuộc về kết quả kinh doanh của năm nay."
+      }
+    },
+    {
+      "when": "01/04 năm sau · Đáo hạn",
+      "sub": "nhận đủ 105,5 triệu vào TK 112",
+      "title": "Đáo hạn đủ 12 tháng: Nhận trọn 105.500.000 đ (gốc + lãi) & xoá khoản dự thu TK 1388",
+      "say": [
+        "Khi giữ hợp đồng đủ 12 tháng đến ngày 01/04 năm sau, ngân hàng thu hồi lãi cho vay 9,5% từ phía doanh nghiệp vay vốn rồi chuyển đủ 105.500.000 đồng vào tài khoản thanh toán của bạn.",
+        "Trong số 5.500.000 đồng tiền lãi thực nhận, có 4.125.000 đồng đã ghi nhận vào doanh thu năm trước trên TK 1388 và 1.375.000 đồng là phần lãi của 3 tháng đầu năm mới.",
+        "Kế toán ghi Nợ TK 112 (105.500.000 đ) đối ứng Có TK 1281 (100.000.000 đ), Có TK 1388 (4.125.000 đ) và Có TK 515 (1.375.000 đ) để không tính trùng lãi hai lần."
+      ],
+      "lit": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "tags": {
+        "0": [
+          "nhận đủ TK 112: +105,5 tr",
+          "plus"
+        ],
+        "2": [
+          "tất toán gốc & 5,5 tr lãi",
+          "plain"
+        ],
+        "3": [
+          "trả lãi 8,075 tỷ về bể NH",
+          "minus"
+        ],
+        "4": [
+          "giải toả tỷ lệ dự trữ sổ",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          3,
+          2,
+          "money"
+        ],
+        [
+          2,
+          0,
+          "money"
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "fx": [
+        "phone",
+        "release",
+        "hr",
+        "two"
+      ],
+      "life": "Giữ trọn 12 tháng giúp người gửi lĩnh đủ 5,5 triệu đồng tiền lãi từ nguồn dòng tiền lãi vay 9,5% mà doanh nghiệp vay vốn hoàn trả cho ngân hàng.",
+      "sys": "Sổ doanh nghiệp gửi khi đáo hạn 01/04 năm sau (TT 99/2025/TT-BTC): Nợ TK 112 (105.500.000) / Có TK 1281 (100.000.000), Có TK 1388 (4.125.000), Có TK 515 (1.375.000).",
+      "ledger": {
+        "book": "Sổ kế toán doanh nghiệp nhận tiền đáo hạn ngày 01/04 năm sau (TT 99/2025)",
+        "assume": "Sổ kỳ hạn 12 tháng đáo hạn, ngân hàng thanh toán đủ gốc 100.000.000 đ và lãi 5.500.000 đ về tài khoản thanh toán TK 112.",
+        "rows": [
+          [
+            "Nợ",
+            "112",
+            "Tiền gửi không kỳ hạn",
+            "tổng tiền gốc và 12 tháng tiền lãi về tài khoản thanh toán",
+            "Tài khoản thanh toán nhận 105,5 triệu đồng tiền thật",
+            105500000
+          ],
+          [
+            "Có",
+            "1281",
+            "Tiền gửi có kỳ hạn",
+            "tất toán phần gốc tiền gửi 100.000.000 đồng khi hợp đồng đáo hạn",
+            "Đóng sổ kỳ hạn 100 triệu đồng",
+            100000000
+          ],
+          [
+            "Có",
+            "1388",
+            "Phải thu khác",
+            "tất toán khoản lãi 9 tháng đã dự thu vào cuối năm tài chính trước",
+            "Xoá cột chờ thu 4,125 triệu đồng của năm cũ",
+            4125000
+          ],
+          [
+            "Có",
+            "515",
+            "Doanh thu hoạt động tài chính",
+            "ghi nhận nốt 3 tháng lãi phát sinh trong năm tài chính mới (3/12 năm)",
+            "Ghi tăng thêm 1,375 triệu đồng lãi của 3 tháng cuối",
+            1375000
+          ]
+        ],
+        "note": "Σ Debit = 105.500.000 = Σ Credit (100.000.000 + 4.125.000 + 1.375.000). Lãi 12 tháng cộng đúng 5.500.000 đ không trùng lặp.",
+        "lifeNote": "105,5 triệu đồng vào tài khoản thanh toán, vừa trả xong gốc vừa khép gọn lãi 2 năm tài chính."
+      }
+    },
+    {
+      "when": "Rút tháng 9 & Bên vay",
+      "sub": "tụt còn 75.000 đ vs tách 30 tr",
+      "title": "Rút sớm tháng 9 mất 4,05 triệu (tụt 0,1%) vs Tách 30 tr giữ 70 tr và Sổ bên vay TK 635",
+      "say": [
+        "Nếu phá toàn bộ sổ 100.000.000 đồng ở tháng 9, lãi quay về mức [[CASA|casa]] 0,1%/năm nên chỉ còn 75.000 đồng (nhận 100.075.000 đ) — đánh mất 4.050.000 đồng tiền lãi.",
+        "Ngược lại, nếu chỉ rút một phần 30.000.000 đồng (nhận 22.500 đ lãi không kỳ hạn) và giữ 70.000.000 đồng hết tháng 12 (hưởng 3.850.000 đ), tổng lãi đạt 3.872.500 đồng — giữ lại hơn tới 3.797.500 đồng.",
+        "Ở đầu bên kia của chuỗi, doanh nghiệp vay 100.000.000 đồng với lãi suất 9,5%/năm hạch toán khoản lãi phải trả 9.500.000 đồng vào Nợ TK 635 (Chi phí tài chính) / Có TK 335 (Chi phí phải trả)."
+      ],
+      "lit": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tags": {
+        "0": [
+          "rút trắng tháng 9: mất 4,05 tr",
+          "minus"
+        ],
+        "1": [
+          "tách 30/70 tr giữ 3,87 tr",
+          "plus"
+        ],
+        "2": [
+          "NIM 2,575% nuôi hệ thống",
+          "plain"
+        ],
+        "3": [
+          "Nợ 635 / Có 335: 9,5 tr",
+          "minus"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          0,
+          "money"
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "fx": [
+        "phone",
+        "idle",
+        "hold",
+        "deal"
+      ],
+      "life": "Rút một phần thay vì phá cả cuốn sổ bảo toàn được gần 3,8 triệu đồng tiền lãi; đồng thời nhớ rõ nguồn lãi đó đến từ chi phí vay 9,5% bên doanh nghiệp sản xuất.",
+      "sys": "Phạt rút trước hạn tháng 9 (quy ước minh hoạ 9/12 so với N/365 thực tế): 100 tr × 0,1% × 9/12 = 75.000 đ (−4.050.000 đ); tách 30/70 tr thu 3.872.500 đ. Sổ bên vay 100 tr @ 9,5%: Nợ TK 635 / Có TK 335 = 9.500.000 đ.",
+      "ledger": {
+        "book": "Sổ kế toán doanh nghiệp đi vay vốn từ bể ngân hàng (TT 99/2025)",
+        "assume": "Trên lát cắt khoản vay 100.000.000 đồng từ bể vốn 85 tỷ đ giải ngân ở lãi suất ví dụ 9,5%/năm trong 12 tháng (gốc theo dõi trên TK 341), chi phí lãi vay phát sinh cả năm là 9.500.000 đồng.",
+        "rows": [
+          [
+            "Nợ",
+            "635",
+            "Chi phí tài chính",
+            "phản ánh chi phí lãi vay phát sinh trong kỳ cho khoản vay ngân hàng",
+            "Chi phí lãi vay phải gánh là 9,5 triệu đồng/năm",
+            9500000
+          ],
+          [
+            "Có",
+            "335",
+            "Chi phí phải trả",
+            "ghi nhận nghĩa vụ trả lãi vay tích luỹ theo hợp đồng tín dụng",
+            "Nghĩa vụ phải trả tiền lãi vay cho ngân hàng",
+            9500000
+          ]
+        ],
+        "note": "Σ Debit = 9.500.000 = Σ Credit. Chính chi phí tài chính TK 635 của bên vay (8,075 tỷ đ trên 85 tỷ bể) cấp nguồn cho ngân hàng trả 5,5% lãi tiền gửi.",
+        "lifeNote": "Người vay gánh 9,5% trên TK 635 để nuôi vòng chuyển hoá kỳ hạn trả 5,5% cho người gửi."
+      }
+    }
+  ]
 }
 };
 
@@ -5972,7 +6872,7 @@ const CATEGORIES = [
   {id:"c1",name:"Lương & Ngân hàng",c:"#3c5a73",topics:[
     {story:"pay"},
     {story:"offus"},
-    {t:"Lãi tiền gửi có kỳ hạn: ngân hàng trả bạn bằng tiền của ai?",status:"upcoming"}]},
+    {story:"termdep"}]},
   {id:"c2",name:"Thẻ, QR & Thanh toán",c:"#8a4a2b",topics:[
     {story:"card"},
     {story:"qr"},
@@ -6256,6 +7156,21 @@ const GLOSS_EN = {
     "t": "Pre-funded Net Debit Cap",
     "en": "Hạn mức ký quỹ bảo chứng",
     "d": "A collateralized liquidity deposit maintained by member banks at the interbank switch to guarantee instant 24/7 credit transfers, assuring the beneficiary bank before multilateral net reserve settlement."
+  },
+  "term_deposit": {
+    "t": "Term Deposit",
+    "en": "Tiền gửi có kỳ hạn",
+    "d": "A bank deposit placed for a fixed contractual maturity (such as 12 months) earning a higher contracted interest rate (illustrative 5.5%/yr) than demand checking deposits. Liquidating the entire certificate early resets accrued interest back to the non-term demand deposit rate (illustrative 0.1%/yr)."
+  },
+  "maturity_trans": {
+    "t": "Maturity Transformation",
+    "en": "Chuyển hoá kỳ hạn",
+    "d": "The core banking intermediation mechanism that pools short- and medium-term retail or corporate deposits into an aggregate funding base to finance longer-dated business loans while retaining required reserves and liquidity buffers."
+  },
+  "nim": {
+    "t": "Net Interest Margin (NIM)",
+    "en": "Biên lãi ròng (NIM)",
+    "d": "The ratio of net interest income (loan and investment yield minus deposit funding expense) divided by average earning assets. Before reaching bank net profit, this spread covers non-earning liquidity buffers, branch and IT overhead, and expected credit loss provisions."
   }
 };
 const CATEGORIES_EN = [
@@ -6271,8 +7186,7 @@ const CATEGORIES_EN = [
         "story": "offus"
       },
       {
-        "t": "Term deposit interest: whose money is the bank paying you with?",
-        "status": "upcoming"
+        "story": "termdep"
       }
     ]
   },
@@ -12083,7 +12997,878 @@ const STORIES_EN = {
         }
       }
     ]
-  }
+  },
+  "termdep": {
+  "name": "100M VND Term Deposit: 5.5%/yr Drops to 0.1% Early & Yield Source",
+  "title": "100M VND Term Deposit at 5.5%/yr: Where Yield Comes From & Why Month-9 Exit Drops to 0.1%",
+  "teaser": "Place 100M VND in a 12-month term deposit at 5.5%/yr, yet exit early in Month 9 and your yield resets to 0.1%/yr (75,000 VND received, losing 4.05M VND); behind the counter, the bank pools 100B VND, holds 15% reserves, and lends 85% at 9.5% to earn a 2.575% NIM.",
+  "category": "c1",
+  "status": "review",
+  "approvedBy": "",
+  "approvedAt": "",
+  "review": {
+    "ketoan": "Tổng: PASS 9 · FAIL 0 · KHỚP NGUỒN THỨ CẤP 9 · FLAG 5",
+    "ketoanAt": "2026-11-15",
+    "draftedBy": "agent",
+    "draftedAt": "2026-11-15"
+  },
+  "article": {
+    "lay": {
+      "myths": [
+        {
+          "myth": "The bank locks your exact 100 million VND banknote bundle inside an individual named safety drawer and hands that specific cash straight to one borrower paying 9.5%/yr.",
+          "truth": "Your 100 million VND merges into an aggregate [[maturity transformation|maturity_trans]] pool alongside thousands of depositors (illustrative example: 1,000 certificates totaling 100 billion VND). The bank holds back 15% (15 billion VND) in required reserves and liquidity buffers, deploying the remaining 85% (85 billion VND) into business loans."
+        },
+        {
+          "myth": "Because your contract quotes 5.5%/yr for 12 months, withdrawing early at Month 9 automatically lets you keep the pro-rata 5.5% interest accrued over those nine months (4,125,000 VND).",
+          "truth": "Liquidating the full 100 million VND certificate at Month 9 triggers the early exit clause: the entire holding period resets to the non-term [[CASA|casa]] rate of 0.1%/yr (75,000 VND), erasing 4,050,000 VND in accrued interest."
+        },
+        {
+          "myth": "Subtracting the 5.5% deposit rate from the 9.5% corporate loan rate leaves the commercial bank with a clean 4.0% pure profit spread on every VND deposited.",
+          "truth": "Because 15% of the pool sits in low- or non-yielding [[reserve|reserve]] buffers, the 85 billion VND loan book earns 8.075 billion VND against 5.5 billion VND paid across the whole 100 billion pool. That compresses net interest income to 2.575 billion VND — an actual [[Net Interest Margin|nim]] (NIM) of 2.575% (rounded 2.58%/yr) before staff overhead and credit loss provisions."
+        },
+        {
+          "myth": "Since a 12-month deposit opened on April 1 does not mature until April 1 next year, corporate bookkeepers record nothing on December 31 year-end financial statements.",
+          "truth": "Under the [[accrual accounting|accrual]] rules in an unofficial summary of Circular 99/2025/TT-BTC, year-end closing on Dec 31 requires booking the 9 months of earned interest (4,125,000 VND) via Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income)."
+        }
+      ],
+      "sections": [
+        {
+          "h": "April 1 Receipt for 100 Million VND at 5.5%/yr — And the 75,000 VND Surprise in Month 9",
+          "paras": [
+            "On the morning of April 1, a small business transfers 100,000,000 VND into a 12-month [[term deposit|term_deposit]] yielding an illustrative 5.5%/yr. On paper, the promise looks effortless: hold the certificate intact until April 1 next year and receive 5,500,000 VND in interest alongside principal for 105,500,000 VND credited back to checking.",
+            "Yet beneath that calm fixed-rate certificate hide two surprises that catch both individuals and finance teams off guard. First, suppose unexpected cash needs force full liquidation at Month 9. On a 9/12 illustrative monthly convention, 5.5%/yr equals 4,125,000 VND earned so far; yet closing the certificate resets all nine months to the non-term [[CASA|casa]] rate of 0.1%/yr, paying just 75,000 VND and wiping out 4,050,000 VND in a single click.",
+            "Second, commercial banks neither manufacture goods nor operate retail storefronts to create that 5,500,000 VND yield. Whose cash pays your 5.5%/yr, how can a bank finance multi-year business expansions while allowing depositors to break contracts on demand, and what happens inside both the depositor and borrower ledgers over those 12 months?"
+          ]
+        },
+        {
+          "h": "Inside the 100 Billion Pool: Liquidity Buffers, Reserves, and Maturity Transformation",
+          "paras": [
+            "The instant you lock 100,000,000 VND into a 12-month term deposit, your money stops sitting in isolation. Commercial banks gather thousands of individual and corporate certificates into one shared funding base: in this benchmark example, imagine 1,000 depositors each placing 100,000,000 VND, assembling an aggregate 100,000,000,000 VND (100 billion VND) term pool.",
+            "Through the law of large numbers, even when a handful of depositors withdraw early in Month 6 or Month 9, most certificates remain undisturbed until maturity. That statistical stability powers [[maturity transformation|maturity_trans]]: converting dispersed 12-month household and business savings into longer-dated loans for equipment, factory capacity, and working capital.",
+            "Crucially, prudential liquidity rules forbid lending out 100% of that 100 billion pool. First, the bank partitions an illustrative 15% (15 billion VND) into statutory [[reserve requirements|reserve]] at the central bank plus an immediate cash liquidity buffer for unexpected redemptions. Only the remaining 85% (85 billion VND) is deployed into corporate loans at an illustrative 9.5%/yr rate."
+          ]
+        },
+        {
+          "h": "Why 9.5% Loans Minus 5.5% Deposits Does Not Equal 4.0% Profit: True NIM at 2.575%",
+          "paras": [
+            "Quick mental subtraction tempts many observers into thinking 9.5% loan pricing minus 5.5% deposit cost leaves the bank with an easy 4.0% profit margin. That shortcut misses two load-bearing beams of bank accounting.",
+            "First, the 15 billion VND parked in statutory reserves and immediate cash liquidity earns zero loan yield in this simplified example, yet the bank still owes 5.5%/yr on the entire 100 billion VND pooled from 1,000 depositors. Multiplying only the earning 85 billion VND loan book by 9.5%/yr produces 8,075,000,000 VND (8.075 billion VND) in gross interest income, while deposit interest expense reaches 5,500,000,000 VND (5.5 billion VND).",
+            "Subtracting 5.5 billion from 8.075 billion leaves exactly 2,575,000,000 VND (2.575 billion VND) in net interest income across the entire 100 billion VND deposit base — giving an overall pool [[Net Interest Margin|nim]] (NIM) of 2.575% (displayed rounded as 2.58%/yr), nowhere near 4.0% (note: dividing NII solely by the 85 billion VND loan book would yield 3.03%, whereas dividing by total pooled deposits yields 2.575%). Even that 2.575% spread is not net profit: it must pay branch staff, risk underwriting teams, core-banking infrastructure, and [[credit risk|creditrisk]] loss reserves whenever borrowers default."
+          ]
+        },
+        {
+          "h": "The Month-9 Early Exit Trap — And How Splitting 30M vs 70M Saves 3,797,500 VND",
+          "paras": [
+            "Now the early-withdrawal clause comes into sharp focus. Because your 12-month commitment underwrote the bank's decision to lend 85% of pooled balances out to corporate borrowers at longer maturities, breaking the entire 100,000,000 VND certificate in Month 9 forces the bank treasury to replace liquidity mid-flight. Consequently, the bank claws back the term premium by applying the 0.1%/yr demand checking rate retroactively across all nine months.",
+            "Using an illustrative 9/12 monthly convention (noting real bank contracts compute daily N/365 accruals), 9 months at 5.5%/yr equals 4,125,000 VND, whereas 0.1%/yr pays 100,000,000 × 0.1% × 9/12 = 75,000 VND. Liquidating the entire certificate costs 4,050,000 VND in forfeited interest, returning 100,075,000 VND total.",
+            "Compare that with withdrawing only what you urgently need — say 30,000,000 VND at Month 9 via partial principal withdrawal or split certificates — while leaving 70,000,000 VND untouched through Month 12. Only the 30M slice drops to 0.1% (earning 22,500 VND), whereas the remaining 70M slice collects 3,850,000 VND at 5.5% upon maturity. Combined interest reaches 3,872,500 VND, preserving 3,797,500 VND more than closing the whole 100M deposit."
+          ]
+        },
+        {
+          "h": "Two Parallel Ledgers Under Circular 99/2025/TT-BTC: Year-End Accrual on Account 1388 & Borrower Cost on Account 635",
+          "paras": [
+            "When a company places a 12-month term deposit on April 1 under an unofficial summary of Circular 99/2025/TT-BTC, corporate bookkeepers reclassify cash out of checking Account 112 (Demand deposits) into Account 1281 (Term deposits, a sub-account of Account 128 Held-to-maturity investments) for 100,000,000 VND. Total corporate assets remain identical — liquidity simply shifts from spendable checking to an interest-bearing investment contract.",
+            "At fiscal year-end on December 31, nine months have elapsed while three months remain before April 1 payout, meaning zero cash interest has reached Account 112 yet. Under [[accrual accounting|accrual]], the 4,125,000 VND earned between April 1 and December 31 belongs to the current fiscal year and must be recognized as Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income) — never Account 131, which is strictly reserved for trade customers.",
+            "When the deposit matures on April 1 of the next year, the bank credits 105,500,000 VND into Account 112: bookkeepers credit Account 1281 for 100,000,000 VND principal, credit Account 1388 to clear the 4,125,000 VND prior-year receivable, and credit Account 515 for the final 1,375,000 VND of new-year interest. Across the street, a corporate borrower drawing 100,000,000 VND at 9.5%/yr records 9,500,000 VND in annual borrowing costs via Debit Account 635 (Financial expenses) / Credit Account 335 (Accrued expenses)."
+          ]
+        }
+      ],
+      "flowSummary": [
+        {
+          "step": "Step 1 (Apr 01 · Open) · Move 100M VND from checking into 12-month Account 1281",
+          "fromTo": "Term Depositor Firm → Deposit-Taking Bank",
+          "channel": "book",
+          "amount": "100,000,000 VND (5.5%/yr)",
+          "essence": "Corporate books record Debit Account 1281 / Credit Account 112 as principal joins the aggregate [[term deposit|term_deposit]] pool."
+        },
+        {
+          "step": "Step 2 (100B Pool) · Hold 15% statutory reserves & cash liquidity buffer",
+          "fromTo": "Pooled Term Savers → Deposit-Taking Bank → Central Bank",
+          "channel": "pipe",
+          "amount": "15,000,000,000 VND (15%)",
+          "essence": "From 1,000 certificates totaling 100B VND, 15% sits inside [[reserve requirements|reserve]] and cash safety buffers rather than earning loan interest."
+        },
+        {
+          "step": "Step 3 (Lending) · Deploy 85% of pooled funding to businesses at 9.5%/yr",
+          "fromTo": "Deposit-Taking Bank → Corporate Borrower",
+          "channel": "pipe",
+          "amount": "85,000,000,000 VND (85%)",
+          "essence": "Through [[maturity transformation|maturity_trans]], 85B VND lent at 9.5% earns 8.075B VND minus 5.5B deposit expense = 2.575B VND net interest income ([[NIM|nim]] 2.575%)."
+        },
+        {
+          "step": "Step 4 (Dec 31 · Accrual) · Book 9-month earned interest prior to cash payout",
+          "fromTo": "Deposit-Taking Bank ↔ Term Depositor Firm",
+          "channel": "wire",
+          "amount": "4,125,000 VND (9M accrued)",
+          "essence": "Under [[accrual accounting|accrual]], depositor records Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income)."
+        },
+        {
+          "step": "Step 5 (Maturity vs Exit) · Collect 105.5M at 12M or forfeit 4.05M on Month-9 exit",
+          "fromTo": "Corporate Borrower → Deposit-Taking Bank → Term Depositor Firm",
+          "channel": "pipe",
+          "amount": "105.5M (12M) | 100.075M (M9 exit)",
+          "essence": "Full term clears 1281/1388/515; full Month-9 exit resets yield to [[CASA|casa]] 0.1% (75,000 VND), while splitting 30M early / 70M held preserves 3,872,500 VND."
+        }
+      ],
+      "roles": [
+        {
+          "who": "Term Depositor Firm",
+          "pays": "Surrenders immediate withdrawal flexibility for 12 months; breaking early in Month 9 forfeits 4,050,000 VND as interest resets from 5.5% to 0.1%/yr.",
+          "gains": "Locks predictable 5.5%/yr return (5,500,000 VND over 12 months) far exceeding checking yields, transparently booked on Account 1281 and Account 515.",
+          "risk": "Liquidity shock forcing premature full liquidation instead of partial withdrawal (splitting 30M/70M saves 3,797,500 VND in interest)."
+        },
+        {
+          "who": "Pooled Term Savers",
+          "pays": "1,000 savers collectively lock 100,000,000 VND each for 12 months, forming an institutional 100B VND stable deposit pool.",
+          "gains": "Creates statistical stability allowing the banking system to fund long-term real-economy capital projects without disrupting normal individual redemptions.",
+          "risk": "Extreme synchronized withdrawals exceeding the 15% reserve and liquidity cushion would strain short-term cash coverage."
+        },
+        {
+          "who": "Deposit-Taking Bank",
+          "pays": "Owes 5.5B VND deposit interest across all 100B VND, isolates 15% in reserve buffers, and funds branch overhead plus credit risk provisions.",
+          "gains": "Collects 8.075B VND interest on 85B VND lent at 9.5%/yr, leaving 2.575B VND net interest income ([[NIM|nim]] = 2.575%, ~2.58%/yr).",
+          "risk": "Asset-liability maturity mismatch and corporate borrower default ([[credit risk|creditrisk]])."
+        },
+        {
+          "who": "Corporate Borrower",
+          "pays": "Incurs 9.5%/yr borrowing cost (Debit Account 635 Financial expenses / Credit Account 335 Accrued expenses: 9,500,000 VND per 100M loan slice).",
+          "gains": "Accesses multi-year 85B VND debt capacity for machinery, inventory, and expansion impossible to source directly from individual savers.",
+          "risk": "Fixed debt-service schedule regardless of operating revenue swings or market rate shifts."
+        },
+        {
+          "who": "Central Bank",
+          "pays": "Administers statutory [[reserve requirements|reserve]], enforces liquidity ratios, and operates lender-of-last-resort stability facilities.",
+          "gains": "Safeguards systemic banking solvency and controls aggregate money supply.",
+          "risk": "Contagion if commercial institutions over-extend [[maturity transformation|maturity_trans]] without adequate reserve buffers."
+        }
+      ],
+      "whenHelps": [
+        "Term deposits (Account 1281) excel for genuinely idle treasury cash not needed for 6–12 months, lifting return to 5.5%/yr compared to passive ~0.1%/yr [[CASA|casa]] checking balances.",
+        "Dividing a 100,000,000 VND reserve into smaller tranches or utilizing partial withdrawal protects 3,850,000 VND in yield on 70,000,000 VND even when 30,000,000 VND must be tapped in Month 9.",
+        "At the macroeconomic layer, bank pooling and [[maturity transformation|maturity_trans]] efficiently channel dispersed household savings into productive 85B VND corporate financing."
+      ],
+      "whenTraps": [
+        "Locking emergency operating reserves into a single indivisible certificate turns into a yield trap when Month-9 cash pressure resets 100,000,000 VND back to 0.1%/yr and forfeits 4,050,000 VND.",
+        "Omitting December 31 [[accrual accounting|accrual]] entries (or misclassifying bank interest receivables under customer Account 131 instead of Account 1388) violates an unofficial summary of Circular 99/2025/TT-BTC presentation.",
+        "Evaluating bank margins by naively taking 9.5% − 5.5% = 4.0% ignores the non-lending 15% reserve buffer that compresses actual [[NIM|nim]] down to 2.575% before operating costs."
+      ],
+      "takeaways": [
+        "Why breaking a full 100M VND 12-month term deposit at Month 9 drops interest from 5.5%/yr down to 0.1%/yr (75,000 VND paid, 4.05M lost) — and how withdrawing only 30M retains 3,872,500 VND total.",
+        "When a bank pools 100B VND at 5.5%, reserves 15%, and lends 85% at 9.5%/yr, why net interest income equals 2.575B VND and NIM is 2.575% (not 4.0%).",
+        "On December 31 fiscal year-end, why accrued 9-month term deposit interest (4,125,000 VND) posts to Account 1388 (Other receivables) / Account 515 rather than Account 131.",
+        "How the corporate borrower at the other end of the pool accounts for its 9.5%/yr loan cost on Account 635 and Account 335."
+      ]
+    },
+    "pro": {
+      "mechanics": [
+        {
+          "h": "1 · Maturity Transformation & the 100B Pooled Liquidity Structure",
+          "p": "On a commercial bank's balance sheet, a customer's 100,000,000 VND [[term deposit|term_deposit]] sits inside Liabilities, mirroring the depositor enterprise's Asset classification on Account 1281. Rather than matching one specific certificate 1-to-1 against a single loan, banks aggregate 1,000 individual 100M placements into a 100,000,000,000 VND (100B) term pool. Because early withdrawals across a large depositor population occur statistically rarely at the exact same moment, [[maturity transformation|maturity_trans]] converts 12-month liabilities into longer-dated corporate credit while setting aside a combined 15% (15B VND) [[reserve requirement|reserve]] and liquidity cushion."
+        },
+        {
+          "h": "2 · Bank Balance-Sheet Math: Why True NIM Compresses to 2.575% (~2.58%/yr)",
+          "p": "Subtracting headline lending rates from deposit rates (9.5% − 5.5% = 4.0%) systematically overstates bank profitability. In the 100B VND pool example, 15% (15B VND) sits in cash reserves generating zero loan spread in the simplified model, while the bank owes 5.5% on 100% of deposits = 5,500,000,000 VND. Deploying the remaining 85% (85B VND) at 9.5%/yr generates 85B × 9.5% = 8,075,000,000 VND in interest revenue. Net interest income equals 8.075B − 5.500B = 2,575,000,000 VND, yielding an exact [[Net Interest Margin|nim]] of 2.575% (displayed rounded as 2.58%/yr) before salaries, IT systems, and [[credit risk|creditrisk]] provisions."
+        },
+        {
+          "h": "3 · Early Liquidation Reset Penalty vs Partial Withdrawal Economics",
+          "p": "Under a 12-month deposit contract, the 5.5%/yr rate compensates the depositor for relinquishing on-demand liquidity. Liquidating all 100,000,000 VND at Month 9 (illustrative 9/12 convention versus actual N/365 bank day-counts) forfeits the accrued term rate of 4,125,000 VND and recalculates all nine months at the [[CASA|casa]] rate of 0.1%/yr = 75,000 VND, surrendering 4,050,000 VND (100,075,000 VND paid). Splitting or partially withdrawing only 30,000,000 VND at Month 9 accepts 22,500 VND on 30M while keeping 70,000,000 VND intact until Month 12 (3,850,000 VND) — delivering 3,872,500 VND total (+3,797,500 VND ahead of full liquidation)."
+        },
+        {
+          "h": "4 · Symmetrical Accounting Under Circular 99/2025/TT-BTC (Accounts 1281, 1388, 515 & 635, 335)",
+          "p": "According to an unofficial summary of Circular 99/2025/TT-BTC, an enterprise opening a 12-month term deposit shifts balances from Account 112 (Demand deposits) to Account 1281 (Term deposits inside Account 128 Held-to-maturity investments). At December 31 year-end, 9 months of [[accrued interest|accrual]] (4,125,000 VND) posts via Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income) rather than trade Account 131. Upon April 1 maturity, Debit Account 112 (105,500,000 VND) clears Account 1281 (100M), Account 1388 (4.125M), and records new-year interest in Account 515 (1.375M). On the borrower side (100M loan @ 9.5%/yr), annual debt cost posts as Debit Account 635 / Credit Account 335 (9,500,000 VND)."
+        }
+      ],
+      "accountingNotes": [
+        "In this unofficial summary of Circular 99/2025/TT-BTC, Account 112 is titled 'Demand deposits', whereas fixed-term placements are separated under Account 128 ('Held-to-maturity investments'), sub-account 1281 ('Term deposits').",
+        "Year-end accrued deposit interest earned through December 31 before cash receipt is booked to Debit Account 1388 ('Other receivables') / Credit Account 515 ('Financial income'), strictly avoiding Account 131 ('Trade receivables').",
+        "For the corporate borrower accessing credit from the bank pool, principal sits on Account 341 ('Borrowings and finance lease liabilities') while accrued periodic interest is recognized via Debit Account 635 ('Financial expenses') / Credit Account 335 ('Accrued expenses').",
+        "Note scope separation: T-accounts reflect Vietnamese enterprise reporting (unofficial summary of Circular 99/2025/TT-BTC) rather than the separate statutory Credit Institutions Chart of Accounts maintained internally by commercial banks."
+      ],
+      "journal": [
+        {
+          "step": "Entry 1 (Apr 01 · Opening 12-month 100M term deposit)",
+          "book": "Depositor corporate ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "On April 1, the enterprise moves 100,000,000 VND from its Account 112 demand balance into a 12-month term deposit at an illustrative 5.5%/yr rate.",
+          "rows": [
+            [
+              "Debit",
+              "1281",
+              "Term deposits",
+              "recognizing 12-month fixed placement under Account 128 Held-to-maturity investments",
+              "Locking 100M VND into 12-month term deposit",
+              100000000
+            ],
+            [
+              "Credit",
+              "112",
+              "Demand deposits",
+              "reclassifying funds out of checking account balance",
+              "Reducing demand checking balance by 100M VND",
+              100000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 100,000,000 VND. Total corporate assets remain unchanged; cash shifts from demand deposits (Account 112) to a 12-month term deposit (Account 1281). Note: bank SMS alerts mark balance deductions as debits from the bank's liability view, whereas corporate asset accounting credits Account 112.",
+          "lifeNote": "100 million VND moves out of everyday checking into a 12-month contracted certificate."
+        },
+        {
+          "step": "Entry 2 (Dec 31 · Accruing 9 months of earned interest on year-end close)",
+          "book": "Depositor corporate ledger on Dec 31 (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "Through December 31 (9/12 illustrative year convention), accrued term interest equals 100,000,000 × 5.5% × 9/12 = 4,125,000 VND prior to maturity payout.",
+          "rows": [
+            [
+              "Debit",
+              "1388",
+              "Other receivables",
+              "recording non-trade accrued bank interest receivable (never Account 131)",
+              "Accrued 9-month interest claim on bank",
+              4125000
+            ],
+            [
+              "Credit",
+              "515",
+              "Financial income",
+              "recognizing earned deposit interest in current fiscal year",
+              "Recording 4.125M VND current-year financial income",
+              4125000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 4,125,000 VND. Account 1388 accurately separates financial interest receivables from trade receivables.",
+          "lifeNote": "Even before cash arrives on maturity day, nine months of earned interest belong on this year's income statement."
+        },
+        {
+          "step": "Entry 3 (Apr 01 Year +1 · Full 12-month maturity settlement)",
+          "book": "Depositor corporate ledger at maturity (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "Upon full 12-month maturity, the bank returns 100,000,000 VND principal plus 5,500,000 VND total interest (4,125,000 VND prior-year receivable + 1,375,000 VND new-year interest).",
+          "rows": [
+            [
+              "Debit",
+              "112",
+              "Demand deposits",
+              "receiving full principal plus 12 months interest in checking cash",
+              "Total 105.5M VND cash credited to checking",
+              105500000
+            ],
+            [
+              "Credit",
+              "1281",
+              "Term deposits",
+              "retiring 100,000,000 VND principal certificate upon maturity",
+              "Closing matured 100M VND certificate",
+              100000000
+            ],
+            [
+              "Credit",
+              "1388",
+              "Other receivables",
+              "settling 9-month interest accrued at December 31",
+              "Clearing 4.125M VND prior-year receivable",
+              4125000
+            ],
+            [
+              "Credit",
+              "515",
+              "Financial income",
+              "recognizing remaining 3 months of new-year interest (100M × 5.5% × 3/12)",
+              "Recording final 1.375M VND new-year income",
+              1375000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 105,500,000 VND. Splits total 5,500,000 VND interest cleanly across two fiscal periods.",
+          "lifeNote": "Holding to maturity brings the full 105.5M VND home and closes every accrual line smoothly."
+        },
+        {
+          "step": "Entry 4 (Borrower side · 12-month interest expense on 100M loan slice @ 9.5%/yr)",
+          "book": "Corporate borrower ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "A borrowing company draws a 100,000,000 VND loan slice funded from the bank pool (principal tracked on Account 341) at an illustrative 9.5%/yr rate for 12 months.",
+          "rows": [
+            [
+              "Debit",
+              "635",
+              "Financial expenses",
+              "recognizing annual borrowing cost incurred on bank credit facility",
+              "Recording 9.5M VND annual interest expense",
+              9500000
+            ],
+            [
+              "Credit",
+              "335",
+              "Accrued expenses",
+              "accruing contractual interest payable to the lending bank",
+              "Accrued interest payable to bank",
+              9500000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 9,500,000 VND. Aggregate borrower interest payments (8.075B VND across 85B lent) fund the 5.5B VND paid to savers.",
+          "lifeNote": "Deposit yields originate directly from productive borrowers booking Account 635 interest expense."
+        }
+      ],
+      "edgeCases": [
+        {
+          "h": "Splitting or Partial Principal Withdrawal (30M Early / 70M Held) & Deposit-Backed Overdrafts",
+          "p": "When only 30,000,000 VND is needed at Month 9, breaking an entire 100,000,000 VND certificate forfeits 4,050,000 VND of interest (dropping from 4,125,000 VND to 75,000 VND). Holding multiple smaller tranches or electing partial principal withdrawal restricts the 0.1% penalty to 30M (22,500 VND), preserving 3,850,000 VND on the remaining 70M — yielding 3,872,500 VND total (+3,797,500 VND better). Near maturity, treasurers sometimes evaluate short-term certificate-backed borrowing if saved yield exceeds brief financing costs."
+        },
+        {
+          "h": "Post-Year-End Early Exit After Accruing 4,125,000 VND on December 31",
+          "p": "If a depositor company already recognized 4,125,000 VND in Account 1388 / Account 515 on December 31 financial statements but liquidates the full deposit early in Q1 prior to April 1 at the 0.1% demand rate (receiving e.g. 75,000–83,000 VND interest), accounting teams debit Account 112 for cash received, credit Account 1281 (100,000,000 VND), derecognize the 4,125,000 VND receivable in Account 1388, and reverse/adjust the uncollected interest difference (via Account 515/635 or prior-period financial statement adjustment before issuance under VAS 23 and an unofficial summary of Circular 99/2025/TT-BTC)."
+        },
+        {
+          "h": "Auto-Rollover Rate Resets at Maturity & Actual-Day (N/365) vs Illustrative Monthly Conventions",
+          "p": "When auto-rollover is active on April 1, principal (or principal plus 5,500,000 VND interest) automatically re-locks for a fresh 12-month cycle at whatever market rate the bank posts on that rollover date, rather than preserving 5.5%. Furthermore, real bank settlement engines multiply annual rates by exact calendar days held divided by 365 (N/365) rather than the simplified 9/12 monthly convention used for transparent calculation."
+        }
+      ]
+    }
+  },
+  "videoScript": {
+    "long": {
+      "title": "Depositing 100M VND at 5.5%/yr: How Banks Fund Interest & Why Early Exit Drops to 0.1%",
+      "hookNote": "Open with two outcomes on a 100M VND 12-month deposit at 5.5%/yr: full maturity pays 105.5M VND, while Month-9 full withdrawal drops interest to 75,000 VND (0.1%/yr, forfeiting 4.05M) — then pull back to reveal the 100B pool (15% reserves / 85% loans at 9.5% -> 2.575% NIM) and Circular 99/2025/TT-BTC books.",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "scenes": [
+        {
+          "time": "0:00 – 0:46",
+          "beat": null,
+          "chapter": "Prologue: The 100 Million Certificate & Month-9 Drop to 75,000 VND",
+          "visual": "16:9 cutaway of 5 institutions on April 1: Term Depositor Firm places 100,000,000 VND for 12 months at 5.5%/yr beside a Month-9 early withdrawal warning showing 75,000 VND interest.",
+          "vo": "On April first, you place one hundred million dong into a twelve-month term deposit offering an illustrative interest rate of five point five percent per year. At first glance the math seems straightforward: hold the certificate for one full year and collect five point five million dong in interest, bringing your payout to one hundred and five point five million dong. Yet what happens if an urgent liquidity gap forces you to liquidate the entire deposit in month nine, just three months shy of maturity? Pro-rata math suggests you have earned four point one two five million dong so far. Instead, your settlement receipt drops to just seventy-five thousand dong — calculated retroactively at the zero point one percent demand rate — wiping out four point zero five million dong overnight. Why is the penalty so severe, and where does a commercial bank find five point five percent to fund that yield? Step behind the teller counter to trace the cash.",
+          "onScreen": "100,000,000 VND (5.5%/yr) · 12M Hold: +5.5M · Month-9 Full Exit: +75,000 VND (0.1%)"
+        },
+        {
+          "time": "0:46 – 1:40",
+          "beat": 0,
+          "chapter": "Apr 01 Open: Reclassifying 100M from Account 112 to Account 1281",
+          "visual": "Term Depositor Firm and Deposit-Taking Bank highlight. Double-entry ledger records Debit Account 1281 / Credit Account 112: 100,000,000 VND.",
+          "vo": "Start on day one, April first. When an enterprise opens a one-hundred-million-dong term deposit, its cash does not vanish; it changes liquidity status. Under an unofficial summary of Circular 99 of 2025, corporate bookkeepers debit Account 1281 Term deposits for one hundred million dong and credit Account 112 Demand deposits for one hundred million dong. Total company assets remain unchanged, simply moving from spendable checking cash into a held-to-maturity investment. Across the desk, your commercial bank does not lock those banknotes into an individual safe labeled with your company name. Instead, the bank books a twelve-month liability owed to you and feeds your deposit into a massive collective liquidity pool.",
+          "onScreen": "Apr 01 Entry: Debit Account 1281 (Term deposits) / Credit Account 112: 100,000,000 VND"
+        },
+        {
+          "time": "1:40 – 2:34",
+          "beat": 1,
+          "chapter": "The 100 Billion Pool & Maturity Transformation: 15% Reserve vs 85% Loans",
+          "visual": "Pooled Term Savers lights up (1,000 depositors × 100M = 100B VND). Bank partitions 15% (15B) to Central Bank reserves/liquidity and deploys 85% (85B) to Corporate Borrower.",
+          "vo": "Zoom out to see the whole funding pool. Alongside your one hundred million dong, nine hundred ninety-nine other savers open identical twelve-month certificates, assembling a combined one hundred billion dong pool on the bank's balance sheet. Because statistical probability guarantees that all one thousand savers will not walk in demanding cash during the exact same morning, the bank performs its signature function: maturity transformation, converting dispersed savings into longer-dated business credit. However, safety regulations prohibit lending out one hundred percent of the pool. First, the bank sets aside fifteen percent — fifteen billion dong — in statutory central-bank reserves and cash liquidity cushions. Only the remaining eighty-five percent, or eighty-five billion dong, moves out as loans to productive businesses.",
+          "onScreen": "1,000 Savers = 100B VND Pool · 15% (15B) Reserves · 85% (85B) Lent to Businesses"
+        },
+        {
+          "time": "2:34 – 3:28",
+          "beat": 1,
+          "chapter": "NIM Math: Why 9.5% Loans Minus 5.5% Deposits Equals 2.575%, Not 4.0%",
+          "visual": "Bank income panel contrasts 85B × 9.5% = 8.075B loan yield against 100B × 5.5% = 5.5B deposit expense, leaving 2.575B net interest income (NIM 2.575%).",
+          "vo": "Here is where quick mental arithmetic trips most people up. Seeing a nine point five percent corporate loan rate beside a five point five percent deposit rate leads many to subtract them straight into a four percent bank profit margin. That shortcut ignores the fifteen billion dong trapped inside non-lending reserves! Look at the actual pool numbers in this illustrative example: only eighty-five billion dong earns nine point five percent loan interest, generating eight point zero seven five billion dong per year. Meanwhile, the bank pays five point five percent across the full one hundred billion pool, spending five point five billion dong on deposit interest. Subtracting five point five from eight point zero seven five leaves two point five seven five billion dong — a true Net Interest Margin of exactly two point five seven five percent, or roughly two point five eight percent rounded.",
+          "onScreen": "Loan Yield 85B × 9.5% = 8.075B · Deposit Cost 100B × 5.5% = 5.5B · NII = 2.575B (NIM 2.575%)"
+        },
+        {
+          "time": "3:28 – 4:18",
+          "beat": 1,
+          "chapter": "Inside the 2.575% Spread: Staff Overhead, Systems, and Credit Loss Reserves",
+          "visual": "Net Interest Income of 2.575B splits across teller operations, core IT systems, and credit risk loss reserves protecting principal.",
+          "vo": "Nor is that two point five seven five percent margin pure profit ready to distribute as dividends. From that spread, commercial banks finance branch networks, teller compensation, credit underwriting teams, round-the-clock digital infrastructure, and most critically, credit loss provisions. Unlike a deposit contract that promises fixed principal back on maturity day regardless of economic storms, corporate borrowers inside that eighty-five billion dong loan portfolio always carry credit risk if revenues falter. This two point five seven five percent cushion acts as the shock absorber protecting depositor principal across business cycles.",
+          "onScreen": "2.575% NIM Covers Operations + IT Infrastructure + Credit Loss Provisions"
+        },
+        {
+          "time": "4:18 – 5:12",
+          "beat": 2,
+          "chapter": "Dec 31 Year-End Close: Accruing 4,125,000 VND via Account 1388 / Account 515",
+          "visual": "Term Depositor Firm clock hits Dec 31 (9M). Ledger highlights Debit Account 1388 (Other receivables: 4,125,000) / Credit Account 515 (Financial income: 4,125,000).",
+          "vo": "Fast-forward to December thirty-first, when the depositor firm closes its annual accounting books. Nine months have passed since April first, yet three months remain before maturity, meaning zero interest cash has arrived in checking Account 112. Under accrual accounting in an unofficial summary of Circular 99 of 2025, however, the four point one two five million dong earned over nine months belongs to the current fiscal year. Corporate bookkeepers record Debit Account 1388 Other receivables for four point one two five million dong and Credit Account 515 Financial income — never using Account 131, which belongs strictly to trade sales customers.",
+          "onScreen": "Dec 31 Accrual: Debit Account 1388 (Other receivables) / Credit Account 515: 4,125,000 VND"
+        },
+        {
+          "time": "5:12 – 6:06",
+          "beat": 3,
+          "chapter": "Apr 01 Maturity Settlement: Collecting 105.5M Without Double-Counting Income",
+          "visual": "105,500,000 VND returns to Account 112, offsetting Account 1281 (100M), Account 1388 (4.125M), and Account 515 (1.375M).",
+          "vo": "Hold the certificate steadily through April first of the following year, and the full cycle concludes cleanly. The bank wires one hundred and five point five million dong into your company checking account. On corporate books, accountants Debit Account 112 Demand deposits for one hundred and five point five million dong, and split three Credits cleanly: Credit Account 1281 for the original one hundred million principal, Credit Account 1388 to settle the four point one two five million receivable recorded back in December, and Credit Account 515 for the final one point three seven five million earned during Q1. Not one dong of revenue gets counted twice across fiscal years.",
+          "onScreen": "Apr 01 Maturity: Debit 112 (105.5M) / Credit 1281 (100M), 1388 (4.125M), 515 (1.375M)"
+        },
+        {
+          "time": "6:06 – 7:02",
+          "beat": 4,
+          "chapter": "Month-9 Early Exit vs Partial Split: Saving 3,797,500 VND with 30M / 70M",
+          "visual": "Split comparison: Full Month-9 exit leaves 75,000 VND (−4.05M loss), whereas splitting 30M exit (22,500 VND) + 70M held to Month 12 (3,850,000 VND) returns 3,872,500 VND.",
+          "vo": "Contrast that smooth finish with breaking the full certificate in month nine. Because the bank already matched your twelve-month liability against longer-dated lending, full early exit resets all one hundred million dong back to the zero point one percent checking rate, yielding seventy-five thousand dong and forfeiting four point zero five million dong. Yet if you only need thirty million dong in month nine, splitting certificates upfront or utilizing partial withdrawal confines the zero point one percent reset to just thirty million dong — earning twenty-two thousand five hundred dong — while seventy million stays locked at five point five percent to earn three point eight five million. Combined yield hits three point eight seven two five million, preserving almost three point eight million dong more.",
+          "onScreen": "Full M9 Exit: 75,000 VND · Split 30M Early / 70M Held: 3,872,500 VND (+3.7975M saved)"
+        },
+        {
+          "time": "7:02 – 7:50",
+          "beat": 4,
+          "chapter": "The Borrower's Mirror Ledger: Booking Account 635 Financial Expenses at 9.5%",
+          "visual": "Corporate Borrower highlights: 100M loan slice at 9.5%/yr posts Debit Account 635 (9,500,000) / Credit Account 335 (9,500,000).",
+          "vo": "Finally, step across to the corporate borrower receiving credit from that bank pool. On a matching one-hundred-million-dong loan slice priced at nine point five percent annually, with principal tracked on Account 341, the borrower's accounting team posts nine point five million dong per year to Debit Account 635 Financial expenses and Credit Account 335 Accrued expenses. Those commercial borrowing costs flowing back into the bank pool are the exact economic engine paying your five point five percent term yield.",
+          "onScreen": "Borrower Books: Debit Account 635 (Financial expenses) / Credit Account 335: 9,500,000 VND"
+        },
+        {
+          "time": "7:50 – 8:30",
+          "beat": null,
+          "chapter": "Outro: Reading Every 5.5% Term Rate with Institutional Clarity",
+          "visual": "Balanced overview of all 5 institutions linking saver pool, 15% reserves, 85% corporate lending, and Circular 99 T-accounts.",
+          "vo": "Next time you see a five point five percent term deposit quote, you see every gear underneath the headline rate. Your certificate merges into a pooled fund keeping fifteen percent in safe reserves while lending eighty-five percent to borrowers paying nine point five percent, leaving a two point five seven five percent net interest margin. Respecting maturity prevents an early-exit drop to zero point one percent, while December thirty-first accruals belong cleanly on Account 1388. That is where term deposit interest truly sleeps.",
+          "onScreen": "100B Pool (15% Reserve · 85% Loan @ 9.5% -> 2.575% NIM) · Split Tranches · Accrual Acc 1388"
+        }
+      ]
+    },
+    "short": {
+      "title": "100M Term Deposit at 5.5%: Early Exit Drops to 0.1% (−4.05M) & Where Yield Comes From",
+      "angle": "Opens with the Month-9 early-exit shock (100M dropping from 5.5% to 0.1% / 75,000 VND), then exposes the 100B bank pool (15% reserve, 85% lending at 9.5% -> 2.575% NIM), the 30M/70M split, and Account 1388 accrual.",
+      "youtubeId": "",
+      "embedStatus": "pending_upload",
+      "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
+      "scenes": [
+        {
+          "time": "0:00 – 0:12",
+          "beat": null,
+          "visual": "9:16 vertical: 100M VND 12-month term certificate at 5.5%/yr beside Month-9 early withdrawal screen showing only 75,000 VND paid.",
+          "vo": "Lock 100 million dong for 12 months at 5.5% and exit in month 9, and your interest drops to just 75,000 dong — wiping out 4.05 million!",
+          "onScreen": "100M Term Deposit (5.5%) · Month-9 Full Exit: Only 75,000 VND (0.1%)"
+        },
+        {
+          "time": "0:12 – 0:24",
+          "beat": 0,
+          "visual": "9:16 vertical: Depositor shifts Account 112 to Account 1281; bank pools 1,000 certificates into 100B VND.",
+          "vo": "Your company moves cash from Account 112 into Account 1281, while the bank gathers 1,000 savers into a shared 100 billion dong pool.",
+          "onScreen": "Books: Debit 1281 / Credit 112 · Pool: 1,000 Savers = 100B VND"
+        },
+        {
+          "time": "0:24 – 0:38",
+          "beat": 1,
+          "visual": "9:16 vertical: 100B splits into 15% (15B) reserves and 85% (85B) business loans @ 9.5%.",
+          "vo": "Safety rules lock 15 billion in central-bank reserves and lend 85 billion to firms at 9.5%, generating 8.075 billion in loan yield.",
+          "onScreen": "15% (15B) Reserve · 85% (85B) Lent @ 9.5% = 8.075B Loan Yield"
+        },
+        {
+          "time": "0:38 – 0:50",
+          "beat": 2,
+          "visual": "9:16 vertical: Bank NIM equals 2.575% (2.575B); Dec 31 corporate close hits Account 1388 / 515.",
+          "vo": "Minus 5.5 billion paid to savers, net interest margin is only 2.575%, while year-end corporate books accrue earned interest onto Account 1388.",
+          "onScreen": "Net Interest Margin = 2.575% (~2.58%) · Year-End Accrual: Acc 1388 / 515"
+        },
+        {
+          "time": "0:50 – 1:02",
+          "beat": 3,
+          "visual": "9:16 vertical: Full maturity returns 105.5M funded by corporate borrowers booking Account 635.",
+          "vo": "Hold all 12 months to collect 105.5 million dong, funded directly by corporate borrowers booking 9.5% interest expense on Account 635.",
+          "onScreen": "12M Maturity: +5.5M Interest · Borrower Books: Account 635 / 335"
+        },
+        {
+          "time": "1:02 – 1:14",
+          "beat": 4,
+          "visual": "9:16 vertical: Partial split withdrawing 30M early / holding 70M retains 3,872,500 VND vs 75,000 VND.",
+          "vo": "By contrast, withdrawing only 30 million early while keeping 70 million to maturity retains 3,872,500 dong in interest instead of dropping to 75,000 dong.",
+          "onScreen": "Split 30M Exit / 70M Hold: Earns 3,872,500 VND vs 75,000 VND"
+        }
+      ]
+    }
+  },
+  "houses": [
+    {
+      "type": "home",
+      "label": "Term Depositor Firm",
+      "sign": "DEPOSITOR",
+      "fxText": {
+        "phone": "100M VND · 12M certificate @ 5.5%/yr"
+      }
+    },
+    {
+      "type": "crowd",
+      "label": "Pooled Term Savers",
+      "sign": "1,000 SAVERS",
+      "fxText": {
+        "idle": "1,000 certs × 100M = 100B VND term pool"
+      }
+    },
+    {
+      "type": "iss",
+      "label": "Deposit-Taking Bank",
+      "sign": "BANK",
+      "fxText": {
+        "iledger": "pays 5.5B interest · 15% reserve, 85% loans",
+        "hold": "locks 15% (15B) liquidity & reserve buffer",
+        "release": "lends 85B @ 9.5%/yr → earns 8.075B VND"
+      }
+    },
+    {
+      "type": "co",
+      "label": "Corporate Borrower",
+      "sign": "BORROWER",
+      "fxText": {
+        "hr": "borrows 85B multi-year · pays 9.5%/yr",
+        "deal": "Debit 635 / Credit 335: 9.5% loan interest"
+      }
+    },
+    {
+      "type": "pbank",
+      "label": "Central Bank",
+      "sign": "CENTRAL BANK",
+      "fxText": {
+        "two": "sets statutory reserve ratios on deposits",
+        "pool": "holds 15B safe reserves & liquidity cushion"
+      }
+    }
+  ],
+  "beats": [
+    {
+      "when": "Apr 01 · Open",
+      "sub": "100M 12-month placement",
+      "title": "April 1 Placement: Moving 100M VND from Checking Account 112 into Term Account 1281",
+      "say": [
+        "On April 1, the enterprise transfers 100,000,000 VND from daily checking into a 12-month [[term deposit|term_deposit]] yielding an illustrative 5.5%/yr.",
+        "In an unofficial summary of Circular 99/2025/TT-BTC, books move cash cleanly from Account 112 to sub-account 1281 (Term deposits).",
+        "On the bank's side, the 100M placement enters a pooled liability base rather than a sealed individual drawer."
+      ],
+      "lit": [
+        0,
+        2
+      ],
+      "tags": {
+        "0": [
+          "Debit 1281 / Credit 112: 100M",
+          "minus"
+        ],
+        "2": [
+          "12M funding @ 5.5%/yr",
+          "plus"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          2,
+          "money"
+        ]
+      ],
+      "fx": [
+        "phone",
+        "iledger"
+      ],
+      "life": "You trade 12 months of instant spending flexibility for 5.5%/yr, giving the bank stable funding.",
+      "sys": "Depositor ledger (unofficial summary of Circular 99/2025/TT-BTC): Debit 1281 (100M) / Credit 112 (100M).",
+      "ledger": {
+        "book": "Depositor corporate ledger on Apr 01 (unofficial summary of Circular 99/2025/TT-BTC)",
+        "assume": "Enterprise transfers 100,000,000 VND from Account 112 into a 12-month 5.5%/yr term deposit.",
+        "rows": [
+          [
+            "Debit",
+            "1281",
+            "Term deposits",
+            "recognizing 12-month fixed placement under Account 128",
+            "Cash locked for 12-month term",
+            100000000
+          ],
+          [
+            "Credit",
+            "112",
+            "Demand deposits",
+            "reducing checking account liquidity",
+            "Checking cash reduced by 100M",
+            100000000
+          ]
+        ],
+        "note": "Σ Debit = Σ Credit = 100,000,000 VND. Corporate cash stays unchanged in total assets, shifting from demand Account 112 to term Account 1281 (bank SMS shows a deduction from the bank's liability perspective).",
+        "lifeNote": "Funds stay inside corporate assets, shifting from checking to term investment."
+      }
+    },
+    {
+      "when": "100B Pool Split",
+      "sub": "15% reserve · 85% lent",
+      "title": "Pool Mechanics: Retaining 15% Safe Reserves and Lending 85% at 9.5%/yr (NIM 2.575%)",
+      "say": [
+        "1,000 savers placing 100,000,000 VND each assemble a 100 billion VND pool.",
+        "The bank sets aside 15% (15B) in [[reserve requirements|reserve]] and cash buffers, using [[maturity transformation|maturity_trans]] to lend 85% (85B) at 9.5%/yr.",
+        "8.075B loan interest minus 5.5B deposit payout yields 2.575B net interest income — a 2.575% [[Net Interest Margin|nim]] (~2.58%/yr)."
+      ],
+      "lit": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "tags": {
+        "1": [
+          "1,000 certs = 100B VND",
+          "plain"
+        ],
+        "2": [
+          "NIM 2.575% (2.575B)",
+          "plus"
+        ],
+        "3": [
+          "85B lent @ 9.5%/yr",
+          "plus"
+        ],
+        "4": [
+          "15% (15B) reserve lock",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4,
+          "money"
+        ],
+        [
+          2,
+          3,
+          "money"
+        ]
+      ],
+      "fx": [
+        "idle",
+        "hold",
+        "deal",
+        "pool"
+      ],
+      "life": "Because 15% sits outside earning loans, the bank keeps 2.575% NIM before overhead rather than 4.0%.",
+      "sys": "Loan yield 85B × 9.5% = 8.075B; Deposit cost 100B × 5.5% = 5.5B; Net interest income = 2.575B (NIM 2.575%).",
+      "ledger": null
+    },
+    {
+      "when": "Dec 31 · Year-End",
+      "sub": "9M accrual 4,125,000 VND",
+      "title": "December 31 Close: Accruing 4,125,000 VND Earned Interest onto Account 1388 / 515",
+      "say": [
+        "At Dec 31 fiscal close (9/12 illustrative year), cash interest has not arrived yet.",
+        "Under [[accrual accounting|accrual]], 4,125,000 VND belongs in current-year revenue on Account 515.",
+        "Accountants record Debit Account 1388 (Other receivables) / Credit Account 515 — never trade Account 131."
+      ],
+      "lit": [
+        0,
+        2
+      ],
+      "tags": {
+        "0": [
+          "Debit 1388 / Credit 515: +4.125M",
+          "plus"
+        ],
+        "2": [
+          "accrued payable 4.125M",
+          "minus"
+        ]
+      },
+      "msgs": [
+        [
+          2,
+          0
+        ]
+      ],
+      "fx": [
+        "phone",
+        "iledger"
+      ],
+      "life": "Earned 9-month interest enters the current income statement even before payout day.",
+      "sys": "Dec 31 accrual (unofficial summary of Circular 99/2025/TT-BTC): Debit 1388 (4.125M) / Credit 515 (4.125M).",
+      "ledger": {
+        "book": "Depositor ledger on Dec 31 (unofficial summary of Circular 99/2025/TT-BTC)",
+        "assume": "Accruing 9 months of earned interest (100M × 5.5% × 9/12 = 4,125,000 VND) at fiscal year-end.",
+        "rows": [
+          [
+            "Debit",
+            "1388",
+            "Other receivables",
+            "non-trade accrued bank interest claim (not Account 131)",
+            "Receivable of 4.125M VND earned interest",
+            4125000
+          ],
+          [
+            "Credit",
+            "515",
+            "Financial income",
+            "recognizing 9 months financial income in current fiscal year",
+            "Current-year interest income +4.125M",
+            4125000
+          ]
+        ],
+        "note": "Σ Debit = Σ Credit = 4,125,000 VND.",
+        "lifeNote": "Separates bank interest receivables cleanly from trade customer Account 131."
+      }
+    },
+    {
+      "when": "Apr 01 Yr+1 · Maturity",
+      "sub": "full payout 105.5M VND",
+      "title": "Maturity Day: Crediting 105,500,000 VND & Clearing Principal + Prior-Year Receivable",
+      "say": [
+        "On Apr 01 next year, borrower loan repayments fund the 105,500,000 VND payout into checking Account 112.",
+        "Account 1281 closes 100M principal, Account 1388 clears 4.125M prior receivable, and Account 515 takes 1.375M new-year interest.",
+        "Zero interest revenue is double-counted across years."
+      ],
+      "lit": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "tags": {
+        "0": [
+          "Account 112 +105.5M cash",
+          "plus"
+        ],
+        "2": [
+          "settles 100M + 5.5M",
+          "plain"
+        ],
+        "3": [
+          "repays 8.075B pool loan yield",
+          "minus"
+        ],
+        "4": [
+          "releases reserve ratio slice",
+          "plain"
+        ]
+      },
+      "msgs": [
+        [
+          3,
+          2,
+          "money"
+        ],
+        [
+          2,
+          0,
+          "money"
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "fx": [
+        "phone",
+        "release",
+        "hr",
+        "two"
+      ],
+      "life": "Holding to maturity collects the full 5.5M yield backed by borrower repayments.",
+      "sys": "Maturity entry: Debit 112 (105.5M) / Credit 1281 (100M), 1388 (4.125M), 515 (1.375M).",
+      "ledger": {
+        "book": "Depositor ledger at maturity (unofficial summary of Circular 99/2025/TT-BTC)",
+        "assume": "Full 12-month maturity returning 100M principal plus 5.5M interest into checking Account 112.",
+        "rows": [
+          [
+            "Debit",
+            "112",
+            "Demand deposits",
+            "total cash principal and 12-month interest credited",
+            "Checking cash +105.5M VND",
+            105500000
+          ],
+          [
+            "Credit",
+            "1281",
+            "Term deposits",
+            "closing matured 100M VND certificate",
+            "Term certificate closed",
+            100000000
+          ],
+          [
+            "Credit",
+            "1388",
+            "Other receivables",
+            "clearing 9M interest accrued on Dec 31",
+            "Prior-year receivable cleared",
+            4125000
+          ],
+          [
+            "Credit",
+            "515",
+            "Financial income",
+            "recognizing final Q1 interest (3/12 year)",
+            "New-year interest +1.375M",
+            1375000
+          ]
+        ],
+        "note": "Σ Debit = Σ Credit = 105,500,000 VND.",
+        "lifeNote": "Total 5.5M interest allocated cleanly across both fiscal years."
+      }
+    },
+    {
+      "when": "M9 Exit & Borrower",
+      "sub": "0.1% exit vs 30M/70M split",
+      "title": "Month-9 Early Exit (75k vs 3.8725M Split) & Borrower Books on Account 635",
+      "say": [
+        "Closing all 100M at Month 9 drops yield to [[CASA|casa]] 0.1%, paying just 75,000 VND (losing 4,050,000 VND).",
+        "Withdrawing only 30M early (22,500 VND) while holding 70M through Month 12 (3,850,000 VND) preserves 3,872,500 VND.",
+        "Meanwhile, the corporate borrower books 9,500,000 VND loan interest on Debit Account 635 / Credit Account 335."
+      ],
+      "lit": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "tags": {
+        "0": [
+          "full M9 exit: −4.05M lost",
+          "minus"
+        ],
+        "1": [
+          "split 30M/70M: +3.87M kept",
+          "plus"
+        ],
+        "2": [
+          "2.575% NIM sustains pool",
+          "plain"
+        ],
+        "3": [
+          "Debit 635 / Credit 335: 9.5M",
+          "minus"
+        ]
+      },
+      "msgs": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          0,
+          "money"
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "fx": [
+        "phone",
+        "idle",
+        "hold",
+        "deal"
+      ],
+      "life": "Partial exits protect nearly 3.8M VND in yield, funded by borrower debt service.",
+      "sys": "Full M9 exit: 75,000 VND (−4.05M); 30M/70M split: 3,872,500 VND. Borrower 100M @ 9.5%: Debit 635 / Credit 335 = 9,500,000 VND.",
+      "ledger": {
+        "book": "Corporate borrower ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+        "assume": "100,000,000 VND corporate loan slice drawn from bank pool at 9.5%/yr (principal on Account 341).",
+        "rows": [
+          [
+            "Debit",
+            "635",
+            "Financial expenses",
+            "recognizing annual loan interest expense",
+            "Borrowing cost 9.5M VND/yr",
+            9500000
+          ],
+          [
+            "Credit",
+            "335",
+            "Accrued expenses",
+            "accruing contractual interest owed to bank",
+            "Interest payable to bank",
+            9500000
+          ]
+        ],
+        "note": "Σ Debit = Σ Credit = 9,500,000 VND.",
+        "lifeNote": "Borrower interest expense funds saver term yields across the pool."
+      }
+    }
+  ]
+}
 };
 /*SCENEJS:START — dùng chung với bản xem nhanh 450px (Diorama v4.0 Architectural Cutaway & Dual Financial Rails).
   Scene.build(svg, houses, {viewBox, noPlates}) · Scene.setBeat(beat) · Scene.tagPoint(i) */
@@ -13315,6 +15100,41 @@ const CHAP_FIGS = {
       title: "Khi nào tiền đi thẳng từng lệnh qua RTGS (10 tỷ đ) và khi nào phải treo trên TK 113 (Tiền đang chuyển)?",
       desc: "Các lệnh giá trị lớn vượt trần 24/7 đi thẳng qua đại lộ [[RTGS|rtgs]] từng lệnh tại Ngân hàng Trung ương; còn nếu lệnh [[Off-Us|offus]] 20.000.000 đ chiều 31/12 đã trừ TK 112 nhưng bị treo đối soát qua đêm, kế toán phải hạch toán Nợ TK 113 (Tiền đang chuyển) / Có TK 112 theo TT 99/2025."
     }
+  ],
+  termdep: [
+    null,
+    {
+      file: "termdep-fig-1.jpg",
+      beat: 1,
+      kicker: "HÌNH 01 · CHƯƠNG 02 · BỂ VỐN 100 TỶ ĐỒNG & CHUYỂN HOÁ KỲ HẠN (15% DỰ TRỮ / 85% CHO VAY)",
+      alt: "Mặt cắt bể vốn 100 tỷ đồng gom từ 1.000 người gửi kỳ hạn 12 tháng 5,5%/năm: 15 tỷ đồng giữ tại dự trữ an toàn, 85 tỷ đồng giải ngân cho doanh nghiệp vay ở 9,5%/năm",
+      title: "100 triệu đồng không nằm trong hộc tủ riêng: ngân hàng giữ 15% dự trữ và cho vay 85% bể 100 tỷ",
+      desc: "Từ 1.000 người gửi gom thành bể 100 tỷ đồng, ngân hàng giữ lại 15% (15 tỷ đ) [[dự trữ bắt buộc|reserve]] và thanh khoản, chỉ cho vay 85 tỷ đ thông qua [[chuyển hoá kỳ hạn|maturity_trans]]."
+    },
+    {
+      file: "termdep-fig-2.jpg",
+      beat: 2,
+      kicker: "HÌNH 02 · CHƯƠNG 03 · TOÁN HỌC BIÊN LÃI RÒNG (NIM = 2,575%) & DỰ THU 31/12",
+      alt: "Bảng tính NIM 2,575% trên bể 100 tỷ: thu 8,075 tỷ lãi vay trừ 5,5 tỷ trả người gửi còn 2,575 tỷ đồng thu nhập lãi thuần (~2,58%/năm)",
+      title: "Vì sao cho vay 9,5% trừ trả gửi 5,5% không còn 4,0% — Toán học NIM 2,575% & cột mốc 31/12",
+      desc: "Do 15% dự trữ không cho vay 9,5%/năm, thu nhập lãi ròng thực của bể 100 tỷ là 8,075 tỷ − 5,5 tỷ = 2,575 tỷ đ ([[NIM|nim]] = 2,575%, ~2,58%/năm); cuối năm người gửi ghi nhận [[dồn tích|accrual]] TK 1388 / TK 515."
+    },
+    {
+      file: "termdep-fig-3.jpg",
+      beat: 3,
+      kicker: "HÌNH 03 · CHƯƠNG 04 · PHẠT RÚT SỚM THÁNG 9 (0,1%) VS TÁCH SỔ RÚT 30 TR / GIỮ 70 TR",
+      alt: "So sánh rút trắng 100 triệu ở tháng 9 tụt về CASA 0,1% còn 75.000 đ (mất 4.050.000 đ) với tách chỉ rút 30 triệu giữ 70 triệu nhận tổng 3.872.500 đ lãi",
+      title: "Rút hết 100 triệu tháng 9 chỉ còn 75.000 đ (mất 4,05 triệu) — Tách 30/70 tr giữ lại 3.872.500 đ",
+      desc: "Rút toàn bộ trước hạn ở tháng 9 hạ lãi suất 100 triệu về [[CASA|casa]] 0,1%/năm còn 75.000 đ; tách chỉ rút 30 triệu và giữ 70 triệu đủ 12 tháng (5,5%) giữ lại tới 3.872.500 đ (nhiều hơn 3.797.500 đ)."
+    },
+    {
+      file: "termdep-fig-4.jpg",
+      beat: 4,
+      kicker: "HÌNH 04 · CHƯƠNG 05 · SỔ HAI ĐẦU THÔNG TƯ 99/2025: TK 1281 · TK 1388 / 515 & TK 635 / 335",
+      alt: "Đối chiếu song song hai cuốn sổ theo TT 99/2025: người gửi hạch toán TK 1281, dự thu TK 1388/515 (4,125 triệu); người vay hạch toán chi phí tài chính TK 635 / TK 335 (9,5 triệu)",
+      title: "Sổ kép hai đầu dòng tiền kỳ hạn (TT 99/2025): bên gửi dùng TK 1281 & 1388, bên vay ghi TK 635 / 335",
+      desc: "Theo TT 99/2025/TT-BTC, [[tiền gửi có kỳ hạn|term_deposit]] ghi trên TK 1281 và dự thu cuối năm 31/12 vào Nợ TK 1388 / Có TK 515 (4.125.000 đ); đầu bên vay ghi nhận chi phí lãi 9,5%/năm vào Nợ TK 635 / Có TK 335."
+    }
   ]
 };
 const CHAP_FIGS_EN = {
@@ -13562,6 +15382,41 @@ const CHAP_FIGS_EN = {
       "alt": "Cross-section of two exception handling flows: a large-value 10B transfer routing individually through RTGS at the Central Bank, and an interbank transfer stuck in reconciliation on Dec 31 held in Account 113 Cash in Transit",
       "title": "When do funds route individually via RTGS (10B VND) and when do they park in Account 113 (Cash in Transit)?",
       "desc": "Large-value wholesale payments exceeding retail limits route directly through individual [[RTGS|rtgs]] settlement at the Central Bank; conversely, if a 20,000,000 VND [[interbank transfer|offus]] debited from Account 112 on December 31 is delayed in overnight clearing, accounting must book Debit Account 113 (Cash in Transit) / Credit Account 112 under Circular 99/2025/TT-BTC (unofficial summary)."
+    }
+  ],
+  "termdep": [
+    null,
+    {
+      "file": "termdep-fig-1.jpg",
+      "beat": 1,
+      "kicker": "FIG 01 · CHAPTER 02 · THE 100B POOLED FUND & MATURITY TRANSFORMATION (15% / 85%)",
+      "alt": "Cross-section of 100B VND aggregated across 1,000 term savers at 5.5%/yr: 15% held in central-bank reserves and liquidity buffers, 85% lent to corporate borrowers at 9.5%/yr",
+      "title": "Why Your 100M Never Sits in a Private Vault: 15% Safe Reserves vs 85% Corporate Lending",
+      "desc": "Across 1,000 certificates totaling 100B VND, banks isolate 15% (15B) inside [[reserve requirements|reserve]] and liquidity buffers while lending 85B VND via [[maturity transformation|maturity_trans]]."
+    },
+    {
+      "file": "termdep-fig-2.jpg",
+      "beat": 2,
+      "kicker": "FIG 02 · CHAPTER 03 · TRUE NIM MATH (2.575%) & DEC 31 YEAR-END ACCRUAL (ACC 1388)",
+      "alt": "Pool NIM calculation showing 8.075B loan yield minus 5.5B deposit payout equals 2.575B net interest income (2.575% NIM, ~2.58%/yr)",
+      "title": "Why 9.5% Loans Minus 5.5% Deposits Compresses to 2.575% NIM — Plus Dec 31 Accrual",
+      "desc": "Because 15% reserve buffers do not earn 9.5% loan spread, actual pool net interest equals 8.075B − 5.5B = 2.575B VND ([[NIM|nim]] 2.575%, ~2.58%/yr), alongside Dec 31 [[accrual|accrual]] on Account 1388 / 515."
+    },
+    {
+      "file": "termdep-fig-3.jpg",
+      "beat": 3,
+      "kicker": "FIG 03 · CHAPTER 04 · MONTH-9 EARLY LIQUIDATION (0.1%) VS SPLITTING 30M / 70M",
+      "alt": "Comparison of full Month-9 exit dropping 100M yield to 0.1% CASA (75,000 VND, losing 4,050,000 VND) vs withdrawing 30M and holding 70M for 3,872,500 VND total interest",
+      "title": "Breaking Full 100M in Month 9 Drops Interest to 75,000 VND — Splitting 30M/70M Keeps 3,872,500 VND",
+      "desc": "Full early exit in Month 9 resets 100M to [[CASA|casa]] 0.1% (75,000 VND, losing 4.05M); confining the early pull to 30M while holding 70M through Month 12 retains 3,872,500 VND."
+    },
+    {
+      "file": "termdep-fig-4.jpg",
+      "beat": 4,
+      "kicker": "FIG 04 · CHAPTER 05 · SYMMETRIC CIRCULAR 99/2025 LEDGERS: ACC 1281, 1388 & ACC 635",
+      "alt": "Dual-ledger summary (unofficial summary of Circular 99/2025/TT-BTC): depositor tracks Account 1281 & 1388/515 (4.125M); corporate borrower recognizes Account 635/335 (9.5M)",
+      "title": "Both Sides of Term Funding (Unofficial Summary of Circular 99/2025/TT-BTC): Accounts 1281/1388 vs 635/335",
+      "desc": "In an unofficial summary of Circular 99/2025/TT-BTC, [[term deposits|term_deposit]] sit on Account 1281 with Dec 31 accrual in 1388/515 (4,125,000 VND), financed by borrowers booking Account 635/335."
     }
   ]
 };
@@ -13820,8 +15675,8 @@ function renderAll(){
   renderDots(); renderScene(); renderCaption(); renderLens(); renderPack(); renderStageVideo(); renderHandoff(); updateSentence();
   if (lost) $("#play").focus({preventScroll:true});
   $("#tryCard").hidden = S.story!=="card"; $("#tryPay").hidden = S.story!=="pay";
-  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash"; $("#tryOffus").hidden = S.story!=="offus";
-  $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash","offus"].includes(S.story);
+  $("#tryInst").hidden = S.story!=="install"; $("#tryMin").hidden = S.story!=="minpay"; $("#tryQr").hidden = S.story!=="qr"; $("#tryProfit").hidden = S.story!=="profitcash"; $("#tryOffus").hidden = S.story!=="offus"; $("#tryTermdep").hidden = S.story!=="termdep";
+  $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash","offus","termdep"].includes(S.story);
   $("#stageTitle").textContent = stObj.title;
   $("#draftNote").hidden = stObj.status === "published";
   ensureAudioTrack(S.story);
@@ -14247,6 +16102,37 @@ function calcOffus(){
 }
 $("#pcAr").oninput = calcProfit; $("#pcInv").oninput = calcProfit;
 $("#ouOut").oninput = calcOffus; $("#ouIn").oninput = calcOffus;
+function calcTermdep(){
+  const amt = +$("#tdAmt").value, mo = +$("#tdMo").value, enMode = isEn();
+  const proRata = Math.round(amt * 0.055 * (mo / 12));
+  const fullYear = mo === 12;
+  const paidInt = fullYear ? proRata : Math.round(amt * 0.001 * (mo / 12));
+  const lost = fullYear ? 0 : (proRata - paidInt);
+  const total = amt + paidInt;
+  const partCut = Math.round(amt * 0.30), partKeep = amt - partCut;
+  const partKeepInt = Math.round(partKeep * 0.055);
+  const partCutInt = Math.round(partCut * 0.001 * (mo / 12));
+  const splitExtra = fullYear ? 0 : ((partKeepInt + partCutInt) - paidInt);
+  $("#tdAmtOut").textContent = vnd(amt);
+  $("#tdMoOut").textContent = enMode ? `Month ${mo}/12` : `Tháng ${mo}/12`;
+  $("#tdAmt").setAttribute("aria-valuetext", vnd(amt));
+  $("#tdMo").setAttribute("aria-valuetext", enMode ? `Month ${mo} of 12` : `Tháng ${mo} trên 12 tháng`);
+  $("#tdPrin").textContent = vnd(amt);
+  $("#tdEarned").textContent = vnd(proRata);
+  $("#tdPaidInt").textContent = "+" + vnd(paidInt);
+  $("#tdLost").textContent = lost > 0 ? "−" + vnd(lost) : vnd(0);
+  $("#tdTotal").textContent = vnd(total);
+  if (enMode) {
+    $("#tdNote").textContent = fullYear
+      ? `Held to full 12-month maturity: you earn the full ${vnd(paidInt)} (5.5%/yr). Under the 15% reserve / 85% corporate lending @ 9.5%/yr pool example, each 100M slice yields the bank 8.075M in loan interest vs 5.5M paid out (2.575M spread, NIM = 2.575%, ~2.58%).`
+      : `Full liquidation at Month ${mo} resets all ${vnd(amt)} to the 0.1%/yr demand rate: you receive only ${vnd(paidInt)} and forfeit ${vnd(lost)} vs pro-rata 5.5%. Withdrawing only 30% (${vnd(partCut)}) early while holding 70% (${vnd(partKeep)}) to Month 12 earns ${vnd(partKeepInt + partCutInt)} — retaining ${vnd(splitExtra)} more (illustrative ${mo}/12 month vs N/365 bank day-count).`;
+  } else {
+    $("#tdNote").textContent = fullYear
+      ? `Giữ trọn 12 tháng: bạn nhận đủ ${vnd(paidInt)} lãi (5,5%/năm). Ở bể 15% dự trữ / 85% cho vay 9,5%/năm (ví dụ), phần vốn ${vnd(amt)} tạo ra ${vnd(Math.round(amt * 0.85 * 0.095))} lãi vay (8,075% quy mô gốc), trừ ${vnd(paidInt)} trả bạn còn ${vnd(Math.round(amt * 0.02575))} chênh lệch (NIM = 2,575%, làm tròn 2,58%/năm).`
+      : `Rút hết ở tháng ${mo}: toàn bộ ${vnd(amt)} bị đưa về lãi CASA 0,1%/năm, chỉ nhận ${vnd(paidInt)} và mất đứt ${vnd(lost)} so với mức 5,5% theo tháng. Nếu tách chỉ rút 30% (${vnd(partCut)}) sớm và giữ 70% (${vnd(partKeep)}) đến tháng 12, tổng lãi đạt ${vnd(partKeepInt + partCutInt)} — giữ lại nhiều hơn ${vnd(splitExtra)} (quy ước minh hoạ theo tháng so với N/365 ngày thực tế).`;
+  }
+}
+$("#tdAmt").oninput = calcTermdep; $("#tdMo").oninput = calcTermdep;
 
 /* ── Thanh biên tập 1 hàng 52px (Editorial Masthead + Breadcrumb Pill + Overlay Mục lục 2 cột + ⌘K) ── */
 function syncBarOpenState(){
@@ -15288,6 +17174,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Chuẩn xác (TT 99/2025/TT-BTC): Khoản tiền đã cắt khỏi TK 112 nhưng đến thời điểm khoá sổ vẫn đang trên đường đối soát liên ngân hàng được phản ánh vào TK 113 (Tiền đang chuyển) và chỉ kết chuyển giảm nợ TK 331 khi hoàn tất thanh toán."
     }
+  ],
+  termdep: [
+    {
+      id: "termdep-q1.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Khi phá sổ ở tháng 9 để rút toàn bộ 100 triệu đồng, lãi bị kéo về mức không kỳ hạn [[CASA|casa]] 0,1%/năm, chỉ còn 100.000.000 × 0,1% × 9/12 = 75.000 đồng. Phần lãi bốc hơi đúng bằng 4.125.000 − 75.000 = 4.050.000 đồng; tổng tiền về tài khoản chỉ còn 100.075.000 đồng.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Một doanh nghiệp gửi 100.000.000 đ kỳ hạn 12 tháng lãi suất 5,5%/năm nhưng cần tiền gấp và tất toán toàn bộ sổ ở tháng thứ 9 (theo quy ước 9/12 năm, lãi không kỳ hạn CASA 0,1%/năm). Cùng lúc đó, ngân hàng gom 1.000 sổ tương tự (100 tỷ đ), giữ 15% dự trữ và cho vay 85% ở 9,5%/năm. Con số nào đúng?",
+      opts: [
+        "Người gửi chỉ nhận 75.000 đ tiền lãi (mất đứt 4.050.000 đ so với 4.125.000 đ); còn ngân hàng thu 8,075 tỷ đ từ 85 tỷ đ cho vay trừ 5,5 tỷ đ trả người gửi → thu nhập lãi thuần 2,575 tỷ đ (NIM = 2,575%, làm tròn 2,58%/năm).",
+        "Người gửi vẫn giữ trọn 4.125.000 đ lãi 5,5% cho 9 tháng đã gửi, còn ngân hàng bỏ túi trọn NIM 4,0% (= 9,5% − 5,5%).",
+        "Người gửi mất luôn cả phần tiền gốc 4.050.000 đ và ngân hàng cho vay đủ 100% bể 100 tỷ đồng."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác: Rút toàn bộ trước hạn kéo lãi 100.000.000 đ về 0,1%/năm = 75.000 đ (mất 4.050.000 đ; nếu chỉ rút 30 tr giữ 70 tr thì giữ được 3.872.500 đ). Về phía ngân hàng, phần 15% dự trữ không sinh lãi cho vay nên NIM thực của bể 100 tỷ là (8,075 − 5,5) / 100 = 2,575%."
+    },
+    {
+      id: "termdep-q2.v1",
+      sectionId: "pk-lay-essay",
+      source_quote: "Kế toán ghi nhận phần lãi dồn tích 9 tháng bằng bút toán Nợ TK 1388 (Phải thu khác: 4.125.000 đồng) đối ứng Có TK 515 (Doanh thu hoạt động tài chính: 4.125.000 đồng) — lưu ý tuyệt đối không dùng TK 131 vì TK 131 chỉ dành cho phải thu bán hàng hoá và dịch vụ thương mại.",
+      reviewed_by: "Duy",
+      accountant_agent: "ke-toan-reviewer",
+      q: "Doanh nghiệp mở sổ tiền gửi có kỳ hạn 12 tháng 100.000.000 đ (lãi suất 5,5%/năm) vào ngày 01/04. Đến ngày khoá sổ năm 31/12 (tròn 9 tháng, lãi tích luỹ 4.125.000 đ nhưng chưa đến hạn nhận tiền từ ngân hàng), theo Thông tư 99/2025/TT-BTC kế toán hạch toán khoản gốc và phần lãi dồn tích 31/12 như thế nào?",
+      opts: [
+        "Lúc mở sổ 01/04 ghi Debit TK 1281 (Tiền gửi có kỳ hạn: 100.000.000 đ) / Credit TK 112; tại 31/12 dự thu ghi Debit TK 1388 (Phải thu khác: 4.125.000 đ) / Credit TK 515 (Doanh thu hoạt động tài chính: 4.125.000 đ) — không ghi vào TK 131.",
+        "Hạch toán ngay lãi 4.125.000 đ vào Debit TK 131 (Phải thu của khách hàng) tại 31/12.",
+        "Không cần ghi bút toán nào ở 31/12 vì đến 01/04 năm sau ngân hàng mới chuyển tiền mặt."
+      ],
+      ans: 0,
+      explain: "Chuẩn xác (TT 99/2025/TT-BTC): Tiền gửi có kỳ hạn hạch toán vào TK 1281 (thuộc TK 128 Đầu tư nắm giữ đến ngày đáo hạn), và khoản lãi dồn tích cuối năm 31/12 phải ghi Nợ TK 1388 (Phải thu khác) / Có TK 515 để phản ánh đúng kỳ mà không dùng nhầm TK 131 thương mại."
+    }
   ]
 };
 
@@ -15514,6 +17432,38 @@ const WMS_QUIZ_BANK_EN = {
       ],
       "ans": 0,
       "explain": "Accurate (unofficial summary of Circular 99/2025/TT-BTC): Funds debited from Account 112 that remain in clearing transit at fiscal year-end are reflected in Account 113 (Cash in Transit), and are transferred to offset Account 331 only upon confirmed settlement."
+    }
+  ],
+  "termdep": [
+    {
+      "id": "termdep-q1.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "Using an illustrative 9/12 monthly convention (noting real bank contracts compute daily N/365 accruals), 9 months at 5.5%/yr equals 4,125,000 VND, whereas 0.1%/yr pays 100,000,000 × 0.1% × 9/12 = 75,000 VND. Liquidating the entire certificate costs 4,050,000 VND in forfeited interest, returning 100,075,000 VND total.",
+      "reviewed_by": "Duy",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "A company deposits 100,000,000 VND into a 12-month term certificate at 5.5%/yr, then breaks the entire deposit in Month 9 (illustrative 9/12 convention, 0.1%/yr early-exit CASA rate). Meanwhile, its bank pools 1,000 similar savers (100B VND), keeps 15% reserves, and lends 85% at 9.5%/yr. Which statement is exact?",
+      "opts": [
+        "The depositor receives only 75,000 VND interest (forfeiting 4,050,000 VND vs 4,125,000 VND pro-rata); meanwhile the bank collects 8.075B VND on 85B lent minus 5.5B deposit payout = 2.575B VND net interest income (NIM = 2.575%, ~2.58%/yr).",
+        "The depositor keeps all 4,125,000 VND earned over nine months, and the bank clears a full 4.0% NIM (= 9.5% − 5.5%).",
+        "The depositor loses 4,050,000 VND from original principal and the bank lends out 100% of the 100B VND pool."
+      ],
+      "ans": 0,
+      "explain": "Accurate: Early full exit resets all 100M VND back to 0.1%/yr = 75,000 VND (−4,050,000 VND forfeited; withdrawing only 30M while keeping 70M retains 3,872,500 VND total). For the bank pool, 15% sitting in reserves compresses true NIM on 100B to (8.075B − 5.5B) / 100B = 2.575%."
+    },
+    {
+      "id": "termdep-q2.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "Under [[accrual accounting|accrual]], the 4,125,000 VND earned between April 1 and December 31 belongs to the current fiscal year and must be recognized as Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income) — never Account 131, which is strictly reserved for trade customers.",
+      "reviewed_by": "Duy",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "Under an unofficial summary of Circular 99/2025/TT-BTC, an enterprise places 100,000,000 VND into a 12-month 5.5%/yr term deposit on April 1. At fiscal year-end on December 31 (4,125,000 VND earned over 9 months prior to maturity payout), how are the placement and accrued interest booked?",
+      "opts": [
+        "Apr 01 placement records Debit Account 1281 (Term deposits) / Credit Account 112 (100M); Dec 31 accrual records Debit Account 1388 (Other receivables) / Credit Account 515 (Financial income) for 4,125,000 VND — avoiding trade Account 131.",
+        "Book the 4,125,000 VND interest accrual onto Debit Account 131 (Trade receivables) at Dec 31.",
+        "Record nothing at Dec 31 because cash settles on April 1 next year."
+      ],
+      "ans": 0,
+      "explain": "Accurate (unofficial summary of Circular 99/2025/TT-BTC): Term deposits sit in Account 1281 (inside Account 128 Held-to-maturity investments), and year-end accrued bank interest belongs in Account 1388 (Other receivables) / Account 515 rather than trade Account 131."
     }
   ]
 };
@@ -15869,7 +17819,14 @@ const WMI_EN_TEXT = {
   touOut: "Outbound transfers A → B in batch", touIn: "Inbound transfers B → A in batch",
   touRcH: "Reserve Settlement: On-Us vs Off-Us (DNS)",
   touR1: "Same-bank transfer (On-Us)", touR2: "Gross two-way volume (A ↔ B)",
-  touR3: "Reserve liquidity saved by netting", touR4: "Actual central-bank reserve settled"
+  touR3: "Reserve liquidity saved by netting", touR4: "Actual central-bank reserve settled",
+  ttdRcH: "Deposit statement at settlement (Account 1281 → 112)",
+  ttdR1: "Original deposit principal (Account 1281)",
+  ttdR2: "Pro-rata interest accrued at 5.5%/yr",
+  ttdR3: "Actual interest paid at settlement",
+  ttdR4: "Interest forfeited on early withdrawal",
+  ttdR5: "Total payout credited to Account 112",
+  ttdM: "Settlement month you withdraw"
 };
 const WMI_EN_HTML = {
   tcHint: 'Drag to adjust the dinner bill. The 2.2% fee here is an <b>illustrative example</b> showing how split rails work, not any specific bank tariff.',
@@ -15889,7 +17846,10 @@ const WMI_EN_HTML = {
   tpcHint: 'Drag to change unpaid trade credit (<button class="term" data-term="accrual">Account 131</button>) and extra inventory (<button class="term" data-term="workingcapital">Account 156</button>) on 10B VND revenue (2B VND profit, 1B VND opening cash <span class="ex">example</span>) to see why <button class="term" data-term="ocf">Account 112</button> runs dry on Dec 31.',
   tpcRcSub: 'Revenue 10B · COGS 6.5B · OpEx 1.5B · Opening Cash 1B <span class="ex">example</span>',
   touHint: 'Drag to adjust batch transfer volume A → B and B → A (<span class="ex">example</span>) to compare <button class="term" data-term="netting">deferred net settlement</button> vs internal <button class="term" data-term="onus">On-Us</button> transfers.',
-  touRcSub: 'Both credit recipients in ~3 seconds (backed by <button class="term" data-term="prefund">settlement prefunding</button>)'
+  touRcSub: 'Both credit recipients in ~3 seconds (backed by <button class="term" data-term="prefund">settlement prefunding</button>)',
+  ttdHint: 'Drag to vary the 12-month term deposit principal (illustrative 5.5%/yr) and withdrawal month. Full early liquidation resets accrued interest to the 0.1%/yr <span class="ex">example</span> <button class="term" data-term="casa">CASA</button> rate.',
+  ttdA: '12-month term deposit principal (<button class="term" data-term="term_deposit">Account 1281</button>)',
+  ttdRcSub: '12M term 5.5%/yr · Early liquidation resets to 0.1%/yr CASA <span class="ex">example</span>'
 };
 const PRESETS_EN = {
   tryCard: ["Lunch 500k", "Dinner 10M", "Bill 30M"],
@@ -15898,7 +17858,8 @@ const PRESETS_EN = {
   tryMin: ["10M · Pay 5%", "20M · Pay 50%", "20M · Pay 100%"],
   tryQr: ["10M/day · Static 0%", "20M/day · Dynamic 0.3%", "35M/day · Static 0%"],
   tryProfit: ["Baseline (2.5B AR)", "Squeezed (3.5B AR + 1.5B Inv)", "Fast cash (0.5B AR)"],
-  tryOffus: ["Near-balanced (500 vs 470B)", "Skewed flow (750 vs 150B)", "100% matched (400 vs 400B)"]
+  tryOffus: ["Near-balanced (500 vs 470B)", "Skewed flow (750 vs 150B)", "100% matched (400 vs 400B)"],
+  tryTermdep: ["100M · Exit Mo 9", "100M · Full 12M", "300M · Exit Mo 6"]
 };
 
 function applyStaticChrome(lang){
@@ -16002,7 +17963,7 @@ function applyStaticChrome(lang){
 
   // 7 Calculators
   cacheAndSetText("#try-h", "Try it with your own numbers", enMode);
-  cacheAndSetList("#thu .preset-lbl", Array(7).fill("Quick presets:"), false, enMode);
+  cacheAndSetList("#thu .preset-lbl", Array(8).fill("Quick presets:"), false, enMode);
   Object.keys(PRESETS_EN).forEach(cid => {
     cacheAndSetList(`.preset-btn[data-calc="${cid}"]`, PRESETS_EN[cid], false, enMode);
   });
@@ -16012,6 +17973,7 @@ function applyStaticChrome(lang){
   cacheAndSetHtml("#tcZ1", '<b class="num" id="zIcOut"></b> goes to your card-issuing bank — <button class="term" data-term="interchange">Interchange</button>, example 1.5%', enMode);
   cacheAndSetHtml("#tcZ2", '<b class="num" id="zRestOut"></b> kept by the merchant bank — minus network scheme assessments', enMode);
   cacheAndSetText("#ouOnUsRes", "0 VND reserves moved", enMode);
+  cacheAndSetAttr("#tryTermdep .preset-row", "aria-label", "Term deposit quick presets", enMode);
 
   // Essay & Studio Drawer
   cacheAndSetText("#packEyebrow", "Full Overview Essay & Double-Entry Ledger Reconciliation", enMode);
@@ -16090,7 +18052,7 @@ function setWmsLang(lang, opts){
   drawHouses();
   renderTranscript();
   renderAll();
-  calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus();
+  calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus(); calcTermdep();
   syncViewDOM(false);
 }
 
@@ -16581,7 +18543,7 @@ if (initialUrlStory && getStories()[initialUrlStory] && visible(initialUrlStory)
   S.view = "landing";
 }
 if (!visible(S.story) && order().length) S.story = order()[0];
-applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus();
+applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus(); calcTermdep();
 syncViewDOM(false);
 if (S.view === "detail" && initialHash){
   setTimeout(() => { const el = document.getElementById(initialHash); if (el) el.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); }, 80);

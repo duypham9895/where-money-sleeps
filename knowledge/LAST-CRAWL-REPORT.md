@@ -1,9 +1,9 @@
 # Báo cáo Crawl & Chắt lọc Tri thức Tài chính (`tai-chinh-reviewer`)
 
-- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-10T10:45:14+07:00`
+- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-15T16:57:42+07:00`
 - **Kho tri thức:** `knowledge/finance-kb.json` (Schema v1)
 - **Chính sách độ tươi (`freshnessPolicy`):** Tối đa `30` ngày · Lịch định kỳ khuyến nghị: `0 8 * * 1` (`Asia/Ho_Chi_Minh`)
-- **Tổng số nguồn chuẩn thức:** `5` nguồn · `9` quy tắc miền (`F1–F4`) · `7` hợp đồng bất biến bài viết ↔ video
+- **Tổng số nguồn chuẩn thức:** `5` nguồn · `9` quy tắc miền (`F1–F4`) · `8` hợp đồng bất biến bài viết ↔ video
 
 ## 1. Kiểm chứng Tài liệu Pháp lý & Học thuật Nội bộ (`legal/`)
 
@@ -11,7 +11,7 @@
 |---|---|---:|---|---|
 | `SRC-MOF-TT99-2025` | `legal/VanBanGoc_TT 99.2025-btc.pdf` | 1,603,054 | `357add90184f37e6…97c76036` | **VERIFIED_LOCAL** |
 | `SRC-MOF-TT99-2025` | `legal/tt99-phu-luc-ii.secondary.json` | 40,471 | `612a971a43479a3d…9844d918` | **VERIFIED_LOCAL** |
-| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 14,430 | `87c0c6aac7dbb633…88bff733` | **VERIFIED_LOCAL** |
+| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 15,685 | `c1881dacd1aaa714…9cace740` | **VERIFIED_LOCAL** |
 
 ## 2. Trạng thái Thăm dò Nguồn Pháp quy & Ngân hàng Công khai
 

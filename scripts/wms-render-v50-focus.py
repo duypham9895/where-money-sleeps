@@ -3149,7 +3149,7 @@ def render_format(
     return out_mp4
 
 
-ALL_STORIES = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+ALL_STORIES = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus", "termdep")
 
 
 def _resolve_scenes(story_key: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:

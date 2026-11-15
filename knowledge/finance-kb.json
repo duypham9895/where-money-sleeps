@@ -3,7 +3,7 @@
   "kbId": "wms-financial-specialist-kb",
   "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
   "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
-  "lastCrawledAt": "2026-11-10T10:45:14+07:00",
+  "lastCrawledAt": "2026-11-15T16:57:42+07:00",
   "freshnessPolicy": {
     "maxAgeDays": 30,
     "recommendedCron": "0 8 * * 1",
@@ -898,15 +898,135 @@
           ]
         ]
       }
+    },
+    "termdep": {
+      "storySlug": "termdep",
+      "category": "banking",
+      "mechanismType": "term_deposit_maturity_transformation_nim_accrual",
+      "parameters": {
+        "principal": 100000000,
+        "termRateAnnual": 0.055,
+        "earlyExitRateAnnual": 0.001,
+        "earlyExitMonth": 9,
+        "fullMaturityInterest": 5500000,
+        "proRata9MInterest": 4125000,
+        "earlyExitInterestPaid": 75000,
+        "forfeitedInterest": 4050000,
+        "splitWithdrawAmount": 30000000,
+        "splitTotalInterest": 3872500,
+        "poolTotal": 100000000000,
+        "reserveRatio": 0.15,
+        "reserveAmount": 15000000000,
+        "loanPrincipal": 85000000000,
+        "loanRateAnnual": 0.095,
+        "loanInterestIncome": 8075000000,
+        "poolDepositInterestCost": 5500000000,
+        "netInterestIncome": 2575000000,
+        "expectedNim": 0.02575
+      },
+      "wireOnlyBeats": [
+        2
+      ],
+      "pipeMoneyBeats": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "requiredAccounts": [
+        "112",
+        "1281",
+        "1388",
+        "335",
+        "515",
+        "635"
+      ],
+      "forbiddenAccounts": [
+        "131"
+      ],
+      "postToVideoAnchors": {
+        "beatsAndArticleMustContain": [
+          "100.000.000",
+          "5,5%",
+          "4.125.000",
+          "75.000",
+          "4.050.000",
+          "3.872.500",
+          "100 tỷ",
+          "15 tỷ",
+          "85 tỷ",
+          "9,5%",
+          "8,075 tỷ",
+          "2,575 tỷ",
+          "2,575%",
+          "1281",
+          "1388",
+          "515",
+          "635",
+          "335"
+        ],
+        "longVideoMustContainAny": [
+          [
+            "100 triệu",
+            "100.000.000",
+            "một trăm triệu"
+          ],
+          [
+            "75.000",
+            "bảy mươi lăm nghìn"
+          ],
+          [
+            "100 tỷ",
+            "một trăm tỷ"
+          ],
+          [
+            "85 tỷ",
+            "tám mươi lăm tỷ"
+          ],
+          [
+            "2,575%",
+            "hai phẩy năm bảy lăm phần trăm"
+          ],
+          [
+            "1388"
+          ]
+        ],
+        "shortVideoMustContainAny": [
+          [
+            "100 triệu",
+            "100.000.000",
+            "một trăm triệu"
+          ],
+          [
+            "75.000",
+            "bảy mươi lăm nghìn"
+          ],
+          [
+            "100 tỷ",
+            "một trăm tỷ"
+          ],
+          [
+            "85 tỷ",
+            "tám mươi lăm tỷ"
+          ],
+          [
+            "2,575%",
+            "hai phẩy năm bảy lăm phần trăm"
+          ],
+          [
+            "1388"
+          ]
+        ]
+      }
     }
   },
   "lastCrawlSummary": {
-    "crawledAt": "2026-11-10T10:45:14+07:00",
+    "crawledAt": "2026-11-15T16:57:42+07:00",
     "localArtifactsVerified": 3,
     "localArtifactsTotal": 3,
     "liveUrlsProbed": 7,
     "liveUrlsReachable": 6,
     "domainRulesCount": 9,
-    "storyInvariantsCount": 7
+    "storyInvariantsCount": 8
   }
 }

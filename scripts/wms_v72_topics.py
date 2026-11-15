@@ -3904,6 +3904,630 @@ def _offus_scenes() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     return short_scenes, long_scenes
 
 
+def _termdep_scenes() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    step_cards = [
+        ("BƯỚC 1", "Mở sổ TK 1281"),
+        ("BƯỚC 2", "Bể 100 tỷ 15/85"),
+        ("BƯỚC 3", "NIM còn 2,575%"),
+        ("BƯỚC 4", "Đáo hạn đủ kỳ"),
+        ("BƯỚC 5", "Tách 30 tr giữ 70 tr"),
+    ]
+    a_dp = {"id": 0, "name": "NGƯỜI GỬI", "sub": "100 triệu · 5,5%/năm"}
+    a_bank = {"id": 1, "name": "NGÂN HÀNG", "sub": "Bể 100 tỷ (1.000 sổ)"}
+    a_res = {"id": 2, "name": "DỰ TRỮ 15%", "sub": "NHTW & Thanh khoản"}
+    a_bor = {"id": 3, "name": "DN VAY VỐN", "sub": "85 tỷ @ 9,5%/năm"}
+    a_acc = {"id": 4, "name": "SỔ TT 99/2025", "sub": "1281 · 1388 · 515 · 635"}
+
+    short_scenes: list[dict[str, Any]] = [
+        {
+            "is_hook": True,
+            "step": "MỞ ĐẦU · CÂU HỎI ĐẶT RA",
+            "step_cards": step_cards,
+            "ket": 100075000,
+            "ket_pct": 0.018,
+            "hud_left": "ĐỦ 12 THÁNG: +5.500.000 đ",
+            "hud_right": "RÚT THÁNG 9: CHỈ +75.000 đ",
+            "beat_headlines": [
+                ("100 TRIỆU GỬI KỲ HẠN 5,5%/NĂM", "5,5%/NĂM", NAVY),
+                ("RÚT THÁNG 9 CHỈ CÒN 75.000 đ", "75.000 đ", CORAL),
+            ],
+            "actors": [
+                {**a_dp, "tag": "KỲ VỌNG +4,125 TRIỆU", "beat": 1},
+                {**a_bank, "tag": "TẤT TOÁN 0,1% = 75.000 đ", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "CÂU DẪN · TRƯỚC KHI VÀO 5 BƯỚC GIẢI MÃ", "prop": "wire"},
+            "hook_data": {
+                "left_title": "GIỮ TRỌN KỲ HẠN 12 THÁNG",
+                "left_amt": "+5.500.000 đ",
+                "left_sub": "5,5%/năm · 9 tháng: 4.125.000 đ",
+                "left_actor": 0,
+                "left_accent": GREEN,
+                "right_title": "RÚT TOÀN BỘ Ở THÁNG THỨ 9",
+                "right_amt": "+75.000 đ",
+                "right_sub": "Tụt về CASA 0,1% · Mất 4.050.000 đ",
+                "right_actor": 1,
+                "right_accent": CORAL,
+                "hook_kicker": "KHOẢN GỬI KỲ HẠN 100.000.000 đ · 01/04",
+                "hook_line1": "RÚT TRƯỚC HẠN THÁNG 9 — BỐC HƠI 4.050.000 đ",
+                "hook_line2": "VÌ SAO MẤT LÃI & NGÂN HÀNG LẤY GÌ TRẢ 5,5%?",
+                "hook_sub": "Bể vốn 100 tỷ (15/85), NIM 2,575% và hai cuốn sổ theo Thông tư 99/2025",
+            },
+            "focal": {
+                "type": "HERO_NUM",
+                "target_val": 4050000,
+                "prefix": "MẤT ",
+                "suffix": " đ",
+                "color": CORAL,
+                "pill": "BẮT ĐẦU · BƯỚC 1/5: CHUYỂN TỪ TK 112 SANG TK 1281",
+            },
+        },
+        {
+            "step": "BƯỚC 1/5 · MỞ SỔ TK 1281 & BỂ 100 TỶ ĐỒNG",
+            "step_cards": step_cards,
+            "ket": 100000000,
+            "ket_pct": 1.0,
+            "hud_left": "SỔ DN: NỢ TK 1281 / CÓ TK 112",
+            "hud_right": "1.000 SỔ = 100 TỶ ĐỒNG",
+            "beat_headlines": [
+                ("CHUYỂN SỔ SANG TK 1281", "TK 1281", NAVY),
+                ("GOM THÀNH BỂ CHUNG 100 TỶ", "100 TỶ đ", TEAL),
+            ],
+            "actors": [
+                {**a_dp, "tag": "NỢ TK 1281 / CÓ TK 112", "beat": 1},
+                {**a_bank, "tag": "BỂ HUY ĐỘNG: 100 TỶ đ", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 1/5 · TIỀN ĐỔI NHÃN TRÊN SỔ TÀI SẢN, HOÀ VÀO BỂ 1.000 NGƯỜI GỬI", "prop": "ledger"},
+            "focal": {
+                "type": "SPLIT_BAR",
+                "left_lbl": "TK 1281 (DN): 100 tr",
+                "right_lbl": "Bể NH: 100 tỷ đ",
+                "ratio": 0.50,
+                "pill": "100 TRIỆU KHÔNG NẰM RIÊNG TRONG KÉT MÀ HOÀ VÀO BỂ CHUNG",
+            },
+        },
+        {
+            "step": "BƯỚC 2/5 · GIỮ 15% DỰ TRỮ · CHO VAY 85%",
+            "step_cards": step_cards,
+            "ket": 85000000000,
+            "ket_pct": 0.85,
+            "hud_left": "DỰ TRỮ 15%: 15 TỶ (0% LÃI)",
+            "hud_right": "CHO VAY 85%: 85 TỶ @ 9,5%",
+            "beat_headlines": [
+                ("CHẶN 15% (15 TỶ) DỰ TRỮ AN TOÀN", "15 TỶ", AMBER),
+                ("85 TỶ CHO VAY THU 8,075 TỶ", "8,075 TỶ", GREEN),
+            ],
+            "actors": [
+                {**a_res, "tag": "15% DỰ TRỮ THANH KHOẢN", "beat": 1},
+                {**a_bor, "tag": "85 TỶ × 9,5% = 8,075 TỶ đ", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 2/5 · CHUYỂN HOÁ KỲ HẠN TÁCH BỂ 100 TỶ THÀNH 15/85", "prop": "split"},
+            "focal": {
+                "type": "SPLIT_BAR",
+                "left_lbl": "Dự trữ: 15 tỷ (15%)",
+                "right_lbl": "Cho vay: 85 tỷ (85%)",
+                "ratio": 0.18,
+                "pill": "CHỈ 85 TỶ ĐỒNG ĐI CHO VAY MỚI SINH RA 8,075 TỶ TIỀN LÃI",
+            },
+        },
+        {
+            "step": "BƯỚC 3/5 · NIM 2,575% & DỰ THU 31/12",
+            "step_cards": step_cards,
+            "ket": 4125000,
+            "ket_pct": 0.75,
+            "hud_left": "8,075 − 5,5 = 2,575 TỶ",
+            "hud_right": "31/12: NỢ 1388 / CÓ 515",
+            "beat_headlines": [
+                ("BIÊN LÃI RÒNG CHỈ CÒN 2,575%", "2,575%", TEAL),
+                ("31/12 DỰ THU 4.125.000 đ", "TK 1388", NAVY),
+            ],
+            "actors": [
+                {**a_bank, "tag": "NII: 2,575 TỶ / 100 TỶ", "beat": 1},
+                {**a_acc, "tag": "31/12: NỢ 1388 / CÓ 515", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 3/5 · 8,075 − 5,5 = 2,575 TỶ (NIM 2,575%) · DỒN TÍCH CUỐI NĂM", "prop": "coin"},
+            "focal": {
+                "type": "HERO_NUM",
+                "fixed_text": "NIM 2,575%",
+                "color": NAVY,
+                "pill": "KHÔNG PHẢI 4% — VÀ CUỐI NĂM 31/12 DN GHI TK 1388 / TK 515",
+            },
+        },
+        {
+            "step": "BƯỚC 4/5 · ĐÁO HẠN 5,5 TR & BÊN VAY 635",
+            "step_cards": step_cards,
+            "ket": 105500000,
+            "ket_pct": 1.0,
+            "hud_left": "01/04: NỢ 112 (105,5 TR)",
+            "hud_right": "VAY: 635 / 335 (9,5 TR)",
+            "beat_headlines": [
+                ("ĐỦ 12 THÁNG NHẬN 105,5 TRIỆU", "+5,5 TR", GREEN),
+                ("BÊN VAY GHI NỢ 635 / CÓ 335", "9,5 TR", AMBER),
+            ],
+            "actors": [
+                {**a_dp, "tag": "CÓ 1281 · 1388 · 515", "beat": 1},
+                {**a_bor, "tag": "NỢ TK 635 / CÓ TK 335", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 4/5 · ĐỐI ỨNG HAI ĐẦU: NGƯỜI GỬI NHẬN 5,5 TR — BÊN VAY TRẢ 9,5 TR", "prop": "coin"},
+            "focal": {
+                "type": "SPLIT_BAR",
+                "left_lbl": "Người gửi: +5,5 tr",
+                "right_lbl": "Bên vay: −9,5 tr",
+                "ratio": 0.40,
+                "pill": "BÊN GỬI CÓ TK 515 · BÊN VAY GHI NỢ TK 635 / CÓ TK 335",
+            },
+        },
+        {
+            "step": "BƯỚC 5/5 · TÁCH RÚT 30 TR GIỮ 70 TR BẢO TOÀN 3,87 TR",
+            "step_cards": step_cards,
+            "ket": 3872500,
+            "ket_pct": 0.94,
+            "hud_left": "RÚT HẾT 100 TR: 75.000 đ",
+            "hud_right": "TÁCH 30/70 TR: 3.872.500 đ",
+            "beat_headlines": [
+                ("TÁCH CHỈ RÚT 30 TR GIỮ 70 TR", "30 / 70 TR", GREEN),
+                ("GIỮ ĐƯỢC 3.872.500 đ TIỀN LÃI", "3.872.500 đ", TEAL),
+            ],
+            "actors": [
+                {**a_dp, "tag": "70 TR × 5,5% + 30 TR × 0,1%", "beat": 1},
+                {**a_bank, "tag": "HƠN TỚI +3.797.500 đ LÃI", "beat": 2},
+            ],
+            "flow": {"kind": "loop", "label": "BƯỚC 5/5 · TÁCH SỔ NHỎ TRÁNH PHẠT HỒI TỐ TOÀN BỘ 100 TRIỆU ĐỒNG", "prop": "loop"},
+            "focal": {
+                "type": "HERO_NUM",
+                "fixed_text": "3.872.500 đ",
+                "color": GREEN,
+                "pill": "22.500 đ (30 TR × 0,1%) + 3.850.000 đ (70 TR × 5,5%) = 3.872.500 đ",
+            },
+        },
+    ]
+
+    long_scenes: list[dict[str, Any]] = [
+        {
+            "is_hook": True,
+            "step": "MỞ ĐẦU · CÂU HỎI ĐẶT RA",
+            "ket": 100075000,
+            "ket_pct": 0.018,
+            "hud_left": "GIỮ 12 THÁNG: +5.500.000 đ",
+            "hud_right": "RÚT THÁNG 9: CHỈ +75.000 đ",
+            "archetype": "HOOK_STAGE",
+            "beat_headlines": [
+                ("TỜ SỔ 100 TRIỆU LÃI 5,5%/NĂM", "100 TRIỆU", NAVY),
+                ("RÚT THÁNG 9 BỐC HƠI 4,05 TRIỆU?", "−4,05 TR?", CORAL),
+            ],
+            "phrase_beats": [
+                ("01/04 GỬI KỲ HẠN 12 THÁNG", "12 THÁNG", NAVY),
+                ("ĐỦ KỲ NHẬN +5.500.000 đ LÃI", "+5,5 TR", GREEN),
+                ("RÚT SỚM THÁNG 9 CHỈ +75.000 đ", "+75.000 đ", CORAL),
+                ("MẤT 4.050.000 đ LÃI DỒN TÍCH", "−4,05 TR", TERRACOTTA),
+            ],
+            "actors": [
+                {**a_dp, "tag": "TÍNH NHẨM 9/12 = 4,125 TR", "beat": 1},
+                {**a_bank, "tag": "TRẢ CASA 0,1% = 75.000 đ", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "CÂU DẪN · VÌ SAO MẤT LÃI KHI RÚT SỚM & TIỀN TRẢ 5,5% ĐẾN TỪ ĐÂU?", "prop": "wire"},
+            "focal": {
+                "type": "HERO_NUM",
+                "target_val": 4050000,
+                "prefix": "MẤT ",
+                "suffix": " đ",
+                "color": CORAL,
+                "pill": "RÚT TRỌN Ở THÁNG 9: TỤT TỪ 4.125.000 đ XUỐNG ĐÚNG 75.000 đ",
+            },
+            "hook_data": {
+                "left_title": "GIỮ TRỌN 12 THÁNG (5,5%/NĂM)",
+                "left_amt": "105.500.000 đ",
+                "left_sub": "Gốc 100 tr + Lãi 5.500.000 đ (9T: 4,125 tr)",
+                "left_actor": 0,
+                "left_accent": GREEN,
+                "right_title": "RÚT TOÀN BỘ Ở THÁNG THỨ 9",
+                "right_amt": "100.075.000 đ",
+                "right_sub": "Lãi tụt về 0,1% = 75.000 đ (Mất 4.050.000 đ)",
+                "right_actor": 1,
+                "right_accent": CORAL,
+                "hook_kicker": "NGÀY 01/04 · MỞ SỔ TIỀN GỬI CÓ KỲ HẠN 100.000.000 đ",
+                "hook_line1": "VÌ SAO RÚT SỚM 3 THÁNG LẠI BỐC HƠI HƠN 4 TRIỆU?",
+                "hook_line2": "VÀ NGÂN HÀNG LẤY GÌ ĐỂ TRẢ 5,5%/NĂM?",
+                "hook_sub": "Theo chân 100 triệu đồng qua bể vốn 100 tỷ, công thức NIM 2,575% và sổ Thông tư 99/2025",
+            },
+        },
+        {
+            "step": "BƯỚC 1/9 · MỞ SỔ 01/04: TK 1281",
+            "ket": 100000000,
+            "ket_pct": 1.0,
+            "hud_left": "NỢ TK 1281 / CÓ TK 112",
+            "hud_right": "TỔNG TÀI SẢN KHÔNG ĐỔI",
+            "archetype": "LEDGER_BOARD",
+            "beat_headlines": [
+                ("01/04 PHÂN LOẠI VÀO TK 1281", "TK 1281", NAVY),
+                ("TIỀN KHÔNG ĐỨNG YÊN TRONG KÉT", "BỂ CHUNG", TEAL),
+            ],
+            "phrase_beats": [
+                ("NỢ TK 1281 TIỀN GỬI CÓ KỲ HẠN", "NỢ 1281", GREEN),
+                ("CÓ TK 112 TIỀN GỬI KHÔNG KỲ HẠN", "CÓ 112", NAVY),
+                ("TỔNG TÀI SẢN VẪN LÀ 100 TRIỆU", "100 TRIỆU", TEAL),
+                ("NH GHI NỢ PHẢI TRẢ & HOÀ BỂ", "BỂ VỐN", AMBER),
+            ],
+            "actors": [
+                {**a_dp, "tag": "CHUYỂN SANG TK 1281", "beat": 1},
+                {**a_bank, "tag": "NHẬN NỢ KỲ HẠN 12 THÁNG", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 1/9 · THEO PHỤ LỤC II TT 99/2025: NỢ TK 1281 / CÓ TK 112 (100.000.000 đ)", "prop": "ledger"},
+            "focal": {
+                "type": "T_ACCOUNT",
+                "debit": "Nợ TK 1281 (Tiền gửi có kỳ hạn · nhóm 128): 100.000.000 đ",
+                "credit": "Có TK 112 (Tiền gửi không kỳ hạn): 100.000.000 đ",
+                "pill": "TỔNG TÀI SẢN GIỮ NGUYÊN — CHỈ ĐỔI TRẠNG THÁI SANG ĐẦU TƯ KỲ HẠN",
+            },
+            "arch_data": {
+                "active_day": 0,
+                "days": [("01/04 MỞ SỔ", "Nợ 1281 / Có 112"), ("31/12 DỰ THU", "4.125.000 đ"), ("01/04 ĐÁO HẠN", "105.500.000 đ")],
+                "debit_title": "SỔ KẾ TOÁN DOANH NGHIỆP GỬI TIỀN",
+                "debit_rows": [
+                    ["Nợ TK 1281 · Tiền gửi có kỳ hạn", "100.000.000 đ", "Thuộc TK 128 Đầu tư giữ đến đáo hạn", GREEN],
+                ],
+                "credit_title": "ĐỐI ỨNG GIẢM TIỀN THANH TOÁN",
+                "credit_rows": [
+                    ["Có TK 112 · Tiền gửi không kỳ hạn", "100.000.000 đ", "Chuyển ra khỏi số dư chi tiêu tức thời", NAVY],
+                ],
+                "balance_lbl": "Σ NỢ = 100.000.000 đ = Σ CÓ · PHÍA NGÂN HÀNG ĐƯA VÀO BỂ HUY ĐỘNG",
+            },
+        },
+        {
+            "step": "BƯỚC 2/9 · BỂ 100 TỶ (15% / 85%)",
+            "ket": 85000000000,
+            "ket_pct": 0.85,
+            "hud_left": "1.000 SỔ = BỂ 100 TỶ đ",
+            "hud_right": "15% DỰ TRỮ · 85% CHO VAY",
+            "archetype": "WATERFALL_SPLIT",
+            "beat_headlines": [
+                ("1.000 SỔ GOM THÀNH BỂ 100 TỶ đ", "100 TỶ đ", NAVY),
+                ("15% DỰ TRỮ · 85% CHO DOANH NGHIỆP VAY", "15% / 85%", GREEN),
+            ],
+            "phrase_beats": [
+                ("1.000 NGƯỜI GỬI = BỂ 100 TỶ ĐỒNG", "100 TỶ", NAVY),
+                ("TRÍCH 15% (15 TỶ) DỰ TRỮ AN TOÀN", "15 TỶ", AMBER),
+                ("85% (85 TỶ) CHO VAY Ở MỨC 9,5%/NĂM", "85 TỶ", GREEN),
+                ("CHUYỂN HOÁ KỲ HẠN TẠO NGUỒN LÃI", "CHUYỂN HOÁ", TEAL),
+            ],
+            "actors": [
+                {**a_bank, "tag": "GOM BỂ CHUNG 100 TỶ đ", "beat": 1},
+                {**a_res, "tag": "GIỮ 15% (15 TỶ đ)", "beat": 1},
+                {**a_bor, "tag": "GIẢI NGÂN 85% (85 TỶ đ)", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 2/9 · KHÔNG ĐƯỢC CHO VAY SẠCH 100% — PHẢI CHẶN 15 TỶ DỰ TRỮ BẮT BUỘC", "prop": "split"},
+            "focal": {
+                "type": "THREE_SLICE",
+                "slices": [
+                    ("Cho vay 85%", "85 tỷ @ 9,5%", 0.56, GREEN),
+                    ("Dự trữ 15%", "15 tỷ (0%)", 0.24, AMBER),
+                    ("1 sổ gốc", "100 triệu", 0.20, NAVY),
+                ],
+                "pill": "QUY LUẬT SỐ ĐÔNG GIÚP NGÂN HÀNG CHUYỂN HOÁ KỲ HẠN AN TOÀN",
+            },
+            "arch_data": {
+                "top_left": ["Tổng bể 1.000 sổ kỳ hạn 5,5%", "100.000.000.000 đ", NAVY],
+                "top_right": ["15% Dự trữ & Đệm thanh khoản", "15.000.000.000 đ", AMBER],
+                "top_ratio": 0.66,
+                "buckets": [
+                    {"title": "1. DỰ TRỮ BẮT BUỘC & KÉT", "sub": "15% Bể huy động", "amt": "15 tỷ đ", "note": "Giữ tại NHTW & thanh khoản (0% cho vay)", "color": AMBER, "actor_id": 2},
+                    {"title": "2. GIẢI NGÂN DOANH NGHIỆP", "sub": "85% Vốn khả dụng", "amt": "85 tỷ đ", "note": "Cho vay sản xuất kinh doanh @ 9,5%/năm", "color": GREEN, "actor_id": 3},
+                    {"title": "3. BỂ VỐN ĐẦU VÀO", "sub": "1.000 × 100 triệu", "amt": "100 tỷ đ", "note": "Vẫn phải trả đủ 5,5%/năm trên cả bể", "color": NAVY, "actor_id": 1},
+                ],
+            },
+        },
+        {
+            "step": "BƯỚC 3/9 · TOÁN HỌC NIM = 2,575%",
+            "ket": 2575000000,
+            "ket_pct": 0.258,
+            "hud_left": "THU 8,075 TỶ − TRẢ 5,5 TỶ",
+            "hud_right": "NII 2,575 TỶ · NIM 2,575%",
+            "archetype": "FULL_TRIPTYCH_3",
+            "beat_headlines": [
+                ("85 TỶ × 9,5% = 8,075 TỶ THU LÃI", "8,075 TỶ", GREEN),
+                ("TRỪ 5,5 TỶ → NIM ĐÚNG 2,575%", "2,575%", NAVY),
+            ],
+            "phrase_beats": [
+                ("CHỈ 85 TỶ SINH LÃI 9,5% = 8,075 TỶ", "8,075 TỶ", GREEN),
+                ("TRẢ LÃI ĐỦ 100 TỶ × 5,5% = 5,5 TỶ", "−5,5 TỶ", CORAL),
+                ("THU NHẬP LÃI RÒNG CÒN 2,575 TỶ", "2,575 TỶ", TEAL),
+                ("NIM TRÊN BỂ 100 TỶ ĐÚNG 2,575%", "NIM 2,575%", NAVY),
+            ],
+            "actors": [
+                {**a_bor, "tag": "TRẢ LÃI VAY: 8,075 TỶ đ", "beat": 1},
+                {**a_dp, "tag": "NHẬN LÃI GỬI: 5,5 TỶ đ", "beat": 1},
+                {**a_bank, "tag": "GIỮ LẠI: 2,575 TỶ (2,575%)", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 3/9 · KHÔNG ĐƯỢC LẤY 9,5% − 5,5% = 4% VÌ 15 TỶ DỰ TRỮ KHÔNG CHO VAY", "prop": "coin"},
+            "focal": {
+                "type": "TRIPTYCH_3",
+                "cols": [
+                    ("1. THU LÃI VAY", "85 tỷ × 9,5%", "+8,075 tỷ đ"),
+                    ("2. TRẢ NGƯỜI GỬI", "100 tỷ × 5,5%", "−5,500 tỷ đ"),
+                    ("3. BIÊN LÃI RÒNG", "2,575 tỷ / 100 tỷ", "NIM 2,575%"),
+                ],
+                "pill": "PHẦN CHÊNH LỆCH THỰC LÀ 2,575% (~2,58%) CHỨ KHÔNG PHẢI 4,0%",
+            },
+            "arch_data": {
+                "cards": [
+                    {"num": "THU NHẬP 01", "title": "THU LÃI VAY 8,075 TỶ", "sub": "85 tỷ khả dụng × 9,5%/năm", "when": "Phần 15 tỷ dự trữ = 0 đ lãi vay", "flow": "Tổng dòng lãi vào ngân hàng", "impact": "+8.075.000.000 đ cả năm", "color": GREEN},
+                    {"num": "CHI TRẢ 02", "title": "TRẢ LÃI GỬI 5,500 TỶ", "sub": "100 tỷ tổng bể × 5,5%/năm", "when": "Tính trên toàn bộ 1.000 sổ gửi", "flow": "Cam kết lãi suất cố định", "impact": "−5.500.000.000 đ chi phí vốn", "color": CORAL},
+                    {"num": "KẾT QUẢ 03", "title": "NIM ĐÚNG 2,575%", "sub": "NII = 2,575 tỷ đ (~2,58%/năm)", "when": "Chia theo dư nợ 85 tỷ là 3,03%", "flow": "Chia bể 100 tỷ đúng 2,575%", "impact": "Thấp hơn hẳn con số 4,0% nhẩm sai", "color": NAVY},
+                ]
+            },
+        },
+        {
+            "step": "BƯỚC 4/9 · CHI PHÍ BÀO MÒN NIM",
+            "ket": 2575000000,
+            "ket_pct": 0.258,
+            "hud_left": "2,575 TỶ CHƯA PHẢI LÃI RÒNG",
+            "hud_right": "LƯƠNG · IT · NỢ XẤU",
+            "archetype": "WATERFALL_SPLIT",
+            "beat_headlines": [
+                ("2,575 TỶ CHƯA PHẢI LỢI NHUẬN BỎ TÚI", "CHƯA RÒNG", AMBER),
+                ("TRẢ LƯƠNG · CÔNG NGHỆ · NỢ XẤU", "3 KHOẢN TRỪ", CORAL),
+            ],
+            "phrase_beats": [
+                ("PHẢI TRẢ LƯƠNG & MẶT BẰNG", "VẬN HÀNH", NAVY),
+                ("DUY TRÌ HẠ TẦNG CORE BANKING", "HỆ THỐNG", TEAL),
+                ("TRÍCH DỰ PHÒNG RỦI RO TÍN DỤNG", "NỢ XẤU", CORAL),
+                ("LỢI NHUẬN THẬT CÒN LẠI RẤT MỎNG", "BIÊN MỎNG", TERRACOTTA),
+            ],
+            "actors": [
+                {**a_bank, "tag": "CHIA 2,575 TỶ CHO 3 CỘT CHI", "beat": 1},
+                {**a_bor, "tag": "NỢ XẤU ĂN VÀO BIÊN 2,575%", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 4/9 · PHẦN DƯ 2,575 TỶ PHẢI TRANG TRẢI VẬN HÀNH VÀ BÙ ĐẮP RỦI RO TÍN DỤNG", "prop": "lock"},
+            "focal": {
+                "type": "THREE_SLICE",
+                "slices": [
+                    ("Lương & Chi nhánh", "Chi phí 1", 0.34, NAVY),
+                    ("Hạ tầng công nghệ", "Chi phí 2", 0.33, TEAL),
+                    ("Dự phòng nợ xấu", "Chi phí 3", 0.33, CORAL),
+                ],
+                "pill": "CHỈ VÀI KHOẢN VAY CHẬM TRẢ CŨNG BÀO MÒN MẠNH BIÊN 2,575%",
+            },
+            "arch_data": {
+                "top_left": ["Thu nhập lãi thuần gộp (NIM)", "2.575.000.000 đ", TEAL],
+                "top_right": ["3 tầng chi phí phải trừ tiếp", "Vận hành + Rủi ro", CORAL],
+                "top_ratio": 0.52,
+                "buckets": [
+                    {"title": "1. NHÂN SỰ & CHI NHÁNH", "sub": "Vận hành mạng lưới", "amt": "Chi cố định", "note": "Lương giao dịch viên, thẩm định, mặt bằng", "color": NAVY, "actor_id": 1},
+                    {"title": "2. CÔNG NGHỆ LÕI", "sub": "Bảo mật & Chuyển mạch", "amt": "Chi hệ thống", "note": "Máy chủ 24/7, kiểm toán và an toàn vốn", "color": TEAL, "actor_id": 1},
+                    {"title": "3. DỰ PHÒNG NỢ XẤU", "sub": "Rủi ro tín dụng", "amt": "Chi rủi ro", "note": "Trích lập bù khoản doanh nghiệp chậm trả", "color": CORAL, "actor_id": 3},
+                ],
+            },
+        },
+        {
+            "step": "BƯỚC 5/9 · DỰ THU 31/12 (TK 1388)",
+            "ket": 4125000,
+            "ket_pct": 0.75,
+            "hud_left": "9/12 THÁNG: 4.125.000 đ",
+            "hud_right": "NỢ TK 1388 / CÓ TK 515",
+            "archetype": "LEDGER_BOARD",
+            "beat_headlines": [
+                ("KHOÁ SỔ 31/12 DỰ THU 9 THÁNG", "4.125.000 đ", NAVY),
+                ("DÙNG TK 1388 · CẤM NHẦM TK 131", "KHÔNG TK 131", TERRACOTTA),
+            ],
+            "phrase_beats": [
+                ("01/04 → 31/12 ĐÃ QUA ĐÚNG 9 THÁNG", "9/12 THÁNG", NAVY),
+                ("LÃI DỒN TÍCH = 4.125.000 ĐỒNG", "4.125.000 đ", GREEN),
+                ("GHI NỢ TK 1388 PHẢI THU KHÁC", "TK 1388", AMBER),
+                ("ĐỐI ỨNG CÓ TK 515 DOANH THU TC", "TK 515", GREEN),
+            ],
+            "actors": [
+                {**a_acc, "tag": "NỢ TK 1388 / CÓ TK 515", "beat": 1},
+                {**a_dp, "tag": "TUYỆT ĐỐI KHÔNG GHI TK 131", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 5/9 · KẾ TOÁN DỒN TÍCH (TT 99/2025): 100 TR × 5,5% × 9/12 = 4.125.000 đ", "prop": "ledger"},
+            "focal": {
+                "type": "T_ACCOUNT",
+                "debit": "Nợ TK 1388 (Phải thu khác — lãi tiền gửi): 4.125.000 đ",
+                "credit": "Có TK 515 (Doanh thu hoạt động tài chính): 4.125.000 đ",
+                "pill": "TK 131 CHỈ DÀNH CHO KHÁCH MUA HÀNG HOÁ · LÃI GỬI PHẢI VÀO TK 1388",
+            },
+            "arch_data": {
+                "active_day": 1,
+                "days": [("01/04 MỞ SỔ", "Nợ 1281 / Có 112"), ("31/12 KHOÁ SỔ", "Nợ 1388 / Có 515"), ("01/04 ĐÁO HẠN", "105.500.000 đ")],
+                "debit_title": "PHẢN ÁNH LÃI ĐÃ SINH RA TRONG NĂM CŨ",
+                "debit_rows": [
+                    ["Nợ TK 1388 · Phải thu khác", "4.125.000 đ", "Không dùng TK 131 (chỉ cho khách hàng TM)", AMBER],
+                ],
+                "credit_title": "GHI NHẬN ĐÚNG KỲ NĂM TÀI CHÍNH",
+                "credit_rows": [
+                    ["Có TK 515 · Doanh thu tài chính", "4.125.000 đ", "9/12 tháng lãi kỳ hạn 01/04 → 31/12", GREEN],
+                ],
+                "balance_lbl": "Σ NỢ = 4.125.000 đ = Σ CÓ · TIỀN CHƯA VỀ TK 112 NHƯNG LÃI ĐÃ THUỘC NĂM NAY",
+            },
+        },
+        {
+            "step": "BƯỚC 6/9 · ĐÁO HẠN 01/04 (105,5 TR)",
+            "ket": 105500000,
+            "ket_pct": 1.0,
+            "hud_left": "NỢ TK 112: 105,5 TRIỆU",
+            "hud_right": "CÓ 1281 · 1388 · 515",
+            "archetype": "LEDGER_BOARD",
+            "beat_headlines": [
+                ("01/04 VỀ KÉT 105.500.000 đ TƯƠI", "105,5 TR", GREEN),
+                ("TẤT TOÁN SẠCH KHÔNG GHI TRÙNG LÃI", "KHÔNG TRÙNG", NAVY),
+            ],
+            "phrase_beats": [
+                ("NỢ TK 112 NHẬN ĐỦ 105.500.000 đ", "105,5 TR", GREEN),
+                ("CÓ TK 1281 TẤT TOÁN 100 TRIỆU GỐC", "100 TR", NAVY),
+                ("CÓ TK 1388 XOÁ 4.125.000 đ ĐÃ DỰ THU", "4,125 TR", AMBER),
+                ("CÓ TK 515 GHI NỐT 1.375.000 đ NĂM MỚI", "1,375 TR", TEAL),
+            ],
+            "actors": [
+                {**a_bank, "tag": "CHUYỂN TRẢ 105.500.000 đ", "beat": 1},
+                {**a_acc, "tag": "CHIA 3 DÒNG 1281 · 1388 · 515", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 6/9 · KHÔNG GHI CẢ 5,5 TRIỆU VÀO TK 515 NĂM SAU ĐỂ TRÁNH TÍNH TRÙNG", "prop": "coin"},
+            "focal": {
+                "type": "T_ACCOUNT",
+                "debit": "Nợ TK 112 (Tiền gửi không kỳ hạn): 105.500.000 đ",
+                "credit": "Có 1281 (100 tr) + Có 1388 (4,125 tr) + Có 515 (1,375 tr)",
+                "pill": "4.125.000 đ NĂM CŨ + 1.375.000 đ NĂM MỚI = TRỌN 5.500.000 đ",
+            },
+            "arch_data": {
+                "active_day": 2,
+                "days": [("01/04 MỞ SỔ", "Nợ 1281 / Có 112"), ("31/12 DỰ THU", "4.125.000 đ"), ("01/04 TẤT TOÁN", "105.500.000 đ")],
+                "debit_title": "TIỀN THẬT CHẢY VỀ KÉT DOANH NGHIỆP",
+                "debit_rows": [
+                    ["Nợ TK 112 · Tiền gửi không kỳ hạn", "105.500.000 đ", "Gồm 100 tr gốc + 5,5 tr tổng lãi cả năm", GREEN],
+                ],
+                "credit_title": "BA DÒNG ĐỐI ỨNG KHÉP KÍN CHU TRÌNH",
+                "credit_rows": [
+                    ["Có TK 1281 · Tất toán gốc đầu tư", "100.000.000 đ", "Khép lại hợp đồng tiền gửi kỳ hạn", NAVY],
+                    ["Có TK 1388 · Xoá lãi dự thu 31/12", "4.125.000 đ", "Tránh tính trùng doanh thu hai năm", AMBER],
+                    ["Có TK 515 · Lãi 3 tháng đầu năm mới", "1.375.000 đ", "100 tr × 5,5% × 3/12 của quý 1", TEAL],
+                ],
+                "balance_lbl": "Σ NỢ = 105.500.000 đ = Σ CÓ · CHUẨN MỰC HAI NIÊN ĐỘ TT 99/2025",
+            },
+        },
+        {
+            "step": "BƯỚC 7/9 · RÚT THÁNG 9 VS 30/70 TR",
+            "ket": 3872500,
+            "ket_pct": 0.94,
+            "hud_left": "RÚT HẾT: 75.000 đ",
+            "hud_right": "TÁCH 30/70: 3.872.500 đ",
+            "archetype": "TWIN_SHOWDOWN",
+            "beat_headlines": [
+                ("RÚT HẾT THÁNG 9 MẤT 4.050.000 đ", "CHỈ 75.000 đ", CORAL),
+                ("TÁCH RÚT 30 TR GIỮ 70 TR ĐẾN HẠN", "3.872.500 đ", GREEN),
+            ],
+            "phrase_beats": [
+                ("PHÁ TRỌN 100 TR → TỤT VỀ CASA 0,1%", "75.000 đ", CORAL),
+                ("BỐC HƠI 4.050.000 đ SO VỚI 9/12", "−4.050.000 đ", TERRACOTTA),
+                ("CHỈ RÚT 30 TR (0,1%) = 22.500 đ", "22.500 đ", AMBER),
+                ("RÚT HẾT 75K VS TÁCH GIỮ 3.872.500 đ", "3.872.500 đ", GREEN),
+            ],
+            "actors": [
+                {**a_bank, "tag": "TẤT TOÁN HẾT → CASA 0,1%", "beat": 1},
+                {**a_dp, "tag": "TÁCH 30/70 → HƠN +3.797.500 đ", "beat": 2},
+            ],
+            "flow": {"kind": "pipe", "label": "BƯỚC 7/9 · QUY ƯỚC MINH HOẠ 9/12 THÁNG SO VỚI ĐẾM NGÀY THỰC TẾ N/365", "prop": "split"},
+            "focal": {
+                "type": "SPLIT_BAR",
+                "left_lbl": "Rút hết: 75.000 đ",
+                "right_lbl": "Tách 30/70: 3.872.500 đ",
+                "ratio": 0.14,
+                "pill": "TÁCH CHỈ RÚT 30 TRIỆU GIỮ LẠI ĐƯỢC HƠN 3,797 TRIỆU TIỀN LÃI",
+            },
+            "arch_data": {
+                "left": {
+                    "kicker": "RÚT TOÀN BỘ 100 TRIỆU THÁNG 9",
+                    "actor_id": 1,
+                    "big": "75.000 đ",
+                    "sub": "100 tr × 0,1%/năm × 9/12",
+                    "tag1": "Tụt hồi tố từ 4,125 tr xuống 75K",
+                    "tag2": "Mất trắng 4.050.000 đ tiền lãi",
+                    "accent": CORAL,
+                },
+                "right": {
+                    "kicker": "TÁCH RÚT 30 TR · GIỮ 70 TR ĐỦ KỲ",
+                    "actor_id": 0,
+                    "big": "3.872.500 đ",
+                    "sub": "22.500 đ (30 tr) + 3.850.000 đ (70 tr)",
+                    "tag1": "Phần 70 tr vẫn ăn đủ 5,5%/năm",
+                    "tag2": "Giữ hơn tới +3.797.500 đ lãi",
+                    "accent": GREEN,
+                },
+                "bridge": "VS",
+            },
+        },
+        {
+            "step": "BƯỚC 8/9 · SỔ KÉP GỬI VS VAY (TT 99)",
+            "ket": 9500000,
+            "ket_pct": 0.95,
+            "hud_left": "GỬI: 1281 · 1388 / 515",
+            "hud_right": "VAY: NỢ 635 / CÓ 335",
+            "archetype": "TWIN_SHOWDOWN",
+            "beat_headlines": [
+                ("SỔ BÊN GỬI THU 5,5 TRIỆU (TK 515)", "TK 1281 · 515", GREEN),
+                ("SỔ BÊN VAY CHI 9,5 TRIỆU (TK 635)", "TK 635 · 335", AMBER),
+            ],
+            "phrase_beats": [
+                ("NGƯỜI GỬI: TK 1281 · DỰ THU 1388/515", "TK 1388/515", GREEN),
+                ("NGƯỜI VAY 100 TR Ở MỨC 9,5%/NĂM", "9,5%/NĂM", AMBER),
+                ("BÊN VAY GHI NỢ 635 / CÓ TK 335", "TK 635/335", TERRACOTTA),
+                ("SỔ KÉP: BÊN GỬI 1388 VS VAY 635", "TT 99/2025", NAVY),
+            ],
+            "actors": [
+                {**a_dp, "tag": "THU LÃI GỬI: 5.500.000 đ", "beat": 1},
+                {**a_bor, "tag": "CHI PHÍ VAY: 9.500.000 đ", "beat": 2},
+            ],
+            "flow": {"kind": "wire", "label": "BƯỚC 8/9 · CÙNG LÁT CẮT 100 TRIỆU ĐỐI ỨNG TRÊN HAI BẢNG KẾ TOÁN TT 99/2025", "prop": "ledger"},
+            "focal": {
+                "type": "SPLIT_BAR",
+                "left_lbl": "Bên gửi: +5.500.000 đ",
+                "right_lbl": "Bên vay: −9.500.000 đ",
+                "ratio": 0.42,
+                "pill": "PHẦN CHÊNH TẠO BỂ DOANH THU GỘP CHIA CHO DỰ TRỮ VÀ VẬN HÀNH NH",
+            },
+            "arch_data": {
+                "left": {
+                    "kicker": "SỔ DOANH NGHIỆP GỬI TIỀN (5,5%)",
+                    "actor_id": 0,
+                    "big": "+5.500.000 đ",
+                    "sub": "Mở sổ TK 1281 · Dự thu TK 1388",
+                    "tag1": "31/12: Nợ TK 1388 / Có TK 515",
+                    "tag2": "01/04: Nợ TK 112 thu đủ 105,5 tr",
+                    "accent": GREEN,
+                },
+                "right": {
+                    "kicker": "SỔ DOANH NGHIỆP VAY VỐN (9,5%)",
+                    "actor_id": 3,
+                    "big": "−9.500.000 đ",
+                    "sub": "100 triệu vay sản xuất @ 9,5%/năm",
+                    "tag1": "Trích lãi: Nợ TK 635 (Chi phí TC)",
+                    "tag2": "Đối ứng: Có TK 335 (Chi phí phải trả)",
+                    "accent": AMBER,
+                },
+                "bridge": "↔",
+            },
+        },
+        {
+            "step": "BƯỚC 9/9 · BA TẦNG SAU LÃI 5,5%",
+            "ket": 105500000,
+            "ket_pct": 1.0,
+            "hud_left": "NIM 2,575% · TÁCH 30/70 TR",
+            "hud_right": "SỔ 1281 · 1388 / 515 · 635",
+            "archetype": "FULL_TRIPTYCH_3",
+            "beat_headlines": [
+                ("ĐỌC ĐƯỢC CẢ BỂ VỐN & LÃI PHẠT", "BỂ 100 TỶ", NAVY),
+                ("HIỂU TRỌN SỔ KÉP HAI ĐẦU KỲ HẠN", "TT 99/2025", GREEN),
+            ],
+            "phrase_beats": [
+                ("1. BỂ 100 TỶ: 15% DỰ TRỮ · NIM 2,575%", "NIM 2,575%", NAVY),
+                ("2. RÚT HẾT TỤT 0,1% · TÁCH GIỮ 3,87 TR", "TÁCH 30/70", GREEN),
+                ("3. CUỐI NĂM 31/12 DỰ THU TK 1388", "TK 1388", AMBER),
+                ("NƠI ĐỒNG TIỀN KỲ HẠN LÀM VIỆC", "HOÀN TẤT", TEAL),
+            ],
+            "actors": [
+                {**a_bank, "tag": "CHUYỂN HOÁ KỲ HẠN 15/85", "beat": 1},
+                {**a_acc, "tag": "SỔ KÉP HAI BÊN KHỚP CHUẨN", "beat": 2},
+            ],
+            "flow": {"kind": "loop", "label": "BƯỚC 9/9 · NHÌN THẤU CẢ BẢNG CÂN ĐỐI NGÂN HÀNG VÀ SỔ KẾ TOÁN DOANH NGHIỆP", "prop": "loop"},
+            "focal": {
+                "type": "TRIPTYCH_3",
+                "cols": [
+                    ("1. BỂ VỐN 100 TỶ", "15% dự trữ · 85% vay", "NIM thực 2,575%"),
+                    ("2. PHẠT RÚT SỚM", "Toàn bộ về 0,1% (75K)", "Tách 30/70 giữ 3,87 tr"),
+                    ("3. SỔ TT 99/2025", "Gửi: 1281 · 1388 / 515", "Vay: TK 635 / TK 335"),
+                ],
+                "pill": "NƠI ĐỒNG TIỀN GỬI KỲ HẠN THỰC SỰ LÀM VIỆC",
+            },
+            "arch_data": {
+                "cards": [
+                    {"num": "TẦNG 01 · BỂ VỐN", "title": "CHUYỂN HOÁ 15/85", "sub": "8,075 tỷ − 5,5 tỷ = 2,575 tỷ", "when": "15 tỷ dự trữ không sinh lãi vay", "flow": "NIM gộp đúng 2,575%/năm", "impact": "Còn trả lương, IT và nợ xấu", "color": NAVY},
+                    {"num": "TẦNG 02 · RÚT SỚM", "title": "GIỮ TRỌN CAM KẾT", "sub": "Rút hết tháng 9 về 0,1% (75K)", "when": "Tạo gánh nặng thanh khoản đột xuất", "flow": "Tách 30/70 tr giữ 3.872.500 đ", "impact": "Chênh tới 3.797.500 đ lãi", "color": CORAL},
+                    {"num": "TẦNG 03 · KẾ TOÁN", "title": "HAI CUỐN SỔ TT 99", "sub": "31/12 dồn tích TK 1388 / 515", "when": "Không ghi nhầm vào TK 131", "flow": "Bên vay ghi Nợ 635 / Có 335", "impact": "Khép vòng đời dòng tiền 100 tr", "color": GREEN},
+                ]
+            },
+        },
+    ]
+    return short_scenes, long_scenes
+
+
 TOPIC_CONFIGS = {
     "pay": _pay_scenes,
     "install": _install_scenes,
@@ -3911,6 +4535,7 @@ TOPIC_CONFIGS = {
     "qr": _qr_scenes,
     "profitcash": _profitcash_scenes,
     "offus": _offus_scenes,
+    "termdep": _termdep_scenes,
 }
 
 

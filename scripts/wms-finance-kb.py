@@ -54,16 +54,20 @@ TT99_EN_NAMES = {
     "111": "Cash on hand",
     "112": "Demand deposits",
     "113": "Cash in transit",
+    "128": "Held-to-maturity investments",
+    "1281": "Term deposits",
     "131": "Trade receivables",
     "1388": "Other receivables",
     "156": "Merchandise inventory",
     "331": "Trade payables",
     "3335": "Personal income tax payable",
     "334": "Payables to employees",
+    "335": "Accrued expenses",
     "338": "Other payables",
     "341": "Borrowings and finance lease liabilities",
     "421": "Undistributed profit after tax",
     "511": "Revenue from sales of goods and provision of services",
+    "515": "Financial income",
     "521": "Revenue deductions",
     "632": "Cost of goods sold",
     "635": "Financial expenses",
@@ -544,6 +548,49 @@ def verify_story_finance(
                     f"Toán On-Us vs Off-Us DNS khớp tuyệt đối: Lệnh {tx_amt:,}đ (On-Us dự trữ di chuyển {onus_res}đ) · "
                     f"Phiên Off-Us: Chiều đi {out_g:,}đ + Chiều về {in_g:,}đ = Tổng gộp {tot_g:,}đ → "
                     f"Quyết toán ròng tại NH Trung ương = {net_s:,}đ (tiết kiệm {saved_liq:,}đ thanh khoản = {saved_ratio*100:.2f}%)"
+                ))
+        elif story_key == "termdep":
+            prin = p["principal"]
+            t_rate = p["termRateAnnual"]
+            e_rate = p["earlyExitRateAnnual"]
+            m_exit = p["earlyExitMonth"]
+            full_int = round(prin * t_rate)
+            pro_9m = round(prin * t_rate * m_exit / 12)
+            early_int = round(prin * e_rate * m_exit / 12)
+            forfeit = pro_9m - early_int
+            sp_out = p["splitWithdrawAmount"]
+            sp_keep = prin - sp_out
+            sp_tot = round(sp_out * e_rate * m_exit / 12) + round(sp_keep * t_rate)
+            pool_tot = p["poolTotal"]
+            res_amt = round(pool_tot * p["reserveRatio"])
+            loan_prin = pool_tot - res_amt
+            loan_inc = round(loan_prin * p["loanRateAnnual"])
+            dep_cost = round(pool_tot * t_rate)
+            nii = loan_inc - dep_cost
+            nim = nii / pool_tot if pool_tot else 0.0
+            if (
+                full_int != p["fullMaturityInterest"]
+                or pro_9m != p["proRata9MInterest"]
+                or early_int != p["earlyExitInterestPaid"]
+                or forfeit != p["forfeitedInterest"]
+                or sp_tot != p["splitTotalInterest"]
+                or res_amt != p["reserveAmount"]
+                or loan_prin != p["loanPrincipal"]
+                or loan_inc != p["loanInterestIncome"]
+                or dep_cost != p["poolDepositInterestCost"]
+                or nii != p["netInterestIncome"]
+                or abs(nim - p["expectedNim"]) > 1e-6
+            ):
+                rows.append((
+                    "FAIL", "F2", w,
+                    f"Toán tiền gửi có kỳ hạn & NIM bể vốn lệch: early={early_int}, forfeit={forfeit}, sp_tot={sp_tot}, nii={nii}, nim={nim:.6f}"
+                ))
+                f2_ok = False
+            else:
+                rows.append((
+                    "PASS", "F2", w,
+                    f"Toán Tiền gửi có kỳ hạn & NIM khớp tuyệt đối: {prin:,}đ @ {t_rate*100:.1f}% (12T +{full_int:,}đ · rút M{m_exit} về {early_int:,}đ, mất {forfeit:,}đ · tách 30/70 giữ {sp_tot:,}đ) · "
+                    f"Bể {pool_tot//10**9} tỷ: dự trữ {res_amt//10**9} tỷ + vay {loan_prin//10**9} tỷ @ {p['loanRateAnnual']*100:.1f}% (+{loan_inc/1e9:.3f} tỷ) − trả {dep_cost/1e9:.1f} tỷ = NII {nii/1e9:.3f} tỷ (NIM={nim*100:.3f}%)"
                 ))
     elif f2_ok:
         rows.append(("PASS", "F2", w, f"Toán cân đối {len(all_ledgers)} bút toán Σ Nợ = Σ Có hợp lệ"))

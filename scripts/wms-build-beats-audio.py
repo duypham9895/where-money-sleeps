@@ -37,7 +37,7 @@ VOICE_SETTINGS = {
     "style": 0.20,
     "use_speaker_boost": True,
 }
-STORIES_ORDER = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+STORIES_ORDER = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus", "termdep")
 
 
 def load_pipeline():
@@ -277,19 +277,28 @@ def synthesize_story_beats(story_key: str, story: dict, api_key: str) -> dict:
 
 
 def main() -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--story", default="all", choices=[*STORIES_ORDER, "all"])
+    args = parser.parse_args()
+
     wmp = load_pipeline()
     wmp.load_dotenv()
     api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
     html_src = (ROOT / "docs/prototype.html").read_text(encoding="utf-8")
     stories = wmp.extract_stories(html_src)
 
+    manifest_path = AUDIO_OUT_DIR / "beats-manifest.json"
     manifest = {}
-    for sk in STORIES_ORDER:
+    if args.story != "all" and manifest_path.is_file():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    target_order = STORIES_ORDER if args.story == "all" else (args.story,)
+    for sk in target_order:
         if sk not in stories:
             continue
         manifest[sk] = synthesize_story_beats(sk, stories[sk], api_key)
 
-    manifest_path = AUDIO_OUT_DIR / "beats-manifest.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"[HOÀN TẤT] Đã ghi {manifest_path.relative_to(ROOT)} cho {len(manifest)} bài học.")
     return 0

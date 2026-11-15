@@ -32,6 +32,7 @@ FIG_SCENE_MAP: dict[str, list[int]] = {
     "qr": [1, 3, 6, 7],
     "profitcash": [2, 5, 7, 6],
     "offus": [1, 4, 6, 8],
+    "termdep": [2, 3, 7, 8],
 }
 
 

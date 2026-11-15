@@ -146,7 +146,8 @@
         {"file": "public/audio/minpay-beats.mp3"},
         {"file": "public/audio/qr-beats.mp3"},
         {"file": "public/audio/profitcash-beats.mp3"},
-        {"file": "public/audio/offus-beats.mp3"}
+        {"file": "public/audio/offus-beats.mp3"},
+        {"file": "public/audio/termdep-beats.mp3"}
       ]
     },
     {
@@ -202,7 +203,11 @@
         "public/brand/offus-fig-1.jpg",
         "public/brand/offus-fig-2.jpg",
         "public/brand/offus-fig-3.jpg",
-        "public/brand/offus-fig-4.jpg"
+        "public/brand/offus-fig-4.jpg",
+        "public/brand/termdep-fig-1.jpg",
+        "public/brand/termdep-fig-2.jpg",
+        "public/brand/termdep-fig-3.jpg",
+        "public/brand/termdep-fig-4.jpg"
       ]
     },
     {
