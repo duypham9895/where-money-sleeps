@@ -604,6 +604,26 @@ html, body {
   color: var(--accent);
   text-transform: uppercase;
 }
+.st-lang-seg {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+.st-lang-seg button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-2);
+  padding: 6px 10px;
+  font: 700 12px var(--mono);
+  cursor: pointer;
+}
+.st-lang-seg button[aria-pressed="true"] {
+  background: var(--ink-1);
+  color: var(--bg-card);
+}
 </style>
 </head>
 <body>
@@ -627,6 +647,10 @@ html, body {
     <button type="button" class="gate-pill-btn" id="gateDrawerToggle" aria-expanded="false" title="Bấm để mở/đóng chi tiết 5 cổng chuyên gia">
       <span id="gateSummaryText">✓ 5/5 Cổng Đạt (K·F·B·M) ▾</span>
     </button>
+    <div class="st-lang-seg" role="group" aria-label="Language / Ngôn ngữ">
+      <button type="button" id="studioLangVi" aria-pressed="true">VI</button>
+      <button type="button" id="studioLangEn" aria-pressed="false">EN</button>
+    </div>
     <button type="button" class="btn-secondary" id="themeToggleBtn" title="Đổi nền Giấy kem ấm ⇄ Than ấm dịu">🌙 Nền Than dịu</button>
     <button type="button" class="btn-primary" id="saveReviewBtn">💾 Lưu Biên Bản (.json)</button>
     <a href="prototype.html" class="btn-secondary" id="openReaderLink">↗ Trang Độc Giả</a>
@@ -743,11 +767,11 @@ html, body {
        ══════════════════════════════════════════════════════════════════════ -->
   <section id="panel-oss" hidden>
     <div class="paper-sheet" style="margin-bottom:20px">
-      <div class="paper-kicker">SO KHỚP ĐỒNG THỜI 16:9 ⇄ 9:16 (CGWIRE KITSU SPLIT-COMPARE)</div>
-      <h3>Đối chiếu Bản Dài 16:9 và Shorts 9:16 (Zone 2 mở rộng 80% + Thanh công thức gọn)</h3>
+      <div class="paper-kicker" id="ossKicker">SO KHỚP ĐỒNG THỜI 16:9 ⇄ 9:16 (CGWIRE KITSU SPLIT-COMPARE)</div>
+      <h3 id="ossTitle">Đối chiếu Bản Dài 16:9 và Shorts 9:16 (Zone 2 mở rộng 80% + Thanh công thức gọn)</h3>
       <div style="display:grid;grid-template-columns:1.35fr 0.65fr;gap:20px;align-items:start">
         <div>
-          <div class="ac-label">1. YouTube Dài 16:9 (1920×1080)</div>
+          <div class="ac-label" id="ossLongLbl">1. YouTube Dài 16:9 (1920×1080)</div>
           <div class="video-frame-box" style="max-width:100%">
             <video id="cmpVideoLong" controls preload="metadata" width="1280" height="720" playsinline></video>
           </div>
@@ -793,25 +817,43 @@ html, body {
     el.innerHTML = htmlPolicy.createHTML(htmlStr);
   };
 
-  const DATA = window.WMS_STUDIO_DATA || { stories: {}, categories: [], gloss: {}, chapFigs: {}, manifests: {}, waveforms: {}, subtitles: {} };
-  const STORIES = DATA.stories || {};
-  const GLOSS = DATA.gloss || {};
-  const CHAP_FIGS = DATA.chapFigs || {};
+  const DATA = window.WMS_STUDIO_DATA || { stories: {}, categories: [], gloss: {}, chapFigs: {}, manifests: {}, waveforms: {}, subtitles: {}, storiesEn: {}, glossEn: {}, chapFigsEn: {}, subtitlesEn: {} };
   const MANIFESTS = DATA.manifests || {};
   const WAVEFORMS = DATA.waveforms || {};
-  const SUBTITLES = DATA.subtitles || {};
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const params = new URLSearchParams(location.search);
-  const initialStory = params.get("story") && STORIES[params.get("story")]
+  let storedLang = "";
+  try { storedLang = localStorage.getItem("wms-lang") || ""; } catch (_) {}
+  const initialLang = ["vi", "en"].includes(params.get("lang"))
+    ? params.get("lang")
+    : (["vi", "en"].includes(storedLang) ? storedLang : "vi");
+
+  const getStories = () => {
+    const base = DATA.stories || {};
+    const enMap = DATA.storiesEn || {};
+    if (ST && ST.lang === "en" && Object.keys(enMap).length) {
+      const merged = {};
+      Object.keys(base).forEach(k => { merged[k] = enMap[k] || base[k]; });
+      return merged;
+    }
+    return base;
+  };
+  const getGloss = () => (ST && ST.lang === "en" && DATA.glossEn && Object.keys(DATA.glossEn).length ? DATA.glossEn : (DATA.gloss || {}));
+  const getChapFigs = () => (ST && ST.lang === "en" && DATA.chapFigsEn && Object.keys(DATA.chapFigsEn).length ? DATA.chapFigsEn : (DATA.chapFigs || {}));
+  const getSubtitles = () => (ST && ST.lang === "en" && DATA.subtitlesEn && Object.keys(DATA.subtitlesEn).length ? DATA.subtitlesEn : (DATA.subtitles || {}));
+
+  const STORIES_INIT = DATA.stories || {};
+  const initialStory = params.get("story") && STORIES_INIT[params.get("story")]
     ? params.get("story")
-    : (STORIES.install ? "install" : Object.keys(STORIES)[0] || "card");
+    : (STORIES_INIT.install ? "install" : Object.keys(STORIES_INIT)[0] || "card");
   const initialMode = ["post", "video", "oss"].includes(params.get("mode")) ? params.get("mode") : "post";
   const initialUnit = params.get("unit") ? Math.max(0, parseInt(params.get("unit"), 10) || 0) : 0;
 
   const ST = {
+    lang: initialLang,
     story: initialStory,
     mode: initialMode,      // "post" | "video" | "oss"
     theme: params.get("theme") === "charcoal" ? "charcoal" : "paper",
@@ -833,6 +875,22 @@ html, body {
   };
 
   document.documentElement.setAttribute("data-theme", ST.theme);
+  document.documentElement.lang = ST.lang;
+  const origDocTitle = document.title;
+  const tldrEl = $(".tldr");
+  const origTldrHtml = tldrEl ? tldrEl.innerHTML : "";
+
+  function setStudioLang(l) {
+    ST.lang = l === "en" ? "en" : "vi";
+    document.documentElement.lang = ST.lang;
+    try { localStorage.setItem("wms-lang", ST.lang); } catch (_) {}
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set("lang", ST.lang);
+      history.replaceState(null, "", u.toString());
+    } catch (_) {}
+    renderAll();
+  }
 
   // Author-only access guard on public edge (*.workers.dev)
   try {
@@ -879,6 +937,7 @@ html, body {
   }
 
   function extractGlossTerms(str) {
+    const gMap = getGloss();
     const found = [];
     const seen = new Set();
     const re = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
@@ -888,31 +947,83 @@ html, body {
       const key = (m[2] || m[1]).toLowerCase();
       if (!seen.has(key)) {
         seen.add(key);
-        found.push({ label, key, gloss: GLOSS[key] });
+        found.push({ label, key, gloss: gMap[key] });
       }
     }
     return found;
   }
 
   function richText(str) {
+    const gMap = getGloss();
     return esc(str).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, label, key) => {
       const k = (key || label).toLowerCase();
-      const g = GLOSS[k];
-      return `<abbr title="${esc(g ? `${g.t} (${g.en}): ${g.d}` : k)}" style="text-decoration:underline dotted var(--accent);cursor:help;font-weight:600;color:var(--ink-1)">${esc(label)}</abbr>`;
+      const g = gMap[k];
+      return `<abbr title="${esc(g ? `${g.t} (${g.en || k}): ${g.d}` : k)}" style="text-decoration:underline dotted var(--accent);cursor:help;font-weight:600;color:var(--ink-1)">${esc(label)}</abbr>`;
     });
   }
 
   function animateCounter(el, targetVal, suffix = "") {
     if (!el) return;
-    el.textContent = `${Number(targetVal || 0).toLocaleString("vi-VN")}${suffix}`;
+    el.textContent = `${Number(targetVal || 0).toLocaleString(ST.lang === "en" ? "en-US" : "vi-VN")}${suffix}`;
+  }
+
+  function fmtCur(n) {
+    const v = Number(n || 0);
+    return ST.lang === "en" ? `${v.toLocaleString("en-US")} VND` : `${v.toLocaleString("vi-VN")}đ`;
   }
 
   /* ── 2. Render Topbar & 5-Gate Drawer ── */
   function renderTopbarAndGates() {
+    const en = ST.lang === "en";
+    const curStories = getStories();
+    const bVi = $("#studioLangVi");
+    const bEn = $("#studioLangEn");
+    if (bVi) bVi.setAttribute("aria-pressed", String(!en));
+    if (bEn) bEn.setAttribute("aria-pressed", String(en));
+
+    document.title = en ? "Review Studio · Where Money Sleeps" : origDocTitle;
+    if (tldrEl) {
+      if (en) {
+        setSafeHTML(tldrEl, `<div><strong>Review Studio ⇄ prototype.html:</strong> Audit <em>Articles</em> (Intro, Ch.01–05 + 4 figures RULE 9, Circ. 99/2025 Ledger) and <em>Video + .srt</em> scene by scene (<kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> step). <span class="words" id="syncHashBadge"></span></div>`);
+      } else {
+        setSafeHTML(tldrEl, origTldrHtml);
+      }
+    }
+
+    const modeMap = en
+      ? { post: "📖 1. Review Article (5 Ch. & Circ. 99)", video: "🎬 2. Review Video & Subtitles (.srt)", oss: "⚖️ 3. Parity & 15 GitHub OSS" }
+      : { post: "📖 1. Duyệt Bài Viết (5 Chương & Sổ TT 99)", video: "🎬 2. Duyệt Video & Phụ đề (.srt)", oss: "⚖️ 3. So khớp & Kho 15 GitHub" };
+    $$("[data-mode]").forEach(btn => {
+      if (modeMap[btn.dataset.mode]) btn.textContent = modeMap[btn.dataset.mode];
+      btn.setAttribute("aria-selected", String(btn.dataset.mode === ST.mode));
+      btn.onclick = () => {
+        ST.mode = btn.dataset.mode;
+        renderAll();
+      };
+    });
+
+    if ($("#saveReviewBtn")) $("#saveReviewBtn").textContent = en ? "💾 Save Receipt (.json)" : "💾 Lưu Biên Bản (.json)";
+    if ($("#approveAllPostUnitsBtn")) $("#approveAllPostUnitsBtn").textContent = en ? "✓ Pass All Article Units" : "✓ Đạt toàn bộ bài viết";
+    if ($("#approveAllVideoScenesBtn")) $("#approveAllVideoScenesBtn").textContent = en ? "✓ Pass All Scenes" : "✓ Đạt toàn bộ cảnh";
+    if ($("#downloadSrtBtn")) $("#downloadSrtBtn").textContent = en ? "⬇️ Download .srt Subtitles (YouTube CC)" : "⬇️ Tải phụ đề .srt (YouTube CC)";
+    if ($("#ccToggleBtn")) $("#ccToggleBtn").textContent = en ? "💬 CC Subtitles (.srt)" : "💬 Phụ đề CC (.srt)";
+    if ($("#hudToggleBtn")) $("#hudToggleBtn").textContent = en ? "📏 Grid" : "📏 Lưới";
+    if ($("#tpPlayBtn")) $("#tpPlayBtn").textContent = en ? "▶ Play/Pause" : "▶ Phát/Dừng";
+    if ($("#tpLoopScene")) $("#tpLoopScene").textContent = en ? "🔁 Loop Scene" : "🔁 Lặp cảnh";
+    if ($("#wfCanvasWrap")) $("#wfCanvasWrap").title = en ? "Click waveform to seek" : "Bấm lên thanh sóng âm để tua nhanh";
+    $$("[data-fmt-btn]").forEach(b => {
+      if (b.dataset.fmtBtn === "short") b.textContent = "📱 Shorts 9:16";
+      else if (b.dataset.fmtBtn === "long") b.textContent = en ? "▶ Long 16:9" : "▶ Dài 16:9";
+    });
+    $$("[data-src-btn]").forEach(b => {
+      if (b.dataset.srcBtn === "local") b.textContent = "💾 MP4 30fps";
+      else if (b.dataset.srcBtn === "yt") b.textContent = "📺 YouTube";
+    });
+
     const sel = $("#storySelect");
-    const optsHtml = Object.keys(STORIES).map(k => {
-      const s = STORIES[k];
-      const stTag = s.status === "published" ? "Đã đăng" : "Chờ duyệt";
+    const optsHtml = Object.keys(curStories).map(k => {
+      const s = curStories[k];
+      const stTag = s.status === "published" ? (en ? "Published" : "Đã đăng") : (en ? "Pending" : "Chờ duyệt");
       return `<option value="${esc(k)}"${k === ST.story ? " selected" : ""}>[${esc(k.toUpperCase())} · ${stTag}] ${esc(s.title)}</option>`;
     }).join("");
     setSafeHTML(sel, optsHtml);
@@ -923,27 +1034,28 @@ html, body {
       renderAll();
     };
 
-    $$("[data-mode]").forEach(btn => {
-      btn.setAttribute("aria-selected", String(btn.dataset.mode === ST.mode));
-      btn.onclick = () => {
-        ST.mode = btn.dataset.mode;
-        renderAll();
-      };
-    });
-
-    $("#themeToggleBtn").textContent = ST.theme === "paper" ? "🌙 Nền Than dịu" : "☀️ Nền Giấy ấm";
-    $("#openReaderLink").href = `prototype.html?story=${encodeURIComponent(ST.story)}`;
-    if (DATA.sourceHash) {
-      $("#syncHashBadge").textContent = `Đồng bộ #${DATA.sourceHash} · ~210 từ tĩnh`;
+    $("#themeToggleBtn").textContent = ST.theme === "paper"
+      ? (en ? "🌙 Muted Charcoal" : "🌙 Nền Than dịu")
+      : (en ? "☀️ Warm Paper" : "☀️ Nền Giấy ấm");
+    if ($("#openReaderLink")) {
+      $("#openReaderLink").textContent = en ? "↗ Reader View" : "↗ Trang Độc Giả";
+      $("#openReaderLink").href = `prototype.html?story=${encodeURIComponent(ST.story)}&lang=${encodeURIComponent(ST.lang)}`;
+    }
+    if ($("#ossKicker")) $("#ossKicker").textContent = en ? "SIDE-BY-SIDE PARITY 16:9 ⇄ 9:16 (CGWIRE KITSU SPLIT-COMPARE)" : "SO KHỚP ĐỒNG THỜI 16:9 ⇄ 9:16 (CGWIRE KITSU SPLIT-COMPARE)";
+    if ($("#ossTitle")) $("#ossTitle").textContent = en ? "Compare Long 16:9 and Shorts 9:16 (80% Zone 2 Stage + Formula Bar)" : "Đối chiếu Bản Dài 16:9 và Shorts 9:16 (Zone 2 mở rộng 80% + Thanh công thức gọn)";
+    if ($("#ossLongLbl")) $("#ossLongLbl").textContent = en ? "1. YouTube Long 16:9 (1920×1080)" : "1. YouTube Dài 16:9 (1920×1080)";
+    if (DATA.sourceHash && $("#syncHashBadge")) {
+      $("#syncHashBadge").textContent = en
+        ? `Synced #${DATA.sourceHash} · ~210 static words`
+        : `Đồng bộ #${DATA.sourceHash} · ~210 từ tĩnh`;
     }
 
     // Live 5-Gate evaluation
-    const s = STORIES[ST.story];
-    const m = MANIFESTS[ST.story] || {};
+    const s = curStories[ST.story];
     const leds = (s.beats || []).filter(b => b.ledger);
     const balOk = leds.every(b => {
       let d = 0, c = 0;
-      (b.ledger.rows || []).forEach(r => r[0] === "Nợ" ? d += r[5] : c += r[5]);
+      (b.ledger.rows || []).forEach(r => (r[0] === "Nợ" || r[0] === "Debit") ? d += r[5] : c += r[5]);
       return d === c && d > 0;
     });
     const BRAND_RE = /\b(Visa|Mastercard|JCB|Amex|NAPAS|VietQR|MoMo|ZaloPay|VNPay|Vietcombank|Techcombank|VPBank|ACB|MBBank|BIDV|VietinBank|Agribank|Sacombank|TPBank|HD\s*SAISON|FE\s*Credit|Home\s*Credit|Shinhan|Mirae\s*Asset|Apple|iPhone|Samsung|Shopee|Lazada|Tiki|TikTok|Reels|Facebook|Instagram|Grab|Highlands|Starbucks|Circle\s*K|Google\s*Veo|Veo\s*3|ElevenLabs|OpenAI|ChatGPT|Claude|Anthropic|Gemini|Hermanson|Edwards|Maher)\b/i;
@@ -953,7 +1065,13 @@ html, body {
     const secretHit = SECRET_RE.exec(fullCorpus);
     const liveBrandOk = !brandHit && !secretHit;
 
-    const gates = [
+    const gates = en ? [
+      { code: "C0–C9 Contract", ok: true, items: ["5 Diorama beats · 5 essay chapters", "All 4 figures 16:9 (1200×675) RULE 9"] },
+      { code: "K1–K4 Accounting", ok: balOk, items: [`Σ Debit = Σ Credit across ${leds.length} entries`, "Account codes per Circ. 99/2025/TT-BTC"] },
+      { code: "F1–F4 Finance", ok: true, items: ["3 channels aligned (contract · settlement · ledger)", "IRR/EIR & finance-kb.json verified"] },
+      { code: "B1–B4 Brand & Secret", ok: liveBrandOk, items: [`Proper noun leaks: ${brandHit ? brandHit[0] : "0"}`, `Secret token: ${secretHit ? "DETECTED" : "0"}`] },
+      { code: "M1–M4 Motion & .srt", ok: true, items: ["80% expanded Zone 2 Kinetic Stage", ".srt subtitles exported for YouTube CC"] }
+    ] : [
       { code: "C0–C9 Hợp đồng", ok: true, items: ["5 đoạn Diorama · 5 chương khảo cứu", "Đủ 4 hình 16:9 (1200×675) LUẬT 9"] },
       { code: "K1–K4 Kế toán", ok: balOk, items: [`Σ Nợ = Σ Có trên ${leds.length} bút toán`, "Chuẩn TK Thông tư 99/2025/TT-BTC"] },
       { code: "F1–F4 Tài chính", ok: true, items: ["Khớp 3 kênh (wire · pipe · book)", "Khớp toán IRR/EIR & finance-kb.json"] },
@@ -963,7 +1081,9 @@ html, body {
     const passGates = gates.filter(g => g.ok).length;
     const gateBtn = $("#gateDrawerToggle");
     gateBtn.classList.toggle("fail", passGates < gates.length);
-    $("#gateSummaryText").textContent = `${passGates === gates.length ? "✓" : "⚑"} ${passGates}/${gates.length} Cổng Đạt (K·F·B·M) ${ST.gateDrawerOpen ? "▴" : "▾"}`;
+    $("#gateSummaryText").textContent = en
+      ? `${passGates === gates.length ? "✓" : "⚑"} ${passGates}/${gates.length} Gates Passed (K·F·B·M) ${ST.gateDrawerOpen ? "▴" : "▾"}`
+      : `${passGates === gates.length ? "✓" : "⚑"} ${passGates}/${gates.length} Cổng Đạt (K·F·B·M) ${ST.gateDrawerOpen ? "▴" : "▾"}`;
     gateBtn.setAttribute("aria-expanded", String(ST.gateDrawerOpen));
     $("#gateDrawer").hidden = !ST.gateDrawerOpen;
 
@@ -982,18 +1102,19 @@ html, body {
      3. CHẾ ĐỘ 1: 📖 DUYỆT BÀI VIẾT (CONTENT POST REVIEW — TỪNG CHƯƠNG & HÌNH)
      ══════════════════════════════════════════════════════════════════════════ */
   function getPostUnits(s) {
+    const en = ST.lang === "en";
     const L = (s.article && s.article.lay) || {};
     const P = (s.article && s.article.pro) || {};
     const secs = L.sections || [];
-    const figs = CHAP_FIGS[ST.story] || [];
+    const figs = getChapFigs()[ST.story] || [];
     const units = [
-      { id: 0, shortLabel: "1. Mở đầu & Diorama", title: "Mở đầu, 4 Lầm tưởng & 5 Đoạn Mặt cắt Diorama", kind: "diorama" }
+      { id: 0, shortLabel: en ? "1. Intro & Diorama" : "1. Mở đầu & Diorama", title: en ? "Intro, 4 Myths & 5 Diorama Cutaway Beats" : "Mở đầu, 4 Lầm tưởng & 5 Đoạn Mặt cắt Diorama", kind: "diorama" }
     ];
     secs.forEach((sec, idx) => {
       units.push({
         id: idx + 1,
-        shortLabel: `${idx + 2}. Chương 0${idx + 1}${figs[idx] ? " + Hình" : ""}`,
-        title: `Chương 0${idx + 1} · ${sec.h}`,
+        shortLabel: en ? `${idx + 2}. Ch. 0${idx + 1}${figs[idx] ? " + Fig" : ""}` : `${idx + 2}. Chương 0${idx + 1}${figs[idx] ? " + Hình" : ""}`,
+        title: en ? `Chapter 0${idx + 1} · ${sec.h}` : `Chương 0${idx + 1} · ${sec.h}`,
         kind: "chapter",
         chapIdx: idx,
         sec,
@@ -1002,21 +1123,22 @@ html, body {
     });
     units.push({
       id: 6,
-      shortLabel: "7. Sổ TT 99/2025",
-      title: "Tầng Chuyên Sâu · 4 Cơ chế & Bút toán kép TT 99/2025",
+      shortLabel: en ? "7. Circ. 99/2025" : "7. Sổ TT 99/2025",
+      title: en ? "Deep Tier · 4 Mechanics & Double-Entry Ledger (Circ. 99/2025)" : "Tầng Chuyên Sâu · 4 Cơ chế & Bút toán kép TT 99/2025",
       kind: "pro",
       pro: P
     });
     units.push({
       id: 7,
-      shortLabel: "👁️ Xem cả bài",
-      title: "Xem liền mạch toàn bộ Bài viết (Giao diện Độc giả)",
+      shortLabel: en ? "👁️ Full Article" : "👁️ Xem cả bài",
+      title: en ? "Full Continuous Article Preview (Reader Layout)" : "Xem liền mạch toàn bộ Bài viết (Giao diện Độc giả)",
       kind: "full"
     });
     return units;
   }
 
   function renderSingleChapterHtml(sec, chapIdx, fig) {
+    const en = ST.lang === "en";
     const paras = sec.paras || [];
     const figHtml = fig ? `
       <figure class="paper-fig">
@@ -1029,8 +1151,8 @@ html, body {
       </figure>
     ` : "";
     return `
-      <div class="paper-kicker">CHƯƠNG 0${chapIdx + 1} / 05 · BÀI KHẢO CỨU ĐỜI THƯỜNG</div>
-      <h3>Chương 0${chapIdx + 1} · ${esc(sec.h)}</h3>
+      <div class="paper-kicker">${en ? `CHAPTER 0${chapIdx + 1} / 05 · LAYPERSON ESSAY` : `CHƯƠNG 0${chapIdx + 1} / 05 · BÀI KHẢO CỨU ĐỜI THƯỜNG`}</div>
+      <h3>${en ? `Chapter 0${chapIdx + 1} · ${esc(sec.h)}` : `Chương 0${chapIdx + 1} · ${esc(sec.h)}`}</h3>
       ${paras.length ? `<p>${richText(paras[0])}</p>` : ""}
       ${figHtml}
       ${paras.slice(1).map(p => `<p>${richText(p)}</p>`).join("")}
@@ -1038,7 +1160,9 @@ html, body {
   }
 
   function renderPostMode() {
-    const s = STORIES[ST.story];
+    const en = ST.lang === "en";
+    const curStories = getStories();
+    const s = curStories[ST.story];
     const L = (s.article && s.article.lay) || {};
     const P = (s.article && s.article.pro) || {};
     const units = getPostUnits(s);
@@ -1053,7 +1177,9 @@ html, body {
       if (rv && rv.status === "pass") passUnits++;
       if (rv && rv.status === "flag") flagUnits++;
     });
-    $("#postProgressText").textContent = `Đã duyệt: ${passUnits}/${reviewableUnits.length} mục${flagUnits ? ` · ${flagUnits} cần sửa` : ""}`;
+    $("#postProgressText").textContent = en
+      ? `Reviewed: ${passUnits}/${reviewableUnits.length} units${flagUnits ? ` · ${flagUnits} flagged` : ""}`
+      : `Đã duyệt: ${passUnits}/${reviewableUnits.length} mục${flagUnits ? ` · ${flagUnits} cần sửa` : ""}`;
 
     const dotsHtml = units.map((u, idx) => {
       const rv = ST.reviews[postRevKey(ST.story, u.id)];
@@ -1079,25 +1205,25 @@ html, body {
       unitRawText = [s.title, s.teaser, ...(L.misconceptions || []).map(m => `${m.myth} ${m.truth}`), ...(s.beats || []).map(b => `${b.title} ${b.body}`)].join(" ");
       const mythsHtml = (L.misconceptions || []).map(m => `
         <div class="ac-info-box" style="margin-bottom:10px">
-          <div style="color:var(--accent);font-weight:700">✗ Lầm tưởng: “${esc(m.myth)}”</div>
-          <div style="margin-top:4px;color:var(--ink-1)">✓ <b>Sự thật hệ thống:</b> ${richText(m.truth)}</div>
+          <div style="color:var(--accent);font-weight:700">✗ ${en ? "Common myth" : "Lầm tưởng"}: “${esc(m.myth)}”</div>
+          <div style="margin-top:4px;color:var(--ink-1)">✓ <b>${en ? "System truth" : "Sự thật hệ thống"}:</b> ${richText(m.truth)}</div>
         </div>
       `).join("");
       const beatsHtml = (s.beats || []).map((b, bi) => `
         <div style="padding:14px 0;border-top:1px solid var(--border)">
-          <div class="mono" style="font-size:11.5px;color:var(--accent);font-weight:700">ĐOẠN 0${bi + 1} · ${esc(b.when)}</div>
+          <div class="mono" style="font-size:11.5px;color:var(--accent);font-weight:700">${en ? "BEAT" : "ĐOẠN"} 0${bi + 1} · ${esc(b.when)}</div>
           <h3 style="margin:4px 0 8px;font-size:17px">${esc(b.title)}</h3>
           <p>${richText(b.body)}</p>
-          ${b.ledger ? `<div class="mono" style="font-size:12px;color:var(--ok);background:var(--ok-soft);padding:6px 10px;border-radius:6px">📒 Bút toán (${esc(b.ledger.who || b.ledger.entity || "Đơn vị")}): ${(b.ledger.rows || []).map(r => `${esc(r[0])} TK ${esc(r[1])} (${Number(r[5]||0).toLocaleString("vi-VN")}đ)`).join(" · ")}</div>` : ""}
+          ${b.ledger ? `<div class="mono" style="font-size:12px;color:var(--ok);background:var(--ok-soft);padding:6px 10px;border-radius:6px">📒 ${en ? "Entry" : "Bút toán"} (${esc(b.ledger.who || b.ledger.entity || (en ? "Entity" : "Đơn vị"))}): ${(b.ledger.rows || []).map(r => `${esc(r[0])} ${en ? "Acct" : "TK"} ${esc(r[1])} (${fmtCur(r[5])})`).join(" · ")}</div>` : ""}
         </div>
       `).join("");
       paperHtml = `
-        <div class="paper-kicker">MỤC 1 / 7 · TIÊU ĐỀ 3 MỎ NEO, LẦM TƯỞNG &amp; 5 ĐOẠN DIORAMA</div>
+        <div class="paper-kicker">${en ? "UNIT 1 / 7 · 3-ANCHOR HEADLINE, MYTHS & 5 DIORAMA BEATS" : "MỤC 1 / 7 · TIÊU ĐỀ 3 MỎ NEO, LẦM TƯỞNG &amp; 5 ĐOẠN DIORAMA"}</div>
         <h2>${esc(s.title)}</h2>
         <p style="font-family:var(--sans);font-size:15px;color:var(--ink-2)">${richText(s.teaser)}</p>
-        <h3>4 Lầm tưởng phổ biến cần bóc tách</h3>
+        <h3>${en ? "4 Common Myths Unpacked" : "4 Lầm tưởng phổ biến cần bóc tách"}</h3>
         ${mythsHtml}
-        <h3 style="margin-top:20px">5 Đoạn Mặt cắt Diorama</h3>
+        <h3 style="margin-top:20px">${en ? "5 Diorama Cutaway Beats" : "5 Đoạn Mặt cắt Diorama"}</h3>
         ${beatsHtml}
       `;
     } else if (curU.kind === "chapter") {
@@ -1115,22 +1241,22 @@ html, body {
         <div style="margin-bottom:16px">
           <div style="font-weight:700;color:var(--ink-1);margin-bottom:4px">${esc(j.when)} — ${esc(j.event)} (${esc(j.entity)})</div>
           <table class="rp-journal">
-            <thead><tr><th>Vế</th><th>TK (TT 99/2025)</th><th>Tên tài khoản</th><th style="text-align:right">Số tiền (VND)</th></tr></thead>
+            <thead><tr><th>${en ? "Side" : "Vế"}</th><th>${en ? "Acct (Circ. 99/2025)" : "TK (TT 99/2025)"}</th><th>${en ? "Account Name" : "Tên tài khoản"}</th><th style="text-align:right">${en ? "Amount (VND)" : "Số tiền (VND)"}</th></tr></thead>
             <tbody>
-              ${(j.rows || []).map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td style="text-align:right">${Number(r[5] || 0).toLocaleString("vi-VN")} đ</td></tr>`).join("")}
+              ${(j.rows || []).map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td style="text-align:right">${fmtCur(r[5])}</td></tr>`).join("")}
             </tbody>
           </table>
         </div>
       `).join("");
       paperHtml = `
-        <div class="paper-kicker">MỤC 7 / 7 · TẦNG CHUYÊN SÂU &amp; SỔ KẾ TOÁN THÔNG TƯ 99/2025/TT-BTC</div>
-        <h2>${esc(s.title)} — Cơ Chế &amp; Chuỗi Định Khoản Kép</h2>
+        <div class="paper-kicker">${en ? "UNIT 7 / 7 · DEEP TIER & CIRCULAR 99/2025/TT-BTC LEDGER (UNOFFICIAL SUMMARY)" : "MỤC 7 / 7 · TẦNG CHUYÊN SÂU &amp; SỔ KẾ TOÁN THÔNG TƯ 99/2025/TT-BTC"}</div>
+        <h2>${esc(s.title)} — ${en ? "Mechanics &amp; Double-Entry Chain" : "Cơ Chế &amp; Chuỗi Định Khoản Kép"}</h2>
         ${mechHtml}
-        <h3 style="margin-top:18px">Chuỗi Bút Toán Kép (Σ Nợ = Σ Có)</h3>
+        <h3 style="margin-top:18px">${en ? "Double-Entry Journal Chain (Σ Debit = Σ Credit)" : "Chuỗi Bút Toán Kép (Σ Nợ = Σ Có)"}</h3>
         ${jrHtml}
       `;
     } else {
-      const figs = CHAP_FIGS[ST.story] || [];
+      const figs = getChapFigs()[ST.story] || [];
       unitRawText = JSON.stringify(L);
       const allChaps = (L.sections || []).map((sec, i) => `
         <div style="padding-top:18px;margin-top:18px;border-top:1px solid var(--border)">
@@ -1138,7 +1264,7 @@ html, body {
         </div>
       `).join("");
       paperHtml = `
-        <div class="paper-kicker">XEM LIỀN MẠCH TOÀN BÀI (GIAO DIỆN ĐỘC GIẢ TRÊN PROTOTYPE.HTML)</div>
+        <div class="paper-kicker">${en ? "CONTINUOUS FULL ARTICLE PREVIEW (READER UI)" : "XEM LIỀN MẠCH TOÀN BÀI (GIAO DIỆN ĐỘC GIẢ TRÊN PROTOTYPE.HTML)"}</div>
         <h2>${esc(s.title)}</h2>
         <p style="font-family:var(--sans);font-size:15px;color:var(--ink-2)">${richText(s.teaser)}</p>
         ${allChaps}
@@ -1156,58 +1282,58 @@ html, body {
     let unitChecksHtml = "";
     if (curU.kind === "chapter") {
       if (curU.chapIdx === 0) {
-        unitChecksHtml = `<div class="ac-info-box"><b>Chuẩn LUẬT 9 (Chương 01):</b> Thuần chữ mở đầu có Drop-cap (không chèn hình ở Chương 01 để giữ nhịp đọc).</div>`;
+        unitChecksHtml = `<div class="ac-info-box">${en ? "<b>RULE 9 (Ch. 01):</b> Pure text opening with Drop-cap (zero image injected in Chapter 01 to keep reading flow clean)." : "<b>Chuẩn LUẬT 9 (Chương 01):</b> Thuần chữ mở đầu có Drop-cap (không chèn hình ở Chương 01 để giữ nhịp đọc)."}</div>`;
       } else if (curU.fig) {
         unitChecksHtml = `
           <div class="ac-info-box">
-            <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ Đạt chuẩn Minh hoạ LUẬT 9 (16:9 · 1200×675)</div>
-            <div><b>File ảnh:</b> <code>public/brand/${esc(curU.fig.file)}</code></div>
-            <div><b>Vị trí:</b> Đặt ngay sau Đoạn 1 (Advance Organizer) + Đủ chú thích 3 tầng.</div>
+            <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ ${en ? "Passes RULE 9 Figure Spec (16:9 · 1200×675)" : "Đạt chuẩn Minh hoạ LUẬT 9 (16:9 · 1200×675)"}</div>
+            <div><b>${en ? "Image file:" : "File ảnh:"}</b> <code>public/brand/${esc(curU.fig.file)}</code></div>
+            <div><b>${en ? "Placement:" : "Vị trí:"}</b> ${en ? "Right after P1 (Advance Organizer) + 3-layer caption." : "Đặt ngay sau Đoạn 1 (Advance Organizer) + Đủ chú thích 3 tầng."}</div>
           </div>
         `;
       }
     } else if (curU.kind === "pro") {
       unitChecksHtml = `
         <div class="ac-info-box">
-          <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ Kiểm toán ke-toan-reviewer (K1–K4): PASS</div>
-          <div>Toàn bộ ${(P.journal || []).length} bút toán kép cân bằng tuyệt đối <code>Σ Nợ = Σ Có</code>, đúng số hiệu TK Thông tư 99/2025/TT-BTC.</div>
+          <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ ${en ? "Checked by ke-toan-reviewer (K1–K4): PASS" : "Kiểm toán ke-toan-reviewer (K1–K4): PASS"}</div>
+          <div>${en ? `All ${(P.journal || []).length} double-entry records balance identically (<code>Σ Debit = Σ Credit</code>), using official Circular 99/2025/TT-BTC codes (unofficial summary).` : `Toàn bộ ${(P.journal || []).length} bút toán kép cân bằng tuyệt đối <code>Σ Nợ = Σ Có</code>, đúng số hiệu TK Thông tư 99/2025/TT-BTC.`}</div>
         </div>
       `;
     } else {
       unitChecksHtml = `
         <div class="ac-info-box">
-          <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ Tiêu đề 3 mỏ neo &amp; 5 đoạn Diorama</div>
-          <div>Đã tách hoàn toàn bảng kịch bản video khỏi bài đọc của độc giả (QĐ 59).</div>
+          <div style="color:var(--ok);font-weight:700;margin-bottom:4px">✓ ${en ? "3-Anchor Headline &amp; 5 Diorama Beats" : "Tiêu đề 3 mỏ neo &amp; 5 đoạn Diorama"}</div>
+          <div>${en ? "Video script tables stay separated from the reader article flow (QĐ 59)." : "Đã tách hoàn toàn bảng kịch bản video khỏi bài đọc của độc giả (QĐ 59)."}</div>
         </div>
       `;
     }
 
     const termsHtml = terms.length ? `
-      <div class="ac-label">Thuật ngữ có chú thích trong mục này (${terms.length} thuật ngữ)</div>
+      <div class="ac-label">${en ? `Annotated Glossary Terms in Unit (${terms.length})` : `Thuật ngữ có chú thích trong mục này (${terms.length} thuật ngữ)`}</div>
       <div class="ac-info-box" style="max-height:170px;overflow-y:auto">
-        ${terms.map(t => `<div style="margin-bottom:6px"><b>${esc(t.label)}</b> <code>[${esc(t.key)}]</code>: <span style="color:var(--ink-2)">${esc(t.gloss ? t.gloss.d : "Đã khai báo")}</span></div>`).join("")}
+        ${terms.map(t => `<div style="margin-bottom:6px"><b>${esc(t.label)}</b> <code>[${esc(t.key)}]</code>: <span style="color:var(--ink-2)">${esc(t.gloss ? t.gloss.d : (en ? "Registered" : "Đã khai báo"))}</span></div>`).join("")}
       </div>
     ` : "";
 
     setSafeHTML(auditEl, `
       <div class="ac-head">
         <span class="ac-kicker">${esc(curU.shortLabel.toUpperCase())}</span>
-        <span class="ac-badge">${words} từ · ~${Math.max(1, Math.round(words / 200))} phút đọc</span>
+        <span class="ac-badge">${words} ${en ? `words · ~${Math.max(1, Math.round(words / 200))} min read` : `từ · ~${Math.max(1, Math.round(words / 200))} phút đọc`}</span>
       </div>
       <h3 style="margin:0 0 12px;font:700 16px var(--serif)">${esc(curU.title)}</h3>
       ${unitChecksHtml}
       ${termsHtml}
       ${curU.id < 7 ? `
-        <div class="ac-label">Nghiệm thu ${esc(curU.shortLabel)}</div>
+        <div class="ac-label">${en ? `Sign-off: ${esc(curU.shortLabel)}` : `Nghiệm thu ${esc(curU.shortLabel)}`}</div>
         <div class="ac-verdict-row">
-          <button type="button" class="vbtn-pass" id="postPassBtn" aria-pressed="${rv.status === "pass"}">✓ Đạt mục này (→)</button>
-          <button type="button" class="vbtn-flag" id="postFlagBtn" aria-pressed="${rv.status === "flag"}">⚑ Cần sửa</button>
+          <button type="button" class="vbtn-pass" id="postPassBtn" aria-pressed="${rv.status === "pass"}">${en ? "✓ Pass Unit (→)" : "✓ Đạt mục này (→)"}</button>
+          <button type="button" class="vbtn-flag" id="postFlagBtn" aria-pressed="${rv.status === "flag"}">${en ? "⚑ Flag Revision" : "⚑ Cần sửa"}</button>
         </div>
-        <input type="text" class="ac-note-input" id="postNoteInput" placeholder="Ghi chú sửa câu chữ, hình minh hoạ hoặc bút toán ở mục này..." value="${esc(rv.note || "")}">
+        <input type="text" class="ac-note-input" id="postNoteInput" placeholder="${en ? "Notes on wording, figure or ledger entry for this unit..." : "Ghi chú sửa câu chữ, hình minh hoạ hoặc bút toán ở mục này..."}" value="${esc(rv.note || "")}">
       ` : ""}
       <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)">
-        <button type="button" class="btn-secondary" id="prevPostUnitBtn" ${ST.postUnitIdx === 0 ? "disabled" : ""}>← Mục trước</button>
-        <button type="button" class="btn-secondary" id="nextPostUnitBtn" ${ST.postUnitIdx >= units.length - 1 ? "disabled" : ""}>Mục kế tiếp →</button>
+        <button type="button" class="btn-secondary" id="prevPostUnitBtn" ${ST.postUnitIdx === 0 ? "disabled" : ""}>${en ? "← Prev Unit" : "← Mục trước"}</button>
+        <button type="button" class="btn-secondary" id="nextPostUnitBtn" ${ST.postUnitIdx >= units.length - 1 ? "disabled" : ""}>${en ? "Next Unit →" : "Mục kế tiếp →"}</button>
       </div>
     `);
 
@@ -1254,19 +1380,20 @@ html, body {
      ══════════════════════════════════════════════════════════════════════════ */
   function buildSafezoneSvg(isShort) {
     if (!ST.hud) return "";
+    const en = ST.lang === "en";
     if (isShort) {
       return `
         <rect x="48" y="36" width="984" height="318" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="10 6" rx="12"/>
-        <text x="540" y="72" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 1 · HEADER &amp; 5 HOUSE CONDUIT (y=36..354)</text>
+        <text x="540" y="72" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="22" font-weight="700">${en ? "ZONE 1 · HEADER & 5-HOUSE CHANNEL (y=36..354)" : "ZONE 1 · HEADER &amp; 5 HOUSE CONDUIT (y=36..354)"}</text>
 
         <rect x="48" y="368" width="984" height="1128" fill="none" stroke="#e2a84b" stroke-width="3" stroke-dasharray="12 6" rx="14"/>
-        <text x="540" y="408" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 2 · 100% HÌNH CẮT &amp; HOẠT HOẠ (y=368..1496 · 0PX CHE HÌNH)</text>
+        <text x="540" y="408" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="22" font-weight="700">${en ? "ZONE 2 · 100% CUTAWAY & MOTION (y=368..1496 · 0PX OVERLAP)" : "ZONE 2 · 100% HÌNH CẮT &amp; HOẠT HOẠ (y=368..1496 · 0PX CHE HÌNH)"}</text>
 
         <rect x="48" y="1512" width="984" height="222" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="10 6" rx="14"/>
-        <text x="540" y="1550" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="22" font-weight="700">ZONE 3 TÁCH BIỆT · CÔNG THỨC &amp; SỔ TT 99 (y=1512..1734 · CÁCH ZONE 2 16PX)</text>
+        <text x="540" y="1550" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="22" font-weight="700">${en ? "ZONE 3 ISOLATED · FORMULA & LEDGER (y=1512..1734 · 16PX GAP)" : "ZONE 3 TÁCH BIỆT · CÔNG THỨC &amp; SỔ TT 99 (y=1512..1734 · CÁCH ZONE 2 16PX)"}</text>
 
         <line x1="0" y1="1734" x2="1080" y2="1734" stroke="#f43f5e" stroke-width="4" stroke-dasharray="14 8"/>
-        <text x="540" y="1772" text-anchor="middle" fill="#f43f5e" font-family="JetBrains Mono" font-size="21" font-weight="700">ĐÁY AN TOÀN SHORTS (y=1734)</text>
+        <text x="540" y="1772" text-anchor="middle" fill="#f43f5e" font-family="JetBrains Mono" font-size="21" font-weight="700">${en ? "SHORTS SAFE BOTTOM (y=1734)" : "ĐÁY AN TOÀN SHORTS (y=1734)"}</text>
       `;
     }
     return `
@@ -1274,7 +1401,7 @@ html, body {
       <text x="960" y="70" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="18" font-weight="700">16:9 HEADER SAFE-ZONE</text>
 
       <rect x="48" y="172" width="1824" height="740" fill="none" stroke="#e2a84b" stroke-width="2.5" stroke-dasharray="12 6" rx="10"/>
-      <text x="960" y="208" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="18" font-weight="700">16:9 KINETIC CUTAWAY STAGE (80% KHUNG HÌNH)</text>
+      <text x="960" y="208" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="18" font-weight="700">${en ? "16:9 KINETIC CUTAWAY STAGE (80% FRAME)" : "16:9 KINETIC CUTAWAY STAGE (80% KHUNG HÌNH)"}</text>
 
       <rect x="48" y="928" width="1824" height="116" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="10 6" rx="10"/>
       <text x="960" y="962" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="18" font-weight="700">16:9 COMPACT FORMULA BAR + YOUTUBE CC (.SRT)</text>
@@ -1288,7 +1415,8 @@ html, body {
       ccBox.hidden = true;
       return;
     }
-    const subObj = (SUBTITLES[ST.story] && SUBTITLES[ST.story][ST.fmt]) || {};
+    const subMap = getSubtitles();
+    const subObj = (subMap[ST.story] && subMap[ST.story][ST.fmt]) || {};
     const cues = subObj.cues || [];
     const activeCue = cues.find(c => currentTimeSec >= c.t0 && currentTimeSec <= c.t1) || cues[0];
     if (activeCue && activeCue.text) {
@@ -1306,7 +1434,7 @@ html, body {
     const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const f = (s.videoScript && s.videoScript[ST.fmt]) || { scenes: [] };
     const scenes = f.scenes || [];
     const spans = scenes.map(x => parseTimeSpan(x.time));
@@ -1338,7 +1466,8 @@ html, body {
   }
 
   function renderVideoMode() {
-    const s = STORIES[ST.story];
+    const en = ST.lang === "en";
+    const s = getStories()[ST.story];
     const f = (s.videoScript && s.videoScript[ST.fmt]) || { scenes: [] };
     const scenes = f.scenes || [];
     const isShort = ST.fmt === "short";
@@ -1391,7 +1520,7 @@ html, body {
       vid.pause();
       vid.hidden = true;
       ytMount.hidden = false;
-      const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&cc_load_policy=1`;
+      const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?rel=0&modestbranding=1&cc_load_policy=1&hl=${ST.lang}`;
       setSafeHTML(ytMount, `<iframe src="${esc(u)}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
     } else {
       ytMount.hidden = true;
@@ -1418,14 +1547,16 @@ html, body {
       if (rv && rv.status === "pass") passScenes++;
       if (rv && rv.status === "flag") flagScenes++;
     });
-    $("#videoProgressText").textContent = `Đã duyệt: ${passScenes}/${scenes.length} cảnh${flagScenes ? ` · ${flagScenes} cần sửa` : ""}`;
+    $("#videoProgressText").textContent = en
+      ? `Reviewed: ${passScenes}/${scenes.length} scenes${flagScenes ? ` · ${flagScenes} flagged` : ""}`
+      : `Đã duyệt: ${passScenes}/${scenes.length} cảnh${flagScenes ? ` · ${flagScenes} cần sửa` : ""}`;
 
     const dotsHtml = scenes.map((sc, idx) => {
       const rv = ST.reviews[vidRevKey(ST.story, ST.fmt, idx)];
       const stCls = rv ? (rv.status === "pass" ? " pass" : rv.status === "flag" ? " flag" : "") : "";
       const mark = rv ? (rv.status === "pass" ? " ✓" : rv.status === "flag" ? " ⚑" : "") : "";
       return `<button type="button" class="calm-dot${stCls}" data-vid-scene="${idx}" aria-current="${idx === ST.activeSceneIdx ? "true" : "false"}">`
-        + `${idx === ST.activeSceneIdx ? `● Cảnh ${idx + 1} (${esc(sc.time)})` : `C${idx + 1}`}${mark}`
+        + `${idx === ST.activeSceneIdx ? `● ${en ? "Scene" : "Cảnh"} ${idx + 1} (${esc(sc.time)})` : `${en ? "S" : "C"}${idx + 1}`}${mark}`
         + `</button>`;
     }).join("");
     const dotsEl = $("#videoSceneDots");
@@ -1436,51 +1567,52 @@ html, body {
 
     // Right Zone: ONLY 1 Active Scene Card (Calm Single-Focus)
     const curSc = scenes[ST.activeSceneIdx] || {};
-    const [st, en] = parseTimeSpan(curSc.time);
-    const dur = Math.max(1, en - st);
+    const [st, endT] = parseTimeSpan(curSc.time);
+    const dur = Math.max(1, endT - st);
     const words = countWords(curSc.vo);
     const wpm = Math.round((words / dur) * 60);
     const wpmOk = wpm >= 135 && wpm <= 235;
     const beatLbl = curSc.beat !== null && curSc.beat !== undefined
-      ? `Đoạn ${curSc.beat + 1}: ${(s.beats[curSc.beat] && s.beats[curSc.beat].title) || ""}`
-      : (ST.activeSceneIdx === 0 ? "Mở đầu (Hook)" : "Kết luận cơ chế");
+      ? `${en ? "Beat" : "Đoạn"} ${curSc.beat + 1}: ${(s.beats[curSc.beat] && s.beats[curSc.beat].title) || ""}`
+      : (ST.activeSceneIdx === 0 ? (en ? "Hook Opening" : "Mở đầu (Hook)") : (en ? "Mechanism Summary" : "Kết luận cơ chế"));
     const rKey = vidRevKey(ST.story, ST.fmt, ST.activeSceneIdx);
     const rv = ST.reviews[rKey] || { status: "", note: "" };
-    const subInfo = (SUBTITLES[ST.story] && SUBTITLES[ST.story][ST.fmt]) || {};
+    const subMap = getSubtitles();
+    const subInfo = (subMap[ST.story] && subMap[ST.story][ST.fmt]) || {};
 
     // Tách dòng công thức ngắn từ onScreen (bỏ phần SFX gợi ý dài dòng)
-    const cleanFormula = String(curSc.onScreen || "").split(/·\s*SFX/i)[0].replace(/^Chữ màn hình[^:]*:\s*/i, "").trim();
+    const cleanFormula = String(curSc.onScreen || "").split(/·\s*SFX/i)[0].replace(/^(?:Chữ màn hình|On-screen)[^:]*:\s*/i, "").trim();
 
     setSafeHTML($("#videoActiveSceneCard"), `
       <div class="ac-head">
-        <span class="ac-kicker">CẢNH ${ST.activeSceneIdx + 1} / ${scenes.length} · ${esc(curSc.time)} (${esc(beatLbl)})</span>
-        <span class="ac-badge ${wpmOk ? "" : "warn"}">${words} từ · ${wpm} từ/phút</span>
+        <span class="ac-kicker">${en ? "SCENE" : "CẢNH"} ${ST.activeSceneIdx + 1} / ${scenes.length} · ${esc(curSc.time)} (${esc(beatLbl)})</span>
+        <span class="ac-badge ${wpmOk ? "" : "warn"}">${words} ${en ? "words" : "từ"} · ${wpm} ${en ? "wpm" : "từ/phút"}</span>
       </div>
 
-      <div class="ac-label">Lời bình Giọng Tâm (Đã xuất kèm phụ đề <code>${esc(subInfo.srtFile || ".srt")}</code> cho YouTube CC)</div>
+      <div class="ac-label">${en ? `Narration Script (with <code>${esc(subInfo.srtFile || ".srt")}</code> for YouTube CC)` : `Lời bình Giọng Tâm (Đã xuất kèm phụ đề <code>${esc(subInfo.srtFile || ".srt")}</code> cho YouTube CC)`}</div>
       <p class="ac-vo-quote">“${esc(curSc.vo)}”</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
         <div class="ac-info-box" style="margin-bottom:0">
-          <div class="ac-label">Thanh công thức gọn trên Video</div>
+          <div class="ac-label">${en ? "Compact On-Screen Formula" : "Thanh công thức gọn trên Video"}</div>
           <div class="mono" style="font-weight:700;color:var(--accent);font-size:12.5px">${esc(cleanFormula)}</div>
         </div>
         <div class="ac-info-box" style="margin-bottom:0">
-          <div class="ac-label">Hoạt hoạ Zone 2 (80% khung hình)</div>
+          <div class="ac-label">${en ? "Zone 2 Motion (80% Frame)" : "Hoạt hoạ Zone 2 (80% khung hình)"}</div>
           <div style="color:var(--ink-2);font-size:12.5px">${esc(curSc.visual)}</div>
         </div>
       </div>
 
-      <div class="ac-label">Nghiệm thu Cảnh ${ST.activeSceneIdx + 1}</div>
+      <div class="ac-label">${en ? `Sign-off: Scene ${ST.activeSceneIdx + 1}` : `Nghiệm thu Cảnh ${ST.activeSceneIdx + 1}`}</div>
       <div class="ac-verdict-row">
-        <button type="button" class="vbtn-pass" id="vidPassBtn" aria-pressed="${rv.status === "pass"}">✓ Đạt cảnh này (Phím →)</button>
-        <button type="button" class="vbtn-flag" id="vidFlagBtn" aria-pressed="${rv.status === "flag"}">⚑ Cần sửa</button>
+        <button type="button" class="vbtn-pass" id="vidPassBtn" aria-pressed="${rv.status === "pass"}">${en ? "✓ Pass Scene (Key →)" : "✓ Đạt cảnh này (Phím →)"}</button>
+        <button type="button" class="vbtn-flag" id="vidFlagBtn" aria-pressed="${rv.status === "flag"}">${en ? "⚑ Flag Revision" : "⚑ Cần sửa"}</button>
       </div>
-      <input type="text" class="ac-note-input" id="vidNoteInput" placeholder="Ghi chú sửa lời bình, hoạt cảnh hoặc số liệu của cảnh ${ST.activeSceneIdx + 1}..." value="${esc(rv.note || "")}">
+      <input type="text" class="ac-note-input" id="vidNoteInput" placeholder="${en ? `Notes on narration, visuals, or figures for Scene ${ST.activeSceneIdx + 1}...` : `Ghi chú sửa lời bình, hoạt cảnh hoặc số liệu của cảnh ${ST.activeSceneIdx + 1}...`}" value="${esc(rv.note || "")}">
 
       <div style="display:flex;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
-        <button type="button" class="btn-secondary" id="prevSceneBtn" ${ST.activeSceneIdx === 0 ? "disabled" : ""}>← Cảnh trước</button>
-        <button type="button" class="btn-secondary" id="nextSceneBtn" ${ST.activeSceneIdx >= scenes.length - 1 ? "disabled" : ""}>Cảnh kế tiếp →</button>
+        <button type="button" class="btn-secondary" id="prevSceneBtn" ${ST.activeSceneIdx === 0 ? "disabled" : ""}>${en ? "← Prev Scene" : "← Cảnh trước"}</button>
+        <button type="button" class="btn-secondary" id="nextSceneBtn" ${ST.activeSceneIdx >= scenes.length - 1 ? "disabled" : ""}>${en ? "Next Scene →" : "Cảnh kế tiếp →"}</button>
       </div>
     `);
 
@@ -1516,11 +1648,11 @@ html, body {
     const fullDrawer = $("#fullScriptDrawer");
     fullDrawer.hidden = !ST.fullScriptOpen;
     $("#toggleFullScriptBtn").textContent = ST.fullScriptOpen
-      ? "▴ Đóng bảng toàn văn kịch bản"
-      : `📄 Mở bảng toàn văn ${scenes.length} cảnh (Ngăn kéo)`;
+      ? (en ? "▴ Close Full Script Drawer" : "▴ Đóng bảng toàn văn kịch bản")
+      : (en ? `📄 Open Full ${scenes.length}-Scene Script Drawer` : `📄 Mở bảng toàn văn ${scenes.length} cảnh (Ngăn kéo)`);
     if (ST.fullScriptOpen) {
       setSafeHTML(fullDrawer, `
-        <div class="ac-label">Bảng toàn văn ${scenes.length} cảnh (${isShort ? "Shorts 9:16" : "YouTube Dài 16:9"})</div>
+        <div class="ac-label">${en ? `Full ${scenes.length}-Scene Script (${isShort ? "Shorts 9:16" : "YouTube Long 16:9"})` : `Bảng toàn văn ${scenes.length} cảnh (${isShort ? "Shorts 9:16" : "YouTube Dài 16:9"})`}</div>
         <ol style="margin:8px 0 0;padding-left:20px;display:grid;gap:8px;font-size:13px">
           ${scenes.map((sc, i) => `<li><button type="button" class="btn-secondary" data-drawer-seek="${i}" style="padding:2px 8px;margin-right:6px;font-family:var(--mono)">${esc(sc.time)}</button> ${esc(sc.vo)}</li>`).join("")}
         </ol>
@@ -1535,7 +1667,7 @@ html, body {
   }
 
   function seekToScene(idx, playNow) {
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const f = (s.videoScript && s.videoScript[ST.fmt]) || { scenes: [] };
     const scenes = f.scenes || [];
     if (!scenes[idx]) return;
@@ -1553,6 +1685,7 @@ html, body {
      5. CHẾ ĐỘ 3: ⚖️ SO KHỚP & KHO 15 GITHUB STUDIO
      ══════════════════════════════════════════════════════════════════════════ */
   function renderOssMode() {
+    const en = ST.lang === "en";
     const vLong = $("#cmpVideoLong");
     const vShort = $("#cmpVideoShort");
     const lSrc = `../dist/youtube/${encodeURIComponent(ST.story)}-long-16x9.mp4`;
@@ -1566,7 +1699,23 @@ html, body {
       vShort.src = sSrc;
     }
 
-    const repos = [
+    const repos = en ? [
+      ["1. remotion-dev/remotion", "https://github.com/remotion-dev/remotion", "Remotion License", "Borrowed Social Safe-Zone Overlay + 16:9 ⇄ 9:16 Composition Switcher", "DO NOT INSTALL: Hidden telemetry (@remotion/web-renderer) + ~500 npm pkgs next to .env"],
+      ["2. motion-canvas/motion-canvas", "https://github.com/motion-canvas/motion-canvas", "MIT", "Borrowed Audio Waveform Scrubbing + Loop Scene + Node Bounding-Box Inspector", "Pattern only (coupled to Vite Dev Server)"],
+      ["3. midrender/revideo", "https://github.com/midrender/revideo", "MIT", "Borrowed Parameterized Variables Preview & Headless Render Parity", "Skipped install (pulls Puppeteer + 400 extra packages)"],
+      ["4. theatre-js/theatre", "https://github.com/theatre-js/theatre", "Apache-2.0 / AGPL-3.0", "Borrowed Core Runtime (prototype.html) vs Studio (studio.html) split", "DO NOT EMBED @theatre/studio due to viral AGPL-3.0 risk"],
+      ["5. OpenCut-app/OpenCut", "https://github.com/OpenCut-app/OpenCut", "MIT", "Borrowed Workbench Layout + Word-Level Transcript Sync", "Skipped install (pulls Next.js, Postgres, Upstash Redis)"],
+      ["6. diffusionstudio/core", "https://github.com/diffusionstudio/core", "MPL-2.0 + Watermark", "Borrowed multi-layer Track/Clip/Caption model", "REJECTED: Built-in watermark violates RULE 4 Brand Safety"],
+      ["7. cgwire/kitsu & zou", "https://github.com/cgwire/kitsu", "AGPL-3.0", "Borrowed Side-by-Side Split-Compare (16:9 ⇄ 9:16) + K/F/B/M Specialist Gate Board", "Skipped Flask/Postgres/Redis stack & AGPL-3.0 viral license"],
+      ["8. ASWF OpenRV", "https://github.com/AcademySoftwareFoundation/OpenRV", "Apache-2.0", "Borrowed Safe-Action Matte Overlay + Frame Step ±33ms", "Implemented directly as toggleable SVG HUD in studio.html"],
+      ["9. ynput/ayon-frontend", "https://github.com/ynput/ayon-frontend", "FSL-1.1-ALv2", "Borrowed Publish Gate Inspector", "Requires FastAPI/GraphQL/Postgres backend"],
+      ["10. bbc/react-transcript-editor", "https://github.com/bbc/react-transcript-editor", "Apache-2.0 / LGPL-3.0", "Borrowed Click-Scene-to-Seek + WPM pacing badge", "Skipped install due to legacy Draft.js CVE footprint"],
+      ["11. katspaugh/wavesurfer.js", "https://github.com/katspaugh/wavesurfer.js", "BSD-3-Clause", "Borrowed Regions Banding & Loop Scene on audio waveform", "Replaced by Canvas 2D + ffmpeg RMS peaks (works cleanly on file://)"],
+      ["12. sveltia/sveltia-cms", "https://github.com/sveltia/sveltia-cms", "MIT", "Borrowed Browser FileSystemAccess API (showSaveFilePicker) receipt export", "Uses native browser Web API directly with zero external packages"],
+      ["13. Thinkmill/keystatic", "https://github.com/Thinkmill/keystatic", "MIT", "Borrowed Schema-as-Code check philosophy (check-story.py C0–C9)", "Requires Node server + large npm tree"],
+      ["14. tinacms/tinacms", "https://github.com/tinacms/tinacms", "Apache-2.0", "Borrowed live In-Context Paper Review (Mode 1: Article Review)", "Requires GraphQL server + cloud OAuth"],
+      ["15. decaporg/decap-cms & pages-cms", "https://github.com/decaporg/decap-cms", "MIT", "Borrowed draft → review → published workflow states", "CRITICAL RISK: Stores GitHub OAuth 'repo' scope inside localStorage"]
+    ] : [
       ["1. remotion-dev/remotion", "https://github.com/remotion-dev/remotion", "Remotion License", "Học Social Safe-Zone Overlay + Composition Switcher 16:9 ⇄ 9:16", "CẤM CÀI: Gửi telemetry ngầm (@remotion/web-renderer) + ~500 gói npm cạnh .env"],
       ["2. motion-canvas/motion-canvas", "https://github.com/motion-canvas/motion-canvas", "MIT", "Học Audio Waveform Scrubbing + Loop Scene + Node Bounding-Box Inspector", "Chỉ học UI pattern (gắn chặt Vite Dev Server)"],
       ["3. midrender/revideo", "https://github.com/midrender/revideo", "MIT", "Học Parameterized Variables Preview & Parity với Headless Render", "Không cài (kéo Puppeteer + 400 gói npm thừa)"],
@@ -1585,7 +1734,7 @@ html, body {
     ];
     setSafeHTML($("#ossTableMount"), `
       <table class="oss-table">
-        <thead><tr><th>Repo GitHub</th><th>Giấy phép</th><th>Tinh hoa đã áp dụng</th><th>Phân tích Bảo mật ECC</th></tr></thead>
+        <thead><tr><th>${en ? "GitHub Repo" : "Repo GitHub"}</th><th>${en ? "License" : "Giấy phép"}</th><th>${en ? "Applied Pattern" : "Tinh hoa đã áp dụng"}</th><th>${en ? "Security Audit" : "Phân tích Bảo mật ECC"}</th></tr></thead>
         <tbody>
           ${repos.map(r => `<tr><td><a href="${esc(r[1])}" target="_blank" rel="noopener noreferrer"><b>${esc(r[0])}</b></a></td><td><code>${esc(r[2])}</code></td><td>${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join("")}
         </tbody>
@@ -1604,6 +1753,9 @@ html, body {
     else if (ST.mode === "video") renderVideoMode();
     else if (ST.mode === "oss") renderOssMode();
   }
+
+  if ($("#studioLangVi")) $("#studioLangVi").onclick = () => setStudioLang("vi");
+  if ($("#studioLangEn")) $("#studioLangEn").onclick = () => setStudioLang("en");
 
   $("#gateDrawerToggle").onclick = () => {
     ST.gateDrawerOpen = !ST.gateDrawerOpen;
@@ -1625,11 +1777,13 @@ html, body {
     }
     saveReviewsLocal();
     renderPostMode();
-    $("#studioToast").textContent = "✓ Đã đánh dấu Đạt toàn bộ 7 mục của Bài viết.";
+    $("#studioToast").textContent = ST.lang === "en"
+      ? "✓ Passed all 7 article units."
+      : "✓ Đã đánh dấu Đạt toàn bộ 7 mục của Bài viết.";
   };
 
   $("#approveAllVideoScenesBtn").onclick = () => {
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const scenes = (s.videoScript && s.videoScript[ST.fmt] && s.videoScript[ST.fmt].scenes) || [];
     scenes.forEach((_, idx) => {
       const k = vidRevKey(ST.story, ST.fmt, idx);
@@ -1639,7 +1793,9 @@ html, body {
     });
     saveReviewsLocal();
     renderVideoMode();
-    $("#studioToast").textContent = `✓ Đã đánh dấu Đạt toàn bộ ${scenes.length} cảnh Video (${ST.fmt}).`;
+    $("#studioToast").textContent = ST.lang === "en"
+      ? `✓ Passed all ${scenes.length} Video scenes (${ST.fmt}).`
+      : `✓ Đã đánh dấu Đạt toàn bộ ${scenes.length} cảnh Video (${ST.fmt}).`;
   };
 
   $("#toggleFullScriptBtn").onclick = () => {
@@ -1648,9 +1804,10 @@ html, body {
   };
 
   $("#downloadSrtBtn").onclick = () => {
-    const subInfo = (SUBTITLES[ST.story] && SUBTITLES[ST.story][ST.fmt]) || {};
+    const subMap = getSubtitles();
+    const subInfo = (subMap[ST.story] && subMap[ST.story][ST.fmt]) || {};
     const srtText = subInfo.srtText || "";
-    const fileName = `${ST.story}-${ST.fmt === "short" ? "short-9x16" : "long-16x9"}.srt`;
+    const fileName = `${ST.story}-${ST.fmt === "short" ? "short-9x16" : "long-16x9"}${ST.lang === "en" ? "-en" : ""}.srt`;
     const blob = new Blob([srtText], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -1660,7 +1817,9 @@ html, body {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    $("#studioToast").textContent = `✓ Đã tải xuống file phụ đề YouTube CC: ${fileName}`;
+    $("#studioToast").textContent = ST.lang === "en"
+      ? `✓ Downloaded YouTube CC subtitle file: ${fileName}`
+      : `✓ Đã tải xuống file phụ đề YouTube CC: ${fileName}`;
   };
 
   // Video Transport Controls
@@ -1671,7 +1830,7 @@ html, body {
     $("#tpFrameReadout").textContent = `#${Math.round(t * 30)}`;
     updateSubtitleOverlay(t);
 
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const f = (s.videoScript && s.videoScript[ST.fmt]) || { scenes: [] };
     const scenes = f.scenes || [];
     const curSpan = scenes[ST.activeSceneIdx] ? parseTimeSpan(scenes[ST.activeSceneIdx].time) : [0, 9999];
@@ -1718,7 +1877,7 @@ html, body {
   $("#wfCanvasWrap").onclick = e => {
     const rect = $("#wfCanvasWrap").getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const f = (s.videoScript && s.videoScript[ST.fmt]) || { scenes: [] };
     const spans = (f.scenes || []).map(x => parseTimeSpan(x.time));
     const totalSec = spans.length ? spans[spans.length - 1][1] : (vid.duration || 60);
@@ -1728,9 +1887,10 @@ html, body {
 
   // Save unified Review Receipt (both Post Units & Video Scenes)
   $("#saveReviewBtn").onclick = async () => {
-    const s = STORIES[ST.story];
+    const s = getStories()[ST.story];
     const payload = {
       schema: "wms-studio-review-receipt-v2",
+      lang: ST.lang,
       story: ST.story,
       title: s.title,
       reviewedAt: new Date().toISOString(),
@@ -1749,7 +1909,9 @@ html, body {
         const writable = await handle.createWritable();
         await writable.write(jsonStr);
         await writable.close();
-        $("#studioToast").textContent = `✓ Đã lưu trực tiếp biên bản ${fileName} (gồm cả Bài viết & Video).`;
+        $("#studioToast").textContent = ST.lang === "en"
+          ? `✓ Saved receipt ${fileName} (Article & Video).`
+          : `✓ Đã lưu trực tiếp biên bản ${fileName} (gồm cả Bài viết & Video).`;
         return;
       } catch (err) {
         if (err && err.name === "AbortError") return;
@@ -1764,12 +1926,17 @@ html, body {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    $("#studioToast").textContent = `✓ Đã tải xuống biên bản ${fileName} (gồm cả Bài viết & Video).`;
+    $("#studioToast").textContent = ST.lang === "en"
+      ? `✓ Downloaded receipt ${fileName} (Article & Video).`
+      : `✓ Đã tải xuống biên bản ${fileName} (gồm cả Bài viết & Video).`;
   };
 
   // Deterministic hook for wms-motion-snap.py (M4)
   window.__vibeSeek = function(opts = {}) {
-    if (opts.story && STORIES[opts.story]) ST.story = opts.story;
+    const curStories = getStories();
+    if (opts.lang && ["vi", "en"].includes(opts.lang)) ST.lang = opts.lang;
+    document.documentElement.lang = ST.lang;
+    if (opts.story && curStories[opts.story]) ST.story = opts.story;
     if (opts.mode && ["post", "video", "oss"].includes(opts.mode)) ST.mode = opts.mode;
     if (opts.theme && ["paper", "charcoal"].includes(opts.theme)) {
       ST.theme = opts.theme;
@@ -1782,6 +1949,7 @@ html, body {
     renderAll();
     return {
       app: "where-money-sleeps-studio-v2-calm",
+      lang: ST.lang,
       story: ST.story,
       mode: ST.mode,
       theme: ST.theme,

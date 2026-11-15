@@ -403,23 +403,25 @@ def check_ledger(led: dict, bw: str, tt99: dict | None, rep: Report) -> None:
             rep.add("FAIL", "C6", bw, f"dòng sổ phải có 6 cột [Nợ|Có, số TK, tên TK, chi tiết, lời thường, số tiền]: {r!r}")
             continue
         dc, code, name, detail, simple, amt = r
-        if dc not in ("Nợ", "Có"):
-            rep.add("FAIL", "C6", bw, f"cột 1 phải là 'Nợ' hoặc 'Có', gặp {dc!r}")
+        if dc not in ("Nợ", "Có", "Debit", "Credit"):
+            rep.add("FAIL", "C6", bw, f"cột 1 phải là 'Nợ'/'Có' hoặc 'Debit'/'Credit', gặp {dc!r}")
             continue
         if not isinstance(amt, int) or isinstance(amt, bool) or amt <= 0:
             rep.add("FAIL", "C6", bw, f"số tiền phải là số nguyên dương: {amt!r}")
             continue
-        if dc == "Nợ":
+        if dc in ("Nợ", "Debit"):
             debit += amt
         else:
             credit += amt
         # luật 131: chỉ áp cho DÒNG SỔ, không quét ghi chú
-        if str(code) == "131" and "ngân hàng" in f"{name} {detail} {simple}".lower():
+        if str(code) == "131" and any(kw in f"{name} {detail} {simple}".lower() for kw in ("ngân hàng", "bank")):
             rep.add("FAIL", "C6", bw, "TK 131 dùng cho phải thu từ ngân hàng — dùng 1388 (Phải thu khác)")
         if tt99 is not None:
             ref = tt99.get(str(code))
             if ref is None:
                 rep.add("WARN", "C6", bw, f"TK {code} không có trong bảng thứ cấp TT 99 — chờ ke-toan-reviewer")
+            elif dc in ("Debit", "Credit"):
+                rep.add("SECONDARY", "C6", bw, f"Acct {code} ({name}) — code exists in secondary Circular 99 table")
             elif ref != name:
                 rep.add("WARN", "C6", bw, f"TK {code}: tên '{name}' ≠ bảng thứ cấp '{ref}'")
             else:
@@ -484,6 +486,18 @@ BRANDS = (
 BRAND_RE = re.compile(r"(?<![\w])(" + "|".join(re.escape(b) for b in BRANDS) + r")(?![\w])", re.I)
 ADVICE_RE = re.compile(r"\b(bạn|anh|chị|mình)\s+(nên|hãy|đừng)\s+(mua|vay|chọn|mở|gửi|trả góp|quẹt|dùng)\b"
                        r"|\bhãy\s+(mua|vay|chọn|mở thẻ|gửi tiền)\b", re.I)
+PROP_EN_RE = re.compile(
+    r"\b(overhead power line|underground pipe|settlement pipe|signal wire|utility pole|streetlamp pole|telephone pole)\b",
+    re.I,
+)
+ADVICE_EN_RE = re.compile(
+    r"\b(you should|you must|we recommend you)\s+(buy|borrow|open|choose|deposit|pay in installments|swipe|get a card)\b",
+    re.I,
+)
+QD41_EN_RE = re.compile(
+    r"\b(reviewed by (?:an? )?(?:accountant|cpa|financial expert)|certified (?:accountant|expert) (?:review|verified)|checked by (?:an? )?(?:human )?(?:accountant|expert))\b",
+    re.I,
+)
 
 
 def nwords(*texts) -> int:
@@ -1149,6 +1163,106 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
         if meta_hits:
             rep.add("FAIL", "C9", f"{label} GLOSS/CATEGORIES",
                     f"grep: tên thương hiệu / nhãn hàng / tên riêng có thật (LUẬT 4): {', '.join(repr(h) for h in meta_hits[:5])}")
+
+    # LUẬT 11 (QĐ 62): Kiểm định song ngữ EN ⇄ VI (chạy khi file là prototype/index hoặc có STORIES_EN)
+    has_en_blocks = any(tok in src for tok in ("const STORIES_EN", "const GLOSS_EN", "const CATEGORIES_EN"))
+    if has_en_blocks or label.endswith(("prototype.html", "index.html")):
+        missing_en = [nm for nm in ("GLOSS_EN", "CATEGORIES_EN", "STORIES_EN", "CHAP_FIGS_EN") if f"const {nm}" not in src]
+        if missing_en:
+            rep.add("FAIL", "C11", label, f"LUẬT 11: thiếu khối dữ liệu tiếng Anh: {', '.join(missing_en)}")
+        else:
+            try:
+                gloss_en = extract(src, "GLOSS_EN")
+                cats_en = extract(src, "CATEGORIES_EN")
+                stories_en = extract(src, "STORIES_EN")
+                figs_en = extract(src, "CHAP_FIGS_EN")
+            except ValueError as e:
+                rep.add("FAIL", "C11", f"{label} EN", f"không đọc được dữ liệu EN: {e}")
+                gloss_en, cats_en, stories_en, figs_en = {}, [], {}, {}
+            if isinstance(gloss_en, dict) and set(gloss_en.keys()) != set(gloss.keys()):
+                diff = sorted(set(gloss.keys()) ^ set(gloss_en.keys()))
+                rep.add("FAIL", "C11", "GLOSS_EN", f"lệch khoá so với GLOSS: {', '.join(diff[:8])}")
+            elif gloss_en:
+                for gk, gv in gloss_en.items():
+                    if not isinstance(gv, dict) or not str(gv.get("t", "")).strip() or not str(gv.get("d", "")).strip():
+                        rep.add("FAIL", "C11", f"GLOSS_EN[{gk}]", "thiếu 't' hoặc 'd' tiếng Anh")
+                en_meta_hits = sorted({mt.group(0) for t in _walk(gloss_en, []) + _walk(cats_en, []) for rx in (BRAND_RE, PROP_EN_RE, QD41_EN_RE) for mt in rx.finditer(t)})
+                if en_meta_hits:
+                    rep.add("FAIL", "C11", "GLOSS_EN/CATEGORIES_EN", f"rò rỉ thương hiệu / đạo cụ / QĐ 41: {', '.join(repr(h) for h in en_meta_hits[:5])}")
+            if isinstance(cats_en, list) and ([c.get("id") for c in cats_en] != cat_ids or [len(c.get("topics", [])) for c in cats_en] != [len(c.get("topics", [])) for c in cats]):
+                rep.add("FAIL", "C11", "CATEGORIES_EN", "cấu trúc danh mục / chủ đề không khớp CATEGORIES")
+            if "unofficial summary" not in src.lower():
+                rep.add("FAIL", "C11", label, "AC-52: thiếu dòng chú thích tiếng Anh 'unofficial summary'")
+            tt99 = ctx["tt99"]
+            chap_figs_vi = extract(src, "CHAP_FIGS") if "const CHAP_FIGS" in src else {}
+            for k in ([only] if only and only in stories else list(stories.keys())):
+                vi_s = stories[k]
+                en_s = stories_en.get(k) if isinstance(stories_en, dict) else None
+                if not isinstance(en_s, dict):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", "thiếu bản tiếng Anh cho bài viết")
+                    continue
+                if en_s.get("status") != vi_s.get("status") or en_s.get("category") != vi_s.get("category"):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", "status hoặc category lệch với bản VI")
+                vi_beats, en_beats = vi_s.get("beats") or [], en_s.get("beats") or []
+                if len(en_beats) != len(vi_beats):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", f"số đoạn Diorama ({len(en_beats)}) ≠ VI ({len(vi_beats)})")
+                for bi, eb in enumerate(en_beats):
+                    led = eb.get("ledger")
+                    if isinstance(led, dict):
+                        check_ledger(led, f"STORIES_EN.{k} đoạn {bi + 1}", tt99, rep)
+                en_art = en_s.get("article") or {}
+                en_lay = en_art.get("lay") or {}
+                en_pro = en_art.get("pro") or {}
+                vi_lay = (vi_s.get("article") or {}).get("lay") or {}
+                vi_pro = (vi_s.get("article") or {}).get("pro") or {}
+                if len(en_lay.get("misconceptions") or []) != len(vi_lay.get("misconceptions") or []):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", "số misconceptions không khớp VI")
+                if len(en_lay.get("sections") or []) != len(vi_lay.get("sections") or []):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", "số sections không khớp VI")
+                if len(en_pro.get("journal") or []) != len(vi_pro.get("journal") or []):
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", "số bút toán journal không khớp VI")
+                for ji, je in enumerate(en_pro.get("journal") or []):
+                    check_ledger(je, f"STORIES_EN.{k} sổ sâu {ji + 1}", tt99, rep)
+                sec_words = sum(nwords(*(sec.get("paras") or [])) for sec in (en_lay.get("sections") or []))
+                if vi_s.get("status") == "published" and sec_words < 650:
+                    rep.add("FAIL", "C11", f"STORIES_EN.{k}", f"sections EN quá ngắn ({sec_words} < 650 từ)")
+                en_vid = en_s.get("videoScript") or {}
+                vi_vid = vi_s.get("videoScript") or {}
+                for fmt, min_w in (("long", 750), ("short", 110)):
+                    ev = en_vid.get(fmt) or {}
+                    vv = vi_vid.get(fmt) or {}
+                    es, vs = ev.get("scenes") or [], vv.get("scenes") or []
+                    if len(es) != len(vs):
+                        rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", f"số cảnh ({len(es)}) ≠ VI ({len(vs)})")
+                    if ev.get("youtubeId", "") != vv.get("youtubeId", ""):
+                        rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", "youtubeId EN không khớp VI")
+                    for si, sc in enumerate(es):
+                        if "[[" in str(sc.get("vo", "")) or "]]" in str(sc.get("vo", "")) or "<" in str(sc.get("vo", "")):
+                            rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}[{si}]", "vo EN còn markup [[…]] hoặc HTML")
+                    vw = sum(nwords(sc.get("vo")) for sc in es)
+                    if vi_s.get("status") == "published" and vw < min_w:
+                        rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", f"tổng vo EN {vw} < {min_w} từ")
+                en_texts = _walk(en_s, [])
+                for rx, why in ((BRAND_RE, "LUẬT 4 thương hiệu"), (PROP_EN_RE, "LUẬT 7 đạo cụ sân khấu"), (ADVICE_EN_RE, "ONE-PAGER §3.2 lời khuyên"), (QD41_EN_RE, "QĐ 41 giả danh kế toán/chuyên gia")):
+                    hits = sorted({mt.group(0) for t in en_texts for mt in rx.finditer(t)})
+                    if hits:
+                        rep.add("FAIL", "C11", f"STORIES_EN.{k}", f"vi phạm {why}: {', '.join(repr(h) for h in hits[:5])}")
+                ef = figs_en.get(k) if isinstance(figs_en, dict) else None
+                vf = chap_figs_vi.get(k) if isinstance(chap_figs_vi, dict) else None
+                if not isinstance(ef, list) or not isinstance(vf, list) or len(ef) != len(vf) or ef[0] is not None:
+                    rep.add("FAIL", "C11", f"CHAP_FIGS_EN.{k}", "cấu trúc không khớp CHAP_FIGS VI")
+                else:
+                    for fi, fitem in enumerate(ef):
+                        if fitem is None:
+                            if vf[fi] is not None:
+                                rep.add("FAIL", "C11", f"CHAP_FIGS_EN.{k}[{fi}]", "null lệch với VI")
+                            continue
+                        if not isinstance(fitem, dict) or (vf[fi] and fitem.get("file") != vf[fi].get("file")):
+                            rep.add("FAIL", "C11", f"CHAP_FIGS_EN.{k}[{fi}]", "file ảnh không khớp VI")
+                        for rq in ("kicker", "alt", "title", "desc"):
+                            if not str(fitem.get(rq, "")).strip():
+                                rep.add("FAIL", "C11", f"CHAP_FIGS_EN.{k}[{fi}]", f"thiếu '{rq}' tiếng Anh")
+                rep.add("PASS", "C11", f"bài '{k}' EN", "đạt song ngữ LUẬT 11 (đủ cấu trúc · cân sổ Debit=Credit · 0 brand/prop/QĐ41)")
     if not any(s.get("status") == "published" for s in stories.values()):
         rep.add("WARN", "C7", label, "không còn bài nào 'published' — người đọc thường sẽ thấy trang trống")
 

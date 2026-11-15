@@ -58,6 +58,14 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
             errors.append(f"WMS_QUIZ_BANK thiếu card trắc nghiệm: {cid}")
     if 'reviewed_by: "Duy"' not in proto_text or 'accountant_agent: "ke-toan-reviewer"' not in proto_text:
         errors.append("WMS_QUIZ_BANK thiếu trường reviewed_by='Duy' hoặc accountant_agent='ke-toan-reviewer' (AC-21)")
+    if "const WMS_QUIZ_BANK_EN =" not in proto_text:
+        errors.append("LUẬT 11: prototype.html thiếu WMS_QUIZ_BANK_EN (14 thẻ trắc nghiệm tiếng Anh)")
+    else:
+        for cid in ("card-q1.v1", "pay-q1.v1", "install-q1.v1", "minpay-q1.v1", "qr-q1.v1", "profitcash-q1.v1", "offus-q1.v1"):
+            if proto_text.count(cid) < 2:
+                errors.append(f"WMS_QUIZ_BANK_EN thiếu card trắc nghiệm EN: {cid}")
+    if "unofficial summary" not in proto_text.lower():
+        errors.append("AC-52: prototype.html thiếu dòng disclaimer tiếng Anh 'unofficial summary'")
 
     # Check CSS Anti-Overlap Guard (.flow, .ch, .ledger .stamp vs .jstep/h4, .book, .split-pill)
     required_css_guards = [
@@ -234,10 +242,20 @@ for (const b of beacons) {
   assert.strictEqual(b.url, '/api/p');
 }
 
+// 8. Test AC-62 + LUẬT 11: Setting prog.lang='en' persists UI language without ever leaking lang into lesson_completed
+const pEnCheck = sandbox.window.__wmsQA.loadProg();
+pEnCheck.lang = 'en';
+sandbox.window.__wmsQA.saveProg(pEnCheck);
+sandbox.window.__wmsTelemetryLog.length = 0;
+sandbox.window.__wmsQA.answerQuizCard('pay-q1.v1', 0);
+const enEvents = sandbox.window.__wmsTelemetryLog.filter(e => e.event === 'lesson_completed');
+assert.strictEqual(enEvents.length, 1, 'EN mode must still emit lesson_completed cleanly');
+assert.strictEqual(Object.keys(enEvents[0].props).includes('lang'), false, 'AC-62: lesson_completed must NEVER include lang even when prog.lang="en"');
+
 console.log(JSON.stringify({
   status: 'PASS',
   totalEventsTested: sandbox.window.__wmsTelemetryLog.length,
-  invariantsVerified: ['R1_dedupe_before_send', 'R2_lang_agnostic_key', 'R3_self_declare_suppressed', 'R4_sync_carries_tel', 'F4_co_fire_card_and_lesson', 'QD39_from_start_true_and_false', 'AC29_single_schema_record', 'AC68_neutral_beacon_path']
+  invariantsVerified: ['R1_dedupe_before_send', 'R2_lang_agnostic_key', 'R3_self_declare_suppressed', 'R4_sync_carries_tel', 'F4_co_fire_card_and_lesson', 'QD39_from_start_true_and_false', 'AC29_single_schema_record', 'AC68_neutral_beacon_path', 'AC62_en_mode_no_lang_leak']
 }));
 """
     res = subprocess.run(

@@ -87,8 +87,8 @@ def _parse_mmss_span(t_str: str) -> tuple[float, float]:
     return float(int(m.group(1)) * 60 + int(m.group(2))), float(int(m.group(3)) * 60 + int(m.group(4)))
 
 
-def build_subtitles_for_format(story_key: str, fmt: str, scenes: list[dict]) -> dict:
-    """Tạo danh sách cue phụ đề chuẩn YouTube CC (.srt) cho từng câu lời bình và ghi ra dist/youtube/<story>-<fmt>.srt."""
+def build_subtitles_for_format(story_key: str, fmt: str, scenes: list[dict], lang: str = "vi") -> dict:
+    """Tạo danh sách cue phụ đề chuẩn YouTube CC (.srt / .en.srt) cho từng câu lời bình và ghi ra dist/youtube/."""
     import re
     cues: list[dict] = []
     srt_Blocks: list[str] = []
@@ -121,7 +121,8 @@ def build_subtitles_for_format(story_key: str, fmt: str, scenes: list[dict]) -> 
     srt_text = "\n".join(srt_Blocks)
     DIST_YT.mkdir(parents=True, exist_ok=True)
     aspect_tag = "9x16" if fmt == "short" else "16x9"
-    srt_path = DIST_YT / f"{story_key}-{fmt}-{aspect_tag}.srt"
+    ext = ".en.srt" if lang == "en" else ".srt"
+    srt_path = DIST_YT / f"{story_key}-{fmt}-{aspect_tag}{ext}"
     srt_path.write_text(srt_text, encoding="utf-8")
     return {
         "srtFile": f"dist/youtube/{srt_path.name}",
@@ -138,6 +139,10 @@ def build_studio_payload() -> dict:
     stories = cs.extract(src, "STORIES")
     categories = cs.extract(src, "CATEGORIES")
     chap_figs = cs.extract(src, "CHAP_FIGS") if "const CHAP_FIGS" in src else {}
+    gloss_en = cs.extract(src, "GLOSS_EN") if "const GLOSS_EN" in src else {}
+    stories_en = cs.extract(src, "STORIES_EN") if "const STORIES_EN" in src else {}
+    categories_en = cs.extract(src, "CATEGORIES_EN") if "const CATEGORIES_EN" in src else []
+    chap_figs_en = cs.extract(src, "CHAP_FIGS_EN") if "const CHAP_FIGS_EN" in src else {}
 
     manifests: dict[str, dict] = {}
     waveforms: dict[str, dict[str, list[float]]] = {}
@@ -198,10 +203,22 @@ def build_studio_payload() -> dict:
         }
 
     proto_sha = hashlib.sha256(
-        json.dumps({"g": gloss, "s": stories, "c": categories, "f": chap_figs}, sort_keys=True, ensure_ascii=False).encode("utf-8")
+        json.dumps({
+            "g": gloss, "s": stories, "c": categories, "f": chap_figs,
+            "ge": gloss_en, "se": stories_en, "ce": categories_en, "fe": chap_figs_en,
+        }, sort_keys=True, ensure_ascii=False).encode("utf-8")
     ).hexdigest()[:16]
 
+    subtitles_en: dict[str, dict[str, dict]] = {}
+    for k, s in stories_en.items():
+        vid_en = s.get("videoScript") or {}
+        subtitles_en[k] = {
+            "short": build_subtitles_for_format(k, "short", (vid_en.get("short") or {}).get("scenes") or [], lang="en"),
+            "long": build_subtitles_for_format(k, "long", (vid_en.get("long") or {}).get("scenes") or [], lang="en"),
+        }
+
     return {
+        "schemaVersion": "2.0.0",
         "sourceHash": proto_sha,
         "gloss": gloss,
         "categories": categories,
@@ -210,6 +227,11 @@ def build_studio_payload() -> dict:
         "manifests": manifests,
         "waveforms": waveforms,
         "subtitles": subtitles,
+        "glossEn": gloss_en,
+        "storiesEn": stories_en,
+        "categoriesEn": categories_en,
+        "chapFigsEn": chap_figs_en,
+        "subtitlesEn": subtitles_en,
     }
 
 

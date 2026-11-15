@@ -1,7 +1,7 @@
 ---
 status: pass
 stage: 01-spec
-date: 2026-11-08
+date: 2026-11-15
 owner: pm
 blocked_on: []
 ---

@@ -1,7 +1,7 @@
 ---
 status: pass
 stage: 01-spec
-date: 2026-11-08
+date: 2026-11-15
 owner: pm
 blocked_on: []
 ---
@@ -673,5 +673,14 @@ Theo Quy tắc 14 (mục mới có ngày; chỗ nào xung đột với các mụ
 | 1 | **LUẬT 9 — Nhịp Minh hoạ Mặt cắt Giải thích Đan xen (`QĐ 57`):** Trong bài khảo cứu (`#pk-lay-essay`), giữ Chương 01 (mở bài có drop-cap) thuần chữ và đan xen đúng **4 hình mặt cắt giải thích `16:9` (`1200×675`, `CHAP_FIGS[<story>]`)** vào Chương 02–05 ngay sau đoạn 1 (*Mechanism Pivot / Advance Organizer*, ~1 hình mỗi 220–320 từ / `0.8–1.0 vh`), kèm `<figcaption>` 3 tầng (`kicker + nút nhảy lên nhịp Diorama`, `Action Thesis Title`, `2 câu giải thích cơ chế có [[glossary|term]]`), `width="1200" height="675"`, `loading="lazy"`, `decoding="async"`, `aspect-ratio: 16/9` (`CLS = 0`) | `scripts/wms-render-editorial-figs.py` · `scripts/check-story.py` (`C9 · CHAP_FIGS`) |
 | 2 | **Bộ 4 Chuyên gia Kiểm duyệt & 4 Cổng `wms-check.sh` (`QĐ 58`):** Nâng cấp từ 3 lên **4 chuyên gia độc lập** chạy trên mọi bài, giao diện và video: (1) `ke-toan-reviewer` (`K1–K4` số học & TT 99/2025); (2) `tai-chinh-reviewer` (`F1–F4` cơ chế ngân hàng, toán `IRR/EIR`, độ tươi `knowledge/finance-kb.json` qua `scripts/wms-finance-kb.py`); (3) `brand-safety-reviewer` (`B1–B4` chặn 100% tên riêng thương mại/ngân hàng/công cụ AI hậu trường); (4) `bang-motion` (`M1–M4`, chắt lọc từ `bangtutorial/bang-motion` `MIT License` ghi trong `legal/licences.json`: `M1` Persistent World + `cubic-bezier(0.22, 1, 0.36, 1)` + hạt dẫn hướng SVG, `M2` Kinetic Financial Counter `tabular-nums`, `M3` Khoá khung nhìn `LUẬT 6b + LUẬT 8`, `M4` `window.__vibeSeek` + 0 CDN runtime ngoài + `prefers-reduced-motion`, kiểm qua `scripts/wms-motion-snap.py`) | `scripts/wms-check.sh` (`[1/4]` `check-story.py` 26/26 file · `[2/4]` `wms-finance-kb.py` · `[3/4]` `wms-motion-snap.py` · `[4/4]` `vibe-check.sh`) |
 | 3 | **Trung tâm Điều phối Agent Realtime (`docs/workflows.html`):** Mô phỏng trực quan toàn bộ 5 quy trình trong repo (`/vibe-post` 6 bước, Xưởng 7 cổng `S0→S6`, Research 4 pha `SWEEP→DEDUPE→REFUTE→JUDGE`, Định tuyến Model `T0..T4` có thanh trượt 4 trục, và Kiểm toán Pháp quy), công khai minh bạch 100% nhà cung cấp/model (`Claude Fable 5 / Opus 5.5 / Sonnet 5.5 / Haiku 4.5`, `Gemini 4 Argon / 3.8 Flash`, `ElevenLabs eleven_v3 Giọng Tâm + SFX`, `Google Veo 3.1 / Imagen + Pillow/FFmpeg 30fps`, `YouTube Data API v3`, `Python T0 + Hook Guard`) trên từng nút | `docs/workflows.html` (`data-tier="reference"`) |
+
+## Đổi theo QĐ 62 (2026-11-15) — Chuẩn Song Ngữ Toàn Diện Tiếng Việt ⇄ Tiếng Anh (`LUẬT 11`)
+
+Theo Quy tắc 14 (mục mới có ngày; chỗ nào xung đột với mục cũ ưu tiên song ngữ từ đầu, mục này thắng). Mở rộng `QĐ 6`, `AC-05..10`, `AC-52`, `AC-62`, `AC-82` áp dụng cho **toàn bộ nội dung của `where-money-sleeps`**:
+
+| # | Yêu cầu | Kiểm bằng |
+|---|---|---|
+| 1 | **100% nội dung độc giả & kiểm duyệt song ngữ `VI ⇄ EN`:** Toàn bộ `docs/prototype.html` (`7 STORIES` published, `52 GLOSS`, `7 CATEGORIES`, `28 CHAP_FIGS`, `14 WMS_QUIZ_BANK`, 7 máy tính, `Scene` SVG), `docs/studio.html`, `docs/workflows.html` và mọi trang review `docs/*.html` đều hỗ trợ công tắc `VI ⇄ EN` tại chỗ giữ nguyên bài/nhịp/tiến độ | `scripts/check-story.py` · `scripts/wms-qa-verify.py` · `scripts/wms-motion-snap.py` |
+| 2 | **Chuẩn xác thuật ngữ TT 99/2025 ↔ IFRS/GAAP & BIS CPMI (`LUẬT 11`):** Giữ nguyên số hiệu TK Việt Nam (`112..642`), kèm tên tiếng Anh chuẩn và dòng `"unofficial summary of Circular 99/2025/TT-BTC"` (`AC-52`); giữ 0 tên riêng (`LUẬT 4`), 0 từ lóng đạo cụ tiếng Anh (`LUẬT 7`), 0 chữ `"accountant"/"expert"` (`QĐ 41`), chung khoá `WMS_PROGRESS_KEY` & `tel` (`AC-09`, `AC-62`) | `scripts/check-story.py` + `scripts/wms-qa-verify.py` |
 
 

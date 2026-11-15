@@ -47,6 +47,56 @@ LEGACY_TT200_NAMES = {
     "112": ("Tiền gửi ngân hàng", "Tiền gửi không kỳ hạn"),
     "156": ("Hàng hóa (tách 1561/1562/1567)", "Hàng hóa"),
 }
+LEGACY_TT200_EN_NAMES = {
+    "112": ("Cash at bank", "Demand deposits"),
+}
+TT99_EN_NAMES = {
+    "111": "Cash on hand",
+    "112": "Demand deposits",
+    "113": "Cash in transit",
+    "131": "Trade receivables",
+    "1388": "Other receivables",
+    "156": "Merchandise inventory",
+    "331": "Trade payables",
+    "3335": "Personal income tax payable",
+    "334": "Payables to employees",
+    "338": "Other payables",
+    "341": "Borrowings and finance lease liabilities",
+    "421": "Undistributed profit after tax",
+    "511": "Revenue from sales of goods and provision of services",
+    "521": "Revenue deductions",
+    "632": "Cost of goods sold",
+    "635": "Financial expenses",
+    "641": "Selling expenses",
+    "642": "General and administrative expenses",
+}
+
+
+def _en_anchor_candidates(tok: str) -> list[str]:
+    """Ánh xạ mốc neo số liệu từ tiếng Việt (dấu `.` hàng nghìn, `tỷ`/`triệu`/`nghìn`) sang dạng tiếng Anh tương đương."""
+    low = tok.strip().lower()
+    cands = [low]
+    if low == "tiền đang chuyển":
+        cands.extend(["cash in transit", "113"])
+        return cands
+    if re.fullmatch(r"\d{1,3}(?:\.\d{3})+", low):
+        cands.append(low.replace(".", ","))
+        return cands
+    m_pct = re.fullmatch(r"(\d+),(\d+)%", low)
+    if m_pct:
+        cands.append(f"{m_pct.group(1)}.{m_pct.group(2)}%")
+        return cands
+    m_unit = re.fullmatch(r"(\d+(?:,\d+)?)\s*(tỷ|triệu|nghìn)", low)
+    if m_unit:
+        num_str = m_unit.group(1).replace(",", ".")
+        unit = m_unit.group(2)
+        en_unit, short_u, mult = {
+            "tỷ": ("billion", "b", 1_000_000_000),
+            "triệu": ("million", "m", 1_000_000),
+            "nghìn": ("thousand", "k", 1_000),
+        }[unit]
+        cands.extend([f"{num_str} {en_unit}", f"{num_str}{short_u}", f"{int(round(float(num_str) * mult)):,}"])
+    return list(dict.fromkeys(cands))
 
 
 def _load_check_story_module():
@@ -231,6 +281,7 @@ def verify_story_finance(
     story: dict,
     kb: dict,
     tt99: dict | None,
+    lang: str = "vi",
 ) -> dict:
     """Chạy 4 phép kiểm chuyên gia tài chính (F1–F4) cho 1 bài viết + 2 kịch bản video của bài đó."""
     rows: list[tuple[str, str, str, str]] = []
@@ -297,8 +348,8 @@ def verify_story_finance(
 
     used_accounts: set[str] = set()
     for loc, led in all_ledgers:
-        d_sum = sum(r[5] for r in (led.get("rows") or []) if isinstance(r, list) and len(r) == 6 and r[0] == "Nợ" and isinstance(r[5], int))
-        c_sum = sum(r[5] for r in (led.get("rows") or []) if isinstance(r, list) and len(r) == 6 and r[0] == "Có" and isinstance(r[5], int))
+        d_sum = sum(r[5] for r in (led.get("rows") or []) if isinstance(r, list) and len(r) == 6 and r[0] in ("Nợ", "Debit") and isinstance(r[5], int))
+        c_sum = sum(r[5] for r in (led.get("rows") or []) if isinstance(r, list) and len(r) == 6 and r[0] in ("Có", "Credit") and isinstance(r[5], int))
         for r in led.get("rows") or []:
             if isinstance(r, list) and len(r) == 6:
                 used_accounts.add(str(r[1]))
@@ -516,7 +567,26 @@ def verify_story_finance(
         for r in led.get("rows") or []:
             if isinstance(r, list) and len(r) == 6:
                 code, name = str(r[1]), str(r[2])
-                if code in LEGACY_TT200_NAMES and name == LEGACY_TT200_NAMES[code][0]:
+                if lang == "en":
+                    if code in LEGACY_TT200_EN_NAMES and name == LEGACY_TT200_EN_NAMES[code][0]:
+                        rows.append((
+                            "FAIL", "F3", f"{w} {loc}",
+                            f"TK {code} dùng tên cũ tiếng Anh của TT 200 ({name!r}) — theo TT 99/2025 phải là {LEGACY_TT200_EN_NAMES[code][1]!r}"
+                        ))
+                        f3_ok = False
+                    elif tt99 and code not in tt99:
+                        rows.append((
+                            "FAIL", "F3", f"{w} {loc}",
+                            f"TK {code} không tồn tại trong bảng mã TT 99/2025"
+                        ))
+                        f3_ok = False
+                    elif code in TT99_EN_NAMES and TT99_EN_NAMES[code] != name:
+                        rows.append((
+                            "FAIL", "F3", f"{w} {loc}",
+                            f"TK {code} tên EN {name!r} không khớp bảng chuẩn TT 99/2025 EN ({TT99_EN_NAMES[code]!r})"
+                        ))
+                        f3_ok = False
+                elif code in LEGACY_TT200_NAMES and name == LEGACY_TT200_NAMES[code][0]:
                     rows.append((
                         "FAIL", "F3", f"{w} {loc}",
                         f"TK {code} dùng tên cũ của TT 200 ({name!r}) — theo TT 99/2025 phải là {LEGACY_TT200_NAMES[code][1]!r}"
@@ -543,19 +613,25 @@ def verify_story_finance(
 
     if inv and "postToVideoAnchors" in inv:
         anchors = inv["postToVideoAnchors"]
+
+        def _has_tok(blob: str, tok: str) -> bool:
+            if lang == "en":
+                return any(c in blob for c in _en_anchor_candidates(tok))
+            return tok.lower() in blob
+
         for token in anchors.get("beatsAndArticleMustContain", []):
-            if token.lower() not in post_blob:
+            if not _has_tok(post_blob, token):
                 rows.append(("FAIL", "F4", f"{w} bài viết", f"Bài viết thiếu con số/mốc neo tài chính cốt lõi: {token!r}"))
                 f4_ok = False
         for group in anchors.get("longVideoMustContainAny", []):
-            if not any(cand.lower() in long_blob for cand in group):
+            if not any(_has_tok(long_blob, cand) for cand in group):
                 rows.append((
                     "FAIL", "F4", f"{w} videoScript.long",
                     f"Video dài (16:9) làm rơi mốc số liệu cốt lõi từ bài viết (cần ít nhất 1 trong {group!r})"
                 ))
                 f4_ok = False
         for group in anchors.get("shortVideoMustContainAny", []):
-            if not any(cand.lower() in short_blob for cand in group):
+            if not any(_has_tok(short_blob, cand) for cand in group):
                 rows.append((
                     "FAIL", "F4", f"{w} videoScript.short",
                     f"Video ngắn (Shorts 9:16) làm rơi mốc số liệu cốt lõi từ bài viết (cần ít nhất 1 trong {group!r})"
@@ -669,6 +745,14 @@ def main() -> int:
             if not args.story or k == args.story:
                 res = verify_story_finance(k, s, kb, tt99)
                 all_rows.extend(res["rows"])
+        if "const STORIES_EN" in src:
+            stories_en = cs.extract(src, "STORIES_EN")
+            for k, s_en in stories_en.items():
+                if not args.story or k == args.story:
+                    res_en = verify_story_finance(k, s_en, kb, tt99, lang="en")
+                    for lv, code, wh, msg in res_en["rows"]:
+                        if code in ("F2", "F3", "F4") or lv == "FAIL":
+                            all_rows.append((lv, code, f"{wh} (EN)", msg))
 
     print(f"── CHUYÊN GIA TÀI CHÍNH (F1–F4) · {args.file}")
     for lv, code, where, msg in all_rows:

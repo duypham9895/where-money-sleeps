@@ -122,12 +122,18 @@ def run_audit() -> int:
                 overflow_errs.append(f"{sid}.name('{name}'={name_px:.0f}px > {w_val-12}px)")
             if tier_px > w_val - 18:
                 overflow_errs.append(f"{sid}.tier('{tier}'={tier_px:.0f}px > {w_val-18}px)")
+            en_name_m = re.search(rf'id:\s*"{re.escape(sid)}"[^}}]*nameEn:\s*"([^"]+)"', wsrc)
+            en_tier_m = re.search(rf'id:\s*"{re.escape(sid)}"[^}}]*tierEn:\s*"([^"]+)"', wsrc)
+            if en_name_m and len(en_name_m.group(1)) * 6.45 > w_val - 12:
+                overflow_errs.append(f"{sid}.nameEn('{en_name_m.group(1)}')")
+            if en_tier_m and len(en_tier_m.group(1)) * 5.05 > w_val - 18:
+                overflow_errs.append(f"{sid}.tierEn('{en_tier_m.group(1)}')")
         if not steps:
             bad("M3b", "docs/workflows.html", "Không đọc được danh sách trạm WORKFLOWS để kiểm tra va chạm chữ")
         elif overflow_errs:
             bad("M3b", "docs/workflows.html", f"Vi phạm LUẬT 10 tràn chữ hộp trạm: {', '.join(overflow_errs)}")
         else:
-            ok("M3b", "docs/workflows.html", f"LUẬT 10: Toàn bộ {len(steps)} trạm qua 5 quy trình đủ biên an toàn (0 tràn chữ, 0 đè chữ)")
+            ok("M3b", "docs/workflows.html", f"LUẬT 10: Toàn bộ {len(steps)} trạm (VI + EN) đủ biên an toàn (0 tràn chữ, 0 đè chữ)")
 
     if PROTO_HTML.is_file():
         psrc = PROTO_HTML.read_text(encoding="utf-8")

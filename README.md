@@ -33,7 +33,7 @@ When you tap your credit card at a restaurant or scan a QR code at a café, the 
 | `pay` | Trả hết nợ thẻ trước hạn | Settlement of card balance, zero interest window | `3NqEha4j53k` · `XnMsbH0E_xo` |
 | `install` | Mua 12 triệu trả góp lãi 0% | Merchant conversion fee vs bank loan disbursement | `l_8aVo538jo` · `J3DmDP4KKRI` |
 | `minpay` | Trả tối thiểu 5% trên sao kê | Loss of 45-day grace period, compounding interest | `ubgdEOblCgo` · `-atHoEHCrSI` |
-| `qr` | Quét mã QR 50 nghìn | Instant interbank credit transfer (NAPAS/VietQR) | `d_WpGSjBR-4` · `WpwLZw3ytwU` |
+| `qr` | Quét mã QR 50 nghìn | Instant interbank credit transfer (24/7 interbank switch & dynamic/static QR; bilingual `VI ⇄ EN` via `?lang=vi|en`) | `d_WpGSjBR-4` · `WpwLZw3ytwU` |
 | `profitcash` | Lãi ròng 2 tỷ nhưng két còn 50 triệu | Net income on accrual basis vs operating cash flow | `WnlsZ9AtNdI` · `BpNggcnByQg` |
 | `offus` | Chuyển khoản On-Us vs Off-Us | Internal ledger debit vs interbank clearing & RTGS | `Qn3SIzHi_Ik` · `9FdZabe_Q_4` |
 

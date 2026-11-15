@@ -555,6 +555,7 @@ html, body {
     </div>
   </div>
   <div class="ms-right">
+    <button type="button" class="theme-btn" id="langToggleBtn" aria-pressed="false">🌐 VI ⇄ EN</button>
     <button type="button" class="theme-btn" id="ccToggleBtn" aria-pressed="false">💬 Phụ đề YouTube CC: Đang TẮT</button>
     <button type="button" class="theme-btn" id="themeToggleBtn">🌙 Đổi nền: Giấy kem ấm ⇄ Than dịu</button>
   </div>
@@ -930,7 +931,304 @@ html, body {
     }
   ];
 
+  const SCENES_DEMO_EN = [
+    {
+      time: "SCENE 1 / 6 · 0:00 – 0:08 (Hook)",
+      wpm: "27 words · 202 WPM (Target)",
+      vo: "“Take home a twelve-million-dong device right away with your wallet untouched. In this example, the flyer reads zero-percent installments over twelve terms… but who lends for a whole year free?”",
+      formula: "Purchase 12,000,000 VND · 0% × 12 terms",
+      vis: "Merchant cutaway lights up; the 12,000,000 VND contract slides from Merchant to Your room."
+    },
+    {
+      time: "SCENE 2 / 6 · 0:08 – 0:20 (Contract Assignment)",
+      wpm: "35 words · 175 WPM (Target)",
+      vo: "“The moment you sign, the installment contract does not stay with the merchant — it moves straight to a finance company. From that instant, the lender you pay each month is the finance company.”",
+      formula: "12,000,000 VND receivable → Assigned to Finance Co.",
+      vis: "Contract marker travels along the upper contract rail from Merchant to Finance Company; records 12M receivable."
+    },
+    {
+      time: "SCENE 3 / 6 · 0:20 – 0:34 (Merchant Bears 600,000 VND Fee)",
+      wpm: "42 words · 180 WPM (Target)",
+      vo: "“The next day, the finance company wires sale proceeds to the merchant, yet transfers only eleven million four hundred thousand dong. Six hundred thousand deducted upfront is the interest subsidy fee borne by the merchant.”",
+      formula: "12,000,000 VND − 600,000 VND fee = 11,400,000 VND net",
+      vis: "11.4M cash token flows from Finance Co. to Merchant + Double-entry: Debit 112 / Debit 641 / Credit 1388."
+    },
+    {
+      time: "SCENE 4 / 6 · 0:34 – 0:48 (Collecting 12 × 1,000,000 VND)",
+      wpm: "30 words · 135 WPM (Target)",
+      vo: "“In return, the finance company holds the right to collect one million dong from you every month for twelve terms, totaling twelve million dong.”",
+      formula: "Collect 1,000,000 VND/mo × 12 terms = 12,000,000 VND",
+      vis: "12 monthly cash collection pulses travel from Your room back to Finance Company."
+    },
+    {
+      time: "SCENE 5 / 6 · 0:48 – 1:00 (Effective Interest Rate ~10%/yr)",
+      wpm: "43 words · 215 WPM (Target)",
+      vo: "“Why do they do it? Put the cash flows on a financial scale: advancing eleven million four hundred thousand today to collect twelve million over twelve months gives an effective return of around ten percent a year.”",
+      formula: "Outlay 11.4M → Collect 12M · EIR ≈ 10%/yr",
+      vis: "IRR/EIR cashflow scale: PV = 11,400,000 VND ⇄ CF = 1,000,000 VND × 12 terms → EIR = 10.01%/yr."
+    },
+    {
+      time: "SCENE 6 / 6 · 1:00 – 1:08 (Mechanism Summary)",
+      wpm: "23 words · 172 WPM (Target)",
+      vo: "“No loan is truly free — the interest is simply renamed a service fee and priced in from the start.”",
+      formula: "0% headline rate = 600,000 VND fee in sticker price",
+      vis: "3-house cutaway summary: You pay 12M · Merchant receives 11.4M · Finance Co. earns 600k spread."
+    }
+  ];
+
+  const mainEl = $("main.mockup-container");
+  const ORIG_MAIN = mainEl ? mainEl.innerHTML : "";
+  const ORIG_TITLE = document.title;
+  let curLang = "vi";
+  let curOpt = "A";
+  let curSceneIdx = 2;
+
+  const EN_MAIN = `
+  <section id="view-A">
+    <div class="option-banner">
+      <div>
+        <h2>Option A (Recommended) — Calm Single-Focus (2 Open Panes: Video ⇄ 1 Active Scene Card)</h2>
+        <p>Removes the left column, strips the TL;DR box, turns off the neon grid by default, and hides the 11-scene table. The screen shows only <b>Video (with 80% expanded Zone 2 live motion)</b> beside <b>1 Active Scene Card</b>.</p>
+      </div>
+      <span class="verdict-tag">★ RECOMMENDED · CALMEST LAYOUT</span>
+    </div>
+    <div class="calm-shell">
+      <div class="calm-topbar">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="calm-pill-picker">📂 Lesson 03/03: 12M Installments at 0% Headline Rate (Pending) ▾</span>
+          <span class="calm-pill-picker" style="font-size:12px">📱 Shorts 9:16 ⇄ 16:9</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button type="button" class="calm-gate-pill" id="gateDrawerBtn">✓ 5/5 Specialist Gates Passed (K·F·B·M) ▾</button>
+          <button type="button" class="btn-pass" style="padding:6px 14px;font-size:12px">💾 Save Review Receipt</button>
+        </div>
+      </div>
+      <div id="gateDrawerBox" hidden style="padding:12px 24px;background:var(--bg-subtle);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);gap:10px;font-size:12px">
+        <div class="tc-mini-card"><b>C0–C9 Contract:</b> PASS (4 figures RULE 9)</div>
+        <div class="tc-mini-card"><b>K1–K4 Accounting:</b> PASS (Σ Debit = Σ Credit = 12M)</div>
+        <div class="tc-mini-card"><b>F1–F4 Finance:</b> PASS (EIR = 10.01%/yr)</div>
+        <div class="tc-mini-card"><b>B1–B4 Brand:</b> PASS (0 brands/secrets)</div>
+        <div class="tc-mini-card"><b>M1–M4 Motion:</b> PASS (Zone 2 Kinetic + .srt)</div>
+      </div>
+      <div class="calm-body">
+        <div>
+          <div class="phone-frame">
+            <div class="pf-zone1">
+              <div class="pf-kicker">SCENE 3/6 · BEAT 2 · NIGHT T+0</div>
+              <div class="pf-title">Bought for 12M at 0% installments — why does the merchant net only 11.4M?</div>
+            </div>
+            <div class="pf-zone2">
+              <div class="pf-stage-label">
+                <span>ZONE 2 · KINETIC CUTAWAY (80% FRAME)</span>
+                <span style="color:#34d399">● 30fps Kinetic</span>
+              </div>
+              <svg class="pf-cutaway-svg" viewBox="0 0 280 190" aria-label="Money flow motion inside Zone 2">
+                <line x1="20" y1="28" x2="260" y2="28" stroke="#e2a84b" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <text x="140" y="18" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="8">CONTRACT RAIL · 5% FEE DEDUCTED (600,000 VND)</text>
+                <rect x="14" y="42" width="74" height="84" rx="5" fill="#232938" stroke="#64748b" stroke-width="1.5"/>
+                <text x="51" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">You</text>
+                <text x="51" y="92" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">Takes item</text>
+                <text x="51" y="106" text-anchor="middle" fill="#e2a84b" font-family="JetBrains Mono" font-size="8.5" font-weight="700">12,000,000 VND</text>
+                <rect x="103" y="42" width="74" height="84" rx="5" fill="#2b2620" stroke="#e2a84b" stroke-width="2"/>
+                <text x="140" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">Merchant</text>
+                <text x="140" y="90" text-anchor="middle" fill="#f43f5e" font-family="JetBrains Mono" font-size="8">−600,000 fee</text>
+                <text x="140" y="106" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono" font-size="8.5" font-weight="700">+11,400,000 VND</text>
+                <rect x="192" y="42" width="74" height="84" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                <text x="229" y="58" text-anchor="middle" fill="#f5efe3" font-family="Be Vietnam Pro" font-size="9" font-weight="700">Finance Co.</text>
+                <text x="229" y="92" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">Disburses T+1</text>
+                <text x="229" y="106" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8.5" font-weight="700">11,400,000 VND</text>
+                <line x1="140" y1="152" x2="230" y2="152" stroke="#34d399" stroke-width="2.5"/>
+                <circle r="5" fill="#34d399"><animateMotion dur="2.2s" repeatCount="indefinite" path="M 230 152 L 140 152"/></circle>
+                <text x="140" y="174" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono" font-size="8.5" font-weight="700">CASH FLOW: DISBURSED 11,400,000 VND</text>
+              </svg>
+              <div class="pf-live-ledger">
+                <div class="pf-live-ledger-head"><span>MERCHANT BOOKS (CIRC. 99/2025)</span><span>Σ = 12.0M</span></div>
+                <div class="pf-row"><span class="dr">Debit 112 (Cash in bank)</span><span>11,400,000 VND</span></div>
+                <div class="pf-row"><span class="dr">Debit 641 (5% fee)</span><span>600,000 VND</span></div>
+                <div class="pf-row"><span class="cr">Credit 1388 (Other receivables)</span><span>12,000,000 VND</span></div>
+              </div>
+            </div>
+            <div class="pf-yt-cc" id="ytCcOverlay" hidden>[YouTube CC .srt] The next day, the finance company transfers exactly 11.4 million dong to the merchant.</div>
+            <div class="pf-formula-pill">12,000,000 VND − 600,000 fee = 11,400,000 net</div>
+          </div>
+        </div>
+        <div class="calm-focus-col">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <div class="calm-stepper" role="tablist" aria-label="Quick scene selector">
+              <button type="button" class="calm-dot done" data-scene-idx="0">S1 ✓</button>
+              <button type="button" class="calm-dot done" data-scene-idx="1">S2 ✓</button>
+              <button type="button" class="calm-dot" data-scene-idx="2" aria-current="true">● Scene 3 (0:20–0:34)</button>
+              <button type="button" class="calm-dot" data-scene-idx="3">S4</button>
+              <button type="button" class="calm-dot" data-scene-idx="4">S5</button>
+              <button type="button" class="calm-dot" data-scene-idx="5">S6</button>
+            </div>
+            <span class="mono" style="font-size:12px;color:var(--ink-3)">Review progress: <b>2/6 scenes Passed</b></span>
+          </div>
+          <article class="calm-active-card" id="activeSceneCard">
+            <div class="cac-head">
+              <div><span class="cac-time" id="cacTime">SCENE 3 / 6 · 0:20 – 0:34 (Merchant Bears 600,000 VND Fee)</span></div>
+              <span class="cac-wpm" id="cacWpm">42 words · 180 WPM (Target)</span>
+            </div>
+            <div class="cac-label">Narration Script (Bundled with .srt subtitles for YouTube CC)</div>
+            <p class="cac-vo" id="cacVo">“The next day, the finance company wires sale proceeds to the merchant, yet transfers only eleven million four hundred thousand dong. Six hundred thousand deducted upfront is the interest subsidy fee borne by the merchant.”</p>
+            <div class="cac-meta-grid">
+              <div>
+                <div class="cac-label">On-Video Formula Bar (≤ 8 words)</div>
+                <div class="mono" style="font-weight:700;color:var(--accent)" id="cacFormula">12,000,000 VND − 600,000 fee = 11,400,000 VND net</div>
+              </div>
+              <div>
+                <div class="cac-label">Zone 2 Motion (80% frame)</div>
+                <div style="color:var(--ink-2)" id="cacVis">11.4M cash token flows from Finance Co. to Merchant + Double-entry: Debit 112 / Debit 641 / Credit 1388.</div>
+              </div>
+            </div>
+            <div class="cac-actions">
+              <div style="display:flex;gap:8px">
+                <button type="button" class="btn-pass">✓ Pass Scene ( Key → )</button>
+                <button type="button" class="btn-flag">⚑ Needs Revision</button>
+              </div>
+              <input type="text" class="calm-Note-inp" placeholder="Notes for Scene 3 (if revisions are needed)...">
+            </div>
+          </article>
+          <div style="display:flex;justify-content:space-between;align-items:center;color:var(--ink-3);font-size:12.5px">
+            <span>💡 <b>Tip:</b> Press <code>Space</code> to play/pause, <code>← / →</code> to step between scenes.</span>
+            <button type="button" class="btn-flag" style="padding:5px 11px;font-size:12px" id="toggleFullScriptDrawer">📄 Open 6-Scene Full Script Drawer</button>
+          </div>
+          <div id="fullScriptDrawer" hidden style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px">
+            <b>Full 6-Scene Script (hidden in drawer by default):</b>
+            <ol style="margin:8px 0 0;padding-left:18px;color:var(--ink-2)">
+              <li><b>0:00–0:08:</b> Take home a 12M device right away with your wallet untouched…</li>
+              <li><b>0:08–0:20:</b> The moment you sign, the installment contract moves straight to a finance company…</li>
+              <li><b>0:20–0:34:</b> The next day, the finance company transfers only 11.4M to the merchant…</li>
+              <li><b>0:34–0:48:</b> In return, the finance company collects 1M/month over 12 terms…</li>
+              <li><b>0:48–1:00:</b> Advancing 11.4M today to collect 12M earns ~10% effective return/year…</li>
+              <li><b>1:00–1:08:</b> No loan is truly free — interest is renamed a service fee…</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="view-B" hidden>
+    <div class="option-banner">
+      <div>
+        <h2>Option B — Step-by-Step Wizard (Split into 3 Sequential Full-Screen Steps)</h2>
+        <p>Each step displays only 1 area: <b>Step 1 (Video Only)</b> → <b>Step 2 (Script Table Only)</b> → <b>Step 3 (Gate Checks &amp; Export)</b>. Drawback: while on Step 2, you cannot see the Video frame simultaneously.</p>
+      </div>
+      <span class="verdict-tag warn">DRAWBACK: NO SIDE-BY-SIDE SYNC</span>
+    </div>
+    <div class="calm-shell">
+      <div class="wizard-bar">
+        <button type="button" class="wiz-step" data-wiz="1" aria-current="true">Step 1/3 · Video Only</button>
+        <button type="button" class="wiz-step" data-wiz="2" aria-current="false">Step 2/3 · Script Only</button>
+        <button type="button" class="wiz-step" data-wiz="3" aria-current="false">Step 3/3 · Gates &amp; Sign-Off</button>
+      </div>
+      <div class="wiz-stage" id="wizStage1">
+        <div style="text-align:center;margin-bottom:14px;color:var(--ink-2)">Step 1 renders only the Video frame centered (script text hidden):</div>
+        <div class="phone-frame" style="height:440px;width:248px">
+          <div class="pf-zone1"><div class="pf-kicker">STEP 1 · VIDEO ONLY</div><div class="pf-title">12M Installments at 0%</div></div>
+          <div class="pf-zone2" style="justify-content:center;align-items:center;text-align:center">
+            <div style="font:700 12px 'JetBrains Mono';color:#e2a84b">ZONE 2 · 80% MOTION</div>
+            <p style="font-size:11px;color:#94a3b8">To inspect or edit script narration for this scene, switch to <b>Step 2/3</b>.</p>
+          </div>
+          <div class="pf-formula-pill">12M − 600k fee = 11.4M</div>
+        </div>
+      </div>
+      <div class="wiz-stage" id="wizStage2" hidden>
+        <div style="max-width:720px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px">
+          <h3 style="margin-top:0">Step 2/3 · Script Table (Video Hidden Here)</h3>
+          <p style="color:var(--ink-2)">Scene 1 (0:00–0:08): Take home a 12M device right away with your wallet untouched…</p>
+          <p style="color:var(--ink-2)">Scene 2 (0:08–0:20): The moment you sign, the contract moves to a finance company…</p>
+          <p style="color:var(--ink-2)">Scene 3 (0:20–0:34): The next day, the finance company wires only 11.4M…</p>
+        </div>
+      </div>
+      <div class="wiz-stage" id="wizStage3" hidden>
+        <div style="max-width:520px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center">
+          <h3 style="margin-top:0">Step 3/3 · Automated Gates &amp; Receipt Export</h3>
+          <p style="color:var(--ok);font-weight:700">✓ C0–C9 PASS · ✓ K1–K4 PASS · ✓ F1–F4 PASS · ✓ B1–B4 PASS · ✓ M1–M4 PASS</p>
+          <button type="button" class="btn-pass">💾 Save Review Receipt (.json)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="view-C" hidden>
+    <div class="option-banner">
+      <div>
+        <h2>Option C — Keep 3-Column + Long Table Layout, Swap Only to Warm Cream Paper (#f5efe3)</h2>
+        <p>Softer on eyes than dark neon, yet <b>on-screen block density stays crowded</b> (left rail + center stage + script list + 5 specialist cards all visible at once).</p>
+      </div>
+      <span class="verdict-tag warn">DRAWBACK: TOO MANY BLOCKS AT ONCE</span>
+    </div>
+    <div class="three-col-grid">
+      <div class="tc-pane">
+        <div class="cac-label">1. Left Column (Stories &amp; 5 Beats)</div>
+        <div class="tc-mini-card"><b>CARD:</b> Tonight 10M was just swiped…</div>
+        <div class="tc-mini-card"><b>PAY:</b> Why employers open accounts…</div>
+        <div class="tc-mini-card" style="border-color:var(--accent)"><b>INSTALL (Active):</b> 12M Installments 0%…</div>
+        <div class="cac-label" style="margin-top:14px">Jump by beat</div>
+        <div class="tc-mini-card">Beat 1 · Beat 2 · Beat 3 · Beat 4 · Beat 5</div>
+      </div>
+      <div class="tc-pane">
+        <div class="cac-label">2. Center Column (Video + Waveform + All 6 Scenes Below)</div>
+        <div style="background:#181c26;color:#f5efe3;padding:24px;border-radius:8px;text-align:center;margin-bottom:10px">[9:16 Video Frame + 120-Bar Waveform Below]</div>
+        <div class="tc-mini-card"><b>Scene 1 (0:00–0:08):</b> Take home 12M right away… [✓ Pass] [⚑ Fix]</div>
+        <div class="tc-mini-card"><b>Scene 2 (0:08–0:20):</b> When you sign, contract moves… [✓ Pass] [⚑ Fix]</div>
+        <div class="tc-mini-card"><b>Scene 3 (0:20–0:34):</b> Next day, finance co. wires… [✓ Pass] [⚑ Fix]</div>
+        <div class="tc-mini-card"><b>Scene 4 (0:34–0:48):</b> Finance co. collects monthly… [✓ Pass] [⚑ Fix]</div>
+      </div>
+      <div class="tc-pane">
+        <div class="cac-label">3. Right Column (5 Specialist Gate Cards)</div>
+        <div class="tc-mini-card"><b>C0–C9 Contract:</b> PASS (3 detail lines…)</div>
+        <div class="tc-mini-card"><b>K1–K4 Accounting:</b> PASS (2 detail lines…)</div>
+        <div class="tc-mini-card"><b>F1–F4 Finance:</b> PASS (3 detail lines…)</div>
+        <div class="tc-mini-card"><b>B1–B4 Brand:</b> PASS (2 detail lines…)</div>
+        <div class="tc-mini-card"><b>M1–M4 Motion:</b> PASS (3 detail lines…)</div>
+      </div>
+    </div>
+  </section>
+  <section id="view-ALL" hidden>
+    <div class="overview-grid">
+      <div class="ov-card recommended">
+        <div>
+          <span class="verdict-tag">★ OPTION A (RECOMMENDED)</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">Calm Single-Focus (2 Open Panes)</h3>
+          <p style="font-size:13px;color:var(--ink-2)">Keeps only <b>Video (Left)</b> and <b>1 Active Scene Card (Right)</b>. Story picker collapses to a <code>48px</code> pill; 5 specialist gates collapse into 1 button <code>✓ 5/5 Gates Passed</code>.</p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Visible blocks:</b> Cut from 14 blocks down to <b>3 blocks</b>.</li>
+            <li><b>Eye focus:</b> Locks cleanly on current narration and <code>Zone 2</code> motion.</li>
+            <li><b>Palette:</b> Warm paper (<code>#f5efe3</code>) or muted charcoal (<code>#141312</code>), zero neon borders.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-pass" data-jump-opt="A" style="width:100%;margin-top:12px">Inspect Option A</button>
+      </div>
+      <div class="ov-card">
+        <div>
+          <span class="verdict-tag warn">OPTION B</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">3-Step Split Wizard</h3>
+          <p style="font-size:13px;color:var(--ink-2)">Separates Video (Step 1), Script table (Step 2), and Gates (Step 3) onto 3 isolated screens.</p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Pro:</b> Very little text per step.</li>
+            <li><b>Major drawback:</b> Cannot see Video while reading Step 2 script; requires constant tab-switching.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-flag" data-jump-opt="B" style="width:100%;margin-top:12px">Inspect Option B</button>
+      </div>
+      <div class="ov-card">
+        <div>
+          <span class="verdict-tag warn">OPTION C</span>
+          <h3 style="margin:10px 0 6px;font-family:'Fraunces',serif">3 Columns + Cream Paper</h3>
+          <p style="font-size:13px;color:var(--ink-2)">Keeps the 3-column grid + full script list + 5 specialist panels on one screen, changing only background color.</p>
+          <ul style="font-size:12.5px;color:var(--ink-2);padding-left:18px">
+            <li><b>Pro:</b> No drawer needed to inspect all scenes at once.</li>
+            <li><b>Major drawback:</b> Still exposes 14 blocks simultaneously without solving clutter.</li>
+          </ul>
+        </div>
+        <button type="button" class="btn-flag" data-jump-opt="C" style="width:100%;margin-top:12px">Inspect Option C</button>
+      </div>
+    </div>
+  </section>`;
+
   function selectOpt(opt) {
+    curOpt = opt;
     $$("[data-opt]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.opt === opt)));
     ["A", "B", "C", "ALL"].forEach(k => {
       const el = $("#view-" + k);
@@ -938,12 +1236,81 @@ html, body {
     });
   }
 
+  function updateCcBtnText() {
+    const cc = $("#ytCcOverlay");
+    const on = cc ? !cc.hidden : false;
+    $("#ccToggleBtn").setAttribute("aria-pressed", String(on));
+    $("#ccToggleBtn").textContent = curLang === "en"
+      ? (on ? "💬 YouTube CC Subtitles: ON" : "💬 YouTube CC Subtitles: OFF")
+      : (on ? "💬 Phụ đề YouTube CC: Đang BẬT" : "💬 Phụ đề YouTube CC: Đang TẮT");
+  }
+
+  function bindMainEvents() {
+    $$("[data-jump-opt]").forEach(b => { b.onclick = () => selectOpt(b.dataset.jumpOpt); });
+    const gateBtn = $("#gateDrawerBtn");
+    if (gateBtn) gateBtn.onclick = () => { const box = $("#gateDrawerBox"); if (box) box.hidden = !box.hidden; };
+    const fullBtn = $("#toggleFullScriptDrawer");
+    if (fullBtn) fullBtn.onclick = () => { const dr = $("#fullScriptDrawer"); if (dr) dr.hidden = !dr.hidden; };
+    $$("[data-scene-idx]").forEach(btn => {
+      btn.onclick = () => {
+        curSceneIdx = +btn.dataset.sceneIdx;
+        const pool = curLang === "en" ? SCENES_DEMO_EN : SCENES_DEMO;
+        const sc = pool[curSceneIdx] || pool[0];
+        $$("[data-scene-idx]").forEach((d, i) => d.setAttribute("aria-current", String(i === curSceneIdx)));
+        if ($("#cacTime")) $("#cacTime").textContent = sc.time;
+        if ($("#cacWpm")) $("#cacWpm").textContent = sc.wpm;
+        if ($("#cacVo")) $("#cacVo").textContent = sc.vo;
+        if ($("#cacFormula")) $("#cacFormula").textContent = sc.formula;
+        if ($("#cacVis")) $("#cacVis").textContent = sc.vis;
+      };
+    });
+    $$("[data-wiz]").forEach(btn => {
+      btn.onclick = () => {
+        const step = btn.dataset.wiz;
+        $$("[data-wiz]").forEach(b => b.setAttribute("aria-current", String(b.dataset.wiz === step)));
+        ["1", "2", "3"].forEach(s => { const el = $("#wizStage" + s); if (el) el.hidden = (s !== step); });
+      };
+    });
+    selectOpt(curOpt);
+  }
+
+  function applyLang(l) {
+    curLang = (l === "en") ? "en" : "vi";
+    document.documentElement.lang = curLang;
+    try { localStorage.setItem("wms-lang", curLang); } catch (_) {}
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set("lang", curLang);
+      history.replaceState(null, "", u.toString());
+    } catch (_) {}
+    const en = curLang === "en";
+    document.title = en
+      ? "Visual UI Option Mockups (Studio + Zone 2 Kinetic Motion) — Where Money Sleeps"
+      : ORIG_TITLE;
+    const badge = $(".ms-badge");
+    if (badge) badge.textContent = en ? "Layout Comparison Mockups" : "Bản Mockup So Sánh";
+    const tabMap = {
+      A: en ? "★ Option A (Recommended): Calm Single-Focus" : "★ Phương án A (Khuyến nghị): Calm Single-Focus",
+      B: en ? "Option B: 3-Step Wizard" : "Phương án B: Step-by-Step 3 Bước",
+      C: en ? "Option C: 3 Columns Cream Paper" : "Phương án C: 3 Cột Nền Giấy Sáng",
+      ALL: en ? "👁️ Compare All 3 Side-by-Side" : "👁️ So sánh cả 3 cạnh nhau"
+    };
+    $$("[data-opt]").forEach(b => { if (tabMap[b.dataset.opt]) b.textContent = tabMap[b.dataset.opt]; });
+    $("#themeToggleBtn").textContent = en
+      ? "🌙 Toggle Theme: Warm Paper ⇄ Charcoal"
+      : "🌙 Đổi nền: Giấy kem ấm ⇄ Than dịu";
+    $("#langToggleBtn").setAttribute("aria-pressed", String(en));
+    $("#langToggleBtn").textContent = en ? "🌐 English (VI ⇄ EN)" : "🌐 Tiếng Việt (VI ⇄ EN)";
+    if (mainEl) mainEl.innerHTML = en ? EN_MAIN : ORIG_MAIN;
+    bindMainEvents();
+    updateCcBtnText();
+  }
+
   $$("[data-opt]").forEach(b => {
     b.onclick = () => selectOpt(b.dataset.opt);
   });
-  $$("[data-jump-opt]").forEach(b => {
-    b.onclick = () => selectOpt(b.dataset.jumpOpt);
-  });
+
+  $("#langToggleBtn").onclick = () => applyLang(curLang === "en" ? "vi" : "en");
 
   $("#themeToggleBtn").onclick = () => {
     const cur = document.documentElement.getAttribute("data-theme") || "paper";
@@ -953,65 +1320,30 @@ html, body {
 
   $("#ccToggleBtn").onclick = () => {
     const cc = $("#ytCcOverlay");
-    const on = cc.hidden;
-    cc.hidden = !on;
-    $("#ccToggleBtn").setAttribute("aria-pressed", String(on));
-    $("#ccToggleBtn").textContent = on ? "💬 Phụ đề YouTube CC: Đang BẬT" : "💬 Phụ đề YouTube CC: Đang TẮT";
+    if (cc) cc.hidden = !cc.hidden;
+    updateCcBtnText();
   };
 
-  const gateBtn = $("#gateDrawerBtn");
-  if (gateBtn) {
-    gateBtn.onclick = () => {
-      const box = $("#gateDrawerBox");
-      box.hidden = !box.hidden;
-    };
-  }
-
-  const fullBtn = $("#toggleFullScriptDrawer");
-  if (fullBtn) {
-    fullBtn.onclick = () => {
-      const dr = $("#fullScriptDrawer");
-      dr.hidden = !dr.hidden;
-    };
-  }
-
-  $$("[data-scene-idx]").forEach(btn => {
-    btn.onclick = () => {
-      const idx = +btn.dataset.sceneIdx;
-      const sc = SCENES_DEMO[idx] || SCENES_DEMO[0];
-      $$("[data-scene-idx]").forEach((d, i) => d.setAttribute("aria-current", String(i === idx)));
-      $("#cacTime").textContent = sc.time;
-      $("#cacWpm").textContent = sc.wpm;
-      $("#cacVo").textContent = sc.vo;
-      $("#cacFormula").textContent = sc.formula;
-      $("#cacVis").textContent = sc.vis;
-    };
-  });
-
-  $$("[data-wiz]").forEach(btn => {
-    btn.onclick = () => {
-      const step = btn.dataset.wiz;
-      $$("[data-wiz]").forEach(b => b.setAttribute("aria-current", String(b.dataset.wiz === step)));
-      ["1", "2", "3"].forEach(s => {
-        const el = $("#wizStage" + s);
-        if (el) el.hidden = (s !== step);
-      });
-    };
-  });
-
   window.__vibeSeek = function(opts = {}) {
+    if (opts.lang && ["vi", "en"].includes(opts.lang)) applyLang(opts.lang);
     if (opts.opt) selectOpt(opts.opt);
     if (opts.theme) document.documentElement.setAttribute("data-theme", opts.theme);
-    return { opt: opts.opt || "A", theme: document.documentElement.getAttribute("data-theme") };
+    return { lang: curLang, opt: curOpt, theme: document.documentElement.getAttribute("data-theme") };
   };
 
   const urlParams = new URLSearchParams(location.search);
+  let storedLang = "";
+  try { storedLang = localStorage.getItem("wms-lang") || ""; } catch (_) {}
+  const initLang = ["vi", "en"].includes(urlParams.get("lang"))
+    ? urlParams.get("lang")
+    : (["vi", "en"].includes(storedLang) ? storedLang : "vi");
   if (urlParams.get("opt") && ["A", "B", "C", "ALL"].includes(urlParams.get("opt"))) {
-    selectOpt(urlParams.get("opt"));
+    curOpt = urlParams.get("opt");
   }
   if (urlParams.get("theme") && ["paper", "charcoal"].includes(urlParams.get("theme"))) {
     document.documentElement.setAttribute("data-theme", urlParams.get("theme"));
   }
+  applyLang(initLang);
 })();
 </script>
 </body>

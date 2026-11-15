@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:05,410
+Your credit card statement shows ten million dong, with an option to pay a five percent minimum of five hundred thousand.
+
+2
+00:00:05,410 --> 00:00:07,020
+You tap pay five hundred thousand...
+
+3
+00:00:07,020 --> 00:00:11,000
+so why does next month's debt surge to ten million ninety-two thousand five hundred dong?
+
+4
+00:00:11,000 --> 00:00:17,000
+Because just two days after you swiped, the issuing bank advanced real cash out of pocket to pay the store.
+
+5
+00:00:17,000 --> 00:00:23,000
+The forty-five-day grace period is strictly conditional: it only applies if you settle one hundred percent.
+
+6
+00:00:23,000 --> 00:00:36,000
+On day forty-five, paying five hundred thousand prevents late fees and protects credit scores, but paying less than one hundred percent cancels the forty-five-day grace period retroactively.
+
+7
+00:00:36,000 --> 00:00:51,000
+At an illustrative zero point one percent daily rate, the bank calculates interest backward from day one: four hundred and fifty thousand on the original ten million, plus one hundred and forty-two thousand five hundred on the remaining nine point five million.
+
+8
+00:00:51,000 --> 00:01:02,000
+Total interest reaches five hundred and ninety-two thousand five hundred dong — exceeding the five hundred thousand you just paid, expanding your new statement balance to ten million ninety-two thousand five hundred dong.
+
+9
+00:01:02,000 --> 00:01:05,250
+The minimum payment is an emergency buffer for cash flow pinches.
+
+10
+00:01:05,250 --> 00:01:12,000
+When funds are available, paying one hundred percent of your statement balance is the only way to keep the forty-five-day grace period.

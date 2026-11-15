@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:05,590
+You swipe your credit card for a ten million dong dinner banquet and celebrate receiving one hundred thousand dong in instant cashback rewards.
+
+2
+00:00:05,590 --> 00:00:07,000
+But who actually funded that reward?
+
+3
+00:00:07,000 --> 00:00:11,020
+At the exact second the terminal beeps, zero cash leaves your possession.
+
+4
+00:00:11,020 --> 00:00:18,000
+Your issuing bank merely freezes ten million of your credit line as an authorization hold, advancing the real money days later.
+
+5
+00:00:18,000 --> 00:00:23,770
+Two business days later, the restaurant receives only nine million seven hundred and eighty thousand dong.
+
+6
+00:00:23,770 --> 00:00:29,000
+Exactly two hundred and twenty thousand dong was deducted up front as a merchant processing fee.
+
+7
+00:00:29,000 --> 00:00:40,000
+The largest portion of that processing fee — approximately one hundred and fifty thousand dong — travels straight to your card issuing bank as an interchange settlement fee to compensate for credit float.
+
+8
+00:00:40,000 --> 00:00:46,550
+That interchange fee is the primary commercial engine funding your reward programs.
+
+9
+00:00:46,550 --> 00:00:55,000
+The issuing bank captures a fee from the merchant and returns a smaller slice to you as marketing cashback.
+
+10
+00:00:55,000 --> 00:01:08,000
+And because restaurants incorporate payment processing overhead into standard retail prices, your shiny cashback reward was simply your own dining money completing an economic circle.
