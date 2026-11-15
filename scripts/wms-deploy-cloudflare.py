@@ -9,24 +9,102 @@ wms-deploy-cloudflare.py — Triển khai tự động đầu-cuối Where Money
   6. Kiểm tra HTTP sống (`GET /` -> 200, `GET /studio.html` -> 200, `POST /api/p` -> 204).
 """
 
+import argparse
 import json
 import os
 import re
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 WRANGLER_JSONC = ROOT / "wrangler.jsonc"
+ENV_FILE = ROOT / ".env"
 DB_NAME = "where-money-sleeps-db"
+DEFAULT_ACCOUNT_ID = "76cf12a5975b729026f1b1dd89005e53"
+ANALYTICS_READ_TOKEN_ID = "81ce5a97dba02acd40d4e69071bad396"
+DEFAULT_CUSTOM_DOMAIN = "https://wheremoneysleeps.duyslab.icu"
+GITHUB_REPO = "duypham9895/where-money-sleeps"
 
 
-def clean_env() -> dict[str, str]:
+def load_dotenv_token() -> tuple[str, str]:
+    """Đọc `WMS_CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_API_TOKEN` và `CLOUDFLARE_ACCOUNT_ID` từ `.env` (nếu có)."""
+    vals: dict[str, str] = {}
+    if ENV_FILE.is_file():
+        for raw_line in ENV_FILE.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, _, v = line.partition("=")
+            vals[k.strip()] = v.strip().strip('"').strip("'")
+    tok = vals.get("WMS_CLOUDFLARE_API_TOKEN") or vals.get("CLOUDFLARE_API_TOKEN") or ""
+    acct = vals.get("CLOUDFLARE_ACCOUNT_ID") or os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or DEFAULT_ACCOUNT_ID
+    return tok.strip(), acct.strip()
+
+
+def is_analytics_read_only_token(tok: str, account_id: str) -> bool:
+    """Kiểm tra xem token hiện tại có phải token chỉ-đọc `analytics-read` (`81ce5a97dba02acd40d4e69071bad396`) hay không."""
+    if not tok:
+        return False
+    req = urllib.request.Request(
+        f"https://api.cloudflare.com/client/v4/accounts/{account_id}/tokens/verify",
+        headers={"Authorization": f"Bearer {tok}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        tok_id = str((data.get("result") or {}).get("id") or "").strip()
+        return tok_id == ANALYTICS_READ_TOKEN_ID
+    except Exception:
+        return False
+
+
+def sync_github_secret(token: str, account_id: str) -> None:
+    """Đồng bộ `CLOUDFLARE_API_TOKEN` và `CLOUDFLARE_ACCOUNT_ID` lên GitHub Actions Secrets qua stdin (không in secret)."""
+    if not token:
+        raise RuntimeError("Thiếu token Cloudflare để đồng bộ lên GitHub Actions Secrets")
+    subprocess.run(
+        ["gh", "secret", "set", "CLOUDFLARE_API_TOKEN", "--repo", GITHUB_REPO],
+        input=token,
+        text=True,
+        check=True,
+        capture_output=True,
+    )
+    subprocess.run(
+        ["gh", "secret", "set", "CLOUDFLARE_ACCOUNT_ID", "--repo", GITHUB_REPO],
+        input=account_id,
+        text=True,
+        check=True,
+        capture_output=True,
+    )
+    print(f"  ✓ Đã đồng bộ GitHub Secrets (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) cho {GITHUB_REPO}", flush=True)
+
+
+def clean_env() -> tuple[dict[str, str], bool]:
+    """Chuẩn hoá môi trường deploy: ưu tiên `.env` -> shell write token -> OAuth Wrangler."""
     env = dict(os.environ)
-    env.pop("CLOUDFLARE_API_TOKEN", None)
-    env.pop("CF_API_TOKEN", None)
-    return env
+    dotenv_token, account_id = load_dotenv_token()
+    env["CLOUDFLARE_ACCOUNT_ID"] = account_id
+    if dotenv_token:
+        env["CLOUDFLARE_API_TOKEN"] = dotenv_token
+        env.pop("CF_API_TOKEN", None)
+        print("  ✓ Đang dùng CLOUDFLARE_API_TOKEN từ .env", flush=True)
+        return env, True
+
+    shell_tok = env.get("CLOUDFLARE_API_TOKEN", "").strip()
+    if shell_tok and is_analytics_read_only_token(shell_tok, account_id):
+        env.pop("CLOUDFLARE_API_TOKEN", None)
+        env.pop("CF_API_TOKEN", None)
+        print("  ℹ Gỡ CLOUDFLARE_API_TOKEN chỉ-đọc (analytics-read) khỏi shell để dùng token deploy hoặc OAuth", flush=True)
+        return env, False
+
+    if shell_tok:
+        print("  ✓ Đang dùng CLOUDFLARE_API_TOKEN từ shell env", flush=True)
+        return env, False
+
+    return env, False
 
 
 def run_cmd(cmd: list[str], env: dict[str, str], check: bool = True) -> subprocess.CompletedProcess:
@@ -90,7 +168,30 @@ def update_wrangler_config(db_id: str) -> None:
 
 
 def main() -> int:
-    env = clean_env()
+    ap = argparse.ArgumentParser(description="Deploy Where Money Sleeps lên Cloudflare Workers + D1")
+    ap.add_argument(
+        "--sync-github-secret",
+        action="store_true",
+        help="Đồng bộ CLOUDFLARE_API_TOKEN và CLOUDFLARE_ACCOUNT_ID lên GitHub Actions Secrets",
+    )
+    args = ap.parse_args()
+
+    env, from_dotenv = clean_env()
+    tok = env.get("CLOUDFLARE_API_TOKEN", "").strip()
+    acct = env.get("CLOUDFLARE_ACCOUNT_ID", DEFAULT_ACCOUNT_ID).strip()
+
+    if args.sync_github_secret:
+        if not tok or is_analytics_read_only_token(tok, acct):
+            raise RuntimeError(
+                "Chưa có CLOUDFLARE_API_TOKEN có quyền ghi (Edit Cloudflare Workers + Account D1 Edit) "
+                "trong .env hoặc shell để đồng bộ lên GitHub Actions Secrets."
+            )
+        sync_github_secret(tok, acct)
+    elif from_dotenv and tok and not is_analytics_read_only_token(tok, acct):
+        try:
+            sync_github_secret(tok, acct)
+        except Exception as exc:
+            print(f"  [WARN] Không đồng bộ được GitHub Secret tự động ({exc}); vẫn tiếp tục deploy.", flush=True)
 
     # Step 0: Build static site
     subprocess.run([sys.executable, "-I", str(ROOT / "scripts" / "wms-build-deploy.py")], check=True)
@@ -140,7 +241,17 @@ def main() -> int:
         if resp.status != 204:
             raise RuntimeError(f"Endpoint /api/p trả HTTP {resp.status} thay vì 204")
 
-    print(f"\n[DEPLOY SUCCESS] Where Money Sleeps đã live tại: {live_url}", flush=True)
+    req_custom = urllib.request.Request(DEFAULT_CUSTOM_DOMAIN + "/", headers={"User-Agent": "WMS-Deploy-Verify/1.0"})
+    with urllib.request.urlopen(req_custom, timeout=20) as resp:
+        cbody = resp.read().decode("utf-8", errors="replace")
+        print(
+            f"  ✓ GET {DEFAULT_CUSTOM_DOMAIN}/ -> HTTP {resp.status} ({len(cbody)} bytes, contains STORIES={'const STORIES' in cbody})",
+            flush=True,
+        )
+        if resp.status != 200 or "const STORIES" not in cbody:
+            raise RuntimeError(f"Custom domain {DEFAULT_CUSTOM_DOMAIN} không khớp nội dung dự kiến")
+
+    print(f"\n[DEPLOY SUCCESS] Where Money Sleeps đã live tại: {DEFAULT_CUSTOM_DOMAIN} ({live_url})", flush=True)
     return 0
 
 

@@ -73,19 +73,13 @@ jobs:
           CF_ACCOUNT_ID_SECRET: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          if [ -n "${CF_ACCOUNT_ID_SECRET:-}" ]; then
-            echo "CLOUDFLARE_ACCOUNT_ID=${CF_ACCOUNT_ID_SECRET}" >> "$GITHUB_ENV"
-          fi
+          ACCOUNT_ID="${CF_ACCOUNT_ID_SECRET:-76cf12a5975b729026f1b1dd89005e53}"
+          echo "CLOUDFLARE_ACCOUNT_ID=${ACCOUNT_ID}" >> "$GITHUB_ENV"
           if [ -n "${CF_API_TOKEN_SECRET:-}" ]; then
             echo "CLOUDFLARE_API_TOKEN=${CF_API_TOKEN_SECRET}" >> "$GITHUB_ENV"
             echo "Configured Cloudflare authentication via CLOUDFLARE_API_TOKEN secret."
-          elif [ -n "${CF_WRANGLER_CONFIG_SECRET:-}" ]; then
-            mkdir -p "$HOME/.config/.wrangler/config"
-            printf '%s\n' "$CF_WRANGLER_CONFIG_SECRET" > "$HOME/.config/.wrangler/config/default.toml"
-            chmod 600 "$HOME/.config/.wrangler/config/default.toml"
-            echo "Configured Cloudflare authentication via CLOUDFLARE_WRANGLER_CONFIG secret."
           else
-            echo "::error::Missing Cloudflare credentials: set CLOUDFLARE_API_TOKEN or CLOUDFLARE_WRANGLER_CONFIG in GitHub Actions secrets."
+            echo "::error::Missing CLOUDFLARE_API_TOKEN secret. Wrangler v4 in non-interactive CI requires CLOUDFLARE_API_TOKEN (template 'Edit Cloudflare Workers' + 'Account -> D1 -> Edit') because OAuth refresh tokens in CLOUDFLARE_WRANGLER_CONFIG are single-use/rotating and expire after one refresh."
             exit 1
           fi
 
