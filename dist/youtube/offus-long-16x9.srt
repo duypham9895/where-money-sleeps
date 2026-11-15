@@ -1,191 +1,191 @@
 1
-00:00:00,000 --> 00:00:06,000
+00:00:00,300 --> 00:00:05,740
 Mười giờ sáng, bạn mở điện thoại chuyển hai khoản tiền hàng, mỗi khoản đúng hai mươi triệu đồng.
 
 2
-00:00:06,000 --> 00:00:10,060
+00:00:05,900 --> 00:00:09,580
 Khoản thứ nhất gửi cho người đối tác dùng cùng ngân hàng với bạn.
 
 3
-00:00:10,060 --> 00:00:14,370
+00:00:09,680 --> 00:00:13,900
 Khoản thứ hai gửi cho một nhà cung cấp mở tài khoản ở ngân hàng khác.
 
 4
-00:00:14,370 --> 00:00:25,180
+00:00:14,120 --> 00:00:24,780
 Chỉ sau đúng ba giây, điện thoại của cả hai người nhận đều sáng đèn báo ghi có cộng hai mươi triệu đồng, phí chuyển khoản đều bằng không đồng, và tiền rút ra tiêu được ngay.
 
 5
-00:00:25,180 --> 00:00:29,240
+00:00:25,130 --> 00:00:29,260
 Nhìn trên màn hình, hai cú chạm này giống nhau như hai giọt nước.
 
 6
-00:00:29,240 --> 00:00:42,000
+00:00:29,380 --> 00:00:41,260
 Nhưng nếu nhìn sâu vào cuốn sổ cái bên trong các ngân hàng và trung tâm quyết toán tại Ngân hàng Trung ương, bạn sẽ thấy hai khoản hai mươi triệu đồng ấy vừa đi qua hai thế giới hoàn toàn trái ngược nhau.
 
 7
-00:00:42,000 --> 00:00:52,950
+00:00:42,640 --> 00:00:51,940
 Hãy nhìn vào lệnh đầu tiên: chuyển hai mươi triệu đồng cho người dùng cùng ngân hàng với bạn — người trong nghề gọi là giao dịch On-Us, tức chuyển khoản nội mạng.
 
 8
-00:00:52,950 --> 00:01:07,560
+00:00:52,160 --> 00:01:06,300
 Một sự thật kế toán ít người để ý là hai mươi triệu đồng trong tài khoản thanh toán là tài sản của bạn, nhưng trên bảng cân đối kế toán của ngân hàng thì đó là khoản nợ phải trả không kỳ hạn mà ngân hàng đang nợ bạn.
 
 9
-00:01:07,560 --> 00:01:15,940
+00:01:06,500 --> 00:01:14,340
 Vì cả bạn lẫn người nhận đều gửi tiền tại cùng một toà nhà, ngân hàng của bạn chính là người giữ sổ duy nhất cho cả hai bên.
 
 10
-00:01:15,940 --> 00:01:29,670
+00:01:14,610 --> 00:01:27,300
 Ngay giây bạn bấm xác nhận, máy chủ ngân hàng chỉ làm đúng một việc: sửa dòng nợ phải trả đối với bạn giảm đi hai mươi triệu đồng, và sửa dòng nợ phải trả đối với người nhận tăng lên hai mươi triệu đồng.
 
 11
-00:01:29,670 --> 00:01:34,000
+00:01:27,480 --> 00:01:31,620
 Không có một đồng tiền dự trữ nào rời khỏi toà nhà ngân hàng cả.
 
 12
-00:01:34,000 --> 00:01:38,010
+00:01:32,850 --> 00:01:36,500
 Hãy nhìn vào bể vốn của ngân hàng sau cú chạm On-Us đó.
 
 13
-00:01:38,010 --> 00:01:44,280
+00:01:36,820 --> 00:01:41,860
 Trước khi bạn chuyển, ngân hàng giữ hai mươi triệu đồng tiền gửi không kỳ hạn của bạn.
 
 14
-00:01:44,280 --> 00:01:54,050
+00:01:42,020 --> 00:01:50,020
 Sau khi bạn chuyển xong, ngân hàng vẫn giữ nguyên hai mươi triệu đồng ấy, chỉ đổi tên người chủ sở hữu trên sổ từ bạn sang người nhận.
 
 15
-00:01:54,050 --> 00:02:05,200
+00:01:50,180 --> 00:01:59,940
 Trong ví dụ lãi suất tiền gửi không kỳ hạn khoảng không phẩy một phần trăm một năm, tổng bể vốn giá rẻ CASA của ngân hàng biến động đúng bằng không đồng.
 
 16
-00:02:05,200 --> 00:02:24,000
+00:02:00,140 --> 00:02:17,540
 Trong khi đó, trên sổ kế toán doanh nghiệp của bạn theo Thông tư 99 năm 2025, khoản nợ nhà cung cấp đã được tất toán gọn gàng: ghi giảm nợ phải trả cho người bán hai mươi triệu đồng, đồng thời ghi giảm tiền gửi không kỳ hạn tại ngân hàng hai mươi triệu đồng.
 
 17
-00:02:24,000 --> 00:02:37,100
+00:02:19,090 --> 00:02:29,450
 Bây giờ hãy sang lệnh thứ hai: bạn chuyển hai mươi triệu đồng cho nhà cung cấp có tài khoản ở một ngân hàng khác — gọi là giao dịch Off-Us hay chuyển khoản liên ngân hàng.
 
 18
-00:02:37,100 --> 00:02:46,830
+00:02:29,970 --> 00:02:37,610
 Ở đây xuất hiện một bức tường ngăn cách: ngân hàng của bạn không có quyền mở cuốn sổ cái của ngân hàng bên kia để tự cộng tiền.
 
 19
-00:02:46,830 --> 00:03:00,390
+00:02:37,820 --> 00:02:48,970
 Ngược lại, ngân hàng người nhận cũng không thể cộng khống hai mươi triệu đồng cho khách hàng của họ rút tiêu ngay nếu chưa có gì bảo đảm rằng ngân hàng của bạn sẽ trả tiền thật.
 
 20
-00:03:00,390 --> 00:03:14,410
+00:02:49,130 --> 00:03:00,410
 Thế nhưng thực tế, dù bạn chuyển lúc mười giờ đêm thứ Bảy khi Ngân hàng Trung ương đang nghỉ cuối tuần, điện thoại người nhận vẫn ting-ting báo có hai mươi triệu đồng chỉ sau ba giây.
 
 21
-00:03:14,410 --> 00:03:18,000
+00:03:00,810 --> 00:03:04,010
 Ai đã đứng ra bảo lãnh cho ba giây thần tốc đó?
 
 22
-00:03:18,000 --> 00:03:25,650
+00:03:05,240 --> 00:03:13,270
 Bí mật nằm ở đơn vị trung gian đứng giữa: Tổ chức chuyển mạch liên ngân hàng và cơ chế Hạn mức ký quỹ bảo chứng.
 
 23
-00:03:25,650 --> 00:03:41,080
+00:03:13,670 --> 00:03:26,710
 Trước khi tham gia mạng lưới chuyển tiền nhanh hai mươi bốn trên bảy, ngân hàng của bạn đã phải đặt cọc sẵn một khoản tiền dự trữ hoặc trái phiếu Chính phủ tại Ngân hàng Trung ương để làm hạn mức bảo chứng nợ ròng trong phiên.
 
 24
-00:03:41,080 --> 00:03:46,680
+00:03:26,790 --> 00:03:31,110
 Ở giây thứ nhất, ngân hàng của bạn trừ hai mươi triệu đồng trên tài khoản của bạn.
 
 25
-00:03:46,680 --> 00:04:01,150
+00:03:31,390 --> 00:03:44,470
 Ở giây thứ hai, tổ chức chuyển mạch kiểm tra thấy lệnh hai mươi triệu đồng này vẫn nằm gọn trong hạn mức ký quỹ mà ngân hàng bạn đã đặt cọc, nên lập tức trừ lùi hạn mức khả dụng và đóng dấu bảo chứng chuyển tiếp.
 
 26
-00:04:01,150 --> 00:04:12,000
+00:03:44,820 --> 00:03:55,230
 Nhờ con dấu bảo chứng một trăm phần trăm không rủi ro vỡ nợ ấy, ở giây thứ ba ngân hàng người nhận yên tâm ghi Có ngay hai mươi triệu đồng cho đối tác của bạn.
 
 27
-00:04:12,000 --> 00:04:16,440
+00:03:56,320 --> 00:03:59,520
 Hãy dừng hình ở giây thứ tư ngay sau tiếng ting-ting.
 
 28
-00:04:16,440 --> 00:04:26,320
+00:03:59,820 --> 00:04:07,040
 Đối tác của bạn mở ứng dụng lên, thấy số dư tăng thêm hai mươi triệu đồng và có thể rút ra trả tiền hàng ngay lập tức.
 
 29
-00:04:26,320 --> 00:04:40,390
+00:04:07,340 --> 00:04:18,220
 Kế toán phía đối tác mở sổ theo Thông tư 99, ghi Nợ tài khoản Tiền gửi không kỳ hạn hai mươi triệu đồng và ghi Có tài khoản Phải thu của khách hàng hai mươi triệu đồng.
 
 30
-00:04:40,390 --> 00:04:44,740
+00:04:18,460 --> 00:04:22,140
 Với cả bạn lẫn đối tác, giao dịch đã xong hoàn toàn.
 
 31
-00:04:44,740 --> 00:04:51,860
+00:04:22,280 --> 00:04:27,390
 Nhưng giữa hai ngân hàng, hai mươi triệu đồng tiền dự trữ thật vẫn chưa hề di chuyển!
 
 32
-00:04:51,860 --> 00:05:04,000
+00:04:27,600 --> 00:04:36,030
 Thực chất ở giây thứ ba, ngân hàng người nhận đang tạm ứng niềm tin trên sổ cho khách hàng của họ dựa vào lời hứa có bảo chứng của ngân hàng bạn.
 
 33
-00:05:04,000 --> 00:05:10,400
+00:04:37,330 --> 00:04:41,330
 Vì sao hai ngân hàng không chuyển ngay hai mươi triệu đồng tiền dự trữ ở giây thứ ba?
 
 34
-00:05:10,400 --> 00:05:19,810
+00:04:41,550 --> 00:04:49,010
 Hãy hình dung mỗi ngày có hàng chục triệu lệnh chuyển khoản ăn sáng, mua sắm, trả tiền hàng chạy đan chéo giữa hai ngân hàng.
 
 35
-00:05:19,810 --> 00:05:33,210
+00:04:49,160 --> 00:04:58,770
 Trong ví dụ một phiên giao dịch, giả sử tổng cộng các khách hàng từ ngân hàng của bạn chuyển sang ngân hàng đối tác là năm trăm tỷ đồng — trong đó có hai mươi triệu đồng của bạn.
 
 36
-00:05:33,210 --> 00:05:41,940
+00:04:58,910 --> 00:05:05,250
 Nhưng cùng lúc ấy, khách hàng từ ngân hàng đối tác cũng chuyển ngược về ngân hàng của bạn bốn trăm bảy mươi tỷ đồng.
 
 37
-00:05:41,940 --> 00:05:47,360
+00:05:05,410 --> 00:05:09,650
 Tổng giá trị giao dịch gộp hai chiều lên tới chín trăm bảy mươi tỷ đồng.
 
 38
-00:05:47,360 --> 00:06:00,000
+00:05:09,890 --> 00:05:20,290
 Khi đến giờ chốt phiên bù trừ, tổ chức chuyển mạch lấy năm trăm tỷ đồng chiều đi trừ bốn trăm bảy mươi tỷ đồng chiều về, ra con số chênh lệch ròng đúng ba mươi tỷ đồng.
 
 39
-00:06:00,000 --> 00:06:12,390
+00:05:21,670 --> 00:05:30,180
 Bảng kết quả bù trừ ròng ba mươi tỷ đồng ấy được gửi thẳng tới Ngân hàng Trung ương, nơi mở tài khoản tiền gửi thanh toán cho tất cả các ngân hàng thương mại.
 
 40
-00:06:12,390 --> 00:06:30,900
+00:05:30,400 --> 00:05:43,620
 Tại đây, Ngân hàng Trung ương chỉ thực hiện một lệnh quyết toán duy nhất: ghi giảm tài khoản tiền gửi thanh toán của ngân hàng bạn ba mươi tỷ đồng, và ghi tăng tài khoản tiền gửi thanh toán của ngân hàng người nhận đúng ba mươi tỷ đồng.
 
 41
-00:06:30,900 --> 00:06:52,000
+00:05:43,970 --> 00:05:58,610
 Nhờ gộp chín trăm bảy mươi tỷ đồng giao dịch hai chiều thành một lệnh quyết toán ròng ba mươi tỷ đồng, hệ thống ngân hàng tiết kiệm được chín trăm bốn mươi tỷ đồng thanh khoản dự trữ phải chạy qua lại — tương đương gần chín mươi bảy phần trăm tổng khối lượng giao dịch.
 
 42
-00:06:52,000 --> 00:06:54,860
+00:05:59,790 --> 00:06:03,040
 Có hai tình huống thực tế bạn cần phân biệt rõ.
 
 43
-00:06:54,860 --> 00:07:11,290
+00:06:03,200 --> 00:06:20,400
 Thứ nhất, nếu công ty bạn chuyển một lệnh lớn mười tỷ đồng vượt trần chuyển nhanh hai mươi bốn trên bảy, lệnh đó không chờ bù trừ ròng mà đi thẳng vào hệ thống Thanh toán tổng tức thời từng lệnh RTGS tại Ngân hàng Trung ương để cắt tiền dự trữ ngay trong giờ hành chính.
 
 44
-00:07:11,290 --> 00:07:26,190
+00:06:20,750 --> 00:06:36,560
 Thứ hai, nếu chiều ba mươi mốt tháng mười hai sát giờ khoá sổ năm, bạn chuyển liên ngân hàng hai mươi triệu đồng mà lệnh bị nghẽn đối soát khiến nhà cung cấp chưa nhận được tiền trong năm cũ, kế toán không được xoá nợ phải trả nhà cung cấp ngay.
 
 45
-00:07:26,190 --> 00:07:40,000
+00:06:36,740 --> 00:06:53,760
 Theo Thông tư 99 năm 2025, khoản tiền đã rời tài khoản ngân hàng nhưng chưa tới đích phải tạm ghi vào tài khoản 113 Tiền đang chuyển hai mươi triệu đồng, chờ sang đầu năm mới khi hoàn tất mới tất toán khoản nợ với nhà cung cấp.
 
 46
-00:07:40,000 --> 00:07:53,630
+00:06:54,680 --> 00:07:03,600
 Lần tới khi bạn bấm chuyển khoản hai mươi triệu đồng và nghe tiếng ting-ting vang lên sau ba giây, bạn đã nhìn thấu cả hai tầng của hệ thống tài chính.
 
 47
-00:07:53,630 --> 00:08:02,930
+00:07:03,800 --> 00:07:10,640
 Nếu cùng ngân hàng, chỉ có hai dòng chữ vừa đổi chỗ trong cùng một toà nhà để giữ nguyên bể vốn giá rẻ.
 
 48
-00:08:02,930 --> 00:08:20,000
+00:07:11,080 --> 00:07:24,030
 Còn nếu khác ngân hàng, tiếng ting-ting ở giây thứ ba là một lời hứa có ký quỹ bảo chứng, còn dòng tiền dự trữ thật sự đang chờ phiên bù trừ ròng hàng chục tỷ đồng của Ngân hàng Trung ương.

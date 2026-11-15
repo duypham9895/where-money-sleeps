@@ -1,43 +1,43 @@
 1
-00:00:00,000 --> 00:00:05,910
+00:00:00,250 --> 00:00:07,370
 Mua ly cà phê năm mươi nghìn đồng, nếu bạn chạm thẻ tín dụng thì quán mất hai phẩy hai phần trăm phí và phải chờ hai ngày.
 
 2
-00:00:05,910 --> 00:00:11,000
+00:00:07,740 --> 00:00:14,410
 Vì sao khi bạn quét mã quy rờ chuyển khoản, chỉ ba giây sau quán đã nhận đủ trọn vẹn năm mươi nghìn đồng?
 
 3
-00:00:11,000 --> 00:00:17,950
+00:00:15,490 --> 00:00:23,490
 Bởi vì quẹt thẻ là thanh toán kéo: ngân hàng phát hành phải bỏ tiền túi ứng trước cho bạn vay bốn mươi lăm ngày nên thu phí từ quán.
 
 4
-00:00:17,950 --> 00:00:23,000
+00:00:23,850 --> 00:00:29,730
 Còn quét mã quy rờ là thanh toán đẩy: bạn tự lấy tiền có sẵn trong tài khoản của mình chuyển đi.
 
 5
-00:00:23,000 --> 00:00:29,530
+00:00:30,320 --> 00:00:35,930
 Trong ba giây đầu tiên, bản tin chuyển tiền nhanh hai mươi bốn trên bảy chạy qua tổ chức chuyển mạch.
 
 6
-00:00:29,530 --> 00:00:36,000
+00:00:36,140 --> 00:00:42,090
 Nhờ quỹ bảo chứng đặt sẵn, ngân hàng của quán ghi Có ngay năm mươi nghìn đồng cho quán dùng tức thì.
 
 7
-00:00:36,000 --> 00:00:49,000
+00:00:42,970 --> 00:00:51,810
 Còn tiền thật giữa hai ngân hàng không chạy lẻ tẻ từng ly cà phê, mà được gom lại cuối phiên để bù trừ ròng phần chênh lệch tại Ngân hàng Trung ương.
 
 8
-00:00:49,000 --> 00:00:54,940
+00:00:52,760 --> 00:00:57,850
 Trên mỗi mười triệu doanh thu, mã quy rờ giúp quán giữ lại hai trăm hai mươi nghìn đồng.
 
 9
-00:00:54,940 --> 00:01:00,000
+00:00:57,990 --> 00:01:03,340
 Ngân hàng vẫn miễn phí vì giữ được tiền trong bể vốn không kỳ hạn lãi thấp.
 
 10
-00:01:00,000 --> 00:01:04,570
+00:01:04,260 --> 00:01:09,410
 Mua trực tiếp ở quán quen, quét mã quy rờ giúp chủ quán giữ trọn từng đồng doanh thu.
 
 11
-00:01:04,570 --> 00:01:10,000
+00:01:09,530 --> 00:01:16,130
 Nhưng khi mua hàng từ xa, hãy nhớ chuyển khoản quy rờ không có quyền đòi ngân hàng hoàn tiền như thẻ.

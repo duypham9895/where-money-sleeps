@@ -1,371 +1,371 @@
 1
-00:00:00,000 --> 00:00:02,200
+00:00:00,300 --> 00:00:01,660
 Mười giờ bốn mươi bảy phút tối.
 
 2
-00:00:02,200 --> 00:00:06,250
+00:00:01,860 --> 00:00:05,180
 Cả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng.
 
 3
-00:00:06,250 --> 00:00:12,290
+00:00:05,380 --> 00:00:11,020
 Bạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu.
 
 4
-00:00:12,290 --> 00:00:14,070
+00:00:11,340 --> 00:00:12,860
 Mọi người đứng dậy ra về.
 
 5
-00:00:14,070 --> 00:00:18,470
+00:00:12,940 --> 00:00:17,180
 Nhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả.
 
 6
-00:00:18,470 --> 00:00:23,580
+00:00:17,270 --> 00:00:21,260
 Không phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán.
 
 7
-00:00:23,580 --> 00:00:26,560
+00:00:21,440 --> 00:00:24,540
 Vậy đêm nay, mười triệu ấy đang ngủ ở đâu?
 
 8
-00:00:26,560 --> 00:00:37,000
+00:00:24,830 --> 00:00:34,780
 Để trả lời, mình sẽ đi qua ba tầng vận hành nối năm bên liên quan: luồng thông tin cấp phép, luồng chuyển tiền thật, và cuốn sổ kế toán ở từng nơi.
 
 9
-00:00:37,000 --> 00:00:39,640
+00:00:36,000 --> 00:00:38,720
 Bắt đầu từ đúng giây bạn vừa chạm thẻ.
 
 10
-00:00:39,640 --> 00:00:46,660
+00:00:38,850 --> 00:00:44,720
 Thứ vừa giảm trên điện thoại không phải tiền trong túi bạn, mà là hạn mức thẻ tín dụng còn được tiêu.
 
 11
-00:00:46,660 --> 00:00:52,640
+00:00:44,880 --> 00:00:50,480
 Ngân hàng của bạn, nơi đã phát hành tấm thẻ, chỉ tạm khoá mười triệu trong hạn mức ấy.
 
 12
-00:00:52,640 --> 00:00:56,810
+00:00:50,570 --> 00:00:54,800
 Người trong nghề gọi đó là lệnh giữ chỗ, authorization hold.
 
 13
-00:00:56,810 --> 00:01:03,900
+00:00:55,000 --> 00:01:02,040
 Hãy hình dung một tờ giấy ghi chú dán lên hạn mức: khoản này đã có người hứa chi, đừng cho tiêu trùng.
 
 14
-00:01:03,900 --> 00:01:06,260
+00:01:02,260 --> 00:01:04,320
 Tờ giấy ấy chưa phải một bút toán.
 
 15
-00:01:06,260 --> 00:01:08,830
+00:01:04,560 --> 00:01:06,720
 Dư nợ thẻ của bạn chưa tăng đồng nào.
 
 16
-00:01:08,830 --> 00:01:10,710
+00:01:06,850 --> 00:01:08,880
 Và bạn cũng chưa trả ai cả.
 
 17
-00:01:10,710 --> 00:01:17,390
+00:01:09,060 --> 00:01:15,280
 Bạn sẽ trả ngân hàng của mình sau, trước hạn thanh toán ghi trên sao kê, có khi là vài tuần nữa.
 
 18
-00:01:17,390 --> 00:01:22,000
+00:01:15,520 --> 00:01:20,080
 Nếu cả nhóm huỷ bữa ngay lúc ấy, ngân hàng chỉ việc gỡ tờ giấy ra.
 
 19
-00:01:22,000 --> 00:01:27,910
+00:01:20,810 --> 00:01:26,030
 Trong vài giây sau cú chạm, một bản tin xét duyệt chạy một vòng qua hệ thống thanh toán.
 
 20
-00:01:27,910 --> 00:01:33,950
+00:01:26,230 --> 00:01:31,710
 Máy cà thẻ của quán gửi lời nhắn tới ngân hàng của quán, người trong nghề gọi là acquirer.
 
 21
-00:01:33,950 --> 00:01:39,120
+00:01:32,070 --> 00:01:37,150
 Lời nhắn chạy qua mạng của tổ chức thẻ, tới ngân hàng của bạn, gọi là issuer.
 
 22
-00:01:39,120 --> 00:01:46,240
+00:01:37,360 --> 00:01:44,270
 Ngân hàng của bạn kiểm ba thứ: thẻ có thật không, còn hạn mức không, giao dịch có dấu hiệu gian lận không.
 
 23
-00:01:46,240 --> 00:01:50,340
+00:01:44,630 --> 00:01:49,150
 Rồi chữ đồng ý đi ngược về máy của quán, kèm một mã cấp phép.
 
 24
-00:01:50,340 --> 00:01:53,970
+00:01:49,290 --> 00:01:52,590
 Để ý điều này: tổ chức thẻ không cho bạn vay đồng nào.
 
 25
-00:01:53,970 --> 00:02:03,710
+00:01:52,750 --> 00:02:02,070
 Họ vận hành mạng lưới và giữ luật chơi, để hàng nghìn ngân hàng không quen nhau vẫn tin được lời nhắn của nhau, rồi thu phí của cả hai ngân hàng.
 
 26
-00:02:03,710 --> 00:02:09,000
+00:02:02,150 --> 00:02:07,070
 Người cho bạn vay, người tính lãi nếu bạn trả chậm, là ngân hàng phát hành thẻ.
 
 27
-00:02:09,000 --> 00:02:09,970
+00:02:08,590 --> 00:02:09,810
 Quán đóng cửa.
 
 28
-00:02:09,970 --> 00:02:14,900
+00:02:09,930 --> 00:02:14,380
 Trong két không có mười triệu của bạn, tài khoản của quán cũng chưa có.
 
 29
-00:02:14,900 --> 00:02:19,070
+00:02:14,560 --> 00:02:18,700
 Thứ quán đang giữ là một lời hứa: ngân hàng của quán sẽ trả.
 
 30
-00:02:19,070 --> 00:02:23,930
+00:02:18,960 --> 00:02:23,580
 Kế toán của quán ghi lời hứa ấy thành một dòng sổ, một khoản phải thu.
 
 31
-00:02:23,930 --> 00:02:28,030
+00:02:23,840 --> 00:02:28,140
 Và để ý: phải thu từ ngân hàng của quán, không phải từ bạn.
 
 32
-00:02:28,030 --> 00:02:31,640
+00:02:28,340 --> 00:02:31,980
 Bạn đã trả bằng thẻ, bạn không còn nợ quán đồng nào.
 
 33
-00:02:31,640 --> 00:02:38,450
+00:02:32,110 --> 00:02:38,860
 Trong sổ, bên trái ghi tăng một khoản phải thu mười triệu, bên phải ghi tăng doanh thu mười triệu.
 
 34
-00:02:38,450 --> 00:02:39,840
+00:02:39,000 --> 00:02:40,620
 Hai dòng, bằng nhau.
 
 35
-00:02:39,840 --> 00:02:46,370
+00:02:40,900 --> 00:02:47,180
 Vậy câu trả lời đầu tiên cho câu hỏi của mình là: đêm nay, tiền của bạn ngủ trong một dòng sổ.
 
 36
-00:02:46,370 --> 00:02:50,000
+00:02:47,340 --> 00:02:51,420
 Với quán, quẹt thẻ nghĩa là phải chờ, và bị trừ phí.
 
 37
-00:02:50,000 --> 00:02:53,420
+00:02:52,290 --> 00:02:56,160
 Nhưng trước khi đi ngủ, quán còn một việc: chốt ca.
 
 38
-00:02:53,420 --> 00:03:03,430
+00:02:56,480 --> 00:03:05,280
 Lúc đó, ngân hàng của quán gom mọi giao dịch đã được đồng ý trong ngày thành một danh sách dài, rồi gửi qua tổ chức thẻ tới từng ngân hàng phát hành.
 
 39
-00:03:03,430 --> 00:03:06,320
+00:03:05,600 --> 00:03:08,720
 Bước này gọi là clearing, tức là đối chiếu.
 
 40
-00:03:06,320 --> 00:03:10,680
+00:03:09,120 --> 00:03:13,120
 Mỗi dòng trong danh sách có số tiền, mã cấp phép, ngày giao dịch.
 
 41
-00:03:10,680 --> 00:03:14,310
+00:03:13,280 --> 00:03:17,600
 Hai phía so từng dòng, và tính xem ai nợ ai bao nhiêu.
 
 42
-00:03:14,310 --> 00:03:21,360
+00:03:17,820 --> 00:03:24,400
 Chỉ khi nhận được dòng khớp với lệnh giữ chỗ, ngân hàng của bạn mới ghi mười triệu vào dư nợ thẻ của bạn.
 
 43
-00:03:21,360 --> 00:03:28,550
+00:03:24,760 --> 00:03:32,000
 Nhiều sao kê in hai ngày: ngày giao dịch là lúc bạn chạm thẻ, còn ngày ghi sổ thường là ngày đối chiếu này.
 
 44
-00:03:28,550 --> 00:03:32,240
+00:03:32,160 --> 00:03:35,600
 Danh sách ấy vẫn chỉ là dữ liệu đối chiếu giữa các bên.
 
 45
-00:03:32,240 --> 00:03:36,000
+00:03:35,810 --> 00:03:39,080
 Luồng quyết toán tiền thật vẫn chưa chuyển một đồng nào.
 
 46
-00:03:36,000 --> 00:03:43,550
+00:03:40,120 --> 00:03:48,020
 Hai ngày làm việc sau — trong ví dụ này, mỗi hợp đồng có thể khác — phiên quyết toán liên ngân hàng mới thực sự chạy.
 
 47
-00:03:43,550 --> 00:03:49,680
+00:03:48,230 --> 00:03:54,580
 Tiền thật bắt đầu chuyển đi, và người bỏ tiền ra đầu tiên là ngân hàng của bạn, không phải bạn.
 
 48
-00:03:49,680 --> 00:04:00,460
+00:03:54,750 --> 00:04:05,060
 Ngân hàng của bạn ứng tiền trước: giả sử họ chuyển sang ngân hàng của quán chín triệu tám trăm năm mươi nghìn đồng, tức là mười triệu đã trừ sẵn phần phí của chính họ.
 
 49
-00:04:00,460 --> 00:04:06,010
+00:04:05,250 --> 00:04:11,060
 Ngân hàng của quán nhận khoản ấy, rồi trả cho quán chín triệu bảy trăm tám mươi nghìn.
 
 50
-00:04:06,010 --> 00:04:15,630
+00:04:11,240 --> 00:04:20,340
 Trên sổ của quán, khoản phải thu đêm trước được xoá: tiền vào tài khoản chín triệu bảy trăm tám mươi nghìn, chi phí nhận thẻ hai trăm hai mươi nghìn.
 
 51
-00:04:15,630 --> 00:04:17,700
+00:04:20,700 --> 00:04:23,260
 Lời hứa đêm qua đã thành tiền...
 
 52
-00:04:17,700 --> 00:04:19,000
+00:04:23,330 --> 00:04:24,900
 thiếu đúng phần phí.
 
 53
-00:04:19,000 --> 00:04:22,010
+00:04:25,750 --> 00:04:27,880
 Vậy hai trăm hai mươi nghìn ấy đi đâu?
 
 54
-00:04:22,010 --> 00:04:27,630
+00:04:28,000 --> 00:04:32,790
 Đó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm.
 
 55
-00:04:27,630 --> 00:04:30,400
+00:04:33,030 --> 00:04:35,350
 Nó không biến mất, nó được chia ba.
 
 56
-00:04:30,400 --> 00:04:38,550
+00:04:35,500 --> 00:04:41,270
 Khoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange.
 
 57
-00:04:38,550 --> 00:04:43,370
+00:04:41,440 --> 00:04:45,270
 Đây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn.
 
 58
-00:04:43,370 --> 00:04:47,720
+00:04:45,410 --> 00:04:48,880
 Một phần nhỏ trả phí cho tổ chức thẻ, ví dụ mười nghìn.
 
 59
-00:04:47,720 --> 00:04:52,620
+00:04:49,020 --> 00:04:53,110
 Phần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán.
 
 60
-00:04:52,620 --> 00:04:59,340
+00:04:53,350 --> 00:04:58,790
 Ba bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn.
 
 61
-00:04:59,340 --> 00:05:04,000
+00:04:59,030 --> 00:05:02,950
 Con số thật khác nhau theo loại thẻ, loại quán và hợp đồng.
 
 62
-00:05:04,000 --> 00:05:07,020
+00:05:03,800 --> 00:05:06,710
 Có một chi tiết làm con số thật khó nhìn thấy.
 
 63
-00:05:07,020 --> 00:05:09,970
+00:05:06,850 --> 00:05:09,350
 Ngân hàng không chuyển tiền cho từng hoá đơn.
 
 64
-00:05:09,970 --> 00:05:17,910
+00:05:09,560 --> 00:05:16,630
 Ví dụ cùng ngày, một khách của ngân hàng của quán cũng quẹt ba triệu ở một cửa hàng mà ngân hàng của bạn là bên nhận thẻ.
 
 65
-00:05:17,910 --> 00:05:22,770
+00:05:16,810 --> 00:05:21,110
 Sau phí, ngân hàng của quán nợ lại hai triệu chín trăm năm mươi lăm nghìn.
 
 66
-00:05:22,770 --> 00:05:35,630
+00:05:21,380 --> 00:05:32,790
 Thay vì chuyển qua chuyển lại, tổ chức thẻ cộng trừ hết — trong ví dụ này, ngân hàng của bạn chỉ chuyển phần chênh vào tài khoản quyết toán của tổ chức thẻ: sáu triệu tám trăm chín mươi lăm nghìn.
 
 67
-00:05:35,630 --> 00:05:40,680
+00:05:32,970 --> 00:05:37,270
 Thực tế là hàng nghìn giao dịch hai chiều gộp thành một con số ròng mỗi ngày.
 
 68
-00:05:40,680 --> 00:05:45,540
+00:05:37,510 --> 00:05:41,190
 Nên không ai tách riêng từng tờ mười triệu của bạn trên luồng chuyển tiền.
 
 69
-00:05:45,540 --> 00:05:47,570
+00:05:41,400 --> 00:05:43,630
 Nó tan vào một dòng chảy chung.
 
 70
-00:05:47,570 --> 00:05:55,000
+00:05:43,750 --> 00:05:50,150
 Và đó cũng là lý do một quán nhỏ không bao giờ nhìn thấy tổ chức thẻ: quán chỉ nói chuyện với ngân hàng của mình.
 
 71
-00:05:55,000 --> 00:05:56,260
+00:05:51,820 --> 00:05:53,770
 Cuối kỳ, sao kê về.
 
 72
-00:05:56,260 --> 00:06:00,720
+00:05:54,060 --> 00:05:57,850
 Trước hạn thanh toán, bạn chuyển cho ngân hàng của mình mười triệu.
 
 73
-00:06:00,720 --> 00:06:07,910
+00:05:58,030 --> 00:06:04,570
 Đây là bước thanh toán cuối cùng, từ tài khoản của bạn về ngân hàng phát hành thẻ, và khoản bạn nợ về không.
 
 74
-00:06:07,910 --> 00:06:12,770
+00:06:04,970 --> 00:06:08,970
 Rồi bạn thấy một dòng tiền hoàn một phần trăm, ví dụ một trăm nghìn đồng.
 
 75
-00:06:12,770 --> 00:06:14,230
+00:06:09,180 --> 00:06:10,970
 Tiền hoàn ấy có nguồn.
 
 76
-00:06:14,230 --> 00:06:21,890
+00:06:11,120 --> 00:06:18,490
 Interchange, tức phần phí quán đã trả, là một nguồn, bên cạnh phí thường niên và tiền lãi của những người trả chậm.
 
 77
-00:06:21,890 --> 00:06:32,080
+00:06:18,690 --> 00:06:27,690
 Chỉ nhìn giao dịch này, ngân hàng của bạn nhận một trăm năm mươi nghìn, trả lại bạn một trăm nghìn, phần còn lại chưa trừ phí tổ chức thẻ và chi phí vốn.
 
 78
-00:06:32,080 --> 00:06:35,280
+00:06:28,050 --> 00:06:31,130
 Mà nhiều quán tính chi phí nhận thẻ vào giá món.
 
 79
-00:06:35,280 --> 00:06:41,000
+00:06:31,370 --> 00:06:36,650
 Nên rất có thể, một phần tiền hoàn của bạn là tiền của chính bạn, vừa đi hết một vòng.
 
 80
-00:06:41,000 --> 00:06:42,760
+00:06:38,390 --> 00:06:39,950
 Còn khi có chuyện thì sao?
 
 81
-00:06:42,760 --> 00:06:46,560
+00:06:40,140 --> 00:06:44,030
 Có ba con đường, và chúng khác nhau ở chỗ ai khởi xướng.
 
 82
-00:06:46,560 --> 00:06:58,010
+00:06:44,270 --> 00:06:54,910
 Nếu nhân viên bấm nhầm số tiền rồi huỷ ngay trong ca, đó là reversal: giao dịch chưa vào danh sách cuối ngày, ngân hàng của bạn nhả lệnh giữ chỗ, không có đồng nào chạy.
 
 83
-00:06:58,010 --> 00:07:08,790
+00:06:55,150 --> 00:07:05,950
 Nếu hôm sau quán đồng ý giảm giá cho một món ra sai và hoàn qua thẻ, đó là refund, do quán khởi xướng: một lệnh hoàn tiền thật sẽ chạy ngược lại qua ngân hàng.
 
 84
-00:07:08,790 --> 00:07:15,700
+00:07:06,350 --> 00:07:12,750
 Còn nếu bạn bị trừ hai lần mà quán không hoàn, bạn khiếu nại với ngân hàng của mình, đó là chargeback.
 
 85
-00:07:15,700 --> 00:07:20,720
+00:07:12,890 --> 00:07:17,150
 Ngân hàng của quán trừ lại tiền của quán trong lúc hai bên đưa bằng chứng.
 
 86
-00:07:20,720 --> 00:07:23,910
+00:07:17,520 --> 00:07:20,990
 Tiền đã về tài khoản rồi vẫn có thể bị lấy lại.
 
 87
-00:07:23,910 --> 00:07:30,000
+00:07:21,280 --> 00:07:26,590
 Quán có được trả lại phần phí nhận thẻ hay không, thì tuỳ hợp đồng với ngân hàng của quán.
 
 88
-00:07:30,000 --> 00:07:34,700
+00:07:27,950 --> 00:07:32,370
 Vậy đêm nay, mười triệu ấy ngủ trong một dòng sổ phải thu của quán.
 
 89
-00:07:34,700 --> 00:07:44,310
+00:07:32,610 --> 00:07:42,130
 Hai ngày sau, theo ví dụ, ngân hàng của bạn ứng tiền thật ra trước, quán nhận thiếu hai trăm hai mươi nghìn, và khoản đó chia cho ba bên.
 
 90
-00:07:44,310 --> 00:07:49,500
+00:07:42,370 --> 00:07:47,090
 Vài tuần sau, bạn trả lại ngân hàng của mình, và nhận về một ít tiền hoàn.
 
 91
-00:07:49,500 --> 00:07:52,170
+00:07:47,520 --> 00:07:50,370
 Thẻ tín dụng không miễn phí với ai cả.
 
 92
-00:07:52,170 --> 00:07:55,400
+00:07:50,490 --> 00:07:53,010
 Chỉ là người trả phí không đứng trước mặt bạn.
 
 93
-00:07:55,400 --> 00:08:01,000
+00:07:53,330 --> 00:07:59,330
 Lần tới chạm thẻ, bạn thử tự hỏi: trong giá món ăn này, ai đã tính sẵn phần phí?

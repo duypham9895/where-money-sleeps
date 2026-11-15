@@ -1,35 +1,35 @@
 1
-00:00:00,000 --> 00:00:11,000
+00:00:00,250 --> 00:00:14,410
 Why does a coffee shop lose 2.2% in fees and wait two days when you swipe a card, but receives 100% of your 50,000 VND in three seconds when you scan a QR code?
 
 2
-00:00:11,000 --> 00:00:18,510
+00:00:15,490 --> 00:00:24,410
 A card swipe is a pull payment: the card issuer fronts money for 45 days and charges a 2.2% merchant fee to cover credit default risk.
 
 3
-00:00:18,510 --> 00:00:23,000
+00:00:24,410 --> 00:00:29,730
 A QR code is a push payment: you are directly transferring cash you already own.
 
 4
-00:00:23,000 --> 00:00:36,000
+00:00:30,320 --> 00:00:42,090
 In three seconds, your bank debits your checking balance, the national switch routes the message, and the shop's bank immediately credits their account at T+0 under central-bank settlement guarantees.
 
 5
-00:00:36,000 --> 00:00:40,240
+00:00:42,970 --> 00:00:45,860
 Commercial banks do not shuttle tiny 50,000 VND amounts back and forth all day.
 
 6
-00:00:40,240 --> 00:00:49,000
+00:00:45,860 --> 00:00:51,810
 At scheduled cut-off windows, the switch calculates a single multilateral net position, moving only the net difference across reserve accounts at the central bank.
 
 7
-00:00:49,000 --> 00:01:00,000
+00:00:52,760 --> 00:01:03,340
 Banks provide free QR transfers because it anchors immense pools of low-cost CASA checking deposits paying roughly 0.1% interest, which banks re-lend into profitable corporate loans at 8%.
 
 8
-00:01:00,000 --> 00:01:04,570
+00:01:04,260 --> 00:01:09,680
 At local counters, scan QR codes to help merchants keep 100% of their earnings.
 
 9
-00:01:04,570 --> 00:01:10,000
+00:01:09,680 --> 00:01:16,130
 For unfamiliar online shopping, use credit cards to retain vital chargeback protection rights.

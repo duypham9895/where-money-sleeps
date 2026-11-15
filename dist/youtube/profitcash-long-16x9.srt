@@ -1,167 +1,167 @@
 1
-00:00:00,000 --> 00:00:07,290
+00:00:00,300 --> 00:00:06,300
 Bốn giờ chiều ngày ba mươi mốt tháng mười hai, giám đốc một công ty phân phối đặt hai tờ giấy cạnh nhau trên bàn làm việc.
 
 2
-00:00:07,290 --> 00:00:18,820
+00:00:06,620 --> 00:00:18,540
 Tờ bên trái là Báo cáo kết quả kinh doanh cả năm vừa khoá sổ: trong ví dụ này, công ty đạt doanh thu mười tỷ đồng, sau khi trừ hết giá vốn và chi phí vận hành thì báo lãi ròng tròn hai tỷ đồng.
 
 3
-00:00:18,820 --> 00:00:33,400
+00:00:18,700 --> 00:00:32,460
 Nhưng tờ bên phải là màn hình tài khoản ngân hàng của công ty: số dư tiền mặt thực tế chỉ còn đúng năm mươi triệu đồng, trong khi bảng lương tháng mười hai của anh em nhân viên đến hạn phải chuyển trước năm giờ chiều nay là năm trăm triệu đồng.
 
 4
-00:00:33,400 --> 00:00:37,160
+00:00:32,650 --> 00:00:37,020
 Không có ai biển thủ công quỹ, cũng không có dòng nào cộng sai.
 
 5
-00:00:37,160 --> 00:00:42,000
+00:00:37,240 --> 00:00:42,540
 Vậy hai tỷ đồng tiền lãi cộng với một tỷ đồng vốn tiền mặt đầu kỳ đã biến đi đâu?
 
 6
-00:00:42,000 --> 00:00:52,230
+00:00:44,000 --> 00:00:51,520
 Để tìm ra chỗ tiền đang ngủ, chúng ta phải quay lại ngày một tháng mười, lúc công ty chuẩn bị hàng cho hợp đồng mười tỷ đồng cuối năm.
 
 7
-00:00:52,230 --> 00:00:58,720
+00:00:51,700 --> 00:00:56,880
 Đầu kỳ, giả sử trong tài khoản ngân hàng của công ty có sẵn một tỷ đồng vốn lưu động.
 
 8
-00:00:58,720 --> 00:01:10,560
+00:00:57,120 --> 00:01:06,320
 Để nhà cung cấp chịu giao lô thiết bị đúng tiến độ kèm mức giá tốt, công ty phải chuyển khoản thanh toán tiền tươi tổng cộng bảy phẩy bốn mươi lăm tỷ đồng.
 
 9
-00:01:10,560 --> 00:01:22,470
+00:01:06,410 --> 00:01:15,920
 Trong đó, sáu phẩy năm tỷ đồng là giá vốn của lô hàng sẽ giao cho khách sỉ, và chín trăm năm mươi triệu đồng là lô hàng nhập dự trữ gối đầu cho đầu năm sau.
 
 10
-00:01:22,470 --> 00:01:34,000
+00:01:16,290 --> 00:01:24,640
 Ngay ở bước đầu tiên này, bảy phẩy bốn mươi lăm tỷ đồng tiền mặt thật đã chảy ra khỏi tài khoản ngân hàng để biến thành những thùng hàng nằm trong kho.
 
 11
-00:01:34,000 --> 00:01:46,000
+00:01:25,980 --> 00:01:34,500
 Đến ngày mười lăm tháng mười một, công ty bàn giao toàn bộ lô hàng theo hợp đồng mười tỷ đồng cho đối tác mua sỉ và hai bên ký biên bản nghiệm thu.
 
 12
-00:01:46,000 --> 00:01:53,920
+00:01:34,660 --> 00:01:40,580
 Tại đây, quy tắc quan trọng nhất của kế toán doanh nghiệp xuất hiện: nguyên tắc kế toán dồn tích.
 
 13
-00:01:53,920 --> 00:02:09,760
+00:01:40,820 --> 00:01:54,930
 Theo Thông tư 99 năm 2025 của Bộ Tài chính, ngay khi hàng đã giao và khách đã ký nhận, kế toán bắt buộc ghi nhận đủ mười tỷ đồng vào tài khoản Doanh thu bán hàng, bất kể đã thu đủ tiền hay chưa.
 
 14
-00:02:09,760 --> 00:02:23,150
+00:01:55,140 --> 00:02:05,330
 Thực tế, đối tác mua sỉ chỉ chuyển khoản trả đợt đầu bảy phẩy năm tỷ đồng, còn hai phẩy năm tỷ đồng họ giữ lại theo điều khoản trả chậm sáu mươi đến chín mươi ngày.
 
 15
-00:02:23,150 --> 00:02:30,000
+00:02:05,650 --> 00:02:11,210
 Trên sổ doanh thu ghi mười tỷ, nhưng két ngân hàng chỉ nhận về bảy phẩy năm tỷ đồng.
 
 16
-00:02:30,000 --> 00:02:36,620
+00:02:12,210 --> 00:02:18,150
 Ngày hai mươi lăm tháng mười hai, phòng kế toán khoá sổ để lập Báo cáo kết quả kinh doanh.
 
 17
-00:02:36,620 --> 00:02:48,170
+00:02:18,360 --> 00:02:28,640
 Phép tính trên tờ báo cáo này hoàn toàn chuẩn xác theo luật kế toán: lấy mười tỷ đồng doanh thu, trừ đi sáu phẩy năm tỷ đồng giá vốn của lô hàng đã xuất bán.
 
 18
-00:02:48,170 --> 00:02:58,400
+00:02:28,780 --> 00:02:38,280
 Lưu ý rằng chín trăm năm mươi triệu đồng hàng nhập thêm vì chưa bán nên vẫn nằm ở tài khoản hàng tồn kho, chưa bị trừ vào chi phí trong kỳ.
 
 19
-00:02:58,400 --> 00:03:17,750
+00:02:38,470 --> 00:02:54,340
 Tiếp theo, kế toán trừ đi một phẩy năm tỷ đồng chi phí vận hành và quản lý — bao gồm một tỷ đồng tiền thuê kho bãi, vận chuyển đã chi bằng tiền mặt và năm trăm triệu đồng tiền lương tháng mười hai của nhân viên vừa hạch toán vào tài khoản phải trả người lao động.
 
 20
-00:03:17,750 --> 00:03:24,000
+00:02:54,900 --> 00:03:01,180
 Mười tỷ trừ sáu phẩy năm tỷ trừ một phẩy năm tỷ bằng đúng hai tỷ đồng lợi nhuận ròng.
 
 21
-00:03:24,000 --> 00:03:38,020
+00:03:02,160 --> 00:03:12,600
 Thế nhưng chiều ba mươi mốt tháng mười hai, khi giám đốc mở ứng dụng ngân hàng để bấm nút duyệt chi năm trăm triệu đồng tiền lương tháng mười hai, màn hình báo không đủ số dư.
 
 22
-00:03:38,020 --> 00:03:52,600
+00:03:12,820 --> 00:03:25,180
 Hãy làm một phép cộng trừ thuần tuý của dòng tiền thật: đầu kỳ két có một tỷ đồng; cộng bảy phẩy năm tỷ đồng khách sỉ đã chuyển khoản, tổng tiền mặt chảy vào là tám phẩy năm tỷ đồng.
 
 23
-00:03:52,600 --> 00:04:07,740
+00:03:25,660 --> 00:03:37,100
 Ở chiều ngược lại, công ty đã chuyển bảy phẩy bốn mươi lăm tỷ đồng trả nhà cung cấp và chi một tỷ đồng tiền mặt cho vận hành kho bãi; tổng tiền mặt chảy ra là tám phẩy bốn mươi lăm tỷ đồng.
 
 24
-00:04:07,740 --> 00:04:20,000
+00:03:37,540 --> 00:03:47,020
 Lấy tám phẩy năm tỷ trừ tám phẩy bốn mươi lăm tỷ, trong két ngân hàng còn đúng năm mươi triệu đồng — thiếu hụt bốn trăm năm mươi triệu đồng để trả lương.
 
 25
-00:04:20,000 --> 00:04:30,200
+00:03:48,080 --> 00:03:54,880
 Nhìn vào bảng cân đối kế toán lúc này, bạn sẽ thấy ngay hai miếng bọt biển khổng lồ đang hút giữ toàn bộ tiền mặt của công ty.
 
 26
-00:04:30,200 --> 00:04:44,930
+00:03:55,060 --> 00:04:06,400
 Tổng tài sản của doanh nghiệp đã tăng từ một tỷ đồng đầu năm lên ba phẩy năm tỷ đồng cuối năm — bao gồm một tỷ vốn gốc, hai tỷ tiền lãi ròng và năm trăm triệu đồng nợ lương chưa trả.
 
 27
-00:04:44,930 --> 00:04:57,150
+00:04:06,560 --> 00:04:16,690
 Nhưng trong ba phẩy năm tỷ đồng tài sản đó, có tới hai phẩy năm tỷ đồng đang nằm ngủ trong túi của đối tác mua sỉ dưới tên gọi Phải thu của khách hàng.
 
 28
-00:04:57,150 --> 00:05:04,600
+00:04:16,870 --> 00:04:22,870
 Và chín trăm năm mươi triệu đồng nữa đang nằm ngủ trên kệ sắt dưới tên gọi Hàng hóa tồn kho.
 
 29
-00:05:04,600 --> 00:05:14,000
+00:04:23,080 --> 00:04:30,030
 Cộng hai khoản đó lại là ba phẩy bốn mươi lăm tỷ đồng bị giam chặt, chỉ chừa lại đúng năm mươi triệu đồng tiền tươi.
 
 30
-00:05:14,000 --> 00:05:24,290
+00:04:31,180 --> 00:04:38,970
 Trên Báo cáo lưu chuyển tiền tệ theo phương pháp gián tiếp, các chuyên gia tài chính dùng một phương trình cầu nối để vạch trần sự lệch pha này.
 
 31
-00:05:24,290 --> 00:05:35,500
+00:04:39,330 --> 00:04:49,050
 Bắt đầu từ Lợi nhuận ròng dương hai tỷ đồng: vì khoản phải thu khách hàng tăng thêm hai phẩy năm tỷ đồng tức là tiền chưa về, ta phải trừ đi hai phẩy năm tỷ.
 
 32
-00:05:35,500 --> 00:05:45,360
+00:04:49,340 --> 00:04:57,850
 Vì hàng tồn kho tăng thêm chín trăm năm mươi triệu đồng tức là tiền đã chi ra mua hàng nằm kho, ta phải trừ tiếp chín trăm năm mươi triệu.
 
 33
-00:05:45,360 --> 00:05:57,000
+00:04:58,010 --> 00:05:07,930
 Cộng lại năm trăm triệu đồng chi phí lương đã tính vào chi phí nhưng chưa chi tiền, ta có Dòng tiền thuần từ hoạt động kinh doanh âm chín trăm năm mươi triệu đồng.
 
 34
-00:05:57,000 --> 00:06:08,000
+00:05:08,490 --> 00:05:18,810
 Lợi nhuận dương hai tỷ, nhưng dòng tiền kinh doanh lại âm chín trăm năm mươi triệu — ăn lẹm vào một tỷ đồng vốn đầu kỳ để chỉ còn lại năm mươi triệu đồng.
 
 35
-00:06:08,000 --> 00:06:34,320
+00:05:20,070 --> 00:05:38,520
 Bốn giờ ba mươi chiều ba mươi mốt tháng mười hai, để năm trăm nhân sự có tiền lương về tài khoản đúng hẹn, giám đốc buộc phải ký rút hạn mức vay thấu chi ngắn hạn tại ngân hàng bốn trăm năm mươi triệu đồng, cộng với năm mươi triệu đồng tiền mặt cuối cùng trong két để chuyển đủ năm trăm triệu đồng trả lương.
 
 36
-00:06:34,320 --> 00:06:58,000
+00:05:38,760 --> 00:05:55,440
 Hãy nhìn sự trớ trêu của vòng quay tiền mặt: công ty của bạn đang cho đối tác mua sỉ mượn không lãi hai phẩy năm tỷ đồng suốt chín mươi ngày, nhưng chính công ty lại phải đi vay ngân hàng bốn trăm năm mươi triệu đồng và gánh chi phí lãi vay để trả lương cho nhân viên của mình.
 
 37
-00:06:58,000 --> 00:07:05,620
+00:05:56,890 --> 00:06:02,340
 Trong quản trị tài chính, cái bẫy này được gọi là tăng trưởng vượt quá năng lực vốn lưu động.
 
 38
-00:07:05,620 --> 00:07:24,380
+00:06:02,580 --> 00:06:17,140
 Khi vòng quay tiền mặt — tính bằng số ngày tồn kho cộng số ngày thu tiền khách hàng trừ số ngày được nợ nhà cung cấp — bị kéo giãn lên sáu mươi hay chín mươi ngày, mỗi đơn hàng mới ký thêm sẽ lập tức hút máu tiền mặt của công ty.
 
 39
-00:07:24,380 --> 00:07:42,000
+00:06:17,380 --> 00:06:31,240
 Nếu thấy báo cáo cuối năm lãi hai tỷ đồng mà người điều hành vội vàng rút tiền chia thưởng lớn hoặc đầu tư mua sắm tài sản cố định, doanh nghiệp sẽ đứt thanh khoản ngay ở quý tiếp theo dù sổ sách vẫn báo lãi kỷ lục.
 
 40
-00:07:42,000 --> 00:07:59,640
+00:06:32,660 --> 00:06:48,520
 Câu chuyện hợp đồng mười tỷ đồng khép lại với một nguyên tắc sống còn: lợi nhuận ròng hai tỷ đồng trên báo cáo kết quả kinh doanh là một con số kế toán theo nguyên tắc dồn tích, còn năm mươi triệu đồng trong tài khoản mới là lượng oxy thật sự để doanh nghiệp thở mỗi ngày.
 
 41
-00:07:59,640 --> 00:08:08,910
+00:06:48,800 --> 00:06:59,600
 Một đồng lợi nhuận chỉ thực sự thuộc về bạn khi nó đã rời khỏi tờ giấy phải thu và kệ hàng tồn kho để chảy về nằm yên trong két tiền ngân hàng.
 
 42
-00:08:08,910 --> 00:08:20,000
+00:06:59,920 --> 00:07:10,880
 Khi đọc bất kỳ báo cáo tài chính nào, hãy luôn đặt bảng kết quả kinh doanh cạnh bảng lưu chuyển tiền tệ — để biết tiền thật đang thức hay đang ngủ trong sổ của người khác.

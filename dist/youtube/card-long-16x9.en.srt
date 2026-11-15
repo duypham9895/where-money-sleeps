@@ -1,287 +1,287 @@
 1
-00:00:00,000 --> 00:00:01,590
+00:00:00,300 --> 00:00:01,780
 Ten forty-seven on a cool Friday evening.
 
 2
-00:00:01,590 --> 00:00:08,970
+00:00:01,780 --> 00:00:08,650
 You have just finished a lively team celebration with colleagues at your favorite neighborhood restaurant, and the final guest check arrives on a small wooden tray totaling ten million dong.
 
 3
-00:00:08,970 --> 00:00:14,130
+00:00:08,650 --> 00:00:13,460
 You pull out a contactless credit card, tap it lightly against the payment terminal on the counter, and hear a crisp electronic beep.
 
 4
-00:00:14,130 --> 00:00:19,720
+00:00:13,460 --> 00:00:18,670
 Your smartphone immediately vibrates in your pocket with a banking push alert stating that ten million dong has been deducted from your account.
 
 5
-00:00:19,720 --> 00:00:24,180
+00:00:18,670 --> 00:00:22,830
 You sign the printed merchant receipt slip, collect your coat, and walk out into the evening air with your friends.
 
 6
-00:00:24,180 --> 00:00:27,830
+00:00:22,830 --> 00:00:26,230
 To everyone standing at the table, the transaction feels instantaneous, complete, and settled.
 
 7
-00:00:27,830 --> 00:00:35,210
+00:00:26,230 --> 00:00:33,100
 But here is the central mystery of modern retail banking: at the precise second that terminal beeped, not a single dong of real money left any bank vault or moved across any payment network.
 
 8
-00:00:35,210 --> 00:00:37,000
+00:00:33,100 --> 00:00:34,780
 So where is your ten million sleeping tonight?
 
 9
-00:00:37,000 --> 00:00:40,630
+00:00:36,000 --> 00:00:39,550
 Let us examine the exact second you tapped your plastic against the reader.
 
 10
-00:00:40,630 --> 00:00:49,280
+00:00:39,550 --> 00:00:48,030
 The notification flashing across your smartphone screen does not mean ten million dong was physically withdrawn from your bank account or transferred out of your personal savings.
 
 11
-00:00:49,280 --> 00:00:52,280
+00:00:48,030 --> 00:00:50,970
 In reality, you have not spent a single dong of real cash yet.
 
 12
-00:00:52,280 --> 00:01:01,270
+00:00:50,970 --> 00:00:59,780
 What your card issuer just executed is a temporary operational freeze on ten million dong of your credit line — known throughout the financial payments industry as an authorization hold.
 
 13
-00:01:01,270 --> 00:01:11,080
+00:00:59,780 --> 00:01:09,390
 Your total pre-approved borrowing ceiling remains unchanged, but your available spending capacity is immediately reduced so you cannot double-spend those same funds elsewhere before settlement completes.
 
 14
-00:01:11,080 --> 00:01:22,000
+00:01:09,390 --> 00:01:20,080
 An authorization hold is not a formal accounting journal entry in the bank general ledger; it is merely an operational memo record indicating that a merchant has submitted a valid verified claim against your open credit limit.
 
 15
-00:01:22,000 --> 00:01:29,210
+00:01:20,810 --> 00:01:27,900
 Within the three seconds following that physical tap, an encrypted digital query completed an entire roundtrip across the global financial system.
 
 16
-00:01:29,210 --> 00:01:35,430
+00:01:27,900 --> 00:01:34,020
 The restaurant point-of-sale terminal packaged transaction metadata and transmitted it outward to the merchant acquiring bank.
 
 17
-00:01:35,430 --> 00:01:42,540
+00:01:34,020 --> 00:01:41,020
 The acquirer routed the packet through the card network switch, which recognized the card prefix and forwarded it directly to your issuing bank.
 
 18
-00:01:42,540 --> 00:01:50,640
+00:01:41,020 --> 00:01:48,990
 Your issuer verified that your card was authentic, unblocked, and carried sufficient spending room, before returning a digital approval code along the reverse path.
 
 19
-00:01:50,640 --> 00:01:56,320
+00:01:48,990 --> 00:01:54,580
 Notice what traveled across the network during those critical seconds: purely digital authorization data, not cash.
 
 20
-00:01:56,320 --> 00:02:05,650
+00:01:54,580 --> 00:02:03,770
 The card network operates the routing switch and enforces network scheme rules, collecting network switch fees from both banking institutions without ever extending a single dong of credit.
 
 21
-00:02:05,650 --> 00:02:09,000
+00:02:03,770 --> 00:02:07,070
 The sole entity extending you purchasing power is your issuing bank.
 
 22
-00:02:09,000 --> 00:02:11,050
+00:02:08,590 --> 00:02:10,730
 Now look at the restaurant at midnight.
 
 23
-00:02:11,050 --> 00:02:17,510
+00:02:10,730 --> 00:02:17,480
 The kitchen staff has cleaned the counters, the manager has locked the front doors, and the dining room is completely dark.
 
 24
-00:02:17,510 --> 00:02:22,180
+00:02:17,480 --> 00:02:22,360
 If you open the cash register drawer behind the bar, your ten million dong is not inside.
 
 25
-00:02:22,180 --> 00:02:29,000
+00:02:22,360 --> 00:02:29,490
 If the restaurant owner checks their corporate banking application, the demand deposit balance has not increased by a single dong.
 
 26
-00:02:29,000 --> 00:02:35,720
+00:02:29,490 --> 00:02:36,510
 What the business holds tonight is purely an authoritative commercial promise: their acquiring bank will settle the transaction.
 
 27
-00:02:35,720 --> 00:02:37,820
+00:02:36,510 --> 00:02:38,700
 So where is your money sleeping tonight?
 
 28
-00:02:37,820 --> 00:02:44,330
+00:02:38,700 --> 00:02:45,500
 It is sleeping inside an accounting general ledger — recorded as an account receivable due from the merchant acquiring bank.
 
 29
-00:02:44,330 --> 00:02:50,000
+00:02:45,500 --> 00:02:51,420
 Your personal obligation to the restaurant is fully discharged, but real central bank money has yet to move.
 
 30
-00:02:50,000 --> 00:02:57,020
+00:02:52,290 --> 00:02:59,430
 Before heading home for the night, the restaurant manager must execute one vital operational routine: closing out the daily terminal batch.
 
 31
-00:02:57,020 --> 00:03:06,660
+00:02:59,430 --> 00:03:09,240
 When that batch settlement command is initiated, the terminal aggregates every approved transaction authorization token captured during the shift into an electronic presentment clearing file.
 
 32
-00:03:06,660 --> 00:03:13,380
+00:03:09,240 --> 00:03:16,070
 The acquiring bank collects these batch files and routes them through the card network switch to each respective issuing institution.
 
 33
-00:03:13,380 --> 00:03:22,720
+00:03:16,070 --> 00:03:25,570
 This is the clearing stage — a comprehensive automated reconciliation process where banks cross-examine transaction amounts, currency conversions, and applicable interchange categories.
 
 34
-00:03:22,720 --> 00:03:29,890
+00:03:25,570 --> 00:03:32,860
 Clearing establishes exact legal indebtedness across participating institutions, yet it remains purely an information reconciliation exchange.
 
 35
-00:03:29,890 --> 00:03:33,580
+00:03:32,860 --> 00:03:36,610
 Not a single dong of central bank reserve liquidity has been transferred.
 
 36
-00:03:33,580 --> 00:03:36,000
+00:03:36,610 --> 00:03:39,080
 The file simply specifies who owes what to whom.
 
 37
-00:03:36,000 --> 00:03:43,260
+00:03:40,120 --> 00:03:47,680
 Two business days later — standard payment industry T+2 settlement timing — actual central bank money finally moves across interbank clearing rails.
 
 38
-00:03:43,260 --> 00:03:54,700
+00:03:47,680 --> 00:03:59,590
 During the daily multilateral settlement window, your card issuing bank draws upon its liquid reserve balances, advances 9,850,000 dong to the acquiring bank, having deducted its 150,000 dong interchange fee share directly at source.
 
 39
-00:03:54,700 --> 00:04:03,880
+00:03:59,590 --> 00:04:09,150
 The acquiring bank deducts its own processing fee margin and network switch assessments, ultimately depositing 9,780,000 dong of cleared demand funds into the restaurant checking account.
 
 40
-00:04:03,880 --> 00:04:13,010
+00:04:09,150 --> 00:04:18,660
 Notice the economic reality of this moment: the restaurant has now collected cleared funds in its corporate bank account, yet you have not paid a single real dong out of your own pocket.
 
 41
-00:04:13,010 --> 00:04:19,000
+00:04:18,660 --> 00:04:24,900
 The commercial banking institution that advanced genuine working capital liquidity to fund your meal was your card issuer.
 
 42
-00:04:19,000 --> 00:04:21,230
+00:04:25,750 --> 00:04:27,600
 Where did that missing 220,000 dong go?
 
 43
-00:04:21,230 --> 00:04:29,510
+00:04:27,600 --> 00:04:34,450
 That deduction represents the merchant discount fee, known across the payments industry as the MDR — modeled here at an illustrative 2.2 percent.
 
 44
-00:04:29,510 --> 00:04:38,190
+00:04:34,450 --> 00:04:41,630
 That single fee does not stay with one institution; it compensates three separate entities that collaborate to make modern electronic commerce possible.
 
 45
-00:04:38,190 --> 00:04:47,900
+00:04:41,630 --> 00:04:49,660
 The largest share, approximately 150,000 dong, goes to your card issuer as interchange to offset credit underwriting risk, customer float, and cardholder reward programs.
 
 46
-00:04:47,900 --> 00:05:04,000
+00:04:49,660 --> 00:05:02,950
 Approximately 10,000 dong is paid to the card network switch for high-speed transaction routing, leaving the merchant acquiring bank with a net operating margin of 60,000 dong to maintain payment terminals, underwrite merchant risk, and provide ongoing commercial account servicing.
 
 47
-00:05:04,000 --> 00:05:09,910
+00:05:03,800 --> 00:05:09,180
 There is a fascinating operational reality that makes tracking this money invisible to the naked eye.
 
 48
-00:05:09,910 --> 00:05:16,290
+00:05:09,180 --> 00:05:14,980
 In production banking, financial institutions never settle payments individually on a ticket-by-ticket basis.
 
 49
-00:05:16,290 --> 00:05:26,420
+00:05:14,980 --> 00:05:24,190
 On the same afternoon you enjoyed dinner, customers carrying cards issued by the restaurant bank were dining at establishments across town that banked with your card issuer.
 
 50
-00:05:26,420 --> 00:05:35,910
+00:05:24,190 --> 00:05:32,810
 At the daily settlement cut-off, the clearing switch totals hundreds of thousands of countervailing retail payments into a consolidated multilateral net position.
 
 51
-00:05:35,910 --> 00:05:49,490
+00:05:32,810 --> 00:05:45,160
 If your bank owes their bank 9,850,000 dong from your dinner, but their cardholders spent 2,955,000 dong at merchants your bank serves, your issuer transfers only the 6,895,000 dong net variance across central bank reserve accounts.
 
 52
-00:05:49,490 --> 00:05:55,000
+00:05:45,160 --> 00:05:50,150
 Real money moves exclusively in bulk consolidated batches through central clearing facilities.
 
 53
-00:05:55,000 --> 00:06:00,020
+00:05:51,820 --> 00:05:56,710
 Several weeks later, your monthly credit card billing statement arrives in your inbox.
 
 54
-00:06:00,020 --> 00:06:13,150
+00:05:56,710 --> 00:06:09,510
 You open your mobile banking app, review the 10,000,000 dong charge from that Friday night, and transfer cleared funds from your personal checking account to settle the balance in full before the grace period expiration date.
 
 55
-00:06:13,150 --> 00:06:21,380
+00:06:09,510 --> 00:06:17,530
 Your card balance returns to zero, and your statement displays an enticing credit: one hundred thousand dong in promotional cashback rewards.
 
 56
-00:06:21,380 --> 00:06:24,770
+00:06:17,530 --> 00:06:20,830
 Where did the bank find the capital to credit that reward?
 
 57
-00:06:24,770 --> 00:06:31,020
+00:06:20,830 --> 00:06:26,920
 A primary source is the 150,000 dong interchange fee collected from the merchant transaction weeks earlier.
 
 58
-00:06:31,020 --> 00:06:41,000
+00:06:26,920 --> 00:06:36,650
 Credit card rewards are not gifts from benevolent institutions; they are funded by the commercial interchange fees generated whenever you tap at a retail checkout counter.
 
 59
-00:06:41,000 --> 00:06:42,910
+00:06:38,390 --> 00:06:40,270
 What happens when things go wrong?
 
 60
-00:06:42,910 --> 00:06:46,390
+00:06:40,270 --> 00:06:43,700
 Payment networks maintain three distinct exception mechanisms.
 
 61
-00:06:46,390 --> 00:06:53,700
+00:06:43,700 --> 00:06:50,890
 If the server accidentally keys an extra zero and catches the error immediately, the terminal initiates an authorization reversal.
 
 62
-00:06:53,700 --> 00:07:03,140
+00:06:50,890 --> 00:07:00,180
 The cancellation packet reaches your bank before the end-of-day clearing batch is generated; the hold is released immediately, and zero funds move between institutions.
 
 63
-00:07:03,140 --> 00:07:13,870
+00:07:00,180 --> 00:07:10,740
 If you return to the restaurant days later to dispute an overcharge, the business initiates an electronic refund through its terminal, crediting your account across the next settlement cycle.
 
 64
-00:07:13,870 --> 00:07:21,340
+00:07:10,740 --> 00:07:18,090
 But if you discover an unauthorized fraudulent charge on your statement, you contact your issuing bank directly to file a chargeback.
 
 65
-00:07:21,340 --> 00:07:30,000
+00:07:18,090 --> 00:07:26,590
 The card network claws the full ten million dong back from the merchant acquiring bank while documentary evidence is formally investigated and arbitrated.
 
 66
-00:07:30,000 --> 00:07:35,000
+00:07:27,950 --> 00:07:33,010
 So when you tap your plastic for a ten million dong dinner, where does your money sleep tonight?
 
 67
-00:07:35,000 --> 00:07:38,440
+00:07:33,010 --> 00:07:36,490
 In the first seconds, it sleeps inside an authorization hold memo.
 
 68
-00:07:38,440 --> 00:07:43,340
+00:07:36,490 --> 00:07:41,450
 Overnight, it sleeps inside an account receivable ledger line on the restaurant balance sheet.
 
 69
-00:07:43,340 --> 00:07:46,310
+00:07:41,450 --> 00:07:44,460
 Two days later, it is advanced by your card issuing bank.
 
 70
-00:07:46,310 --> 00:07:48,920
+00:07:44,460 --> 00:07:47,100
 And weeks later, you finally reimburse the system.
 
 71
-00:07:48,920 --> 00:07:52,980
+00:07:47,100 --> 00:07:51,210
 Modern payment cards offer unmatched convenience, but they are free to no one.
 
 72
-00:07:52,980 --> 00:08:01,000
+00:07:51,210 --> 00:07:59,330
 Because merchants factor processing fees into retail pricing, that 220,000 dong fee was quietly built into the bill before you ever sat down at the table.

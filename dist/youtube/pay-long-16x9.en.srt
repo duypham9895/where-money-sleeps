@@ -1,259 +1,259 @@
 1
-00:00:00,000 --> 00:00:01,230
+00:00:00,300 --> 00:00:01,350
 Payday morning has arrived.
 
 2
-00:00:01,230 --> 00:00:08,010
+00:00:01,350 --> 00:00:07,170
 Your smartphone buzzes softly on your work desk with an instant push notification: your checking account has been credited with fifteen million dong.
 
 3
-00:00:08,010 --> 00:00:12,830
+00:00:07,170 --> 00:00:11,310
 You glance at the screen, feel a quiet wave of relief, and begin planning your monthly household expenses.
 
 4
-00:00:12,830 --> 00:00:20,570
+00:00:11,310 --> 00:00:17,950
 To most salaried workers, that notification feels like physical cash arriving from across town, neatly deposited into a private digital locker bearing your personal name.
 
 5
-00:00:20,570 --> 00:00:30,720
+00:00:17,950 --> 00:00:26,660
 But here is the remarkable reality of modern institutional banking: if your employer and you bank at the same commercial institution, not a single dong of physical money moved across town, and no currency entered any vault.
 
 6
-00:00:30,720 --> 00:00:33,000
+00:00:26,660 --> 00:00:28,620
 So where is your fifteen million sleeping tonight?
 
 7
-00:00:33,000 --> 00:00:37,850
+00:00:29,710 --> 00:00:34,020
 To understand where your salary truly sleeps, we must return to your very first morning on the job.
 
 8
-00:00:37,850 --> 00:00:45,050
+00:00:34,020 --> 00:00:40,420
 Human Resources handed you an onboarding form requiring you to open a transaction account at this specific commercial bank to receive compensation.
 
 9
-00:00:45,050 --> 00:00:49,210
+00:00:40,420 --> 00:00:44,120
 You signed the paperwork, submitted your credentials, and thought nothing more of it.
 
 10
-00:00:49,210 --> 00:01:01,060
+00:00:44,120 --> 00:00:54,650
 That form was the opening informational message of our story: the company notified the bank of an additional earner on the payroll roster, and the bank created a personal checking account linked to the corporate payroll disbursement facility.
 
 11
-00:01:01,060 --> 00:01:09,090
+00:00:54,650 --> 00:01:01,780
 Notice the critical structural division in modern banking: the messaging channel carries data instructions, while the settlement channel carries central bank funds.
 
 12
-00:01:09,090 --> 00:01:11,000
+00:01:01,780 --> 00:01:03,480
 On your first day, zero funds traveled.
 
 13
-00:01:11,000 --> 00:01:15,000
+00:01:03,480 --> 00:01:07,040
 But that form established a direct ledger channel for recurring monthly liquidity.
 
 14
-00:01:15,000 --> 00:01:16,900
+00:01:07,910 --> 00:01:09,750
 Now observe what actually occurs on payday.
 
 15
-00:01:16,900 --> 00:01:23,000
+00:01:09,750 --> 00:01:15,670
 The company finance team sends an encrypted electronic payroll file instructing the bank to disburse fifteen million dong to your account.
 
 16
-00:01:23,000 --> 00:01:31,010
+00:01:15,670 --> 00:01:23,440
 Because both the company operating account and your personal checking account sit inside the same institution, the bank does not broadcast anything across external payment networks.
 
 17
-00:01:31,010 --> 00:01:41,670
+00:01:23,440 --> 00:01:33,790
 The institution simply performs a book-entry reclassification within its core accounting general ledger: reducing deposit liabilities owed to the employer by fifteen million, and increasing deposit liabilities owed to you by fifteen million.
 
 18
-00:01:41,670 --> 00:01:46,450
+00:01:33,790 --> 00:01:38,430
 In payment industry terminology, this frictionless internal book transfer is called an On-Us clearing event.
 
 19
-00:01:46,450 --> 00:01:56,000
+00:01:38,430 --> 00:01:47,700
 The commercial bank consolidated balance sheet neither expands nor contracts: aggregate customer deposit liabilities remain completely unchanged; the identity of the underlying commercial creditor has merely shifted.
 
 20
-00:01:56,000 --> 00:02:02,360
+00:01:48,830 --> 00:01:54,530
 Meanwhile, look at what was recorded on the employer corporate accounting ledger before money was disbursed.
 
 21
-00:02:02,360 --> 00:02:10,190
+00:01:54,530 --> 00:02:01,550
 To your company, your labor compensation was seventeen million dong — gross contractual pay accrued as an operating overhead expense.
 
 22
-00:02:10,190 --> 00:02:17,850
+00:02:01,550 --> 00:02:08,410
 The company withheld 1,785,000 dong in statutory insurance and 215,000 dong in personal income taxes, leaving fifteen million net.
 
 23
-00:02:17,850 --> 00:02:23,620
+00:02:08,410 --> 00:02:13,580
 When funds transfer, the company books a Credit to Account 112, reducing its corporate cash asset.
 
 24
-00:02:23,620 --> 00:02:31,920
+00:02:13,580 --> 00:02:21,020
 But when your smartphone displays that fifteen million credit, that is a Credit on the bank balance sheet — expanding their liability to you.
 
 25
-00:02:31,920 --> 00:02:44,000
+00:02:21,020 --> 00:02:31,840
 Identical accounting word, completely opposite balance-sheet mechanics: to the commercial bank, your checking balance is not an asset; it is an unsecured commercial debt they owe you until you withdraw it.
 
 26
-00:02:44,000 --> 00:02:53,230
+00:02:32,930 --> 00:02:41,360
 What happens if you refuse to open an account at the company designated payroll bank and insist on receiving monthly compensation at an external commercial institution?
 
 27
-00:02:53,230 --> 00:02:56,250
+00:02:41,360 --> 00:02:44,120
 The transaction immediately becomes an Off-Us transfer.
 
 28
-00:02:56,250 --> 00:03:01,910
+00:02:44,120 --> 00:02:49,290
 The payroll instruction must now travel across external interbank clearing switches and clearinghouses.
 
 29
-00:03:01,910 --> 00:03:10,040
+00:02:49,290 --> 00:02:56,720
 The data message arrives at your external bank almost immediately, but actual central bank funds move later during scheduled net settlement windows.
 
 30
-00:03:10,040 --> 00:03:19,820
+00:02:56,720 --> 00:03:05,660
 The receiving bank assumes short-term settlement risk, while your employer incurs incremental interbank processing fees — modeled here at an illustrative 3,300 dong per transfer.
 
 31
-00:03:19,820 --> 00:03:33,000
+00:03:05,660 --> 00:03:17,710
 For an employer managing hundreds of external workers, those transaction charges add up significantly across every monthly payroll run, which is why corporate finance strongly prefers centralizing all staff onto one primary payroll partner.
 
 32
-00:03:33,000 --> 00:03:40,860
+00:03:18,820 --> 00:03:26,260
 Once salary lands in your account, you spend it gradually across thirty days for groceries, utilities, transportation, and daily living expenses.
 
 33
-00:03:40,860 --> 00:03:53,490
+00:03:26,260 --> 00:03:38,210
 But rare is the employee who withdraws every single dong on payday morning; human spending behavior ensures that a substantial portion of your salary rests completely idle in your checking account throughout the entire monthly cycle.
 
 34
-00:03:53,490 --> 00:03:57,670
+00:03:38,210 --> 00:03:42,160
 In commercial banking, these demand balances are designated as CASA deposits.
 
 35
-00:03:57,670 --> 00:04:01,850
+00:03:42,160 --> 00:03:46,110
 The interest paid on them is minimal — an illustrative 0.1 percent per annum.
 
 36
-00:04:01,850 --> 00:04:07,920
+00:03:46,110 --> 00:03:51,850
 If you leave ten million dong untouched for an entire year, you earn barely ten thousand dong in gross interest.
 
 37
-00:04:07,920 --> 00:04:16,000
+00:03:51,850 --> 00:03:59,490
 This is not investment advice; it is an economic benchmark illustrating that dormant checking balances generate virtually zero return for depositors.
 
 38
-00:04:16,000 --> 00:04:21,450
+00:04:00,620 --> 00:04:05,640
 Now multiply your idle balance across an entire corporate workforce of salaried professionals.
 
 39
-00:04:21,450 --> 00:04:30,030
+00:04:05,640 --> 00:04:13,540
 Five hundred colleagues leaving an average of five million dong untouched creates an immediate 2.5 billion dong funding pool inside the bank vaults.
 
 40
-00:04:30,030 --> 00:04:36,410
+00:04:13,540 --> 00:04:19,410
 On that entire 2.5 billion pool, the bank pays a negligible 2.5 million dong in annual interest to depositors.
 
 41
-00:04:36,410 --> 00:04:49,110
+00:04:19,410 --> 00:04:31,100
 If the institution had to raise that identical capital through wholesale certificates of deposit or retail term accounts at an illustrative 5.0 percent yield, its annual interest expense would surge to 125 million dong.
 
 42
-00:04:49,110 --> 00:05:00,000
+00:04:31,100 --> 00:04:41,150
 By gathering an entire corporate payroll cohort, the commercial bank secures a massive, stable pool of low-cost liquidity that compresses its blended cost of capital across all operations.
 
 43
-00:05:00,000 --> 00:05:03,550
+00:04:42,110 --> 00:04:45,620
 How does the bank attribute profit across internal divisions?
 
 44
-00:05:03,550 --> 00:05:07,330
+00:04:45,620 --> 00:04:49,360
 Modern financial institutions use Funds Transfer Pricing, or FTP.
 
 45
-00:05:07,330 --> 00:05:18,680
+00:04:49,360 --> 00:05:00,580
 The central treasury management desk notionally purchases deposit liquidity from retail branches at an internal transfer rate, and sells that capital to lending desks at an internal lending rate.
 
 46
-00:05:18,680 --> 00:05:35,440
+00:05:00,580 --> 00:05:17,150
 In our educational model, retail banking captures 4.4 percentage points for acquiring low-cost CASA; central treasury retains 1.5 percentage points to manage liquidity risk and term mismatch; and the mortgage lending desk captures 2.5 percentage points before credit default provisioning.
 
 47
-00:05:35,440 --> 00:05:44,000
+00:05:17,150 --> 00:05:25,610
 Aggregated together, that 8.4 percentage point spread distributes over 200 million dong in annual gross margin across internal banking departments.
 
 48
-00:05:44,000 --> 00:05:47,770
+00:05:26,770 --> 00:05:30,000
 Can the bank lend out every single dong of your deposited salary?
 
 49
-00:05:47,770 --> 00:05:49,110
+00:05:30,000 --> 00:05:31,140
 By law, absolutely not.
 
 50
-00:05:49,110 --> 00:06:02,000
+00:05:31,140 --> 00:05:42,170
 Prudential banking regulations mandate that commercial institutions must maintain a statutory reserve requirement — modeled here at an illustrative 3.0 percent — frozen in non-interest-bearing accounts at the central bank.
 
 51
-00:06:02,000 --> 00:06:13,320
+00:05:42,170 --> 00:05:51,860
 On our 2.5 billion dong corporate payroll pool, seventy-five million dong is legally locked away as a systemic liquidity cushion, leaving 2.425 billion dong available for active loan origination.
 
 52
-00:06:13,320 --> 00:06:25,000
+00:05:51,860 --> 00:06:01,850
 For an individual worker maintaining ten million dong in checking balances, three hundred thousand dong sits permanently immobilized under central bank lock and key, unavailable for commercial lending.
 
 53
-00:06:25,000 --> 00:06:31,410
+00:06:02,970 --> 00:06:08,780
 What does your employer receive in exchange for delivering this valuable low-cost liquidity engine to the bank?
 
 54
-00:06:31,410 --> 00:06:37,410
+00:06:08,780 --> 00:06:14,220
 Corporate finance teams do not mandate banking partners out of mere convenience or administrative habit.
 
 55
-00:06:37,410 --> 00:06:47,800
+00:06:14,220 --> 00:06:23,630
 By delivering hundreds of steady salaried accounts to a single financial institution, the company commands significant commercial bargaining leverage during annual banking reviews.
 
 56
-00:06:47,800 --> 00:07:05,060
+00:06:23,630 --> 00:06:39,260
 In return for the lucrative payroll mandate, the commercial bank grants valuable institutional concessions: waived electronic transaction fees, discounted treasury management services, reduced interest margins on corporate working capital facilities, and bespoke lending terms for senior executives.
 
 57
-00:07:05,060 --> 00:07:12,000
+00:06:39,260 --> 00:06:45,530
 Your daily dormant checking balance is the quiet commercial currency your employer trades for corporate financial perks.
 
 58
-00:07:12,000 --> 00:07:16,020
+00:06:46,460 --> 00:06:50,490
 Consider three common operational friction points that can disrupt automated payroll execution.
 
 59
-00:07:16,020 --> 00:07:27,690
+00:06:50,490 --> 00:07:02,210
 If an account number contains a typographical error and the transfer bounces back, your employer still owes you your pay: the corporate cash book reverses the payment entry, and Account 334 reopens with a fifteen million dong liability until account credentials are corrected.
 
 60
-00:07:27,690 --> 00:07:36,520
+00:07:02,210 --> 00:07:11,080
 If payday falls across a major holiday weekend, intra-bank On-Us disbursements execute seamlessly across internal batch schedules, whereas external transfers must wait for interbank clearing windows to reopen.
 
 61
-00:07:36,520 --> 00:07:47,000
+00:07:11,080 --> 00:07:21,610
 And if your employer ever switches its payroll mandate to a competing commercial bank, the entire 2.5 billion dong CASA deposit baseline departs, forcing the incumbent bank to replace that low-cost liquidity with expensive wholesale market capital.
 
 62
-00:07:47,000 --> 00:07:51,930
+00:07:23,120 --> 00:07:27,820
 So when payday arrives and your smartphone alerts you of incoming funds, where is your monthly salary truly sleeping tonight?
 
 63
-00:07:51,930 --> 00:07:56,940
+00:07:27,820 --> 00:07:32,600
 It is not stored in a private metal vault drawer marked with your personal name, nor is it sitting in an isolated digital safe.
 
 64
-00:07:56,940 --> 00:08:02,900
+00:07:32,600 --> 00:07:38,280
 It is sleeping quietly inside the commercial bank general ledger — classified on institutional balance sheets as an unsecured demand deposit liability.
 
 65
-00:08:02,900 --> 00:08:17,000
+00:07:38,280 --> 00:07:51,710
 And while that balance rests peacefully in your checking account across thirty days, your dormant liquidity is performing heavy commercial labor across the financial system: financing consumer mortgages on upper floors, generating valuable internal treasury spreads, and powering generous corporate banking fee waivers for your company executive leadership.

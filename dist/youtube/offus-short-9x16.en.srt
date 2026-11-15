@@ -1,39 +1,39 @@
 1
-00:00:00,000 --> 00:00:11,000
+00:00:00,250 --> 00:00:10,010
 Why do two 20 million dong transfers chime identically in three seconds, but one moves zero reserve money while the other moves billions across accounts at the central bank?
 
 2
-00:00:11,000 --> 00:00:15,100
+00:00:10,730 --> 00:00:14,590
 An intra-bank On-Us transfer never leaves the commercial bank building.
 
 3
-00:00:15,100 --> 00:00:23,000
+00:00:14,590 --> 00:00:22,050
 The core banking server merely updates two customer lines in its database, keeping one hundred percent of its low-cost CASA deposit pool.
 
 4
-00:00:23,000 --> 00:00:26,780
+00:00:22,850 --> 00:00:26,720
 An inter-bank Off-Us transfer cannot edit another bank's ledger.
 
 5
-00:00:26,780 --> 00:00:36,000
+00:00:26,720 --> 00:00:36,140
 In three seconds, the national switch validates the sending bank's collateral quota and guarantees instant credit to the recipient under central-bank rules.
 
 6
-00:00:36,000 --> 00:00:40,210
+00:00:36,940 --> 00:00:40,730
 Behind the scenes, commercial banks do not shuttle tiny amounts back and forth all day.
 
 7
-00:00:40,210 --> 00:00:50,000
+00:00:40,730 --> 00:00:49,530
 At clearing cut-off, the switch nets 500 billion in outbound orders against 470 billion in inbound orders into a single 30 billion transfer at the central bank, saving 940 billion in intraday liquidity.
 
 8
-00:00:50,000 --> 00:01:01,000
+00:00:50,130 --> 00:00:59,890
 High-value wholesale orders of ten billion or more route through the central bank's RTGS expressway, while year-end delayed transfers must be parked in Account 113 as cash in transit.
 
 9
-00:01:01,000 --> 00:01:09,420
+00:01:00,660 --> 00:01:09,440
 That three-second chime is either a simple internal database edit or an engineering masterpiece of national clearing collateral and multilateral net settlement.
 
 10
-00:01:09,420 --> 00:01:12,000
+00:01:09,440 --> 00:01:12,130
 That is the hidden journey of where money sleeps.
