@@ -105,13 +105,24 @@ def _compute_real_audio_windows(
             return None
         scene_texts = [str(s.get("vo") or "").strip() for s in vi_scenes]
         full_text = "\n\n".join(scene_texts)
+        cached_text = "".join(align.get("characters") or [])
+        exact_match = cached_text == full_text
+        if exact_match:
+            ref_text = full_text
+            segs = scene_texts
+        else:
+            cached_segs = [seg.strip() for seg in cached_text.split("\n\n") if seg.strip()]
+            if not cached_text or len(cached_segs) != len(scene_texts):
+                return None
+            ref_text = cached_text
+            segs = cached_segs
         lead_in = 0.30 if fmt == "long" else 0.25
         extra_pause = 0.36
         cursor = 0
         raw_bounds: list[tuple[int, int, float, float]] = []
-        for st in scene_texts:
-            pos = full_text.find(st, cursor)
-            if pos < 0:
+        for st in segs:
+            pos = ref_text.find(st, cursor)
+            if pos < 0 or pos >= len(starts):
                 return None
             end_pos = pos + len(st) - 1
             raw_bounds.append((pos, end_pos, starts[pos], ends[min(end_pos, len(ends) - 1)]))
@@ -121,6 +132,7 @@ def _compute_real_audio_windows(
         for idx, (pos, end_pos, raw_t0, raw_t1) in enumerate(raw_bounds):
             out.append({
                 "pos": pos,
+                "exact": exact_match,
                 "adj_t0": raw_t0 + cum_shift,
                 "adj_t1": raw_t1 + cum_shift,
                 "cum_shift": cum_shift,
@@ -175,7 +187,7 @@ def build_subtitles_for_format(
 
         for sent_i, sent in enumerate(sentences):
             used_char_align = False
-            if win and lang == "vi":
+            if win and win.get("exact") and lang == "vi":
                 idx_in_vo = vo.find(sent, search_pos)
                 if idx_in_vo >= 0:
                     g0 = win["pos"] + idx_in_vo

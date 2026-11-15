@@ -1,215 +1,255 @@
 1
-00:00:00,300 --> 00:00:07,740
-At ten o'clock in the morning, you open your mobile banking application to transfer two separate business payments of twenty million dong each — an illustrative example.
+00:00:00,300 --> 00:00:07,680
+Say it's ten in the morning on a Tuesday, and you open your banking app to pay two bills of 20 million dong each.
 
 2
-00:00:07,740 --> 00:00:12,540
-The first transfer is sent to a business partner who banks with the exact same commercial institution as you.
+00:00:07,680 --> 00:00:11,530
+The first goes to a supplier at the exact same bank as you.
 
 3
-00:00:12,540 --> 00:00:17,250
-The second transfer is sent to a vendor maintaining an account at a competitor commercial bank across town.
+00:00:11,530 --> 00:00:15,190
+The second goes to a vendor across town at a rival bank.
 
 4
-00:00:17,250 --> 00:00:27,370
-In just three seconds, the smartphones of both recipients light up with an automated credit notification confirming plus twenty million dong; transfer fees for both orders are zero dong, and the funds can be withdrawn immediately.
+00:00:15,190 --> 00:00:20,550
+Three seconds later, both phones light up with a plus twenty million notification.
 
 5
-00:00:27,370 --> 00:00:31,070
-On the glass screen, these two transactions look as identical as two drops of water.
+00:00:20,550 --> 00:00:25,710
+Both transfers cost zero fees, and both partners can spend the cash right away.
 
 6
-00:00:31,070 --> 00:00:41,260
-But if you look deep into the internal ledgers of the commercial banks and the central settlement engine at the central bank, you discover that these two twenty-million-dong sums just traveled through two completely opposite worlds.
+00:00:25,710 --> 00:00:28,190
+On glass, the two taps look identical.
 
 7
-00:00:42,640 --> 00:00:52,480
-Look first at the initial order: transferring twenty million dong to someone who shares the same commercial bank — what industry practitioners call an On-Us intra-bank transaction.
+00:00:28,190 --> 00:00:41,260
+Underneath, those two 20-million-dong payments just took opposite roads through the banking system — one staying inside a single room, and the other crossing a national switch toward the central bank.
 
 8
-00:00:52,480 --> 00:01:05,980
-An accounting reality that few depositors realize is that while twenty million dong in your checking account represents an asset to you, on the bank's balance sheet it is classified as a non-term demand deposit liability that the bank owes to you.
+00:00:42,640 --> 00:00:51,480
+Take the first transfer: sending 20 million dong to someone at your own bank, which bankers call an On-Us transaction.
 
 9
-00:01:05,980 --> 00:01:14,450
-Because both you and the recipient deposit money within the exact same corporate building, your commercial bank is the sole ledger keeper for both parties.
+00:00:51,480 --> 00:00:56,200
+What most people forget is what that balance means to the bank.
 
 10
-00:01:14,450 --> 00:01:27,620
-The second you tap confirm, the bank's core server performs one simple task: it reduces its demand deposit liability owed to you by twenty million dong, and increases its demand deposit liability owed to the recipient by twenty million dong.
+00:00:56,200 --> 00:01:00,390
+To you, twenty million dong in checking is cash you own.
 
 11
-00:01:27,620 --> 00:01:31,620
-Not a single dong of central-bank reserve money ever leaves the building.
+00:01:00,390 --> 00:01:06,380
+To the bank, it's a demand deposit liability — a debt the bank owes you on call.
 
 12
-00:01:32,850 --> 00:01:36,500
-Look at the commercial bank's capital pool following that On-Us transaction.
+00:01:06,380 --> 00:01:14,170
+Because both you and your vendor keep accounts under one roof, your bank keeps the books for both sides.
 
 13
-00:01:36,500 --> 00:01:40,970
-Prior to your transfer, the bank held twenty million dong in demand deposits under your name.
+00:01:14,170 --> 00:01:19,710
+The moment you tap send, its core database changes two rows on one ledger.
 
 14
-00:01:40,970 --> 00:01:50,150
-After the transfer finishes, the bank still holds that exact same twenty million dong; it merely updated the name of the legal account holder on its internal ledger from you to the recipient.
+00:01:19,710 --> 00:01:22,710
+Your row drops by twenty million dong...
 
 15
-00:01:50,150 --> 00:02:00,100
-In an illustrative banking environment where demand deposits pay approximately 0.1% annual interest, the bank's aggregated pool of low-cost CASA deposits experiences a total fluctuation of exactly zero dong.
+00:01:22,710 --> 00:01:26,230
+and your vendor's row climbs by twenty million.
 
 16
-00:02:00,100 --> 00:02:02,700
-Not a single dong leaked into a competitor's treasury.
+00:01:26,230 --> 00:01:31,620
+Not a single dong of central-bank reserve cash ever leaves the building.
 
 17
-00:02:02,700 --> 00:02:17,540
-Meanwhile, on your corporate accounting books under an unofficial summary of Circular 99 of 2025, your supplier liability is cleanly settled: you debit trade payables to the supplier on Account 331 by twenty million dong, and concurrently credit demand deposits at banks on Account 112 by twenty million dong.
+00:01:32,850 --> 00:01:37,090
+Look at the bank's own cash pool right after that On-Us click.
 
 18
-00:02:19,090 --> 00:02:27,820
-Now examine the second order: you transfer twenty million dong to a supplier maintaining an account at an entirely different commercial bank — known as an Off-Us inter-bank transfer.
+00:01:37,090 --> 00:01:43,450
+Before you tapped send, the bank held twenty million dong in demand deposits under your name.
 
 19
-00:02:27,820 --> 00:02:34,970
-Here, an institutional wall emerges: your commercial bank possesses zero legal authority to open the database ledger of the other bank and add money.
+00:01:43,450 --> 00:01:52,680
+After the click, it still holds that exact same twenty million dong — it just swapped the name on its IOU from yours to your partner's.
 
 20
-00:02:34,970 --> 00:02:44,280
-Conversely, the receiving bank cannot simply credit an unbacked twenty million dong to its customer for immediate withdrawal without an ironclad guarantee that your bank will deliver real money.
+00:01:52,680 --> 00:02:01,020
+In an example banking setup paying around 0.1% a year on checking balances, the bank's cheap CASA pool moves by zero dong.
 
 21
-00:02:44,280 --> 00:02:50,180
-If the receiving bank credits funds and your bank defaults overnight, the receiving bank suffers an unhedged monetary loss.
+00:02:01,020 --> 00:02:03,410
+Not a single cent leaks to a rival.
 
 22
-00:02:50,180 --> 00:03:00,550
-Yet in practice, even if you execute the transfer at ten o'clock on a Saturday night when the central bank is closed for the weekend, the recipient's phone still chimes with twenty million dong in just three seconds.
+00:02:03,410 --> 00:02:17,540
+Meanwhile, on your company books under Circular 99 of 2025, you clear your supplier bill cleanly: Debit Trade Payables on Account 331 for 20 million, and Credit Demand Deposits on Account 112 for 20 million.
 
 23
-00:03:00,550 --> 00:03:04,010
-Who steps forward to guarantee that lightning-fast three-second miracle?
+00:02:19,090 --> 00:02:27,730
+Now trace the second transfer: sending twenty million dong to a vendor at a completely different bank, known as an Off-Us transfer.
 
 24
-00:03:05,240 --> 00:03:12,370
-The secret lies with the neutral intermediary standing between them: the national payment switch and the pre-funded net debit cap mechanism.
+00:02:27,730 --> 00:02:29,450
+Here you hit a legal wall.
 
 25
-00:03:12,370 --> 00:03:24,890
-Prior to participating in the 24/7 fast payment network, your commercial bank was required to escrow a substantial collateral deposit of reserve cash or sovereign treasury bills at the central bank to serve as an intraday net debit guarantee cap.
+00:02:29,450 --> 00:02:37,230
+Your bank has zero authority to open a competitor's database and type plus twenty million onto someone else's balance.
 
 26
-00:03:24,890 --> 00:03:28,910
-In second one, your bank debits twenty million dong from your checking account.
+00:02:37,230 --> 00:02:44,490
+And the receiving bank won't hand out real spendable cash on a Saturday night just on a friendly text message.
 
 27
-00:03:28,910 --> 00:03:42,040
-In second two, the national payment switch verifies that this twenty-million-dong order falls safely within the collateral cap pledged by your bank; the switch immediately deducts your bank's available quota and applies an irrevocable digital guarantee seal.
+00:02:44,490 --> 00:02:51,940
+If the receiving bank pays out early and your bank fails before Monday morning, the receiving bank eats the loss.
 
 28
-00:03:42,040 --> 00:03:55,230
-Backed by that one-hundred-percent default-free guarantee, the receiving bank can safely credit twenty million dong to your partner's account in second three, knowing that even if your bank failed, the switch's escrowed collateral would absorb the obligation.
+00:02:51,940 --> 00:03:00,450
+Yet even at ten o'clock on a weekend night when the central bank is locked up, your vendor's phone still chimes in three seconds.
 
 29
-00:03:56,320 --> 00:03:59,850
-Freeze the frame at second four, immediately following the confirmation chime.
+00:03:00,450 --> 00:03:04,010
+What makes a rival bank trust your transfer instantly?
 
 30
-00:03:59,850 --> 00:04:08,030
-Your business partner opens their banking application, sees their available balance increase by twenty million dong, and can withdraw the cash to pay operating expenses on the spot.
+00:03:05,240 --> 00:03:14,340
+The answer sits with the neutral traffic controller in the middle: the national payment switch and its pre-funded net debit cap.
 
 31
-00:04:08,030 --> 00:04:16,160
-Their accounting team opens their ledger under an unofficial summary of Circular 99, debiting Account 112 for twenty million dong and crediting Account 131 for twenty million dong.
+00:03:14,340 --> 00:03:23,300
+Before any bank can join the 24/7 fast network, it has to lock reserve cash or government bills in escrow at the central bank.
 
 32
-00:04:16,160 --> 00:04:19,320
-For both you and your partner, the transaction is completely finished.
+00:03:23,300 --> 00:03:26,780
+That escrow backs a strict intraday debt ceiling.
 
 33
-00:04:19,320 --> 00:04:24,700
-But between the two commercial banks, twenty million dong of real central-bank reserve money has not yet moved an inch.
+00:03:26,780 --> 00:03:28,270
+Watch the clock tick.
 
 34
-00:04:24,700 --> 00:04:36,030
-In second three, the receiving bank is advancing immediate credit to its customer based on the guaranteed promise of your bank, resting assured that legal interbank settlement will be finalized during the upcoming clearing session at the central bank.
+00:03:28,270 --> 00:03:35,520
+At second one, your bank deducts twenty million dong from your balance and fires an encrypted message.
 
 35
-00:04:37,330 --> 00:04:42,730
-Why didn't the two commercial banks immediately transfer twenty million dong of reserve money in second three?
+00:03:35,520 --> 00:03:47,680
+At second two, the switch checks that twenty million still fits inside your bank's locked collateral cap, subtracts it from the remaining quota, and stamps the order good.
 
 36
-00:04:42,730 --> 00:04:50,290
-Picture tens of millions of retail transfer orders — buying breakfast, shopping, paying invoices — crisscrossing between the two banks throughout the day.
+00:03:47,680 --> 00:03:55,230
+Backed by that locked collateral, the receiving bank safely hands out twenty million dong at second three.
 
 37
-00:04:50,290 --> 00:04:59,080
-In an illustrative clearing session, suppose that customers from your bank transfer a cumulative 500 billion dong to the partner bank — including your twenty-million-dong payment.
+00:03:56,320 --> 00:03:59,230
+Freeze right at second four after the chime.
 
 38
-00:04:59,080 --> 00:05:04,970
-But during that exact same clearing window, customers from the partner bank transfer 470 billion dong back to your bank.
+00:03:59,230 --> 00:04:06,750
+Your supplier checks their phone, sees twenty million dong added, and can spend it on payroll or bills right away.
 
 39
-00:05:04,970 --> 00:05:08,750
-The gross bilateral transaction volume reaches a staggering 970 billion dong.
+00:04:06,750 --> 00:04:16,120
+Their accountant records a Circular 99 entry on the spot: Debit Account 112 for twenty million dong and Credit Account 131 for twenty million.
 
 40
-00:05:08,750 --> 00:05:17,930
-When the clearing session closes, the national switch subtracts the 470 billion return flow from the 500 billion outward flow, calculating a net difference of exactly thirty billion dong.
+00:04:16,120 --> 00:04:19,350
+For both you and your vendor, the deal is closed.
 
 41
-00:05:17,930 --> 00:05:20,290
-All bilateral reciprocal obligations cancel out.
+00:04:19,350 --> 00:04:25,550
+Look between the two banks, though, and zero central-bank reserve money has changed hands yet.
 
 42
-00:05:21,670 --> 00:05:29,640
-That thirty-billion-dong multilateral net result is transmitted directly to the central bank, which maintains settlement deposit accounts for all commercial banking institutions.
+00:04:25,550 --> 00:04:36,030
+At second three, the receiving bank is advancing usable credit based on the collateral your bank locked up ahead of time, knowing final cash will settle later.
 
 43
-00:05:29,640 --> 00:05:39,000
-At the central bank, a single settlement instruction is executed: debiting thirty billion dong from your bank's settlement account, and crediting thirty billion dong to the receiving bank's settlement account.
+00:04:37,330 --> 00:04:43,960
+Why don't banks shuttle twenty million dong of central-bank reserves back and forth every three seconds?
 
 44
-00:05:39,000 --> 00:05:54,090
-By compressing 970 billion dong of two-way gross transactions into a single net settlement transfer of thirty billion dong, the national banking system saves 940 billion dong of reserve liquidity that would otherwise have to circulate back and forth — conserving nearly 97% of total transaction volume in high-powered central-bank money.
+00:04:43,960 --> 00:04:50,970
+Picture millions of everyday transfers flying across town all day — morning coffee, groceries, supplier bills.
 
 45
-00:05:54,090 --> 00:05:58,610
-This massive liquidity conservation is what keeps interbank interest rates stable across the economy.
+00:04:50,970 --> 00:04:58,750
+Suppose during one clearing session, Bank A customers send 500 billion dong over to Bank B, including your twenty million.
 
 46
-00:05:59,790 --> 00:06:03,410
-There are two practical scenarios you must clearly distinguish.
+00:04:58,750 --> 00:05:04,230
+Meanwhile, Bank B customers send 470 billion dong flying the other way back to Bank A.
 
 47
-00:06:03,410 --> 00:06:19,680
-First, if your company executes a major transaction of ten billion dong exceeding the retail 24/7 fast payment ceiling, the instruction does not wait for net clearing; it routes directly through the central bank's RTGS system to settle individual gross reserves during banking hours.
+00:05:04,230 --> 00:05:07,350
+Two-way gross volume adds up to 970 billion dong.
 
 48
-00:06:19,680 --> 00:06:36,460
-Second, if on the afternoon of December thirty-first close to the year-end closing window, you execute an interbank transfer of twenty million dong and network reconciliation congestion delays credit delivery into the new year, accountants cannot immediately eliminate the supplier liability.
+00:05:07,350 --> 00:05:14,810
+When the clearing window closes, the switch subtracts the 470 billion return flow from the 500 billion outgoing flow.
 
 49
-00:06:36,460 --> 00:06:49,220
-Under Circular 99 of 2025, funds debited from your bank account but not yet confirmed at the destination must be recorded on Account 113 as Cash in transit, awaiting new year completion before closing the supplier payable.
+00:05:14,810 --> 00:05:20,290
+Almost a trillion dong cancels itself out, leaving a net bill of just 30 billion dong.
 
 50
-00:06:49,220 --> 00:06:53,760
-This prevents premature liability derecognition on the corporate balance sheet.
+00:05:21,670 --> 00:05:29,760
+That 30-billion-dong net tally goes straight to the central bank, where every commercial bank keeps its master settlement account.
 
 51
-00:06:54,680 --> 00:07:02,840
-The next time you tap your phone to transfer twenty million dong and hear the confirmation chime ring out after three seconds, you will see through both levels of the financial system.
+00:05:29,760 --> 00:05:39,270
+There, the central bank runs one clean reserve entry: it debits 30 billion dong from Bank A's settlement balance and credits 30 billion dong to Bank B's.
 
 52
-00:07:02,840 --> 00:07:10,200
-If it is an On-Us transfer, you just witnessed two lines of text swapping places within the same corporate building to preserve the bank's low-cost CASA deposit pool.
+00:05:39,270 --> 00:05:52,330
+By boiling 970 billion dong in two-way payments down to one 30-billion-dong transfer, the banking system spares 940 billion dong in high-powered reserves from ever moving — nearly a 97% cut in liquidity needed.
 
 53
-00:07:10,200 --> 00:07:21,240
-If it is an Off-Us transfer, that three-second chime was an advance promise secured by pre-funded central-bank collateral, while real reserve money was patiently waiting for a multi-billion-dong multilateral net clearing session at the central bank.
+00:05:52,330 --> 00:05:58,610
+That massive reserve saving is the hidden math that lets banks give you free transfers day and night.
 
 54
-00:07:21,240 --> 00:07:24,030
-That is the hidden architectural journey of where money sleeps.
+00:05:59,790 --> 00:06:04,800
+Two real-world situations step off that 24/7 retail netting track.
+
+55
+00:06:04,800 --> 00:06:13,380
+First, if your company wires a huge sum — say 10 billion dong — that order beats the retail fast-payment ceiling.
+
+56
+00:06:13,380 --> 00:06:22,410
+It goes straight into the central bank's RTGS system to settle gross reserves one wire at a time during business hours.
+
+57
+00:06:22,410 --> 00:06:26,590
+Miss the afternoon cutoff, and it waits until tomorrow.
+
+58
+00:06:26,590 --> 00:06:34,560
+Second, suppose at 16:55 on December 31 you wire 20 million dong and clearing queues stall past midnight.
+
+59
+00:06:34,560 --> 00:06:41,770
+Your bank statement already dropped by twenty million, yet the supplier hasn't received a cent.
+
+60
+00:06:41,770 --> 00:06:53,760
+Under Circular 99 rules, you park that floating cash in Account 113 as cash in transit, then clear the supplier payable once delivery is confirmed in January.
+
+61
+00:06:54,680 --> 00:07:02,320
+The next time you tap send on a 20-million-dong transfer and hear the chime three seconds later, you know what both floors are doing.
+
+62
+00:07:02,320 --> 00:07:09,560
+If your partner shares your bank, two ledger rows just swapped places in one room so the bank kept 100% of its cheap deposits.
+
+63
+00:07:09,560 --> 00:07:19,670
+If they bank across town, that chime rode locked collateral at the payment switch, while real reserves waited hours for a multi-billion-dong net settlement at the central bank.
+
+64
+00:07:19,670 --> 00:07:24,030
+Same 3-second chime on screen — two completely different engines underneath.

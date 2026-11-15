@@ -1,47 +1,39 @@
 1
-00:00:00,250 --> 00:00:02,920
-Your smartphone chimes brightly on payday morning with a fifteen million dong salary alert...
+00:00:00,250 --> 00:00:03,300
+Your phone buzzes on payday morning: 15 million dong credited to your checking account.
 
 2
-00:00:02,920 --> 00:00:05,850
-but between commercial bank vaults, not a single dong of physical currency actually moved across town.
+00:00:03,300 --> 00:00:05,850
+Yet between bank vaults, not one dong of cash actually moved across town.
 
 3
-00:00:06,580 --> 00:00:12,710
-Because your company and you bank at the identical financial institution, funds never leave the building.
+00:00:06,580 --> 00:00:13,580
+Because your employer and you hold accounts at the exact same bank, cash never leaves the building.
 
 4
-00:00:12,710 --> 00:00:20,290
-The bank simply edits two lines in its accounting ledger: corporate deposit debt decreases, while liability owed to you increases.
+00:00:13,580 --> 00:00:20,290
+The bank simply edits two lines inside one ledger: less owed to your company, more owed to you.
 
 5
-00:00:21,130 --> 00:00:29,710
-The unspent portion of your salary resting in your checking account is classified as CASA — earning an illustrative 0.1 percent interest.
+00:00:21,130 --> 00:00:28,140
+Unspent pay sitting idle in checking is called CASA, paying roughly 0.1% yearly interest in this example.
 
 6
-00:00:29,710 --> 00:00:35,090
-Across 500 colleagues, that creates an instant 2.5 billion dong low-cost funding pool.
+00:00:28,140 --> 00:00:35,090
+Across 500 coworkers leaving 5 million dong each, the bank builds an instant 2.5 billion dong cash pool.
 
 7
-00:00:35,650 --> 00:00:45,620
-For that entire 2.5 billion funding pool, the bank pays barely two and a half million dong in annual interest.
+00:00:35,650 --> 00:00:45,130
+On that entire 2.5 billion dong pool, the bank pays only 2.5 million dong a year in interest.
 
 8
-00:00:45,620 --> 00:00:54,410
-If the institution raised that same capital through term deposits, it would pay 125 million dong.
+00:00:45,130 --> 00:00:54,410
+Raising the same cash with 5% term deposits would cost 125 million dong — fifty times more.
 
 9
 00:00:55,170 --> 00:01:01,450
-In return for delivering your low-cost deposit pool to the bank, your company secures discounted corporate credit line margins, preferential loan rates, and extensive treasury fee waivers.
+In exchange for steering all those monthly paychecks into one house, your employer often wins lower wire fees or cheaper corporate borrowing rates.
 
 10
-00:01:02,510 --> 00:01:04,660
-So where does your salary sleep tonight?
-
-11
-00:01:04,660 --> 00:01:06,430
-Inside the bank general ledger...
-
-12
-00:01:06,430 --> 00:01:11,730
-and that dormant checking balance is quietly generating commercial profits for everyone except you.
+00:01:02,510 --> 00:01:11,730
+So tonight your salary balance sleeps inside the bank's general ledger — as an obligation the bank owes you while putting your idle cash to work.

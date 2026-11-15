@@ -1,39 +1,43 @@
 1
-00:00:00,250 --> 00:00:06,320
-You swipe your credit card for a ten million dong dinner banquet and celebrate receiving one hundred thousand dong in instant cashback rewards.
+00:00:00,250 --> 00:00:04,410
+Say you tap a credit card for a 10 million dong dinner and get 100,000 dong back in cashback.
 
 2
-00:00:06,320 --> 00:00:07,850
-But who actually funded that reward?
+00:00:04,410 --> 00:00:06,200
+It feels like free money from your bank.
 
 3
-00:00:08,850 --> 00:00:12,620
-At the exact second the terminal beeps, zero cash leaves your possession.
+00:00:06,200 --> 00:00:07,850
+So who actually paid for that reward?
 
 4
-00:00:12,620 --> 00:00:19,170
-Your issuing bank merely freezes ten million of your credit line as an authorization hold, advancing the real money days later.
+00:00:08,850 --> 00:00:13,620
+At the exact second the terminal beeps on your 10 million bill, zero cash leaves any account.
 
 5
-00:00:19,770 --> 00:00:26,360
-Two business days later, the restaurant receives only nine million seven hundred and eighty thousand dong.
+00:00:13,620 --> 00:00:19,170
+Your issuing bank simply puts a hold on 10 million of your credit line, waiting to advance real money later.
 
 6
-00:00:26,360 --> 00:00:32,330
-Exactly two hundred and twenty thousand dong was deducted up front as a merchant processing fee.
+00:00:19,770 --> 00:00:27,260
+Two business days later in this example, the restaurant receives only 9,780,000 dong in its bank account.
 
 7
-00:00:33,060 --> 00:00:46,050
-The largest portion of that processing fee — approximately one hundred and fifty thousand dong — travels straight to your card issuing bank as an interchange settlement fee to compensate for credit float.
+00:00:27,260 --> 00:00:32,330
+The missing 220,000 dong went straight into a 2.2% card acceptance fee.
 
 8
-00:00:46,730 --> 00:00:52,180
-That interchange fee is the primary commercial engine funding your reward programs.
+00:00:33,060 --> 00:00:35,110
+Where did that 220,000 dong go?
 
 9
-00:00:52,180 --> 00:00:59,210
-The issuing bank captures a fee from the merchant and returns a smaller slice to you as marketing cashback.
+00:00:35,110 --> 00:00:46,050
+Around 150,000 dong flows directly back to your issuing bank as interchange, while the restaurant's bank keeps 60,000 and the card network takes the remaining 10,000.
 
 10
+00:00:46,730 --> 00:00:59,210
+Weeks later, you pay off your 10 million statement, and your bank hands you 100,000 dong in cashback — funded straight out of that 150,000 interchange cut taken from the restaurant's payout.
+
+11
 00:01:00,010 --> 00:01:09,490
-And because restaurants incorporate payment processing overhead into standard retail prices, your shiny cashback reward was simply your own dining money completing an economic circle.
+Because most restaurants bake card acceptance fees straight into dish prices on the menu, that shiny cashback reward may simply be your own money finishing a lap.

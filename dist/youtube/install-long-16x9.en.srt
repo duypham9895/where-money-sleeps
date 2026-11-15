@@ -1,323 +1,359 @@
 1
-00:00:00,300 --> 00:00:03,630
-Imagine you are purchasing a brand-new smartphone priced at twelve million dong.
+00:00:00,300 --> 00:00:02,490
+Picture yourself walking into a phone shop on a Saturday afternoon.
 
 2
-00:00:03,630 --> 00:00:10,750
-On the counter, a bold promotional brochure advertises zero-percent installment financing, split evenly across twelve monthly cycles at exactly one million dong per month.
+00:00:02,490 --> 00:00:04,710
+The phone you want sits behind glass with a twelve-million-dong tag.
 
 3
-00:00:10,750 --> 00:00:12,960
-You sign your name, collect the device, and walk out.
+00:00:04,710 --> 00:00:08,890
+Next to it stands a bright red sign promising zero-percent installment financing over twelve months at one million dong a month.
 
 4
-00:00:12,960 --> 00:00:16,120
-On the surface, nobody appears to be charging you a single coin of interest.
+00:00:08,890 --> 00:00:12,350
+You hand over your ID, tap sign on a tablet, and walk out fifteen minutes later with a sealed phone box...
 
 5
-00:00:16,120 --> 00:00:19,620
-But in commercial reality, no institution lends capital for an entire year for free.
+00:00:12,350 --> 00:00:13,920
+without spending a single dong from your wallet.
 
 6
-00:00:19,620 --> 00:00:21,740
-So who is quietly paying the interest on this loan?
+00:00:13,920 --> 00:00:14,670
+Sounds painless, right?
 
 7
-00:00:21,740 --> 00:00:29,900
-Over the next eight minutes, we trace every electronic message, every ledger journal, and every wholesale bank transfer to uncover the six hundred thousand dong resting quietly behind the counter.
+00:00:14,670 --> 00:00:19,150
+Except stop for two seconds and ask one stubborn question: who lends out twelve million dong for an entire year and expects nothing back?
 
 8
-00:00:31,040 --> 00:00:35,890
-On a Saturday afternoon, in this working example, you stand at the counter of a consumer electronics store.
+00:00:19,150 --> 00:00:20,390
+Nobody in business does that for free.
 
 9
-00:00:35,890 --> 00:00:43,870
-The smartphone you want costs twelve million dong, accompanied by a promotional brochure promising zero percent financing across twelve monthly cycles at one million dong each.
+00:00:20,390 --> 00:00:22,740
+So if your contract really says zero percent, where did the interest go?
 
 10
-00:00:43,870 --> 00:00:49,950
-The sales associate takes a snapshot of your identity card, enters your personal details into an underwriting tablet, and taps submit.
+00:00:22,740 --> 00:00:27,610
+Over the next eight minutes, we trace every message on the tablet, every line in the store's Saturday-night ledger, and Monday morning's bank wire...
 
 11
-00:00:49,950 --> 00:00:54,580
-Look closely at the information pathway: what was just dispatched is purely an electronic data packet.
+00:00:27,610 --> 00:00:29,900
+to find the six hundred thousand dong hiding right behind the counter.
 
 12
-00:00:54,580 --> 00:00:56,440
-It carries absolutely zero physical cash.
+00:00:31,040 --> 00:00:35,370
+It starts right at the glass display counter in our twelve-million-dong example.
 
 13
-00:00:56,440 --> 00:01:01,610
-And notice where that message travels: not to the store's retail bank, but directly to an independent third party.
+00:00:35,370 --> 00:00:40,080
+The clerk snaps your ID card, types your income details into a tablet, and taps submit.
 
 14
-00:01:01,610 --> 00:01:06,240
-Keep this question in mind: if nobody is charging you interest, who pays for twelve months of waiting?
+00:00:40,080 --> 00:00:43,280
+Watch closely what just happened — and what did not happen.
 
 15
-00:01:07,340 --> 00:01:09,750
-That third party is a consumer finance company.
+00:00:43,280 --> 00:00:46,100
+That tap sent an encrypted file across the internet.
 
 16
-00:01:09,750 --> 00:01:16,890
-Their automated algorithms review your application, score your credit profile, and fifteen minutes later transmit an approval confirmation.
+00:00:46,100 --> 00:00:49,780
+Zero cash left any bank vault, and nothing hit the store's register.
 
 17
-00:01:16,890 --> 00:01:23,970
-A digital loan agreement is executed directly between you and the finance company: that is the promissory debt commitment you just signed.
+00:00:49,780 --> 00:00:51,950
+Now look at where that message traveled.
 
 18
-00:01:23,970 --> 00:01:32,080
-Because a loan contract represents an agreement to pay future funds, at this exact second only legal information has been recorded, with zero funds disbursed.
+00:00:51,950 --> 00:00:54,600
+It did not go to the electronics shop's own bank.
 
 19
-00:01:32,080 --> 00:01:38,960
-From this moment onward, the institution you legally owe twelve million dong to is the consumer finance company, not the retail store.
+00:00:54,600 --> 00:00:58,010
+It skipped straight over to a separate third party across town.
 
 20
-00:01:38,960 --> 00:01:41,730
-If you are late on a payment, they assess the penalty.
+00:00:58,010 --> 00:01:06,240
+Keep that first question parked in your head while we watch this next step: if nobody bills you monthly interest, who pays for twelve months of waiting?
 
 21
-00:01:41,730 --> 00:01:43,480
-The store simply sold merchandise.
+00:01:07,340 --> 00:01:09,970
+That third party is a consumer finance company.
 
 22
-00:01:43,480 --> 00:01:48,820
-All collection overhead, non-payment risk, and borrower servicing shift entirely to the finance company.
+00:01:09,970 --> 00:01:15,900
+Their scoring engine checks your credit history and flashes back one word fifteen minutes later: approved.
 
 23
-00:01:49,670 --> 00:01:51,450
-You walk home with the smartphone.
+00:01:15,900 --> 00:01:19,140
+You sign an electronic loan contract right at the counter.
 
 24
-00:01:51,450 --> 00:01:54,690
-That evening, the retail store closes its daily trading books.
+00:01:19,140 --> 00:01:24,840
+Look at the names on that signature page, because this legal handoff changes everything down the line.
 
 25
-00:01:54,690 --> 00:01:59,130
-If you were to open the physical cash drawer, you would not find twelve million dong.
+00:01:24,840 --> 00:01:30,260
+You just signed a debt promise directly with the finance company, not with the electronics store.
 
 26
-00:01:59,130 --> 00:02:03,460
-If you checked the store's corporate banking portal, no customer funds have landed.
+00:01:30,260 --> 00:01:34,400
+From this exact second, the lender you owe twelve million dong to is them.
 
 27
-00:02:03,460 --> 00:02:07,740
-No wholesale wire transfer has executed yet, and the bank has not disbursed money.
+00:01:34,400 --> 00:01:38,930
+The store simply handed over hardware and stepped out of the credit relationship.
 
 28
-00:02:07,740 --> 00:02:09,200
-Not a single coin has moved.
+00:01:38,930 --> 00:01:48,820
+If cash gets tight five months from now and you miss a payment, the company assessing late fees, dialing collections, and logging your credit bureau file is the finance company.
 
 29
-00:02:09,200 --> 00:02:12,280
-So tonight, where does the money for that smartphone sleep?
+00:01:49,670 --> 00:01:52,430
+You head home with the new phone in your bag.
 
 30
-00:02:12,280 --> 00:02:14,580
-It sleeps inside an accounting ledger entry.
+00:01:52,430 --> 00:01:56,230
+Later that night, the shopkeeper locks up and checks the till.
 
 31
-00:02:14,580 --> 00:02:22,260
-The store's accountant records a receivable of twelve million dong, specifying clearly: receivable from the consumer finance company, not from you.
+00:01:56,230 --> 00:01:59,240
+There is zero cash from your phone in the drawer.
 
 32
-00:02:22,260 --> 00:02:29,210
-In corporate accounting charts, that line sits in Account 1388 under Other Receivables, rather than Account 131 for retail customers.
+00:01:59,240 --> 00:02:04,820
+Open the store's corporate banking app, and the balance has not moved a single dong either.
 
 33
-00:02:29,210 --> 00:02:33,020
-Meanwhile, you possess the phone without having parted with upfront cash.
+00:02:04,820 --> 00:02:05,800
+Nothing arrived.
 
 34
-00:02:33,020 --> 00:02:34,580
-That is the essence of a loan.
+00:02:05,800 --> 00:02:10,460
+So where is the money for that twelve-million-dong handset sleeping tonight?
 
 35
-00:02:35,920 --> 00:02:41,120
-The following morning, assuming a standard business day, the interbank disbursement wire executes.
+00:02:10,460 --> 00:02:12,850
+It sleeps inside an accounting promise.
 
 36
-00:02:41,120 --> 00:02:47,430
-Real wholesale cash transfers from the finance company to the store's bank, and on into the store's commercial account.
+00:02:12,850 --> 00:02:28,430
+Under Circular ninety-nine rules, the store's accountant logs twelve million dong in sales revenue and pairs it with a twelve-million-dong receivable under Account thirteen eighty-eight — Other Receivables, naming the finance company as payer, never you.
 
 37
-00:02:47,430 --> 00:02:51,030
-But inspect the credited sum closely: it is not twelve million dong.
+00:02:28,430 --> 00:02:33,280
+Meanwhile, you already have the phone on your desk without spending cash today.
 
 38
-00:02:51,030 --> 00:02:54,850
-The actual deposit is exactly eleven million four hundred thousand dong.
+00:02:33,280 --> 00:02:34,580
+That gap is the loan.
 
 39
-00:02:54,850 --> 00:02:59,620
-Six hundred thousand dong was withheld at source by the finance company during settlement.
+00:02:35,920 --> 00:02:43,620
+Wait until the next business morning — Day T plus one in our example — and real money finally moves across bank rails.
 
 40
-00:02:59,620 --> 00:03:06,620
-That missing six hundred thousand dong represents a five percent interest subsidy that the retail store quietly paid on your behalf.
+00:02:43,620 --> 00:02:49,420
+The finance company fires off a bank transfer into the shop's corporate checking account.
 
 41
-00:03:06,620 --> 00:03:18,760
-In its accounting records, the store enters Debit Account 112 for eleven million four hundred thousand, Debit Account 641 for selling expenses of six hundred thousand, and balances Credit Account 1388 for the full twelve million.
+00:02:49,420 --> 00:02:52,680
+Now look at the credit alert on the owner's phone.
 
 42
-00:03:18,760 --> 00:03:21,040
-Yesterday's written promise clears to zero.
+00:02:52,680 --> 00:02:56,270
+The incoming deposit does not read twelve million dong.
 
 43
-00:03:21,040 --> 00:03:32,790
-The store accepts a five percent haircut on its retail tag in exchange for locking in an immediate sale, receiving cleared liquidity after one business day, and passing one hundred percent of collection risk to the lender.
+00:02:56,270 --> 00:02:59,600
+It reads eleven million four hundred thousand dong.
 
 44
-00:03:34,250 --> 00:03:38,700
-Now observe the consumer finance company's balance sheet over the following twelve months.
+00:02:59,600 --> 00:03:03,970
+Six hundred thousand dong vanished before the wire left the lender.
 
 45
-00:03:38,700 --> 00:03:44,630
-Every month, an automated debit mandate deducts one million dong from your checking account and remits it to the lender.
+00:03:03,970 --> 00:03:13,300
+That five-percent slice withheld at source is the interest subsidy the shop quietly agreed to pay so your paperwork could display zero percent.
 
 46
-00:03:44,630 --> 00:03:48,290
-Over twelve billing cycles, they collect a cumulative twelve million dong.
+00:03:13,300 --> 00:03:27,450
+On the store's books, Account eleven two rises by eleven point four million, Account six forty-one absorbs six hundred thousand as selling expense, and yesterday's Account thirteen eighty-eight promise clears to zero.
 
 47
-00:03:48,290 --> 00:03:56,150
-Notice the macro structure: the finance company disbursed eleven million four hundred thousand dong on day one and reclaimed twelve million dong over one year.
+00:03:27,450 --> 00:03:29,210
+Interest was never missing.
 
 48
-00:03:56,150 --> 00:03:59,860
-The six hundred thousand dong spread represents their earned lending yield.
+00:03:29,210 --> 00:03:32,790
+The merchant just picked up the tab behind the counter.
 
 49
-00:03:59,860 --> 00:04:14,600
-When calculated on a declining principal balance across twelve months, an initial outlay of eleven point four million yielding one million monthly equates to an internal rate of return of approximately zero point eight percent per month, or an effective annual rate of roughly ten percent per year.
+00:03:34,250 --> 00:03:37,700
+Now trace your side of the deal for the rest of the year.
 
 50
-00:04:14,600 --> 00:04:22,810
-From the finance company's perspective, this is a standard interest-bearing credit portfolio earning ten percent annually, funded entirely by the merchant's discount.
+00:03:37,700 --> 00:03:48,050
+At the end of every month, your checking account sends an instruction to your bank, and one million dong in real money travels across payment rails to the finance company.
 
 51
-00:04:23,990 --> 00:04:30,220
-Now examine the critical commercial question: who truly pays that six hundred thousand dong interest charge?
+00:03:48,050 --> 00:03:53,980
+Twelve transfers equal twelve million dong flat, matching the counter flyer down to the last dong.
 
 52
-00:04:30,220 --> 00:04:33,390
-The answer depends entirely on upfront pricing reality.
+00:03:53,980 --> 00:03:57,670
+Not a single interest charge shows up on your monthly alerts.
 
 53
-00:04:33,390 --> 00:04:39,850
-Imagine you ask the store manager: if I pay with liquid cash right now in a single payment, does the price drop?
+00:03:57,670 --> 00:04:00,090
+Still, put two real prices side by side.
 
 54
-00:04:39,850 --> 00:04:54,680
-If the store offers a cash discount of six hundred thousand dong, bringing the upfront price to eleven million four hundred thousand, then by selecting the installment plan at twelve million, you personally paid that six hundred thousand dong financing fee.
+00:04:00,090 --> 00:04:09,170
+Suppose paying cash at the counter would have knocked six hundred thousand dong off the bill, dropping the phone's price to eleven point four million.
 
 55
-00:04:54,680 --> 00:05:00,220
-You surrendered a tangible cash discount in exchange for stretching payments over twelve months.
+00:04:09,170 --> 00:04:17,770
+When you choose installments at twelve million instead, you spend twelve million across a year for gear worth eleven point four million today.
 
 56
-00:05:00,220 --> 00:05:04,430
-The flyer did not breach legal terms: your contract rate is zero percent.
+00:04:17,770 --> 00:04:22,810
+What is left is a simple math question: how steep is that spread as an annual rate?
 
 57
-00:05:04,430 --> 00:05:10,890
-But because the cash alternative was cheaper, your effective borrowing cost is zero point eight percent monthly.
+00:04:23,990 --> 00:04:31,270
+Careful here: six hundred thousand divided by twelve million is five percent, yet your real borrowing rate is about twice that.
 
 58
-00:05:10,890 --> 00:05:15,910
-If you take the phone home today for twelve million, that spread was the price of time.
+00:04:31,270 --> 00:04:31,520
+Why?
 
 59
-00:05:17,580 --> 00:05:28,280
-What happens in the alternative scenario, where the retailer enforces an identical twelve-million-dong price tag whether you pay upfront or finance over twelve months?
+00:04:31,520 --> 00:04:35,820
+Because you do not hold all eleven point four million dong for a full year.
 
 60
-00:05:28,280 --> 00:05:37,960
-In that situation, you genuinely enjoy zero percent interest, and the six hundred thousand dong financing subsidy is absorbed entirely by the merchant.
+00:04:35,820 --> 00:04:39,370
+Every thirty days, you hand back another million of principal.
 
 61
-00:05:37,960 --> 00:05:42,250
-Why would a retail business forfeit five percent of gross turnover?
+00:04:39,370 --> 00:04:49,110
+Financial analysts match all twelve one-million-dong payments back to the eleven point four million received on day one and solve for the monthly internal rate of return.
 
 62
-00:05:42,250 --> 00:05:52,950
-Because prominent promotional signs advertising zero-percent financing attract substantial foot traffic into stores, converting hesitant browsers into verified buyers.
+00:04:49,110 --> 00:04:56,500
+In this example, that rate comes out to zero point seven nine eight percent per month — call it zero point eight percent monthly.
 
 63
-00:05:52,950 --> 00:06:06,730
-For the retailer, surrendering five percent of gross margin is far more economical than allowing valuable electronics inventory to sit unsold on display shelves for extra weeks while bearing warehouse holding costs.
+00:04:56,500 --> 00:05:04,980
+Multiply straight by twelve and you get nine point six percent; compound monthly and you hit ten point zero one percent, roughly ten percent a year.
 
 64
-00:06:07,920 --> 00:06:21,110
-There is another common financing route: swiping a personal credit card for twelve million dong at checkout and subsequently requesting your card issuer to convert the transaction into twelve monthly installments.
+00:05:04,980 --> 00:05:15,910
+Worse yet, if the contract requires your first one million down at the counter right away, your effective rate jumps to zero point nine five percent a month, or roughly twelve percent a year.
 
 65
-00:06:21,110 --> 00:06:27,120
-In that model, your creditor is the card issuing bank rather than an independent finance company.
+00:05:17,580 --> 00:05:24,410
+So standing at the register, how do you know whether that six hundred thousand comes out of your pocket or the shopkeeper's?
 
 66
-00:06:27,120 --> 00:06:35,970
-While marketed as zero-percent interest, card issuers frequently assess a mandatory installment conversion fee of around three percent upfront.
+00:05:24,410 --> 00:05:27,050
+Ask one plain question: do cash buyers pay less?
 
 67
-00:06:35,970 --> 00:06:42,970
-On a twelve-million-dong purchase, that one-time conversion fee amounts to three hundred and sixty thousand dong.
+00:05:27,050 --> 00:05:32,500
+Case one: yes, cash buyers save six hundred thousand and walk out paying eleven point four million.
 
 68
-00:06:42,970 --> 00:06:59,870
-When amortized across twelve months of declining principal balances, that upfront administrative fee translates to an effective annual borrowing rate of roughly five point six to six point two percent, paid directly by the cardholder rather than subsidized by the retailer.
+00:05:32,500 --> 00:05:38,830
+Then choosing zero percent at twelve million means you paid the entire interest bill by walking past that discount.
 
 69
-00:07:01,170 --> 00:07:05,050
-Now consider what occurs when operational plans experience disruption.
+00:05:38,830 --> 00:05:42,520
+Case two: everybody pays twelve million flat, cash or installments.
 
 70
-00:07:05,050 --> 00:07:10,030
-Scenario one: suppose you decide to settle the entire debt early at the end of month four.
+00:05:42,520 --> 00:05:52,700
+Then the shop eats the six hundred thousand out of gross profit — or padded that five percent onto every sticker tag in advance, meaning cash shoppers help subsidize installment buyers.
 
 71
-00:07:10,030 --> 00:07:18,340
-Because the nominal contract rate is zero percent, your remaining principal equals exactly eight outstanding installments totaling eight million dong.
+00:05:52,700 --> 00:06:00,240
+Why do merchants swallow six hundred thousand when a regular two-point-two-percent card swipe only costs two hundred sixty-four thousand?
 
 72
-00:07:18,340 --> 00:07:23,930
-Prepaying early yields zero interest savings, and the contract may even levy an early settlement fee.
+00:06:00,240 --> 00:06:06,730
+Because a big zero-percent banner moves phones off the shelf tomorrow morning and puts cash in the bank at T plus one.
 
 73
-00:07:23,930 --> 00:07:31,630
-Compressing that upfront subsidy across four months elevates your effective monthly borrowing cost to roughly one point four eight percent.
+00:06:07,920 --> 00:06:15,330
+There is a second flavor of zero percent you see everywhere: converting a credit card purchase into monthly installments.
 
 74
-00:07:31,630 --> 00:07:40,990
-Scenario two: if you miss a scheduled installment payment, penalty fees and default interest accelerate borrowing costs while generating an adverse credit bureau record.
+00:06:15,330 --> 00:06:22,730
+Here you swipe the full twelve million dong on your card as usual, then tap convert to twelve months in your banking app.
 
 75
-00:07:40,990 --> 00:07:51,780
-Scenario three: if you return the device to the store, the sales agreement is cancelled, but your debt obligation only closes once the merchant refunds wholesale cash back to the finance company.
+00:06:22,730 --> 00:06:28,730
+Now the phone shop takes a normal card payout, and your lender becomes your own card-issuing bank.
 
 76
-00:07:53,010 --> 00:07:59,810
-In the final analysis, promotional flyers do not deceive: the interest rate printed on your contract is legally zero percent.
+00:06:28,730 --> 00:06:40,110
+Monthly statements still print zero percent interest, yet banks frequently tack on an upfront conversion fee — say three percent, or three hundred sixty thousand dong, billed right away.
 
 77
-00:07:59,810 --> 00:08:03,340
-However, economic interest never vanishes from financial reality.
+00:06:40,110 --> 00:06:50,330
+Netting that fee against your twelve-million-dong purchase gives an effective rate near zero point four seven percent a month, roughly five point eight percent a year.
 
 78
-00:08:03,340 --> 00:08:08,230
-It merely vacates the visible interest line and hides within the retail transaction price.
+00:06:50,330 --> 00:06:59,870
+Add a forfeited six-hundred-thousand cash discount on top of that conversion fee, and your combined annual borrowing cost pushes close to seventeen percent.
 
 79
-00:08:08,230 --> 00:08:15,680
-The six hundred thousand dong spread between the store's net proceeds and cumulative loan payments represents genuine financing interest.
+00:07:01,170 --> 00:07:08,060
+Look at three ways real life knocks this setup off script, because each one reveals who holds your contract.
 
 80
-00:08:15,680 --> 00:08:24,220
-The next time you encounter a bold zero-percent financing banner, ask the store clerk one simple question: what is the cash price if I pay in full right now?
+00:07:08,060 --> 00:07:14,440
+First, suppose you come into extra cash at month four and pay off the remaining eight million early.
 
 81
-00:08:24,220 --> 00:08:27,430
-The difference that emerges is the real price of borrowing.
+00:07:14,440 --> 00:07:30,010
+Since your contract prints zero percent interest, there is zero future interest to shave off — and forfeiting a cash discount just packed all six hundred thousand into four months, lifting your real cost to one point four eight percent a month.
+
+82
+00:07:30,010 --> 00:07:41,120
+Second, miss month five by thirty days with a one-hundred-fifty-thousand late fee, and your real rate climbs near one percent monthly while your credit file logs a late mark.
+
+83
+00:07:41,120 --> 00:07:51,780
+Third, return the phone next week: the shop takes back the hardware, yet only the finance company cancels your loan once the shop wires back eleven point four million.
+
+84
+00:07:53,010 --> 00:07:56,430
+In the end, the flyer on the glass counter told the strict legal truth.
+
+85
+00:07:56,430 --> 00:07:58,980
+Your contract really did print zero percent interest.
+
+86
+00:07:58,980 --> 00:08:01,820
+Money just refuses to work for a year without getting paid.
+
+87
+00:08:01,820 --> 00:08:12,230
+Instead of living on an interest-rate line, that six hundred thousand dong moved behind the register into the gap between twelve million on the price tag and eleven point four million hitting the shop's bank account.
+
+88
+00:08:12,230 --> 00:08:19,700
+Next time you spot a bold zero-percent sign, ask the clerk one simple question before you sign anything: what is the price if I pay cash in full right now?
+
+89
+00:08:19,700 --> 00:08:22,500
+Whatever discount shows up is the real price of borrowing.
+
+90
+00:08:22,500 --> 00:08:27,430
+From there, you know right away who is paying for the phone's time — the store, cash shoppers, or you.

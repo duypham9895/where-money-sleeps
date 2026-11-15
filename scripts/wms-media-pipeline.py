@@ -742,22 +742,22 @@ def build_youtube_description(
 
     vi_block = (
         f"[TIẾNG VIỆT]\n"
-        f"📖 Đọc bài khảo cứu tương tác (Sổ kế toán TT 99/2025 + Máy tính dòng tiền): {url_vi}\n"
+        f"📖 Tự nhập số & mở sổ Thông tư 99/2025 của bài này: {url_vi}\n"
         f"{cross_vi}"
-        f"🌐 Trang chủ dự án: {base_url}\n\n"
+        f"🌐 Xem trọn bộ 7 bài tương tác: {base_url}\n\n"
         f"{teaser_vi}\n\n"
-        f"Mục lục chương:\n{chapters_vi}\n\n"
-        f"Lưu ý: Số liệu và tình huống trong video là ví dụ minh hoạ cơ chế dòng tiền và bút toán kế toán, không nhắc tới bất kỳ thương hiệu cụ thể nào và không phải lời khuyên tài chính."
+        f"Các chặng trong video:\n{chapters_vi}\n\n"
+        f"Mọi con số chỉ làm ví dụ để thấy đường đi của tiền qua sổ sách, không lấy tên ngân hàng hay thương hiệu thật, và không phải lời khuyên tài chính."
     )
 
     en_block = (
         f"[ENGLISH]\n"
-        f"📖 Interactive Essay, Circular 99 ⇄ IFRS/GAAP Double-Entry Ledger & Calculators: {url_en}\n"
+        f"📖 Interactive Walkthrough, Calculators & Circular 99 ⇄ IFRS/GAAP Ledger: {url_en}\n"
         f"{cross_en}"
-        f"🌐 Project Portal: {base_url}/?lang=en\n\n"
+        f"🌐 Full Library: {base_url}/?lang=en\n\n"
         f"{teaser_en}\n\n"
         f"Chapters:\n{chapters_en}\n\n"
-        f"Disclaimer: All figures and scenarios are illustrative examples demonstrating cash-flow mechanics and double-entry bookkeeping. Zero real brands referenced; educational purposes only, not financial advice."
+        f"Note: Numbers and scenes are everyday illustrative examples showing how payments clear and settle (unofficial summary of Circular 99/2025/TT-BTC). Zero real brands; not financial advice."
     )
 
     footer = f"Where Money Sleeps ({DEFAULT_YT_HANDLE}) · {base_url}"
@@ -815,24 +815,24 @@ def step_5c_update_youtube_channel() -> str:
     """Cập nhật mô tả kênh @WhereMoneySleeps kèm domain chính thức & nội dung song ngữ VI/EN (0 đạo cụ sân khấu, 0 tên riêng)."""
     base_url = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
     desc_vi = _sanitize_yt_text(
-        f"🌐 Khảo cứu tương tác & Sổ kế toán kép: {base_url}\n\n"
-        f"Từ tin báo “ghi có” tới sổ sách ngân hàng: Đêm nay, tiền của bạn ngủ ở đâu?\n"
-        f"Mỗi tập mổ xẻ dòng tiền qua mô hình 5 định chế, đối chiếu bút toán kép (TT 99/2025/TT-BTC ⇄ IFRS/GAAP) "
-        f"và phân biệt tín hiệu thanh toán tức thời với dòng tiền quyết toán thực tế.\n\n"
+        f"🌐 Mở bài tương tác & tự bấm số dòng tiền: {base_url}\n\n"
+        f"Đêm nay, tiền của bạn đang ngủ ở đâu?\n"
+        f"Thẻ vừa chạm máy, điện thoại ting liền, nhưng lắm khi hai ngày sau quán mới thấy tiền về tài khoản. "
+        f"Mỗi tập lần theo một giao dịch quen mặt qua 5 ngôi nhà, tách rõ lúc nào mới có tin nhắn chạy, lúc nào tiền thật mới đổi chủ kèm cặp sổ Thông tư 99/2025/TT-BTC.\n\n"
         f"───\n"
-        f"🌐 Interactive Essays & Double-Entry Ledger: {base_url}/?lang=en\n"
-        f"From the bank alert to the double-entry ledger: Where does your money sleep tonight? "
-        f"Deep dives into banking settlement mechanics, Circular 99 ⇄ IFRS/GAAP accounting, and cash-flow math.\n\n"
-        f"Số liệu minh hoạ cơ chế tài chính – kế toán; không phải lời khuyên đầu tư. / Educational examples only; not financial advice."
+        f"🌐 Interactive Walkthroughs & Ledgers: {base_url}/?lang=en\n"
+        f"Where does your money sleep tonight? Plain-spoken episodes tracing card swipes, paychecks, 0% installments, "
+        f"and company cash flow across banks — balanced under Circular 99 ⇄ IFRS/GAAP.\n\n"
+        f"Số liệu minh hoạ cơ chế; không phải lời khuyên tài chính. / Educational examples only; not financial advice."
     )
     desc_en = _sanitize_yt_text(
-        f"🌐 Interactive Essays, Double-Entry Ledger & Calculators: {base_url}/?lang=en\n\n"
-        f"From the bank alert to the ledger: Where does your money sleep tonight?\n"
-        f"Each episode traces money across 5 financial institutions, compares surface notifications with real interbank clearing, "
-        f"and balances every entry under Circular 99/2025 ⇄ IFRS/GAAP standards.\n\n"
+        f"🌐 Interactive Walkthroughs & Calculators: {base_url}/?lang=en\n\n"
+        f"Where does your money sleep tonight?\n"
+        f"Your phone pings seconds after you tap a card or scan a QR code, yet the actual cash often sits elsewhere for days. "
+        f"Each episode traces one everyday receipt across five stops and balances the books (unofficial summary of Circular 99/2025 ⇄ IFRS/GAAP).\n\n"
         f"───\n"
         f"🌐 Bản tiếng Việt: {base_url}\n"
-        f"Từ tin báo “ghi có” tới sổ sách ngân hàng: Khám phá cơ chế dòng tiền, thẻ tín dụng, lãi suất thực tế và kế toán kép.\n\n"
+        f"Đêm nay, tiền của bạn đang ngủ ở đâu? Theo dấu đường đi thật của tiền sau mỗi lần chạm thẻ, kỳ lương về hay đơn trả góp 0%.\n\n"
         f"Educational examples only; zero real brands; not financial advice. / Ví dụ minh hoạ cơ chế; không phải lời khuyên tài chính."
     )
     for lbl, d in (("vi", desc_vi), ("en", desc_en)):

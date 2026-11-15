@@ -1,39 +1,47 @@
 1
-00:00:00,250 --> 00:00:08,410
-Chiều ba mươi mốt tháng mười hai, báo cáo công ty ghi lãi ròng hai tỷ đồng, nhưng két ngân hàng chỉ còn năm mươi triệu — thiếu bốn trăm năm mươi triệu trả lương.
+00:00:00,250 --> 00:00:05,780
+Chiều ba mươi mốt tháng mười hai: sổ báo lãi hai tỷ, nhưng tài khoản ngân hàng chỉ còn năm mươi triệu.
 
 2
-00:00:08,570 --> 00:00:09,690
-Tiền thật đi đâu?
+00:00:05,780 --> 00:00:08,820
+Trong khi đó, bảng lương năm trăm triệu đang chờ chuyển.
 
 3
-00:00:10,960 --> 00:00:22,010
-Lý do đầu tiên: vừa giao hàng xong cho hợp đồng mười tỷ, sổ sách đã ghi đủ doanh thu ngay dù khách sỉ mới trả bảy phẩy năm tỷ, còn nợ hai phẩy năm tỷ hẹn chín mươi ngày sau.
+00:00:08,820 --> 00:00:09,690
+Tiền đi đâu hết?
 
 4
-00:00:22,760 --> 00:00:25,930
-Lý do thứ hai là tiền hàng tồn kho.
+00:00:10,960 --> 00:00:16,210
+Theo kế toán dồn tích, giao xong lô hàng mười tỷ là ghi đủ mười tỷ doanh thu trên sổ.
 
 5
-00:00:26,090 --> 00:00:35,650
-Đầu kỳ két có một tỷ, cộng bảy phẩy năm tỷ thu khách là tám phẩy năm tỷ, nhưng công ty đã chi tiền mặt bảy phẩy bốn mươi lăm tỷ mua hàng và một tỷ vận hành.
+00:00:16,210 --> 00:00:22,010
+Nhưng khách sỉ mới chuyển trước bảy phẩy năm tỷ, còn giữ lại hai phẩy năm tỷ nợ sáu mươi ngày.
 
 6
-00:00:36,450 --> 00:00:42,690
-Tám phẩy năm tỷ tiền vào trừ tám phẩy bốn mươi lăm tỷ tiền ra, két còn đúng năm mươi triệu đồng.
+00:00:22,760 --> 00:00:29,060
+Cộng trừ tiền thật cả quý: một tỷ đầu kỳ cộng bảy phẩy năm tỷ thu khách là tám phẩy năm tỷ.
 
 7
-00:00:43,040 --> 00:00:47,810
-Ba phẩy bốn mươi lăm tỷ đồng đang ngủ ở công nợ khách hàng và kệ hàng tồn kho.
+00:00:29,060 --> 00:00:35,650
+Trừ đi bảy phẩy bốn mươi lăm tỷ mua hàng và một tỷ vận hành, tài khoản còn đúng năm mươi triệu.
 
 8
-00:00:48,570 --> 00:00:59,970
-Trên báo cáo lưu chuyển tiền tệ, lợi nhuận ròng dương hai tỷ đồng nhưng dòng tiền thuần từ hoạt động kinh doanh lại âm chín trăm năm mươi triệu đồng vì tiền bị giam vào công nợ và hàng tồn kho.
+00:00:36,450 --> 00:00:47,810
+Tiền không hề mất trộm: hai phẩy năm tỷ nằm trong giấy hẹn nợ của khách sỉ, còn chín trăm năm mươi triệu nằm trên kệ hàng tồn kho chưa bán.
 
 9
-00:01:00,650 --> 00:01:08,850
-Chiều cuối năm, công ty lãi hai tỷ phải vay ngắn hạn ngân hàng bốn trăm năm mươi triệu đồng để trả đủ năm trăm triệu tiền lương.
+00:00:48,570 --> 00:00:55,670
+Báo cáo cuối kỳ vẫn ghi lãi ròng dương hai tỷ đồng, nhưng dòng tiền kinh doanh OCF đã âm chín trăm năm mươi triệu.
 
 10
-00:01:09,290 --> 00:01:13,650
-Lợi nhuận là chữ trên sổ, dòng tiền mới giữ công ty sống.
+00:00:55,670 --> 00:00:59,970
+Công ty có lãi trên giấy, nhưng dòng tiền ròng cả quý lại bị hút hụt.
+
+11
+00:01:00,650 --> 00:01:07,620
+Chiều cuối năm, công ty phải vay ngắn hạn ngân hàng bốn trăm năm mươi triệu đồng để trả đủ lương.
+
+12
+00:01:07,620 --> 00:01:13,650
+Lãi trên sổ không tự trả lương được — tiền thật trên tài khoản mới làm được việc đó.

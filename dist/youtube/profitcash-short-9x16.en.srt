@@ -1,39 +1,35 @@
 1
-00:00:00,250 --> 00:00:09,690
-How can a company report two billion dong in net profit at year-end, yet have only fifty million dong in the bank when a five hundred million payroll must be disbursed before New Year's Eve?
+00:00:00,250 --> 00:00:08,440
+December 31 at four o'clock: the income statement prints 2 billion VND in net profit, yet Account 112 holds only 50 million VND against 500 million due for staff payroll.
 
 2
-00:00:10,960 --> 00:00:16,060
-Under accrual accounting rules, delivering a ten billion contract books full revenue immediately.
+00:00:08,440 --> 00:00:09,690
+Where did all the cash go?
 
 3
-00:00:16,060 --> 00:00:22,010
-But the wholesale buyer pays only 7.5 billion upfront, leaving 2.5 billion uncollected under 60-day credit terms.
+00:00:10,960 --> 00:00:17,360
+Under accrual accounting, shipping a 10 billion VND wholesale order puts all 10 billion revenue on the books right away.
 
 4
-00:00:22,760 --> 00:00:28,780
-Meanwhile, the company spent 7.45 billion on inventory and one billion on operating overhead.
+00:00:17,360 --> 00:00:22,010
+Yet the corporate buyer wired 7.5 billion cash and deferred 2.5 billion for sixty days.
 
 5
-00:00:28,780 --> 00:00:35,650
-A massive 3.45 billion in liquid cash is sleeping trapped inside customer receivables and warehouse stock.
+00:00:22,760 --> 00:00:35,650
+Count pure bank cash moving across the quarter: 1 billion starting cash plus 7.5 billion collected equals 8.5 billion in, minus 7.45 billion wired for stock and 1 billion overhead, leaving only 50 million.
 
 6
 00:00:36,450 --> 00:00:47,810
-This is the classic overtrading growth trap: the company earned two billion in book profit, but Operating Cash Flow was negative 950 million dong because working capital swallowed up all available liquidity.
+Not a single dong was stolen: 2.5 billion sits inside unpaid customer invoices on Account 131, and 950 million sits stacked inside cardboard boxes on warehouse shelves under Account 156.
 
 7
-00:00:48,570 --> 00:00:57,260
-To avoid missing staff payroll on New Year's Eve, the profitable company was forced to borrow 450 million dong from the commercial bank at 10.5% interest.
+00:00:48,570 --> 00:00:59,970
+Subtracting those locked working capital balances turns +2 billion VND in paper profit into negative 950 million VND in Operating Cash Flow across the entire quarter.
 
 8
-00:00:57,260 --> 00:00:59,970
-Profit on paper could not pay employee salaries.
+00:01:00,650 --> 00:01:08,980
+To clear 500 million in salaries thirty minutes before cutoff, the director borrows 450 million short-term at 10.5% interest.
 
 9
-00:01:00,650 --> 00:01:09,410
-Remember this vital corporate survival rule: accounting profit is merely an educated opinion, but cash flow is the oxygen of survival.
-
-10
-00:01:09,410 --> 00:01:13,650
-Never confuse book profit with spendable money in the bank vault.
+00:01:08,980 --> 00:01:13,650
+Book profit fills annual reports; real cash on Account 112 pays staff.
