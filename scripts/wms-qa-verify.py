@@ -78,6 +78,12 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     for snippet, msg in required_css_guards:
         if snippet not in proto_text:
             errors.append(f"Lỗi hồi quy CSS Anti-Overlap: {msg}")
+    if "function syncGlossaryDefaultScope(" not in proto_text or 'S.glScope = S.view === "detail" ? "story" : "all";' not in proto_text:
+        errors.append("Lỗi hồi quy Từ điển: detail view phải luôn mặc định S.glScope = 'story' qua syncGlossaryDefaultScope")
+    jump_pos = proto_text.find('if ($("#popJumpBtn"))')
+    jump_block = proto_text[jump_pos:jump_pos + 450] if jump_pos != -1 else ""
+    if not jump_block or "extractStoryTerms(S.story)" not in jump_block or 'S.glScope = "all";' in jump_block:
+        errors.append("Lỗi hồi quy Từ điển: #popJumpBtn không được hardcode S.glScope = 'all' khi thuật ngữ nằm trong bài")
     return errors
 
 

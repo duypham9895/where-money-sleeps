@@ -13656,6 +13656,7 @@ function renderAll(){
   $("#draftNote").hidden = stObj.status === "published";
   ensureAudioTrack(S.story);
   renderCMS();
+  if (typeof renderGlossary === "function") renderGlossary();
 }
 function go(story, b, s, keepPlaying){
   stopSpeech();
@@ -13916,7 +13917,7 @@ $("#popX").addEventListener("click", () => closePop(true));
 document.addEventListener("keydown", e => { if (e.key==="Escape") closePop(true); });
 
 /* ── điều khiển ────────────────────────────── */
-function openStory(k){ setView("detail", k, "top", true); }
+function openStory(k){ lastGlCtx = ""; setView("detail", k, "top", true); }
 $("#play").onclick = () => {
   if (S.playing){ stopSpeech(); setPlaying(false); return; }
   const bs = getStories()[S.story].beats;
@@ -15873,9 +15874,21 @@ function extractStoryTerms(k){
   STORY_TERM_CACHE[cacheKey] = set;
   return set;
 }
+var lastGlCtx = "";
+function syncGlossaryDefaultScope(forceReset){
+  const nextCtx = S.view === "detail" ? `detail:${S.story}` : "landing";
+  if (!forceReset && nextCtx === lastGlCtx) return;
+  lastGlCtx = nextCtx;
+  S.glScope = S.view === "detail" ? "story" : "all";
+  S.glQ = "";
+  if ($("#glSearch")) $("#glSearch").value = "";
+  const dr = $("#glDrawer");
+  if (dr) dr.open = false;
+}
 function renderGlossary(){
   const glEl = $("#gl"), pill = $("#glCountPill"), storyBtn = $("#glScopeStoryBtn"), allBtn = $("#glScopeAllBtn");
   if (!glEl) return;
+  syncGlossaryDefaultScope(false);
   const gl = getGloss(), enMode = isEn(), o = order(), stories = getStories(), totalAll = Object.keys(gl).length;
   const isDetail = S.view === "detail";
   const storySet = isDetail ? extractStoryTerms(S.story) : null;
@@ -15940,7 +15953,8 @@ if ($("#popJumpBtn")){
     const k = activePopTerm;
     const pop = $("#pop");
     if (pop) pop.classList.remove("on");
-    S.glScope = "all";
+    const storyTerms = S.view === "detail" ? extractStoryTerms(S.story) : null;
+    S.glScope = (storyTerms && (!k || storyTerms.has(k))) ? "story" : "all";
     S.glQ = "";
     if ($("#glSearch")) $("#glSearch").value = "";
     const dr = $("#glDrawer");

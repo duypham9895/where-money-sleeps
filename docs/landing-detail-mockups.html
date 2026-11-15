@@ -2451,7 +2451,8 @@ $("#popJumpBtn").onclick = () => {
   if (!activeTermKey) return;
   const k = activeTermKey;
   closePop(false);
-  state.glScope = "all"; state.glQ = ""; $("#glSearch").value = "";
+  state.glScope = (state.view === "detail" && (!k || storyTermSet(state.story).has(k))) ? "story" : "all";
+  state.glQ = ""; $("#glSearch").value = "";
   $("#glDrawer").open = true;
   renderGlossary();
   const dt = $(`#gl-t-${k}`), dd = $(`#gl-d-${k}`);
