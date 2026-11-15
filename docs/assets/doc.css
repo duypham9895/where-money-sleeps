@@ -38,8 +38,11 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
 /* ── nav ─────────────────────────────────────────── */
 nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);
   background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px)}
-nav .in{width:var(--w);margin:0 auto;display:flex;gap:3px;align-items:center;
-  padding:11px 0;flex-wrap:wrap}
+nav .in{width:min(1280px,94vw);margin:0 auto;display:flex;gap:4px;align-items:center;
+  padding:8px 0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+  overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+nav .in::-webkit-scrollbar{display:none}
+nav .in>*{flex:0 0 auto}
 nav a{color:var(--dim);text-decoration:none;font-size:13px;padding:6px 10px;
   border-radius:8px;transition:.16s;white-space:nowrap}
 nav a:hover{color:var(--fg);background:var(--raised)}
@@ -143,13 +146,12 @@ nav a,#t{min-height:28px;display:inline-flex;align-items:center;justify-content:
 .tw{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;max-width:100%}
 
 /* ── responsive multi-viewport (LUẬT 13 · R1–R5) ───── */
+@media (max-width:1180px),(pointer:coarse){
+  nav .in{width:100%;scroll-snap-type:inline proximity;gap:6px;
+    padding:6px max(12px,env(safe-area-inset-left)) 6px max(12px,env(safe-area-inset-right))}
+  nav .in>*{scroll-snap-align:start}
+}
 @media (max-width:760px){
-  nav .in{width:100%;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
-    overscroll-behavior-x:contain;scroll-snap-type:inline proximity;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;
-    padding:5px max(12px,env(safe-area-inset-left)) 5px max(12px,env(safe-area-inset-right))}
-  nav .in::-webkit-scrollbar{display:none}
-  nav .in>*{flex:0 0 auto;scroll-snap-align:start}
   main{width:100%;padding:0 max(14px,env(safe-area-inset-left)) 84px max(14px,env(safe-area-inset-right))}
   footer{width:100%;padding:22px max(14px,env(safe-area-inset-left)) max(44px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-right))}
 }
