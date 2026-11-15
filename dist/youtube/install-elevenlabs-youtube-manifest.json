@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "l_8aVo538jo",
+      "youtubeId": "OdcXfR5kSkI",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/install-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -140,7 +140,7 @@
           "sceneIndex": 1,
           "time": "0:31 – 1:11",
           "beat": 0,
-          "sha256CacheKey": "7b10d8b65d5ac02053db808da90a8a6d39da1b9764a5f252e990ebfae68d9078",
+          "sha256CacheKey": "a09fbfd6e8ca253a189008d10e721c219814d7ec7741562d6c3a537e9464477f",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -160,13 +160,13 @@
           "visualPrompt": "Cửa cuốn nhà Bạn và Cửa hàng kéo lên (lit 0,1). Đạo cụ điện thoại và máy tính bảng ở quầy sáng (fx phone, pos). Một lời nhắn chạy trên dây điện trên cao từ Cửa hàng sang Công ty tài chính (msgs 1→2); ống ngầm vẫn tắt. Thẻ trên Cửa hàng: “gửi hồ sơ trả góp”. Máy quay bám theo lời nhắn tới cuối phố.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chạm màn hình (cần giấy phép trước khi dùng)",
-          "voWords": 126
+          "voWords": 124
         },
         {
           "sceneIndex": 2,
           "time": "1:11 – 1:50",
           "beat": 1,
-          "sha256CacheKey": "606a74497a59ab299b3c0d34acd55897f24f6e76ec1644238665262f246f86a6",
+          "sha256CacheKey": "57c7a076c5b436f36e11cfa5e8508d9ac0605a7103c6c721b1bd0f1dcba84f61",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -186,7 +186,7 @@
           "visualPrompt": "Cửa cuốn Công ty tài chính kéo lên (lit 0,1,2). Hai lời nhắn trên dây điện: “duyệt” từ Công ty tài chính về Cửa hàng (msgs 2→1), hợp đồng từ Bạn sang Công ty tài chính (msgs 0→2). Đạo cụ điện thoại nhà Bạn sáng (fx phone). Thẻ trên Công ty tài chính: “duyệt”; thẻ trên nhà Bạn: “nợ công ty tài chính 12.000.000”.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng ký bút (cần giấy phép trước khi dùng)",
-          "voWords": 135
+          "voWords": 136
         },
         {
           "sceneIndex": 3,
@@ -441,7 +441,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "J3DmDP4KKRI",
+      "youtubeId": "o-hFPmyKF7w",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/install-short-9x16.mp4",
       "youtubeUploadSpec": {
@@ -457,7 +457,7 @@
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?\n0:08 Đoạn 2\n0:20 Đoạn 4\n0:34 Đoạn 5\n0:48 Cảnh 5\n1:00 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=install\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/l_8aVo538jo\n\nMột chiếc điện thoại 12 triệu, một tờ rơi 0%, và 600.000 đồng người bán lặng lẽ trả thay bạn.\n\nMục lục chương:\n0:00 Mở đầu — Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?\n0:08 Đoạn 2\n0:20 Đoạn 4\n0:34 Đoạn 5\n0:48 Cảnh 5\n1:00 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=install\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=install\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/OdcXfR5kSkI\n\nMột chiếc điện thoại 12 triệu, một tờ rơi 0%, và 600.000 đồng người bán lặng lẽ trả thay bạn.\n\nMục lục chương:\n0:00 Mở đầu — Mua hàng 12 triệu trả góp lãi suất 0%, vì sao cửa hàng chỉ thực nhận 11,4 triệu?\n0:08 Đoạn 2\n0:20 Đoạn 4\n0:34 Đoạn 5\n0:48 Cảnh 5\n1:00 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=install\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {

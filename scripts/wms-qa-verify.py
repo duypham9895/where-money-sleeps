@@ -24,20 +24,20 @@ LICENCES = ROOT / "legal" / "licences.json"
 YT_DIR = ROOT / "dist" / "youtube"
 
 EXPECTED_YT_IDS = {
-    ("card", "long"): "fxpFvVJcpRA",
-    ("card", "short"): "th6zR4gwV5c",
-    ("pay", "long"): "3NqEha4j53k",
-    ("pay", "short"): "XnMsbH0E_xo",
-    ("install", "long"): "l_8aVo538jo",
-    ("install", "short"): "J3DmDP4KKRI",
-    ("minpay", "long"): "ubgdEOblCgo",
-    ("minpay", "short"): "-atHoEHCrSI",
-    ("qr", "long"): "d_WpGSjBR-4",
-    ("qr", "short"): "WpwLZw3ytwU",
-    ("profitcash", "long"): "WnlsZ9AtNdI",
-    ("profitcash", "short"): "BpNggcnByQg",
-    ("offus", "long"): "Qn3SIzHi_Ik",
-    ("offus", "short"): "9FdZabe_Q_4",
+    ("card", "long"): "l56GlTCof4c",
+    ("card", "short"): "o84RnVgqQok",
+    ("pay", "long"): "OET3IUPC6Qs",
+    ("pay", "short"): "f2UKhEheWw4",
+    ("install", "long"): "OdcXfR5kSkI",
+    ("install", "short"): "o-hFPmyKF7w",
+    ("minpay", "long"): "aLsnblI01yM",
+    ("minpay", "short"): "RcaF4llz-Cc",
+    ("qr", "long"): "awgxZiOJMOM",
+    ("qr", "short"): "kQzff8VVZ4E",
+    ("profitcash", "long"): "doLPegldsWE",
+    ("profitcash", "short"): "RlYjvtiVuDA",
+    ("offus", "long"): "pyf9muWYLmI",
+    ("offus", "short"): "csafiwCITcQ",
 }
 
 

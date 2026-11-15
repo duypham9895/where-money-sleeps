@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "WnlsZ9AtNdI",
+      "youtubeId": "doLPegldsWE",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/profitcash-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -166,7 +166,7 @@
           "sceneIndex": 2,
           "time": "1:34 – 2:30",
           "beat": 1,
-          "sha256CacheKey": "c71c7ddeae4448232541d54582e38cae3aeb83f179638b363e9443ea2c732a4c",
+          "sha256CacheKey": "9d52cb1c83208f9510109dfa5893137cb6d5b074470df368e149f56206ed40b4",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -186,13 +186,13 @@
           "visualPrompt": "Đường hợp đồng nối từ Công ty sang Đối tác mua sỉ: lô hàng 10 tỷ đồng được bàn giao và ký nghiệm thu. Đối tác mua sỉ chuyển trả đợt đầu 7.500.000.000 đ tiền thật về Ngân hàng công ty, còn 2.500.000.000 đ hiện lên thành tờ giấy hẹn nợ 90 ngày trên TK 131.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng đóng dấu nghiệm thu",
-          "voWords": 158
+          "voWords": 155
         },
         {
           "sceneIndex": 3,
           "time": "2:30 – 3:24",
           "beat": 2,
-          "sha256CacheKey": "601ca71d62f49db666a435bc9045b3a8f94c49a13a22d8cf346219e61fb63105",
+          "sha256CacheKey": "47fcbf7ef9b7a6d2141f08b3c6e2910ba2d9d299f2e0f81154ea578db5a52b71",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -212,13 +212,13 @@
           "visualPrompt": "Tại Công ty của bạn, bảng Báo cáo kết quả kinh doanh sáng lên: Doanh thu (TK 511: 10 tỷ) trừ Giá vốn hàng đã xuất bán (TK 632: 6,5 tỷ) trừ Chi phí quản lý & lương (TK 642: 1,5 tỷ) = Lợi nhuận sau thuế chưa phân phối (TK 421: +2 tỷ đồng).",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy in báo cáo",
-          "voWords": 185
+          "voWords": 167
         },
         {
           "sceneIndex": 4,
           "time": "3:24 – 4:20",
           "beat": 3,
-          "sha256CacheKey": "a15455851f63a0f9100d6ab892f1d22964228c7175c0cf237ff0973ca972f79f",
+          "sha256CacheKey": "e6741b07fc75514869515749df238208628a2318e49d3019b030a150095e321d",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -238,13 +238,13 @@
           "visualPrompt": "Ống kính soi thẳng vào két TK 112 tại Ngân hàng công ty: Tiền đầu kỳ (+1 tỷ) + Thu từ khách (+7,5 tỷ) − Trả nhà cung cấp (−7,45 tỷ) − Chi vận hành (−1 tỷ) = 50.000.000 đ. Bên cạnh là bảng lương TK 334: 500.000.000 đ đang chờ.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chuông cảnh báo số dư",
-          "voWords": 163
+          "voWords": 157
         },
         {
           "sceneIndex": 5,
           "time": "4:20 – 5:14",
           "beat": 3,
-          "sha256CacheKey": "f6fe7e4b14e40d2f44549bb5825a46bdc56407dae6a431783509d18c8463c563",
+          "sha256CacheKey": "8f5a598792088f7ef93bcc98d3772ca9382024f7ee45f115b86b548fc55c49b6",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -264,7 +264,7 @@
           "visualPrompt": "Sơ đồ đối chiếu Bảng cân đối kế toán chiều 31/12: Tổng tài sản 3,5 tỷ đồng được chia thành 3 ngăn: TK 131 Phải thu khách sỉ (2.500.000.000 đ), TK 156 Hàng tồn kho (950.000.000 đ) và TK 112 Tiền mặt (50.000.000 đ).",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng khoá sổ cái",
-          "voWords": 166
+          "voWords": 154
         },
         {
           "sceneIndex": 6,
@@ -296,7 +296,7 @@
           "sceneIndex": 7,
           "time": "6:08 – 6:58",
           "beat": 4,
-          "sha256CacheKey": "89b8a2040224ff86f5e33d17d93612226877f591e273dfa83f8dbc6c57361407",
+          "sha256CacheKey": "9b712050addb4ac8cfa604516a49a3c128962cf2cd39c4e27cb1e6460f49d85e",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -316,7 +316,7 @@
           "visualPrompt": "Đèn sáng tại Ngân hàng công ty và Đội ngũ nhân sự: Ngân hàng giải ngân khoản vay ngắn hạn 450.000.000 đ (Có TK 341) gộp với 50.000.000 đ cuối cùng trong TK 112 để chuyển đủ 500.000.000 đ tiền lương sang Đội ngũ nhân sự.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng tin nhắn lương về",
-          "voWords": 148
+          "voWords": 129
         },
         {
           "sceneIndex": 8,
@@ -348,7 +348,7 @@
           "sceneIndex": 9,
           "time": "7:42 – 8:20",
           "beat": null,
-          "sha256CacheKey": "417ef3f1f09f489b9bcd2ae3a1d1e725e5f27171e8474af10bf97f1ef3cf4371",
+          "sha256CacheKey": "af78082dd66aadf31a9610c3a55fd7b94e79cf50aa6b0de0eaf710f6cd462c6c",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -368,7 +368,7 @@
           "visualPrompt": "Toàn cảnh năm ngôi nhà sáng đèn cân bằng trở lại. Ba dòng nguyên tắc vàng hiện lên bên cạnh sổ cái TT 99/2025: 1. Theo dõi OCF cạnh Lợi nhuận · 2. Thu hồi TK 131 theo tiến độ · 3. Kiểm soát tồn kho TK 156.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chuông ngân kết bài",
-          "voWords": 140
+          "voWords": 131
         }
       ]
     },
@@ -415,7 +415,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "BpNggcnByQg",
+      "youtubeId": "RlYjvtiVuDA",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/profitcash-short-9x16.mp4",
       "youtubeUploadSpec": {
@@ -431,7 +431,7 @@
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?\n0:11 Đoạn 2\n0:23 Đoạn 1\n0:35 Đoạn 3\n0:47 Đoạn 4\n0:59 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=profitcash\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/WnlsZ9AtNdI\n\nMột hợp đồng 10 tỷ đồng, hai quyển sổ chạy lệch nhịp, và 3,45 tỷ đồng tiền mặt đang ngủ đông trong kho hàng cùng giấy hẹn nợ.\n\nMục lục chương:\n0:00 Mở đầu — Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?\n0:11 Đoạn 2\n0:23 Đoạn 1\n0:35 Đoạn 3\n0:47 Đoạn 4\n0:59 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=profitcash\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=profitcash\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/doLPegldsWE\n\nMột hợp đồng 10 tỷ đồng, hai quyển sổ chạy lệch nhịp, và 3,45 tỷ đồng tiền mặt đang ngủ đông trong kho hàng cùng giấy hẹn nợ.\n\nMục lục chương:\n0:00 Mở đầu — Báo cáo lãi ròng 2 tỷ đồng cuối năm nhưng két tiền công ty chỉ còn 50 triệu: Vì sao doanh nghiệp có lãi trên sổ vẫn hết tiền trả lương?\n0:11 Đoạn 2\n0:23 Đoạn 1\n0:35 Đoạn 3\n0:47 Đoạn 4\n0:59 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=profitcash\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {
@@ -464,7 +464,7 @@
           "sceneIndex": 1,
           "time": "0:11 – 0:23",
           "beat": 1,
-          "sha256CacheKey": "7155f371f7766e78403c954c097055c26347eeedd4b1572b4b18d00e4fafc59f",
+          "sha256CacheKey": "f359e08a638b1c5db2239a7d320458eb5d8a646f2df11aaca24ba8f292b3c034",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -484,13 +484,13 @@
           "visualPrompt": "Hợp đồng giao hàng 10 tỷ đồng: ghi Có TK 511 đủ 10 tỷ theo kế toán dồn tích, nhưng khách sỉ mới trả 7,5 tỷ và còn nợ 2,5 tỷ trên TK 131.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng đóng dấu",
-          "voWords": 42
+          "voWords": 41
         },
         {
           "sceneIndex": 2,
           "time": "0:23 – 0:35",
           "beat": 0,
-          "sha256CacheKey": "0ef09f1ff012b14d8decb56e8a57303e3e734435a638bbb07d2827a62799a1b5",
+          "sha256CacheKey": "590a85108b9431d5a996ad0a737a09aff9b4ad59b67b1b42593c60af4293005f",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -510,7 +510,7 @@
           "visualPrompt": "Đầu kỳ có 1 tỷ đồng, thu khách 7,5 tỷ (= 8,5 tỷ), nhưng công ty đã chi 7,45 tỷ trả nhà cung cấp (6,5 tỷ giá vốn + 950 triệu tồn kho TK 156) và 1 tỷ vận hành (= 8,45 tỷ).",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy đếm tiền",
-          "voWords": 45
+          "voWords": 47
         },
         {
           "sceneIndex": 3,
@@ -542,7 +542,7 @@
           "sceneIndex": 4,
           "time": "0:47 – 0:59",
           "beat": 3,
-          "sha256CacheKey": "addd4f5b84d50f946603bd10b97a7fcc24e315370f84daccb11adcbf3e012b85",
+          "sha256CacheKey": "eafbc4b333d83f20747d6e598b568e57059c3e936640171868b977f69c37a84f",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -562,7 +562,7 @@
           "visualPrompt": "Báo cáo lưu chuyển tiền tệ gián tiếp: Lợi nhuận ròng (+2,0 tỷ) − Tăng phải thu (2,5 tỷ) − Tăng tồn kho (0,95 tỷ) + Tăng lương phải trả (0,5 tỷ) = OCF −950 triệu.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng cân đối sổ",
-          "voWords": 37
+          "voWords": 42
         },
         {
           "sceneIndex": 5,

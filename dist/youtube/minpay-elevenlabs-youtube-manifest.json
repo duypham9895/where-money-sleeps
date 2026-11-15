@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "ubgdEOblCgo",
+      "youtubeId": "aLsnblI01yM",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/minpay-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -140,7 +140,7 @@
           "sceneIndex": 1,
           "time": "0:42 – 1:32",
           "beat": 0,
-          "sha256CacheKey": "17ed13be80b42ee0df720a57d03f9fb56c76d4b4a36cc8d84583a9bed3922edc",
+          "sha256CacheKey": "365c389fa2eba8e298afafca621498dfd648a7e46b15cc584445805f3b92ffe9",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -166,7 +166,7 @@
           "sceneIndex": 2,
           "time": "1:32 – 2:24",
           "beat": 1,
-          "sha256CacheKey": "255aa100265bf36dd5fe7576f95cfaec4910c0caf500c3b485f1aa7f82e55a0e",
+          "sha256CacheKey": "a6d54f5f8c58eb20c6800a63054689099d47f11c3140fda71b4f9b21b2151348",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -218,7 +218,7 @@
           "sceneIndex": 4,
           "time": "3:14 – 4:08",
           "beat": 3,
-          "sha256CacheKey": "b43acbfe152c8e54dfa7caab092f1b67878fb1e64ad06a25584463b95dcb743c",
+          "sha256CacheKey": "17f2cb4bf084a0912d85b2cf8669c51a9954c2175cfd814c1c2d79a6ae236ce3",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -238,13 +238,13 @@
           "visualPrompt": "Nhà Bạn, Ngân hàng phát hành thẻ và Ngân hàng tài khoản của bạn sáng (lit 0,3,4). Lệnh thanh toán đi từ nhà Bạn sang Ngân hàng tài khoản của bạn (msgs 0→4), rồi 500.000 đồng tiền thật chảy sang Ngân hàng phát hành thẻ (msgs 4→3 money). Đạo cụ két tiền tại Ngân hàng tài khoản của bạn hiện “trích 500.000 (5%)” (fx pool).",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng gạt công tắc cơ khí (cần giấy phép trước khi dùng)",
-          "voWords": 151
+          "voWords": 153
         },
         {
           "sceneIndex": 5,
           "time": "4:08 – 5:12",
           "beat": 4,
-          "sha256CacheKey": "8097762e6b3bf3995600af4476708b88496dfb4d5a724e2ee7f59efeb270bcc9",
+          "sha256CacheKey": "23bec301bfc59590097722f5080bc125af2ab08a45e12b90bb513537d8157230",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -264,7 +264,7 @@
           "visualPrompt": "Nhà Bạn và Ngân hàng phát hành thẻ sáng rực (lit 0,3). Tờ sao kê kỳ 2 gửi từ Ngân hàng phát hành thẻ về nhà Bạn (msgs 3→0). Bàn sổ tại Ngân hàng phát hành thẻ (fx iledger, release) tách thành hai thanh ngang màu hổ phách và đất nung: Khúc 1 (Ngày 01–45: 10.000.000 × 0,1% × 45 = 450.000 đ) và Khúc 2 (Ngày 46–60: 9.500.000 × 0,1% × 15 = 142.500 đ), ghép lại thành 592.500 đồng.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy tính cộng dồn (cần giấy phép trước khi dùng)",
-          "voWords": 208
+          "voWords": 207
         },
         {
           "sceneIndex": 6,
@@ -296,7 +296,7 @@
           "sceneIndex": 7,
           "time": "6:04 – 6:56",
           "beat": null,
-          "sha256CacheKey": "3cdd39a7c8ac3412e2886f3f009fa0878c516fddeb9badf2957ec89a0e52dcf2",
+          "sha256CacheKey": "54610f72c3f2788cb001b0e50f409564d6f0d45092ca20a89e07bf7501dc912a",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -316,7 +316,7 @@
           "visualPrompt": "Quay lại cảnh nhà Bạn và Cửa hàng (lit 0,1,3). Bạn quẹt thêm một giao dịch mới ở Ngày 50. Ngay giây chạm thẻ, đồng hồ tính lãi tại Ngân hàng phát hành thẻ bật sáng đỏ ngay lập tức, không còn vùng đệm 45 ngày màu xanh như kỳ đầu.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng chuông cảnh báo trầm (cần giấy phép trước khi dùng)",
-          "voWords": 144
+          "voWords": 140
         },
         {
           "sceneIndex": 8,
@@ -415,7 +415,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "-atHoEHCrSI",
+      "youtubeId": "RcaF4llz-Cc",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/minpay-short-9x16.mp4",
       "youtubeUploadSpec": {
@@ -431,7 +431,7 @@
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=minpay\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/ubgdEOblCgo\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=minpay\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/aLsnblI01yM\n\nMột giao dịch quẹt thẻ ngày đầu kỳ, một lệnh trả đúng hạn 500.000 đồng ở ngày 45, và chiếc đồng hồ tính lãi lặng lẽ quay ngược về ngày số 01.\n\nMục lục chương:\n0:00 Mở đầu — Trả tối thiểu 500 nghìn cho sao kê thẻ tín dụng 10 triệu: Vì sao kỳ sau dư nợ vọt lên 10.092.500 đồng?\n0:11 Đoạn 2\n0:23 Đoạn 4\n0:36 Đoạn 5\n0:51 Cảnh 5\n1:02 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=minpay\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {

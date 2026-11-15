@@ -1487,8 +1487,9 @@ def draw_hud(
                 c_col = GREEN if (ci + 1) < cur_step else PAPER_SOFT
                 draw.line([(rx_prev_end, conn_y), (rx_next_start, conn_y)], fill=c_col, width=3)
 
+            step_cards = sc.get("step_cards", SHORT_STEP_CARDS)
             for step_i in range(1, 6):
-                st_tag, st_lbl = SHORT_STEP_CARDS[step_i - 1]
+                st_tag, st_lbl = step_cards[step_i - 1]
                 rx0 = x0_start + (step_i - 1) * (cw + cg)
                 rx1 = rx0 + cw
                 rcx = (rx0 + rx1) / 2.0
@@ -1632,7 +1633,7 @@ def draw_actor_node(
     draw_centered_text(draw, cx, by0 + (7 if compact else 8), tag_txt, f_tag, b_txt)
 
     # 2. Bệ tên định chế 2 tầng (LUẬT 10: mỗi nhãn 1 hàng Y riêng biệt)
-    name_txt = nfc(arch["name"])
+    name_txt = nfc(actor_cfg.get("name") or arch["name"])
     f_name = fonts["actor_name_sm"] if compact else fonts["actor_name"]
     nw = draw.textlength(name_txt, font=f_name)
     npw = max(nw + 24, 118 if compact else 136)
@@ -1648,7 +1649,7 @@ def draw_actor_node(
         draw.rounded_rectangle((nx0 + 2, ny0 + 2, nx1 - 2, ny1 - 2), radius=9, outline=blend_rgb(INK, PAPER_CARD, 0.25), width=1)
     draw_centered_text(draw, cx, ny0 + (5 if compact else 6), name_txt, f_name, PAPER_CARD)
 
-    sub_txt = nfc(arch["sub"])
+    sub_txt = nfc(actor_cfg.get("sub") or arch["sub"])
     sub_w = draw.textlength(sub_txt, font=fonts["actor_sub"]) + 20
     sub_y0 = ny1 + 5
     draw.rounded_rectangle(
@@ -1761,6 +1762,7 @@ def draw_prop_badge(
     prop_kind: str,
     t_local: float,
     font_small: ImageFont.FreeTypeFont,
+    show_label: bool = True,
 ) -> None:
     """Vẽ icon trực quan siêu gọn trên khoảng trống giữa track (T+2 clock hoặc khoá giữ chỗ)."""
     if prop_kind == "clock":
@@ -1771,7 +1773,8 @@ def draw_prop_badge(
         ang = t_local * 2.4 - math.pi / 2.0
         draw.line([(cx, cy), (cx + math.cos(ang) * 13, cy + math.sin(ang) * 13)], fill=GREEN, width=3)
         draw.ellipse((cx - 3, cy - 3, cx + 3, cy + 3), fill=INK)
-        draw_centered_text(draw, cx, cy + r + 5, "T+2", font_small, GREEN)
+        if show_label:
+            draw_centered_text(draw, cx, cy + r + 5, "T+2", font_small, GREEN)
     elif prop_kind == "lock":
         draw.arc((cx - 10, cy - 22, cx + 10, cy - 2), 180, 360, fill=INK, width=4)
         draw.rounded_rectangle((cx - 14, cy - 11, cx + 14, cy + 12), radius=5, fill=AMBER, outline=INK, width=3)
@@ -2055,9 +2058,12 @@ def draw_long_gauge_and_lock(
     draw.ellipse((split_x - 27, badge_cy - 24, split_x + 27, badge_cy + 30), fill=(214, 206, 190))
     draw.ellipse((split_x - 27, badge_cy - 27, split_x + 27, badge_cy + 27), fill=PAPER_CARD, outline=INK, width=3)
     draw.ellipse((split_x - 22, badge_cy - 22, split_x + 22, badge_cy + 22), outline=PAPER_SOFT, width=1)
-    draw_prop_badge(draw, split_x, badge_cy + (3 if mode == "LOCK" else 0), "lock" if mode == "LOCK" else "clock", t_local, fonts["slice_lbl"])
+    draw_prop_badge(draw, split_x, badge_cy + (3 if mode == "LOCK" else 0), "lock" if mode == "LOCK" else "clock", t_local, fonts["slice_lbl"], show_label=False)
 
-    sub_hint = "100% HẠN MỨC THẺ TÍN DỤNG CỦA BẠN" if mode == "LOCK" else "QUY TRÌNH XỬ LÝ TỪ LÚC QUẸT THẺ ĐẾN SAO KÊ"
+    sub_hint = nfc(
+        ad.get("sub_hint")
+        or ("100% HẠN MỨC THẺ TÍN DỤNG CỦA BẠN" if mode == "LOCK" else "QUY TRÌNH XỬ LÝ TỪ LÚC QUẸT THẺ ĐẾN SAO KÊ")
+    )
     draw_centered_text(draw, 960, 576, sub_hint, fonts["actor_sub"], INK_MUTED)
 
     bottom_cards = [
@@ -2824,7 +2830,7 @@ def assert_v51_containment(
                 if dummy.textlength(nfc(sc["hud_right"]), font=fonts["hud_sub"]) > pill_w - 28:
                     raise RuntimeError(f"FAIL [HUD Short R]: Chữ tràn pill phải ở s{s_idx}: {sc['hud_right']!r}")
             else:
-                for st_tag, st_lbl in SHORT_STEP_CARDS:
+                for st_tag, st_lbl in sc.get("step_cards", SHORT_STEP_CARDS):
                     audit_texts.extend((st_tag, st_lbl))
                     if dummy.textlength(nfc(st_tag), font=fonts["card_kicker"]) > 142:
                         raise RuntimeError(f"FAIL [HUD Short Stepper Tag]: Tràn thẻ: {st_tag!r}")
@@ -2948,10 +2954,15 @@ def assert_v51_containment(
                     ]:
                         if dummy.textlength(nfc(txt), font=fnt) > lim:
                             raise RuntimeError(f"FAIL [LUẬT 6b Triptych]: Tràn cột ở s{s_idx}: {txt!r}")
-            elif arch == "RELAY_PIPELINE" and ad.get("sub_mode") == "NETTING_3":
-                for nt, na, ns, _ in ad["net_cols"]:
-                    if dummy.textlength(nfc(na), font=fonts["ledger_amt"]) > 498 or dummy.textlength(nfc(ns), font=fonts["actor_sub"]) > 498:
-                        raise RuntimeError(f"FAIL [LUẬT 6b Netting]: Tràn cột ở s{s_idx}: {na!r}")
+            elif arch == "RELAY_PIPELINE":
+                if ad.get("sub_mode") == "NETTING_3":
+                    for nt, na, ns, _ in ad["net_cols"]:
+                        if dummy.textlength(nfc(na), font=fonts["ledger_amt"]) > 498 or dummy.textlength(nfc(ns), font=fonts["actor_sub"]) > 498:
+                            raise RuntimeError(f"FAIL [LUẬT 6b Netting]: Tràn cột ở s{s_idx}: {na!r}")
+                else:
+                    for item in sc["focal"].get("items", []):
+                        if dummy.textlength(nfc(item), font=fonts["bar_lbl"]) > 500:
+                            raise RuntimeError(f"FAIL [LUẬT 6b Checklist]: Tràn ô cổng ở s{s_idx}: {item!r}")
 
         for b_idx, (hl_txt, hi_sub, _) in enumerate(sc["beat_headlines"]):
             audit_texts.append(hl_txt)
@@ -2972,10 +2983,12 @@ def assert_v51_containment(
             prev_r_bubble = -1e9
             prev_r_badge = -1e9
             for ai, a in enumerate(actors):
-                audit_texts.append(a["tag"])
+                a_name = a.get("name") or ARCHETYPES[a["id"]]["name"]
+                a_sub = a.get("sub") or ARCHETYPES[a["id"]]["sub"]
+                audit_texts.extend((a["tag"], a_name, a_sub))
                 cx = (stg[0] + stg[2]) / 2.0 if n_act == 1 else (stg[0] + margin_x + (span_x * ai) / float(n_act - 1))
                 pw = dummy.textlength(nfc(a["tag"]), font=f_tag) + (22 if compact_act else 28)
-                npw = max(dummy.textlength(nfc(ARCHETYPES[a["id"]]["name"]), font=f_name) + 24, 118 if compact_act else 136)
+                npw = max(dummy.textlength(nfc(a_name), font=f_name) + 24, 118 if compact_act else 136)
                 half_w = max(pw, npw, sprite_sz) / 2.0
                 if cx - half_w < stg[0] + 16 or cx + half_w > stg[2] - 16:
                     raise RuntimeError(f"FAIL [LUẬT 6b]: Actor {ai} tràn mép sân khấu ở s{s_idx}")
@@ -2987,7 +3000,7 @@ def assert_v51_containment(
                 prev_r_badge = cx + npw / 2.0
 
         focal = sc["focal"]
-        audit_texts.append(focal["pill"])
+        _collect_strings(focal, audit_texts)
         if dummy.textlength(nfc(focal["pill"]), font=fonts["focal_pill"]) > floor_w - 48:
             raise RuntimeError(f"FAIL [LUẬT 6b]: Pill tóm tắt tràn sàn ở s{s_idx}: {focal['pill']!r}")
         inner_bw = floor_w - (56 if is_short else 144)
@@ -3022,19 +3035,28 @@ def assert_v51_containment(
         )
 
 
-def render_format(wmp, story: dict, sfx_map: dict[str, bytes], fmt_name: str) -> pathlib.Path:
+def render_format(
+    wmp,
+    story_key: str,
+    story: dict,
+    sfx_map: dict[str, bytes],
+    fmt_name: str,
+    scenes_cfg: list[dict[str, Any]],
+    preview_dir: pathlib.Path | None = None,
+) -> pathlib.Path | None:
     is_short = fmt_name == "short"
     layout = LAYOUT_SHORT if is_short else LAYOUT_LONG
     W, H = layout["W"], layout["H"]
     FPS = 30
 
-    cache_file = CACHE_DIR / f"card_{'short' if is_short else 'long'}_continuous_v3.json"
+    cache_file = CACHE_DIR / f"{story_key}_{'short' if is_short else 'long'}_continuous_v3.json"
     if not cache_file.is_file():
         raise RuntimeError(f"Missing audio cache: {cache_file}")
     cont_data = json.loads(cache_file.read_text(encoding="utf-8"))
 
     scenes_vo = story["videoScript"]["short" if is_short else "long"]["scenes"]
-    scenes_cfg = SHORT_SCENES if is_short else LONG_SCENES
+    if len(scenes_vo) != len(scenes_cfg):
+        raise RuntimeError(f"Scene count mismatch {story_key}.{fmt_name}: vo={len(scenes_vo)} != cfg={len(scenes_cfg)}")
     fonts = load_fonts(is_short)
 
     sprite_sz = 166 if is_short else 156
@@ -3042,20 +3064,35 @@ def render_format(wmp, story: dict, sfx_map: dict[str, bytes], fmt_name: str) ->
     parchment_bg = make_parchment_canvas(W, H)
 
     slug_fmt = "short-9x16" if is_short else "long-16x9"
-    out_mp4 = DIST_DIR / f"card-{slug_fmt}.mp4"
-    out_srt = DIST_DIR / f"card-{slug_fmt}.srt"
+    out_mp4 = DIST_DIR / f"{story_key}-{slug_fmt}.mp4"
+    out_srt = DIST_DIR / f"{story_key}-{slug_fmt}.srt"
     out_mp4.parent.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(prefix=f"wms_v60_card_{fmt_name}_") as tmp:
+    with tempfile.TemporaryDirectory(prefix=f"wms_v72_{story_key}_{fmt_name}_") as tmp:
         tmp_dir = pathlib.Path(tmp)
         master_wav, scene_meta, total_dur = build_master_audio(scenes_vo, cont_data, sfx_map, tmp_dir)
         build_srt_chunks(scene_meta, max_words=8)
         assert_v51_containment(layout, scenes_cfg, scene_meta, fonts, sprite_sz, is_short, wmp_mod=wmp)
         export_srt_subtitles(scene_meta, out_srt)
 
-        ver_tag = "v7.0 Craft"
+        if preview_dir is not None:
+            preview_dir.mkdir(parents=True, exist_ok=True)
+            saved_paths: list[str] = []
+            for p_idx, p_tag in ((0, "hook"), (2, "step2")):
+                if p_idx < len(scene_meta):
+                    sm_p = scene_meta[p_idx]
+                    p_dur = max(0.5, sm_p["win_t1"] - sm_p["win_t0"])
+                    t_snap = sm_p["win_t0"] + min(2.4 if p_idx == 0 else 3.0, p_dur * 0.62)
+                    p_img = render_v51_frame(layout, parchment_bg, sprites, scenes_cfg, scene_meta, p_idx, t_snap, fonts, is_short)
+                    p_out = preview_dir / f"v72_{story_key}_{fmt_name}_s{p_idx}_{p_tag}.jpg"
+                    p_img.save(str(p_out), format="JPEG", quality=90)
+                    saved_paths.append(p_out.name)
+            print(f"[PREVIEW PASS] {story_key}.{fmt_name} ({len(scenes_cfg)} scenes, {total_dur:.2f}s) -> {', '.join(saved_paths)}")
+            return None
+
+        ver_tag = "v7.2 Craft"
         total_frames = int(round(total_dur * FPS))
-        print(f"=== [CARD.{fmt_name.upper()} {ver_tag} Zero-Zone3] Audio={total_dur:.2f}s | Frames={total_frames} | {W}x{H} ===")
+        print(f"=== [{story_key.upper()}.{fmt_name.upper()} {ver_tag} Zero-Zone3] Audio={total_dur:.2f}s | Frames={total_frames} | {W}x{H} ===")
 
         ffmpeg_cmd = [
             "ffmpeg", "-y", "-f", "rawvideo", "-vcodec", "rawvideo",
@@ -3100,7 +3137,7 @@ def render_format(wmp, story: dict, sfx_map: dict[str, bytes], fmt_name: str) ->
             proc.stdin.write(frame_img.tobytes())
             if (f_idx + 1) % 600 == 0 or f_idx == total_frames - 1:
                 elapsed = time.time() - t0_wall
-                print(f"  -> [card.{fmt_name}] Frame {f_idx + 1}/{total_frames} ({(f_idx + 1)/max(0.01, elapsed):.1f} fps)")
+                print(f"  -> [{story_key}.{fmt_name}] Frame {f_idx + 1}/{total_frames} ({(f_idx + 1)/max(0.01, elapsed):.1f} fps)")
 
         proc.stdin.close()
         stderr_out = proc.stderr.read().decode("utf-8", errors="replace") if proc.stderr else ""
@@ -3112,23 +3149,39 @@ def render_format(wmp, story: dict, sfx_map: dict[str, bytes], fmt_name: str) ->
     return out_mp4
 
 
+ALL_STORIES = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+
+
+def _resolve_scenes(story_key: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    if story_key == "card":
+        return SHORT_SCENES, LONG_SCENES
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+    from wms_v72_topics import get_topic_scenes
+
+    return get_topic_scenes(story_key)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="card", choices=["card"])
+    parser.add_argument("--story", default="card", choices=[*ALL_STORIES, "all"])
     parser.add_argument("--format", default="both", choices=["short", "long", "both"])
+    parser.add_argument("--preview-dir", type=pathlib.Path, default=None)
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
-    story = stories[args.story]
-    audit = wmp.step_5_0_brand_safety_audit(args.story, story)
-    print(f"[Brand Safety B1-B4 PASS] {args.story}: {audit['scenesAudited']} scenes clean")
-
     sfx_map = load_cached_sfx()
-    if args.format in ("short", "both"):
-        render_format(wmp, story, sfx_map, "short")
-    if args.format in ("long", "both"):
-        render_format(wmp, story, sfx_map, "long")
+    target_stories = ALL_STORIES if args.story == "all" else (args.story,)
+
+    for sk in target_stories:
+        story = stories[sk]
+        audit = wmp.step_5_0_brand_safety_audit(sk, story)
+        print(f"[Brand Safety B1-B4 PASS] {sk}: {audit['scenesAudited']} scenes clean")
+        short_cfg, long_cfg = _resolve_scenes(sk)
+        if args.format in ("short", "both"):
+            render_format(wmp, sk, story, sfx_map, "short", short_cfg, preview_dir=args.preview_dir)
+        if args.format in ("long", "both"):
+            render_format(wmp, sk, story, sfx_map, "long", long_cfg, preview_dir=args.preview_dir)
     return 0
 
 

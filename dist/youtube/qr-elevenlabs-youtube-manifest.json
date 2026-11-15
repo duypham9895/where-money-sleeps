@@ -91,7 +91,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "d_WpGSjBR-4",
+      "youtubeId": "awgxZiOJMOM",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/qr-long-16x9.mp4",
       "youtubeUploadSpec": {
@@ -114,7 +114,7 @@
           "sceneIndex": 0,
           "time": "0:00 – 0:42",
           "beat": null,
-          "sha256CacheKey": "524f0b9742e8f33ad8f9b0d29518bc16718603b1dce9fc5dcd61ce470e9a727e",
+          "sha256CacheKey": "e3451d8ad4f38567703b1bd8db8bcffb1e4781d74541b0a602d44cf1c7e6453b",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -134,7 +134,7 @@
           "visualPrompt": "Khung 16:9 đêm Risograph ấm. Trên quầy gỗ của Quán quen, một bên là chiếc máy POS quẹt thẻ nằm yên, một bên là tấm bảng mã QR chuyển khoản kèm chiếc loa nhỏ. Bạn đưa điện thoại lên quét mã 50.000 đồng; chỉ 3 giây sau chiếc loa phát sáng xanh ngọc báo “Đã nhận 50.000 đồng”.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng máy ảnh quét mã & tiếng loa báo tiền về (cần giấy phép trước khi dùng)",
-          "voWords": 172
+          "voWords": 169
         },
         {
           "sceneIndex": 1,
@@ -192,7 +192,7 @@
           "sceneIndex": 3,
           "time": "2:24 – 3:16",
           "beat": 2,
-          "sha256CacheKey": "b9e68675daf12e2a3786c63c2c2213fa63683893321eef3d0ae82c83ee6b745d",
+          "sha256CacheKey": "710b229578245931a3c9b8ce7d9ee403d4106a4e40d11d45afc0b9894a51e0f0",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -212,7 +212,7 @@
           "visualPrompt": "Nhà Bạn, Quán quen, Ngân hàng của bạn, Tổ chức chuyển mạch và Ngân hàng của quán cùng sáng (lit 0,1,2,3,4). Luồng thông tin trên cao chạy cực nhanh từ Ngân hàng của bạn qua Tổ chức chuyển mạch sang Ngân hàng của quán rồi báo về Quán quen (msgs 2→3, 3→4, 4→1). Sổ của Quán quen bật sáng dòng Nợ 112 / Có 511: 50.000 đồng.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng xung tín hiệu nhanh & tiếng chuông báo Có (cần giấy phép trước khi dùng)",
-          "voWords": 167
+          "voWords": 173
         },
         {
           "sceneIndex": 4,
@@ -244,7 +244,7 @@
           "sceneIndex": 5,
           "time": "4:10 – 5:04",
           "beat": 4,
-          "sha256CacheKey": "ae57a04f43d49433ec9e4c301759102c832d6927fd77bc973c24cb36b14f3d50",
+          "sha256CacheKey": "1049be234892df93c8aa786e13ce7c590169e1a0153b7645a1962f2c82c33c08",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -264,13 +264,13 @@
           "visualPrompt": "Quán quen và Ngân hàng của quán sáng (lit 1,4). Hai cuốn sổ kế toán đặt song song trên màn hình cho cùng doanh thu 200 ly cà phê (= 10.000.000 đồng): Sổ Quẹt Thẻ (Treo TK 1388 2 ngày, mất 220.000 đ vào TK 641, thực nhận 9.780.000 đ) đối chiếu với Sổ Quét QR (Nhận thẳng TK 112: 10.000.000 đ ngay trong ngày, phí TK 641 = 0 đ).",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng lật sổ kế toán (cần giấy phép trước khi dùng)",
-          "voWords": 183
+          "voWords": 167
         },
         {
           "sceneIndex": 6,
           "time": "5:04 – 5:58",
           "beat": null,
-          "sha256CacheKey": "2f834c981d4bb3c86fe236c6c0a4766a92d2b219f22fdf78b06dcfa373f9db30",
+          "sha256CacheKey": "90d916dc40f71d794c79e18371ee06f8048858d8bf0f27e2d43a3a4d97e430b5",
           "cached": false,
           "elevenlabsTtsEndpoint": "/v1/text-to-speech/JwqRvOqFdGeQNu7UjKjw/with-timestamps",
           "elevenlabsModelId": "eleven_v3",
@@ -290,7 +290,7 @@
           "visualPrompt": "Ngân hàng của bạn và Ngân hàng của quán sáng rực. Giữa hai ngân hàng là bể vốn CASA khổng lồ màu vàng ấm: tiền 50.000 đồng nhảy từ bể CASA của người mua sang bể CASA của chủ quán, không một tờ tiền giấy nào rơi ra ngoài qua khe máy ATM.",
           "sfxEndpoint": "/v1/sound-generation",
           "sfxPrompt": "tiếng dòng nước chảy êm (cần giấy phép trước khi dùng)",
-          "voWords": 175
+          "voWords": 172
         },
         {
           "sceneIndex": 7,
@@ -415,7 +415,7 @@
       },
       "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
       "elevenlabsVoiceId": "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      "youtubeId": "WpwLZw3ytwU",
+      "youtubeId": "kQzff8VVZ4E",
       "embedStatus": "uploaded_public",
       "outputMp4": "dist/youtube/qr-short-9x16.mp4",
       "youtubeUploadSpec": {
@@ -431,7 +431,7 @@
         "selfDeclaredMadeForKids": false,
         "containsSyntheticMedia": true,
         "chaptersDescription": "0:00 Mở đầu — Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?\n0:11 Đoạn 1\n0:23 Đoạn 3\n0:36 Đoạn 4\n0:49 Đoạn 5\n1:00 Cảnh kết",
-        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=qr\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/d_WpGSjBR-4\n\nMột bảng mã QR đứng trên quầy, tiếng loa báo tiền về ngay trong 3 giây, và sự khác biệt giữa lệnh bạn tự đẩy tiền đi (Push) với lệnh quán kéo tiền về (Pull).\n\nMục lục chương:\n0:00 Mở đầu — Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?\n0:11 Đoạn 1\n0:23 Đoạn 3\n0:36 Đoạn 4\n0:49 Đoạn 5\n1:00 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=qr\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
+        "description": "📖 Đọc bài khảo cứu đầy đủ & Sổ kế toán kép tại: https://wheremoneysleeps.duyslab.icu/?story=qr\n▶ Xem Video bài giảng đầy đủ (16:9): https://youtu.be/awgxZiOJMOM\n\nMột bảng mã QR đứng trên quầy, tiếng loa báo tiền về ngay trong 3 giây, và sự khác biệt giữa lệnh bạn tự đẩy tiền đi (Push) với lệnh quán kéo tiền về (Pull).\n\nMục lục chương:\n0:00 Mở đầu — Quét mã QR chuyển khoản 50 nghìn ở quán cà phê: Vì sao quán nhận đủ 100% ngay lập tức mà không mất 2,2% phí như quẹt thẻ?\n0:11 Đoạn 1\n0:23 Đoạn 3\n0:36 Đoạn 4\n0:49 Đoạn 5\n1:00 Cảnh kết\n\n---\nBài khảo cứu tương tác đầy đủ (Video 16:9 + Sổ kế toán TT 99/2025 + Máy tính dòng tiền): https://wheremoneysleeps.duyslab.icu/?story=qr\nKênh: Where Money Sleeps (@WhereMoneySleeps)\nLưu ý: Mọi con số và tình huống trong video là ví dụ minh hoạ để thấy cơ chế vận hành của dòng tiền và bút toán kế toán, không nhắc tới bất kỳ đơn vị hay thương hiệu cụ thể nào và không phải lời khuyên tài chính.\nWhere Money Sleeps — Đêm nay, tiền của bạn ngủ ở đâu?"
       },
       "scenes": [
         {
