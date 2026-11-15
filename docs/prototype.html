@@ -1131,11 +1131,11 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" id="hdrLangVi" data-wms-lang="vi" aria-pressed="true">VI</button>
         <button type="button" id="hdrLangEn" data-wms-lang="en" aria-pressed="false">EN</button>
       </div>
-      <button type="button" class="ab-btn" id="atlasBtn" aria-expanded="false" aria-controls="atlas" title="Xem toàn bộ 7 chuyên mục, 19 chủ đề &amp; Tìm kiếm nhanh (⌘K / Ctrl+K)">
+      <button type="button" class="ab-btn" id="atlasBtn" aria-expanded="false" aria-controls="atlas" title="Xem 4 danh mục · 7 bài đang mở đọc &amp; Tìm kiếm nhanh (⌘K / Ctrl+K)">
         <svg class="ab-ico" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.4 10.4 3.6 3.6"/></svg>
         <span id="atlasBtnTxt">Mục lục</span>
         <span class="ab-sep" aria-hidden="true">·</span>
-        <span class="ab-badge num" id="abSum">7/19</span>
+        <span class="ab-badge num" id="abSum">4 mục · 7 bài</span>
         <kbd class="ab-kbd">⌘K</kbd>
       </button>
       <button type="button" class="ab-theme-btn" id="navThemeBtn" aria-label="Đổi giao diện Ngày / Đêm" title="Đổi giao diện Ngày / Đêm">
@@ -1196,7 +1196,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
     <p class="aha" id="heroAha">Mỗi bài viết đi theo một giao dịch đời thường qua năm ngôi nhà, năm lát cắt thời gian và sổ kế toán Thông tư 99/2025.</p>
     <div class="hero-cta-row">
       <button type="button" class="cta-main" id="heroStartBtn">Đọc bài 01: 10 triệu quẹt thẻ →</button>
-      <button type="button" class="cta-sub" id="heroScrollBtn">Chọn trong 7 bài đang mở ↓</button>
+      <button type="button" class="cta-sub" id="heroScrollBtn">Chọn trong 4 danh mục · 7 bài ↓</button>
     </div>
   </div>
   <div class="hero-art">
@@ -1231,7 +1231,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
 <!-- ── Danh mục bài viết ─────────────────────────────────────── -->
 <section class="sec" id="chuyen" aria-labelledby="stories-h">
   <div class="inner">
-    <h2 id="stories-h">Các bài đang mở — bấm chọn một cuốn sổ để mở trang chi tiết</h2>
+    <h2 id="stories-h">4 danh mục · 7 bài đang mở — bấm chọn một cuốn sổ để mở trang chi tiết</h2>
     <p class="sec-lead" id="catalogCounter">Hiển thị bài viết đã kiểm định · Không tải sẵn nội dung chi tiết ở trang chủ.</p>
   </div>
   <div class="catalog-bar">
@@ -1244,7 +1244,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
       <div class="mode-seg" id="gridModeSeg" role="group" aria-label="Cách hiển thị danh sách bài">
         <button type="button" data-grid-mode="curated" aria-pressed="true">Phân trang (6 bài / trang)</button>
         <button type="button" data-grid-mode="all" aria-pressed="false">Danh sách đầy đủ</button>
-        <button type="button" data-grid-mode="compact" aria-pressed="false">Xếp theo 7 nhánh</button>
+        <button type="button" data-grid-mode="compact" aria-pressed="false">Xếp theo 4 danh mục</button>
       </div>
     </div>
   </div>
@@ -1256,8 +1256,8 @@ textarea.fb-control{resize:vertical;min-height:92px}
 
 <section class="sec" id="shelfSec" aria-labelledby="shelf-h">
   <div class="inner">
-    <h2 id="shelf-h">Kệ sách theo dòng chảy của tiền (7 nhánh cốt lõi)</h2>
-    <p class="shelf-sub" id="shelfSub">Bảy nhánh cơ chế từ lương tháng tới thanh toán xuyên biên giới · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.</p>
+    <h2 id="shelf-h">Kệ sách theo dòng chảy của tiền (4 danh mục · 7 bài)</h2>
+    <p class="shelf-sub" id="shelfSub">Bốn danh mục dòng tiền với 7 bài đã mở đọc · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.</p>
   </div>
   <div class="shelf" id="shelf"></div>
 </section>
@@ -12692,14 +12692,13 @@ const stStatus = tp => tp.story ? getStories()[tp.story].status : tp.status;
 const stTitle = tp => tp.story ? getStories()[tp.story].title : tp.t;
 const catIdOf = s => s && (s.category || s.cat);
 const visible = k => getStories()[k].status === "published" || CMS.on;
-function activeCategories(){
-  const cats = getCategories();
-  if (CMS.on) return cats;
-  return cats
-    .map(c => ({ ...c, topics: c.topics.filter(tp => tp.story && visible(tp.story)) }))
-    .filter(c => c.topics.length > 0);
-}
-const catOf = k => activeCategories().find(c => c.id === catIdOf(getStories()[k])) || getCategories().find(c => c.id === catIdOf(getStories()[k]));
+const activeCategories = () => getCategories().map(c => {
+  if (CMS.on) return c;
+  const liveTopics = c.topics.filter(tp => tp.story && visible(tp.story));
+  return liveTopics.length ? { ...c, topics: liveTopics } : null;
+}).filter(Boolean);
+const catOf = k => activeCategories().find(c => c.id === catIdOf(getStories()[k]))
+  || getCategories().find(c => c.id === catIdOf(getStories()[k]));
 // người đọc thường thấy bản nháp như "đang biên soạn"; ở chế độ duyệt mới thấy đúng trạng thái
 const shownStatus = tp => { const s = stStatus(tp); return s === "review" && !CMS.on ? "upcoming" : s; };
 const getStLabel = () => isEn()
@@ -12712,10 +12711,12 @@ function counts(){
   return {cats: cats.length, topics: all.length, ...n};
 }
 function position(k){
-  const cats = activeCategories(), c = catOf(k);
-  const ci = Math.max(1, cats.findIndex(x => x.id === c.id) + 1);
-  const i = Math.max(0, c.topics.findIndex(tp => tp.story === k));
-  return {c, ci, ti: i + 1, tn: c.topics.length};
+  const cats = activeCategories(), cid = catIdOf(getStories()[k]);
+  let idx = cats.findIndex(x => x.id === cid);
+  const c = idx >= 0 ? cats[idx] : (catOf(k) || cats[0]);
+  if (idx < 0 && c) idx = Math.max(0, getCategories().findIndex(x => x.id === c.id));
+  const i = c ? c.topics.findIndex(tp => tp.story === k) : -1;
+  return {c, ci: Math.max(1, idx + 1), ti: Math.max(1, i + 1), tn: c ? c.topics.length : 1};
 }
 const drawHouses = () => Scene.build($("#scene"), getStories()[S.story].houses);
 
@@ -14181,23 +14182,32 @@ function syncBarOpenState(){
 }
 function renderNav(){
   const n = counts(), p = position(S.story), stories = getStories(), s = stories[S.story], enMode = isEn();
-  $("#abSum").textContent = `${n.published}/${n.topics}`;
+  $("#abSum").textContent = CMS.on
+    ? `${n.published}/${n.topics}`
+    : (enMode ? `${n.cats} cats · ${n.published} lessons` : `${n.cats} mục · ${n.published} bài`);
+  const atlasBtn = $("#atlasBtn");
+  if (atlasBtn) {
+    atlasBtn.title = CMS.on
+      ? (enMode ? `Browse all ${n.cats} categories, ${n.topics} topics & Quick Search (⌘K / Ctrl+K)` : `Xem toàn bộ ${n.cats} chuyên mục, ${n.topics} chủ đề & Tìm kiếm nhanh (⌘K / Ctrl+K)`)
+      : (enMode ? `Browse ${n.cats} categories · ${n.published} open lessons & Quick Search (⌘K / Ctrl+K)` : `Xem ${n.cats} danh mục · ${n.published} bài đang mở đọc & Tìm kiếm nhanh (⌘K / Ctrl+K)`);
+  }
   const catBtn = $("#catPillBtn"), postBtn = $("#postPillBtn");
   catBtn.style.setProperty("--c", p.c.c);
   catBtn.innerHTML = `<span class="cat-dot" aria-hidden="true"></span>`
     + `<span class="cat-code">${String(p.ci).padStart(2,"0")}/${String(n.cats).padStart(2,"0")}</span>`
     + `<span class="cat-name">${esc(p.c.name)}</span>`
     + `<span class="sp-caret" aria-hidden="true">▾</span>`;
+  const catUnit = CMS.on ? (enMode ? (p.tn === 1 ? "topic" : "topics") : "chủ đề") : (enMode ? (p.tn === 1 ? "lesson" : "lessons") : "bài");
   catBtn.title = enMode
-    ? `Category ${p.ci}/${n.cats}: ${p.c.name} (${p.tn} topics) — click to open 2-column Index`
-    : `Đang ở danh mục ${p.ci}/${n.cats}: ${p.c.name} (${p.tn} chủ đề) — bấm để mở Mục lục 2 cột`;
+    ? `Category ${p.ci}/${n.cats}: ${p.c.name} (${p.tn} ${catUnit}) — click to open 2-column Index`
+    : `Đang ở danh mục ${p.ci}/${n.cats}: ${p.c.name} (${p.tn} ${catUnit}) — bấm để mở Mục lục 2 cột`;
   const draft = s.status !== "published" ? `<span class="draft">${enMode ? "draft" : "bản nháp"}</span>` : "";
   postBtn.innerHTML = `<span class="post-pos">${enMode ? "Lesson" : "Bài"} ${p.ti}/${p.tn}</span>`
     + `<span class="post-title">${esc(s.name || s.title)}</span>${draft}`
     + `<span class="sp-caret" aria-hidden="true">▾</span>`;
   postBtn.title = enMode
-    ? `Lesson ${p.ti}/${p.tn} in ${p.c.name}: ${s.title} — click to switch within category`
-    : `Bài ${p.ti}/${p.tn} trong mục ${p.c.name}: ${s.title} — bấm để đổi nhanh bài cùng danh mục`;
+    ? `Lesson ${p.ti}/${p.tn} in category ${p.ci}/${n.cats} (${p.c.name}): ${s.title} — click to switch within category`
+    : `Bài ${p.ti}/${p.tn} trong danh mục ${p.ci}/${n.cats} (${p.c.name}): ${s.title} — bấm để đổi nhanh bài cùng danh mục`;
 
   const o = order(), idx = Math.max(0, o.indexOf(S.story));
   const prevKey = o[(idx - 1 + o.length) % o.length], nextKey = o[(idx + 1) % o.length];
@@ -14220,7 +14230,9 @@ function renderNav(){
 function renderPostPop(p, n){
   const enMode = isEn(), stories = getStories(), stLbl = getStLabel();
   $("#ppHeadTitle").textContent = `${enMode ? "Category" : "Danh mục"} ${String(p.ci).padStart(2,"0")}/${String(n.cats).padStart(2,"0")} · ${p.c.name}`;
-  $("#ppHeadCnt").textContent = `${p.tn} ${enMode ? "topics" : "chủ đề"}`;
+  $("#ppHeadCnt").textContent = CMS.on
+    ? `${p.tn} ${enMode ? (p.tn === 1 ? "topic" : "topics") : "chủ đề"}`
+    : `${p.tn} ${enMode ? (p.tn === 1 ? "lesson" : "lessons") : "bài đang mở"}`;
   const list = $("#ppList"); list.innerHTML = "";
   p.c.topics.forEach((tp, ti) => {
     const li = document.createElement("li"), open = tp.story && visible(tp.story);
@@ -14256,17 +14268,22 @@ function hl(s){ const q = A.q.normalize("NFC").toLowerCase().trim(); if (!q) ret
   const i = s.toLowerCase().indexOf(q);
   return i < 0 ? esc(s) : esc(s.slice(0,i)) + "<mark>" + esc(s.slice(i, i+q.length)) + "</mark>" + esc(s.slice(i+q.length)); }
 function renderAtlas(){
-  const n = counts(), p = position(S.story), cats = getCategories(), stLbl = getStLabel(), enMode = isEn();
-  $("#atlasH").textContent = enMode ? `Topic Index: ${n.cats} categories · ${n.topics} lessons` : `Mục lục chủ đề: ${n.cats} danh mục · ${n.topics} bài`;
-  $("#atlasCounts").innerHTML = enMode
-    ? `<span class="pip published"></span>${n.published} open to read`
-      + (CMS.on ? ` · <span class="pip review"></span>${n.review} pending review` : "")
-      + ` · <span class="pip upcoming"></span>${n.upcoming} in drafting`
-    : `<span class="pip published"></span>${n.published} đang mở đọc`
-      + (CMS.on ? ` · <span class="pip review"></span>${n.review} bản nháp chờ duyệt` : "")
-      + ` · <span class="pip upcoming"></span>${n.upcoming} đang biên soạn`;
+  const n = counts(), p = position(S.story), cats = activeCategories(), stLbl = getStLabel(), enMode = isEn();
+  if (A.cat && !cats.some(c => c.id === A.cat)) A.cat = null;
+  $("#atlasH").textContent = CMS.on
+    ? (enMode ? `Topic Index: ${n.cats} categories · ${n.topics} topics` : `Mục lục chủ đề: ${n.cats} danh mục · ${n.topics} chủ đề`)
+    : (enMode ? `Topic Index: ${n.cats} categories · ${n.published} open lessons` : `Mục lục chủ đề: ${n.cats} danh mục · ${n.published} bài đang mở`);
+  $("#atlasCounts").innerHTML = CMS.on
+    ? (enMode
+      ? `<span class="pip published"></span>${n.published} open to read · <span class="pip review"></span>${n.review} pending review · <span class="pip upcoming"></span>${n.upcoming} in drafting`
+      : `<span class="pip published"></span>${n.published} đang mở đọc · <span class="pip review"></span>${n.review} bản nháp chờ duyệt · <span class="pip upcoming"></span>${n.upcoming} đang biên soạn`)
+    : (enMode
+      ? `<span class="pip published"></span>${n.cats} categories · ${n.published} open lessons`
+      : `<span class="pip published"></span>${n.cats} danh mục · ${n.published} bài đang mở đọc`);
+  const atlasStEl = $("#atlasSt");
+  if (atlasStEl) atlasStEl.hidden = !CMS.on;
   $('#atlasSt [data-st="review"]').hidden = !CMS.on;
-  if (!CMS.on && A.st === "review") A.st = "all";
+  if (!CMS.on && A.st !== "all") A.st = "all";
   $$("#atlasSt button").forEach(b => b.setAttribute("aria-pressed", b.dataset.st === A.st));
   const q = A.q.normalize("NFC").toLowerCase().trim();
 
@@ -14274,7 +14291,7 @@ function renderAtlas(){
   const allLi = document.createElement("li"), allBtn = document.createElement("button");
   allBtn.type = "button"; allBtn.className = "cat-nav-btn";
   allBtn.setAttribute("aria-selected", String(!A.cat));
-  allBtn.innerHTML = `<span class="ix">ALL</span><span class="nm">${enMode ? "All categories" : "Tất cả danh mục"}</span><span class="ct">${n.topics}</span>`;
+  allBtn.innerHTML = `<span class="ix">ALL</span><span class="nm">${enMode ? "All categories" : "Tất cả danh mục"}</span><span class="ct">${CMS.on ? n.topics : n.published}</span>`;
   allBtn.onclick = () => { A.cat = null; renderAtlas(); };
   allLi.appendChild(allBtn); master.appendChild(allLi);
 
@@ -14284,9 +14301,12 @@ function renderAtlas(){
     b.setAttribute("aria-selected", String(A.cat === c.id));
     const openCnt = c.topics.filter(tp => tp.story && visible(tp.story)).length;
     const here = c.id === p.c.id ? `<span class="here-dot" title="${enMode ? "Current category" : "Danh mục đang đọc"}"></span>` : "";
+    const cntBadge = CMS.on
+      ? `${openCnt}/${c.topics.length}`
+      : `${openCnt} ${enMode ? (openCnt === 1 ? "lesson" : "lessons") : "bài"}`;
     b.innerHTML = `<span class="ix">${String(ci+1).padStart(2,"0")}</span>`
       + `<span class="nm">${esc(c.name)}</span>`
-      + `<span class="ct">${here}${openCnt}/${c.topics.length}</span>`;
+      + `<span class="ct">${here}${cntBadge}</span>`;
     b.onclick = () => { A.cat = A.cat === c.id ? null : c.id; renderAtlas(); };
     li.appendChild(b); master.appendChild(li);
   });
@@ -14299,7 +14319,10 @@ function renderAtlas(){
     if (!items.length) return;
     shown += items.length;
     const d = document.createElement("div"); d.className = "drawer" + (c.id === p.c.id ? " focus" : ""); d.style.setProperty("--c", c.c);
-    d.innerHTML = `<h3><span><span class="ix">${String(ci+1).padStart(2,"0")}</span>${hl(c.name)}</span><small>${c.topics.length} ${enMode?"topics":"chủ đề"}</small></h3><ol></ol>`;
+    const unitTxt = CMS.on
+      ? `${c.topics.length} ${enMode ? "topics" : "chủ đề"}`
+      : `${c.topics.length} ${enMode ? (c.topics.length === 1 ? "lesson" : "lessons") : "bài đang mở"}`;
+    d.innerHTML = `<h3><span><span class="ix">${String(ci+1).padStart(2,"0")}</span>${hl(c.name)}</span><small>${unitTxt}</small></h3><ol></ol>`;
     items.forEach(({tp, ti, s, t}) => {
       const li = document.createElement("li"), open = tp.story && visible(tp.story);
       const el = document.createElement(open ? "button" : "div");
@@ -14336,11 +14359,11 @@ function renderHandoff(){
   }
   const prog = loadWmsProgress();
   const cardsHtml = picked.map((k, i) => {
-    const np = position(k), ns = stories[k];
+    const np = position(k), ns = stories[k], catCode = String(np.ci).padStart(2, "0");
     const isPrim = i === 0;
     const roleLbl = isPrim
-      ? (enMode ? `Next in thread · ${esc(np.c.name)} (Lesson ${np.ti}/${np.tn})` : `Mạch nối kế tiếp · ${esc(np.c.name)} (Bài ${np.ti}/${np.tn})`)
-      : (enMode ? `Explore another branch · ${esc(np.c.name)}` : `Mở rộng nhánh khác · ${esc(np.c.name)}`);
+      ? (enMode ? `Next in thread · ${catCode} · ${esc(np.c.name)} (Lesson ${np.ti}/${np.tn})` : `Mạch nối kế tiếp · ${catCode} · ${esc(np.c.name)} (Bài ${np.ti}/${np.tn})`)
+      : (enMode ? `Explore category ${catCode} · ${esc(np.c.name)} (Lesson ${np.ti}/${np.tn})` : `Mở rộng mục ${catCode} · ${esc(np.c.name)} (Bài ${np.ti}/${np.tn})`);
     const statusTxt = prog.completed[k] ? (enMode ? "✓ Completed" : "✓ Đã đọc") : (enMode ? "Open lesson →" : "Mở bài này →");
     return `<article class="triad-card${isPrim ? " primary" : ""}" style="--cat-c:${np.c.c}">`
       + `<span class="triad-k">${roleLbl}</span>`
@@ -14351,7 +14374,7 @@ function renderHandoff(){
   }).join("");
   box.innerHTML = `<div class="next-triad-head">`
     + `<h3>${enMode ? "Keep reading to connect the system" : "Đọc tiếp để nối mạch bức tranh"}</h3>`
-    + `<span class="next-triad-note">${enMode ? `1 direct thread follow-up · ${Math.max(0, picked.length - 1)} cross-branch recommendations` : `1 bài nối mạch gần nhất · ${Math.max(0, picked.length - 1)} hướng mở rộng`}</span>`
+    + `<span class="next-triad-note">${enMode ? `1 direct thread follow-up · ${Math.max(0, picked.length - 1)} cross-category recommendations` : `1 bài nối mạch gần nhất · ${Math.max(0, picked.length - 1)} hướng mở rộng danh mục`}</span>`
     + `</div>`
     + `<div class="triad-grid">${cardsHtml}</div>`
     + `<div class="next-triad-foot"><button type="button" class="handoff-cat" id="handoffAtlasBtn">${enMode ? `Open ${n.cats}-category Index (⌘K)` : `Mở Mục lục ${n.cats} danh mục (⌘K)`}</button></div>`;
@@ -14428,7 +14451,7 @@ function storyWordStats(k){
   return {lay, pro: 0, min};
 }
 function diverseCatalogOrder(keys){
-  const prog = loadWmsProgress(), stories = getStories(), cats = getCategories();
+  const prog = loadWmsProgress(), stories = getStories(), cats = activeCategories();
   const picked = [], seen = new Set();
   cats.forEach(c => {
     const firstUnread = keys.find(k => catIdOf(stories[k]) === c.id && !(prog.completed && prog.completed[k]) && !seen.has(k));
@@ -14441,10 +14464,17 @@ function diverseCatalogOrder(keys){
 function renderStories(){
   const box = $("#storyList"), pills = $("#catPills"), more = $("#catalogMoreBar"), cnt = $("#catalogCounter");
   if (!box) return;
-  const o = order(), n = counts(), prog = loadWmsProgress(), stories = getStories(), cats = getCategories(), enMode = isEn();
+  const o = order(), n = counts(), prog = loadWmsProgress(), stories = getStories(), cats = activeCategories(), enMode = isEn();
+  if (S.catFilter !== "all" && !cats.some(c => c.id === S.catFilter)) { S.catFilter = "all"; S.page = 1; }
   const qNorm = normVi(S.landingQ);
   const heroScrollBtn = $("#heroScrollBtn");
-  if (heroScrollBtn) heroScrollBtn.textContent = enMode ? `Choose from ${o.length} open lessons ↓` : `Chọn trong ${o.length} bài đang mở ↓`;
+  if (heroScrollBtn) heroScrollBtn.textContent = enMode ? `Choose from ${n.cats} categories · ${o.length} lessons ↓` : `Chọn trong ${n.cats} danh mục · ${o.length} bài ↓`;
+  const storiesH = $("#stories-h");
+  if (storiesH) storiesH.textContent = CMS.on
+    ? (enMode ? `Preview mode: ${n.cats} categories · ${n.topics} topics (${o.length} readable)` : `Chế độ duyệt: ${n.cats} danh mục · ${n.topics} chủ đề (${o.length} mở đọc)`)
+    : (enMode ? `${n.cats} categories · ${o.length} open lessons — click any stitched notebook to inspect` : `${n.cats} danh mục · ${o.length} bài đang mở — bấm chọn một cuốn sổ để mở trang chi tiết`);
+  const compactModeBtn = $('#gridModeSeg [data-grid-mode="compact"]');
+  if (compactModeBtn) compactModeBtn.textContent = enMode ? `Group by ${cats.length} categories` : `Xếp theo ${cats.length} danh mục`;
 
   if (pills){
     pills.innerHTML = "";
@@ -14459,9 +14489,9 @@ function renderStories(){
       pills.appendChild(btn);
     };
     mkPill("all", enMode ? `All · open` : `Tất cả · đang mở`, o.length, "var(--ink)");
-    cats.forEach(c => {
+    cats.forEach((c, ci) => {
       const cCount = o.filter(k => catIdOf(stories[k]) === c.id).length;
-      mkPill(c.id, c.name, cCount, c.c);
+      mkPill(c.id, `${String(ci + 1).padStart(2, "0")} · ${c.name}`, cCount, c.c);
     });
   }
 
@@ -14482,9 +14512,12 @@ function renderStories(){
   if (S.gridMode === "compact"){
     box.className = "compact-cat-list";
     const catsToShow = S.catFilter === "all" ? cats : cats.filter(c => c.id === S.catFilter);
-    let renderedAny = 0;
-    catsToShow.forEach((c, ci) => {
+    const catUnit = catsToShow.length === 1 ? (enMode ? "category" : "danh mục") : (enMode ? "categories" : "danh mục");
+    let renderedAny = 0, compactOpenCnt = 0;
+    catsToShow.forEach(c => {
+      const catIdx = cats.indexOf(c) + 1;
       const topics = c.topics.filter(tp => {
+        if (!CMS.on && !(tp.story && visible(tp.story))) return false;
         const title = tp.story && stories[tp.story] ? stories[tp.story].title : stTitle(tp);
         const teaser = tp.story && stories[tp.story] ? stories[tp.story].teaser : "";
         if (tp.story && !visible(tp.story) && !CMS.on) {
@@ -14498,7 +14531,11 @@ function renderStories(){
       grp.className = "compact-cat-group";
       grp.style.setProperty("--c", c.c);
       const openCnt = topics.filter(tp => tp.story && visible(tp.story)).length;
-      grp.innerHTML = `<div class="compact-cat-head"><h3>${String(ci + 1).padStart(2, "0")} · ${esc(c.name)}</h3><span>${openCnt}/${topics.length} ${enMode ? "live" : "bài đang mở"}</span></div><div class="compact-rows"></div>`;
+      compactOpenCnt += openCnt;
+      const headMeta = CMS.on
+        ? `${openCnt}/${topics.length} ${enMode ? "live" : "bài đang mở"}`
+        : `${openCnt} ${enMode ? (openCnt === 1 ? "lesson" : "lessons") : "bài đang mở"}`;
+      grp.innerHTML = `<div class="compact-cat-head"><h3>${String(catIdx).padStart(2, "0")} · ${esc(c.name)}</h3><span>${headMeta}</span></div><div class="compact-rows"></div>`;
       const rowsEl = $(".compact-rows", grp);
       topics.forEach((tp, idx) => {
         const isOpen = tp.story && visible(tp.story);
@@ -14528,16 +14565,17 @@ function renderStories(){
       box.appendChild(grp);
     });
     if (cnt){
-      cnt.textContent = enMode
-        ? `${catsToShow.length}-branch compact directory · ${filtered.length}/${o.length} lessons live (${n.topics} total topics)`
-        : `Danh bạ ${catsToShow.length} nhánh: hiển thị ${filtered.length}/${o.length} bài đang mở (${n.topics} chủ đề toàn kho)`;
+      cnt.textContent = CMS.on
+        ? (enMode ? `${catsToShow.length}-${catUnit} compact directory · ${filtered.length}/${o.length} readable (${n.topics} total topics)` : `Danh bạ ${catsToShow.length} ${catUnit}: hiển thị ${filtered.length}/${o.length} bài mở đọc (${n.topics} chủ đề toàn kho)`)
+        : (enMode ? `Directory by ${catsToShow.length} ${catUnit} · ${filtered.length}/${o.length} open lessons` : `Danh bạ ${catsToShow.length} danh mục: hiển thị ${filtered.length}/${o.length} bài đang mở`);
     }
     if (!renderedAny){
-      box.innerHTML = `<div class="catalog-empty">${enMode ? `No topics matched “${esc(S.landingQ)}”. Clear filters or pick “All”.` : `Không tìm thấy chủ đề nào khớp với “${esc(S.landingQ)}”. Thử bỏ bớt từ khoá hoặc bấm “Tất cả”.`}</div>`;
+      box.innerHTML = `<div class="catalog-empty">${enMode ? `No lessons matched “${esc(S.landingQ)}”. Clear filters or pick “All”.` : `Không tìm thấy bài viết nào khớp với “${esc(S.landingQ)}”. Thử bỏ bớt từ khoá hoặc bấm “Tất cả”.`}</div>`;
       if (more) more.hidden = true;
     } else if (more){
       more.hidden = false;
-      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${o.length} live lessons</strong> across ${catsToShow.length} branches.` : `Đang hiển thị <strong>${o.length} bài đang mở</strong> trong ${catsToShow.length} nhóm.`}</span>`
+      const compactLbl = compactOpenCnt === 1 ? (enMode ? "open lesson" : "bài đang mở") : (enMode ? "open lessons" : "bài đang mở");
+      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${compactOpenCnt} ${compactLbl}</strong> across ${catsToShow.length} ${catUnit}.` : `Đang hiển thị <strong>${compactOpenCnt} ${compactLbl}</strong> trong ${catsToShow.length} danh mục.`}</span>`
         + `<div class="catalog-more-actions"><button type="button" class="catalog-more-btn ghost" id="toCuratedBtn">${enMode ? "Back to notebook cards (6/page)" : "Quay về thẻ Sổ tay (6 bài/trang)"}</button></div>`;
       const tcBtn = $("#toCuratedBtn", more);
       if (tcBtn) tcBtn.onclick = () => { S.gridMode = "curated"; S.page = 1; renderStories(); };
@@ -14584,15 +14622,15 @@ function renderStories(){
     card.style.setProperty("--c", p.c.c);
     card.dataset.story = k;
     const houseNames = (s.houses || []).map(h => h.label).join(" → ");
-    const numLabel = o.indexOf(k) + 1;
+    const catCode = String(p.ci).padStart(2, "0"), totalCatCode = String(n.cats).padStart(2, "0");
     const secCnt = (s.article && s.article.lay && Array.isArray(s.article.lay.sections)) ? s.article.lay.sections.length : 5;
     const durTxt = isDone
       ? (enMode ? "✓ Read" : "✓ Đã đọc")
       : (s.status !== "published" ? (enMode ? "Draft" : "Bản nháp") : (enMode ? `~${st.min} min read · ${s.beats.length} beats` : `~${st.min} phút đọc · ${s.beats.length} lát cắt`));
     const hintLeft = enMode
-      ? `Lesson ${String(numLabel).padStart(2, "0")}/${o.length} · ${secCnt}-ch. essay`
-      : `Bài ${String(numLabel).padStart(2, "0")}/${o.length} · Khảo cứu ${secCnt} chương`;
-    card.innerHTML = `<div class="k"><span class="cat">${esc(p.c.name)}</span><span class="dur">${durTxt}</span></div>`
+      ? `Cat ${catCode}/${totalCatCode} · Lesson ${p.ti}/${p.tn} · ${secCnt}-ch. essay`
+      : `Mục ${catCode}/${totalCatCode} · Bài ${p.ti}/${p.tn} · ${secCnt} chương`;
+    card.innerHTML = `<div class="k"><span class="cat">${catCode} · ${esc(p.c.name)}</span><span class="dur">${durTxt}</span></div>`
       + `<h3><button type="button" class="card-link" data-open="${esc(k)}">${esc(s.title)}</button></h3>`
       + `<p class="d">${esc(s.teaser)}</p>`
       + `<div class="houses"><b>${enMode ? "5 institutions:" : "5 ngôi nhà:"}</b> ${esc(houseNames)}</div>`
@@ -14643,7 +14681,7 @@ function renderStories(){
       more.innerHTML = `<span class="pager-meta">${enMode ? `Showing all ${o.length} open lessons on this page.` : `Đang hiển thị toàn bộ ${o.length} bài viết trên trang này.`}</span>`
         + `<div class="catalog-more-actions">`
         + `<button type="button" class="catalog-more-btn" id="backCuratedBtn">${enMode ? "Back to 6/page ↑" : "Quay về 6 bài/trang ↑"}</button>`
-        + `<button type="button" class="catalog-more-btn ghost" id="toCompactBtn">${enMode ? "Group by 7 branches" : "Xếp theo 7 nhánh"}</button>`
+        + `<button type="button" class="catalog-more-btn ghost" id="toCompactBtn">${enMode ? `Group by ${cats.length} categories` : `Xếp theo ${cats.length} danh mục`}</button>`
         + `</div>`;
       const bc = $("#backCuratedBtn", more); if (bc) bc.onclick = () => { S.gridMode = "curated"; S.page = 1; renderStories(); $("#chuyen").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); };
       const tc = $("#toCompactBtn", more); if (tc) tc.onclick = () => { S.gridMode = "compact"; renderStories(); $("#chuyen").scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); };
@@ -14773,7 +14811,8 @@ $("#cmsBtn").onclick = () => { CMS.on = !CMS.on;
   if (!CMS.on) setEdit(false);
   renderTranscript();
   if (!CMS.on && !visible(S.story) && order().length) go(order()[0], 0, 0, false);
-  else renderAll(); };
+  else renderAll();
+  syncViewDOM(false); };
 $$("#cmsTabs button").forEach(b => b.onclick = () => { CMS.q = b.dataset.q; renderCMS(); });
 $("#gatesSum").onclick = e => e.currentTarget.setAttribute("aria-expanded", e.currentTarget.getAttribute("aria-expanded") !== "true");
 $("#editBtn").onclick = () => { setEdit(!CMS.edit); renderCMS(); if (CMS.edit) $("#tell").focus(); };
@@ -14784,16 +14823,22 @@ $("#approveBtn").onclick = () => {
   [STORIES[S.story], (typeof STORIES_EN !== "undefined" ? STORIES_EN[S.story] : null)].forEach(x => {
     if (x) { x.status = "published"; x.approvedBy = stamp; x.approvedAt = dt; }
   });
-  CMS.q = "published"; renderTranscript(); renderAll();
+  CMS.q = "published"; renderTranscript(); renderAll(); syncViewDOM(false);
 };
 
 /* kệ sách cuối trang: một gáy sách cho mỗi danh mục */
 const BOOK_H = [262,246,232,270,240,254,248], BOOK_R = [0,0,0,-1.2,0,1.4,0];
 function renderShelf(){
-  const prog = loadWmsProgress(), shelf = $("#shelf"), cats = getCategories(), stories = getStories(), enMode = isEn();
+  const prog = loadWmsProgress(), shelf = $("#shelf"), cats = activeCategories(), stories = getStories(), o = order(), n = counts(), enMode = isEn();
   if (!shelf) return;
   const shelfHeading = $("#shelf-h");
-  if (shelfHeading) shelfHeading.textContent = enMode ? `Bookshelf by money flow (${cats.length} core branches)` : `Kệ sách theo dòng chảy của tiền (${cats.length} nhánh cốt lõi)`;
+  if (shelfHeading) shelfHeading.textContent = CMS.on
+    ? (enMode ? `Bookshelf by money flow (${cats.length} core branches)` : `Kệ sách theo dòng chảy của tiền (${cats.length} nhánh cốt lõi)`)
+    : (enMode ? `Bookshelf by money flow (${cats.length} categories · ${o.length} lessons)` : `Kệ sách theo dòng chảy của tiền (${cats.length} danh mục · ${o.length} bài)`);
+  const shelfSub = $("#shelfSub");
+  if (shelfSub) shelfSub.textContent = CMS.on
+    ? (enMode ? `All seven planned money-flow pillars (${n.topics} total topics) · Click any spine to filter or inspect.` : `Bảy nhánh cơ chế từ lương tháng tới thanh toán xuyên biên giới · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.`)
+    : (enMode ? `Four active money-flow categories with ${o.length} readable lessons · Click any spine to filter or track reading progress.` : `Bốn danh mục dòng tiền với ${o.length} bài đã mở đọc · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.`);
   shelf.classList.toggle("is-multi-row", cats.length > 7);
   shelf.innerHTML = "";
   cats.forEach((c, i) => {
@@ -14810,10 +14855,14 @@ function renderShelf(){
     el.style.setProperty("--r", BOOK_R[i % BOOK_R.length] + "deg");
     el.setAttribute("aria-pressed", String(active));
     const q = first ? stories[first.story].title : stTitle(c.topics[0]);
-    const stText = openTopics.length
-      ? (enMode ? `Open ${openTopics.length} · Read ${done}/${openTopics.length} · ${c.topics.length} topics` : `Đã mở ${openTopics.length} · Đã đọc ${done}/${openTopics.length} · ${c.topics.length} chủ đề`)
-      : (enMode ? `In drafting · ${c.topics.length} topics` : `Đang viết · ${c.topics.length} chủ đề`);
-    el.innerHTML = `<div><div class="t">${esc(c.name)}</div><div class="q">${esc(q)}</div></div>`
+    const stText = CMS.on
+      ? (openTopics.length
+        ? (enMode ? `Open ${openTopics.length} · Read ${done}/${openTopics.length} · ${c.topics.length} topics` : `Đã mở ${openTopics.length} · Đã đọc ${done}/${openTopics.length} · ${c.topics.length} chủ đề`)
+        : (enMode ? `In drafting · ${c.topics.length} topics` : `Đang viết · ${c.topics.length} chủ đề`))
+      : (enMode
+        ? `${openTopics.length} ${openTopics.length === 1 ? "lesson" : "lessons"} · Read ${done}/${openTopics.length}`
+        : `${openTopics.length} bài đang mở · Đã đọc ${done}/${openTopics.length}`);
+    el.innerHTML = `<div><div class="t">${String(i + 1).padStart(2, "0")} · ${esc(c.name)}</div><div class="q">${esc(q)}</div></div>`
       + `<div class="st"><span class="st-txt">${stText}</span>`
       + `<span class="book-prog" aria-hidden="true"><i style="width:${pct}%"></i></span></div>`;
     el.onclick = () => {
@@ -15773,7 +15822,6 @@ function applyStaticChrome(lang){
   cacheAndSetText("#ppAllBtn", "Open Full Index & Search (⌘K) →", enMode);
   cacheAndSetAttr("#atlasbar .ab-steps", "aria-label", "Switch lesson", enMode);
   cacheAndSetList("#detailJumps a", ["Cutaway", "Calculators", "Full Essay", "Quiz"], false, enMode);
-  cacheAndSetAttr("#atlasBtn", "title", "Browse all 7 categories, 19 topics & Quick Search (⌘K / Ctrl+K)", enMode);
   cacheAndSetText("#atlasBtnTxt", "Index", enMode);
   cacheAndSetAttr("#navThemeBtn", "aria-label", "Switch Day / Night theme", enMode);
   cacheAndSetAttr("#atlasX", "aria-label", "Close Index", enMode);
@@ -15804,7 +15852,6 @@ function applyStaticChrome(lang){
   cacheAndSetText("#heroDeck", "Dinner at a neighborhood spot. You tap your card, the terminal beeps, your phone buzzes. Everyone assumes the money just arrived.", enMode);
   cacheAndSetHtml("#heroAha", "Each walkthrough follows one everyday transaction across five institutions, five moments in time, and Circular 99/2025 accounting ledgers.", enMode);
   cacheAndSetText("#heroStartBtn", "Read Lesson 01: 10M card swipe →", enMode);
-  cacheAndSetText("#heroScrollBtn", "Choose from 7 open lessons ↓", enMode);
   cacheAndSetHtml("#heroSlip", '<b>LOCAL BISTRO</b><span class="c">table 6 · 22:47</span><hr><span class="r"><span>TOTAL</span><span>10,000,000</span></span><span class="r"><span>CARD</span><span>****4821</span></span><hr><span class="ok">APPROVED</span>', enMode);
   cacheAndSetAttr("#heroPhone", "aria-label", "Lock screen at 22:47 displaying a card authorization SMS", enMode);
   cacheAndSetText("#heroPhoneDate", "Saturday, Nov 7", enMode);
@@ -15821,18 +15868,14 @@ function applyStaticChrome(lang){
     "Why a firm books 2B VND in profit yet only has 50M VND in Bank Cash (Account 112) on Dec 31 to make payroll."
   ], false, enMode);
 
-  cacheAndSetText("#stories-h", "Open lessons — click any stitched notebook to inspect", enMode);
   cacheAndSetText("#landingSearchLbl", "Search:", enMode);
   cacheAndSetAttr("#landingSearch", "placeholder", "installment, FX rate, Account 112, QR…", enMode);
   cacheAndSetText("#gridModeLbl", "Shelf layout:", enMode);
   cacheAndSetAttr("#gridModeSeg", "aria-label", "Catalog display layout", enMode);
   cacheAndSetText('#gridModeSeg [data-grid-mode="curated"]', "Paginated (6 / page)", enMode);
   cacheAndSetText('#gridModeSeg [data-grid-mode="all"]', "Full list", enMode);
-  cacheAndSetText('#gridModeSeg [data-grid-mode="compact"]', "Group by 7 branches", enMode);
   cacheAndSetAttr("#catPills", "aria-label", "Filter lessons by category", enMode);
   cacheAndSetAttr("#storyList", "aria-label", "Select a lesson", enMode);
-  cacheAndSetText("#shelf-h", "Bookshelf by money flow (7 core branches)", enMode);
-  cacheAndSetText("#shelfSub", "Seven core money-flow pillars from monthly payroll to cross-border settlement · Click any spine to filter or check reading progress.", enMode);
 
   // Detail stage
   cacheAndSetText("#detailReadTime", "~90s cutaway", enMode);
@@ -16095,14 +16138,14 @@ function syncViewDOM(doAnim){
   if ($("#detailJumps")) $("#detailJumps").hidden = isLand;
 
   if (!isLand && stories[S.story]){
-    const s = stories[S.story], p = position(S.story), prog = loadWmsProgress();
+    const s = stories[S.story], p = position(S.story), n = counts(), prog = loadWmsProgress();
     const chip = $("#detailCatChip"), ttl = $("#detailTitle"), tsr = $("#detailTeaser"), pt = $("#detailProgressTag");
-    if (chip){ chip.textContent = p.c.name; chip.style.setProperty("--cat-c", p.c.c); }
+    if (chip){ chip.textContent = `${String(p.ci).padStart(2, "0")}/${String(n.cats).padStart(2, "0")} · ${p.c.name}`; chip.style.setProperty("--cat-c", p.c.c); }
     if (ttl) ttl.textContent = s.title;
     if (tsr) tsr.textContent = s.teaser;
     if (pt) pt.textContent = prog.completed[S.story]
       ? (enMode ? "✓ Completed" : "✓ Đã hoàn thành")
-      : (enMode ? `Lesson ${p.ti}/${p.tn} in branch` : `Bài ${p.ti}/${p.tn} trong nhánh`);
+      : (enMode ? `Lesson ${p.ti}/${p.tn} in category` : `Bài ${p.ti}/${p.tn} trong danh mục`);
   }
 
   if (doAnim){
