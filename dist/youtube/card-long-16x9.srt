@@ -1,73 +1,73 @@
 1
-00:00:00,000 --> 00:00:02,070
+00:00:00,000 --> 00:00:02,200
 Mười giờ bốn mươi bảy phút tối.
 
 2
-00:00:02,070 --> 00:00:05,880
+00:00:02,200 --> 00:00:06,250
 Cả nhóm vừa ăn xong ở quán quen, hoá đơn mười triệu đồng.
 
 3
-00:00:05,880 --> 00:00:11,570
+00:00:06,250 --> 00:00:12,290
 Bạn chạm thẻ tín dụng, máy kêu tít một tiếng, điện thoại rung lên báo trừ mười triệu.
 
 4
-00:00:11,570 --> 00:00:13,240
+00:00:12,290 --> 00:00:14,070
 Mọi người đứng dậy ra về.
 
 5
-00:00:13,240 --> 00:00:17,390
+00:00:14,070 --> 00:00:18,470
 Nhưng ở giây máy kêu tít ấy, chưa có đồng nào rời khỏi đâu cả.
 
 6
-00:00:17,390 --> 00:00:22,210
+00:00:18,470 --> 00:00:23,580
 Không phải từ tài khoản của bạn, cũng không phải vào tài khoản của quán.
 
 7
-00:00:22,210 --> 00:00:25,020
+00:00:23,580 --> 00:00:26,560
 Vậy đêm nay, mười triệu ấy đang ngủ ở đâu?
 
 8
-00:00:25,020 --> 00:00:37,000
-Để trả lời, mình sẽ đi dọc một con phố có năm ngôi nhà, và nhìn ba tầng vận hành nối chúng: luồng thông tin cấp phép, luồng quyết toán tiền thật, và cuốn sổ kế toán trong mỗi nhà.
+00:00:26,560 --> 00:00:37,000
+Để trả lời, mình sẽ đi qua ba tầng vận hành nối năm bên liên quan: luồng thông tin cấp phép, luồng chuyển tiền thật, và cuốn sổ kế toán ở từng nơi.
 
 9
-00:00:37,000 --> 00:00:38,980
-Quay lại đúng giây chạm thẻ.
+00:00:37,000 --> 00:00:39,640
+Bắt đầu từ đúng giây bạn vừa chạm thẻ.
 
 10
-00:00:38,980 --> 00:00:46,120
+00:00:39,640 --> 00:00:46,660
 Thứ vừa giảm trên điện thoại không phải tiền trong túi bạn, mà là hạn mức thẻ tín dụng còn được tiêu.
 
 11
-00:00:46,120 --> 00:00:52,200
+00:00:46,660 --> 00:00:52,640
 Ngân hàng của bạn, nơi đã phát hành tấm thẻ, chỉ tạm khoá mười triệu trong hạn mức ấy.
 
 12
-00:00:52,200 --> 00:00:56,440
+00:00:52,640 --> 00:00:56,810
 Người trong nghề gọi đó là lệnh giữ chỗ, authorization hold.
 
 13
-00:00:56,440 --> 00:01:03,650
+00:00:56,810 --> 00:01:03,900
 Hãy hình dung một tờ giấy ghi chú dán lên hạn mức: khoản này đã có người hứa chi, đừng cho tiêu trùng.
 
 14
-00:01:03,650 --> 00:01:06,050
+00:01:03,900 --> 00:01:06,260
 Tờ giấy ấy chưa phải một bút toán.
 
 15
-00:01:06,050 --> 00:01:08,660
+00:01:06,260 --> 00:01:08,830
 Dư nợ thẻ của bạn chưa tăng đồng nào.
 
 16
-00:01:08,660 --> 00:01:10,570
+00:01:08,830 --> 00:01:10,710
 Và bạn cũng chưa trả ai cả.
 
 17
-00:01:10,570 --> 00:01:17,350
+00:01:10,710 --> 00:01:17,390
 Bạn sẽ trả ngân hàng của mình sau, trước hạn thanh toán ghi trên sao kê, có khi là vài tuần nữa.
 
 18
-00:01:17,350 --> 00:01:22,000
+00:01:17,390 --> 00:01:22,000
 Nếu cả nhóm huỷ bữa ngay lúc ấy, ngân hàng chỉ việc gỡ tờ giấy ra.
 
 19
@@ -207,39 +207,39 @@ Lời hứa đêm qua đã thành tiền...
 thiếu đúng phần phí.
 
 53
-00:04:19,000 --> 00:04:21,790
+00:04:19,000 --> 00:04:22,010
 Vậy hai trăm hai mươi nghìn ấy đi đâu?
 
 54
-00:04:21,790 --> 00:04:27,000
+00:04:22,010 --> 00:04:27,630
 Đó là phí nhận thẻ, gọi là MDR, ở đây lấy ví dụ hai phẩy hai phần trăm.
 
 55
-00:04:27,000 --> 00:04:29,570
+00:04:27,630 --> 00:04:30,400
 Nó không biến mất, nó được chia ba.
 
 56
-00:04:29,570 --> 00:04:37,130
+00:04:30,400 --> 00:04:38,550
 Khoảng một trăm năm mươi nghìn, ví dụ một phẩy năm phần trăm, về ngân hàng của bạn, gọi là interchange.
 
 57
-00:04:37,130 --> 00:04:41,610
+00:04:38,550 --> 00:04:43,370
 Đây là lý do khoản ngân hàng của bạn chuyển đi đã bị trừ sẵn.
 
 58
-00:04:41,610 --> 00:04:48,880
-Một phần nhỏ trả phí cho tổ chức thẻ; câu chuyện không có con số này, mình giả sử ví dụ mười nghìn.
+00:04:43,370 --> 00:04:47,720
+Một phần nhỏ trả phí cho tổ chức thẻ, ví dụ mười nghìn.
 
 59
-00:04:48,880 --> 00:04:53,430
+00:04:47,720 --> 00:04:52,620
 Phần còn lại, ví dụ sáu mươi nghìn, là của ngân hàng của quán.
 
 60
-00:04:53,430 --> 00:04:59,670
+00:04:52,620 --> 00:04:59,340
 Ba bên cùng làm cho cú chạm chạy được, và cả ba được trả từ cùng một hoá đơn của bạn.
 
 61
-00:04:59,670 --> 00:05:04,000
+00:04:59,340 --> 00:05:04,000
 Con số thật khác nhau theo loại thẻ, loại quán và hợp đồng.
 
 62

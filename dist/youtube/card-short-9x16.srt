@@ -11,27 +11,27 @@ Nghe như một món quà...
 nhưng thật ra ai đang trả khoản đó?
 
 4
-00:00:07,000 --> 00:00:14,960
-Lùi lại giây bạn chạm thẻ trả hoá đơn mười triệu: lúc đó chưa có đồng nào chạy, ngân hàng của bạn chỉ giữ chỗ trên hạn mức.
+00:00:07,000 --> 00:00:15,060
+Ngay lúc bạn chạm thẻ trả hoá đơn mười triệu: chưa có đồng tiền nào chuyển đi cả, ngân hàng của bạn chỉ tạm giữ chỗ trên hạn mức.
 
 5
-00:00:14,960 --> 00:00:16,190
+00:00:15,060 --> 00:00:16,250
 Hoá đơn đã in ra...
 
 6
-00:00:16,190 --> 00:00:18,000
+00:00:16,250 --> 00:00:18,000
 nhưng tiền thật vẫn nằm yên.
 
 7
-00:00:18,000 --> 00:00:22,560
-Trong ví dụ này, phải hai ngày làm việc sau ngân hàng mới quyết toán để tiền thật chảy về quán.
+00:00:18,000 --> 00:00:22,240
+Trong ví dụ này, phải hai ngày làm việc sau, ngân hàng mới chuyển tiền thật về quán.
 
 8
-00:00:22,560 --> 00:00:25,300
+00:00:22,240 --> 00:00:25,120
 Nhưng quán chỉ nhận chín triệu bảy trăm tám mươi nghìn...
 
 9
-00:00:25,300 --> 00:00:29,000
+00:00:25,120 --> 00:00:29,000
 vì hai trăm hai mươi nghìn đã bị trừ làm phí nhận thẻ hai phẩy hai phần trăm.
 
 10

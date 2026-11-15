@@ -39,79 +39,79 @@ Trong đó, sáu phẩy năm tỷ đồng là giá vốn của lô hàng sẽ gi
 Ngay ở bước đầu tiên này, bảy phẩy bốn mươi lăm tỷ đồng tiền mặt thật đã chảy ra khỏi tài khoản ngân hàng để biến thành những thùng hàng nằm trong kho.
 
 11
-00:01:34,000 --> 00:01:45,790
+00:01:34,000 --> 00:01:46,000
 Đến ngày mười lăm tháng mười một, công ty bàn giao toàn bộ lô hàng theo hợp đồng mười tỷ đồng cho đối tác mua sỉ và hai bên ký biên bản nghiệm thu.
 
 12
-00:01:45,790 --> 00:01:53,570
+00:01:46,000 --> 00:01:53,920
 Tại đây, quy tắc quan trọng nhất của kế toán doanh nghiệp xuất hiện: nguyên tắc kế toán dồn tích.
 
 13
-00:01:53,570 --> 00:02:10,100
-Theo Thông tư 99 năm 2025 của Bộ Tài chính, ngay khi hàng đã giao và khách đã ký nhận, kế toán bắt buộc ghi nhận đủ mười tỷ đồng vào tài khoản Doanh thu bán hàng năm một một, bất kể đã thu đủ tiền hay chưa.
+00:01:53,920 --> 00:02:09,760
+Theo Thông tư 99 năm 2025 của Bộ Tài chính, ngay khi hàng đã giao và khách đã ký nhận, kế toán bắt buộc ghi nhận đủ mười tỷ đồng vào tài khoản Doanh thu bán hàng, bất kể đã thu đủ tiền hay chưa.
 
 14
-00:02:10,100 --> 00:02:23,260
+00:02:09,760 --> 00:02:23,150
 Thực tế, đối tác mua sỉ chỉ chuyển khoản trả đợt đầu bảy phẩy năm tỷ đồng, còn hai phẩy năm tỷ đồng họ giữ lại theo điều khoản trả chậm sáu mươi đến chín mươi ngày.
 
 15
-00:02:23,260 --> 00:02:30,000
+00:02:23,150 --> 00:02:30,000
 Trên sổ doanh thu ghi mười tỷ, nhưng két ngân hàng chỉ nhận về bảy phẩy năm tỷ đồng.
 
 16
-00:02:30,000 --> 00:02:36,010
+00:02:30,000 --> 00:02:36,620
 Ngày hai mươi lăm tháng mười hai, phòng kế toán khoá sổ để lập Báo cáo kết quả kinh doanh.
 
 17
-00:02:36,010 --> 00:02:50,040
-Phép tính trên tờ báo cáo này hoàn toàn chuẩn xác theo luật kế toán: lấy mười tỷ đồng doanh thu trên tài khoản năm một một, trừ đi sáu phẩy năm tỷ đồng giá vốn của lô hàng đã xuất bán trên tài khoản sáu ba hai.
+00:02:36,620 --> 00:02:48,170
+Phép tính trên tờ báo cáo này hoàn toàn chuẩn xác theo luật kế toán: lấy mười tỷ đồng doanh thu, trừ đi sáu phẩy năm tỷ đồng giá vốn của lô hàng đã xuất bán.
 
 18
-00:02:50,040 --> 00:03:00,130
-Lưu ý rằng chín trăm năm mươi triệu đồng hàng nhập thêm vì chưa bán nên vẫn nằm ở tài khoản hàng tồn kho một năm sáu, chưa bị trừ vào chi phí trong kỳ.
+00:02:48,170 --> 00:02:58,400
+Lưu ý rằng chín trăm năm mươi triệu đồng hàng nhập thêm vì chưa bán nên vẫn nằm ở tài khoản hàng tồn kho, chưa bị trừ vào chi phí trong kỳ.
 
 19
-00:03:00,130 --> 00:03:18,310
-Tiếp theo, kế toán trừ đi một phẩy năm tỷ đồng chi phí vận hành và quản lý — bao gồm một tỷ đồng tiền thuê kho bãi, vận chuyển đã chi bằng tiền mặt và năm trăm triệu đồng tiền lương tháng mười hai của nhân viên vừa hạch toán vào tài khoản phải trả người lao động ba ba tư.
+00:02:58,400 --> 00:03:17,750
+Tiếp theo, kế toán trừ đi một phẩy năm tỷ đồng chi phí vận hành và quản lý — bao gồm một tỷ đồng tiền thuê kho bãi, vận chuyển đã chi bằng tiền mặt và năm trăm triệu đồng tiền lương tháng mười hai của nhân viên vừa hạch toán vào tài khoản phải trả người lao động.
 
 20
-00:03:18,310 --> 00:03:24,000
+00:03:17,750 --> 00:03:24,000
 Mười tỷ trừ sáu phẩy năm tỷ trừ một phẩy năm tỷ bằng đúng hai tỷ đồng lợi nhuận ròng.
 
 21
-00:03:24,000 --> 00:03:37,500
+00:03:24,000 --> 00:03:38,020
 Thế nhưng chiều ba mươi mốt tháng mười hai, khi giám đốc mở ứng dụng ngân hàng để bấm nút duyệt chi năm trăm triệu đồng tiền lương tháng mười hai, màn hình báo không đủ số dư.
 
 22
-00:03:37,500 --> 00:03:53,620
-Hãy làm một phép cộng trừ thuần tuý của dòng tiền thật trên tài khoản một một hai: đầu kỳ két có một tỷ đồng; cộng bảy phẩy năm tỷ đồng khách sỉ đã chuyển khoản, tổng tiền mặt chảy vào là tám phẩy năm tỷ đồng.
+00:03:38,020 --> 00:03:52,600
+Hãy làm một phép cộng trừ thuần tuý của dòng tiền thật: đầu kỳ két có một tỷ đồng; cộng bảy phẩy năm tỷ đồng khách sỉ đã chuyển khoản, tổng tiền mặt chảy vào là tám phẩy năm tỷ đồng.
 
 23
-00:03:53,620 --> 00:04:08,200
+00:03:52,600 --> 00:04:07,740
 Ở chiều ngược lại, công ty đã chuyển bảy phẩy bốn mươi lăm tỷ đồng trả nhà cung cấp và chi một tỷ đồng tiền mặt cho vận hành kho bãi; tổng tiền mặt chảy ra là tám phẩy bốn mươi lăm tỷ đồng.
 
 24
-00:04:08,200 --> 00:04:20,000
+00:04:07,740 --> 00:04:20,000
 Lấy tám phẩy năm tỷ trừ tám phẩy bốn mươi lăm tỷ, trong két ngân hàng còn đúng năm mươi triệu đồng — thiếu hụt bốn trăm năm mươi triệu đồng để trả lương.
 
 25
-00:04:20,000 --> 00:04:29,530
+00:04:20,000 --> 00:04:30,200
 Nhìn vào bảng cân đối kế toán lúc này, bạn sẽ thấy ngay hai miếng bọt biển khổng lồ đang hút giữ toàn bộ tiền mặt của công ty.
 
 26
-00:04:29,530 --> 00:04:43,290
+00:04:30,200 --> 00:04:44,930
 Tổng tài sản của doanh nghiệp đã tăng từ một tỷ đồng đầu năm lên ba phẩy năm tỷ đồng cuối năm — bao gồm một tỷ vốn gốc, hai tỷ tiền lãi ròng và năm trăm triệu đồng nợ lương chưa trả.
 
 27
-00:04:43,290 --> 00:04:56,450
-Nhưng trong ba phẩy năm tỷ đồng tài sản đó, có tới hai phẩy năm tỷ đồng đang nằm ngủ trong túi của đối tác mua sỉ dưới tên gọi Phải thu của khách hàng — tài khoản một ba một.
+00:04:44,930 --> 00:04:57,150
+Nhưng trong ba phẩy năm tỷ đồng tài sản đó, có tới hai phẩy năm tỷ đồng đang nằm ngủ trong túi của đối tác mua sỉ dưới tên gọi Phải thu của khách hàng.
 
 28
-00:04:56,450 --> 00:05:05,220
-Và chín trăm năm mươi triệu đồng nữa đang nằm ngủ trên kệ sắt dưới tên gọi Hàng hóa tồn kho — tài khoản một năm sáu.
+00:04:57,150 --> 00:05:04,600
+Và chín trăm năm mươi triệu đồng nữa đang nằm ngủ trên kệ sắt dưới tên gọi Hàng hóa tồn kho.
 
 29
-00:05:05,220 --> 00:05:14,000
+00:05:04,600 --> 00:05:14,000
 Cộng hai khoản đó lại là ba phẩy bốn mươi lăm tỷ đồng bị giam chặt, chỉ chừa lại đúng năm mươi triệu đồng tiền tươi.
 
 30
@@ -135,12 +135,12 @@ Cộng lại năm trăm triệu đồng chi phí lương đã tính vào chi ph�
 Lợi nhuận dương hai tỷ, nhưng dòng tiền kinh doanh lại âm chín trăm năm mươi triệu — ăn lẹm vào một tỷ đồng vốn đầu kỳ để chỉ còn lại năm mươi triệu đồng.
 
 35
-00:06:08,000 --> 00:06:35,220
-Bốn giờ ba mươi chiều ba mươi mốt tháng mười hai, để năm trăm nhân sự có tiền lương về tài khoản đúng hẹn, giám đốc buộc phải ký rút hạn mức vay thấu chi ngắn hạn tại ngân hàng bốn trăm năm mươi triệu đồng, ghi Có tài khoản vay và nợ thuê tài chính ba bốn một, cộng với năm mươi triệu đồng tiền mặt cuối cùng trong két để chuyển đủ năm trăm triệu đồng trả lương.
+00:06:08,000 --> 00:06:34,320
+Bốn giờ ba mươi chiều ba mươi mốt tháng mười hai, để năm trăm nhân sự có tiền lương về tài khoản đúng hẹn, giám đốc buộc phải ký rút hạn mức vay thấu chi ngắn hạn tại ngân hàng bốn trăm năm mươi triệu đồng, cộng với năm mươi triệu đồng tiền mặt cuối cùng trong két để chuyển đủ năm trăm triệu đồng trả lương.
 
 36
-00:06:35,220 --> 00:06:58,000
-Hãy nhìn sự trớ trêu của vòng quay tiền mặt: công ty của bạn đang cho đối tác mua sỉ mượn không lãi hai phẩy năm tỷ đồng suốt chín mươi ngày, nhưng chính công ty lại phải đi vay ngân hàng bốn trăm năm mươi triệu đồng và gánh chi phí lãi vay trên tài khoản sáu ba lăm để trả lương cho nhân viên của mình.
+00:06:34,320 --> 00:06:58,000
+Hãy nhìn sự trớ trêu của vòng quay tiền mặt: công ty của bạn đang cho đối tác mua sỉ mượn không lãi hai phẩy năm tỷ đồng suốt chín mươi ngày, nhưng chính công ty lại phải đi vay ngân hàng bốn trăm năm mươi triệu đồng và gánh chi phí lãi vay để trả lương cho nhân viên của mình.
 
 37
 00:06:58,000 --> 00:07:05,620
@@ -155,13 +155,13 @@ Khi vòng quay tiền mặt — tính bằng số ngày tồn kho cộng số ng
 Nếu thấy báo cáo cuối năm lãi hai tỷ đồng mà người điều hành vội vàng rút tiền chia thưởng lớn hoặc đầu tư mua sắm tài sản cố định, doanh nghiệp sẽ đứt thanh khoản ngay ở quý tiếp theo dù sổ sách vẫn báo lãi kỷ lục.
 
 40
-00:07:42,000 --> 00:07:59,380
-Câu chuyện hợp đồng mười tỷ đồng khép lại với một nguyên tắc sống còn: lợi nhuận ròng hai tỷ đồng trên báo cáo kết quả kinh doanh là một con số kế toán theo nguyên tắc dồn tích, còn năm mươi triệu đồng trong tài khoản một một hai mới là lượng oxy thật sự để doanh nghiệp thở mỗi ngày.
+00:07:42,000 --> 00:07:59,640
+Câu chuyện hợp đồng mười tỷ đồng khép lại với một nguyên tắc sống còn: lợi nhuận ròng hai tỷ đồng trên báo cáo kết quả kinh doanh là một con số kế toán theo nguyên tắc dồn tích, còn năm mươi triệu đồng trong tài khoản mới là lượng oxy thật sự để doanh nghiệp thở mỗi ngày.
 
 41
-00:07:59,380 --> 00:08:09,540
-Một đồng lợi nhuận chỉ thực sự thuộc về bạn khi nó đã rời khỏi tờ giấy phải thu một ba một và kệ hàng tồn kho một năm sáu để chảy về nằm yên trong két tiền ngân hàng.
+00:07:59,640 --> 00:08:08,910
+Một đồng lợi nhuận chỉ thực sự thuộc về bạn khi nó đã rời khỏi tờ giấy phải thu và kệ hàng tồn kho để chảy về nằm yên trong két tiền ngân hàng.
 
 42
-00:08:09,540 --> 00:08:20,000
+00:08:08,910 --> 00:08:20,000
 Khi đọc bất kỳ báo cáo tài chính nào, hãy luôn đặt bảng kết quả kinh doanh cạnh bảng lưu chuyển tiền tệ — để biết tiền thật đang thức hay đang ngủ trong sổ của người khác.

@@ -1,29 +1,29 @@
 1
-00:00:00,000 --> 00:00:03,870
+00:00:00,000 --> 00:00:03,920
 Sáng đầu tuần, bạn ghé quán quen gọi một ly cà phê năm mươi nghìn đồng.
 
 2
-00:00:03,870 --> 00:00:10,460
+00:00:03,920 --> 00:00:10,610
 Trên mặt quầy có cả máy quẹt thẻ lẫn một tấm bảng mã quy rờ, nhưng thu ngân luôn mỉm cười chỉ tay vào tấm bảng mã quy rờ.
 
 3
-00:00:10,460 --> 00:00:12,750
+00:00:10,610 --> 00:00:12,930
 Bạn đưa điện thoại lên quét, bấm xác nhận.
 
 4
-00:00:12,750 --> 00:00:17,220
+00:00:12,930 --> 00:00:17,460
 Chỉ ba giây sau, chiếc loa nhỏ trên quầy đã đọc vang: đã nhận năm mươi nghìn đồng.
 
 5
-00:00:17,220 --> 00:00:21,740
+00:00:17,460 --> 00:00:22,050
 Bạn cầm ly cà phê bước đi, còn quán nhận trọn vẹn năm mươi nghìn đồng ngay lập tức.
 
 6
-00:00:21,740 --> 00:00:31,490
-Hãy nhớ lại bài số một: khi bạn chạm thẻ tín dụng mười triệu đồng, quán phải đợi hai ngày làm việc và bị trừ mất hai trăm hai mươi nghìn đồng tiền phí, tức hai phẩy hai phần trăm.
+00:00:22,050 --> 00:00:31,330
+Thử so sánh: khi bạn chạm thẻ tín dụng mười triệu đồng, quán phải đợi hai ngày làm việc và bị trừ mất hai trăm hai mươi nghìn đồng tiền phí, tức hai phẩy hai phần trăm.
 
 7
-00:00:31,490 --> 00:00:42,000
+00:00:31,330 --> 00:00:42,000
 Vì sao cùng là thanh toán không tiền mặt bằng chiếc điện thoại, nhưng quét mã quy rờ chuyển khoản thì quán nhận đủ một trăm phần trăm tiền tươi ngay trong ba giây mà không mất một đồng phí nào?
 
 8
@@ -67,23 +67,23 @@ Ngược lại, khi bạn quét mã quy rờ chuyển khoản, năm mươi nghì
 Không có ngân hàng nào phải bỏ tiền túi cho bạn vay bốn mươi lăm ngày, không có rủi ro nợ xấu, nên cũng không ai có lý do để thu hai phẩy hai phần trăm phí chiết khấu từ quán cà phê.
 
 18
-00:02:24,000 --> 00:02:30,890
+00:02:24,000 --> 00:02:30,580
 Nhưng có một điều rất lạ: giả sử bạn dùng ngân hàng A, còn quán cà phê mở tài khoản ở ngân hàng B.
 
 19
-00:02:30,890 --> 00:02:44,940
-Lúc tám giờ sáng Chủ nhật, phòng giao dịch ngân hàng trung ương đang nghỉ, tại sao chỉ ba giây sau khi bạn bấm nút, chiếc loa của quán đã báo nhận đủ năm mươi nghìn đồng và quán rút ra tiêu được ngay?
+00:02:30,580 --> 00:02:46,570
+Lúc tám giờ sáng Chủ nhật, trung tâm quyết toán giữa các ngân hàng tại Ngân hàng Trung ương đang nghỉ cuối tuần, tại sao chỉ ba giây sau khi bạn bấm nút, chiếc loa của quán đã báo nhận đủ năm mươi nghìn đồng và quán rút ra tiêu được ngay?
 
 20
-00:02:44,940 --> 00:02:50,630
+00:02:46,570 --> 00:02:52,010
 Đó là nhờ kiến trúc hai tầng của hạ tầng chuyển tiền nhanh hai mươi bốn trên bảy.
 
 21
-00:02:50,630 --> 00:03:02,150
-Ở tầng trên mặt đất, ngay giây thứ nhất ngân hàng của bạn trừ năm mươi nghìn đồng của bạn, một bản tin điện tử chạy qua tổ chức chuyển mạch sang ngân hàng của quán.
+00:02:52,010 --> 00:03:02,760
+Ngay giây thứ nhất, ngân hàng của bạn trừ năm mươi nghìn đồng trong tài khoản của bạn, một bản tin điện tử chạy qua tổ chức chuyển mạch sang ngân hàng của quán.
 
 22
-00:03:02,150 --> 00:03:16,000
+00:03:02,760 --> 00:03:16,000
 Vì ngân hàng của bạn đã đặt sẵn một quỹ bảo chứng thanh khoản, ngân hàng của quán tin tưởng tuyệt đối vào bản tin ấy và lập tức ghi Có năm mươi nghìn đồng vào tài khoản của quán ngay ở giây thứ ba.
 
 23
@@ -115,47 +115,47 @@ Khi ấy, ngân hàng A chỉ cần chuyển đúng bốn tỷ đồng tiền ch
 Lời nhắn chạy từng giây, nhưng tiền dự trữ chỉ chuyển phần chênh lệch.
 
 30
-00:04:10,000 --> 00:04:18,150
+00:04:10,000 --> 00:04:18,840
 Giờ hãy mở cuốn sổ kế toán của quán cà phê theo Thông tư 99/2025 để thấy vì sao chủ quán lại mê tấm bảng mã quy rờ đến vậy.
 
 31
-00:04:18,150 --> 00:04:27,360
-Giả sử một ngày quán bán được hai trăm ly cà phê năm mươi nghìn đồng, tổng doanh thu đúng bằng mười triệu đồng như bữa liên hoan ở bài một.
+00:04:18,840 --> 00:04:26,820
+Giả sử một ngày quán bán được hai trăm ly cà phê năm mươi nghìn đồng, tổng doanh thu đúng bằng mười triệu đồng.
 
 32
-00:04:27,360 --> 00:04:43,530
-Nếu khách quẹt thẻ tín dụng toàn bộ mười triệu đồng ấy, cuối ngày kế toán chỉ ghi được một khoản phải thu trên tài khoản một ba tám tám, chờ hai ngày sau tiền mới về tài khoản một một hai và bị hụt mất hai trăm hai mươi nghìn đồng phí bán hàng.
+00:04:26,820 --> 00:04:42,640
+Nếu khách quẹt thẻ tín dụng toàn bộ mười triệu đồng ấy, cuối ngày kế toán chỉ ghi được một khoản phải thu trên sổ, chờ hai ngày sau tiền mới về tài khoản ngân hàng và bị hụt mất hai trăm hai mươi nghìn đồng phí bán hàng.
 
 33
-00:04:43,530 --> 00:04:55,590
-Còn khi hai trăm vị khách cùng quét mã quy rờ chuyển khoản, mười triệu đồng chảy thẳng vào tài khoản tiền gửi không kỳ hạn một một hai ngay trong ca bán hàng, không hụt một đồng nào.
+00:04:42,640 --> 00:04:54,860
+Còn khi hai trăm vị khách cùng quét mã quy rờ chuyển khoản, mười triệu đồng chảy thẳng vào tài khoản tiền gửi không kỳ hạn ngay trong ca bán hàng, không hụt một đồng nào.
 
 34
-00:04:55,590 --> 00:05:04,000
+00:04:54,860 --> 00:05:04,000
 Cứ mỗi một tháng ba mươi ngày như thế, tấm bảng nhựa nhỏ xíu trên quầy giữ lại cho quán sáu triệu sáu trăm nghìn đồng tiền mặt.
 
 35
-00:05:04,000 --> 00:05:12,850
+00:05:04,000 --> 00:05:12,950
 Nhưng nếu bạn cũng không trả phí, quán cũng không trả phí, vậy hai ngân hàng lấy gì để bù đắp chi phí máy chủ hoạt động ngày đêm?
 
 36
-00:05:12,850 --> 00:05:18,480
-Câu trả lời nối thẳng về bể vốn không kỳ hạn CASA mà bạn đã thấy ở bài tiền lương.
+00:05:12,950 --> 00:05:18,020
+Câu trả lời nối thẳng về bể vốn tiền gửi không kỳ hạn CASA của ngân hàng.
 
 37
-00:05:18,480 --> 00:05:30,970
+00:05:18,020 --> 00:05:30,650
 Trước kia, để mua ly cà phê năm mươi nghìn đồng, bạn phải ra cây rút tiền tự động rút tiền giấy, làm tiền rời khỏi hệ thống ngân hàng và bắt ngân hàng tốn chi phí tiếp quỹ, kiểm đếm.
 
 38
-00:05:30,970 --> 00:05:39,890
+00:05:30,650 --> 00:05:39,670
 Khi miễn phí chuyển khoản quy rờ, năm mươi nghìn đồng chỉ nhảy từ tài khoản thanh toán của bạn sang tài khoản thanh toán của quán.
 
 39
-00:05:39,890 --> 00:05:43,460
+00:05:39,670 --> 00:05:43,280
 Đồng tiền không bao giờ rời khỏi hệ thống ngân hàng.
 
 40
-00:05:43,460 --> 00:05:58,000
+00:05:43,280 --> 00:05:58,000
 Cả bạn lẫn chủ quán đều vui vẻ để hàng chục triệu đồng nằm sẵn trong tài khoản thanh toán với lãi suất chỉ khoảng không phẩy một phần trăm một năm, tạo thành nguồn vốn giá rẻ khổng lồ để ngân hàng đem đi cho vay.
 
 41

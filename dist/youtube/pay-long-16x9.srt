@@ -1,25 +1,25 @@
 1
-00:00:00,000 --> 00:00:04,130
+00:00:00,000 --> 00:00:04,250
 Tối qua điện thoại của bạn báo ghi có mười lăm triệu đồng.
 
 2
-00:00:04,130 --> 00:00:06,270
+00:00:04,250 --> 00:00:06,450
 Bạn biết con số ấy từ đâu đến.
 
 3
-00:00:06,270 --> 00:00:12,970
+00:00:06,450 --> 00:00:13,340
 Nhưng bạn có biết, trong suốt chặng đường đó, không một đồng tiền nào thực sự di chuyển không?
 
 4
-00:00:12,970 --> 00:00:16,250
+00:00:13,340 --> 00:00:16,710
 Và đêm nay, tiền lương của bạn đang ngủ ở đâu?
 
 5
-00:00:16,250 --> 00:00:28,650
-Trong vài phút tới, mình đi theo một tháng lương qua năm ngôi nhà trên một con phố: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và một bên bạn hiếm khi nghĩ tới.
+00:00:16,710 --> 00:00:28,520
+Trong vài phút tới, mình đi theo một tháng lương qua năm bên tham gia: công ty, ngân hàng trả lương, bạn, năm trăm đồng nghiệp, và một bên bạn hiếm khi nghĩ tới.
 
 6
-00:00:28,650 --> 00:00:33,000
+00:00:28,520 --> 00:00:33,000
 Câu chuyện bắt đầu từ một tờ giấy bạn ký vào ngày đầu đi làm.
 
 7
@@ -83,31 +83,31 @@ Chữ ghi có ấy là một dòng Credit trong sổ của ngân hàng, không p
 Số dư của bạn, hoá ra, là một khoản ngân hàng đang nợ bạn.
 
 22
-00:01:56,000 --> 00:01:58,640
-Lùi lại một bước, vào sổ của công ty.
+00:01:56,000 --> 00:01:58,440
+Giờ nhìn sang cuốn sổ của công ty.
 
 23
-00:01:58,640 --> 00:02:04,710
+00:01:58,440 --> 00:02:04,540
 Với công ty, lương của bạn không phải mười lăm triệu mà là mười bảy triệu, lương gộp.
 
 24
-00:02:04,710 --> 00:02:11,500
+00:02:04,540 --> 00:02:11,360
 Cuối tháng, công ty ghi mười bảy triệu là chi phí, và ghi rằng mình đang nợ bạn mười bảy triệu.
 
 25
-00:02:11,500 --> 00:02:25,000
+00:02:11,360 --> 00:02:24,920
 Rồi công ty giữ lại một triệu bảy trăm tám mươi lăm nghìn đồng bảo hiểm, tính theo giả định mười phẩy năm phần trăm, chỉ là ví dụ, và hai trăm mười lăm nghìn đồng thuế, một con số minh hoạ.
 
 26
-00:02:25,000 --> 00:02:29,210
+00:02:24,920 --> 00:02:29,150
 Hai triệu này vẫn là tiền của bạn; công ty giữ để nộp thay.
 
 27
-00:02:29,210 --> 00:02:34,210
+00:02:29,150 --> 00:02:34,170
 Ngày lương, mười lăm triệu rời tài khoản công ty bằng một dòng Credit.
 
 28
-00:02:34,210 --> 00:02:44,000
+00:02:34,170 --> 00:02:44,000
 Cùng chữ Credit với tin nhắn của bạn, nhưng khác sổ, khác chiều: ở ngân hàng nó làm tăng một khoản nợ, ở công ty nó làm giảm một tài sản.
 
 29
@@ -179,63 +179,63 @@ Giờ nhìn sang bên cạnh: năm trăm đồng nghiệp cũng đang để yên
 Ví dụ mỗi người năm triệu, cả bảng lương là hai phẩy năm tỷ đồng.
 
 46
-00:04:16,000 --> 00:04:20,150
+00:04:16,000 --> 00:04:20,110
 Với ngân hàng, hai phẩy năm tỷ ấy là nguồn vốn rẻ, và dính.
 
 47
-00:04:20,150 --> 00:04:27,890
+00:04:20,110 --> 00:04:27,780
 Lương về đều đặn mỗi tháng, người nhận ít khi đổi ngân hàng, và hiếm khi năm trăm người rút sạch cùng một lúc.
 
 48
-00:04:27,890 --> 00:04:33,870
+00:04:27,780 --> 00:04:33,710
 Trả lãi không phẩy một phần trăm, cả bảng lương chỉ tốn chừng hai triệu rưỡi một năm.
 
 49
-00:04:33,870 --> 00:04:41,120
+00:04:33,710 --> 00:04:40,890
 Huy động cùng số ấy bằng tiền gửi có kỳ hạn, ví dụ ở năm phần trăm, sẽ tốn một trăm hai mươi lăm triệu.
 
 50
-00:04:41,120 --> 00:04:44,780
+00:04:40,890 --> 00:04:44,520
 Ngân hàng không đem đúng tờ tiền của bạn đi cho vay.
 
 51
-00:04:44,780 --> 00:04:49,640
+00:04:44,520 --> 00:04:49,330
 Vốn được gộp chung, và nguồn rẻ như CASA kéo giá vốn bình quân xuống.
 
 52
-00:04:49,640 --> 00:05:00,000
-Ở tầng trên, giả sử bên cho vay giải ngân mua nhà với lãi quanh tám phẩy năm phần trăm một năm — chênh lệch ấy bắt đầu từ chính phần lương nằm yên.
+00:04:49,330 --> 00:05:00,000
+Ở chiều ngược lại, giả sử bên cho vay giải ngân mua nhà với lãi quanh tám phẩy năm phần trăm một năm — chênh lệch ấy bắt đầu từ chính phần lương nằm yên.
 
 53
-00:05:00,000 --> 00:05:04,230
+00:05:00,000 --> 00:05:04,060
 Vậy ai trong ngân hàng được ghi công cho khoản vốn rẻ ấy?
 
 54
-00:05:04,230 --> 00:05:07,350
-Câu trả lời là một giá nội bộ, gọi là FTP.
+00:05:04,060 --> 00:05:08,830
+Câu trả lời là một mức giá vốn nội bộ giữa các bộ phận, gọi là FTP.
 
 55
-00:05:07,350 --> 00:05:16,400
+00:05:08,830 --> 00:05:17,520
 Bộ phận quản lý vốn mua tiền gửi từ bên huy động, ví dụ ở bốn phẩy năm phần trăm, rồi bán cho bên cho vay ở sáu phần trăm.
 
 56
-00:05:16,400 --> 00:05:20,780
+00:05:17,520 --> 00:05:21,720
 Bên huy động trả bạn không phẩy một, giữ bốn phẩy bốn điểm.
 
 57
-00:05:20,780 --> 00:05:26,860
+00:05:21,720 --> 00:05:27,560
 Bộ phận quản lý vốn giữ một phẩy năm điểm, để gánh rủi ro thanh khoản và lãi suất.
 
 58
-00:05:26,860 --> 00:05:31,390
+00:05:27,560 --> 00:05:31,900
 Bên cho vay thu tám phẩy năm, trả sáu, giữ hai phẩy năm điểm.
 
 59
-00:05:31,390 --> 00:05:37,400
+00:05:31,900 --> 00:05:37,670
 Cộng lại tám phẩy bốn, đúng bằng khoảng cách giữa tám phẩy năm và không phẩy một.
 
 60
-00:05:37,400 --> 00:05:44,000
+00:05:37,670 --> 00:05:44,000
 Và đó là trước khi trả lương nhân viên, chạy hệ thống, hay gánh khoản vay không đòi được.
 
 61
@@ -263,35 +263,35 @@ Ngân hàng đứng giữa người gửi muốn rút lúc nào cũng được v
 Số dư nằm yên của người làm lương là một trong những nguồn ổn định nhất cho cái lệch pha đó.
 
 67
-00:06:25,000 --> 00:06:26,860
+00:06:25,000 --> 00:06:26,840
 Còn sếp của bạn được gì?
 
 68
-00:06:26,860 --> 00:06:31,670
+00:06:26,840 --> 00:06:31,590
 Mang cả bảng lương về một ngân hàng, công ty có thứ để mặc cả.
 
 69
-00:06:31,670 --> 00:06:39,810
+00:06:31,590 --> 00:06:39,640
 Ngân hàng có thể đổi gói chi lương lấy ưu đãi cho doanh nghiệp, có thể là phí dịch vụ, có thể là lãi vay.
 
 70
-00:06:39,810 --> 00:06:45,080
+00:06:39,640 --> 00:06:44,850
 Mỗi hợp đồng một khác, và bài này chưa xác minh điều khoản thật nào.
 
 71
-00:06:45,080 --> 00:06:51,910
+00:06:44,850 --> 00:06:51,600
 Bạn không trả phí trực tiếp, nhưng số dư nằm yên của bạn là một phần của cuộc mặc cả ấy.
 
 72
-00:06:51,910 --> 00:07:00,050
-Nhìn lại cả con phố: công ty được gói ưu đãi, ngân hàng được nguồn vốn rẻ, bên cho vay có vốn để cho vay.
+00:06:51,600 --> 00:07:00,190
+Nhìn lại toàn bộ vòng quay: công ty được gói ưu đãi, ngân hàng được nguồn vốn rẻ, bên cho vay có vốn để cho vay.
 
 73
-00:07:00,050 --> 00:07:05,090
+00:07:00,190 --> 00:07:05,170
 Còn bạn được sự tiện: lương về trong ngày, rút lúc nào cũng được.
 
 74
-00:07:05,090 --> 00:07:12,000
+00:07:05,170 --> 00:07:12,000
 Cái bạn bỏ ra là phần lãi mà số dư ấy không sinh ra, và không ai gửi hoá đơn cho phần đó.
 
 75

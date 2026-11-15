@@ -31,64 +31,64 @@ Trong tám phút tới, mình lần theo từng lời nhắn, từng dòng sổ 
 để tìm sáu trăm nghìn đồng đang nằm sau quầy.
 
 9
-00:00:31,000 --> 00:00:35,860
+00:00:31,000 --> 00:00:35,940
 Thứ Bảy, trong ví dụ này, bạn đứng ở quầy một cửa hàng điện thoại.
 
 10
-00:00:35,860 --> 00:00:44,260
+00:00:35,940 --> 00:00:44,480
 Chiếc máy bạn ngắm giá mười hai triệu đồng, kèm tờ rơi trả góp không phần trăm suốt mười hai kỳ, mỗi kỳ một triệu.
 
 11
-00:00:44,260 --> 00:00:49,120
+00:00:44,480 --> 00:00:49,420
 Nhân viên chụp căn cước, nhập hồ sơ vào máy tính bảng rồi bấm gửi.
 
 12
-00:00:49,120 --> 00:00:54,350
+00:00:49,420 --> 00:00:54,740
 Trên luồng thông tin xét duyệt: thứ vừa gửi đi chỉ là bộ hồ sơ điện tử.
 
 13
-00:00:54,350 --> 00:00:56,270
+00:00:54,740 --> 00:00:56,690
 Nó chưa chở đồng tiền nào.
 
 14
-00:00:56,270 --> 00:01:03,930
-Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một ngôi nhà khác ở cuối phố.
+00:00:56,690 --> 00:01:03,810
+Và để ý điểm đến của lời nhắn ấy: không phải ngân hàng của cửa hàng, mà là một bên thứ ba khác.
 
 15
-00:01:03,930 --> 00:01:11,000
+00:01:03,810 --> 00:01:11,000
 Giữ câu hỏi này trong đầu: nếu không ai thu lãi của bạn, thì ai trả tiền cho sự chờ đợi một năm?
 
 16
-00:01:11,000 --> 00:01:14,520
-Ngôi nhà cuối phố là một công ty tài chính tiêu dùng.
+00:01:11,000 --> 00:01:14,240
+Bên thứ ba đó là một công ty tài chính tiêu dùng.
 
 17
-00:01:14,520 --> 00:01:19,830
+00:01:14,240 --> 00:01:19,540
 Họ đọc hồ sơ, chấm điểm, và mười lăm phút sau gửi lại thông báo xác nhận: duyệt.
 
 18
-00:01:19,830 --> 00:01:27,260
+00:01:19,540 --> 00:01:26,960
 Rồi một bản hợp đồng điện tử được xác lập thẳng giữa bạn và công ty tài chính: đó là cam kết nhận nợ bạn vừa ký.
 
 19
-00:01:27,260 --> 00:01:34,220
+00:01:26,960 --> 00:01:33,910
 Hợp đồng là một lời hứa trả tiền, nên lúc này mới chỉ có thông tin được ghi nhận, chưa có tiền giải ngân.
 
 20
-00:01:34,220 --> 00:01:40,060
+00:01:33,910 --> 00:01:39,740
 Từ giây này, người bạn nợ mười hai triệu đồng là công ty tài chính, không phải cửa hàng.
 
 21
-00:01:40,060 --> 00:01:43,180
+00:01:39,740 --> 00:01:42,850
 Nếu bạn trả chậm một kỳ, người tính phạt là họ.
 
 22
-00:01:43,180 --> 00:01:44,640
+00:01:42,850 --> 00:01:44,310
 Cửa hàng chỉ bán hàng.
 
 23
-00:01:44,640 --> 00:01:50,000
-Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về ngôi nhà cuối phố.
+00:01:44,310 --> 00:01:50,000
+Rủi ro bạn không trả, việc nhắc nợ, việc đòi nợ, tất cả dồn về phía công ty tài chính.
 
 24
 00:01:50,000 --> 00:01:50,990

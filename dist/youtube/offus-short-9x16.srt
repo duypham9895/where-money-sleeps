@@ -1,10 +1,10 @@
 1
-00:00:00,000 --> 00:00:07,200
+00:00:00,000 --> 00:00:07,040
 Bạn chuyển khoản hai mươi triệu đồng cùng ngân hàng hay khác ngân hàng thì người nhận đều ting-ting sau ba giây.
 
 2
-00:00:07,200 --> 00:00:11,000
-Nhưng dưới tầng hầm, tiền đi hai đường trái ngược hẳn nhau.
+00:00:07,040 --> 00:00:11,000
+Nhưng phía sau màn hình, tiền đi hai đường trái ngược hẳn nhau.
 
 3
 00:00:11,000 --> 00:00:18,560
@@ -36,4 +36,4 @@ Khi đó Ngân hàng Trung ương chỉ cắt chuyển một lệnh duy nhất b
 
 10
 00:01:01,000 --> 00:01:12,000
-Và nếu lệnh liên ngân hàng chiều cuối năm bị treo đối soát qua đêm, kế toán phải ghi vào tài khoản 113 Tiền đang chuyển chứ chưa xoá được nợ ngay đâu.
+Và nếu lệnh liên ngân hàng chiều cuối năm bị treo đối soát qua đêm, kế toán phải tạm ghi vào tài khoản 113 Tiền đang chuyển chứ chưa xoá được nợ ngay đâu.
