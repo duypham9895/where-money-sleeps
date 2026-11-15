@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="vi" data-tier="reference" data-theme="light" data-option="mobile-A">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="text-scale" content="scale">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
+<title>Where Money Sleeps — Phương án A: Calm Editorial Mobile-First</title>
+<style>
+  @property --fade-start {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --fade-end {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+
+  :root {
+    --paper: #f3ebdd;
+    --paper-2: #e8dcc6;
+    --card: #fbf6ec;
+    --ink: #221c15;
+    --ink-2: #4f4537;
+    --ink-3: #6c6152;
+    --rule: #dccfb9;
+    --rule-2: #c6b597;
+    --lamp: #94600c;
+    --lamp-soft: color-mix(in srgb, #d9962b 22%, transparent);
+    --clay: #a3401f;
+    --moss: #356043;
+    --sh: rgba(52, 34, 14, .22);
+    --sh-2: rgba(52, 34, 14, .12);
+    --wood: #5b3e26;
+    --wood-hi: #7a5638;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+    --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --gutter: max(12px, env(safe-area-inset-left));
+    --gutter-r: max(12px, env(safe-area-inset-right));
+    --wide: min(68rem, calc(100vw - var(--gutter) - var(--gutter-r)));
+    --read: min(42rem, calc(100vw - var(--gutter) - var(--gutter-r)));
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #15161f;
+    --paper-2: #1d1f2b;
+    --card: #20222f;
+    --ink: #efe7d6;
+    --ink-2: #cdc3b0;
+    --ink-3: #a49a87;
+    --rule: #2e3040;
+    --rule-2: #454860;
+    --lamp: #ebb553;
+    --lamp-soft: color-mix(in srgb, #ebb553 18%, transparent);
+    --clay: #ec8a68;
+    --moss: #8cc29a;
+    --sh: rgba(0, 0, 0, .52);
+    --sh-2: rgba(0, 0, 0, .32);
+    --wood: #3b2819;
+    --wood-hi: #553b26;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1rem, 0.96rem + 0.25vw, 1.125rem);
+    line-height: 1.62;
+    overflow-wrap: anywhere;
+    transition: background .2s ease, color .2s ease;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+  .num { font-family: var(--sans); font-variant-numeric: tabular-nums; }
+  .vh {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); margin: -1px; padding: 0; border: 0; white-space: nowrap;
+  }
+
+  /* ── Masthead: 1 compact row, <= 54px, no squeezed controls ── */
+  .atlasbar {
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+    font-family: var(--sans);
+  }
+  .ab-row {
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    min-height: 50px;
+    padding: 4px var(--gutter-r) 4px var(--gutter);
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .ab-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1 1 0;
+  }
+  .ab-brand {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 4px 2px;
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font: 600 italic clamp(0.95rem, 3.6vw, 1.18rem)/1.1 var(--serif);
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+  .ab-brand:hover { color: var(--lamp); }
+
+  .ab-back {
+    appearance: none;
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 0 10px;
+    min-width: 44px;
+    min-height: 44px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font: 600 13px/1 var(--sans);
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  .ab-back:hover { background: var(--paper-2); border-color: var(--ink); }
+
+  .sp-post-btn {
+    appearance: none;
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 0 10px;
+    min-height: 44px;
+    min-width: 0;
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font: 600 13px/1.2 var(--sans);
+    text-align: left;
+    overflow: hidden;
+  }
+  .sp-post-btn:hover { background: var(--paper-2); }
+  .post-pos { font: 700 11px var(--mono); color: var(--lamp); flex: 0 0 auto; }
+  .post-title {
+    min-width: 0;
+    flex: 1 1 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sp-caret { font-size: 10px; color: var(--ink-3); flex: 0 0 auto; }
+
+  .ab-act {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+  }
+
+  /* Mobile keeps 1 compact 44x44 language toggle pill; desktop shows VI | EN seg */
+  .lang-seg {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+    border-radius: 4px;
+    background: var(--card);
+  }
+  .lang-seg button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--ink-2);
+    border-radius: 2px;
+    padding: 4px 10px;
+    min-height: 36px;
+    min-width: 36px;
+    font: 700 11.5px/1 var(--mono);
+    cursor: pointer;
+  }
+  .lang-seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+  .lang-pill-mob {
+    appearance: none;
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 10px;
+    font: 700 12px/1 var(--mono);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .ab-icon-btn {
+    appearance: none;
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    background: var(--card);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .ab-icon-btn:hover, .lang-pill-mob:hover { background: var(--paper-2); color: var(--ink); border-color: var(--ink); }
+
+  @media (max-width: 680px) {
+    .lang-seg { display: none; }
+    .lang-pill-mob { display: inline-flex; }
+    .atlasbar.is-detail .ab-brand { display: none; }
+    .atlasbar.is-detail #navSearchBtn { display: none; }
+    .ab-back-lbl { display: none; }
+  }
+  @media (max-width: 400px) {
+    .ab-row { gap: 6px; }
+    .ab-left { gap: 6px; }
+    .sp-post-btn { padding: 0 8px; gap: 4px; }
+    .sp-post-btn .post-pos { display: none; }
+  }
+  @media (min-width: 681px) {
+    .atlasbar.is-detail .ab-brand { margin-right: 4px; }
+    .ab-back-lbl { display: inline; }
+  }
+
+  /* ── Main shell ── */
+  .page {
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 16px var(--gutter-r) 48px var(--gutter);
+  }
+
+  /* Option badge & preview view switcher (quiet utility banner at top of mockup) */
+  .proto-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    border: 1px dashed var(--rule-2);
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--card) 75%, var(--paper-2));
+    font: 500 12.5px/1.4 var(--sans);
+    color: var(--ink-2);
+  }
+  .proto-banner strong { color: var(--ink); font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .screen-switch {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    width: min(100%, 24rem);
+  }
+  .screen-switch button {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--card);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 6px 10px;
+    font: 600 12.5px/1.2 var(--sans);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .screen-switch button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ── Editorial Hero ── */
+  .hero {
+    padding: 6px 0 18px;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 18px;
+  }
+  .hero-kicker {
+    font: 700 11px/1.2 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--clay);
+    margin: 0 0 8px;
+  }
+  .hero h1 {
+    margin: 0 0 10px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 4.5vw, 2.55rem);
+    line-height: 1.18;
+    letter-spacing: -.015em;
+  }
+  .hero-sub {
+    margin: 0 0 16px;
+    max-width: 48ch;
+    color: var(--ink-2);
+    font-size: clamp(0.98rem, 0.94rem + 0.3vw, 1.08rem);
+  }
+  .hero-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .cta-main {
+    appearance: none;
+    border: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    padding: 10px 16px;
+    min-height: 44px;
+    font: 600 14px/1.2 var(--sans);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--lamp);
+  }
+  .cta-main:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--lamp); }
+  .cta-sub {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 10px 14px;
+    min-height: 44px;
+    font: 500 13.5px/1.2 var(--sans);
+    cursor: pointer;
+  }
+  .cta-sub:hover { background: var(--paper-2); border-color: var(--ink); }
+
+  /* ── Catalog Controls: Option A hides 3-mode + 6/page clutter on mobile ── */
+  .catalog-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 14px;
+    margin-bottom: 12px;
+  }
+  .catalog-head h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.32rem, 3vw, 1.75rem);
+    line-height: 1.25;
+  }
+  .catalog-meta {
+    margin: 0;
+    font: 500 13.5px/1.45 var(--sans);
+    color: var(--ink-2);
+  }
+
+  .catalog-tools {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .search-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  search.wms-search {
+    display: block;
+    flex: 1 1 20rem;
+    min-width: 0;
+    width: 100%;
+  }
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .search-ico {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--ink-3);
+    pointer-events: none;
+  }
+  .catalog-search {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 46px 10px 38px;
+    border: 1.5px solid var(--rule-2);
+    border-radius: 6px;
+    background: var(--card);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: max(16px, 1rem);
+    line-height: 1.3;
+  }
+  .catalog-search:focus { outline: none; border-color: var(--ink); }
+  .search-clear {
+    position: absolute;
+    right: 2px;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    font: 700 18px/1 var(--sans);
+    border-radius: 4px;
+  }
+  .search-clear:hover { color: var(--ink); }
+
+  /* Desktop-only 3-mode switcher */
+  .mode-seg-wrap {
+    display: none;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--sans);
+  }
+  @media (min-width: 768px) {
+    .mode-seg-wrap { display: inline-flex; }
+  }
+  .mode-lbl {
+    font: 700 10.5px var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .mode-seg {
+    display: inline-flex;
+    gap: 14px;
+    border-bottom: 1px solid var(--rule-2);
+  }
+  .mode-seg button {
+    appearance: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    padding: 7px 2px;
+    min-height: 40px;
+    font: 500 13px var(--sans);
+    color: var(--ink-3);
+    cursor: pointer;
+    margin-bottom: -1px;
+    white-space: nowrap;
+  }
+  .mode-seg button[aria-pressed="true"] {
+    color: var(--ink);
+    font-weight: 700;
+    border-bottom-color: var(--clay);
+  }
+
+  /* ── Category Pills: single-row horizontal swipe with CSS Mask edge fade ── */
+  .cat-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: inline proximity;
+    scroll-padding-inline: 28px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    --fade-size: 32px;
+    mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--fade-start),
+      #000 calc(100% - var(--fade-end)),
+      transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--fade-start),
+      #000 calc(100% - var(--fade-end)),
+      transparent 100%);
+    transition: --fade-start .18s ease, --fade-end .18s ease;
+  }
+  .cat-pills::-webkit-scrollbar { display: none; }
+  .cat-pill {
+    position: relative;
+    appearance: none;
+    border: 0;
+    border-bottom: 2.5px solid transparent;
+    background: transparent;
+    padding: 8px 4px;
+    min-height: 44px;
+    min-width: 44px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    font: 500 13.5px/1.2 var(--sans);
+    color: var(--ink-3);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    margin-bottom: -1px;
+  }
+  .cat-pill:hover { color: var(--ink); border-bottom-color: var(--rule-2); }
+  .cat-pill[aria-pressed="true"] {
+    color: var(--ink);
+    font-weight: 700;
+    border-bottom-color: var(--c, var(--clay));
+  }
+  .cat-pill .ct-n {
+    font: 600 11.5px/1 var(--mono);
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .filter-status-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 8px 0 14px;
+    font: 500 13px/1.4 var(--sans);
+    color: var(--ink-2);
+  }
+  .filter-reset {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--card);
+    color: var(--clay);
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 0 12px;
+    font: 600 12.5px var(--sans);
+    cursor: pointer;
+  }
+  .filter-reset:hover { border-color: var(--clay); background: var(--paper-2); }
+
+  /* ── Lesson Cards Grid ── */
+  .stories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20.5rem), 1fr));
+    gap: 16px;
+  }
+  .story-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 18px 16px 34px;
+    border-radius: 3px 10px 10px 3px;
+    background: linear-gradient(90deg, rgba(60, 40, 15, .07) 0 16px, transparent 16px), var(--card);
+    box-shadow: 0 1px 1px var(--sh-2), 0 8px 16px -12px var(--sh);
+    border-top: 3px solid var(--c, var(--clay));
+    min-width: 0;
+  }
+  .story-card::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    bottom: 10px;
+    border-left: 1.5px dashed var(--rule-2);
+  }
+  .sc-k {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+    font: 600 12px/1.3 var(--sans);
+    color: var(--ink-3);
+  }
+  .sc-cat { color: var(--ink-2); border-bottom: 1.5px solid var(--c, var(--lamp)); padding-bottom: 1px; }
+  .sc-dur { font: 600 11.5px var(--mono); color: var(--moss); }
+  .story-card h3 {
+    margin: 2px 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.12rem, 2.5vw, 1.28rem);
+    line-height: 1.28;
+  }
+  .card-link {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    min-height: 44px;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+  }
+  .card-link::after { content: ""; position: absolute; inset: 0; }
+  .sc-d { margin: 0; color: var(--ink-2); font-size: 0.94rem; line-height: 1.5; }
+  .sc-flow {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed var(--rule);
+    font: 500 12px/1.45 var(--sans);
+    color: var(--ink-3);
+  }
+  .sc-go {
+    font: 600 13px/1.2 var(--sans);
+    color: var(--clay);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2px;
+  }
+
+  /* Compact grouped mode on Desktop */
+  .compact-cat-list { display: grid; gap: 14px; }
+  .compact-cat-group {
+    background: var(--card);
+    border: 1px solid var(--rule-2);
+    border-top: 3px solid var(--c, var(--lamp));
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .compact-cat-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--rule-2);
+  }
+  .compact-cat-head h3 { margin: 0; font: 600 1.12rem var(--serif); }
+  .compact-cat-head span { font: 600 11.5px var(--mono); color: var(--ink-3); }
+  .compact-row {
+    appearance: none;
+    width: 100%;
+    border: 1px solid transparent;
+    border-bottom: 1px dashed var(--rule);
+    background: transparent;
+    text-align: left;
+    padding: 10px 8px;
+    min-height: 48px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    align-items: baseline;
+    font-family: var(--sans);
+  }
+  .compact-row:hover { background: var(--paper-2); }
+  .cr-idx { font: 700 11.5px var(--mono); color: var(--c, var(--clay)); }
+  .cr-main b { display: block; font-family: var(--serif); font-size: 1.02rem; font-weight: 500; }
+  .cr-main small { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+  .cr-meta { font: 600 12px var(--mono); color: var(--clay); white-space: nowrap; }
+
+  /* ── Category Progress Shelf: Compact 4-Row Index on Mobile; 2x2 Bookshelf on Desktop ── */
+  .shelf-sec {
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1.5px solid var(--rule-2);
+  }
+  .shelf-sec h2 {
+    margin: 0 0 6px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 3vw, 1.65rem);
+  }
+  .shelf-sub {
+    margin: 0 0 16px;
+    font: 400 14px/1.5 var(--sans);
+    color: var(--ink-2);
+    max-width: 58ch;
+  }
+
+  /* Mobile Compact Index */
+  .mob-index {
+    display: grid;
+    gap: 10px;
+  }
+  .mob-idx-card {
+    appearance: none;
+    width: 100%;
+    border: 1px solid var(--rule-2);
+    border-left: 5px solid var(--c, var(--lamp));
+    background: var(--card);
+    border-radius: 6px;
+    padding: 12px 14px;
+    min-height: 56px;
+    text-align: left;
+    cursor: pointer;
+    display: grid;
+    gap: 6px;
+    font-family: var(--sans);
+  }
+  .mob-idx-card:hover { background: var(--paper-2); border-color: var(--ink); }
+  .mob-idx-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .mob-idx-title { font: 600 14.5px/1.3 var(--serif); color: var(--ink); }
+  .mob-idx-cnt { font: 600 12px var(--mono); color: var(--clay); white-space: nowrap; }
+  .mob-idx-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--paper-2);
+    overflow: hidden;
+  }
+  .mob-idx-bar > i { display: block; height: 100%; background: var(--c, var(--clay)); }
+  .mob-idx-next { font: 400 12.5px/1.4 var(--sans); color: var(--ink-3); }
+
+  /* Desktop Bookshelf */
+  .desk-bookshelf {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 18px;
+    background: var(--wood);
+    border-radius: 8px;
+    border: 2px solid var(--wood-hi);
+  }
+  @media (min-width: 768px) {
+    .mob-index { display: none; }
+    .desk-bookshelf { display: grid; }
+  }
+  .shelf-cubby {
+    background: color-mix(in srgb, #000 24%, var(--wood));
+    border-radius: 6px;
+    padding: 12px;
+    display: grid;
+    gap: 10px;
+  }
+  .cubby-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font: 700 12px var(--mono);
+    color: #f5e9d3;
+  }
+  .cubby-spines { display: grid; gap: 6px; }
+  .spine-btn {
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-left: 5px solid var(--c, #ebb553);
+    background: #fbf6ec;
+    color: #221c15;
+    border-radius: 3px;
+    padding: 9px 12px;
+    min-height: 44px;
+    text-align: left;
+    cursor: pointer;
+    font: 600 13px/1.3 var(--serif);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .spine-btn:hover { background: #efe2c8; }
+  .spine-code { font: 700 11px var(--mono); color: #6c6152; }
+
+  /* ── Story Detail View ── */
+  .detail-head {
+    padding-bottom: 16px;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 18px;
+  }
+  .detail-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    font: 600 11.5px var(--mono);
+    color: var(--ink-3);
+  }
+  .detail-cat-chip {
+    background: color-mix(in srgb, var(--clay) 14%, transparent);
+    color: var(--clay);
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .detail-title {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.42rem, 4vw, 2.15rem);
+    line-height: 1.22;
+  }
+  .detail-teaser {
+    margin: 0;
+    max-width: 48rem;
+    color: var(--ink-2);
+    font-size: 1rem;
+  }
+
+  .stage-card {
+    background: color-mix(in srgb, var(--card) 75%, var(--paper));
+    border: 1px solid var(--rule-2);
+    border-top: 3px solid var(--ink);
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 22px;
+  }
+  .stage-bar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 12px;
+    max-width: 24rem;
+  }
+  .stage-bar button {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--card);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 6px 10px;
+    font: 600 13px/1.2 var(--sans);
+    cursor: pointer;
+  }
+  .stage-bar button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .video-box {
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    background: #0d1320;
+    color: #f5f1e8;
+    border: 1px solid #2b354b;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .video-pill {
+    display: inline-block;
+    width: fit-content;
+    font: 700 11px var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #ebb553;
+    border: 1px solid rgba(235, 181, 83, .4);
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+  .video-box p {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: clamp(0.86rem, 2.2vw, 1rem);
+    color: #e2dac9;
+  }
+
+  /* Mobile collapsible drawer for video timestamps & TOC; expanded grid on desktop */
+  .mob-drawer {
+    margin-top: 12px;
+    border: 1px solid var(--rule-2);
+    border-radius: 6px;
+    background: var(--card);
+  }
+  .mob-drawer > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 14px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font: 600 13.5px/1.3 var(--sans);
+  }
+  .mob-drawer > summary::-webkit-details-marker { display: none; }
+  .mob-drawer[open] > summary {
+    border-bottom: 1px dashed var(--rule-2);
+    background: var(--paper-2);
+  }
+  .drawer-list {
+    padding: 8px;
+    display: grid;
+    gap: 4px;
+  }
+  .chap-btn {
+    appearance: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    min-height: 44px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font: 500 13px/1.35 var(--sans);
+  }
+  .chap-btn:hover, .chap-btn[aria-current="true"] {
+    background: var(--lamp-soft);
+    border-color: var(--lamp);
+  }
+  .chap-t { font: 700 11.5px var(--mono); color: var(--clay); flex: 0 0 auto; }
+
+  /* Cutaway SVG touch-scroll wrapper guaranteeing >= 11px text on 320px */
+  .scene-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 6px;
+    background: #0d1320;
+    border: 1px solid #2b354b;
+    padding: 10px;
+  }
+  .scene-scroll svg {
+    display: block;
+    width: 100%;
+    min-width: 680px;
+    height: auto;
+  }
+  .scene-swipe-cue {
+    margin: 8px 0 0;
+    font: 600 12px/1.3 var(--sans);
+    color: var(--ink-3);
+  }
+  @media (min-width: 720px) { .scene-swipe-cue { display: none; } }
+
+  .beat-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-top: 12px;
+    padding-bottom: 2px;
+  }
+  .beat-strip::-webkit-scrollbar { display: none; }
+  .beat-btn {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--card);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 6px 12px;
+    flex: 0 0 auto;
+    font: 600 12.5px var(--sans);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .beat-btn[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ── Essay + Ledger + Interactive Fee Bar ── */
+  .essay-wrap {
+    max-width: 44rem;
+    margin: 0 auto 26px;
+  }
+  .essay-wrap h2 {
+    margin: 18px 0 10px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.55rem);
+  }
+  .term-link {
+    appearance: none;
+    border: 0;
+    border-bottom: 1.5px dotted var(--clay);
+    background: transparent;
+    color: inherit;
+    padding: 0 1px;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .term-link:hover { background: var(--lamp-soft); }
+
+  .pack-card {
+    background: var(--card);
+    border: 1px solid var(--rule-2);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  /* FIXED #packTabs: exact 1fr 1fr grid — never overflows horizontally */
+  .pack-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .pack-tab {
+    position: relative;
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--paper-2);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-height: 44px;
+    min-width: 0;
+    padding: 6px 8px;
+    font: 600 13px/1.2 var(--sans);
+    cursor: pointer;
+    text-align: center;
+  }
+  .pack-tab[aria-selected="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .pack-tab[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: -9px;
+    border-bottom: 3px solid var(--clay);
+  }
+
+  .ledger-card {
+    background: var(--paper);
+    border: 1px solid var(--rule-2);
+    border-radius: 4px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .ledger-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .ledger-top h4 { margin: 0; font: 700 14.5px var(--sans); }
+  .stamp {
+    font: 700 11px var(--mono);
+    color: var(--moss);
+    border: 1.5px solid var(--moss);
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font: 400 13.5px/1.45 var(--sans);
+  }
+  .ledger-table th, .ledger-table td {
+    padding: 7px 4px;
+    border-top: 1px dashed var(--rule-2);
+    text-align: left;
+    vertical-align: top;
+  }
+  .ledger-table td.amt {
+    text-align: right;
+    font-family: var(--mono);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .calc-box {
+    border-top: 1px dashed var(--rule-2);
+    padding-top: 12px;
+    font-family: var(--sans);
+  }
+  .calc-box label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font: 600 13.5px var(--sans);
+    margin-bottom: 6px;
+  }
+  .calc-range {
+    width: 100%;
+    min-height: 44px;
+    accent-color: var(--clay);
+    cursor: pointer;
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .calc-stat {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 8px 10px;
+  }
+  .calc-stat span { display: block; font: 600 11px var(--mono); color: var(--ink-3); text-transform: uppercase; }
+  .calc-stat b { display: block; font: 700 15px var(--mono); color: var(--ink); margin-top: 2px; }
+
+  .disc-note {
+    margin-top: 10px;
+    font: 500 12px/1.45 var(--sans);
+    color: var(--ink-3);
+  }
+
+  /* ── Glossary Drawer (defaults to story scope) ── */
+  .gl-drawer {
+    background: var(--card);
+    border: 1px solid var(--rule-2);
+    border-radius: 6px;
+  }
+  .gl-drawer > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    min-height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font: 600 14px var(--sans);
+  }
+  .gl-drawer > summary::-webkit-details-marker { display: none; }
+  .gl-body { padding: 12px 16px 16px; border-top: 1px dashed var(--rule-2); }
+  .gl-scope-seg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+    max-width: 24rem;
+  }
+  .gl-scope-seg button {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--paper);
+    color: var(--ink-2);
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 6px 8px;
+    font: 600 12.5px var(--sans);
+    cursor: pointer;
+  }
+  .gl-scope-seg button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .gl-dl { margin: 0; display: grid; gap: 10px; }
+  .gl-dl div { padding-top: 8px; border-top: 1px dashed var(--rule); }
+  .gl-dl dt { font: 600 15px var(--serif); color: var(--ink); }
+  .gl-dl dd { margin: 3px 0 0; font: 400 13.5px/1.5 var(--sans); color: var(--ink-2); }
+
+  /* ── Popover Lesson Switcher Sheet (R4 clamped dvh + overscroll contain) ── */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    background: rgba(15, 14, 20, .45);
+    display: grid;
+    place-items: start center;
+    padding: 58px 10px 16px;
+  }
+  .sheet-card {
+    width: min(32rem, calc(100vw - 20px));
+    max-height: min(76dvh, 480px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--card);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: 0 22px 44px -10px var(--sh);
+    font-family: var(--sans);
+  }
+  .sheet-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--rule-2);
+    margin-bottom: 8px;
+  }
+  .sheet-close {
+    appearance: none;
+    border: 1px solid var(--rule-2);
+    background: var(--paper);
+    color: var(--ink);
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 4px;
+    cursor: pointer;
+    font: 700 14px var(--mono);
+  }
+  .sheet-item {
+    appearance: none;
+    width: 100%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    border-radius: 4px;
+    min-height: 44px;
+    padding: 9px 10px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font: 500 13.5px/1.35 var(--sans);
+  }
+  .sheet-item[aria-current="true"] { background: var(--lamp-soft); border-color: var(--lamp); font-weight: 700; }
+  .sheet-item:hover { background: var(--paper-2); }
+</style>
+</head>
+<body>
+  <header class="atlasbar is-landing" id="atlasbar">
+    <div class="ab-row">
+      <div class="ab-left">
+        <button class="ab-brand" id="brandMark" type="button">Where Money Sleeps</button>
+        <button class="ab-back" id="backBtn" type="button" hidden aria-label="Quay về danh mục 7 bài">
+          <span aria-hidden="true">←</span>
+          <span class="ab-back-lbl" id="backLbl">7 bài học</span>
+        </button>
+        <button class="sp-post-btn" id="postPillBtn" type="button" hidden aria-expanded="false">
+          <span class="post-pos num" id="postPos">03/07</span>
+          <span class="post-title" id="postTitleText">Chuyện thẻ: 10 triệu quẹt thẻ</span>
+          <span class="sp-caret" aria-hidden="true">▾</span>
+        </button>
+      </div>
+      <div class="ab-act">
+        <div class="lang-seg" role="group" aria-label="Ngôn ngữ">
+          <button type="button" id="langDeskVi" aria-pressed="true">VI</button>
+          <button type="button" id="langDeskEn" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="lang-pill-mob" id="langMobBtn" aria-label="Đổi sang tiếng Anh">VI</button>
+        <button type="button" class="ab-icon-btn" id="navSearchBtn" aria-label="Tìm bài học">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
+        <button type="button" class="ab-icon-btn" id="themeBtn" aria-label="Đổi chế độ Sáng/Tối">☾</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="proto-banner">
+      <div>
+        <strong id="optBadge">Phương án A · Calm Editorial Mobile-First</strong>
+        <span id="optNote"> · Bỏ phân trang 6/tr &amp; bộ chuyển 3 chế độ trên mobile; giữ nguyên ở ≥ 768px</span>
+      </div>
+      <div class="screen-switch" role="group" aria-label="Chọn màn hình xem thử">
+        <button type="button" id="swLanding" aria-pressed="true">Trang chủ (7 bài)</button>
+        <button type="button" id="swDetail" aria-pressed="false">Bài đọc (Chuyện thẻ)</button>
+      </div>
+    </div>
+
+    <!-- LANDING VIEW -->
+    <section id="landingView">
+      <div class="hero">
+        <p class="hero-kicker" id="heroKicker">Hồ sơ đường đi của tiền · 4 nhóm · 7 bài đang mở</p>
+        <h1 id="heroTitle">Bạn chạm thẻ trong 1 giây — tiền thật mất bao lâu mới tới?</h1>
+        <p class="hero-sub" id="heroSub">Mỗi lần quẹt thẻ, quét QR hay nhận lương đều chạy qua nhiều cuốn sổ hơn bạn thấy trên app ngân hàng. Chọn một câu chuyện để mở từng lớp sổ sách đằng sau.</p>
+        <div class="hero-cta-row">
+          <button type="button" class="cta-main" id="heroStartBtn">Đọc bài 03 · 10 triệu quẹt thẻ →</button>
+          <button type="button" class="cta-sub" id="heroJumpBtn">Xem bản đồ 4 nhóm</button>
+        </div>
+      </div>
+
+      <div class="catalog-head">
+        <h2 id="catHeading">7 bài đang mở trong 4 nhóm chủ đề</h2>
+        <p class="catalog-meta" id="catCounter" role="status">Đang hiện 7 / 7 bài đang mở</p>
+      </div>
+
+      <div class="catalog-tools">
+        <div class="search-row">
+          <search class="wms-search" role="search">
+            <label class="vh" for="landingSearch" id="searchLabel">Tìm bài học theo từ khoá hoặc mã tài khoản</label>
+            <div class="search-box">
+              <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-3.5-3.5"></path>
+              </svg>
+              <input id="landingSearch" class="catalog-search" type="search" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Tìm: quẹt thẻ, trả góp, chuyển khoản, TK 112…">
+              <button type="button" class="search-clear" id="searchClear" hidden aria-label="Xoá từ khoá tìm kiếm">×</button>
+            </div>
+          </search>
+
+          <div class="mode-seg-wrap" id="deskModeWrap">
+            <span class="mode-lbl" id="modeLbl">Bố cục kệ:</span>
+            <div class="mode-seg" role="group" aria-label="Bố cục danh sách bài">
+              <button type="button" data-mode="cards" aria-pressed="true" id="mCardsBtn">Thẻ bài (7)</button>
+              <button type="button" data-mode="grouped" aria-pressed="false" id="mGroupedBtn">Theo 4 nhóm</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cat-pills" id="catPills" data-hscroll="true" role="group" aria-label="Lọc theo nhóm chủ đề"></div>
+
+        <div class="filter-status-row" id="filterStatusRow">
+          <span id="filterSummary">Tất cả 4 nhóm đang mở · sắp xếp theo dòng chảy của tiền.</span>
+          <button type="button" class="filter-reset" id="filterResetBtn" hidden>Xoá lọc</button>
+        </div>
+      </div>
+
+      <div id="catalogOutput"></div>
+
+      <section class="shelf-sec" id="shelfSec" aria-labelledby="shelfHeading">
+        <h2 id="shelfHeading">4 nhóm chủ đề theo dòng chảy của tiền</h2>
+        <p class="shelf-sub" id="shelfSub">Bấm một nhóm để lọc danh sách bài, hoặc xem bài sắp mở tiếp theo trong từng ngăn.</p>
+        <div class="mob-index" id="mobIndex"></div>
+        <div class="desk-bookshelf" id="deskShelf"></div>
+      </section>
+    </section>
+
+    <!-- DETAIL VIEW -->
+    <section id="detailView" hidden>
+      <div class="detail-head">
+        <div class="detail-meta-row">
+          <span class="detail-cat-chip" id="detCatChip">02 · Thẻ, QR &amp; Thanh toán</span>
+          <span id="detDur">~8 phút đọc · Bài 03 / 07</span>
+        </div>
+        <h1 class="detail-title" id="detTitle">Đêm nay, 10 triệu bạn vừa quẹt thẻ đang ngủ ở đâu?</h1>
+        <p class="detail-teaser" id="detTeaser">Một bữa liên hoan, năm bên đứng sau cú chạm thẻ, và 220.000 đồng chưa từng biến mất.</p>
+      </div>
+
+      <div class="stage-card">
+        <div class="stage-bar" role="group" aria-label="Chế độ trình bày sân khấu">
+          <button type="button" id="stageVideoBtn" aria-pressed="true">Video (~8 phút)</button>
+          <button type="button" id="stageCutawayBtn" aria-pressed="false">Sơ đồ mặt cắt</button>
+        </div>
+
+        <div id="videoPane">
+          <div class="video-box">
+            <span class="video-pill" id="vidChapPill">0:00 – 0:35 · Câu hỏi mở đầu</span>
+            <p id="vidStageDesc">Bốn mươi giây sau bữa tối, điện thoại rung báo hạn mức giảm 10 triệu, nhưng quán quen vẫn phải chờ tới ngày T+2 mới nhận đủ tiền thật.</p>
+          </div>
+
+          <details class="mob-drawer" id="ytDrawer">
+            <summary id="ytDrawerSum">
+              <span>11 mốc thời gian video · Đang ở 0:00</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <div class="drawer-list" id="ytChapList"></div>
+          </details>
+        </div>
+
+        <div id="cutawayPane" hidden>
+          <div class="scene-scroll" data-hscroll="true" tabindex="0" aria-label="Sơ đồ 5 trạm đi qua khi quẹt thẻ">
+            <svg viewBox="0 0 820 220" role="img" aria-labelledby="svgTitle">
+              <title id="svgTitle">Năm trạm đứng sau cú chạm thẻ 10 triệu đồng</title>
+              <rect x="0" y="0" width="820" height="220" rx="6" fill="#0d1320"/>
+              <line x1="85" y1="92" x2="735" y2="92" stroke="#f5a524" stroke-width="3" stroke-dasharray="6 6"/>
+              <line x1="85" y1="158" x2="735" y2="158" stroke="#34d399" stroke-width="3.5" stroke-dasharray="8 6"/>
+              <g id="svgStations"></g>
+              <text x="18" y="198" fill="#ffd98a" font-size="13" font-family="ui-monospace, monospace">LỜI NHẮN: Tức thì (3 giây)</text>
+              <text x="470" y="198" fill="#8ee0ae" font-size="13" font-family="ui-monospace, monospace">TIỀN THẬT: Cuối ngày / T+2 (9.780.000đ)</text>
+            </svg>
+          </div>
+          <p class="scene-swipe-cue" id="svgSwipeCue">⇆ Vuốt ngang xem đủ 5 trạm tiền</p>
+
+          <div class="beat-strip" data-hscroll="true" id="beatStrip" role="group" aria-label="5 nhịp đường đi của tiền"></div>
+        </div>
+      </div>
+
+      <details class="mob-drawer" id="tocDrawer" style="max-width:44rem;margin:0 auto 18px">
+        <summary id="tocDrawerSum">
+          <span>Mục lục 5 phần bài đọc · Đang ở Phần 1</span>
+          <span aria-hidden="true">▾</span>
+        </summary>
+        <div class="drawer-list" id="tocList"></div>
+      </details>
+
+      <article class="essay-wrap" id="essayWrap">
+        <h2 id="essayHeading">1. Mười giờ tối ở quán quen, một tiếng tít</h2>
+        <p id="essayLead">
+          Mười giờ bốn mươi bảy tối, bữa liên hoan cả nhóm ở quán quen hết <span class="num">10.000.000</span> đồng (ví dụ). Bạn chạm chiếc thẻ tín dụng lên mặt máy, nghe tiếng tít gọn lỏn, điện thoại rung báo hạn mức vừa tụt 10 triệu. Nhân viên đưa tờ hoá đơn, cả bàn đứng dậy ra về. Đằng sau tiếng tít đó là khoản <button type="button" class="term-link" data-term="auth">tạm giữ hạn mức</button> và khoản <button type="button" class="term-link" data-term="mdr">phí chiết khấu đơn vị chấp nhận thẻ</button> sẽ chốt vào kỳ <button type="button" class="term-link" data-term="settle">quyết toán T+2</button>.
+        </p>
+      </article>
+
+      <section class="pack-card" aria-labelledby="packTitle">
+        <div class="pack-tabs" role="tablist" aria-label="Góc nhìn sổ kế toán">
+          <button type="button" class="pack-tab" role="tab" id="tabLife" aria-selected="true">A · Đời thường</button>
+          <button type="button" class="pack-tab" role="tab" id="tabPro" aria-selected="false">B · Sổ TT 99/2025</button>
+        </div>
+
+        <div id="ledgerBody" class="ledger-card"></div>
+
+        <div class="calc-box">
+          <label for="amtSlider">
+            <span id="calcLbl">Thử đổi số tiền quẹt thẻ (ví dụ):</span>
+            <strong class="num" id="calcValLabel">10.000.000 đ</strong>
+          </label>
+          <input id="amtSlider" class="calc-range" type="range" min="1000000" max="50000000" step="1000000" value="10000000">
+          <div class="calc-grid" id="calcGrid"></div>
+          <p class="disc-note" id="discNote">Ghi chú minh hoạ: Tóm tắt không chính thức cơ chế Thông tư 99/2025/TT-BTC (chỉ mang tính giải thích giáo dục, không phải tư vấn tài chính).</p>
+        </div>
+      </section>
+
+      <details class="gl-drawer" id="glDrawer" open style="max-width:44rem;margin:0 auto">
+        <summary id="glSum">
+          <span>Từ điển trong bài</span>
+          <span class="num" id="glCountBadge">Trong bài này (3)</span>
+        </summary>
+        <div class="gl-body">
+          <div class="gl-scope-seg" role="group" aria-label="Phạm vi từ điển">
+            <button type="button" id="glScopeStory" aria-pressed="true">Trong bài này (3)</button>
+            <button type="button" id="glScopeAll" aria-pressed="false">Toàn bộ (6)</button>
+          </div>
+          <dl class="gl-dl" id="glList"></dl>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <!-- Clamped Lesson Switcher Popover/Sheet -->
+  <div class="sheet-backdrop" id="lessonSheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-card">
+      <div class="sheet-head">
+        <strong id="sheetTitle">7 bài đang mở trong thư viện</strong>
+        <button type="button" class="sheet-close" id="sheetClose" aria-label="Đóng danh sách bài">×</button>
+      </div>
+      <div id="sheetItems"></div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const DATA = {
+    vi: {
+      optBadge: "Phương án A · Calm Editorial Mobile-First",
+      optNote: " · Bỏ phân trang 6/tr & bộ chuyển 3 chế độ trên mobile; giữ nguyên ở ≥ 768px",
+      swLanding: "Trang chủ (7 bài)",
+      swDetail: "Bài đọc (Chuyện thẻ)",
+      backLbl: "7 bài học",
+      heroKicker: "Hồ sơ đường đi của tiền · 4 nhóm · 7 bài đang mở",
+      heroTitle: "Bạn chạm thẻ trong 1 giây — tiền thật mất bao lâu mới tới?",
+      heroSub: "Mỗi lần quẹt thẻ, quét QR hay nhận lương đều chạy qua nhiều cuốn sổ hơn bạn thấy trên app ngân hàng. Chọn một câu chuyện để mở từng lớp sổ sách đằng sau.",
+      heroStartBtn: "Đọc bài 03 · 10 triệu quẹt thẻ →",
+      heroJumpBtn: "Xem 4 nhóm chủ đề",
+      catHeading: "7 bài đang mở trong 4 nhóm chủ đề",
+      searchPlaceholder: "Tìm: quẹt thẻ, trả góp, TK 112…",
+      modeLbl: "Bố cục kệ:",
+      mCards: "Thẻ bài (7)",
+      mGrouped: "Theo 4 nhóm",
+      allPill: "Tất cả",
+      resetBtn: "Xoá lọc",
+      shelfHeading: "4 nhóm chủ đề theo dòng chảy của tiền",
+      shelfSub: "Bấm một nhóm để lọc danh sách bài, hoặc xem bài sắp mở tiếp theo trong từng ngăn.",
+      stageVideo: "Video (~8 phút)",
+      stageCutaway: "Sơ đồ mặt cắt",
+      swipeCue: "⇆ Vuốt ngang xem đủ 5 trạm tiền",
+      ytHead: "11 mốc thời gian video",
+      tocHead: "Mục lục 5 phần bài đọc",
+      tabLife: "A · Đời thường",
+      tabPro: "B · Sổ TT 99/2025",
+      calcLbl: "Thử đổi số tiền quẹt thẻ (ví dụ):",
+      disc: "Ghi chú minh hoạ: Tóm tắt không chính thức cơ chế Thông tư 99/2025/TT-BTC (chỉ mang tính giải thích giáo dục).",
+      glTitle: "Từ điển thuật ngữ",
+      glStory: "Trong bài này",
+      glAll: "Toàn bộ",
+      sheetTitle: "7 bài đang mở trong thư viện",
+      readUnit: "phút đọc",
+      openStoryCta: "Mở bài này →",
+      upcomingLabel: "Sắp mở:",
+      counterAll: (shown, total) => `Đang hiện ${shown} / ${total} bài đang mở`,
+      counterCat: (shown, total, catName) => `Đang hiện ${shown} / ${total} bài · ${catName}`,
+      summaryAll: "Tất cả 4 nhóm đang mở · hiển thị đầy đủ không ngắt trang 6/1.",
+      summaryFiltered: (n) => `Tìm thấy ${n} bài khớp điều kiện lọc.`,
+      cats: [
+        { id: "c1", code: "01", name: "Lương & Ngân hàng", c: "#3c5a73", upcoming: "Gửi tiết kiệm 6%/năm: ngân hàng lấy đâu trả lãi?" },
+        { id: "c2", code: "02", name: "Thẻ, QR & Thanh toán", c: "#8a4a2b", upcoming: "Hoàn tiền 1% mỗi lần quẹt lấy từ túi ai?" },
+        { id: "c3", code: "03", name: "Vay nợ & Lãi suất thực", c: "#5c5a2e", upcoming: "Vay mua nhà hết ưu đãi: sao tiền góp nhảy vọt?" },
+        { id: "c4", code: "04", name: "Doanh nghiệp & Thuế", c: "#6a3f55", upcoming: "Tiền thuế GTGT trên hoá đơn nằm ở đâu trước kỳ nộp?" }
+      ],
+      lessons: [
+        { id: "pay", num: "01", cat: "c1", mins: 8, title: "Vì sao công ty bảo bạn mở tài khoản nhận lương ở đúng một ngân hàng?", teaser: "15 triệu lương báo về nhưng không đồng nào rời ngân hàng trả lương ngay lúc đó.", flow: "Công ty → Ngân hàng trả lương → Bạn → 500 đồng nghiệp → Bên vay" },
+        { id: "offus", num: "02", cat: "c1", mins: 8, title: "Chuyển khoản 20 triệu cùng và khác ngân hàng: cùng reo sau 3 giây, sao tiền thật đi hai đường?", teaser: "Cùng reo sau 3 giây, nhưng một lệnh sửa sổ nội bộ, lệnh kia chờ phiên bù trừ cuối ngày.", flow: "Bạn → Ngân hàng bạn → Chuyển mạch → Ngân hàng nhận → NHTW" },
+        { id: "card", num: "03", cat: "c2", mins: 8, title: "Đêm nay, 10 triệu bạn vừa quẹt thẻ đang ngủ ở đâu?", teaser: "Một bữa liên hoan, năm bên đứng sau cú chạm thẻ, và 220.000 đồng chưa từng biến mất.", flow: "Bạn → Quán quen → NH của quán → Tổ chức thẻ → NH phát hành" },
+        { id: "qr", num: "04", cat: "c2", mins: 7, title: "Quét QR trả 50 nghìn: vì sao quán nhận đủ ngay, không mất 2,2% phí như quẹt thẻ?", teaser: "Đẩy tiền mặt (Push) đi thẳng so với kéo từ hạn mức tín dụng (Pull).", flow: "Bạn → Quán cà phê → Ngân hàng bạn → Chuyển mạch → Ngân hàng quán" },
+        { id: "install", num: "05", cat: "c3", mins: 8, title: "Mua điện thoại 12 triệu trả góp 0%: ai đang trả tiền lãi?", teaser: "Chiếc máy 12 triệu, tờ rơi ghi 0%, và 600.000 đồng cửa hàng cắt lại sau quầy.", flow: "Bạn → Cửa hàng → Công ty tài chính → Ngân hàng" },
+        { id: "minpay", num: "06", cat: "c3", mins: 8, title: "Sao kê 10 triệu, trả tối thiểu 5% (500.000đ): sao kỳ sau vẫn cộng 592.500đ tiền lãi?", teaser: "Trả đúng hạn phần tối thiểu nhưng đồng hồ lãi lặng lẽ quay ngược về Ngày 01.", flow: "Bạn → Cửa hàng → NH quán → NH phát hành thẻ" },
+        { id: "profitcash", num: "07", cat: "c4", mins: 9, title: "Chốt sổ lãi ròng 2 tỷ nhưng TK 112 chỉ còn 50 triệu: sao công ty có lãi vẫn thiếu tiền lương?", teaser: "3,45 tỷ đang nằm yên trong giấy hẹn nợ (TK 131) và hàng tồn kho (TK 156).", flow: "Kho & NCC → Công ty → Khách sỉ → Ngân hàng → Nhân sự" }
+      ],
+      detailData: {
+        catLabel: "02 · Thẻ, QR & Thanh toán",
+        durLabel: "~8 phút đọc · Bài 03 / 07",
+        shortName: "Chuyện thẻ: 10 triệu quẹt thẻ",
+        title: "Đêm nay, 10 triệu bạn vừa quẹt thẻ đang ngủ ở đâu?",
+        teaser: "Một bữa liên hoan, năm bên đứng sau cú chạm thẻ, và 220.000 đồng chưa từng biến mất.",
+        vidDesc: "Bốn mươi giây sau bữa tối, điện thoại rung báo hạn mức giảm 10 triệu, nhưng quán quen vẫn phải chờ tới ngày T+2 mới nhận đủ tiền thật.",
+        chapters: [
+          ["0:00 – 0:35", "Câu hỏi mở đầu"],
+          ["0:35 – 1:20", "Cú chạm đầu tiên"],
+          ["1:20 – 2:08", "Lời nhắn đi một vòng"],
+          ["2:08 – 2:52", "Tiền ngủ trong một dòng sổ"],
+          ["2:52 – 3:40", "Danh sách cuối ngày"],
+          ["3:40 – 4:25", "Quyết toán tiền thật"],
+          ["4:25 – 5:03", "Ai nhận 220.000 đồng"],
+          ["5:03 – 5:51", "Cấn trừ thành một số ròng"],
+          ["5:51 – 6:38", "Nguồn gốc tiền hoàn"],
+          ["6:38 – 7:27", "Huỷ, hoàn và khiếu nại"],
+          ["7:27 – 8:00", "Khép lại vòng đi"]
+        ],
+        stations: [
+          { code: "01", name: "Bạn", desc: "Tụt 10tr hạn mức (chưa trừ tiền mặt)." },
+          { code: "02", name: "Quán quen", desc: "Nhận giấy hẹn 9,78trđ, phí 220k." },
+          { code: "03", name: "NH quán", desc: "Gom lô cuối ngày gửi mạng thẻ." },
+          { code: "04", name: "Mạng thẻ", desc: "Cấn trừ ròng giữa hàng trăm NH." },
+          { code: "05", name: "NH của bạn", desc: "Trừ hạn mức, thu 160k phí phát hành." }
+        ],
+        toc: [
+          "1. Mười giờ tối ở quán quen, một tiếng tít",
+          "2. Lời nhắn, tiền thật và những trang sổ",
+          "3. Năm bên ngồi chung bàn, mỗi bên được gì",
+          "4. Ai lặng lẽ trả 220.000 đồng phí thẻ",
+          "5. Khi hoá đơn trục trặc: huỷ, hoàn hay khiếu nại"
+        ],
+        essayH: "1. Mười giờ tối ở quán quen, một tiếng tít",
+        essayLead: 'Mười giờ bốn mươi bảy tối, bữa liên hoan cả nhóm ở quán quen hết <span class="num">10.000.000</span> đồng (ví dụ). Bạn chạm chiếc thẻ tín dụng lên mặt máy, nghe tiếng tít gọn lỏn, điện thoại rung báo hạn mức vừa tụt 10 triệu. Nhân viên đưa tờ hoá đơn, cả bàn đứng dậy ra về. Đằng sau tiếng tít đó là khoản <button type="button" class="term-link" data-term="auth">tạm giữ hạn mức</button> và khoản <button type="button" class="term-link" data-term="mdr">phí chiết khấu đơn vị chấp nhận thẻ</button> sẽ chốt vào kỳ <button type="button" class="term-link" data-term="settle">quyết toán T+2</button>.',
+        ledger: {
+          life: {
+            book: "Nhìn bằng mắt thường · Cuối ngày tại quán",
+            badge: "LỜI HỨA 10.000.000đ",
+            rows: [
+              ["Tiền quán bán được", "Bữa tối đã giao cho bạn", "10.000.000 đ"],
+              ["Ngân hàng quán đang nợ lại", "Chờ quyết toán T+2 (trừ phí ~220k sau)", "10.000.000 đ"]
+            ],
+            note: "Hai vế khớp 10 triệu. Đêm nay chưa có tờ tiền mặt nào vào két của quán — chỉ có một lời hứa có chữ ký điện tử."
+          },
+          pro: {
+            book: "Sổ cái của quán · Thông tư 99/2025/TT-BTC",
+            badge: "Σ NỢ = Σ CÓ · 10.000.000đ",
+            rows: [
+              ["Nợ TK 1388", "Phải thu khác (chi tiết: NH thanh toán thẻ)", "10.000.000 đ"],
+              ["Có TK 511", "Doanh thu bán hàng & cung cấp dịch vụ", "10.000.000 đ"]
+            ],
+            note: "Theo Thông tư 99/2025/TT-BTC, khoản chờ quyết toán từ ngân hàng thanh toán ghi nhận vào TK 1388 (Phải thu khác) thay vì TK 131 dành cho khách nợ trực tiếp."
+          }
+        },
+        calcStats: (amt) => {
+          const fee = Math.round(amt * 0.022);
+          const net = amt - fee;
+          const iss = Math.round(amt * 0.016);
+          const netw = fee - iss - Math.round(amt * 0.004);
+          return [
+            ["Quán nhận ròng (T+2)", net.toLocaleString("vi-VN") + " đ"],
+            ["Phí MDR (~2,2%)", fee.toLocaleString("vi-VN") + " đ"],
+            ["NH phát hành (~1,6%)", iss.toLocaleString("vi-VN") + " đ"],
+            ["NH quán + mạng thẻ", (fee - iss + netw * 0).toLocaleString("vi-VN") + " đ"]
+          ];
+        },
+        glossary: [
+          { key: "auth", inStory: true, term: "Tạm giữ hạn mức (Authorization hold)", def: "Khoản tiền ngân hàng khoá tạm ngay khi bạn chạm thẻ để chắc chắn bạn còn hạn mức, chưa phải giao dịch chuyển tiền thật." },
+          { key: "mdr", inStory: true, term: "Phí chiết khấu ĐVCNT (MDR ~2,2%)", def: "Phần trăm quán chia lại cho 3 tổ chức đứng sau máy quẹt thẻ; ví dụ 220.000đ trên bill 10 triệu." },
+          { key: "settle", inStory: true, term: "Quyết toán T+2", def: "Thời điểm tiền thật đi qua phiên cấn trừ ròng giữa các ngân hàng, muộn hơn tiếng tít 1–2 ngày làm việc." },
+          { key: "push", inStory: false, term: "Lệnh đẩy tiền (Push payment)", def: "Quét QR chuyển thẳng từ số dư của bạn đi, không mở đường vay ngắn hạn như thẻ tín dụng." },
+          { key: "112", inStory: false, term: "TK 112 — Tiền gửi ngân hàng", def: "Tài khoản phản ánh tiền thật đang sẵn sàng trong ngân hàng theo TT 99/2025, khác hẳn lợi nhuận kế toán trên giấy." },
+          { key: "eir", inStory: false, term: "Lãi suất thực (EIR)", def: "Chi phí vay thực sự tính trên dư nợ giảm dần, thường gần gấp đôi lãi phẳng quảng cáo trên tờ rơi." }
+        ]
+      }
+    },
+    en: {
+      optBadge: "Option A · Calm Editorial Mobile-First",
+      optNote: " · Removes redundant 6/page pager & 3-mode toggle on mobile; keeps full controls at ≥ 768px",
+      swLanding: "Catalog (7 lessons)",
+      swDetail: "Lesson (Card Story)",
+      backLbl: "7 lessons",
+      heroKicker: "Where Money Sleeps · 4 groups · 7 live lessons",
+      heroTitle: "You tap a card in one second — how long does the real money take?",
+      heroSub: "Every swipe, QR scan, or payroll deposit edits more ledgers than your banking app shows. Pick a scene to trace each ledger behind the screen.",
+      heroStartBtn: "Read Lesson 03 · 10M Dinner Swipe →",
+      heroJumpBtn: "Browse 4 categories",
+      catHeading: "7 live lessons across 4 categories",
+      searchPlaceholder: "Search: card swipe, installment, Acct 112…",
+      modeLbl: "Shelf layout:",
+      mCards: "Cards (7)",
+      mGrouped: "By 4 categories",
+      allPill: "All",
+      resetBtn: "Clear filters",
+      shelfHeading: "4 categories ordered by how money moves",
+      shelfSub: "Tap a category to filter the lessons, or preview the next upcoming episode in each shelf.",
+      stageVideo: "Video (~8 min)",
+      stageCutaway: "Cutaway map",
+      swipeCue: "⇆ Swipe sideways to view all 5 stops",
+      ytHead: "11 video timestamps",
+      tocHead: "5-section article outline",
+      tabLife: "A · Plain Life",
+      tabPro: "B · IFRS / Circ. 99",
+      calcLbl: "Adjust example swipe amount:",
+      disc: "Note: Unofficial educational summary of Circular 99/2025/TT-BTC paired with IFRS concepts — educational use only.",
+      glTitle: "Lesson Glossary",
+      glStory: "In this lesson",
+      glAll: "All terms",
+      sheetTitle: "7 live lessons in the library",
+      readUnit: "min read",
+      openStoryCta: "Open lesson →",
+      upcomingLabel: "Up next:",
+      counterAll: (shown, total) => `Showing ${shown} / ${total} live lessons`,
+      counterCat: (shown, total, catName) => `Showing ${shown} / ${total} lessons · ${catName}`,
+      summaryAll: "All 4 categories open · zero orphan pagination on mobile.",
+      summaryFiltered: (n) => `Found ${n} matching lesson(s).`,
+      cats: [
+        { id: "c1", code: "01", name: "Paychecks & Banking", c: "#3c5a73", upcoming: "Term deposits: whose cash pays your savings interest?" },
+        { id: "c2", code: "02", name: "Cards, QR & Payments", c: "#8a4a2b", upcoming: "Card refunds: how does your cash find its way back?" },
+        { id: "c3", code: "03", name: "Loans & True Rates", c: "#5c5a2e", upcoming: "Home loans: what shifts the day promo rates end?" },
+        { id: "c4", code: "04", name: "Business & Tax", c: "#6a3f55", upcoming: "VAT on receipts: where does tax sit before filing?" }
+      ],
+      lessons: [
+        { id: "pay", num: "01", cat: "c1", mins: 8, title: "Why does your company tell you to open an account at one specific bank?", teaser: "Payday lands without a single dong leaving the building—your balance is a bank IOU.", flow: "Company → Payroll Bank → You → 500 Colleagues → Lending Desk" },
+        { id: "offus", num: "02", cat: "c1", mins: 8, title: "20 Million to the Same Bank vs. Another Bank: Both Chime in 3 Seconds, So Why Do Reserves Go Two Ways?", teaser: "One transfer updates two rows inside one bank; the other settles via central bank reserves.", flow: "You → Sending Bank → Switch → Receiving Bank → Central Bank" },
+        { id: "card", num: "03", cat: "c2", mins: 8, title: "You just tapped 10 million at dinner. Where is that money sleeping tonight?", teaser: "One group dinner, five houses on one street, and 220,000 dong that never vanished.", flow: "You → Restaurant → Acquirer → Card Network → Issuer" },
+        { id: "qr", num: "04", cat: "c2", mins: 7, title: "Scanning a 50K QR for coffee: why does the shop get 100% in 3 seconds, dodging 2.2% card fees?", teaser: "Pushing your own cash directly beats pulling against a credit limit.", flow: "You → Coffee Shop → Your Bank → Switch → Merchant Bank" },
+        { id: "install", num: "05", cat: "c3", mins: 8, title: "Buying a 12M phone on 0% installment: who actually pays the interest?", teaser: "A 12M price tag, a 0% flyer, and the 600,000 VND slice the shop yields quietly.", flow: "You → Retail Store → Finance Company → Banks" },
+        { id: "minpay", num: "06", cat: "c3", mins: 8, title: "Paying the 5% minimum (500,000 VND) on a 10M card bill: why does 592,500 VND in interest land next month?", teaser: "An on-time 500k minimum payment on Day 45 rewinds the interest clock back to Day 01.", flow: "You → Store → Merchant Bank → Card Issuer" },
+        { id: "profitcash", num: "07", cat: "c4", mins: 9, title: "Booking 2B net profit with 50M cash left: why does a profitable firm run short of payroll cash?", teaser: "3.45B sits inside unpaid buyer invoices (Acct 131) and warehouse shelves (Acct 156).", flow: "Supplier → Firm → Wholesale Buyer → Bank → Staff" }
+      ],
+      detailData: {
+        catLabel: "02 · Cards, QR & Payments",
+        durLabel: "~8 min read · Lesson 03 / 07",
+        shortName: "Card story: 10 million swipe",
+        title: "You just tapped 10 million at dinner. Where is that money sleeping tonight?",
+        teaser: "One group dinner, five houses on one street, and 220,000 dong that never vanished.",
+        vidDesc: "Forty seconds after dinner, your phone pings a 10M limit drop—yet the restaurant waits until T+2 settlement to touch real cash.",
+        chapters: [
+          ["0:00 – 0:35", "The Dinner Bill & Beep"],
+          ["0:35 – 1:20", "Instant Authorization Hold"],
+          ["1:20 – 2:08", "The Data Message Relay"],
+          ["2:08 – 2:52", "The Midnight Ledger Promise"],
+          ["2:52 – 3:40", "End-of-Day Clearing Batch"],
+          ["3:40 – 4:25", "Interbank Settlement on T+2"],
+          ["4:25 – 5:03", "Merchant Discount Fee Split"],
+          ["5:03 – 5:51", "Multilateral Netting"],
+          ["5:51 – 6:38", "Statement & Cashback Funding"],
+          ["6:38 – 7:27", "Reversal, Refund, Chargeback"],
+          ["7:27 – 8:00", "The True Cost of Convenience"]
+        ],
+        stations: [
+          { code: "01", name: "You", desc: "-10M credit limit (zero cash moved yet)." },
+          { code: "02", name: "Restaurant", desc: "Holds 9.78M IOU after 220k card fee." },
+          { code: "03", name: "Acquirer", desc: "Batches evening slips to network." },
+          { code: "04", name: "Network", desc: "Nets obligations across banks." },
+          { code: "05", name: "Issuer", desc: "Books hold, earns 160k interchange." }
+        ],
+        toc: [
+          "1. A Group Dinner and a Terminal Beep",
+          "2. Authorization, Settlement, and the Ledger",
+          "3. Why Every Player Joins the Table",
+          "4. Who Actually Bears the 220,000 Dong Fee?",
+          "5. Reversals, Refunds, and Chargebacks"
+        ],
+        essayH: "1. A Group Dinner and a Terminal Beep",
+        essayLead: 'Dinner with friends at your regular spot comes to <span class="num">10,000,000</span> dong (example). You tap your card, the terminal beeps once, and your phone pings that 10 million came off your limit. Behind that beep sit an instant <button type="button" class="term-link" data-term="auth">authorization hold</button>, a <button type="button" class="term-link" data-term="mdr">2.2% merchant fee</button>, and a <button type="button" class="term-link" data-term="settle">T+2 net settlement</button>.',
+        ledger: {
+          life: {
+            book: "Plain-English View · Tonight at Closing",
+            badge: "PROMISE 10,000,000 VND",
+            rows: [
+              ["Dinner delivered to table", "Meal served to your group", "10,000,000 VND"],
+              ["Acquiring bank owes restaurant", "Pending T+2 payout (~220k fee deducted later)", "10,000,000 VND"]
+            ],
+            note: "Both sides balance to 10M. Zero cash landed in the drawer tonight — only a signed clearing promise."
+          },
+          pro: {
+            book: "Restaurant Ledger · IFRS 15 / Circ. 99/2025",
+            badge: "Σ DEBIT = Σ CREDIT · 10M",
+            rows: [
+              ["Dr Acct 1388", "Other receivables (Merchant acquiring bank)", "10,000,000 VND"],
+              ["Cr Acct 511", "Revenue from goods and services", "10,000,000 VND"]
+            ],
+            note: "Unofficial Circular 99/2025 comparison: intermediary bank batches sit in Other Receivables (1388) rather than direct buyer credit (131)."
+          }
+        },
+        calcStats: (amt) => {
+          const fee = Math.round(amt * 0.022);
+          const net = amt - fee;
+          const iss = Math.round(amt * 0.016);
+          return [
+            ["Shop receives net (T+2)", net.toLocaleString("en-US") + " đ"],
+            ["Merchant fee (~2.2%)", fee.toLocaleString("en-US") + " đ"],
+            ["Issuer interchange (1.6%)", iss.toLocaleString("en-US") + " đ"],
+            ["Acquirer + Network", (fee - iss).toLocaleString("en-US") + " đ"]
+          ];
+        },
+        glossary: [
+          { key: "auth", inStory: true, term: "Authorization hold", def: "Temporary limit reservation issued in seconds before any cash changes banks." },
+          { key: "mdr", inStory: true, term: "Merchant discount rate (~2.2%)", def: "Combined fee split across issuer, network, and acquirer (e.g., 220,000 VND on 10M)." },
+          { key: "settle", inStory: true, term: "T+2 net settlement", def: "Final central-bank reserve settlement arriving 1–2 business days after checkout." },
+          { key: "push", inStory: false, term: "Push payment (QR)", def: "Direct account transfer initiated by the payer with no credit line." },
+          { key: "112", inStory: false, term: "Cash in bank (Acct 112)", def: "Liquid bank balance immediately usable for payroll, unlike accrued accounting profit." },
+          { key: "eir", inStory: false, term: "Effective interest rate (EIR)", def: "True annualized cost calculated on declining principal rather than flat sticker rate." }
+        ]
+      }
+    }
+  };
+
+  const state = {
+    lang: "vi",
+    theme: "light",
+    view: "landing",
+    cat: "all",
+    q: "",
+    deskMode: "cards",
+    stageMode: "video",
+    activeChap: 0,
+    activeBeat: 0,
+    activeToc: 0,
+    ledgerTab: "life",
+    amount: 10000000,
+    glScope: "story",
+    highlightTerm: ""
+  };
+
+  const $ = (s) => document.querySelector(s);
+
+  function updateScrollFades(el) {
+    if (!el) return;
+    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+    const fadeStart = el.scrollLeft > 3 ? "28px" : "0px";
+    const fadeEnd = el.scrollLeft < maxScroll - 3 ? "28px" : "0px";
+    el.style.setProperty("--fade-start", fadeStart);
+    el.style.setProperty("--fade-end", fadeEnd);
+  }
+
+  function filteredLessons(t) {
+    const q = state.q.trim().toLowerCase();
+    return t.lessons.filter((item) => {
+      if (state.cat !== "all" && item.cat !== state.cat) return false;
+      if (!q) return true;
+      return `${item.title} ${item.teaser} ${item.flow} ${item.num}`.toLowerCase().includes(q);
+    });
+  }
+
+  function renderCatalog() {
+    const t = DATA[state.lang];
+    const catMap = Object.fromEntries(t.cats.map((c) => [c.id, c]));
+    const hits = filteredLessons(t);
+
+    // Accurate counter (uses hits.length, never hardcoded total)
+    const activeCat = catMap[state.cat];
+    $("#catCounter").textContent = activeCat
+      ? t.counterCat(hits.length, t.lessons.length, `${activeCat.code} · ${activeCat.name}`)
+      : t.counterAll(hits.length, t.lessons.length);
+
+    $("#filterSummary").textContent = (state.cat === "all" && !state.q.trim())
+      ? t.summaryAll
+      : t.summaryFiltered(hits.length);
+    $("#filterResetBtn").hidden = state.cat === "all" && !state.q.trim();
+
+    // Pills
+    const pillsWrap = $("#catPills");
+    const counts = Object.fromEntries(t.cats.map((c) => [c.id, t.lessons.filter((l) => l.cat === c.id).length]));
+    const pillsHtml = [
+      `<button type="button" class="cat-pill" data-cat="all" aria-pressed="${state.cat === "all"}">${t.allPill} <span class="ct-n">${t.lessons.length}</span></button>`,
+      ...t.cats.map((c) => `<button type="button" class="cat-pill" style="--c:${c.c}" data-cat="${c.id}" aria-pressed="${state.cat === c.id}">${c.code} · ${c.name} <span class="ct-n">${counts[c.id]}</span></button>`)
+    ].join("");
+    pillsWrap.innerHTML = pillsHtml;
+    pillsWrap.querySelectorAll(".cat-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.cat = btn.dataset.cat;
+        renderCatalog();
+        btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+      });
+    });
+    requestAnimationFrame(() => updateScrollFades(pillsWrap));
+
+    // Catalog output (mobile always shows crisp editorial cards; desktop respects cards/grouped toggle)
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    const out = $("#catalogOutput");
+    if (!hits.length) {
+      out.innerHTML = `<div class="story-card"><p class="sc-d">${state.lang === "vi" ? "Không tìm thấy bài khớp từ khoá. Thử \"quẹt thẻ\", \"QR\" hoặc bấm Xoá lọc." : "No matching lessons. Try \"card\", \"QR\", or clear filters."}</p></div>`;
+    } else if (isDesktop && state.deskMode === "grouped") {
+      out.innerHTML = `<div class="compact-cat-list">${t.cats.map((c) => {
+        const list = hits.filter((l) => l.cat === c.id);
+        if (!list.length) return "";
+        return `<div class="compact-cat-group" style="--c:${c.c}">
+          <div class="compact-cat-head"><h3>${c.code} · ${c.name}</h3><span>${list.length}</span></div>
+          ${list.map((l) => `<button type="button" class="compact-row" data-open="${l.id}">
+            <span class="cr-idx">${l.num}</span>
+            <span class="cr-main"><b>${l.title}</b><small>${l.flow}</small></span>
+            <span class="cr-meta">~${l.mins} ${t.readUnit} →</span>
+          </button>`).join("")}
+        </div>`;
+      }).join("")}</div>`;
+    } else {
+      out.innerHTML = `<div class="stories">${hits.map((l) => {
+        const c = catMap[l.cat];
+        return `<article class="story-card" style="--c:${c.c}">
+          <div class="sc-k"><span class="sc-cat">${c.code} · ${c.name}</span><span class="sc-dur">~${l.mins} ${t.readUnit}</span></div>
+          <h3><button type="button" class="card-link" data-open="${l.id}">${l.num}. ${l.title}</button></h3>
+          <p class="sc-d">${l.teaser}</p>
+          <div class="sc-flow">${l.flow}</div>
+          <div class="sc-go"><span>${t.openStoryCta}</span></div>
+        </article>`;
+      }).join("")}</div>`;
+    }
+
+    out.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => openDetail());
+    });
+
+    // Shelf (Compact Mobile 4-Row Index + Desktop 2x2 Wooden Bookshelf)
+    $("#mobIndex").innerHTML = t.cats.map((c) => {
+      const list = t.lessons.filter((l) => l.cat === c.id);
+      const pct = Math.round((list.length / 3) * 100);
+      return `<button type="button" class="mob-idx-card" style="--c:${c.c}" data-shelf-cat="${c.id}">
+        <div class="mob-idx-top">
+          <span class="mob-idx-title">${c.code} · ${c.name}</span>
+          <span class="mob-idx-cnt">${list.length} ${state.lang === "vi" ? "bài mở" : "live"}</span>
+        </div>
+        <div class="mob-idx-bar"><i style="width:${pct}%"></i></div>
+        <div class="mob-idx-next">${t.upcomingLabel} ${c.upcoming}</div>
+      </button>`;
+    }).join("");
+
+    $("#deskShelf").innerHTML = t.cats.map((c) => {
+      const list = t.lessons.filter((l) => l.cat === c.id);
+      return `<div class="shelf-cubby">
+        <div class="cubby-head"><span>${c.code} · ${c.name}</span><span>${list.length} ${state.lang === "vi" ? "bài" : "live"}</span></div>
+        <div class="cubby-spines">
+          ${list.map((l) => `<button type="button" class="spine-btn" style="--c:${c.c}" data-open="${l.id}">
+            <span>${l.title}</span><span class="spine-code">${l.num}</span>
+          </button>`).join("")}
+        </div>
+      </div>`;
+    }).join("");
+
+    $("#mobIndex").querySelectorAll("[data-shelf-cat]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.cat = btn.dataset.shelfCat;
+        renderCatalog();
+        $("#catPills").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+    $("#deskShelf").querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => openDetail());
+    });
+  }
+
+  function renderDetail() {
+    const d = DATA[state.lang].detailData;
+    const t = DATA[state.lang];
+    $("#detCatChip").textContent = d.catLabel;
+    $("#detDur").textContent = d.durLabel;
+    $("#detTitle").textContent = d.title;
+    $("#detTeaser").textContent = d.teaser;
+    $("#postTitleText").textContent = d.shortName;
+
+    // Video vs Cutaway
+    const isVid = state.stageMode === "video";
+    $("#stageVideoBtn").textContent = t.stageVideo;
+    $("#stageCutawayBtn").textContent = t.stageCutaway;
+    $("#stageVideoBtn").setAttribute("aria-pressed", String(isVid));
+    $("#stageCutawayBtn").setAttribute("aria-pressed", String(!isVid));
+    $("#videoPane").hidden = !isVid;
+    $("#cutawayPane").hidden = isVid;
+
+    const ch = d.chapters[state.activeChap];
+    $("#vidChapPill").textContent = `${ch[0]} · ${ch[1]}`;
+    $("#vidStageDesc").textContent = d.vidDesc;
+    $("#ytDrawerSum").innerHTML = `<span>${t.ytHead} · ${ch[0]}</span><span aria-hidden="true">▾</span>`;
+    $("#ytChapList").innerHTML = d.chapters.map((c, idx) => `<button type="button" class="chap-btn" data-chap="${idx}" aria-current="${idx === state.activeChap}">
+      <span class="chap-t">${c[0]}</span><span>${c[1]}</span>
+    </button>`).join("");
+    $("#ytChapList").querySelectorAll(".chap-btn").forEach((b) => {
+      b.addEventListener("click", () => { state.activeChap = Number(b.dataset.chap); renderDetail(); });
+    });
+
+    // Cutaway SVG stations & 5-beat bar
+    $("#svgSwipeCue").textContent = t.swipeCue;
+    $("#svgStations").innerHTML = d.stations.map((s, idx) => {
+      const x = 22 + idx * 158;
+      const lit = idx === state.activeBeat;
+      return `<g transform="translate(${x}, 24)">
+        <rect width="142" height="114" rx="6" fill="${lit ? '#1c2a42' : '#131b2b'}" stroke="${lit ? '#ebb553' : '#334155'}" stroke-width="${lit ? 2.4 : 1.2}"></rect>
+        <text x="12" y="24" fill="${lit ? '#ebb553' : '#94a3b8'}" font-size="13" font-weight="700" font-family="ui-monospace, monospace">${s.code}</text>
+        <text x="12" y="48" fill="#f8fafc" font-size="15" font-weight="700" font-family="system-ui, sans-serif">${s.name}</text>
+        <text x="12" y="74" fill="#cbd5e1" font-size="12" font-family="system-ui, sans-serif">${s.desc.slice(0, 20)}</text>
+        <text x="12" y="92" fill="#cbd5e1" font-size="12" font-family="system-ui, sans-serif">${s.desc.slice(20)}</text>
+      </g>`;
+    }).join("");
+    $("#beatStrip").innerHTML = d.stations.map((s, idx) => `<button type="button" class="beat-btn" data-beat="${idx}" aria-pressed="${idx === state.activeBeat}">${s.code} · ${s.name}</button>`).join("");
+    $("#beatStrip").querySelectorAll(".beat-btn").forEach((b) => {
+      b.addEventListener("click", () => { state.activeBeat = Number(b.dataset.beat); renderDetail(); });
+    });
+
+    // Essay + TOC drawer
+    $("#tocDrawerSum").innerHTML = `<span>${t.tocHead} · ${d.toc[state.activeToc]}</span><span aria-hidden="true">▾</span>`;
+    $("#tocList").innerHTML = d.toc.map((label, idx) => `<button type="button" class="chap-btn" data-toc="${idx}" aria-current="${idx === state.activeToc}">${label}</button>`).join("");
+    $("#tocList").querySelectorAll(".chap-btn").forEach((b) => {
+      b.addEventListener("click", () => { state.activeToc = Number(b.dataset.toc); renderDetail(); });
+    });
+    $("#essayHeading").textContent = d.essayH;
+    $("#essayLead").innerHTML = d.essayLead;
+    $("#essayLead").querySelectorAll(".term-link").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.glScope = "story";
+        state.highlightTerm = btn.dataset.term;
+        $("#glDrawer").open = true;
+        renderDetail();
+        $("#glDrawer").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+
+    // Ledger tabs + table
+    const isLife = state.ledgerTab === "life";
+    $("#tabLife").textContent = t.tabLife;
+    $("#tabPro").textContent = t.tabPro;
+    $("#tabLife").setAttribute("aria-selected", String(isLife));
+    $("#tabPro").setAttribute("aria-selected", String(!isLife));
+    const lg = isLife ? d.ledger.life : d.ledger.pro;
+    $("#ledgerBody").innerHTML = `
+      <div class="ledger-top"><h4>${lg.book}</h4><span class="stamp">${lg.badge}</span></div>
+      <table class="ledger-table">
+        <tbody>${lg.rows.map((r) => `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td class="amt">${r[2]}</td></tr>`).join("")}</tbody>
+      </table>
+      <p class="sc-d" style="margin-top:8px">${lg.note}</p>
+    `;
+
+    // Fee calculator
+    $("#calcLbl").textContent = t.calcLbl;
+    $("#calcValLabel").textContent = state.amount.toLocaleString(state.lang === "vi" ? "vi-VN" : "en-US") + (state.lang === "vi" ? " đ" : " VND");
+    $("#calcGrid").innerHTML = d.calcStats(state.amount).map((st) => `<div class="calc-stat"><span>${st[0]}</span><b>${st[1]}</b></div>`).join("");
+    $("#discNote").textContent = t.disc;
+
+    // Glossary drawer
+    const inStoryCount = d.glossary.filter((g) => g.inStory).length;
+    const items = state.glScope === "story" ? d.glossary.filter((g) => g.inStory) : d.glossary;
+    $("#glSum").innerHTML = `<span>${t.glTitle}</span><span class="num">${t.glStory} (${inStoryCount})</span>`;
+    $("#glScopeStory").textContent = `${t.glStory} (${inStoryCount})`;
+    $("#glScopeAll").textContent = `${t.glAll} (${d.glossary.length})`;
+    $("#glScopeStory").setAttribute("aria-pressed", String(state.glScope === "story"));
+    $("#glScopeAll").setAttribute("aria-pressed", String(state.glScope === "all"));
+    $("#glList").innerHTML = items.map((g) => `<div style="${state.highlightTerm === g.key ? 'background:var(--lamp-soft);padding:8px;border-radius:4px' : ''}">
+      <dt>${g.term}</dt><dd>${g.def}</dd>
+    </div>`).join("");
+  }
+
+  function applyChrome() {
+    const t = DATA[state.lang];
+    document.documentElement.lang = state.lang;
+    document.documentElement.dataset.theme = state.theme;
+    $("#optBadge").textContent = t.optBadge;
+    $("#optNote").textContent = t.optNote;
+    $("#swLanding").textContent = t.swLanding;
+    $("#swDetail").textContent = t.swDetail;
+    $("#backLbl").textContent = t.backLbl;
+    $("#heroKicker").textContent = t.heroKicker;
+    $("#heroTitle").textContent = t.heroTitle;
+    $("#heroSub").textContent = t.heroSub;
+    $("#heroStartBtn").textContent = t.heroStartBtn;
+    $("#heroJumpBtn").textContent = t.heroJumpBtn;
+    $("#catHeading").textContent = t.catHeading;
+    $("#landingSearch").placeholder = t.searchPlaceholder;
+    $("#modeLbl").textContent = t.modeLbl;
+    $("#mCardsBtn").textContent = t.mCards;
+    $("#mGroupedBtn").textContent = t.mGrouped;
+    $("#filterResetBtn").textContent = t.resetBtn;
+    $("#shelfHeading").textContent = t.shelfHeading;
+    $("#shelfSub").textContent = t.shelfSub;
+    $("#sheetTitle").textContent = t.sheetTitle;
+
+    $("#langDeskVi").setAttribute("aria-pressed", String(state.lang === "vi"));
+    $("#langDeskEn").setAttribute("aria-pressed", String(state.lang === "en"));
+    $("#langMobBtn").textContent = state.lang.toUpperCase();
+    $("#langMobBtn").setAttribute("aria-label", state.lang === "vi" ? "Switch to English" : "Chuyển sang Tiếng Việt");
+    $("#themeBtn").textContent = state.theme === "light" ? "☾" : "☀";
+
+    const isDet = state.view === "detail";
+    $("#atlasbar").classList.toggle("is-detail", isDet);
+    $("#atlasbar").classList.toggle("is-landing", !isDet);
+    $("#landingView").hidden = isDet;
+    $("#detailView").hidden = !isDet;
+    $("#backBtn").hidden = !isDet;
+    $("#postPillBtn").hidden = !isDet;
+    $("#swLanding").setAttribute("aria-pressed", String(!isDet));
+    $("#swDetail").setAttribute("aria-pressed", String(isDet));
+
+    renderCatalog();
+    renderDetail();
+  }
+
+  function openDetail() {
+    state.view = "detail";
+    state.glScope = "story";
+    state.highlightTerm = "";
+    applyChrome();
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  function openLanding() {
+    state.view = "landing";
+    applyChrome();
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  // Event wiring
+  $("#swLanding").addEventListener("click", openLanding);
+  $("#swDetail").addEventListener("click", openDetail);
+  $("#brandMark").addEventListener("click", openLanding);
+  $("#backBtn").addEventListener("click", openLanding);
+  $("#heroStartBtn").addEventListener("click", openDetail);
+  $("#heroJumpBtn").addEventListener("click", () => $("#shelfSec").scrollIntoView({ behavior: "smooth" }));
+  $("#navSearchBtn").addEventListener("click", () => {
+    if (state.view !== "landing") openLanding();
+    $("#landingSearch").focus();
+  });
+
+  $("#langDeskVi").addEventListener("click", () => { state.lang = "vi"; applyChrome(); });
+  $("#langDeskEn").addEventListener("click", () => { state.lang = "en"; applyChrome(); });
+  $("#langMobBtn").addEventListener("click", () => { state.lang = state.lang === "vi" ? "en" : "vi"; applyChrome(); });
+  $("#themeBtn").addEventListener("click", () => { state.theme = state.theme === "light" ? "dark" : "light"; applyChrome(); });
+
+  $("#landingSearch").addEventListener("input", (e) => {
+    state.q = e.target.value;
+    $("#searchClear").hidden = !state.q.length;
+    renderCatalog();
+  });
+  $("#searchClear").addEventListener("click", () => {
+    state.q = "";
+    $("#landingSearch").value = "";
+    $("#searchClear").hidden = true;
+    renderCatalog();
+    $("#landingSearch").focus();
+  });
+  $("#filterResetBtn").addEventListener("click", () => {
+    state.cat = "all";
+    state.q = "";
+    $("#landingSearch").value = "";
+    $("#searchClear").hidden = true;
+    renderCatalog();
+  });
+
+  $("#mCardsBtn").addEventListener("click", () => {
+    state.deskMode = "cards";
+    $("#mCardsBtn").setAttribute("aria-pressed", "true");
+    $("#mGroupedBtn").setAttribute("aria-pressed", "false");
+    renderCatalog();
+  });
+  $("#mGroupedBtn").addEventListener("click", () => {
+    state.deskMode = "grouped";
+    $("#mCardsBtn").setAttribute("aria-pressed", "false");
+    $("#mGroupedBtn").setAttribute("aria-pressed", "true");
+    renderCatalog();
+  });
+
+  $("#stageVideoBtn").addEventListener("click", () => { state.stageMode = "video"; renderDetail(); });
+  $("#stageCutawayBtn").addEventListener("click", () => { state.stageMode = "cutaway"; renderDetail(); });
+  $("#tabLife").addEventListener("click", () => { state.ledgerTab = "life"; renderDetail(); });
+  $("#tabPro").addEventListener("click", () => { state.ledgerTab = "pro"; renderDetail(); });
+  $("#amtSlider").addEventListener("input", (e) => { state.amount = Number(e.target.value); renderDetail(); });
+  $("#glScopeStory").addEventListener("click", () => { state.glScope = "story"; state.highlightTerm = ""; renderDetail(); });
+  $("#glScopeAll").addEventListener("click", () => { state.glScope = "all"; state.highlightTerm = ""; renderDetail(); });
+
+  // Lesson switcher clamped modal/sheet
+  $("#postPillBtn").addEventListener("click", () => {
+    const t = DATA[state.lang];
+    $("#sheetItems").innerHTML = t.lessons.map((l) => `<button type="button" class="sheet-item" aria-current="${l.id === "card"}">
+      <span class="num">${l.num}</span><span>${l.title}</span>
+    </button>`).join("");
+    $("#sheetItems").querySelectorAll(".sheet-item").forEach((b) => {
+      b.addEventListener("click", () => { $("#lessonSheet").hidden = true; openDetail(); });
+    });
+    $("#lessonSheet").hidden = false;
+  });
+  $("#sheetClose").addEventListener("click", () => { $("#lessonSheet").hidden = true; });
+  $("#lessonSheet").addEventListener("click", (e) => { if (e.target === $("#lessonSheet")) $("#lessonSheet").hidden = true; });
+
+  const pillsEl = $("#catPills");
+  pillsEl.addEventListener("scroll", () => updateScrollFades(pillsEl), { passive: true });
+  new ResizeObserver(() => updateScrollFades(pillsEl)).observe(pillsEl);
+  window.addEventListener("resize", renderCatalog);
+
+  applyChrome();
+})();
+</script>
+</body>
+</html>
