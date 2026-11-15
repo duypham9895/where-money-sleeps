@@ -420,6 +420,7 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
         base = f"http://127.0.0.1:{port}"
         viewports = [
             (320, 568, True),    # Mobile small (touch)
+            (362, 1218, True),   # Mobile narrow DevTools / small Android (touch)
             (390, 844, True),    # Mobile standard (touch)
             (768, 1024, True),   # Tablet portrait iPad (touch)
             (820, 1180, True),   # Tablet portrait iPad Air (touch)
@@ -490,6 +491,52 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     if small_land:
                         errors.append(f"[{vw}x{vh}] prototype Landing controls < {'44px' if is_mob else '24px'}: {small_land}")
 
+                    # Out-of-bounds & anti-ellipsis scan (catches elements clipped silently by overflow-x: clip)
+                    land_clip = page.evaluate("""() => {
+                      const vw = window.innerWidth;
+                      const oob = [], ellip = [];
+                      for (const sel of ['#atlasbar', '.catalog-bar', '#landingSearch', '#gridModeSeg', '#gridModeSeg button', '.story-card']) {
+                        for (const el of document.querySelectorAll(sel)) {
+                          const r = el.getBoundingClientRect();
+                          if (r.width > 0 && (r.left < -1.5 || r.right > vw + 1.5)) {
+                            oob.push(`${sel}(${Math.round(r.left)}..${Math.round(r.right)}>${vw})`);
+                          }
+                        }
+                      }
+                      for (const btn of document.querySelectorAll('#gridModeSeg button')) {
+                        const r = btn.getBoundingClientRect();
+                        if (r.width > 0 && btn.scrollWidth > btn.clientWidth + 2) {
+                          ellip.push(`${btn.textContent.trim()}(sw=${btn.scrollWidth}>cw=${btn.clientWidth})`);
+                        }
+                      }
+                      return { oob: oob.slice(0, 6), ellip };
+                    }""")
+                    if land_clip["oob"]:
+                        errors.append(f"[{vw}x{vh}] prototype Landing phần tử tràn ngoài khung (che bởi overflow-x:clip): {land_clip['oob']}")
+                    if land_clip["ellip"]:
+                        errors.append(f"[{vw}x{vh}] prototype Landing #gridModeSeg bị cắt chữ: {land_clip['ellip']}")
+
+                    if vw in (320, 362):
+                        page.goto(f"{base}/docs/prototype.html?lang=en", wait_until="domcontentloaded")
+                        page.wait_for_selector("#gridModeSeg button")
+                        page.wait_for_timeout(120)
+                        en_clip = page.evaluate("""() => {
+                          const vw = window.innerWidth;
+                          const bad = [];
+                          for (const btn of document.querySelectorAll('#gridModeSeg button')) {
+                            const r = btn.getBoundingClientRect();
+                            if (r.width > 0 && (r.right > vw + 1.5 || btn.scrollWidth > btn.clientWidth + 2)) {
+                              bad.push(`${btn.textContent.trim()}(r=${Math.round(r.right)},sw=${btn.scrollWidth},cw=${btn.clientWidth})`);
+                            }
+                          }
+                          return bad;
+                        }""")
+                        if en_clip:
+                            errors.append(f"[{vw}x{vh}] prototype Landing EN #gridModeSeg cắt/tràn chữ: {en_clip}")
+                        page.goto(f"{base}/docs/prototype.html", wait_until="domcontentloaded")
+                        page.wait_for_selector("#atlasBtn")
+                        page.wait_for_timeout(120)
+
                     # Open #atlas drawer and clamp inside viewport (+ 2-col parity at 1440px)
                     page.click("#atlasBtn")
                     page.wait_for_timeout(120)
@@ -521,19 +568,42 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     pills_dim = page.evaluate("""() => {
                       const c = document.getElementById('catPillBtn')?.getBoundingClientRect();
                       const p = document.getElementById('postPillBtn')?.getBoundingClientRect();
+                      const pt = document.querySelector('.sp-post .post-title')?.getBoundingClientRect();
                       const vCards = [...document.querySelectorAll('.verdict section')].filter(s => s.getBoundingClientRect().width > 0);
                       const vTwoCol = vCards.length >= 2 && vCards[0].getBoundingClientRect().right <= vCards[1].getBoundingClientRect().left + 4;
+                      const vw = window.innerWidth;
+                      const detOob = [], tabClip = [];
+                      for (const sel of ['.pack-tabs button', '#detailHead', '.try', '.ledger']) {
+                        for (const el of document.querySelectorAll(sel)) {
+                          const r = el.getBoundingClientRect();
+                          if (r.width > 0 && (r.left < -1.5 || r.right > vw + 1.5)) detOob.push(`${sel}(${Math.round(r.right)}>${vw})`);
+                        }
+                      }
+                      for (const el of document.querySelectorAll('.pack-tabs button')) {
+                        const r = el.getBoundingClientRect();
+                        if (r.width > 0 && el.scrollWidth > el.clientWidth + 2) tabClip.push(`${el.textContent.trim().slice(0,24)}(sw=${el.scrollWidth}>cw=${el.clientWidth})`);
+                      }
                       return {
                         catW: c ? c.width : 0,
                         catH: c ? c.height : 0,
                         postW: p ? p.width : 0,
                         postH: p ? p.height : 0,
+                        postTitleW: pt ? pt.width : 0,
                         vTwoCol,
+                        detOob: detOob.slice(0, 6),
+                        tabClip,
                       };
                     }""")
                     min_pill_w = 43.5 if is_mob else 56.0
+                    min_title_w = 32.0 if vw <= 325 else (72.0 if is_mob else 50.0)
                     if pills_dim["postW"] < min_pill_w:
                         errors.append(f"[{vw}x{vh}] #postPillBtn bị ép hẹp còn {pills_dim['postW']:.1f}px < {min_pill_w}px")
+                    if pills_dim["postTitleW"] < min_title_w:
+                        errors.append(f"[{vw}x{vh}] .sp-post .post-title bị ép hẹp còn {pills_dim['postTitleW']:.1f}px < {min_title_w}px")
+                    if pills_dim["detOob"]:
+                        errors.append(f"[{vw}x{vh}] prototype Detail phần tử tràn khung: {pills_dim['detOob']}")
+                    if pills_dim["tabClip"]:
+                        errors.append(f"[{vw}x{vh}] prototype Detail .pack-tabs bị cắt chữ: {pills_dim['tabClip']}")
                     if vw > 480 and pills_dim["catW"] < min_pill_w:
                         errors.append(f"[{vw}x{vh}] #catPillBtn bị ép hẹp còn {pills_dim['catW']:.1f}px < {min_pill_w}px")
                     if vw >= 1280 and not pills_dim["vTwoCol"]:
@@ -663,7 +733,8 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
     finally:
         httpd.shutdown()
 
-    return errors, f"static + {checked_cases}/6 Playwright viewports (320·390·768·820·1024·1440px)"
+    vp_label = "·".join(str(vw) for vw, _, _ in viewports) + "px"
+    return errors, f"static + {checked_cases}/{len(viewports)} Playwright viewports ({vp_label})"
 
 
 def main() -> int:

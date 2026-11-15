@@ -22,6 +22,8 @@
    Ẩn dụ dạy học: LỜI NHẮN chạy trên dây điện phía trên — TIỀN THẬT chỉ
    chạy trong ống quyết toán dưới lòng đất, và chỉ ở bước T+2.
    ───────────────────────────────────────────────────────────── */
+@property --fade-start{syntax:'<length>';inherits:false;initial-value:0px}
+@property --fade-end{syntax:'<length>';inherits:false;initial-value:0px}
 :root{
   --paper:#f3ebdd; --paper-2:#e8dcc6; --card:#fbf6ec;
   --ink:#221c15; --ink-2:#4f4537; --ink-3:#6c6152;
@@ -899,13 +901,17 @@ p,.prose p,.card-teaser,.chap-fig-desc{text-wrap:pretty}
   .ab-act{gap:4px}
   .ab-btn{padding:4px 8px;font-size:12px;gap:4px}
   .lang-seg button{padding:3px 7px;font-size:11px}
+  .sp-post .post-pos{display:none}
+  .sp-post{padding:4px 7px;gap:4px}
 }
 @media (max-width:480px){
+  .ab-row{padding:4px max(6px,env(safe-area-inset-left)) 4px max(6px,env(safe-area-inset-right));gap:3px}
+  .ab-left,.ab-center,.ab-act{gap:3px}
+  .atlasbar.is-landing .ab-brand{font-size:clamp(.78rem,3.6vw,.96rem)}
+  .split-pill{padding:1px;gap:1px}
   .split-pill > .sp-cat,.split-pill > .sp-sep,.atlasbar #atlasBtnTxt{display:none}
-  .sp-post{min-inline-size:44px}
-}
-@media (max-width:380px){
-  .ab-row,.ab-left,.ab-center,.ab-act{gap:4px}
+  .sp-post{min-inline-size:44px;padding:4px 6px}
+  .lang-seg{padding:1px}
 }
 
 .hero-cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:var(--sans);margin-top:20px}
@@ -916,17 +922,32 @@ p,.prose p,.card-teaser,.chap-fig-desc{text-wrap:pretty}
   font:500 13.5px var(--sans);cursor:pointer;transition:background-color .15s,border-color .15s}
 .cta-sub:hover,.cta-sub:focus-visible{background:var(--paper-2);border-color:var(--ink);outline:none}
 
-.catalog-bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin:0 auto 14px;max-width:var(--wide);font-family:var(--sans)}
-.bar-field{flex:1 1 18rem;min-width:min(100%,15rem);display:flex;align-items:center;gap:8px}
+.catalog-bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;margin:0 auto 14px;max-width:var(--wide);min-width:0;box-sizing:border-box;font-family:var(--sans)}
+.bar-field{flex:1 1 18rem;min-width:min(100%,15rem);max-width:100%;display:flex;align-items:center;gap:8px}
 .bar-lbl{font:700 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);white-space:nowrap}
-.catalog-search{flex:1 1 auto;min-width:0;border:1.5px solid var(--rule-2);background:var(--card);color:var(--ink);
+.catalog-search{flex:1 1 auto;min-width:0;max-width:100%;box-sizing:border-box;border:1.5px solid var(--rule-2);background:var(--card);color:var(--ink);
   border-radius:3px;padding:8px 13px;min-block-size:40px;font:500 13.5px var(--sans);transition:border-color .15s}
 .catalog-search:focus{outline:none;border-color:var(--ink)}
-.mode-seg-wrap{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
-.mode-seg{display:inline-flex;flex-wrap:wrap;gap:2px 14px;padding:0;border-radius:0;background:transparent;border:0;border-bottom:1px solid var(--rule-2)}
+.mode-seg-wrap{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;min-width:0;max-width:100%}
+.mode-seg{display:inline-flex;flex-wrap:wrap;gap:2px 14px;padding:0;border-radius:0;background:transparent;border:0;border-bottom:1px solid var(--rule-2);min-width:0;max-width:100%}
 .mode-seg button{appearance:none;border:0;border-bottom:2px solid transparent;background:transparent;padding:7px 2px;min-block-size:36px;border-radius:0;font:500 12.5px var(--sans);color:var(--ink-3);cursor:pointer;white-space:nowrap;margin-bottom:-1px}
 .mode-seg button:hover,.mode-seg button:focus-visible{color:var(--ink);outline:none}
 .mode-seg button[aria-pressed="true"]{background:transparent;color:var(--ink);font-weight:700;border-bottom-color:var(--clay);box-shadow:none}
+@media (max-width:720px){
+  .catalog-bar{flex-direction:column;align-items:stretch;gap:12px}
+  .bar-field{flex:1 1 auto;width:100%;min-width:0;flex-direction:column;align-items:stretch;gap:5px}
+  .catalog-search{width:100%}
+  .mode-seg-wrap{display:flex;flex-direction:column;align-items:stretch;gap:6px;width:100%}
+  .mode-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%;border-bottom:0;overflow:visible}
+  .mode-seg button{min-block-size:46px;padding:7px 6px;border:1px solid var(--rule-2);border-radius:4px;background:var(--card);color:var(--ink-2);
+    font:600 12px/1.25 var(--sans);text-align:center;white-space:normal;overflow:visible;text-overflow:clip;word-break:normal;overflow-wrap:break-word;
+    margin-bottom:0;display:flex;align-items:center;justify-content:center}
+  .mode-seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:2px 2px 0 var(--lamp)}
+}
+@media (max-width:360px){
+  .mode-seg{gap:4px}
+  .mode-seg button{font-size:11.5px;padding:6px 4px}
+}
 .cat-pills{display:flex;flex-wrap:wrap;gap:2px 16px;margin:0 auto 22px;max-width:var(--wide);font-family:var(--sans);border-bottom:1px solid var(--rule);padding-bottom:0}
 .cat-pill{appearance:none;border:0;border-bottom:2px solid transparent;background:transparent;padding:8px 2px 7px;min-block-size:36px;border-radius:0;font-size:12.5px;
   font-weight:500;cursor:pointer;color:var(--ink-3);transition:color .15s,border-color .15s;margin-bottom:-1px;display:inline-flex;align-items:center;gap:5px}
@@ -1138,13 +1159,24 @@ textarea.fb-control{resize:vertical;min-height:92px}
 .dot{min-height:28px}
 .ft-copy-btn{min-block-size:28px;min-inline-size:28px}
 @media (max-width:900px){
-  .cat-pills,.pack-tabs,.yt-chaps,.mode-seg,.toc{
+  .cat-pills,.yt-chaps,.toc{
     flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;justify-content:flex-start;
     overscroll-behavior-x:contain;scroll-snap-type:inline proximity;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:100%
+    scroll-padding-inline:22px;padding-inline-end:22px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:100%;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-start,0px),#000 calc(100% - var(--fade-end,0px)),transparent 100%);
+    mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-start,0px),#000 calc(100% - var(--fade-end,0px)),transparent 100%)
   }
-  .cat-pills::-webkit-scrollbar,.pack-tabs::-webkit-scrollbar,.yt-chaps::-webkit-scrollbar,.mode-seg::-webkit-scrollbar,.toc::-webkit-scrollbar{display:none}
-  .cat-pills>*,.pack-tabs>*,.yt-chaps>*,.mode-seg>*,.toc>*{flex:0 0 auto;white-space:nowrap;scroll-snap-align:start}
+  .cat-pills::-webkit-scrollbar,.yt-chaps::-webkit-scrollbar,.toc::-webkit-scrollbar{display:none}
+  .cat-pills>*,.yt-chaps>*,.toc>*{flex:0 0 auto;white-space:nowrap;scroll-snap-align:start}
+}
+@media (max-width:680px){
+  .pack-tabs{display:grid;grid-template-columns:1fr;gap:8px;width:100%;max-width:100%}
+  .pack-tabs button{width:100%;box-sizing:border-box;white-space:normal;text-align:left;justify-content:flex-start;line-height:1.35;padding:10px 12px}
+}
+@media (max-width:640px){
+  .atlas .seg{flex-wrap:wrap;border-radius:8px;max-width:100%;width:100%}
+  .gl-search,#glSearch{width:100%;min-width:0;max-width:100%}
 }
 @media (max-width:420px){
   .story-card{padding:18px 16px 18px 28px}
@@ -1240,7 +1272,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
       </div>
       <div class="atlas-tools">
         <label class="atlas-q" for="atlasQ"><span class="vh" id="atlasQSr">Tìm chủ đề</span>
-          <input type="search" id="atlasQ" placeholder="Tìm nhanh trong mọi danh mục: thẻ, lãi, lương, mã QR…" autocomplete="off"></label>
+          <input type="search" id="atlasQ" placeholder="Tìm: thẻ, lãi, lương, mã QR…" autocomplete="off"></label>
         <span class="seg" role="group" aria-label="Lọc theo trạng thái" id="atlasSt">
           <button type="button" data-st="all" aria-pressed="true">Tất cả</button>
           <button type="button" data-st="published" aria-pressed="false">Đang mở đọc</button>
@@ -1321,7 +1353,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
   <div class="catalog-bar">
     <label class="bar-field" for="landingSearch">
       <span class="bar-lbl" id="landingSearchLbl">Tìm bài:</span>
-      <input type="search" id="landingSearch" class="catalog-search" placeholder="trả góp, quẹt thẻ, chuyển khoản, TK 112, QR…" autocomplete="off">
+      <input type="search" id="landingSearch" class="catalog-search" placeholder="quẹt thẻ, trả góp, QR, TK 112…" autocomplete="off">
     </label>
     <div class="mode-seg-wrap">
       <span class="bar-lbl" id="gridModeLbl">Bố cục kệ:</span>
@@ -13155,6 +13187,7 @@ function renderStageVideo(forceRemount){
   wrap.dataset.mountedKey = key;
   wrap.innerHTML = renderYtEmbedHTML(s, "long", "stage");
   bindYtEmbed("stage", s, "");
+  requestAnimationFrame(syncAllHScrollStrips);
 }
 const CHAP_FIGS = {
   card: [
@@ -13749,6 +13782,7 @@ function renderPack(){
   if (fullLink) fullLink.href = `studio.html?story=${encodeURIComponent(S.story)}&author=1`;
   if (navLink) navLink.href = `studio.html?story=${encodeURIComponent(S.story)}&author=1`;
   if (typeof renderLessonQuizAndProgress === "function") renderLessonQuizAndProgress(S.story);
+  requestAnimationFrame(syncAllHScrollStrips);
 }
 function renderVid(s, draft){
   const v = s.videoScript, f = {...v[PK.fmt], scenes:Array.isArray(v[PK.fmt].scenes) ? v[PK.fmt].scenes : []}, st = vstat(f), short = PK.fmt === "short";
@@ -13860,6 +13894,7 @@ function showTab(t, focus){
     if (!b || !p) return;
     b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; p.hidden = !on;
     if (on){ p.classList.remove("in"); void p.offsetWidth; p.classList.add("in"); } });
+  requestAnimationFrame(syncAllHScrollStrips);
   if (focus && $("#tab-" + t)) $("#tab-" + t).focus();
 }
 const closeStBtn = $("#closeStudioDrawerBtn");
@@ -14643,6 +14678,21 @@ function diverseCatalogOrder(keys){
   keys.forEach(k => { if (!seen.has(k)) picked.push(k); });
   return picked;
 }
+function syncHScrollStrip(el){
+  if (!el) return;
+  if (!el.dataset.fadeBound) {
+    el.dataset.fadeBound = "1";
+    el.addEventListener("scroll", () => syncHScrollStrip(el), { passive: true });
+  }
+  const canScroll = el.scrollWidth > el.clientWidth + 3;
+  const startFade = canScroll && el.scrollLeft > 4 ? "20px" : "0px";
+  const endFade = canScroll && (el.scrollLeft + el.clientWidth < el.scrollWidth - 4) ? "24px" : "0px";
+  el.style.setProperty("--fade-start", startFade);
+  el.style.setProperty("--fade-end", endFade);
+}
+function syncAllHScrollStrips(){
+  $$("#catPills, .yt-chaps, .toc").forEach(syncHScrollStrip);
+}
 function renderStories(){
   const box = $("#storyList"), pills = $("#catPills"), more = $("#catalogMoreBar"), cnt = $("#catalogCounter");
   if (!box) return;
@@ -14659,6 +14709,7 @@ function renderStories(){
   if (compactModeBtn) compactModeBtn.textContent = enMode ? `By ${cats.length} categories` : `Theo ${cats.length} danh mục`;
 
   if (pills){
+    const prevScroll = pills.scrollLeft || 0;
     pills.innerHTML = "";
     const mkPill = (id, label, count, color) => {
       const btn = document.createElement("button");
@@ -14667,7 +14718,17 @@ function renderStories(){
       if (color) btn.style.setProperty("--c", color);
       btn.setAttribute("aria-pressed", String(S.catFilter === id));
       btn.textContent = `${label} (${count})`;
-      btn.onclick = () => { S.catFilter = id; S.page = 1; renderStories(); renderShelf(); };
+      btn.onclick = () => {
+        S.catFilter = id;
+        S.page = 1;
+        renderStories();
+        renderShelf();
+        requestAnimationFrame(() => {
+          const on = $('#catPills .cat-pill[aria-pressed="true"]');
+          if (on) on.scrollIntoView({ block: "nearest", inline: "nearest" });
+          syncHScrollStrip(pills);
+        });
+      };
       pills.appendChild(btn);
     };
     mkPill("all", enMode ? `All ${cats.length} categories` : `Tất cả ${cats.length} danh mục`, o.length, "var(--ink)");
@@ -14675,6 +14736,8 @@ function renderStories(){
       const cCount = o.filter(k => catIdOf(stories[k]) === c.id).length;
       mkPill(c.id, `${String(ci + 1).padStart(2, "0")} · ${c.name}`, cCount, c.c);
     });
+    pills.scrollLeft = prevScroll;
+    requestAnimationFrame(() => syncHScrollStrip(pills));
   }
 
   $$("#gridModeSeg button").forEach(b => {
@@ -14749,7 +14812,7 @@ function renderStories(){
             ? `${catsToShow.length}-category compact directory · ${filtered.length}/${o.length} lessons live (${n.topics} total topics)`
             : `Danh bạ ${catsToShow.length} danh mục: hiển thị ${filtered.length}/${o.length} bài đang mở (${n.topics} chủ đề toàn kho)`)
         : (enMode
-            ? `Directory of ${catsToShow.length} categories · ${filtered.length}/${o.length} open lessons`
+            ? `Directory of ${catsToShow.length} ${catsToShow.length === 1 ? "category" : "categories"} · ${filtered.length}/${o.length} open ${filtered.length === 1 ? "lesson" : "lessons"}`
             : `Danh bạ ${catsToShow.length} danh mục · hiển thị ${filtered.length}/${o.length} bài đang mở`);
     }
     if (!renderedAny){
@@ -14757,7 +14820,7 @@ function renderStories(){
       if (more) more.hidden = true;
     } else if (more){
       more.hidden = false;
-      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${o.length} open lessons</strong> across ${catsToShow.length} ${catsToShow.length === 1 ? "category" : "categories"}.` : `Đang hiển thị <strong>${o.length} bài đang mở</strong> trong ${catsToShow.length} danh mục.`}</span>`
+      more.innerHTML = `<span class="pager-meta">${enMode ? `Showing <strong>${filtered.length} open ${filtered.length === 1 ? "lesson" : "lessons"}</strong> across ${catsToShow.length} ${catsToShow.length === 1 ? "category" : "categories"}.` : `Đang hiển thị <strong>${filtered.length} bài đang mở</strong> trong ${catsToShow.length} danh mục.`}</span>`
         + `<div class="catalog-more-actions"><button type="button" class="catalog-more-btn ghost" id="toCuratedBtn">${enMode ? "Back to notebook cards (6/page)" : "Quay về thẻ Sổ tay (6 bài/trang)"}</button></div>`;
       const tcBtn = $("#toCuratedBtn", more);
       if (tcBtn) tcBtn.onclick = () => { S.gridMode = "curated"; S.page = 1; renderStories(); };
@@ -16027,7 +16090,7 @@ function applyStaticChrome(lang){
   cacheAndSetAttr("#navThemeBtn", "aria-label", "Switch Day / Night theme", enMode);
   cacheAndSetAttr("#atlasX", "aria-label", "Close Index", enMode);
   cacheAndSetText("#atlasQSr", "Search topics", enMode);
-  cacheAndSetAttr("#atlasQ", "placeholder", "Quick search across categories: cards, interest, payroll, QR…", enMode);
+  cacheAndSetAttr("#atlasQ", "placeholder", "Search: card, interest, payroll, QR…", enMode);
   cacheAndSetAttr("#atlasSt", "aria-label", "Filter by status", enMode);
   cacheAndSetText('#atlasSt [data-st="all"]', "All", enMode);
   cacheAndSetText('#atlasSt [data-st="published"]', "Open to read", enMode);
@@ -16071,7 +16134,7 @@ function applyStaticChrome(lang){
   ], false, enMode);
 
   cacheAndSetText("#landingSearchLbl", "Search:", enMode);
-  cacheAndSetAttr("#landingSearch", "placeholder", "installment, card swipe, wire transfer, Account 112, QR…", enMode);
+  cacheAndSetAttr("#landingSearch", "placeholder", "card, loans, QR, Acct 112…", enMode);
   cacheAndSetText("#gridModeLbl", "Shelf layout:", enMode);
   cacheAndSetAttr("#gridModeSeg", "aria-label", "Catalog display layout", enMode);
   cacheAndSetText('#gridModeSeg [data-grid-mode="curated"]', "Paginated (6 / page)", enMode);
@@ -16323,7 +16386,7 @@ function updateReadingBar(){
   span.style.setProperty("--p", p.toFixed(4));
 }
 window.addEventListener("scroll", updateReadingBar, { passive: true });
-window.addEventListener("resize", updateReadingBar, { passive: true });
+window.addEventListener("resize", () => { updateReadingBar(); syncAllHScrollStrips(); }, { passive: true });
 
 function syncViewDOM(doAnim){
   const isLand = S.view === "landing", stories = getStories(), enMode = isEn();
@@ -16361,6 +16424,7 @@ function syncViewDOM(doAnim){
   renderGlossary();
   syncFeedbackUi();
   updateReadingBar();
+  requestAnimationFrame(syncAllHScrollStrips);
   if ($("#atlasbar")) document.documentElement.style.setProperty("--sticky", ($("#atlasbar").offsetHeight + 14) + "px");
 }
 
