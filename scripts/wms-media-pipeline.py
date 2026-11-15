@@ -134,7 +134,7 @@ def run_auth_youtube(port: int = 8765) -> int:
     auth_uri = cfg.get("auth_uri", "https://accounts.google.com/o/oauth2/auth")
     token_uri = cfg.get("token_uri", "https://oauth2.googleapis.com/token")
     redirect_uri = f"http://localhost:{port}"
-    scopes = "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly"
+    scopes = "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube.force-ssl"
 
     params = urllib.parse.urlencode(
         {
@@ -740,6 +740,99 @@ def step_5c_update_youtube_description(
         raise RuntimeError(f"YouTube videos.update trả về HTTP {exc.code}: {err_raw}") from exc
 
 
+def step_5c_upload_youtube_captions(
+    story_key: str,
+    story: dict,
+    fmt: str,
+    srt_path: pathlib.Path | None = None,
+) -> str:
+    """Tải phụ đề chuẩn `.srt` (tiếng Việt) lên video YouTube qua YouTube Data API v3 Captions API (cần scope youtube.force-ssl)."""
+    vid = story.get("videoScript") or {}
+    fobj = vid.get(fmt) or {}
+    yt_id = str(fobj.get("youtubeId") or "").strip()
+    if not YT_ID_RE.match(yt_id):
+        return ""
+    suffix = "short-9x16.srt" if fmt == "short" else "long-16x9.srt"
+    target_srt = srt_path or (DIST_DIR / f"{story_key}-{suffix}")
+    if not target_srt.is_file():
+        print(f"  [WARN] Chưa thấy file phụ đề {target_srt.relative_to(ROOT)} để upload cho {story_key} ({fmt})")
+        return yt_id
+
+    access_token = get_youtube_access_token()
+    existing_caption_id = ""
+    try:
+        list_req = urllib.request.Request(
+            f"https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId={urllib.parse.quote(yt_id)}",
+            headers={"Authorization": f"Bearer {access_token}"},
+            method="GET",
+        )
+        with urllib.request.urlopen(list_req, timeout=30) as resp:
+            caps_data = json.loads(resp.read().decode("utf-8"))
+        for item in caps_data.get("items") or []:
+            if (item.get("snippet") or {}).get("language") == "vi":
+                existing_caption_id = str(item.get("id") or "").strip()
+                break
+    except urllib.error.HTTPError as exc:
+        err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
+            print(
+                f"  [WARN] Token hiện tại thiếu scope youtube.force-ssl cho Captions API ({story_key} {fmt} · {yt_id}); "
+                "chạy `--auth-youtube` 1 lần để cấp quyền."
+            )
+            return yt_id
+        raise RuntimeError(f"YouTube captions.list trả về HTTP {exc.code}: {err_raw}") from exc
+
+    snippet_meta: dict = {
+        "snippet": {
+            "videoId": yt_id,
+            "language": "vi",
+            "name": "Tiếng Việt (Chuẩn khớp lời bình)",
+            "isDraft": False,
+        }
+    }
+    method = "POST"
+    if existing_caption_id:
+        snippet_meta = {"id": existing_caption_id, "snippet": {"name": "Tiếng Việt (Chuẩn khớp lời bình)", "isDraft": False}}
+        method = "PUT"
+
+    boundary = f"wms_cap_{os.urandom(12).hex()}"
+    meta_bytes = json.dumps(snippet_meta, ensure_ascii=False).encode("utf-8")
+    srt_bytes = target_srt.read_bytes()
+    body = (
+        f"--{boundary}\r\n"
+        f"Content-Type: application/json; charset=UTF-8\r\n\r\n"
+    ).encode("utf-8") + meta_bytes + (
+        f"\r\n--{boundary}\r\n"
+        f"Content-Type: application/x-subrip; charset=UTF-8\r\n\r\n"
+    ).encode("utf-8") + srt_bytes + f"\r\n--{boundary}--\r\n".encode("utf-8")
+
+    up_req = urllib.request.Request(
+        "https://www.googleapis.com/upload/youtube/v3/captions?uploadType=multipart&part=snippet",
+        data=body,
+        headers={
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": f"multipart/related; boundary={boundary}",
+            "Content-Length": str(len(body)),
+        },
+        method=method,
+    )
+    try:
+        with urllib.request.urlopen(up_req, timeout=60) as resp:
+            cap_res = json.loads(resp.read().decode("utf-8"))
+        cap_id = str(cap_res.get("id") or existing_caption_id or "").strip()
+        print(f"[5C Captions PASS] {story_key} ({fmt} · {yt_id} · {method}) <- {target_srt.name} (captionId={cap_id})")
+        return yt_id
+    except urllib.error.HTTPError as exc:
+        err_raw = exc.read().decode("utf-8", errors="replace")
+        if exc.code == 403 and ("insufficientPermissions" in err_raw or "ACCESS_TOKEN_SCOPE_INSUFFICIENT" in err_raw):
+            print(
+                f"  [WARN] Token hiện tại thiếu scope youtube.force-ssl cho Captions API ({story_key} {fmt} · {yt_id}); "
+                "chạy `--auth-youtube` 1 lần để cấp quyền."
+            )
+            return yt_id
+        raise RuntimeError(f"YouTube captions.{method.lower()} trả về HTTP {exc.code}: {err_raw}") from exc
+
+
 def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
     """5.0 (Brand Safety Specialist B1-B4 & Financial Specialist F1-F4) -> 5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Locked-Stage Diorama v3.0 Video 16:9/9:16)."""
     load_dotenv()
@@ -1004,6 +1097,7 @@ def main() -> int:
     ap.add_argument("--upload-short", action="store_true", help="Upload dist/youtube/<story>-short-9x16.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
     ap.add_argument("--upload-long", action="store_true", help="Upload dist/youtube/<story>-long-16x9.mp4 lên @WhereMoneySleeps (unlisted) và tự động nhúng youtubeId vào bài viết")
     ap.add_argument("--update-youtube-desc", action="store_true", help="Cập nhật description chứa URL chính xác của bài viết lên YouTube cho video ngắn (và dài)")
+    ap.add_argument("--upload-captions", action="store_true", help="Tải phụ đề .srt lên YouTube qua Captions API (cần scope youtube.force-ssl)")
     ap.add_argument("--all-stories", action="store_true", help="Chạy cho toàn bộ 7 bài trong STORIES")
     ap.add_argument(
         "--embed-status",
@@ -1037,6 +1131,9 @@ def main() -> int:
             if args.update_youtube_desc:
                 step_5c_update_youtube_description(sk, stories[sk], "short", privacy_status=target_priv)
                 step_5c_update_youtube_description(sk, stories[sk], "long", privacy_status=target_priv)
+            if args.upload_captions:
+                step_5c_upload_youtube_captions(sk, stories[sk], "short")
+                step_5c_upload_youtube_captions(sk, stories[sk], "long")
             step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode)
         return 0
 
@@ -1050,6 +1147,9 @@ def main() -> int:
     if args.update_youtube_desc:
         step_5c_update_youtube_description(args.story, stories[args.story], "short")
         step_5c_update_youtube_description(args.story, stories[args.story], "long")
+    if args.upload_captions:
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "short")
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "long")
 
     if args.upload_short:
         mp4_short = DIST_DIR / f"{args.story}-short-9x16.mp4"

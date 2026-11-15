@@ -22,6 +22,7 @@ blocked_on: []
 | 2026-11-10 | `TR-06` | Triển khai Đợt 1 `#3 · profitcash` theo `/vibe-post` (Khép trọn Đợt 1 `3/3` bài) | **Đã hoàn tất (`status: "review"`):** Lên trọn bộ bài học #6 `STORIES.profitcash` (`C9 v2`, 4 hình mặt cắt `LUẬT 9` `profitcash-fig-1..4.jpg`, 2 thẻ `profitcash-q1.v1..profitcash-q2.v1`, máy tính `#tryProfit`), vượt qua kiểm toán 3 chuyên gia (`ke-toan-reviewer` `K1–K4` + `tai-chinh-reviewer` `F1–F4` + `brand-safety-reviewer` `B1–B4`: `0 FAIL`), kết xuất & tải 2 video `v6.5` (`profitcash-long-16x9.mp4` → `WnlsZ9AtNdI`, `profitcash-short-9x16.mp4` → `BpNggcnByQg`) ở chế độ `unlisted` lên `@WhereMoneySleeps`. Bài ưu tiên mở màn Đợt 2: **`#1 · offus`**. | **`DONE (Awaiting Duy Review)`** |
 | 2026-11-10 | `TR-07` | Triển khai Đợt 2 `#1 · offus` theo `/vibe-post` (`On-Us` vs `Off-Us` `24/7`) | **Đã hoàn tất (`status: "published"`):** Lên trọn bộ bài học #7 `STORIES.offus` (`C9 v2`, 4 hình mặt cắt `LUẬT 9` `offus-fig-1..4.jpg`, 2 thẻ `offus-q1.v1..offus-q2.v1`, máy tính `#tryOffus`), vượt qua kiểm toán 3 chuyên gia (`ke-toan-reviewer` `K1–K4` + `tai-chinh-reviewer` `F1–F4` + `brand-safety-reviewer` `B1–B4`: `0 FAIL`), kết xuất & tải 2 video `v6.5` (`offus-long-16x9.mp4` → `Qn3SIzHi_Ik`, `offus-short-9x16.mp4` → `9FdZabe_Q_4`) lên `@WhereMoneySleeps`. Bài ưu tiên tiếp theo trong Đợt 2: **`#2 · termdep`**. | **`PUBLISHED`** |
 | 2026-11-10 | `TR-08` | Phản hồi UI/UX của Duy ở `S6 Iterate`: tách giao diện Độc giả vs Author Dock, 1 khung Video bài giảng 16:9 duy nhất trên `#stage`, gắn domain `wheremoneysleeps.duyslab.icu` và bật `public` toàn bộ 14 video kèm URL bài viết trong Description của Shorts | **Đã xử lý triệt để (`commit 762f814`):** (1) Tách thanh Masthead 52px chỉ hiện tiến độ `7 mục · 7/19 bài` cho độc giả, giấu cụm công cụ tác giả vào `#authorDock` (`⌘⇧D` / `?author=1`); (2) Hợp nhất sân khấu `#stage` chỉ hiển thị duy nhất Video bài giảng dài `16:9` đồng bộ Chương Video & 4 hình mặt cắt `LUẬT 9` với Sổ kế toán `#ledger` (xoá trùng lặp); (3) Gắn domain chính `https://wheremoneysleeps.duyslab.icu` (kèm `https://wms.duypham.me`) qua Cloudflare Workers Custom Domains; (4) Chuyển cả 14 video trên `@WhereMoneySleeps` sang `privacyStatus: "public"` và gắn URL chính xác `https://wheremoneysleeps.duyslab.icu/?story=<slug>` ở dòng 1 & chân Description của toàn bộ 7 YouTube Shorts (`9:16`) và 7 Video dài (`16:9`). | **`CLOSED`** |
+| 2026-11-15 | `TR-09` | Nâng cấp đồ hoạ & âm thanh toàn bộ `7` bài sang chuẩn `v7.2` Paper-Warm Minimalist Craft (`POV Người Mới` sạch `0` rò rỉ ẩn dụ web) & đồng bộ YouTube + hình minh hoạ bài viết | **Đã xử lý triệt để (`commit 3eeaf0d`):** (1) Render mới `14/14` video `.mp4` (`7 Long 16:9 + 7 Short 9:16`) và `28/28` hình minh hoạ chương `1200×675` (`public/brand/*-fig-{1..4}.jpg`) từ renderer `v7.2`; (2) Tải lên `public` cả `14/14` video lên `@WhereMoneySleeps` kèm URL `https://wheremoneysleeps.duyslab.icu/?story=<slug>` và cập nhật `STORIES` + `EXPECTED_YT_IDS`; (3) Bổ sung `--upload-captions` + scope `youtube.force-ssl` trong `scripts/wms-media-pipeline.py`. *(Đang chờ Duy re-auth Cloudflare token để đẩy `dist/site/` lên live `wheremoneysleeps.duyslab.icu`)* | **`DONE (Awaiting CF Deploy)`** |
 
 ## 2. Hàng Đợi Sản Xuất 16 Bài Tiếp Theo Theo Khuôn `/vibe-post` Đã Khoá (`7 Danh Mục · 19 Chủ Đề`)
 
@@ -52,3 +53,15 @@ Ba bài trụ cột đầu tiên (`card`, `pay`, `install` — tương ứng 3 d
 
 - Phản hồi thực tế của độc giả đầu tiên sau khi mở `public` để điều chỉnh thứ tự ưu tiên giữa Đợt 1 và Đợt 2.
 - Same vendor, same priors — no external verifier ran.
+
+## 5. Nhật ký Triage bổ sung — 2026-11-15 (`TR-09`: Nâng cấp `14/14` Video + `28/28` Hình Chương lên `v7.2` Paper-Warm Minimalist Craft & Đồng bộ YouTube Public)
+
+| Bài viết (`slug`) | Video Dài `16:9` (`v7.2`, `public`) | Video Shorts `9:16` (`v7.2`, `public`) | Hình minh hoạ chương (`1200×675`) |
+|---|---|---|---|
+| `card` | `l56GlTCof4c` | `o84RnVgqQok` | `public/brand/card-fig-1..4.jpg` (cảnh `[1,5,6,9]`) |
+| `pay` | `OET3IUPC6Qs` | `f2UKhEheWw4` | `public/brand/pay-fig-1..4.jpg` (cảnh `[2,5,7,8]`) |
+| `install` | `OdcXfR5kSkI` | `o-hFPmyKF7w` | `public/brand/install-fig-1..4.jpg` (cảnh `[2,4,6,9]`) |
+| `minpay` | `aLsnblI01yM` | `RcaF4llz-Cc` | `public/brand/minpay-fig-1..4.jpg` (cảnh `[2,5,6,8]`) |
+| `qr` | `awgxZiOJMOM` | `kQzff8VVZ4E` | `public/brand/qr-fig-1..4.jpg` (cảnh `[1,3,6,7]`) |
+| `profitcash` | `doLPegldsWE` | `RlYjvtiVuDA` | `public/brand/profitcash-fig-1..4.jpg` (cảnh `[2,5,7,6]`) |
+| `offus` | `pyf9muWYLmI` | `csafiwCITcQ` | `public/brand/offus-fig-1..4.jpg` (cảnh `[1,4,6,8]`) |

@@ -68,9 +68,15 @@ blocked_on: []
    - `dist/youtube/card-short-9x16.mp4`: `6.283.150` bytes (`70,39s`, `2.112` khung, `1080×1920`), kiểm tra `3` khung (`4,5s`, `10,5s`, `23,0s`) đạt nhãn `MỞ ĐẦU` → `BƯỚC 1/5` → `BƯỚC 2/5`, cân xứng tâm, `0` sub Zone 3.
    - `dist/youtube/card-long-16x9.mp4`: `28.973.800` bytes (`480,18s`, `14.405` khung, `1920×1080`), kiểm tra `4` khung (`15,0s`, `32,0s`, `42,0s`, `280,0s`) đạt nhãn `MỞ ĐẦU` → `BƯỚC 1/10` → `BƯỚC 6/10`, lộ trình `10` bước rõ ràng, `0` chồng chữ.
    - Dọn file tạm trong `scratch/`: xoá `18/18` file nháp & khung hình kiểm tra (`28.216.484` bytes giải phóng, còn `0` file).
+3. **Cập nhật hoàn tất toàn bộ `14/14` Video + `28/28` Hình Chương `v7.2` & Kiểm âm học `9` cảnh ghép PCM (`2026-11-15` · `commit 3eeaf0d`):**
+   - Toàn bộ `14/14` video `.mp4` (`7 Short 9:16 + 7 Long 16:9`) và `28/28` hình minh hoạ chương (`1200×675`) đã kết xuất theo phong cách `v7.2` Paper-Warm Minimalist Craft và đẩy `public` lên `@WhereMoneySleeps` kèm `EXPECTED_YT_IDS` + `STORIES` đồng bộ (`14/14` video đạt chuẩn).
+   - **Kiểm âm học tất định trên `9` cảnh cắt ghép PCM (`profitcash.long` & `offus.long`):**
+     - `profitcash.long` (`431,72s` · `6.684` ký tự · `44.100 Hz` · `2ch`): `-14,2 LUFS` (`LRA = 2,8 LU`), `RMS = -17,00 dBFS`, `Peak = -1,15 dBFS`, `0` mẫu cắt ngọn (`clipped = 0`), `monotone_errors = 0`; độ lệch RMS giữa toàn bộ các cảnh chỉ `1,08 dB` (`-21,29..-20,21 dBFS`); `6/6` cảnh ghép PCM (`[2,3,4,5,7,9]`) ghi nhận `0` tiếng click (`step > 0,50 fs`), `max_sample_step = 0,1572..0,2310 fs`.
+     - `offus.long` (`444,87s` · `6.939` ký tự · `44.100 Hz` · `2ch`): `-14,1 LUFS` (`LRA = 2,8 LU`), `RMS = -16,92 dBFS`, `Peak = -1,20 dBFS`, `0` mẫu cắt ngọn (`clipped = 0`), `monotone_errors = 0`; độ lệch RMS giữa các cảnh chỉ `0,91 dB` (`-21,49..-20,59 dBFS`); `3/3` cảnh ghép PCM (`[5,7,9]`) ghi nhận `0` tiếng click (`step > 0,50 fs`), `max_sample_step = 0,1915..0,2458 fs`.
 
-## 5. Chưa Xác Minh Được
+## 5. Hành Động Tiếp Theo & Chưa Xác Minh Được
 
-- **Kiểm nghe thực tế các mối cắt PCM:** Các đoạn cắt bỏ mã tài khoản bằng PCM + timing ký tự trong `profitcash.long[2,3,4,5,7,9]` và `offus.long[5,7,9]` mới được xác minh khớp timing ký tự trên mảng số và qua kiểm tự động; **chưa có người thật nghe tai** để chấm độ mượt âm thanh ở từng mối nối.
-- **`6` cặp video còn lại (`pay`, `install`, `minpay`, `qr`, `profitcash`, `offus`):** Kịch bản `docs/prototype.html` và cache `.json` đã đồng bộ xong, nhưng `.mp4` chưa render lại hàng loạt (đang chờ Duy duyệt bản mẫu `card` trước).
-- **Trạng thái kiểm ngoài:** `same vendor, same priors — no external verifier ran`; chưa `git push` hay upload YouTube.
+- **Phụ đề `.srt` trên YouTube:** Đã bổ sung `step_5c_upload_youtube_captions` và cờ `--upload-captions` + scope `youtube.force-ssl` trong `scripts/wms-media-pipeline.py`; cần Duy chạy `--auth-youtube` `1` lần khi muốn đẩy `14` file `.srt` sẵn có lên YouTube Captions API.
+- **Triển khai bản build `v7.2` lên live `wheremoneysleeps.duyslab.icu`:** Đang chờ Duy cấp lại phiên Wrangler (`wrangler login` hoặc `CLOUDFLARE_API_TOKEN` đủ quyền Workers + D1).
+- **Nghe kiểm định chủ quan bằng tai người trên `9` cảnh ghép PCM (`profitcash.long[2,3,4,5,7,9]` & `offus.long[5,7,9]`):** Đã đạt toàn bộ ngưỡng kỹ thuật tất định (`-14,2/-14,1 LUFS`, `LRA 2,8 LU`, `0` click, `0` clipping); giữ tuỳ chọn tổng hợp lại thuần một lượt (`eleven_v3`) nếu Duy muốn sau khi quota ElevenLabs gia hạn.
+- **Trạng thái kiểm ngoài:** `same vendor, same priors — no external verifier ran`.
