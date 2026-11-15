@@ -8,7 +8,7 @@ blocked_on: []
 
 # VERIFICATION — Báo Cáo Xác Minh Tất Định & Tiêu Chí Chấp Nhận (`S4 QA` — `where-money-sleeps`)
 
-> **Verdict tổng thể:** **`PASS` (5/5 cổng `scripts/wms-check.sh` + 4/4 cụm kiểm thử E2E `scripts/wms-qa-verify.py` đạt 100%, `0` lỗi chặn).**
+> **Verdict tổng thể:** **`PASS` (5/5 cổng `scripts/wms-check.sh` + 5/5 cụm kiểm thử E2E `scripts/wms-qa-verify.py` đạt 100%, `0` lỗi chặn).**
 > *Nhãn định tuyến & kiểm duyệt (Quy tắc 7 & 16):* `[Route: T3 · S=5/8 · Primary=Claude Opus 5.5 · CrossCheck=Gemini 4 Argon High]` · `same vendor, same priors — no external verifier ran`.
 
 ## 1. Kết Quả 5 Cổng Kiểm Tất Định (`scripts/wms-check.sh`) & E2E (`scripts/wms-qa-verify.py`)
@@ -19,7 +19,7 @@ blocked_on: []
 | **2** | `scripts/wms-finance-kb.py --verify` (`F1–F4`) | Cơ chế ngân hàng (`T+0 Auth` vs `T+2 Settlement`, `On-Us` vs `Off-Us`, `CASA`, `FTP`), toán tài chính `IRR/EIR` (`11,4 triệu` nhận trước vs `12 × 1 triệu` ⇒ `IRR tháng = 0,7981%`, `EIR năm = 10,01%`), kho tri thức `knowledge/finance-kb.json` | **`PASS` (`12/12 PASS · FAIL 0`)** |
 | **3** | `scripts/wms-motion-snap.py` (`M0–M4` & `LUẬT 6b, 8, 9, 10`) | Bố cục mặt cắt Diorama v3.0, 12 hình khảo cứu `16:9` (`1200×675`, `CLS = 0`), đồng hồ tất định `window.__vibeSeek`, `0` cặp chữ đè nhau (`M3b`), `0` script CDN bên thứ ba lúc runtime | **`PASS` (`21/21 PASS · FAIL 0`)** |
 | **4** | `scripts/wms-studio-sync.py --check` | Đồng bộ hàm băm SHA-256 giữa `docs/prototype.html`, 6 file MP4 `v6.5`, 6 file phụ đề `.srt` và `docs/wms-studio-data.js` (`hash=fe50a0cfdedbb726`) | **`PASS` (`hash=fe50a0cfdedbb726`)** |
-| **5** | `scripts/wms-qa-verify.py` (`QA-1..QA-4`) | Kiểm thử E2E tất định trên `docs/prototype.html`, `docs/studio.html`, `docs/workflows.html` và 6 video `v6.5` (`WMS_QUIZ_BANK`, máy trạng thái `tel` `R1–R6` + `F4` + `AC-68`, CSP `connect-src 'none'`, 6 mã `youtubeId`) | **`PASS` (`4/4 cụm PASS · 0 lỗi chặn`)** |
+| **5** | `scripts/wms-qa-verify.py` (`QA-1..QA-5`) | Kiểm thử E2E tất định trên `docs/prototype.html`, `docs/studio.html`, `docs/workflows.html`, `docs/s6.html`, `docs/assets/doc.css` (`WMS_QUIZ_BANK`, máy trạng thái `tel` `R1–R6` + `F4` + `AC-68`, CSP `connect-src 'none'`, `14` mã `youtubeId`, và `LUẬT 13 R1–R5` ở `320·390·768·1440px`) | **`PASS` (`5/5 cụm PASS · 4/4 Playwright viewports · 0 lỗi chặn`)** |
 
 ## 2. Bảng Đối Chiếu Hợp Đồng `gates/01-spec/ACCEPTANCE.md`
 
@@ -43,3 +43,8 @@ blocked_on: []
 - Phép đo thực địa trên điện thoại iPhone/Android thật (mở link `#sync` trong WebView Zalo xem có bị cắt `#fragment` không, và kiểm tra tách bộ nhớ Safari/WebApp theo `AC-31`, `AC-32`).
 - Kiểm tra cấu hình Cloudflare Worker/D1 thực tế khi triển khai (`observability.enabled = false`, không chặn IP theo `R35`, ẩn ô `n < 5` theo `AC-69`) và điều khoản hợp đồng lao động Ringkas của Duy (`R34`) trước cổng `S5 Launch`.
 - Same vendor, same priors — no external verifier ran.
+
+## 5. Bổ Sung `2026-11-15` — Kiểm Định Responsive Mobile + Desktop (`LUẬT 13 · R1–R5` · `[QA-5]`)
+
+- **Phạm vi nâng cấp:** `docs/prototype.html` (`== index.html`), `docs/studio.html`, `docs/workflows.html`, `docs/assets/doc.css` (`320×568`, `390×844` touch, `768×1024`, `1440×900`): `0px` tràn ngang (`overflow-x:clip`), chạm `>=44×44px` (`@media (pointer:coarse)`), ô nhập `>=16px`, header 1 hàng `<=12% dvh` tự ẩn khi cuộn xuống (`scroll-hide`), overlay giữ `100dvh` (`overscroll-behavior:contain`), sơ đồ `#wfSvg` cuộn ngang tối thiểu `720px` (chữ `>=10px`) kèm nhãn `#svgSwipeHint` `VI⇄EN`.
+- **Chưa xác minh được trên phần cứng thật:** Phép đo cảm ứng trên Safari iOS / Chrome Android vật lý (hiện kiểm thử trên Chromium headless Playwright + giả lập touch `is_mobile=True`).

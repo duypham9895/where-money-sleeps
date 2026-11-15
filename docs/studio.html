@@ -2,7 +2,8 @@
 <html lang="vi" data-tier="reference" data-theme="paper">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="text-scale" content="scale">
 <!-- ECC Security + modern-web-guidance: Khoá cứng CSP connect-src 'none', 0 network exfiltration, 0 third-party script -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 <title>WMS Review Studio — Bàn Duyệt Bài Viết &amp; Video (Calm Single-Focus)</title>
@@ -68,6 +69,7 @@ html, body {
   font-size: 14px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 .mono, .tabular, .tp-readout, .sc-wpm, .rp-journal td, #progressBadge {
@@ -102,19 +104,29 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 8px 12px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.st-topbar::-webkit-scrollbar { display: none; }
 
 .st-top-left, .st-top-center, .st-top-right {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
 }
 
 .story-select-pill {
   appearance: none;
+  width: min(100%, 15rem);
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding: 6px 14px;
   border-radius: 99px;
   border: 1px solid var(--border-strong);
@@ -204,11 +216,12 @@ html, body {
 .tldr {
   max-width: 1380px;
   margin: 12px auto 0;
-  padding: 8px 18px;
+  padding: 10px 18px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 8px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -265,7 +278,7 @@ html, body {
    ══════════════════════════════════════════════════════════════════════════ */
 .workbench {
   max-width: 1380px;
-  margin: 14px auto 48px;
+  margin: 18px auto 48px;
   padding: 0 20px;
 }
 
@@ -276,11 +289,16 @@ html, body {
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   padding: 10px 14px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 10px;
+}
+.stepper-bar > div {
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
 }
 .stepper-dots {
   display: flex;
@@ -327,7 +345,7 @@ html, body {
   align-items: start;
 }
 @media (max-width: 980px) {
-  .post-focus-grid { grid-template-columns: 1fr; }
+  .post-focus-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Tờ báo thật đang đọc (Left Zone của Duyệt Bài Viết) */
@@ -343,7 +361,7 @@ html, body {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .paper-sheet h2 {
   font: 700 24px/1.3 var(--serif);
@@ -407,7 +425,7 @@ html, body {
   grid-template-columns: minmax(480px, 1.15fr) minmax(360px, 0.85fr);
 }
 @media (max-width: 980px) {
-  .video-focus-grid, .video-focus-grid.wide-16x9 { grid-template-columns: 1fr; }
+  .video-focus-grid, .video-focus-grid.wide-16x9 { grid-template-columns: minmax(0, 1fr); }
 }
 
 .player-card {
@@ -624,6 +642,67 @@ html, body {
   background: var(--ink-1);
   color: var(--bg-card);
 }
+/* ── LUẬT 13 · R1–R5: Responsive Mobile + Desktop Parity ── */
+.st-topbar {
+  transition: transform .24s ease;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  padding: 6px 14px;
+}
+.st-topbar::-webkit-scrollbar { display: none; }
+.st-top-left, .st-top-center, .st-top-right {
+  flex: 0 0 auto;
+  max-width: none;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.story-select-pill { max-width: clamp(11rem, 15vw, 19rem); flex: 0 0 auto; }
+.mode-tabs { display: flex; flex-wrap: nowrap; padding: 2px; gap: 4px; flex: 0 0 auto; max-width: none; }
+.mode-tab, .btn-primary, .btn-secondary, .gate-pill-btn { white-space: nowrap; flex: 0 0 auto; font-size: 12px; padding: 5px 10px; min-height: 28px; }
+.st-topbar.is-hidden:not(:focus-within) { transform: translateY(-100%); }
+.oss-cmp-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: 20px; align-items: start; }
+button[data-drawer-seek] { min-height: 28px; }
+#ossTableMount { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+@media (max-width: 980px) {
+  .post-focus-grid, .video-focus-grid, .video-focus-grid.wide-16x9, .oss-cmp-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .active-card { position: static; max-width: 100%; min-width: 0; }
+  .paper-sheet { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+}
+@media (max-width: 860px) {
+  .st-topbar {
+    justify-content: flex-start;
+    padding: 4px max(10px, env(safe-area-inset-left)) 4px max(10px, env(safe-area-inset-right));
+    min-height: 46px;
+  }
+  .st-top-left, .st-top-center, .st-top-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .story-select-pill { width: auto; max-width: min(210px, 55vw); min-width: 112px; }
+}
+@media (max-width: 640px) {
+  .st-topbar { padding: 4px max(10px, env(safe-area-inset-left)) 4px max(10px, env(safe-area-inset-right)); }
+  .tldr, .gate-drawer { margin-inline: 12px; }
+  .tldr .words { white-space: normal; overflow-wrap: anywhere; }
+  .workbench { padding: 0 12px; }
+  .paper-sheet { padding: 18px 16px; }
+  .rp-journal { display: block; overflow-x: auto; }
+  #videoActiveSceneCard div[style*="grid-template-columns"], #panel-oss .paper-sheet > div[style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+  .oss-table th, .oss-table td { padding: 7px 8px; font-size: 12px; }
+}
+@media (pointer: coarse), (max-width: 768px) {
+  input, select, textarea, .story-select-pill { font-size: max(16px, 1rem); }
+}
+@media (pointer: coarse) {
+  button, .mode-tab, .btn-primary, .btn-secondary, .story-select-pill, .st-lang-seg button { min-height: 44px; }
+  #themeToggleBtn, #langToggleBtn, #tpPrevFrame, #tpNextFrame, .st-lang-seg button { min-width: 44px; min-height: 44px; }
+}
 </style>
 </head>
 <body>
@@ -769,7 +848,7 @@ html, body {
     <div class="paper-sheet" style="margin-bottom:20px">
       <div class="paper-kicker" id="ossKicker">SO KHỚP ĐỒNG THỜI 16:9 ⇄ 9:16 (CGWIRE KITSU SPLIT-COMPARE)</div>
       <h3 id="ossTitle">Đối chiếu Bản Dài 16:9 và Shorts 9:16 (Zone 2 mở rộng 80% + Thanh công thức gọn)</h3>
-      <div style="display:grid;grid-template-columns:1.35fr 0.65fr;gap:20px;align-items:start">
+      <div class="oss-cmp-grid">
         <div>
           <div class="ac-label" id="ossLongLbl">1. YouTube Dài 16:9 (1920×1080)</div>
           <div class="video-frame-box" style="max-width:100%">
@@ -1959,6 +2038,20 @@ html, body {
       sourceHash: DATA.sourceHash
     };
   };
+
+  // LUẬT 13 · R3: Ẩn thanh trên khi cuộn xuống để nhường không gian đọc trên mobile & desktop
+  {
+    const bar = document.querySelector(".st-topbar");
+    let lastY = scrollY;
+    addEventListener("scroll", () => {
+      if (!bar) return;
+      const y = Math.max(0, Math.min(scrollY, document.documentElement.scrollHeight - innerHeight));
+      if (y <= 12) { bar.classList.remove("is-hidden"); lastY = y; return; }
+      if (Math.abs(y - lastY) < 4) return;
+      bar.classList.toggle("is-hidden", y > lastY && y > (bar.offsetHeight || 56));
+      lastY = y;
+    }, { passive: true });
+  }
 
   renderAll();
 })();

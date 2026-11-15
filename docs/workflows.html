@@ -2,7 +2,8 @@
 <html lang="vi" data-theme="light" data-tier="reference">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="text-scale" content="scale">
 <meta name="color-scheme" content="light dark">
 <title>Where Money Sleeps — Sổ tay Quy trình Agent &amp; Kiểm định Tự động hoá</title>
 <meta name="description" content="Bản đồ trung thực về pipeline đa agent, kiểm định Python tất định (T0), phân tầng model (T0–T4) và công cụ dựng video/âm thanh tạo nên Where Money Sleeps.">
@@ -83,6 +84,7 @@
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 html{color-scheme:light dark;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
 html[data-theme="light"]{color-scheme:light}
 html[data-theme="dark"]{color-scheme:dark}
 body{
@@ -254,14 +256,14 @@ p{text-wrap:pretty}
 .tldr-card.is-human{border-top-color:var(--clay)}
 .tldr-tag{
   display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;
 }
 .tldr-card.is-lock .tldr-tag{color:var(--moss)}
 .tldr-card.is-ai .tldr-tag{color:var(--lamp)}
 .tldr-card.is-human .tldr-tag{color:var(--clay)}
 .tldr-card strong{
   display:block;font-family:var(--serif);font-size:1.05rem;font-weight:700;line-height:1.3;
-  margin-bottom:5px;color:var(--ink);
+  margin-bottom:6px;color:var(--ink);
 }
 .tldr-card p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.52}
 .tldr-card code{background:var(--paper-2);padding:1px 4px;border-radius:2px}
@@ -269,16 +271,16 @@ p{text-wrap:pretty}
 /* ── WORKFLOW TABLIST (.pack-tabs RISOGRAPH PRINT STYLE) ── */
 .sec-head{
   display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;
-  margin-bottom:12px;
+  margin-bottom:16px;
 }
 .sec-head h2{
   margin:0;font-family:var(--serif);font-size:clamp(1.25rem,2.3vw,1.65rem);font-weight:700;line-height:1.22;
   color:var(--ink);
 }
-.sec-head p{margin:3px 0 0;font-family:var(--sans);font-size:13.5px;color:var(--ink-2)}
+.sec-head p{margin:4px 0 0;font-family:var(--sans);font-size:13.5px;color:var(--ink-2)}
 .wf-modes{
   display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;
-  margin-bottom:16px;
+  margin-bottom:20px;
 }
 .wf-tab{
   position:relative;flex:0 0 auto;
@@ -555,7 +557,11 @@ footer.site-footer .theme button[aria-pressed="true"]{
   background:var(--ink);color:var(--paper);border-color:var(--ink);
 }
 
-/* ── RESPONSIVE + COARSE POINTER + REDUCED MOTION ── */
+/* ── RESPONSIVE + COARSE POINTER + REDUCED MOTION (LUẬT 13 · R1–R5) ── */
+.atlasbar{transition:transform .24s ease}
+.atlasbar.is-hidden:not(:focus-within){transform:translateY(-100%)}
+.ab-back,.ab-btn,.ab-theme-btn,.lang-seg button,.icon-btn,.scrub-dot{min-height:28px;min-width:28px}
+.svg-swipe-hint{display:none;position:sticky;left:0;width:fit-content;margin:0 0 8px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;background:color-mix(in srgb,var(--accent,#0ea5e9) 12%,transparent);color:inherit;border:1px solid color-mix(in srgb,var(--accent,#0ea5e9) 28%,transparent)}
 @media (max-width:960px){
   .hero{grid-template-columns:1fr}
   .tldr-strip,.ledger-grid,.hud-grid{grid-template-columns:1fr}
@@ -563,14 +569,33 @@ footer.site-footer .theme button[aria-pressed="true"]{
   .hud-col:last-child{border-bottom:0}
   .macro-segments{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-@media (max-width:860px){.ab-tagline,.ab-jumps,.ab-div{display:none}}
+@media (max-width:860px){
+  .ab-tagline,.ab-jumps,.ab-div{display:none}
+  .hierarchy-stage{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;max-width:100%}
+  .wf-svg{min-width:720px;width:720px;max-height:none;display:block}
+  .svg-swipe-hint{display:inline-flex;align-items:center;gap:4px}
+}
+@media (max-width:720px){
+  .wrap{padding:20px 14px 40px}
+  .ab-brand{display:none}
+  .ab-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:6px;min-height:46px;padding-inline:max(10px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-right))}
+  .ab-row::-webkit-scrollbar{display:none}
+  .wf-modes,.scrub-dots{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:6px;max-width:100%;overscroll-behavior-x:contain}
+  .wf-modes::-webkit-scrollbar,.scrub-dots::-webkit-scrollbar{display:none}
+  .wf-tab{flex:0 0 auto;white-space:nowrap}
+}
 @media (max-width:600px){
   .hero-facts,.macro-segments{grid-template-columns:1fr 1fr}
+  .ab-back,.ab-btn{padding:0 9px;font-size:12px;white-space:nowrap}
+}
+@media (pointer:coarse),(max-width:768px){
+  input,select,textarea{font-size:max(16px,1rem)}
 }
 @media (pointer:coarse){
   .ab-back,.ab-btn,.ab-theme-btn,.lang-seg button,.wf-tab,.icon-btn,.macro-seg,.scrub-dot,.gate-pills a,footer.site-footer .theme button{
     min-height:44px;display:inline-flex;align-items:center;justify-content:center;
   }
+  .ab-theme-btn,.icon-btn,.scrub-dot,.lang-seg button{min-width:44px}
   .macro-seg{display:grid;align-content:center}
 }
 @media (prefers-reduced-motion:reduce){
@@ -712,6 +737,7 @@ footer.site-footer .theme button[aria-pressed="true"]{
       </div>
 
       <div class="hierarchy-stage">
+        <div class="svg-swipe-hint" id="svgSwipeHint">← Vuốt ngang để xem toàn bộ sơ đồ →</div>
         <svg id="wfSvg" class="wf-svg" viewBox="0 0 640 370" role="img" aria-labelledby="svgTitle">
           <title id="svgTitle">Sơ đồ 6 trạm quy trình agent và kiểm định</title>
           <g id="svgWires"></g>
@@ -1643,6 +1669,21 @@ footer.site-footer .theme button[aria-pressed="true"]{
     if ($("#tldrHeading")) $("#tldrHeading").textContent = state.lang === "en" ? "3-Tier Honesty Summary" : "Tóm tắt 3 tầng trung thực";
     if ($("#svgTitle")) $("#svgTitle").textContent = state.lang === "en" ? "6-Station Agent & Verification Pipeline Diagram" : "Sơ đồ 6 trạm quy trình agent và kiểm định";
     $("#backLink").textContent = L.backLink;
+    const hintEl = $("#svgSwipeHint");
+    if (hintEl) hintEl.textContent = /back|overview|article|lesson/i.test(String(L.backLink)) ? "← Swipe horizontally to view full diagram →" : "← Vuốt ngang để xem toàn bộ sơ đồ →";
+    if (!window.__wmsWfScrollBound) {
+      window.__wmsWfScrollBound = true;
+      const bar = document.querySelector(".atlasbar");
+      let lastY = scrollY;
+      addEventListener("scroll", () => {
+        if (!bar) return;
+        const y = Math.max(0, Math.min(scrollY, document.documentElement.scrollHeight - innerHeight));
+        if (y <= 12) { bar.classList.remove("is-hidden"); lastY = y; return; }
+        if (Math.abs(y - lastY) < 4) return;
+        bar.classList.toggle("is-hidden", y > lastY && y > (bar.offsetHeight || 52));
+        lastY = y;
+      }, { passive: true });
+    }
     $("#hdrCrumb").textContent = L.hdrCrumb;
     $("#jumpMap").textContent = L.jumpMap;
     $("#jumpHud").textContent = L.jumpHud;

@@ -28,9 +28,9 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
-  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
 
 #bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;
   background:linear-gradient(90deg,var(--a),var(--b));transition:width .08s linear}
@@ -57,7 +57,7 @@ section{padding:38px 0;border-bottom:1px solid var(--line)}
 section:last-of-type{border-bottom:0}
 
 /* ngân sách đọc — BẮT BUỘC ở đầu mỗi trang */
-.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:22px 0 10px}
+.meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:22px 0 14px}
 .meta span{font-family:var(--mono);font-size:11px;letter-spacing:.8px;text-transform:uppercase;
   color:var(--faint);border:1px solid var(--line-2);border-radius:999px;padding:4px 10px}
 .meta span.hot{color:var(--a);border-color:color-mix(in srgb,var(--a) 45%,transparent)}
@@ -68,7 +68,7 @@ h2{font-size:clamp(1.25rem,3vw,1.6rem);letter-spacing:-.6px;margin:0 0 .6em;
   font-weight:700;line-height:1.25}
 h3{font-size:1rem;margin:0 0 .35em;font-weight:700}
 p{margin:.7em 0;max-width:62ch}
-a{color:var(--a)}
+a{color:var(--a);overflow-wrap:anywhere}
 strong{font-weight:650}
 .lede{font-size:1.1rem;color:var(--dim);max-width:58ch}
 
@@ -113,10 +113,10 @@ q,.q{display:block;border-left:2px solid var(--line-2);padding-left:15px;margin:
 .q cite{display:block;font-style:normal;font-size:12px;color:var(--faint);margin-top:6px}
 
 code{font-family:var(--mono);font-size:.87em;background:var(--raised);
-  padding:2px 6px;border-radius:5px}
+  padding:2px 6px;border-radius:5px;overflow-wrap:anywhere}
 pre{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   padding:16px;overflow-x:auto;margin:16px 0;line-height:1.5}
-pre code{background:none;padding:0;font-size:12.5px;color:var(--dim)}
+pre code{background:none;padding:0;font-size:12.5px;color:var(--dim);overflow-wrap:normal}
 
 .p{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.7px;
   padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--dim);
@@ -134,6 +134,34 @@ footer .v{font-family:var(--mono);font-size:11px;border:1px dashed var(--line-2)
 .doc-lang{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden;
   margin-left:auto}
 .doc-lang button{background:none;border:0;color:var(--dim);font:600 11.5px var(--mono);
-  padding:4px 9px;cursor:pointer;line-height:1.2}
+  padding:4px 9px;min-height:28px;min-width:34px;display:inline-flex;align-items:center;
+  justify-content:center;cursor:pointer;line-height:1.2}
 .doc-lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 nav .in .doc-lang + #t{margin-left:8px}
+nav a,#t{min-height:28px;display:inline-flex;align-items:center;justify-content:center}
+.k{min-width:0}
+.tw{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;max-width:100%}
+
+/* ── responsive multi-viewport (LUẬT 13 · R1–R5) ───── */
+@media (max-width:760px){
+  nav .in{width:100%;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+    overscroll-behavior-x:contain;scroll-snap-type:inline proximity;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px;
+    padding:5px max(12px,env(safe-area-inset-left)) 5px max(12px,env(safe-area-inset-right))}
+  nav .in::-webkit-scrollbar{display:none}
+  nav .in>*{flex:0 0 auto;scroll-snap-align:start}
+  main{width:100%;padding:0 max(14px,env(safe-area-inset-left)) 84px max(14px,env(safe-area-inset-right))}
+  footer{width:100%;padding:22px max(14px,env(safe-area-inset-left)) max(44px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-right))}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  h1{letter-spacing:-1.2px}
+  section{padding:26px 0}
+  .tldr{padding:16px}
+  .g.two,.g.three{grid-template-columns:minmax(0,1fr)}
+  th,td{padding:8px 10px;font-size:13px}
+}
+@media (pointer:coarse){
+  nav a,#t,.doc-lang button{min-height:44px;min-width:44px;padding:0 12px}
+  input,select,textarea{font-size:max(16px,1rem)}
+}
