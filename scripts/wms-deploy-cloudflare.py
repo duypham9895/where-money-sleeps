@@ -140,11 +140,19 @@ def ensure_d1_database(env: dict[str, str]) -> str:
 
 
 def update_wrangler_config(db_id: str) -> None:
+    custom_host = DEFAULT_CUSTOM_DOMAIN.replace("https://", "").replace("http://", "").rstrip("/")
     cfg = {
         "$schema": "node_modules/wrangler/config-schema.json",
         "name": "where-money-sleeps",
         "main": "cloudflare/worker.js",
         "compatibility_date": "2025-04-01",
+        "workers_dev": True,
+        "routes": [
+            {
+                "pattern": custom_host,
+                "custom_domain": True
+            }
+        ],
         "observability": {
             "enabled": False,
             "logs": {
@@ -164,7 +172,10 @@ def update_wrangler_config(db_id: str) -> None:
         ]
     }
     WRANGLER_JSONC.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"  ✓ Đã cập nhật wrangler.jsonc với D1 binding DB -> {db_id} và observability.enabled = false", flush=True)
+    print(
+        f"  ✓ Đã cập nhật wrangler.jsonc: workers_dev=true, route={custom_host}, D1 binding DB -> {db_id}",
+        flush=True,
+    )
 
 
 def main() -> int:
@@ -217,39 +228,64 @@ def main() -> int:
     print(f"  ✓ Live URL: {live_url}", flush=True)
 
     # Step 4: Verify live HTTP responses (Rule 4: A success response is not proof — fetch and inspect it)
-    print(f"\n[4/4] Kiểm chứng trực tiếp trên URL sống: {live_url} ...", flush=True)
-    req_home = urllib.request.Request(live_url + "/", headers={"User-Agent": "WMS-Deploy-Verify/1.0"})
-    with urllib.request.urlopen(req_home, timeout=20) as resp:
-        body = resp.read().decode("utf-8", errors="replace")
-        print(f"  ✓ GET {live_url}/ -> HTTP {resp.status} ({len(body)} bytes, contains STORIES={'const STORIES' in body})", flush=True)
-        if resp.status != 200 or "const STORIES" not in body:
-            raise RuntimeError("Trang chủ live không khớp nội dung dự kiến")
+    verify_targets = [
+        ("/", "const STORIES"),
+        ("/prototype.html", "const STORIES"),
+        ("/workflows.html", None),
+        ("/studio.html", "WMS Review Studio"),
+        ("/wms-studio-data.js", None),
+        ("/duyslab-overview.html", None),
+        ("/llm-quiz.html", None),
+        ("/studio-mockups.html", None),
+        ("/landing-detail-mockups.html", None),
+        ("/mockup-option-a.html", None),
+        ("/mockup-option-b.html", None),
+        ("/s0.html", None),
+        ("/s1.html", None),
+        ("/s2.html", None),
+        ("/s3.html", None),
+        ("/s4.html", None),
+        ("/s5.html", None),
+        ("/s6.html", None),
+        ("/gates/06-iterate/TRIAGE.md", None),
+        ("/gates/06-iterate/READOUT.md", None),
+        ("/public/audio/beats-manifest.json", None),
+        ("/public/brand/card-fig-1.jpg", None),
+        ("/legal/licences.json", None),
+        ("/legal/tt99-phu-luc-ii.secondary.json", None),
+        ("/dist/youtube/card-long-16x9.srt", None),
+        ("/favicon.svg", None),
+    ]
 
-    req_studio = urllib.request.Request(live_url + "/studio.html", headers={"User-Agent": "WMS-Deploy-Verify/1.0"})
-    with urllib.request.urlopen(req_studio, timeout=20) as resp:
-        sbody = resp.read().decode("utf-8", errors="replace")
-        print(f"  ✓ GET {live_url}/studio.html -> HTTP {resp.status} ({len(sbody)} bytes)", flush=True)
+    def _verify_origin(base_url: str) -> None:
+        base = base_url.rstrip("/")
+        print(f"\n[4/4] Kiểm chứng trực tiếp trên URL sống: {base} ...", flush=True)
+        for path, marker in verify_targets:
+            req = urllib.request.Request(base + path, headers={"User-Agent": "WMS-Deploy-Verify/1.0"})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                raw = resp.read()
+                if resp.status != 200 or not raw:
+                    raise RuntimeError(f"GET {base}{path} trả HTTP {resp.status} ({len(raw)} bytes)")
+                if marker is not None:
+                    text = raw.decode("utf-8", errors="replace")
+                    if marker not in text:
+                        raise RuntimeError(f"GET {base}{path} thiếu nội dung kỳ vọng: {marker!r}")
+                print(f"  ✓ GET {base}{path} -> HTTP {resp.status} ({len(raw)} bytes)", flush=True)
 
-    req_beacon = urllib.request.Request(
-        live_url + "/api/p",
-        data=b'{"event":"invalid_test_probe"}',
-        headers={"Content-Type": "application/json", "User-Agent": "WMS-Deploy-Verify/1.0"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req_beacon, timeout=20) as resp:
-        print(f"  ✓ POST {live_url}/api/p (invalid probe) -> HTTP {resp.status} (expected 204)", flush=True)
-        if resp.status != 204:
-            raise RuntimeError(f"Endpoint /api/p trả HTTP {resp.status} thay vì 204")
-
-    req_custom = urllib.request.Request(DEFAULT_CUSTOM_DOMAIN + "/", headers={"User-Agent": "WMS-Deploy-Verify/1.0"})
-    with urllib.request.urlopen(req_custom, timeout=20) as resp:
-        cbody = resp.read().decode("utf-8", errors="replace")
-        print(
-            f"  ✓ GET {DEFAULT_CUSTOM_DOMAIN}/ -> HTTP {resp.status} ({len(cbody)} bytes, contains STORIES={'const STORIES' in cbody})",
-            flush=True,
+        req_beacon = urllib.request.Request(
+            base + "/api/p",
+            data=b'{"event":"invalid_test_probe"}',
+            headers={"Content-Type": "application/json", "User-Agent": "WMS-Deploy-Verify/1.0"},
+            method="POST",
         )
-        if resp.status != 200 or "const STORIES" not in cbody:
-            raise RuntimeError(f"Custom domain {DEFAULT_CUSTOM_DOMAIN} không khớp nội dung dự kiến")
+        with urllib.request.urlopen(req_beacon, timeout=20) as resp:
+            print(f"  ✓ POST {base}/api/p (invalid probe) -> HTTP {resp.status} (expected 204)", flush=True)
+            if resp.status != 204:
+                raise RuntimeError(f"Endpoint {base}/api/p trả HTTP {resp.status} thay vì 204")
+
+    _verify_origin(live_url)
+    if DEFAULT_CUSTOM_DOMAIN.rstrip("/") != live_url.rstrip("/"):
+        _verify_origin(DEFAULT_CUSTOM_DOMAIN)
 
     print(f"\n[DEPLOY SUCCESS] Where Money Sleeps đã live tại: {DEFAULT_CUSTOM_DOMAIN} ({live_url})", flush=True)
     return 0

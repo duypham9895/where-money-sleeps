@@ -12,6 +12,9 @@ on:
 permissions:
   contents: read
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   verify:
     name: T1 Gate + S4 QA E2E + Build Site
@@ -30,6 +33,12 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "22"
+
+      - name: Verify Entry Parity (docs/prototype.html == index.html)
+        run: cmp -s docs/prototype.html index.html || diff -u index.html docs/prototype.html
+
+      - name: Verify Review Studio Data Sync (wms-studio-sync --verify)
+        run: python3 -I scripts/wms-studio-sync.py --verify
 
       - name: Run T1 Deterministic Gate (wms-check.sh)
         run: bash scripts/wms-check.sh --quiet
@@ -63,6 +72,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Sync Review Studio Data (wms-studio-sync)
+        run: python3 -I scripts/wms-studio-sync.py
+
       - name: Build Static Assets Bundle (dist/site)
         run: python3 -I scripts/wms-build-deploy.py
 
@@ -94,26 +106,82 @@ jobs:
       - name: Verify Live Production Endpoints
         run: |
           set -euo pipefail
-          LIVE_URL="https://where-money-sleeps.duypham9895.workers.dev"
-          curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "$LIVE_URL/" -o /tmp/live-index.html
-          grep -q "const STORIES" /tmp/live-index.html
-          curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "$LIVE_URL/studio.html" -o /tmp/live-studio.html
-          grep -q "WMS Review Studio" /tmp/live-studio.html
-          HTTP_CODE=$(curl -s --retry 5 --retry-delay 2 --retry-all-errors -o /dev/null -w "%{http_code}" -X POST "$LIVE_URL/api/p" \
-            -H "Content-Type: text/plain" \
-            -d '{"event":"ci_smoke_ping"}')
-          if [ "$HTTP_CODE" != "204" ]; then
-            echo "::error::Expected HTTP 204 from POST $LIVE_URL/api/p, got $HTTP_CODE"
-            exit 1
-          fi
+          WORKERS_URL="https://where-money-sleeps.duypham9895.workers.dev"
+          CUSTOM_URL="https://wheremoneysleeps.duyslab.icu"
           CUSTOM_HOST="wheremoneysleeps.duyslab.icu"
-          for i in {1..12}; do
+
+          READY=0
+          for i in $(seq 1 12); do
             if getent hosts "$CUSTOM_HOST" >/dev/null 2>&1; then
-              CUSTOM_CODE=$(curl -sS --retry 5 --retry-delay 3 -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" "https://$CUSTOM_HOST/" || true)
-              echo "Custom domain https://$CUSTOM_HOST/ status: $CUSTOM_CODE"
-              if [ "$CUSTOM_CODE" = "200" ]; then break; fi
+              CUSTOM_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -A "WMS-CI-Verify/1.0" "$CUSTOM_URL/" || true)
+              if [ "$CUSTOM_CODE" = "200" ]; then
+                READY=1
+                break
+              fi
             fi
-            echo "Waiting for DNS/TLS propagation on $CUSTOM_HOST (attempt $i/12)..."
+            echo "Waiting for propagation on $CUSTOM_HOST (attempt $i/12)..."
             sleep 5
           done
-          echo "Verified live endpoints on $LIVE_URL and custom domain $CUSTOM_HOST."
+          if [ "$READY" != "1" ]; then
+            echo "::error::Custom domain $CUSTOM_URL did not return HTTP 200 after 12 attempts"
+            exit 1
+          fi
+
+          ROUTES=(
+            "/"
+            "/prototype.html"
+            "/workflows.html"
+            "/studio.html"
+            "/wms-studio-data.js"
+            "/duyslab-overview.html"
+            "/llm-quiz.html"
+            "/studio-mockups.html"
+            "/landing-detail-mockups.html"
+            "/mockup-option-a.html"
+            "/mockup-option-b.html"
+            "/s0.html"
+            "/s1.html"
+            "/s2.html"
+            "/s3.html"
+            "/s4.html"
+            "/s5.html"
+            "/s6.html"
+            "/gates/06-iterate/TRIAGE.md"
+            "/gates/06-iterate/READOUT.md"
+            "/public/audio/beats-manifest.json"
+            "/public/brand/card-fig-1.jpg"
+            "/legal/licences.json"
+            "/legal/tt99-phu-luc-ii.secondary.json"
+            "/dist/youtube/card-long-16x9.srt"
+            "/favicon.svg"
+          )
+
+          for ORIGIN in "$WORKERS_URL" "$CUSTOM_URL"; do
+            echo "=== Verifying $ORIGIN ==="
+            curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" "$ORIGIN/" -o /tmp/live-index.html
+            grep -q "const STORIES" /tmp/live-index.html
+            curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" "$ORIGIN/prototype.html" -o /tmp/live-proto.html
+            grep -q "const STORIES" /tmp/live-proto.html
+            curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" "$ORIGIN/studio.html" -o /tmp/live-studio.html
+            grep -q "WMS Review Studio" /tmp/live-studio.html
+
+            for path in "${ROUTES[@]}"; do
+              CODE=$(curl -sS --retry 3 --retry-delay 2 -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" "$ORIGIN$path")
+              if [ "$CODE" != "200" ]; then
+                echo "::error::Expected HTTP 200 for $ORIGIN$path, got $CODE"
+                exit 1
+              fi
+              echo "  OK 200 $ORIGIN$path"
+            done
+
+            BEACON_CODE=$(curl -sS --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" -X POST "$ORIGIN/api/p" \
+              -H "Content-Type: text/plain" \
+              -d '{"event":"ci_smoke_ping"}')
+            if [ "$BEACON_CODE" != "204" ]; then
+              echo "::error::Expected HTTP 204 from POST $ORIGIN/api/p, got $BEACON_CODE"
+              exit 1
+            fi
+            echo "  OK 204 POST $ORIGIN/api/p"
+          done
+
+          echo "Verified all routes and POST /api/p on $WORKERS_URL and $CUSTOM_URL."

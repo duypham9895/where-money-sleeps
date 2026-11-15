@@ -18,10 +18,23 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 PUBLIC_BRAND = ROOT / "public" / "brand"
 PUBLIC_AUDIO = ROOT / "public" / "audio"
-LEGAL = ROOT / "legal" / "licences.json"
+LEGAL_DIR = ROOT / "legal"
+GATES_DIR = ROOT / "gates"
+YT_DIR = ROOT / "dist" / "youtube"
 OUT = ROOT / "dist" / "site"
 
 LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+
+
+def _rewrite_doc_refs(text: str) -> str:
+    return (
+        text.replace("../public/brand/", "public/brand/")
+        .replace("../public/audio/", "public/audio/")
+        .replace("../gates/", "gates/")
+        .replace("../dist/youtube/", "dist/youtube/")
+        .replace("../legal/", "legal/")
+        .replace('<a href="index.html">S0 Discovery</a>', '<a href="s0.html">S0 Discovery</a>')
+    )
 
 
 def _write_favicons(out_dir: Path) -> None:
@@ -62,48 +75,33 @@ def build_site() -> int:
     (OUT / "public" / "audio").mkdir(parents=True, exist_ok=True)
     (OUT / "assets").mkdir(parents=True, exist_ok=True)
     (OUT / "legal").mkdir(parents=True, exist_ok=True)
+    (OUT / "gates").mkdir(parents=True, exist_ok=True)
+    (OUT / "dist" / "youtube").mkdir(parents=True, exist_ok=True)
 
     # 1. Build index.html & prototype.html from docs/prototype.html
     proto_src = (DOCS / "prototype.html").read_text(encoding="utf-8")
-    proto_dist = (
-        proto_src.replace('src="../public/brand/', 'src="public/brand/')
-        .replace("../public/audio/", "public/audio/")
-    )
+    proto_dist = _rewrite_doc_refs(proto_src)
     (OUT / "index.html").write_text(proto_dist, encoding="utf-8")
     (OUT / "prototype.html").write_text(proto_dist, encoding="utf-8")
 
-    # 2. Copy studio.html, wms-studio-data.js, workflows.html, and stage review docs
-    doc_files = (
-        "studio.html",
-        "wms-studio-data.js",
-        "workflows.html",
-        "s1.html",
-        "s2.html",
-        "s3.html",
-        "s4.html",
-        "s5.html",
-        "s6.html",
-        "llm-quiz.html",
-        "studio-mockups.html",
-    )
-    for name in doc_files:
-        src_file = DOCS / name
-        if src_file.is_file():
-            txt = (
-                src_file.read_text(encoding="utf-8")
-                .replace("../public/brand/", "public/brand/")
-                .replace("../public/audio/", "public/audio/")
-                .replace('<a href="index.html">S0 Discovery</a>', '<a href="s0.html">S0 Discovery</a>')
-            )
-            (OUT / name).write_text(txt, encoding="utf-8")
+    # 2. Dynamically copy ALL docs/*.html & docs/*.js (plus docs/index.html -> s0.html)
+    copied_docs = 2
+    for src_file in sorted(DOCS.glob("*.html")):
+        if src_file.name in ("prototype.html", "index.html"):
+            continue
+        txt = _rewrite_doc_refs(src_file.read_text(encoding="utf-8"))
+        (OUT / src_file.name).write_text(txt, encoding="utf-8")
+        copied_docs += 1
+
+    for src_js in sorted(DOCS.glob("*.js")):
+        txt = _rewrite_doc_refs(src_js.read_text(encoding="utf-8"))
+        (OUT / src_js.name).write_text(txt, encoding="utf-8")
+        copied_docs += 1
 
     if (DOCS / "index.html").is_file():
-        s0_txt = (
-            (DOCS / "index.html")
-            .read_text(encoding="utf-8")
-            .replace('<a href="index.html">S0 Discovery</a>', '<a href="s0.html">S0 Discovery</a>')
-        )
+        s0_txt = _rewrite_doc_refs((DOCS / "index.html").read_text(encoding="utf-8"))
         (OUT / "s0.html").write_text(s0_txt, encoding="utf-8")
+        copied_docs += 1
 
     if (DOCS / "assets").is_dir():
         for asset in sorted((DOCS / "assets").glob("*")):
@@ -139,9 +137,66 @@ def build_site() -> int:
             print(f"FAIL: Thiếu file âm thanh Giọng Tâm ElevenLabs trong gói deploy: {mp3}", file=sys.stderr)
             return 1
 
-    # 4. Copy legal/licences.json
-    if LEGAL.is_file():
-        shutil.copy2(LEGAL, OUT / "legal" / "licences.json")
+    # 4. Copy all legal documents (licences.json, tt99-phu-luc-ii.secondary.json, VanBanGoc PDF)
+    copied_legal = 0
+    if LEGAL_DIR.is_dir():
+        for lf in sorted(LEGAL_DIR.iterdir()):
+            if lf.is_file() and not lf.name.startswith("."):
+                shutil.copy2(lf, OUT / "legal" / lf.name)
+                copied_legal += 1
+
+    # 4b. Copy gate markdown records (gates/**/*.md) so references from docs/s6.html etc. resolve live
+    copied_gates = 0
+    if GATES_DIR.is_dir():
+        for gf in sorted(GATES_DIR.rglob("*.md")):
+            if gf.is_file():
+                rel = gf.relative_to(GATES_DIR)
+                dest = OUT / "gates" / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                gate_txt = gf.read_text(encoding="utf-8").replace("../../../", "../../../../../")
+                dest.write_text(gate_txt, encoding="utf-8")
+                copied_gates += 1
+
+    # 4c. Copy subtitle (.srt) & manifest files from dist/youtube/ (excluding bulky video/audio binaries)
+    copied_yt = 0
+    if YT_DIR.is_dir():
+        for yf in sorted(YT_DIR.iterdir()):
+            if yf.is_file() and (yf.suffix.lower() == ".srt" or yf.name.endswith("-manifest.json")):
+                shutil.copy2(yf, OUT / "dist" / "youtube" / yf.name)
+                copied_yt += 1
+
+    # Verify required pages & core resources exist in bundle
+    required_paths = (
+        "index.html",
+        "prototype.html",
+        "workflows.html",
+        "studio.html",
+        "wms-studio-data.js",
+        "duyslab-overview.html",
+        "landing-detail-mockups.html",
+        "mockup-option-a.html",
+        "mockup-option-b.html",
+        "llm-quiz.html",
+        "studio-mockups.html",
+        "s0.html",
+        "s1.html",
+        "s2.html",
+        "s3.html",
+        "s4.html",
+        "s5.html",
+        "s6.html",
+        "legal/licences.json",
+        "legal/tt99-phu-luc-ii.secondary.json",
+        "gates/06-iterate/TRIAGE.md",
+        "gates/06-iterate/READOUT.md",
+        "dist/youtube/card-long-16x9.srt",
+        "public/audio/beats-manifest.json",
+    )
+    for rel_req in required_paths:
+        req_file = OUT / rel_req
+        if not req_file.is_file() or req_file.stat().st_size == 0:
+            print(f"FAIL: Thiếu tài nguyên bắt buộc trong gói deploy: {req_file}", file=sys.stderr)
+            return 1
 
     # 5. Write Cloudflare Static Assets _headers (enforce AC-33/AC-36 zero 3rd-party scripts across all pages)
     headers_txt = (
@@ -163,7 +218,8 @@ def build_site() -> int:
     total_bytes = sum(f.stat().st_size for f in OUT.rglob("*") if f.is_file())
     print(
         f"[wms-build-deploy PASS] Đã đóng gói dist/site/ ({total_bytes / (1024 * 1024):.2f} MB · "
-        f"{copied_figs} ảnh public/brand · {copied_audio} file âm thanh public/audio · 7 bài học)"
+        f"{copied_docs} trang/JS · {copied_figs} ảnh public/brand · {copied_audio} audio · "
+        f"{copied_legal} legal · {copied_gates} gates .md · {copied_yt} yt .srt/manifest · 7 bài học)"
     )
     return 0
 
