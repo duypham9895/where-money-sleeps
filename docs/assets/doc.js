@@ -91,7 +91,7 @@ function lang(){var navIn=document.querySelector('nav .in');if(!navIn)return;
       if(mainEl&&enPack.main)mainEl.innerHTML=enPack.main;
       if(footEl&&enPack.footer)footEl.innerHTML=enPack.footer}
       else{document.title=origTitle;if(mainEl)mainEl.innerHTML=origMain;if(footEl)footEl.innerHTML=origFoot}}
-    if(mainEl)mainEl.querySelectorAll('.r').forEach(function(el){el.classList.add('v')});
+    document.querySelectorAll('main .r, footer .r').forEach(function(el){el.classList.add('on')});
     try{count()}catch(_){}
     updateWords(cur);syncThemeText()}
   bVi.onclick=function(){apply('vi')};bEn.onclick=function(){apply('en')};

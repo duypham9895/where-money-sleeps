@@ -139,7 +139,8 @@ footer .v{font-family:var(--mono);font-size:11px;border:1px dashed var(--line-2)
 .doc-lang button{background:none;border:0;color:var(--dim);font:600 11.5px var(--mono);
   padding:4px 9px;min-height:28px;min-width:34px;display:inline-flex;align-items:center;
   justify-content:center;cursor:pointer;line-height:1.2}
-.doc-lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.doc-lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+:root[data-theme="light"] .doc-lang button[aria-pressed="true"]{color:var(--surface)}
 nav .in .doc-lang + #t{margin-left:8px}
 nav a,#t{min-height:28px;display:inline-flex;align-items:center;justify-content:center}
 .k{min-width:0}
