@@ -39,8 +39,9 @@ Không dùng gradient tím/xanh kiểu AI đại trà (`ecc:design-system` Mode 
 
 | Thành phần | Giá trị khoá cứng | Mục đích & Ràng buộc |
 |---|---|---|
-| Thanh điều hướng trên cùng (`.top-nav`) | `height: 48px` · `position: sticky; top: 0; z-index: 90` | **QĐ 55 (`Layout 1A`):** chỉ 1 hàng duy nhất, nhường tối đa chiều dọc màn hình đầu tiên cho Mặt cắt Diorama |
-| Overlay Mục lục 2 cột (`.atlas-backdrop`) | `position: fixed; inset: 0; z-index: 200` · khung trong `max-width: 980px; max-height: 82vh` | Mở nổi phủ lên trên, **`0px` Layout Shift** đối với sân khấu bên dưới |
+| Thanh điều hướng trên cùng (`.atlasbar` / `.top-nav`) | `min-height: 48px–54px` (`≤ 12% dvh` trên mobile `320/390px`) · `position: sticky; top: 0` · tự ẩn khi cuộn xuống nếu không `.is-open`/`:focus-within` | **QĐ 55 + `LUẬT 13 (R3)`:** giữ đúng 1 hàng gọn có `env(safe-area-inset-*)`, tab/filter cuộn ngang 1 hàng (`flex-wrap: nowrap; overflow-x: auto`) |
+| Overlay Mục lục 2 cột (`#atlas`) & Popover (`#postPop`) | Desktop: `max-width: 980px; max-height: min(82dvh, …)` · Mobile `< 680px`: fixed sheet kẹp trong `[12px, innerWidth - 12px]`, `max-height: min(76dvh, …)`, `overscroll-behavior: contain` | **`LUẬT 13 (R4)`:** `0px` Layout Shift, `0px` tràn mép phải ở `320/390px` |
+| Font scale & Touch Controls (`LUẬT 13 · R1–R2`) | `<meta name="text-scale" content="scale">` + `clamp()` (`max ≤ 2,5× min`); nút độc lập `≥ 24×24px` (`fine`) / `≥ 44×44px` (`pointer: coarse`); `<input>/<select>` `font-size: max(16px, 1rem)` trên thiết bị chạm | Không ép phóng to tự động iOS Safari, bảo toàn khả năng đọc theo OS text scale |
 | Sân khấu Mặt cắt Diorama (`#stage`) | `min-height: 430px` · lưới 5 cột `repeat(5, minmax(0, 1fr))` | 5 ngôi nhà mặt cắt cố định vị trí xuyên suốt 5 đoạn (`M1` Persistent World) |
 | Hình minh hoạ khảo cứu (`.chap-fig`) | `width="1200" height="675"` · `aspect-ratio: 16 / 9` | **LUẬT 9 (`QĐ 57`):** đặt sau đoạn 1 của Chương 02–05, `CLS = 0` |
 | Khung Video phát sóng (`.yt-player-wrap`) | Chế độ Dài: `aspect-ratio: 16 / 9` (`1920×1080`) · Chế độ Ngắn: `aspect-ratio: 9 / 16` (`max-width: 360px`, `1080×1920`) | **LUẬT 8:** Video `9:16` chia 3 vùng không đè nhau (`Zone 1: 36..354`, `STAGE_BOX: 368..1280`, `CARD_BOX: 1294..1734`) |
