@@ -2,43 +2,80 @@
 <html lang="vi" data-tier="reference" data-theme="light" data-option="A">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="text-scale" content="scale">
+<meta name="color-scheme" content="light dark">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 <title>Where Money Sleeps — Thư viện giải phẫu đường đi của tiền (Phương án A)</title>
+<script>
+(function(){
+  try{
+    var sp = new URLSearchParams(location.search);
+    var qt = sp.get("theme"), ql = sp.get("lang"), lsTheme = "", lsLang = "";
+    try{ lsTheme = localStorage.getItem("wms-theme") || ""; lsLang = localStorage.getItem("wms-lang") || ""; }catch(_){}
+    var pref = (qt === "dark" || qt === "light") ? qt : (lsTheme === "dark" || lsTheme === "light" || lsTheme === "auto" ? lsTheme : "auto");
+    var mqDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var eff = pref === "auto" ? (mqDark ? "dark" : "light") : pref;
+    var docEl = document.documentElement;
+    docEl.dataset.theme = eff;
+    docEl.style.colorScheme = eff;
+    var mc = document.querySelector('meta[name="color-scheme"]');
+    if (mc) mc.setAttribute("content", pref === "auto" ? "light dark" : eff);
+    var lang = (ql === "en" || ql === "vi") ? ql : (lsLang === "en" || lsLang === "vi" ? lsLang : "");
+    if (lang) docEl.lang = lang;
+  }catch(_){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <style>
+@font-face{
+  font-family:"Newsreader Fallback";
+  src:local("Georgia"),local("Times New Roman");
+  size-adjust:98.5%;
+  ascent-override:96%;
+  descent-override:24%;
+}
+@font-face{
+  font-family:"Be Vietnam Pro Fallback";
+  src:local("-apple-system"),local("BlinkMacSystemFont"),local("Segoe UI"),local("Helvetica Neue");
+  size-adjust:103.5%;
+  ascent-override:97%;
+  descent-override:27%;
+}
 /* ─────────────────────────────────────────────────────────────
    Mockup v2 (100% Detail Post): Warm Archival Risograph
    Kế thừa bảng màu, Typography 3 tầng & toàn bộ nội dung C9 từ prototype.html
    ───────────────────────────────────────────────────────────── */
 :root{
+  color-scheme:light;
   --paper:#f3ebdd; --paper-2:#e8dcc6; --card:#fbf6ec;
-  --ink:#221c15; --ink-2:#4f4537; --ink-3:#6c6152;
-  --rule:#dccfb9; --rule-2:#c6b597;
-  --lamp:#94600c; --lamp-soft:color-mix(in srgb,#d9962b 22%,transparent);
-  --clay:#a3401f; --moss:#356043; --margin:#d68f80;
+  --ink:#221c15; --ink-2:#4f4537; --ink-3:#5c5244;
+  --rule:#dccfb9; --rule-2:#c6b597; --rule-ui:#7c6f5b;
+  --lamp:#7c4f07; --lamp-soft:rgba(217,150,43,.22); --lamp-soft:color-mix(in srgb,#d9962b 22%,transparent);
+  --clay:#9c3b1b; --moss:#2f593d; --margin:#d68f80;
   --sh:rgba(52,34,14,.30); --sh-2:rgba(52,34,14,.16);
-  --serif:"Newsreader",Georgia,"Times New Roman",serif;
-  --sans:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --serif:"Newsreader","Newsreader Fallback",Georgia,"Times New Roman",serif;
+  --sans:"Be Vietnam Pro","Be Vietnam Pro Fallback",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
   --read:min(40rem,92vw); --wide:min(70rem,94vw);
 }
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --paper:#15161f; --paper-2:#1d1f2b; --card:#20222f;
-  --ink:#efe7d6; --ink-2:#cdc3b0; --ink-3:#a49a87;
-  --rule:#2e3040; --rule-2:#454860;
-  --lamp:#ebb553; --lamp-soft:color-mix(in srgb,#ebb553 18%,transparent);
+  --ink:#efe7d6; --ink-2:#cdc3b0; --ink-3:#aba18e;
+  --rule:#2e3040; --rule-2:#454860; --rule-ui:#6f738a;
+  --lamp:#ebb553; --lamp-soft:rgba(235,181,83,.18); --lamp-soft:color-mix(in srgb,#ebb553 18%,transparent);
   --clay:#ec8a68; --moss:#8cc29a; --margin:#7a4a52;
   --sh:rgba(0,0,0,.55); --sh-2:rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{font-size:19px;-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px;scroll-padding-bottom:76px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:72px;scroll-padding-bottom:76px}
 [data-open]{scroll-margin-top:74px;scroll-margin-bottom:76px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
-  font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  font-size:1.1875rem;line-height:1.6;-webkit-font-smoothing:antialiased;
   font-optical-sizing:auto;transition:background .3s,color .3s}
 /* Hạt giấy Risograph phủ toàn trang */
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.22;mix-blend-mode:multiply;
@@ -46,7 +83,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opa
 :root[data-theme="dark"] body::after{mix-blend-mode:screen;opacity:.07}
 main{overflow-x:clip}
 button,input{font:inherit;color:inherit}
-.num{font-family:var(--sans);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.num{font-family:var(--sans);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1,"lnum" 1}
 :focus-visible{outline:2px solid var(--lamp);outline-offset:3px;border-radius:4px}
 a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -2647,7 +2684,9 @@ $$("[data-scale]").forEach(b => b.onclick = () => {
 });
 $("#themeBtn").onclick = () => {
   const dark = document.documentElement.dataset.theme === "dark";
-  document.documentElement.dataset.theme = dark ? "light" : "dark";
+  const next = dark ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  document.documentElement.style.colorScheme = next;
   $("#themeBtn").textContent = dark ? "☾" : "☀";
 };
 $$("[data-pa]").forEach(b => b.onclick = () => { state.pa = b.dataset.pa; render(); });

@@ -13,6 +13,11 @@ DOC_PAGES = [
     "s1.html", "s2.html", "s3.html", "s4.html", "s5.html",
     "s6.html", "index.html", "duyslab-overview.html", "llm-quiz.html",
 ]
+MOCKUP_PAGES = [
+    "landing-detail-mockups.html", "mockup-option-a.html", "mockup-option-b.html",
+    "mockup-mobile-a.html", "mockup-mobile-b.html", "studio-mockups.html",
+]
+ALL_STORIES = ["card", "pay", "install", "minpay", "qr", "profitcash", "offus"]
 
 _CONTRAST_JS = """(specs) => {
   const parseRgba = (s) => {
@@ -122,6 +127,29 @@ def static_uiux_checks(root_dir: Path) -> list[str]:
                 errs.append(f"docs/{pg} thiếu {tok}")
         if "wght@400;500;650" in txt:
             errs.append(f"docs/{pg} vẫn còn font axis wght@400;500;650")
+
+    for pg in MOCKUP_PAGES:
+        txt = (docs / pg).read_text(encoding="utf-8")
+        for tok in ["viewport-fit=cover", 'name="text-scale" content="scale"', 'name="color-scheme"', ":focus-visible", "prefers-reduced-motion"]:
+            if tok not in txt:
+                errs.append(f"docs/{pg} thiếu {tok} (U1–U7)")
+        if txt.find("<script>") == -1 or txt.find("<script>") > txt.find("<style>"):
+            errs.append(f"docs/{pg} thiếu synchronous zero-FOUC <script> trước <style> (U4)")
+        rm_pos = txt.find("@media (prefers-reduced-motion")
+        if rm_pos != -1 and ".01ms" in txt[rm_pos:rm_pos + 500]:
+            errs.append(f"docs/{pg} vẫn còn nuclear 0.01ms !important trong prefers-reduced-motion (U5)")
+        if re.search(r"html\s*\{[^}]*font-size\s*:", txt) or re.search(r"html,\s*body\s*\{[^}]*font-size:\s*1[49]px", txt):
+            errs.append(f"docs/{pg} vẫn ép font-size trên html (làm lệch 1rem)")
+
+    expected_html = {"prototype.html", "workflows.html", "studio.html", *DOC_PAGES, *MOCKUP_PAGES}
+    actual_html = {p.name for p in docs.glob("*.html")}
+    if actual_html != expected_html:
+        missing_cov = sorted(actual_html - expected_html)
+        extra_cov = sorted(expected_html - actual_html)
+        if missing_cov:
+            errs.append(f"docs/ có trang HTML chưa phủ kiểm tra UI/UX: {missing_cov}")
+        if extra_cov:
+            errs.append(f"docs/ thiếu trang HTML khai báo trong UI/UX gate: {extra_cov}")
     return errs
 
 
@@ -135,12 +163,6 @@ def runtime_uiux_checks(page, base_url: str) -> list[str]:
         ("prototype-dark-landing", f"{base_url}/docs/prototype.html?theme=dark", "#landingSearch", [
             {"sel": ".hero h1"}, {"sel": ".hero-kicker"}, {"sel": ".ab-brand"}, {"sel": ".sp-caret"},
             {"sel": "#landingSearch", "mode": "border"},
-        ]),
-        ("prototype-light-detail", f"{base_url}/docs/prototype.html?story=card&theme=light", ".detail-cat-chip", [
-            {"sel": ".detail-cat-chip"}, {"sel": ".journal .jstep"}, {"sel": ".yt-play"},
-        ]),
-        ("prototype-dark-detail", f"{base_url}/docs/prototype.html?story=card&theme=dark", ".detail-cat-chip", [
-            {"sel": ".detail-cat-chip"}, {"sel": ".journal .jstep"}, {"sel": ".yt-play"},
         ]),
         ("workflows-light", f"{base_url}/docs/workflows.html?theme=light", ".hero h1", [
             {"sel": ".hero h1"}, {"sel": ".hero-kicker"}, {"sel": ".fact-cell .lbl"}, {"sel": ".fact-cell .val"}, {"sel": ".tldr-tag"},
@@ -157,13 +179,41 @@ def runtime_uiux_checks(page, base_url: str) -> list[str]:
             {"sel": "#storySelect", "mode": "border"}, {"sel": ".ac-note-input", "mode": "border"},
         ]),
     ]
+    story_specs = [
+        {"sel": ".detail-cat-chip"},
+        {"sel": ".detail-teaser"},
+        {"sel": ".journal .jstep"},
+        {"sel": ".yt-play"},
+        {"sel": ".verdict h5"},
+        {"sel": ".verdict p"},
+    ]
+    for slug in ALL_STORIES:
+        targets.append((f"story-{slug}-light", f"{base_url}/docs/prototype.html?story={slug}&theme=light", ".detail-cat-chip", story_specs))
+        targets.append((f"story-{slug}-dark", f"{base_url}/docs/prototype.html?story={slug}&theme=dark", ".detail-cat-chip", story_specs))
+
     for label, url, wait_sel, specs in targets:
         page.goto(url, wait_until="domcontentloaded")
         page.wait_for_selector(wait_sel)
-        page.wait_for_timeout(120)
+        page.wait_for_timeout(100)
         for res in page.evaluate(_CONTRAST_JS, specs):
             if res["cr"] < res["minCr"]:
                 errs.append(f"[{label}] {res['sel']} ({res['mode']}) contrast {res['cr']:.2f} < {res['minCr']:.1f}")
+
+    for vw, vh in [(1280, 800), (320, 568)]:
+        page.set_viewport_size({"width": vw, "height": vh})
+        for pg in MOCKUP_PAGES:
+            dark_param = "charcoal" if pg == "studio-mockups.html" else "dark"
+            page.goto(f"{base_url}/docs/{pg}?theme={dark_param}", wait_until="domcontentloaded")
+            page.wait_for_timeout(60)
+            chk = page.evaluate("""() => ({
+              ov: document.documentElement.scrollWidth - window.innerWidth,
+              cs: getComputedStyle(document.documentElement).colorScheme || ""
+            })""")
+            if chk["ov"] > 0:
+                errs.append(f"[{pg}@{vw}x{vh}] tràn ngang +{chk['ov']}px")
+            if "dark" not in chk["cs"]:
+                errs.append(f"[{pg}@{vw}x{vh}] ?theme={dark_param} colorScheme không đồng bộ dark: {chk['cs']!r}")
+    page.set_viewport_size({"width": 1280, "height": 800})
 
     for label, url in [
         ("prototype", f"{base_url}/docs/prototype.html"),

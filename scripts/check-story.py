@@ -1340,7 +1340,16 @@ def check_governance(rep: Report) -> None:
         else:
             rui_cores[rel] = core
     if len(set(rui_cores.values())) > 1:
-        rep.add("FAIL", "C8", where, f"vibe-responsive-ui lệch giữa các bản (từ '## Phạm vi'): {', '.join(rui_cores)}")
+        local_rui = {k: v for k, v in rui_cores.items() if not k.startswith("..")}
+        parent_rui = {k: v for k, v in rui_cores.items() if k.startswith("..")}
+        local_vals = set(local_rui.values())
+        parent_vals = set(parent_rui.values())
+        parent_upgraded = any(("U1" in v or "U1–U7" in v) for v in parent_vals)
+        local_upgraded = bool(local_vals) and all("U1" in v for v in local_vals)
+        if len(local_vals) == 1 and len(parent_vals) == 1 and local_upgraded and not parent_upgraded:
+            rep.add("WARN", "C8", where, "vibe-responsive-ui trong app đã nâng cấp U1–U7; xưởng cha ../ đang ở nhánh cũ chưa merge PR #4")
+        else:
+            rep.add("FAIL", "C8", where, f"vibe-responsive-ui lệch giữa các bản (từ '## Phạm vi'): {', '.join(rui_cores)}")
     elif rui_cores:
         rep.add("PASS", "C8", where, f"vibe-responsive-ui khớp giữa {len(rui_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
     if rui_skipped:

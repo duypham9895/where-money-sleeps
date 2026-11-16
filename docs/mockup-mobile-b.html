@@ -4,8 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="text-scale" content="scale">
+<meta name="color-scheme" content="light dark">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 <title>Where Money Sleeps — Phương án B: Full-Control Parity</title>
+<script>
+(function(){
+  try{
+    var sp = new URLSearchParams(location.search);
+    var qt = sp.get("theme"), ql = sp.get("lang"), lsTheme = "", lsLang = "";
+    try{ lsTheme = localStorage.getItem("wms-theme") || ""; lsLang = localStorage.getItem("wms-lang") || ""; }catch(_){}
+    var pref = (qt === "dark" || qt === "light") ? qt : (lsTheme === "dark" || lsTheme === "light" || lsTheme === "auto" ? lsTheme : "auto");
+    var mqDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var eff = pref === "auto" ? (mqDark ? "dark" : "light") : pref;
+    var docEl = document.documentElement;
+    docEl.dataset.theme = eff;
+    docEl.style.colorScheme = eff;
+    var mc = document.querySelector('meta[name="color-scheme"]');
+    if (mc) mc.setAttribute("content", pref === "auto" ? "light dark" : eff);
+    var lang = (ql === "en" || ql === "vi") ? ql : (lsLang === "en" || lsLang === "vi" ? lsLang : "");
+    if (lang) docEl.lang = lang;
+  }catch(_){}
+})();
+</script>
 <style>
   @property --fade-start {
     syntax: "<length>";
@@ -19,18 +39,21 @@
   }
 
   :root {
+    color-scheme: light;
     --paper: #f3ebdd;
     --paper-2: #e8dcc6;
     --card: #fbf6ec;
     --ink: #221c15;
     --ink-2: #4f4537;
-    --ink-3: #6c6152;
+    --ink-3: #5c5244;
     --rule: #dccfb9;
     --rule-2: #c6b597;
-    --lamp: #94600c;
+    --rule-ui: #7c6f5b;
+    --lamp: #7c4f07;
+    --lamp-soft: rgba(217, 150, 43, .22);
     --lamp-soft: color-mix(in srgb, #d9962b 22%, transparent);
-    --clay: #a3401f;
-    --moss: #356043;
+    --clay: #9c3b1b;
+    --moss: #2f593d;
     --sh: rgba(52, 34, 14, .22);
     --sh-2: rgba(52, 34, 14, .12);
     --wood: #5b3e26;
@@ -43,15 +66,18 @@
   }
 
   :root[data-theme="dark"] {
+    color-scheme: dark;
     --paper: #15161f;
     --paper-2: #1d1f2b;
     --card: #20222f;
     --ink: #efe7d6;
     --ink-2: #cdc3b0;
-    --ink-3: #a49a87;
+    --ink-3: #aba18e;
     --rule: #2e3040;
     --rule-2: #454860;
+    --rule-ui: #6f738a;
     --lamp: #ebb553;
+    --lamp-soft: rgba(235, 181, 83, .18);
     --lamp-soft: color-mix(in srgb, #ebb553 18%, transparent);
     --clay: #ec8a68;
     --moss: #8cc29a;
@@ -585,14 +611,17 @@
   }
   .shelf-cubby {
     min-width: 0;
+    background: #452f1d;
     background: color-mix(in srgb, #000 24%, var(--wood));
     border-radius: 6px;
     padding: 10px;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: 8px;
     align-content: start;
   }
   .cubby-head {
+    min-width: 0;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -606,7 +635,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .cubby-spines { display: grid; gap: 6px; }
+  .cubby-spines { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .spine-btn {
     appearance: none;
     width: 100%;
@@ -713,6 +742,11 @@
   .sheet-close { appearance: none; border: 1px solid var(--rule-2); background: var(--paper); color: var(--ink); min-width: 44px; min-height: 44px; border-radius: 4px; cursor: pointer; font: 700 14px var(--mono); }
   .sheet-item { appearance: none; width: 100%; border: 1px solid transparent; background: transparent; color: var(--ink); border-radius: 4px; min-height: 44px; padding: 9px 10px; text-align: left; cursor: pointer; display: flex; align-items: baseline; gap: 10px; font: 500 13.5px/1.35 var(--sans); }
   .sheet-item[aria-current="true"] { background: var(--lamp-soft); border-color: var(--lamp); font-weight: 700; }
+  :focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition-property: color, background-color, border-color, opacity !important; transition-duration: 0.15s !important; transform: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -1124,7 +1158,9 @@
   };
 
   const state = {
-    lang: "vi", theme: "light", view: "landing",
+    lang: document.documentElement.lang === "en" ? "en" : "vi",
+    theme: document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+    view: "landing",
     cat: "all", q: "", mode: "grouped", page: 1,
     stageMode: "video", activeChap: 0, activeBeat: 0, activeToc: 0,
     ledgerTab: "life", amount: 10000000, glScope: "story", highlightTerm: ""
@@ -1338,6 +1374,7 @@
     const t = DATA[state.lang];
     document.documentElement.lang = state.lang;
     document.documentElement.dataset.theme = state.theme;
+    document.documentElement.style.colorScheme = state.theme;
     $("#optBadge").textContent = t.optBadge;
     $("#optNote").textContent = t.optNote;
     $("#swLanding").textContent = t.swLanding;
