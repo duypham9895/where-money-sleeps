@@ -734,6 +734,41 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                         errors.append(f"[{vw}x{vh}] JS pageerror: {page_errors[0]}")
                     ctx.close()
                     checked_cases += 1
+
+                # Quét toàn bộ 6 bài học còn lại (pay, install, minpay, qr, profitcash, offus) ở 320x568 VI/EN & 1440x900
+                extra_stories = ["pay", "install", "minpay", "qr", "profitcash", "offus"]
+                for vw, vh, is_mob, langs in [(320, 568, True, ("vi", "en")), (1440, 900, False, ("vi",))]:
+                    s_ctx = browser.new_context(viewport={"width": vw, "height": vh}, has_touch=is_mob, is_mobile=is_mob)
+                    s_page = s_ctx.new_page()
+                    for slug in extra_stories:
+                        for lang in langs:
+                            s_page.goto(f"{base}/docs/prototype.html?story={slug}&lang={lang}", wait_until="domcontentloaded")
+                            s_page.wait_for_selector("#detailHead")
+                            s_page.wait_for_timeout(60)
+                            res = s_page.evaluate("""() => {
+                              const vw = window.innerWidth;
+                              const ov = document.documentElement.scrollWidth - vw;
+                              const oob = [];
+                              for (const sel of ['#atlasbar', '#detailHead', '.try', '.ledger', '.chap-fig', '.verdict', '.quiz-card']) {
+                                for (const el of document.querySelectorAll(sel)) {
+                                  const r = el.getBoundingClientRect();
+                                  if (r.width > 0 && r.height > 0 && (r.left < -1.5 || r.right > vw + 1.5)) {
+                                    oob.push(`${sel}(${Math.round(r.left)}..${Math.round(r.right)}>${vw})`);
+                                  }
+                                }
+                              }
+                              const sb = document.getElementById('glScopeStoryBtn');
+                              const glStoryOk = !!(sb && !sb.hidden && sb.getAttribute('aria-pressed') === 'true');
+                              return { ov, oob: oob.slice(0, 4), glStoryOk };
+                            }""")
+                            if res["ov"] > 0:
+                                errors.append(f"[{slug}/{lang}@{vw}x{vh}] tràn ngang +{res['ov']}px")
+                            if res["oob"]:
+                                errors.append(f"[{slug}/{lang}@{vw}x{vh}] phần tử tràn khung: {res['oob']}")
+                            if not res["glStoryOk"]:
+                                errors.append(f"[{slug}/{lang}@{vw}x{vh}] #glScopeStoryBtn không mặc định Trong bài này")
+                    s_ctx.close()
+
                 ui_ctx = browser.new_context(viewport={"width": 1280, "height": 800})
                 ui_page = ui_ctx.new_page()
                 errors.extend(runtime_uiux_checks(ui_page, base))

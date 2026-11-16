@@ -2,24 +2,52 @@
 <html lang="vi" data-tier="reference" data-theme="paper">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="text-scale" content="scale">
+<meta name="color-scheme" content="light dark">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
 <title>So sánh 3 Phương Án UI/UX — WMS Review Studio (Mockup Trực Quan)</title>
+<script>
+(function(){
+  try{
+    var sp = new URLSearchParams(location.search);
+    var qt = sp.get("theme"), ls = "";
+    try{ ls = localStorage.getItem("wms-studio-theme") || ""; }catch(_){}
+    var pref = (qt === "paper" || qt === "charcoal") ? qt : ((ls === "paper" || ls === "charcoal") ? ls : "auto");
+    var mqDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var eff = pref === "auto" ? (mqDark ? "charcoal" : "paper") : pref;
+    var cs = eff === "charcoal" ? "dark" : "light";
+    var docEl = document.documentElement;
+    docEl.setAttribute("data-theme", eff);
+    docEl.style.colorScheme = cs;
+    var mc = document.querySelector('meta[name="color-scheme"]');
+    if (mc) mc.setAttribute("content", pref === "auto" ? "light dark" : cs);
+  }catch(_){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: "Be Vietnam Pro Fallback";
+  src: local("-apple-system"), local("BlinkMacSystemFont"), local("Segoe UI"), local("Helvetica Neue");
+  size-adjust: 103.5%;
+  ascent-override: 97%;
+  descent-override: 27%;
+}
 /* ── 1. Bảng màu dịu mắt (Warm Paper & Warm Charcoal — Không màu neon chói) ── */
 :root, [data-theme="paper"] {
+  color-scheme: light;
   --bg-page: #ede6d6;
   --bg-surface: #f7f2e7;
   --bg-card: #ffffff;
   --bg-subtle: #e5dec9;
   --ink-1: #1c1917;
   --ink-2: #57534e;
-  --ink-3: #78716c;
+  --ink-3: #5c5752;
   --border: #d6cfc2;
-  --border-strong: #a8a29e;
+  --border-strong: #8a837c;
   --accent: #b83a22;
   --accent-soft: rgba(184, 58, 34, 0.10);
   --ok: #1c5d4b;
@@ -29,15 +57,16 @@
   --shadow: 0 8px 24px rgba(28, 25, 23, 0.07);
 }
 [data-theme="charcoal"] {
+  color-scheme: dark;
   --bg-page: #141312;
   --bg-surface: #1c1b19;
   --bg-card: #242220;
   --bg-subtle: #2d2a27;
   --ink-1: #f2ece1;
   --ink-2: #b8b0a4;
-  --ink-3: #857e74;
+  --ink-3: #a8a096;
   --border: #33302c;
-  --border-strong: #4a453f;
+  --border-strong: #6e6860;
   --accent: #d97757;
   --accent-soft: rgba(217, 119, 87, 0.14);
   --ok: #34a885;
@@ -49,13 +78,14 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html, body {
+html { -webkit-text-size-adjust: 100%; }
+body {
   margin: 0;
   padding: 0;
   background: var(--bg-page);
   color: var(--ink-1);
-  font-family: "Be Vietnam Pro", -apple-system, sans-serif;
-  font-size: 14px;
+  font-family: "Be Vietnam Pro", "Be Vietnam Pro Fallback", -apple-system, sans-serif;
+  font-size: 0.875rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -537,8 +567,9 @@ html, body {
   border-color: var(--ok);
   box-shadow: 0 12px 28px rgba(28, 93, 75, 0.14);
 }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation: none !important; transition-property: color, background-color, border-color, opacity !important; transition-duration: 0.12s !important; transform: none !important; }
 }
 </style>
 </head>
@@ -1316,6 +1347,7 @@ html, body {
     const cur = document.documentElement.getAttribute("data-theme") || "paper";
     const next = cur === "paper" ? "charcoal" : "paper";
     document.documentElement.setAttribute("data-theme", next);
+    document.documentElement.style.colorScheme = next === "charcoal" ? "dark" : "light";
   };
 
   $("#ccToggleBtn").onclick = () => {
@@ -1327,7 +1359,10 @@ html, body {
   window.__vibeSeek = function(opts = {}) {
     if (opts.lang && ["vi", "en"].includes(opts.lang)) applyLang(opts.lang);
     if (opts.opt) selectOpt(opts.opt);
-    if (opts.theme) document.documentElement.setAttribute("data-theme", opts.theme);
+    if (opts.theme) {
+      document.documentElement.setAttribute("data-theme", opts.theme);
+      document.documentElement.style.colorScheme = opts.theme === "charcoal" ? "dark" : "light";
+    }
     return { lang: curLang, opt: curOpt, theme: document.documentElement.getAttribute("data-theme") };
   };
 
@@ -1341,7 +1376,9 @@ html, body {
     curOpt = urlParams.get("opt");
   }
   if (urlParams.get("theme") && ["paper", "charcoal"].includes(urlParams.get("theme"))) {
-    document.documentElement.setAttribute("data-theme", urlParams.get("theme"));
+    const t = urlParams.get("theme");
+    document.documentElement.setAttribute("data-theme", t);
+    document.documentElement.style.colorScheme = t === "charcoal" ? "dark" : "light";
   }
   applyLang(initLang);
 })();
