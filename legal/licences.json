@@ -230,6 +230,31 @@
       "source_url": "https://github.com/bangtutorial/bang-motion",
       "retrieved": "2026-11-08",
       "planned_file": ".agents/skills/bang-motion/SKILL.md"
+    },
+    {
+      "id": "font-fraunces",
+      "title": "Fraunces (Variable Optical-Size Display Serif Font — Studio Headings)",
+      "authors": [
+        "Phaedra Charles",
+        "Flavia Zimbardi (Undercase Type)"
+      ],
+      "licence": "SIL Open Font License 1.1",
+      "licence_url": "https://openfontlicense.org/",
+      "source_url": "https://github.com/undercasetype/Fraunces",
+      "retrieved": "2026-11-15",
+      "planned_file": "public/fonts/Fraunces-Variable.woff2"
+    },
+    {
+      "id": "font-jetbrains-mono",
+      "title": "JetBrains Mono (Monospace UI Font — Studio Telemetry & Ledgers)",
+      "authors": [
+        "Philipp Nurullin (JetBrains s.r.o.)"
+      ],
+      "licence": "SIL Open Font License 1.1",
+      "licence_url": "https://openfontlicense.org/",
+      "source_url": "https://github.com/JetBrains/JetBrainsMono",
+      "retrieved": "2026-11-15",
+      "planned_file": "public/fonts/JetBrainsMono-Variable.woff2"
     }
   ]
 }

@@ -48,3 +48,11 @@ blocked_on: []
 
 - **Phạm vi nâng cấp:** `docs/prototype.html` (`== index.html`), `docs/studio.html`, `docs/workflows.html`, `docs/assets/doc.css` trên **6 khung nhìn** (`320×568` touch, `390×844` touch, `768×1024` touch, `820×1180` touch, `1024×768` touch ngang, `1440×900` desktop): `0px` tràn ngang (`overflow-x:clip`), mọi nút/link công cụ độc lập (`prototype.html`, `workflows.html`, `studio.html`, `s6.html`) đạt `>= 44×44px` (`@media (pointer:coarse)`) và `>= 24×24px` (fine pointer), `#catPillBtn`/`#postPillBtn` không bị ép hẹp trên mọi kích thước, `.cat-pills` cuộn ngang 1 hàng tới `<= 900px`, thanh `nav .in` trong `doc.css` giữ đúng 1 hàng (`<= 12.5% dvh`), ô nhập `>= 16px` trên màn chạm (gồm `.ac-note-input` ở `studio.html`), header 1 hàng `<= 12% dvh` tự ẩn khi cuộn xuống (`scroll-hide`), overlay giữ `100dvh` (`overscroll-behavior:contain`), sơ đồ `#wfSvg` cuộn ngang tối thiểu `720px` (chữ `>= 10px`) kèm nhãn `#svgSwipeHint` `VI⇄EN`, và Desktop `1440px` giữ nguyên bố cục 2 cột `#atlas` / `.verdict`.
 - **Chưa xác minh được trên phần cứng thật:** Phép đo cảm ứng trên Safari iOS / iPadOS / Chrome Android vật lý (hiện kiểm thử trên Chromium headless Playwright + giả lập touch `is_mobile=True, has_touch=True`).
+
+## 6. Bổ Sung `2026-11-15` — Kiểm Định Toàn Diện `U1–U7` (`scripts/wms_qa_uiux.py`)
+
+- **Phạm vi kiểm tĩnh & runtime Playwright:** Chạy trong `scripts/wms-qa-verify.py` (`verify_qa5_responsive_ux`) trên `prototype.html` (Light & Dark), `workflows.html` (Light & Dark), `studio.html` (Paper & Charcoal) và kiểm static `<head>` của `s1..s6.html`, `index.html`, `duyslab-overview.html`, `llm-quiz.html`:
+  - Đo tương phản computed color / composited ancestor background (`>= 4.5:1` chữ thường, `>= 3.0:1` chữ lớn & viền input SC 1.4.11).
+  - Bấm `Tab` kiểm `:focus-visible` trỏ đúng `.skip-link` (`height >= 44px`, outline rõ).
+  - Bắn sự kiện `compositionstart` -> `input (isComposing: true)` -> `compositionend` trên `#landingSearch` để xác nhận không lọc cắt chữ VNI/Telex dở dang.
+- **Chưa xác minh được:** Cấu trúc bảng WOFF2 nhị phân `tnum` của file `Be Vietnam Pro` từ Google CDN và hành vi cảm ứng / WebView Zalo trên iPhone / iPad thật.

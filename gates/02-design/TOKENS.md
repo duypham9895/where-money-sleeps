@@ -61,3 +61,10 @@ Không dùng gradient tím/xanh kiểu AI đại trà (`ecc:design-system` Mode 
 
 - Độ hiển thị sub-pixel của viền nét đứt Risograph (`1.5px dashed`) trên màn hình Android mật độ điểm ảnh thấp (`1.5x DPR`).
 - Cross-vendor model review (Claude ↔ Gemini) — no human external verifier ran.
+
+## 6. Bổ Sung `2026-11-15` — Craft Holistic UI/UX (`LUẬT 13 · U1–U7`)
+
+- **Typography & Metric Fallbacks (`U1`):** `@font-face` `"Newsreader Fallback"` (`size-adjust: 98.5%`, `ascent-override: 96%`, `descent-override: 24%`) và `"Be Vietnam Pro Fallback"` (`size-adjust: 103.5%`, `ascent-override: 97%`, `descent-override: 27%`); tách `font-size: 0.875rem` khỏi `html` xuống `body` ở `studio.html` để giữ chuẩn `1rem = 16px`; `.num` và `.fact-cell .val` gắn `var(--sans)` kèm `tabular-nums lining-nums` (không đổi font SVG `<svg viewBox>` hay `SCENECSS`).
+- **Dual-Theme Contrast & Solid Fallbacks (`U2`):** Đạt WCAG 2.2 AA (`>= 4.5:1` chữ thường, `>= 3.0:1` viền/đồ hoạ SC 1.4.11) cả Light/Dark và Paper/Charcoal: hiệu chuẩn `--ink-3`, `--lamp` (`#7c4f07` Light), `--clay` (`#9c3b1b` Light), `--moss` (`#2f593d` Light), `--rule-ui` (`#7c6f5b` Light / `#6f738a` Dark), `--ok-fill: #1b6b54` / `--flag-fill`, `color-mix(..., 38% #f7efe2)` ở dark mode và nền solid fallback trước mọi `color-mix()`.
+- **Zero-FOUC & Native Chrome (`U4`):** `<meta name="color-scheme">` + synchronous theme script trước CSS trên `prototype.html`, `workflows.html`, `studio.html`, `s1..s6.html`, đồng bộ `documentElement.style.colorScheme`.
+- **Scoped Vestibular Dampening (`U5`):** Thay quy tắc huỷ `* { transition-duration: .01ms }` bằng `scroll-behavior: auto` + tắt `transform` chuyển động trên `@media (prefers-reduced-motion: reduce)` nhưng giữ phản hồi chuyển màu trạng thái `120ms` và trạng thái `.atlasbar.is-hidden`.

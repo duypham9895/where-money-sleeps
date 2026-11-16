@@ -982,6 +982,7 @@ GOV_BACKSTAGE = [
     ".claude/agents/brand-safety-reviewer.md",
     ".claude/agents/bang-motion.md",
     ".claude/agents/anti-ai-writing.md",
+    ".claude/skills/vibe-responsive-ui/SKILL.md",
     ".claude/settings.json",
     ".agents/skills/vibe-post/SKILL.md",
     ".agents/skills/ke-toan-reviewer/SKILL.md",
@@ -989,6 +990,7 @@ GOV_BACKSTAGE = [
     ".agents/skills/brand-safety-reviewer/SKILL.md",
     ".agents/skills/bang-motion/SKILL.md",
     ".agents/skills/anti-ai-writing/SKILL.md",
+    ".agents/skills/vibe-responsive-ui/SKILL.md",
     ".agents/hooks.json",
 ]
 SHIP_ASK = ["Bash(git push:*)", "Bash(rtk git push:*)", "Bash(rtk proxy git push:*)",
@@ -1028,6 +1030,12 @@ ANTI_AI_COPIES = [
     "../.claude/agents/anti-ai-writing.md",            # xưởng cha — chỉ có khi repo nằm trong Vibe/
     "../.claude/skills/anti-ai-writing/SKILL.md",
     "../.agents/skills/anti-ai-writing/SKILL.md",
+]
+RESPONSIVE_UI_COPIES = [
+    ".claude/skills/vibe-responsive-ui/SKILL.md",
+    ".agents/skills/vibe-responsive-ui/SKILL.md",
+    "../.claude/skills/vibe-responsive-ui/SKILL.md",    # xưởng cha — chỉ có khi repo nằm trong Vibe/
+    "../.agents/skills/vibe-responsive-ui/SKILL.md",
 ]
 
 
@@ -1314,6 +1322,29 @@ def check_governance(rep: Report) -> None:
         rep.add("PASS", "C8", where, f"anti-ai-writing khớp giữa {len(aai_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
     if aai_skipped:
         rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so anti-ai-writing với bản của xưởng")
+
+    rui_cores, rui_skipped = {}, []
+    for rel in RESPONSIVE_UI_COPIES:
+        p = ROOT / rel
+        if not p.is_file():
+            if rel.startswith(".."):
+                rui_skipped.append(rel)
+            continue
+        try:
+            core = _ketoan_core(p.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError) as e:
+            rep.add("FAIL", "C8", where, f"{rel}: không đọc được ({e})")
+            continue
+        if core is None:
+            rep.add("FAIL", "C8", where, f"{rel}: thiếu mục '## Phạm vi' — không so được với các bản khác")
+        else:
+            rui_cores[rel] = core
+    if len(set(rui_cores.values())) > 1:
+        rep.add("FAIL", "C8", where, f"vibe-responsive-ui lệch giữa các bản (từ '## Phạm vi'): {', '.join(rui_cores)}")
+    elif rui_cores:
+        rep.add("PASS", "C8", where, f"vibe-responsive-ui khớp giữa {len(rui_cores)} bản (bỏ qua tiền tố đường dẫn và backtick)")
+    if rui_skipped:
+        rep.add("SKIP", "C8", where, "không thấy xưởng cha (repo đứng một mình) — chưa so vibe-responsive-ui với bản của xưởng")
 
     # đường dẫn chép từ xưởng mà quên đổi sang tương đối repo
     # settings.local.json do Claude Code tự sinh (đường dẫn tuyệt đối khi bấm "always allow") — không phải luật, bỏ qua
