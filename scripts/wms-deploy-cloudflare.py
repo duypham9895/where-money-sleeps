@@ -161,7 +161,8 @@ def update_wrangler_config(db_id: str) -> None:
         },
         "assets": {
             "directory": "./dist/site",
-            "binding": "ASSETS"
+            "binding": "ASSETS",
+            "run_worker_first": ["/", "/index.html", "/prototype.html", "/api/*"],
         },
         "d1_databases": [
             {
@@ -255,6 +256,8 @@ def main() -> int:
         ("/legal/tt99-phu-luc-ii.secondary.json", None),
         ("/dist/youtube/card-long-16x9.srt", None),
         ("/favicon.svg", None),
+        ("/robots.txt", "Sitemap:"),
+        ("/sitemap.xml", "wheremoneysleeps.duyslab.icu/?story=profitcash"),
     ]
 
     def _verify_origin(base_url: str) -> None:

@@ -25,17 +25,17 @@ When you tap your credit card at a restaurant or scan a QR code at a café, the 
 
 ---
 
-## Published Stories (7/19 Topics Live)
+## Published Stories (4 Categories · 7 Lessons Live — VI ⇄ EN)
 
-| Story | Title | Mechanism & Focus | YouTube (16:9 & Shorts) |
+| Story | Title | Mechanism & Focus | YouTube (16:9 & Shorts · v7.2) |
 |---|---|---|---|
-| `card` | 10 triệu quẹt thẻ ở quán ăn | 4-party card settlement, MDR 2.2%, Interchange fee, T+2 | `fxpFvVJcpRA` · `th6zR4gwV5c` |
-| `pay` | Trả hết nợ thẻ trước hạn | Settlement of card balance, zero interest window | `3NqEha4j53k` · `XnMsbH0E_xo` |
-| `install` | Mua 12 triệu trả góp lãi 0% | Merchant conversion fee vs bank loan disbursement | `l_8aVo538jo` · `J3DmDP4KKRI` |
-| `minpay` | Trả tối thiểu 5% trên sao kê | Loss of 45-day grace period, compounding interest | `ubgdEOblCgo` · `-atHoEHCrSI` |
-| `qr` | Quét mã QR 50 nghìn | Instant interbank credit transfer (24/7 interbank switch & dynamic/static QR; bilingual `VI ⇄ EN` via `?lang=vi|en`) | `d_WpGSjBR-4` · `WpwLZw3ytwU` |
-| `profitcash` | Lãi ròng 2 tỷ nhưng két còn 50 triệu | Net income on accrual basis vs operating cash flow | `WnlsZ9AtNdI` · `BpNggcnByQg` |
-| `offus` | Chuyển khoản On-Us vs Off-Us | Internal ledger debit vs interbank clearing & RTGS | `Qn3SIzHi_Ik` · `9FdZabe_Q_4` |
+| `card` | 10 triệu quẹt thẻ ở quán ăn | 4-party card settlement, MDR 2.2%, Interchange fee, T+2 | `l56GlTCof4c` · `o84RnVgqQok` |
+| `pay` | Vì sao công ty bảo bạn mở tài khoản nhận lương ở đúng một ngân hàng? | Intra-bank payroll credit, CASA pool, reserve clearing | `OET3IUPC6Qs` · `f2UKhEheWw4` |
+| `install` | Mua 12 triệu trả góp lãi 0% | Merchant conversion fee vs bank loan disbursement | `OdcXfR5kSkI` · `o-hFPmyKF7w` |
+| `minpay` | Trả tối thiểu 5% trên sao kê | Loss of 45-day grace period, compounding interest | `aLsnblI01yM` · `RcaF4llz-Cc` |
+| `qr` | Quét mã QR 50 nghìn | Instant interbank credit transfer (24/7 interbank switch & dynamic/static QR; bilingual `VI ⇄ EN` via `?lang=vi\|en`) | `awgxZiOJMOM` · `kQzff8VVZ4E` |
+| `profitcash` | Lãi ròng 2 tỷ nhưng két còn 50 triệu | Net income on accrual basis vs operating cash flow | `doLPegldsWE` · `RlYjvtiVuDA` |
+| `offus` | Chuyển khoản On-Us vs Off-Us | Internal ledger debit vs interbank clearing & RTGS | `pyf9muWYLmI` · `csafiwCITcQ` |
 
 ---
 
@@ -58,24 +58,22 @@ When you tap your credit card at a restaurant or scan a QR code at a café, the 
 - **Deterministic Quality Gates (`scripts/wms-check.sh`):**
   - K1–K4: Accounting equation balance ($\sum \text{Debit} = \sum \text{Credit}$).
   - F1–F4: Financial math, IRR/EIR verification, regulatory freshness with Circular 99/2025/TT-BTC.
-  - M1–M4: Non-overlapping text collision audit across desktop (`1280px`), tablet (`768px`), and mobile (`390px`).
+  - M1–M4: Non-overlapping text collision audit across 7 viewports (`320·362·390·768·820·1024·1440px`, `VI ⇄ EN`, Light & Dark, `LUẬT 13`).
+  - C10 (`LUẬT 14`): Anti-AI prose checks across bilingual essays, glossaries, quizzes, and voiceover scripts.
 
 ---
 
 ## Local Development & Testing
 
 ### 1. View Locally
-You can run any local static file server from the repository root:
+Build the static site bundle and serve it via local HTTP:
 
 ```bash
-# Using Python
-python3 -m http.server 8080 -d docs
-
-# Or using npx serve
-npx serve docs
+python3 -I scripts/wms-build-deploy.py
+python3 -I -m http.server 8765 --bind 127.0.0.1 --directory dist/site
 ```
 
-Open `http://localhost:8080/prototype.html` in your browser.
+Open `http://127.0.0.1:8765/` in your browser.
 
 ### 2. Run Verification Gates
 Run the full verification suite:

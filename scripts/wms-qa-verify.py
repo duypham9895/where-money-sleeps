@@ -317,15 +317,36 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
         for forbidden in ("CF-Connecting-IP", "User-Agent", "request.cf", "Set-Cookie", "console.log(request)"):
             if forbidden.lower() in w_txt.lower():
                 errors.append(f"cloudflare/worker.js vi phạm AC-55/AC-56 (chứa {forbidden})")
+        seo_chk = subprocess.run(
+            [
+                "node",
+                "--input-type=module",
+                "-e",
+                (
+                    f"import {{ resolveSeoMeta }} from {json.dumps(worker_path.as_uri())};"
+                    "const m = resolveSeoMeta('https://wheremoneysleeps.duyslab.icu/?story=profitcash&lang=en');"
+                    "if (!m.imageUrl.endsWith('profitcash-fig-1.jpg') || !m.desc.toLowerCase().includes('unofficial summary')) "
+                    "{ console.error('Bad resolveSeoMeta:', m); process.exit(1); }"
+                ),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if seo_chk.returncode != 0:
+            errors.append(f"cloudflare/worker.js resolveSeoMeta lỗi: {seo_chk.stderr.strip() or seo_chk.stdout.strip()}")
     if wrangler_path.is_file():
         wr_txt = wrangler_path.read_text(encoding="utf-8")
         if '"enabled": false' not in wr_txt:
             errors.append("wrangler.jsonc thiếu observability.enabled = false (AC-56)")
+        if "run_worker_first" not in wr_txt:
+            errors.append("wrangler.jsonc thiếu assets.run_worker_first cho OpenGraph HTMLRewriter")
     return errors
 
 
 def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci_mode: bool = False) -> list[str]:
     errors = []
+    readme_text = (ROOT / "README.md").read_text(encoding="utf-8") if (ROOT / "README.md").is_file() else ""
+    beatmap_text = (ROOT / "knowledge" / "wms-beatmap.json").read_text(encoding="utf-8") if (ROOT / "knowledge" / "wms-beatmap.json").is_file() else ""
     seen_sids = set()
     for (sid, fmt), ytid in EXPECTED_YT_IDS.items():
         seen_sids.add(sid)
@@ -333,6 +354,10 @@ def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci
             errors.append(f"prototype.html thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         if ytid not in studio_data_text:
             errors.append(f"wms-studio-data.js thiếu youtubeId {ytid} cho ({sid}, {fmt})")
+        if readme_text and ytid not in readme_text:
+            errors.append(f"README.md thiếu youtubeId v7.2 {ytid} cho ({sid}, {fmt})")
+        if beatmap_text and ytid not in beatmap_text:
+            errors.append(f"knowledge/wms-beatmap.json thiếu youtubeId v7.2 {ytid} cho ({sid}, {fmt})")
         suffix = "long-16x9" if fmt == "long" else "short-9x16"
         mp4_path = YT_DIR / f"{sid}-{suffix}.mp4"
         srt_path = YT_DIR / f"{sid}-{suffix}.srt"
@@ -809,7 +834,7 @@ def main() -> int:
         print(f"  ✗ {err}")
 
     e4 = verify_qa4_videos_and_youtube_ids(proto_text, studio_data_text, ci_mode=ci_mode)
-    print(f"[QA-4] Bộ 14 Video Calm Editorial v6.5 + .srt + 14 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
+    print(f"[QA-4] Bộ 14 Video Calm Editorial v7.2 + .srt + 14 mã youtubeId: {'PASS' if not e4 else 'FAIL'}")
     for err in e4:
         print(f"  ✗ {err}")
 

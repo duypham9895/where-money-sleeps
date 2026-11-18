@@ -11,15 +11,15 @@ Chạy:
 import argparse
 import functools
 import http.server
+import os
 import socketserver
 import sys
 import threading
 import urllib.parse
 from pathlib import Path
-from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-BRAIN_DIR = Path("/Users/edwardpham/.gemini/antigravity/brain/e0b64418-4798-42c0-83f6-ec92206aaefd")
+BRAIN_DIR = Path(os.environ["WMS_BRAIN_DIR"]) if os.environ.get("WMS_BRAIN_DIR") else None
 
 SPECS = {
     "docs_a": {
@@ -148,8 +148,10 @@ def run_suite_on_target(browser, name: str, url: str, spec: dict) -> list[str]:
 
     console_errs = []
     page_errs = []
+    fb_api_calls = []
     page.on("console", lambda m: console_errs.append(m.text) if m.type == "error" else None)
     page.on("pageerror", lambda e: page_errs.append(str(e)))
+    page.on("request", lambda r: fb_api_calls.append(r.url) if "/api/feedback" in r.url else None)
 
     page.goto(url, wait_until="domcontentloaded")
     page.wait_for_timeout(120)
@@ -346,6 +348,10 @@ def run_suite_on_target(browser, name: str, url: str, spec: dict) -> list[str]:
         if spec["has_dock"]:
             check("TC-12", geom["dockPos"] == "static", f"{vp_w}x{vp_h} .ux-lab-dock position={geom['dockPos']} != static")
 
+    if name == "proto":
+        copied_log = page.evaluate("() => window.__copiedLog || []")
+        check("TC-09", len(fb_api_calls) == 0, f"Unexpected /api/feedback request(s): {fb_api_calls}")
+        check("TC-09", any("To: hello@duypham.me" in x and "phí MDR 2,2%" in x for x in copied_log), f"Formatted draft copy missing from clipboard spy: {copied_log}")
     check("TC-09", not console_errs and not page_errs, f"Console/Page errors: console={console_errs} page={page_errs}")
     ctx.close()
     return failures
@@ -354,7 +360,17 @@ def run_suite_on_target(browser, name: str, url: str, spec: dict) -> list[str]:
 def main():
     parser = argparse.ArgumentParser(description="E2E functional tests for WMS footer copy icon and feedback form.")
     parser.add_argument("--artifacts", action="store_true", help="Also run suite on Brain HTML artifacts if present.")
+    parser.add_argument("--ci", action="store_true", help="Skip gracefully if Playwright is unavailable in headless CI.")
     args = parser.parse_args()
+
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        if args.ci or os.environ.get("GITHUB_ACTIONS") == "true":
+            print("SKIP [wms-feedback-test]: Playwright chưa cài trong CI — bỏ qua DOM E2E #fbForm")
+            return 0
+        print("FAIL [wms-feedback-test]: Playwright chưa khả dụng", file=sys.stderr)
+        return 1
 
     httpd, port = start_ephemeral_server(ROOT)
     base = f"http://127.0.0.1:{port}"
@@ -370,7 +386,7 @@ def main():
         ("docs-landing-detail", f"{base}/docs/landing-detail-mockups.html", SPECS["docs_a"]),
         ("docs-option-b", f"{base}/docs/mockup-option-b.html", SPECS["docs_b"]),
     ]
-    if args.artifacts:
+    if args.artifacts and BRAIN_DIR:
         art_a = BRAIN_DIR / "mockup-option-a.html"
         art_b = BRAIN_DIR / "mockup-option-b.html"
         if art_a.is_file():
