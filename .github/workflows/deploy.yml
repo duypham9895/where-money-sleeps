@@ -164,9 +164,16 @@ jobs:
             grep -q "WMS Review Studio" /tmp/live-studio.html
 
             for path in "${ROUTES[@]}"; do
-              CODE=$(curl -sSL --retry 3 --retry-delay 2 -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" "$ORIGIN$path")
+              CODE="000"
+              for attempt in 1 2 3 4 5 6 7 8; do
+                CODE=$(curl -sSL -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" "$ORIGIN$path" || echo "000")
+                if [ "$CODE" = "200" ]; then
+                  break
+                fi
+                sleep 3
+              done
               if [ "$CODE" != "200" ]; then
-                echo "::error::Expected HTTP 200 for $ORIGIN$path, got $CODE"
+                echo "::error::Expected HTTP 200 for $ORIGIN$path, got $CODE after 8 attempts"
                 exit 1
               fi
               echo "  OK 200 $ORIGIN$path"
@@ -187,13 +194,15 @@ jobs:
             grep -q "/data/stories/profitcash.json" /tmp/live-og.html
             echo "  OK HTMLRewriter OG + JSON-LD + Preload $ORIGIN/?story=profitcash&lang=en"
 
-            CSP_CNT=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN/studio.html" | tr -d '\r' | grep -ic "^content-security-policy:" || true)
-            CSP_VAL=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN/studio.html" | tr -d '\r' | grep -i "^content-security-policy:" || true)
-            if [ "$CSP_CNT" != "1" ] || ! echo "$CSP_VAL" | grep -q "connect-src 'none'"; then
-              echo "::error::Expected exactly 1 connect-src 'none' CSP header on $ORIGIN/studio.html, got count=$CSP_CNT"
-              exit 1
-            fi
-            echo "  OK single CSP header on $ORIGIN/studio.html"
+            for st_path in "/studio.html" "/studio"; do
+              CSP_CNT=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN$st_path" | tr -d '\r' | grep -ic "^content-security-policy:" || true)
+              CSP_VAL=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN$st_path" | tr -d '\r' | grep -i "^content-security-policy:" || true)
+              if [ "$CSP_CNT" != "1" ] || ! echo "$CSP_VAL" | grep -q "connect-src 'none'"; then
+                echo "::error::Expected exactly 1 connect-src 'none' CSP header on $ORIGIN$st_path, got count=$CSP_CNT"
+                exit 1
+              fi
+              echo "  OK single CSP header on $ORIGIN$st_path"
+            done
 
             FB_CODE=$(curl -sS --retry 3 --retry-delay 2 -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" -X POST "$ORIGIN/api/feedback" -d '{}')
             if [ "$FB_CODE" != "410" ]; then
