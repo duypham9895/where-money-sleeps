@@ -68,6 +68,50 @@ def _write_favicons(out_dir: Path) -> None:
     (out_dir / "favicon.ico").write_bytes(ico_dir + ico_data)
 
 
+def _write_seo_files(out_dir: Path) -> None:
+    robots_txt = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /studio.html\n"
+        "Disallow: /wms-studio-data.js\n"
+        "Disallow: /studio-mockups.html\n"
+        "Disallow: /landing-detail-mockups.html\n"
+        "Disallow: /mockup-\n"
+        "Disallow: /gates/\n\n"
+        "Sitemap: https://wheremoneysleeps.duyslab.icu/sitemap.xml\n"
+    )
+    (out_dir / "robots.txt").write_text(robots_txt, encoding="utf-8")
+
+    base = "https://wheremoneysleeps.duyslab.icu"
+    url_blocks = []
+    # Landing VI & EN
+    home_alts = (
+        f'    <xhtml:link rel="alternate" hreflang="vi" href="{base}/"/>\n'
+        f'    <xhtml:link rel="alternate" hreflang="en" href="{base}/?lang=en"/>\n'
+        f'    <xhtml:link rel="alternate" hreflang="x-default" href="{base}/"/>'
+    )
+    for loc in (f"{base}/", f"{base}/?lang=en"):
+        url_blocks.append(f"  <url>\n    <loc>{loc}</loc>\n{home_alts}\n    <priority>1.0</priority>\n  </url>")
+    for sid in LESSONS:
+        alts = (
+            f'    <xhtml:link rel="alternate" hreflang="vi" href="{base}/?story={sid}&amp;lang=vi"/>\n'
+            f'    <xhtml:link rel="alternate" hreflang="en" href="{base}/?story={sid}&amp;lang=en"/>\n'
+            f'    <xhtml:link rel="alternate" hreflang="x-default" href="{base}/?story={sid}"/>'
+        )
+        for lang in ("vi", "en"):
+            url_blocks.append(
+                f"  <url>\n    <loc>{base}/?story={sid}&amp;lang={lang}</loc>\n{alts}\n    <priority>0.8</priority>\n  </url>"
+            )
+    sitemap_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(url_blocks)
+        + "\n</urlset>\n"
+    )
+    (out_dir / "sitemap.xml").write_text(sitemap_xml, encoding="utf-8")
+
+
 def build_site() -> int:
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -109,13 +153,17 @@ def build_site() -> int:
                 shutil.copy2(asset, OUT / "assets" / asset.name)
 
     _write_favicons(OUT)
+    _write_seo_files(OUT)
 
-    # 3. Copy all brand figures & plates
+    # 3. Copy web-used brand figures (skip unused video plates / YT channel art)
     copied_figs = 0
     for img in sorted(PUBLIC_BRAND.glob("*")):
-        if img.is_file() and img.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".svg"):
-            shutil.copy2(img, OUT / "public" / "brand" / img.name)
-            copied_figs += 1
+        if not img.is_file() or img.suffix.lower() not in (".jpg", ".jpeg", ".png", ".webp", ".svg"):
+            continue
+        if "-short-plate-" in img.name or img.name.startswith(("youtube-avatar-", "youtube-banner-")):
+            continue
+        shutil.copy2(img, OUT / "public" / "brand" / img.name)
+        copied_figs += 1
 
     # 3b. Copy all ElevenLabs studio beat audio files & manifest
     copied_audio = 0
@@ -137,11 +185,11 @@ def build_site() -> int:
             print(f"FAIL: Thiếu file âm thanh Giọng Tâm ElevenLabs trong gói deploy: {mp3}", file=sys.stderr)
             return 1
 
-    # 4. Copy all legal documents (licences.json, tt99-phu-luc-ii.secondary.json, VanBanGoc PDF)
+    # 4. Copy public legal metadata (licences.json, tt99-phu-luc-ii.secondary.json; omit raw reference PDF)
     copied_legal = 0
     if LEGAL_DIR.is_dir():
         for lf in sorted(LEGAL_DIR.iterdir()):
-            if lf.is_file() and not lf.name.startswith("."):
+            if lf.is_file() and not lf.name.startswith(".") and lf.name != "VanBanGoc_TT 99.2025-btc.pdf":
                 shutil.copy2(lf, OUT / "legal" / lf.name)
                 copied_legal += 1
 
@@ -191,6 +239,8 @@ def build_site() -> int:
         "gates/06-iterate/READOUT.md",
         "dist/youtube/card-long-16x9.srt",
         "public/audio/beats-manifest.json",
+        "robots.txt",
+        "sitemap.xml",
     )
     for rel_req in required_paths:
         req_file = OUT / rel_req

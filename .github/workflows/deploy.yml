@@ -141,6 +141,8 @@ jobs:
             "/legal/tt99-phu-luc-ii.secondary.json"
             "/dist/youtube/card-long-16x9.srt"
             "/favicon.svg"
+            "/robots.txt"
+            "/sitemap.xml"
           )
 
           verify_origin() {
@@ -170,6 +172,17 @@ jobs:
               exit 1
             fi
             echo "  OK 204 POST $ORIGIN/api/p"
+
+            curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" "$ORIGIN/?story=profitcash&lang=en" -o /tmp/live-og.html
+            grep -q "profitcash-fig-1.jpg" /tmp/live-og.html
+            echo "  OK HTMLRewriter OG meta $ORIGIN/?story=profitcash&lang=en"
+
+            FB_CODE=$(curl -sS --retry 3 --retry-delay 2 -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" -X POST "$ORIGIN/api/feedback" -d '{}')
+            if [ "$FB_CODE" != "410" ]; then
+              echo "::error::Expected HTTP 410 from POST $ORIGIN/api/feedback, got $FB_CODE"
+              exit 1
+            fi
+            echo "  OK 410 POST $ORIGIN/api/feedback"
           }
 
           verify_origin "$WORKERS_URL"

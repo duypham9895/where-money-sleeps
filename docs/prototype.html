@@ -6,9 +6,28 @@
 <meta name="text-scale" content="scale">
 <meta name="color-scheme" content="light dark">
 <title>Đêm nay, tiền của bạn đang ngủ ở đâu? — Where Money Sleeps</title>
-<link rel="alternate" hreflang="vi" href="https://wheremoneysleeps.duyslab.icu/?lang=vi">
-<link rel="alternate" hreflang="en" href="https://wheremoneysleeps.duyslab.icu/?lang=en">
-<link rel="alternate" hreflang="x-default" href="https://wheremoneysleeps.duyslab.icu/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico">
+<meta name="description" id="metaDesc" content="Từ tin báo ghi có tới sổ sách ngân hàng: giải mã đường đi thật của dòng tiền và bút toán kép Thông tư 99/2025/TT-BTC (song ngữ VI ⇄ EN).">
+<link rel="canonical" id="canonicalLink" href="https://wheremoneysleeps.duyslab.icu/">
+<link rel="alternate" id="hreflangVi" hreflang="vi" href="https://wheremoneysleeps.duyslab.icu/?lang=vi">
+<link rel="alternate" id="hreflangEn" hreflang="en" href="https://wheremoneysleeps.duyslab.icu/?lang=en">
+<link rel="alternate" id="hreflangDefault" hreflang="x-default" href="https://wheremoneysleeps.duyslab.icu/">
+<meta property="og:type" id="ogType" content="website">
+<meta property="og:site_name" content="Where Money Sleeps">
+<meta property="og:locale" id="ogLocale" content="vi_VN">
+<meta property="og:locale:alternate" id="ogLocaleAlt" content="en_US">
+<meta property="og:title" id="ogTitle" content="Đêm nay, tiền của bạn đang ngủ ở đâu? — Where Money Sleeps">
+<meta property="og:description" id="ogDesc" content="Từ tin báo ghi có tới sổ sách ngân hàng: giải mã đường đi thật của dòng tiền và bút toán kép Thông tư 99/2025/TT-BTC (song ngữ VI ⇄ EN).">
+<meta property="og:url" id="ogUrl" content="https://wheremoneysleeps.duyslab.icu/">
+<meta property="og:image" id="ogImage" content="https://wheremoneysleeps.duyslab.icu/public/brand/card-fig-1.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" id="ogImageAlt" content="Where Money Sleeps — Mặt cắt đường đi của dòng tiền và sổ kế toán">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twTitle" content="Đêm nay, tiền của bạn đang ngủ ở đâu? — Where Money Sleeps">
+<meta name="twitter:description" id="twDesc" content="Từ tin báo ghi có tới sổ sách ngân hàng: giải mã đường đi thật của dòng tiền và bút toán kép Thông tư 99/2025/TT-BTC (song ngữ VI ⇄ EN).">
+<meta name="twitter:image" id="twImage" content="https://wheremoneysleeps.duyslab.icu/public/brand/card-fig-1.jpg">
 <!-- Fonts: Newsreader + Be Vietnam Pro (Reader/Workflows) & Fraunces + JetBrains Mono (Studio) — SIL Open Font License 1.1 (legal/licences.json).
      Fallback metrics khớp cap-height để triệt CLS khi font tải; font mono hoá đơn dùng ui-monospace hệ thống. -->
 <script>
@@ -708,9 +727,24 @@ body.cms-on{padding-bottom:150px}
 @media (hover:hover) and (pointer:fine){.toc a:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}}
 .pack-panel [id^="pk-"]{scroll-margin-top:170px}
 .chap{max-width:min(54rem,100%);margin:0 auto 32px}
-.chap h4,.chap .prose{max-width:min(42rem,100%);margin-inline:auto}
-.chap h4{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.55rem);line-height:1.25;margin:0 auto 14px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
+.chap-head,.chap .prose{max-width:min(42rem,100%);margin-inline:auto}
+.chap-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 auto 14px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
+.chap h4{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.55rem);line-height:1.25;margin:0}
 .chap h4 span{font:700 11px var(--mono);letter-spacing:.08em;color:var(--paper);background:var(--clay);padding:4px 7px;border-radius:2px;transform:translateY(-3px)}
+.chap-copy-wrap{position:relative;flex:0 0 auto;display:inline-flex;align-items:center}
+.chap-copy-btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-inline-size:28px;min-block-size:28px;padding:3px 7px;border:1.5px solid var(--rule-ui);border-radius:3px;background:var(--paper);color:var(--ink-2);font:700 12px/1 var(--mono);cursor:pointer;transition:color .15s,border-color .15s,background-color .15s}
+.chap-copy-btn:focus-visible{outline:2px solid var(--lamp);outline-offset:2px;color:var(--ink);border-color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.chap-copy-btn:hover{color:var(--ink);border-color:var(--ink);background:var(--card)}}
+.chap-copy-btn[data-copied="true"]{color:var(--moss);border-color:var(--moss)}
+.chap-copy-btn[data-failed="true"]{color:var(--clay);border-color:var(--clay)}
+.ledger-foot-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.ledger-foot-row .foot{margin-top:0;flex:1;min-width:0}
+.chap-copy-btn.is-paper{background:#fbf7ec;color:#4f4537;border-color:#7c6f5b}
+.chap-copy-btn.is-paper[data-copied="true"]{color:#2f593d;border-color:#2f593d}
+.chap-copy-btn.is-paper[data-failed="true"]{color:#9c3b1b;border-color:#9c3b1b}
+.chap-copy-tip{position:absolute;inset-inline-end:0;inset-block-end:calc(100% + 5px);padding:3px 8px;border-radius:3px;background:var(--ink);color:var(--paper);font:600 11px/1.2 var(--mono);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
+.chap-copy-btn[data-copied="true"] + .chap-copy-tip,.chap-copy-btn[data-failed="true"] + .chap-copy-tip{opacity:1}
+.yt-cc-note{font:600 11px var(--sans);color:var(--ink-2)}
 .chap .prose p:first-child::first-letter{font-size:inherit;float:none;padding:0;color:inherit;font-family:inherit;line-height:inherit}
 .chap:first-of-type .prose p:first-child::first-letter{font-family:var(--serif);float:left;font-size:3.3em;line-height:.85;padding:.06em .1em 0 0;color:var(--clay)}
 /* LUẬT 9 — Minh hoạ mặt cắt đan xen giữa các đoạn văn (Advance Organizer + Spatial Contiguity + 3-Layer Figure-Caption Contract) */
@@ -1257,16 +1291,34 @@ textarea.fb-control{resize:vertical;min-height:92px}
   input,select,textarea,.catalog-search,.atlas-q input,#glSearch,.gl-search,.yt-cms-bind input,.fb-control{font-size:max(16px,1rem)}
 }
 @media (pointer:coarse){
-  .ab-btn,.ab-theme-btn,.ab-back,.ab-step,.ab-brand,.split-pill>button,.cat-pill,.mode-seg button,.page-btn,.beat-btn,.beat-step-btn,.pack-tabs button,.yt-switch button,.yt-chap,.yt-play,.fmt button,.preset-btn,.gl-chip,.gl-jump-chip,.chap-fig-jump,.pop-jump,#popX,.atlas-x,#atlasSt button,.atlas .tp,.cat-nav-btn,.pp-item,.pp-all,.cta-main,.cta-sub,.catalog-more-btn,.ft-copy-btn,.fb-control,.fb-submit,.fb-mode-btn,.fb-tabs button,.lang-seg button,.seg button,.step,.voice,.edges summary,.gl-drawer>summary,.toc a,.author-dock__btn,.author-dock__exit,.catalog-search,.atlas-q input,.gl-search,#glSearch,.handoff-go,.handoff-cat,.triad-card button.card-link-btn,.fb-chip,.fb-mailto,.ft-link,.ab-jumps a,.yt-voice a,button[data-quiz-pick],[data-quiz-jump-sec]{min-block-size:44px;min-height:44px}
+  .ab-btn,.ab-theme-btn,.ab-back,.ab-step,.ab-brand,.split-pill>button,.cat-pill,.mode-seg button,.page-btn,.beat-btn,.beat-step-btn,.pack-tabs button,.yt-switch button,.yt-chap,.yt-play,.fmt button,.preset-btn,.gl-chip,.gl-jump-chip,.chap-fig-jump,.chap-copy-btn,.pop-jump,#popX,.atlas-x,#atlasSt button,.atlas .tp,.cat-nav-btn,.pp-item,.pp-all,.cta-main,.cta-sub,.catalog-more-btn,.ft-copy-btn,.fb-control,.fb-submit,.fb-mode-btn,.fb-tabs button,.lang-seg button,.seg button,.step,.voice,.edges summary,.gl-drawer>summary,.toc a,.author-dock__btn,.author-dock__exit,.catalog-search,.atlas-q input,.gl-search,#glSearch,.handoff-go,.handoff-cat,.triad-card button.card-link-btn,.fb-chip,.fb-mailto,.ft-link,.ab-jumps a,.yt-voice a,button[data-quiz-pick],[data-quiz-jump-sec]{min-block-size:44px;min-height:44px}
   input[type="range"]{min-block-size:44px;height:44px}
   [data-quiz-jump-sec]{display:inline-flex;align-items:center}
-  .ab-theme-btn,.ab-step,.ab-back,#atlasBtn,#popX,.ft-copy-btn,.author-dock__exit,.lang-seg button,.page-btn,.yt-voice a{min-inline-size:44px}
+  .ab-theme-btn,.ab-step,.ab-back,#atlasBtn,#popX,.ft-copy-btn,.chap-copy-btn,.author-dock__exit,.lang-seg button,.page-btn,.yt-voice a{min-inline-size:44px}
 }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .atlasbar,.view-fade,.pack-panel.in,.caption.turn > *,#pop.on,.atlas,.post-pop,.stamp,.tagx,.story-card,.book,.cta-main,.reading-bar span,.zoom .track span{animation:none!important;transition:none!important}
   .story-card,.book.open,.cta-main,.toc a,.chap-fig-jump,.pack-tabs button,.handoff-go{transform:none!important}
+}
+
+@media print{
+  :root,:root[data-theme="dark"]{
+    --paper:#ffffff;--paper-2:#f4f4f4;--card:#ffffff;
+    --ink:#111111;--ink-2:#2c2c2c;--ink-3:#444444;
+    --rule:#cccccc;--rule-2:#999999;--rule-ui:#555555;
+    --clay:#7a2710;--moss:#1f4a2e;--lamp:#6b4406;
+  }
+  html,body{background:#fff!important;color:#111!important;font-size:11pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body::after,#skipLink,#atlasbar,#atlas,#pop,#postPop,#catPop,#authorDock,#stage,#thu,.try,.pack-tabs,.toc,.pack-toc,#nextHandoff,footer.site-footer,.chap-copy-wrap,.chap-fig-jump,[data-quiz-jump-sec],#lessonQuizWrap,#studioScriptSec,#cms{display:none!important}
+  #detailView:not([hidden]) #pnl-lay,#detailView:not([hidden]) #pnl-pro{display:block!important;opacity:1!important;animation:none!important}
+  #detailView:not([hidden]) #pnl-pro{margin-top:24pt;padding-top:14pt;border-top:1.5pt solid #111}
+  .chap h4 span,.chap-fig-kicker{background:#f4f4f4!important;color:#111!important;border:1pt solid #7a2710}
+  .chap-fig,.myth,.verdict section,.ledger,.journal,table,tr{break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3,h4,h5,.chap-head{break-after:avoid;page-break-after:avoid}
+  .ledger{background:#fbf7ec!important;color:#111!important;box-shadow:none!important;transform:none!important;border:1pt solid #666}
+  .chap-fig img{max-height:240pt;object-fit:contain}
 }
 </style>
 </head>
@@ -1508,7 +1560,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
       <button class="voice" id="voice" aria-pressed="true">Giọng đọc: Giọng Tâm</button>
     </div>
     <p class="voicenote" id="voicenote">Giọng Tâm thu âm chuyên mục (-14 LUFS) · Bấm Phát để nghe đồng bộ từng câu với mặt cắt.</p>
-    <audio id="dioramaAudio" preload="metadata" hidden></audio>
+    <audio id="dioramaAudio" preload="none" hidden></audio>
 
     <div class="below">
       <div class="lensnote"><h4 id="lensHead">Với túi tiền của bạn</h4><p id="lensText"></p></div>
@@ -1813,7 +1865,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
 
     <section class="ft-box" aria-labelledby="fbFormHeading">
       <h2 id="fbFormHeading">Hộp thư Góp ý &amp; Đề xuất bài viết mới</h2>
-      <p class="ft-box-lead" id="fbBoxLead">Gửi thẳng câu hỏi tài chính đời thường hoặc góp ý số liệu về <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> qua Worker cùng nguồn (0 script theo dõi bên thứ ba).</p>
+      <p class="ft-box-lead" id="fbBoxLead">Soạn câu hỏi tiền nong đời thường hoặc điểm cần đính chính rồi chép bản nháp hoặc mở thẳng ứng dụng Mail gửi về <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> (0 lưu máy chủ trung gian, 0 script theo dõi).</p>
       <div class="fb-modes fb-tabs" role="group" aria-label="Loại thư gửi">
         <span class="fb-modes-lbl" id="fbModesLbl">Mục đích gửi:</span>
         <button type="button" class="fb-mode-btn" data-fb-kind="topic" aria-pressed="true">Đề xuất bài viết mới</button>
@@ -1821,7 +1873,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
       </div>
       <div class="fb-ctx" id="fbCtxBanner" hidden></div>
       <div class="fb-chips" id="fbQuickChips" aria-label="Gợi ý nhanh"></div>
-      <form id="fbForm" action="/api/feedback" method="POST" aria-labelledby="fbFormHeading" novalidate>
+      <form id="fbForm" action="mailto:hello@duypham.me" method="POST" enctype="text/plain" aria-labelledby="fbFormHeading" novalidate>
         <div class="fb-field">
           <label class="fb-label" for="fbMessage" id="fbMessageLabel">Nội dung góp ý hoặc đề xuất chủ đề <span aria-hidden="true">*</span></label>
           <span class="fb-hint" id="fbMessageHint">Tối thiểu 8 ký tự, tối đa 800 ký tự · Không dùng cookie hay định danh người đọc.</span>
@@ -1835,7 +1887,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
           <p class="fb-error fb-err" id="fbEmailError" role="alert" hidden></p>
         </div>
         <div class="fb-actions fb-foot">
-          <button type="submit" class="fb-submit" id="fbSubmitBtn">Gửi đề xuất về hello@duypham.me</button>
+          <button type="submit" class="fb-submit" id="fbSubmitBtn">Chép bản nháp đề xuất &amp; chuẩn bị gửi</button>
           <a class="fb-mailto" id="fbMailtoLink" href="mailto:hello@duypham.me?subject=%5BWMS%5D%20%C4%90%E1%BB%81%20xu%E1%BA%A5t%20b%C3%A0i%20vi%E1%BA%BFt%20m%E1%BB%9Bi">Mở ứng dụng Mail ↗</a>
         </div>
         <div class="fb-status" id="fbStatus" role="status" aria-live="polite" hidden></div>
@@ -13106,16 +13158,20 @@ const sceneLabel = (s, x, i, n) => x.beat === null || x.beat === undefined
             : (i === 0 ? "Hook mở đầu" : i === n - 1 ? "Cảnh kết" : "Cảnh đào sâu"))
   : `${isEn() ? "Beat" : "Đoạn"} ${x.beat + 1}${s.beats[x.beat] ? ": " + s.beats[x.beat].title : ""}`;
 const toc = (id, items) => `<nav class="toc" aria-label="${isEn() ? "Quick contents" : "Mục lục nhanh"}"><b>${isEn() ? "Contents" : "Mục lục"}</b>${items.map(([h, t]) => `<a href="#pk-${id}-${h}">${esc(t)}</a>`).join("")}</nav>`;
-function journalHTML(e){
+function journalHTML(e, idx){
   const enMode = isEn();
+  const anchorId = `pk-pro-jr-${(idx || 0) + 1}`;
   const rows = e.rows.map(([dc, code, name, detail, simple, amt]) => {
     const isDr = isDebitRow(dc), dcSmall = enMode ? (isDr ? "Dr" : "Cr") : dc;
     return `<tr class="${isDr?"dr":"cr"}"><td class="dc"><button class="term" data-term="${isDr?"debit":"credit"}">${isDr?"Debit":"Credit"}</button><small>${esc(dcSmall)}</small></td>`
     + `<td class="acct">${esc(code)} · ${esc(name)}<small>${esc(simple)}${detail ? " — " + esc(detail) : ""}</small></td>`
     + `<td class="amt num">${fmtNum(amt)}</td></tr>`;
   }).join("");
-  return `<div class="ledger"><span class="stamp">${enMode ? "illustrative" : "chưa kiểm tra"}</span><span class="jstep">${esc(e.step)}</span><h4>${esc(e.book)}</h4>`
-    + `<table>${rows}</table><p class="foot">${esc(e.assume)} ${esc(e.note)}</p></div>`;
+  const copyLbl = enMode ? `Copy link to ledger ${esc(e.step)}` : `Sao chép liên kết ${esc(e.step)}`;
+  return `<div class="ledger" id="${anchorId}"><span class="stamp">${enMode ? "illustrative" : "chưa kiểm tra"}</span><span class="jstep">${esc(e.step)}</span><h4>${esc(e.book)}</h4>`
+    + `<table>${rows}</table><div class="ledger-foot-row"><p class="foot">${esc(e.assume)} ${esc(e.note)}</p>`
+    + `<span class="chap-copy-wrap"><button type="button" class="chap-copy-btn is-paper" data-copy-anchor="${anchorId}" aria-label="${copyLbl}" title="${copyLbl}"><span class="chap-copy-glyph" aria-hidden="true">#</span></button><span class="chap-copy-tip" role="status"></span></span>`
+    + `</div></div>`;
 }
 const getEmbedLabels = () => isEn()
   ? {
@@ -13140,7 +13196,8 @@ function renderYtEmbedHTML(s, fmt, scope){
   const isShort = effFmt === "short";
   const localSrc = `../dist/youtube/${encodeURIComponent(S.story)}-${isShort ? "short-9x16" : "long-16x9"}.mp4`;
   const useIframe = Boolean(ytId) && location.protocol !== "file:";
-  const iframeSrc = ytId ? `https://www.youtube.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=${hl}&cc_lang_pref=${hl}` : "";
+  const ccParam = hl === "en" ? "&cc_load_policy=1" : "";
+  const iframeSrc = ytId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=${hl}&cc_lang_pref=${hl}${ccParam}` : "";
   const watchUrl = ytId ? `https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}` : "https://www.youtube.com/@WhereMoneySleeps";
   const chaps = sc.map((x, i) => {
     const [startSec] = tspan(x.time);
@@ -13154,7 +13211,7 @@ function renderYtEmbedHTML(s, fmt, scope){
     + `<span>${enMode?"or run CLI:":"hoặc chạy CLI:"} <code>python3 -I scripts/wms-media-pipeline.py --story ${esc(S.story)} --bind-${effFmt}-id &lt;11char&gt; --embed-status uploaded_unlisted</code></span></div>` : "";
   const playerHTML = useIframe
     ? `<iframe src="${iframeSrc}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
-    : `<video controls preload="metadata" src="${localSrc}" title="${esc(f.title || s.title)}" style="position:absolute;inset:0;width:100%;height:100%;background:#070a12"></video>`;
+    : `<video controls preload="none" src="${localSrc}" title="${esc(f.title || s.title)}" style="position:absolute;inset:0;width:100%;height:100%;background:#070a12"></video>`;
   const rightBarHTML = scope === "stage"
     ? `<span style="font:600 11.5px var(--mono);color:var(--ink-2)">${enMode ? "16:9 Lecture Video" : "Video bài giảng 16:9"}</span>`
     : `<div class="yt-switch" role="group" aria-label="${enMode ? "Switch embedded video format" : "Chuyển định dạng video nhúng"}">`
@@ -13162,7 +13219,9 @@ function renderYtEmbedHTML(s, fmt, scope){
       + `<button type="button" data-yt-fmt="short" aria-pressed="${isShort}">📱 ${enMode ? "Short 9:16" : "Video Dọc 9:16"}</button></div>`;
   return `<section class="yt-embed" data-yt-box="${scope}" aria-label="${enMode ? "Lesson explainer video" : "Video minh hoạ bài viết"}">`
     + `<div class="yt-bar"><div class="yt-bar-left"><span class="yt-badge ${bCls}">${esc(bTxt)}</span>`
-    + `<span class="yt-voice"><a href="${watchUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">${enMode ? "Open on @WhereMoneySleeps ↗" : "Mở trên @WhereMoneySleeps ↗"}</a></span></div>`
+    + `<span class="yt-voice"><a href="${watchUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:3px">${enMode ? "Open on @WhereMoneySleeps ↗" : "Mở trên @WhereMoneySleeps ↗"}</a></span>`
+    + (enMode ? `<span class="yt-cc-note">Vietnamese voiceover · English captions (CC) auto-enabled</span>` : "")
+    + `</div>`
     + `${rightBarHTML}</div>`
     + `<div class="yt-body"><div class="yt-stage${isShort ? " short" : ""}" data-yt-stage="${scope}">${playerHTML}</div>`
     + `<div class="yt-chaps"><b>${enMode ? "Video Chapters:" : "Chương Video:"}</b>${chaps}</div>${cmsBar}</div></section>`;
@@ -13171,6 +13230,7 @@ function bindYtEmbed(scope, s, draft){
   const box = $(`[data-yt-box="${scope}"]`);
   if (!box) return;
   const effFmt = scope === "stage" ? "long" : PK.fmt, hl = isEn() ? "en" : "vi";
+  const ccParam = hl === "en" ? "&cc_load_policy=1" : "";
   const f = (s.videoScript && s.videoScript[effFmt]) || {}, sc = Array.isArray(f.scenes) ? f.scenes : [];
   const ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
   const useIframe = Boolean(ytId) && location.protocol !== "file:";
@@ -13187,7 +13247,7 @@ function bindYtEmbed(scope, s, draft){
         return;
       } catch (_) {}
     }
-    const u = `https://www.youtube.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=${hl}&cc_lang_pref=${hl}&autoplay=1&start=${sec||0}`;
+    const u = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId)}?enablejsapi=1&rel=0&playsinline=1&hl=${hl}&cc_lang_pref=${hl}${ccParam}&autoplay=1&start=${sec||0}`;
     stage.innerHTML = `<iframe src="${u}" title="${esc(f.title || s.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
   };
   const mountLocal = sec => {
@@ -13248,9 +13308,16 @@ function bindYtEmbed(scope, s, draft){
 function renderStageVideo(forceRemount){
   const wrap = $("#stageVideoWrap");
   if (!wrap) return;
+  if (S.view !== "detail" || S.mode !== "video") {
+    wrap.hidden = S.mode !== "video";
+    if (wrap.innerHTML.trim() !== "") {
+      wrap.innerHTML = "";
+      wrap.dataset.mountedKey = "";
+    }
+    return;
+  }
   const s = getStories()[S.story];
-  wrap.hidden = S.mode !== "video";
-  if (S.mode !== "video") return;
+  wrap.hidden = false;
   const v = s.videoScript || {}, f = v.long || {}, ytId = typeof f.youtubeId === "string" ? f.youtubeId.trim() : "";
   const key = `${S.story}:${getLang()}:long:${ytId}:${CMS.on?1:0}`;
   if (!forceRemount && wrap.dataset.mountedKey === key && wrap.innerHTML.trim() !== "") return;
@@ -13758,9 +13825,14 @@ const CHAP_FIGS_EN = {
 function renderChapHTML(sKey, c, i){
   const paras = Array.isArray(c.paras) ? c.paras : [], figs = getChapFigs(), enMode = isEn();
   const fig = figs[sKey] && figs[sKey][i];
-  const h4 = `<h4><span>${enMode ? "Chapter" : "Chương"} ${String(i+1).padStart(2,"0")}</span>${esc(c.h)}</h4>`;
+  const anchorId = `pk-lay-ch-${i+1}`;
+  const copyLbl = enMode ? `Copy link to Chapter 0${i+1}` : `Sao chép liên kết Chương 0${i+1}`;
+  const headHTML = `<div class="chap-head">`
+    + `<h4><span>${enMode ? "Chapter" : "Chương"} ${String(i+1).padStart(2,"0")}</span>${esc(c.h)}</h4>`
+    + `<span class="chap-copy-wrap"><button type="button" class="chap-copy-btn" data-copy-anchor="${anchorId}" aria-label="${copyLbl}" title="${copyLbl}"><span class="chap-copy-glyph" aria-hidden="true">#</span></button><span class="chap-copy-tip" role="status"></span></span>`
+    + `</div>`;
   if (!fig || paras.length < 2) {
-    return `<section class="chap">${h4}<div class="prose">${paras.map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
+    return `<section class="chap" id="${anchorId}">${headHTML}<div class="prose">${paras.map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
   }
   const figHTML = `<figure class="chap-fig" data-chap-fig="${i+1}">`
     + `<img src="../public/brand/${esc(fig.file)}" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='public/brand/${esc(fig.file)}';}" width="1200" height="675" loading="lazy" decoding="async" alt="${esc(fig.alt)}">`
@@ -13770,10 +13842,14 @@ function renderChapHTML(sKey, c, i){
     + `<strong class="chap-fig-title">${esc(fig.title)}</strong>`
     + `<p class="chap-fig-desc">${rich(fig.desc)}</p>`
     + `</figcaption></figure>`;
-  return `<section class="chap">${h4}<div class="prose"><p>${rich(paras[0])}</p></div>${figHTML}<div class="prose">${paras.slice(1).map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
+  return `<section class="chap" id="${anchorId}">${headHTML}<div class="prose"><p>${rich(paras[0])}</p></div>${figHTML}<div class="prose">${paras.slice(1).map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
 }
 function renderPack(){
   const s = getStories()[S.story], a = s.article, v = s.videoScript, sec = $("#baiday"), enMode = isEn();
+  if (S.view !== "detail") {
+    if (sec) sec.hidden = true;
+    return;
+  }
   sec.hidden = !(a && a.lay && a.pro && v && v.long && v.short && Array.isArray(v.long.scenes) && Array.isArray(v.short.scenes)) || !visible(S.story);
   if (sec.hidden) return;
   if (PK.story !== S.story) {
@@ -13826,7 +13902,7 @@ function renderPack(){
     + toc("pro", proToc)
     + `<p class="pack-sub" id="pk-pro-mech">${enMode ? "1 · System mechanics & funding economics" : "1 · Cơ chế vận hành & định giá vốn"}</p><div class="mech">${arr(P.mechanics).map(m => `<article><h5>${esc(m.h)}</h5><p>${rich(m.p)}</p></article>`).join("")}</div>`
     + `<p class="pack-sub" id="pk-pro-acc">${enMode ? "2 · Reconciling corporate books (TT 99/2025) & bank ledgers" : "2 · Đối chiếu sổ doanh nghiệp (TT 99/2025) và sổ ngân hàng"}</p><div class="acc">${arr(P.accountingNotes).map(n => `<p>${rich(n)}</p>`).join("")}</div>`
-    + `<p class="pack-sub" id="pk-pro-jr">${enMode ? "3 · Complete double-entry journal sequence, inception to settlement" : "3 · Chuỗi bút toán kép, từ phát sinh tới tất toán"}</p><div class="journal">${arr(P.journal).map(journalHTML).join("")}</div>`
+    + `<p class="pack-sub" id="pk-pro-jr">${enMode ? "3 · Complete double-entry journal sequence, inception to settlement" : "3 · Chuỗi bút toán kép, từ phát sinh tới tất toán"}</p><div class="journal">${arr(P.journal).map((e, idx) => journalHTML(e, idx)).join("")}</div>`
     + `<p class="pack-sub" id="pk-pro-edge">${enMode ? "4 · Practical edge cases & exceptions" : "4 · Tình huống thực tế & ngoại lệ"}</p><div class="edges">${arr(P.edgeCases).map(e => `<details><summary>${esc(e.h)}</summary><p>${rich(e.p)}</p></details>`).join("")}</div>${draft}`;
   $$("[data-jump-beat]", $("#pnl-lay")).forEach(btn => {
     btn.onclick = () => {
@@ -13909,7 +13985,7 @@ function exportVO(k){
       youtubeId:f.youtubeId || "",
       embedStatus:f.embedStatus || "pending_upload",
       elevenlabsVoiceId:f.elevenlabsVoiceId || "eleven_v3:JwqRvOqFdGeQNu7UjKjw",
-      embedUrl:f.youtubeId ? `https://www.youtube.com/embed/${f.youtubeId}?enablejsapi=1&rel=0&playsinline=1&hl=${lang}&cc_lang_pref=${lang}` : "",
+      embedUrl:f.youtubeId ? `https://www.youtube-nocookie.com/embed/${f.youtubeId}?enablejsapi=1&rel=0&playsinline=1&hl=${lang}&cc_lang_pref=${lang}${lang === "en" ? "&cc_load_policy=1" : ""}` : "",
       articleUrl,
       youtubeUpload:{
         api:"YouTube Data API v3 (videos.insert)",
@@ -14016,9 +14092,10 @@ function renderAll(){
   $("#thu").hidden = !["card","pay","install","minpay","qr","profitcash","offus"].includes(S.story);
   $("#stageTitle").textContent = stObj.title;
   $("#draftNote").hidden = stObj.status === "published";
-  ensureAudioTrack(S.story);
+  if (S.view === "detail" && S.mode === "listen" && S.voice && !isEn()) ensureAudioTrack(S.story);
   renderCMS();
   if (typeof renderGlossary === "function") renderGlossary();
+  if (typeof syncHeadMeta === "function") syncHeadMeta();
 }
 function go(story, b, s, keepPlaying){
   stopSpeech();
@@ -14030,6 +14107,7 @@ function go(story, b, s, keepPlaying){
       if (location.protocol !== "file:" && history && history.replaceState) {
         const u = new URL(location.href);
         u.searchParams.set("story", S.story);
+        if (u.hash && !u.hash.startsWith("#sync=")) u.hash = "";
         history.replaceState(null, "", u.pathname + u.search + u.hash);
       }
     } catch (_) {}
@@ -16060,6 +16138,19 @@ function renderLessonQuizAndProgress(storyKey){
     const out = $("#syncStatusMsg", wrap);
     if (out) out.textContent = enMode ? (ok ? "Progress restored successfully." : "Invalid backup code.") : (ok ? "Đã khôi phục tiến độ học thành công." : "Mã sao lưu không hợp lệ.");
   };
+  $$("[data-quiz-jump-sec]", wrap).forEach(a => {
+    a.onclick = e => {
+      const secId = a.dataset.quizJumpSec || "";
+      if (!secId) return;
+      if (secId.startsWith("pk-pro-") && typeof showTab === "function") showTab("pro", false);
+      else if (secId.startsWith("pk-lay-") && typeof showTab === "function") showTab("lay", false);
+      const target = document.getElementById(secId);
+      if (target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+      }
+    };
+  });
 }
 if (window.location && window.location.hash && window.location.hash.startsWith("#sync=")) {
   restoreFromSyncToken(window.location.hash.slice(6), "link");
@@ -16159,10 +16250,6 @@ const PRESETS_EN = {
 function applyStaticChrome(lang){
   const enMode = lang === "en";
   document.documentElement.lang = enMode ? "en" : "vi";
-  if (!VI_CHROME_CACHE.has("__docTitle__")) VI_CHROME_CACHE.set("__docTitle__", { val: document.title });
-  document.title = enMode
-    ? "Where Does Your Money Sleep Tonight? — Where Money Sleeps"
-    : VI_CHROME_CACHE.get("__docTitle__").val;
 
   [
     ["#hdrLangVi", !enMode], ["#hdrLangEn", enMode]
@@ -16301,7 +16388,7 @@ function applyStaticChrome(lang){
   cacheAndSetHtml("#ftColophon", 'Independent archival edition · Verified against 4 gates: Circular 99/2025 accounting (K1–K4), banking mechanics (F1–F4), brand safety (B1–B4) &amp; motion (M1–M4) · Explains how money moves and settles; not financial, tax, or investment advice · Account tables represent an <span lang="en">unofficial summary of Circular 99/2025/TT-BTC</span>.', enMode);
 
   cacheAndSetText("#fbFormHeading", "Feedback & Topic Suggestion Box", enMode);
-  cacheAndSetHtml("#fbBoxLead", 'Send everyday money questions or ledger corrections straight to <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> via same-origin Worker (0 third-party trackers).', enMode);
+  cacheAndSetHtml("#fbBoxLead", 'Draft an everyday money question or ledger note, then copy the formatted draft or open your Mail app to send to <a class="ft-link" href="mailto:hello@duypham.me">hello@duypham.me</a> (0 intermediate server storage, 0 third-party trackers).', enMode);
   cacheAndSetAttr("#siteFooter .fb-tabs", "aria-label", "Message purpose", enMode);
   cacheAndSetText("#fbModesLbl", "Purpose:", enMode);
   cacheAndSetText('#siteFooter [data-fb-kind="topic"]', "Suggest a new topic", enMode);
@@ -16484,6 +16571,54 @@ function updateReadingBar(){
 window.addEventListener("scroll", updateReadingBar, { passive: true });
 window.addEventListener("resize", () => { updateReadingBar(); syncAllHScrollStrips(); }, { passive: true });
 
+const SITE_ORIGIN = "https://wheremoneysleeps.duyslab.icu";
+function setHeadAttr(id, attr, val){
+  const el = document.getElementById(id);
+  if (el) el.setAttribute(attr, val);
+}
+function syncHeadMeta(){
+  const lang = getLang(), enMode = lang === "en", stories = getStories();
+  const isDetail = S.view === "detail" && Boolean(stories[S.story]);
+  const slug = isDetail ? S.story : "landing";
+  const s = isDetail ? stories[S.story] : null;
+  const title = isDetail
+    ? `${s.title} — Where Money Sleeps`
+    : (enMode ? "Where Does Your Money Sleep Tonight? — Where Money Sleeps" : "Đêm nay, tiền của bạn đang ngủ ở đâu? — Where Money Sleeps");
+  const desc = isDetail
+    ? (enMode ? `${s.teaser} (Unofficial summary of Circular 99/2025/TT-BTC.)` : s.teaser)
+    : (enMode
+        ? "From the bank alert to double-entry ledgers: trace real settlement rails and Circular 99/2025/TT-BTC bookkeeping (unofficial summary, bilingual VI ⇄ EN)."
+        : "Từ tin báo ghi có tới sổ sách ngân hàng: giải mã đường đi thật của dòng tiền và bút toán kép Thông tư 99/2025/TT-BTC (song ngữ VI ⇄ EN).");
+  const canonical = isDetail
+    ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}&lang=${lang}`
+    : (enMode ? `${SITE_ORIGIN}/?lang=en` : `${SITE_ORIGIN}/`);
+  const imgSlug = isDetail ? slug : "card";
+  const imgUrl = `${SITE_ORIGIN}/public/brand/${encodeURIComponent(imgSlug)}-fig-1.jpg`;
+  const imgAlt = isDetail
+    ? s.title
+    : (enMode ? "Where Money Sleeps — Cross-section of payment settlement rails and ledgers" : "Where Money Sleeps — Mặt cắt đường đi của dòng tiền và sổ kế toán");
+  const altVi = isDetail ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}&lang=vi` : `${SITE_ORIGIN}/?lang=vi`;
+  const altEn = isDetail ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}&lang=en` : `${SITE_ORIGIN}/?lang=en`;
+  const altDef = isDetail ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}` : `${SITE_ORIGIN}/`;
+  document.title = title;
+  setHeadAttr("metaDesc", "content", desc);
+  setHeadAttr("canonicalLink", "href", canonical);
+  setHeadAttr("hreflangVi", "href", altVi);
+  setHeadAttr("hreflangEn", "href", altEn);
+  setHeadAttr("hreflangDefault", "href", altDef);
+  setHeadAttr("ogType", "content", isDetail ? "article" : "website");
+  setHeadAttr("ogLocale", "content", enMode ? "en_US" : "vi_VN");
+  setHeadAttr("ogLocaleAlt", "content", enMode ? "vi_VN" : "en_US");
+  setHeadAttr("ogTitle", "content", title);
+  setHeadAttr("ogDesc", "content", desc);
+  setHeadAttr("ogUrl", "content", canonical);
+  setHeadAttr("ogImage", "content", imgUrl);
+  setHeadAttr("ogImageAlt", "content", imgAlt);
+  setHeadAttr("twTitle", "content", title);
+  setHeadAttr("twDesc", "content", desc);
+  setHeadAttr("twImage", "content", imgUrl);
+}
+
 function syncViewDOM(doAnim){
   const isLand = S.view === "landing", stories = getStories(), enMode = isEn();
   const landEl = $("#landingView"), detEl = $("#detailView"), bar = $("#atlasbar");
@@ -16507,6 +16642,8 @@ function syncViewDOM(doAnim){
     if (pt) pt.textContent = prog.completed[S.story]
       ? (enMode ? "✓ Completed" : "✓ Đã hoàn thành")
       : (enMode ? `Lesson ${p.ti}/${p.tn} in category` : `Bài ${p.ti}/${p.tn} trong danh mục`);
+    const layEl = $("#pnl-lay");
+    if (layEl && !layEl.innerHTML.trim()) renderPack();
   }
 
   if (doAnim){
@@ -16517,6 +16654,8 @@ function syncViewDOM(doAnim){
       activeView.classList.add("view-fade");
     }
   }
+  renderStageVideo();
+  syncHeadMeta();
   renderGlossary();
   syncFeedbackUi();
   updateReadingBar();
@@ -16545,8 +16684,13 @@ function setView(nextView, storyKey, scrollTarget, pushHist){
   if (pushHist !== false){
     try {
       const u = new URL(location.href);
-      if (S.view === "detail") u.searchParams.set("story", S.story);
-      else u.searchParams.delete("story");
+      if (S.view === "detail") {
+        u.searchParams.set("story", S.story);
+        if (storyKey && u.hash && !u.hash.startsWith("#sync=")) u.hash = "";
+      } else {
+        u.searchParams.delete("story");
+        u.hash = "";
+      }
       u.searchParams.set("lang", getLang());
       history.pushState({ view: S.view, story: S.story, lang: getLang() }, "", u.toString());
     } catch (_) {}
@@ -16584,25 +16728,73 @@ $$(".preset-btn[data-calc]").forEach(btn => {
   };
 });
 
+/* Dùng chung sao chép clipboard + liên kết neo chương/sổ kế toán */
+async function copyTextWithFallback(text){
+  const val = String(text || "");
+  if (!val) return false;
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    try { await navigator.clipboard.writeText(val); return true; } catch (_) {}
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = val;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;inset-block-start:0;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = Boolean(document.execCommand && document.execCommand("copy"));
+    ta.remove();
+    return ok;
+  } catch (_) {
+    return false;
+  }
+}
+
+(function initChapterAnchorCopy(){
+  const timers = new WeakMap();
+  let lastAnnouncement = "";
+  document.addEventListener("click", async e => {
+    const btn = e.target.closest("button.chap-copy-btn[data-copy-anchor]");
+    if (!btn) return;
+    const anchorId = btn.dataset.copyAnchor;
+    if (!anchorId) return;
+    const base = location.protocol === "file:" ? `${SITE_ORIGIN}/` : `${location.origin}${location.pathname}`;
+    const url = `${base}?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`;
+    if (location.protocol !== "file:" && history && history.replaceState){
+      try { history.replaceState(history.state, "", `?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`); } catch (_) {}
+    }
+    const ok = await copyTextWithFallback(url);
+    const tip = btn.nextElementSibling, glyph = btn.querySelector(".chap-copy-glyph");
+    clearTimeout(timers.get(btn));
+    btn.removeAttribute("data-copied");
+    btn.removeAttribute("data-failed");
+    btn.setAttribute(ok ? "data-copied" : "data-failed", "true");
+    if (glyph) glyph.textContent = ok ? "✓" : "!";
+    let msg = isEn() ? (ok ? "Link copied" : "Copy failed") : (ok ? "Đã chép link" : "Chưa chép được");
+    if (msg === lastAnnouncement) msg += "\u00A0";
+    lastAnnouncement = msg;
+    if (tip){
+      tip.textContent = "";
+      requestAnimationFrame(() => { tip.textContent = msg; });
+    }
+    timers.set(btn, setTimeout(() => {
+      btn.removeAttribute("data-copied");
+      btn.removeAttribute("data-failed");
+      if (glyph) glyph.textContent = "#";
+      if (tip) tip.textContent = "";
+    }, 2000));
+  });
+})();
+
 /* Sao chép email SVG icon */
 (function initCopyEmail(){
   const btn = $("#ftCopyEmailBtn"); if (!btn) return;
   let timer = 0;
   btn.onclick = async () => {
     const email = btn.dataset.copy || "hello@duypham.me";
-    let ok = false;
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      try { await navigator.clipboard.writeText(email); ok = true; } catch (_) {}
-    }
-    if (!ok){
-      try {
-        const ta = document.createElement("textarea");
-        ta.value = email; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0";
-        document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove();
-      } catch (_) {}
-    }
-    btn.dataset.copied = "true";
-    btn.setAttribute("aria-label", `${isEn() ? "Copied email" : "Đã sao chép email"} ${email}`);
+    const ok = await copyTextWithFallback(email);
+    btn.dataset.copied = ok ? "true" : "false";
+    btn.setAttribute("aria-label", ok ? `${isEn() ? "Copied email" : "Đã sao chép email"} ${email}` : `${isEn() ? "Copy failed for" : "Không chép được email"} ${email}`);
     clearTimeout(timer);
     timer = setTimeout(() => {
       btn.dataset.copied = "false";
@@ -16657,8 +16849,8 @@ function syncFeedbackUi(){
     ? (isTopic ? "Topic you want broken down" : "Edit suggestion / Circular 99 Ledger Note")
     : (isTopic ? "Chủ đề bạn muốn mình mổ xẻ" : "Góp ý chỉnh sửa / Đối chiếu sổ TT 99/2025")) + ` <span aria-hidden="true">*</span>`;
   if (submitBtn) submitBtn.textContent = enMode
-    ? (isTopic ? "Send suggestion to hello@duypham.me" : "Send note to hello@duypham.me")
-    : (isTopic ? "Gửi đề xuất về hello@duypham.me" : "Gửi góp ý về hello@duypham.me");
+    ? (isTopic ? "Copy topic draft & prepare email" : "Copy note draft & prepare email")
+    : (isTopic ? "Chép bản nháp đề xuất & chuẩn bị gửi" : "Chép bản nháp góp ý & chuẩn bị gửi");
 
   const hasDetailCtx = S.view === "detail" && stories[S.story];
   if (ctxEl){
@@ -16714,22 +16906,47 @@ function syncFeedbackUi(){
   const form = $("#fbForm"), msgEl = $("#fbMessage"), emailEl = $("#fbEmail"), statusEl = $("#fbStatus"), msgErr = $("#fbMessageError"), emailErr = $("#fbEmailError");
   if (!form || !msgEl || !emailEl) return;
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let msgEdited = false, emailEdited = false, statusRepeatFlip = false;
 
   $$("[data-fb-kind]").forEach(b => {
     b.onclick = () => { S.fbKind = b.dataset.fbKind || "topic"; syncFeedbackUi(); };
   });
   msgEl.addEventListener("input", () => {
+    msgEdited = true;
     if (msgEl.value.trim().length >= 8){
       setFbFieldError(msgEl, msgErr, "fbMessageHint", false, "");
     }
     syncFeedbackUi();
   });
+  msgEl.addEventListener("blur", () => {
+    const v = msgEl.value.trim();
+    if (msgEdited && v.length > 0 && v.length < 8){
+      setFbFieldError(
+        msgEl, msgErr, "fbMessageHint", true,
+        isEn()
+          ? "Please enter at least 8 non-space characters so your note is clear."
+          : "Vui lòng nhập ít nhất 8 ký tự (khác khoảng trắng) để tác giả hiểu rõ ý bạn."
+      );
+    }
+  });
   emailEl.addEventListener("input", () => {
+    emailEdited = true;
     const v = emailEl.value.trim();
     if (!v || EMAIL_RE.test(v)){
       setFbFieldError(emailEl, emailErr, "fbEmailHint", false, "");
     }
     syncFeedbackUi();
+  });
+  emailEl.addEventListener("blur", () => {
+    const v = emailEl.value.trim();
+    if (emailEdited && v && !EMAIL_RE.test(v)){
+      setFbFieldError(
+        emailEl, emailErr, "fbEmailHint", true,
+        isEn()
+          ? "Invalid email format (e.g., name@domain.com), or leave blank for anonymous."
+          : "Định dạng email chưa hợp lệ (ví dụ: ten@domain.com), hoặc bỏ trống để gửi ẩn danh."
+      );
+    }
   });
 
   form.addEventListener("submit", async e => {
@@ -16766,23 +16983,38 @@ function syncFeedbackUi(){
     }
     setFbFieldError(emailEl, emailErr, "fbEmailHint", false, "");
 
+    const stories = getStories();
+    const isTopic = S.fbKind !== "feedback";
+    const hasDetailCtx = S.view === "detail" && stories[S.story];
+    const subj = enMode
+      ? (isTopic ? "[WMS] New Lesson Proposal" : "[WMS] Edit Suggestion / TT 99 Ledger")
+      : (isTopic ? "[WMS] Đề xuất bài viết mới" : "[WMS] Góp ý chỉnh sửa / Sổ TT 99");
+    const ctxLine = hasDetailCtx
+      ? `${enMode ? "Current lesson" : "Bài đang đọc"}: ${stories[S.story].title} (${S.story})\n`
+      : (enMode ? "Context: Landing overview\n" : "Ngữ cảnh: Trang chủ (landing)\n");
+    const repLine = rawEmail ? `${enMode ? "Reply email" : "Email phản hồi"}: ${rawEmail}\n` : "";
+    const draftText = `To: hello@duypham.me\nSubject: ${subj}\n${ctxLine}${repLine}\n${enMode ? "Message" : "Nội dung"}:\n${rawMsg}`;
+    const copied = await copyTextWithFallback(draftText);
+
     const payload = {
       kind: S.fbKind,
       message: rawMsg,
       replyEmail: rawEmail || (enMode ? "anonymous" : "ẩn danh"),
       story: S.view === "detail" ? S.story : "landing"
     };
-    const isProd = location.protocol === "https:" && !/^(localhost|127\.0\.0\.1)$/i.test(location.hostname);
-    if (isProd){
-      try {
-        await fetch("/api/feedback", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-      } catch (_) {}
-    }
     if (statusEl){
+      statusRepeatFlip = !statusRepeatFlip;
+      const srTail = statusRepeatFlip ? "\u00A0" : "";
       statusEl.hidden = false;
-      statusEl.innerHTML = enMode
-        ? `<b>Message draft ready for hello@duypham.me</b><span>Message: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Context: <code>${esc(payload.story)}</code> · Reply: <code>${esc(payload.replyEmail)}</code>.<br>Click <b>Open Mail App ↗</b> beside this button to send right away.</span>`
-        : `<b>Đã chuẩn bị thư gửi hello@duypham.me</b><span>Nội dung: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Ngữ cảnh: <code>${esc(payload.story)}</code> · Email phản hồi: <code>${esc(payload.replyEmail)}</code>.<br>Bấm <b>Mở ứng dụng Mail ↗</b> bên cạnh nếu muốn gửi ngay từ máy bạn.</span>`;
+      if (copied){
+        statusEl.innerHTML = enMode
+          ? `<b>Draft copied to clipboard for hello@duypham.me${srTail}</b><span>Message: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Context: <code>${esc(payload.story)}</code> · Reply: <code>${esc(payload.replyEmail)}</code>.<br>Paste into any email client or click <b>Open Mail App ↗</b> beside this button to send right away.</span>`
+          : `<b>Đã chép bản nháp gửi hello@duypham.me${srTail}</b><span>Nội dung: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Ngữ cảnh: <code>${esc(payload.story)}</code> · Email phản hồi: <code>${esc(payload.replyEmail)}</code>.<br>Bạn có thể dán thẳng vào email hoặc bấm <b>Mở ứng dụng Mail ↗</b> bên cạnh để gửi ngay.</span>`;
+      } else {
+        statusEl.innerHTML = enMode
+          ? `<b>Message draft ready for hello@duypham.me${srTail}</b><span>Message: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Context: <code>${esc(payload.story)}</code> · Reply: <code>${esc(payload.replyEmail)}</code>.<br>Clipboard permission was blocked — click <b>Open Mail App ↗</b> beside this button to send right away.</span>`
+          : `<b>Bản nháp sẵn sàng gửi hello@duypham.me${srTail}</b><span>Nội dung: “${esc(payload.message.slice(0, 110))}${payload.message.length > 110 ? "…" : ""}” · Ngữ cảnh: <code>${esc(payload.story)}</code> · Email phản hồi: <code>${esc(payload.replyEmail)}</code>.<br>Trình duyệt chưa cấp quyền chép tự động — hãy bấm <b>Mở ứng dụng Mail ↗</b> bên cạnh để gửi ngay.</span>`;
+      }
     }
   });
   syncFeedbackUi();
@@ -16829,12 +17061,12 @@ if (new URLSearchParams(location.search).get("lang")) {
 }
 applyStaticChrome(S.lang);
 const initialUrlStory = new URLSearchParams(location.search).get("story");
-const detailHashSet = new Set(["stage", "secStage", "thu", "baiday", "lessonQuizWrap", "studioScriptSec"]);
+const detailHashSet = new Set(["stage", "secStage", "thu", "baiday", "lessonQuizWrap", "studioScriptSec", "ledger"]);
 const initialHash = (location.hash || "").replace(/^#/, "");
 if (initialUrlStory && getStories()[initialUrlStory] && visible(initialUrlStory)){
   S.story = initialUrlStory;
   S.view = "detail";
-} else if (detailHashSet.has(initialHash)){
+} else if (detailHashSet.has(initialHash) || initialHash.startsWith("pk-")){
   S.view = "detail";
 } else {
   S.view = "landing";
@@ -16843,6 +17075,7 @@ if (!visible(S.story) && order().length) S.story = order()[0];
 applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus();
 syncViewDOM(false);
 if (S.view === "detail" && initialHash){
+  if (initialHash.startsWith("pk-pro-") && typeof showTab === "function") showTab("pro", false);
   setTimeout(() => { const el = document.getElementById(initialHash); if (el) el.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); }, 80);
 }
 setTimeout(()=>{ if ($("#sms")) $("#sms").classList.add("in"); if ($("#smsnote")) $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);

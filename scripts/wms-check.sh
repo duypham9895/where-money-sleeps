@@ -21,23 +21,36 @@ if [ -d .git/hooks ] && [ -f scripts/wms-pre-push.sh ] && [ ! -e .git/hooks/pre-
 fi
 
 rc=0
-echo "════ [1/5] check-story.py ════"
+echo "════ [0/6] Entry parity (docs/prototype.html == index.html) ════"
+if cmp -s docs/prototype.html index.html; then
+  echo "PASS: docs/prototype.html ≡ index.html"
+else
+  echo "FAIL: docs/prototype.html lệch với index.html — chạy 'cp docs/prototype.html index.html'" >&2
+  rc=1
+fi
+
+echo
+echo "════ [1/6] check-story.py ════"
 python3 -I scripts/check-story.py "$@" || rc=1
 
 echo
-echo "════ [2/5] wms-finance-kb.py (tai-chinh-reviewer F1–F4) ════"
+echo "════ [2/6] wms-finance-kb.py (tai-chinh-reviewer F1–F4) ════"
 python3 -I scripts/wms-finance-kb.py --verify || rc=1
 
 echo
-echo "════ [3/5] wms-motion-snap.py (bang-motion M1–M4) ════"
+echo "════ [3/6] wms-motion-snap.py (bang-motion M1–M4) ════"
 python3 -I scripts/wms-motion-snap.py || rc=1
 
 echo
-echo "════ [4/5] wms-studio-sync.py (Studio Data & Waveform Sync QĐ 59) ════"
+echo "════ [4/6] wms-studio-sync.py (Studio Data & Waveform Sync QĐ 59) ════"
 python3 -I scripts/wms-studio-sync.py --verify || rc=1
 
 echo
-echo "════ [5/5] vibe-check.sh (xưởng cha) ════"
+echo "════ [5/6] wms-feedback-test.py (Footer & Hộp thư E2E) ════"
+python3 -I scripts/wms-feedback-test.py --ci || rc=1
+
+echo
+echo "════ [6/6] vibe-check.sh (xưởng cha) ════"
 if [ -f ../scripts/vibe-check.sh ]; then
   bash ../scripts/vibe-check.sh . || rc=1
 else
