@@ -56,12 +56,13 @@ EXPECTED_YT_IDS = {
 
 def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     errors = []
-    # Check 28 CHAP_FIGS images on disk and attributes across all 7 lessons
+    # Check 28 CHAP_FIGS images (.jpg, .webp, .avif) on disk and attributes across all 7 lessons
     for sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
         for idx in (1, 2, 3, 4):
-            fig_path = ROOT / "public" / "brand" / f"{sid}-fig-{idx}.jpg"
-            if not fig_path.is_file() or fig_path.stat().st_size < 10_000:
-                errors.append(f"Thiếu hoặc lỗi file hình mặt cắt LUẬT 9: {fig_path}")
+            for ext, min_sz in (("jpg", 10_000), ("webp", 4_000), ("avif", 4_000)):
+                fig_path = ROOT / "public" / "brand" / f"{sid}-fig-{idx}.{ext}"
+                if not fig_path.is_file() or fig_path.stat().st_size < min_sz:
+                    errors.append(f"Thiếu hoặc lỗi file hình mặt cắt LUẬT 9 ({ext}): {fig_path}")
     if 'width="1200" height="675"' not in proto_text or 'loading="lazy"' not in proto_text:
         errors.append("prototype.html thiếu thuộc tính CLS=0 (width=1200 height=675 loading=lazy) cho CHAP_FIGS")
 
@@ -296,11 +297,13 @@ console.log(JSON.stringify({
 
 def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) -> list[str]:
     errors = []
-    # Check 0 external script src across all 3 apps
+    # Check 0 external script src & 0 third-party Google Fonts calls across all 3 apps + worker
     for name, content in [("prototype.html", proto_text), ("studio.html", studio_text), ("workflows.html", wf_text)]:
         ext_scripts = re.findall(r'<script[^>]+src=["\'](https?://[^"\']+)["\']', content, re.I)
         if ext_scripts:
             errors.append(f"{name} chứa script CDN bên thứ ba vi phạm AC-33: {ext_scripts}")
+        if "fonts.googleapis.com" in content or "fonts.gstatic.com" in content:
+            errors.append(f"{name} vẫn gọi font ngoài Google Fonts (phải tự host tại public/fonts/)")
     # Check CSP connect-src 'none' on studio.html
     if "connect-src 'none'" not in studio_text:
         errors.append("studio.html thiếu khoá bảo mật CSP connect-src 'none'")
@@ -314,6 +317,8 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
             errors.append(f"Thiếu file hạ tầng deploy Cloudflare: {req_p}")
     if worker_path.is_file():
         w_txt = worker_path.read_text(encoding="utf-8")
+        if "fonts.googleapis.com" in w_txt or "fonts.gstatic.com" in w_txt:
+            errors.append("cloudflare/worker.js CSP vẫn còn domain fonts.googleapis.com / fonts.gstatic.com")
         for forbidden in ("CF-Connecting-IP", "User-Agent", "request.cf", "Set-Cookie", "console.log(request)"):
             if forbidden.lower() in w_txt.lower():
                 errors.append(f"cloudflare/worker.js vi phạm AC-55/AC-56 (chứa {forbidden})")
@@ -325,7 +330,8 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
                 (
                     f"import {{ resolveSeoMeta }} from {json.dumps(worker_path.as_uri())};"
                     "const m = resolveSeoMeta('https://wheremoneysleeps.duyslab.icu/?story=profitcash&lang=en');"
-                    "if (!m.imageUrl.endsWith('profitcash-fig-1.jpg') || !m.desc.toLowerCase().includes('unofficial summary')) "
+                    "const ld = JSON.parse(m.jsonLd);"
+                    "if (!m.imageUrl.endsWith('profitcash-fig-1.jpg') || !m.desc.toLowerCase().includes('unofficial summary') || !ld.video || ld.video['@type'] !== 'VideoObject') "
                     "{ console.error('Bad resolveSeoMeta:', m); process.exit(1); }"
                 ),
             ],
@@ -338,8 +344,26 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
         wr_txt = wrangler_path.read_text(encoding="utf-8")
         if '"enabled": false' not in wr_txt:
             errors.append("wrangler.jsonc thiếu observability.enabled = false (AC-56)")
-        if "run_worker_first" not in wr_txt:
-            errors.append("wrangler.jsonc thiếu assets.run_worker_first cho OpenGraph HTMLRewriter")
+        if "run_worker_first" not in wr_txt or '"/studio"' not in wr_txt:
+            errors.append("wrangler.jsonc thiếu assets.run_worker_first cho /, /studio & OpenGraph HTMLRewriter")
+    readout_chk = subprocess.run(
+        [sys.executable, "-I", str(ROOT / "scripts" / "wms-readout.py"), "--selftest"],
+        capture_output=True,
+        text=True,
+    )
+    if readout_chk.returncode != 0:
+        errors.append(f"wms-readout.py --selftest lỗi: {readout_chk.stderr.strip() or readout_chk.stdout.strip()}")
+
+    dist_site = ROOT / "dist" / "site"
+    if (dist_site / "index.html").is_file():
+        if (dist_site / "index.html").stat().st_size >= 800 * 1024:
+            errors.append(f"dist/site/index.html chưa được tách nhỏ (<800 KB): {(dist_site / 'index.html').stat().st_size} bytes")
+        for req_dist in ("feed.xml", "feed-en.xml", "sw.js", "public/manifest.webmanifest", "public/fonts/wms-fonts.css"):
+            if not (dist_site / req_dist).is_file():
+                errors.append(f"dist/site thiếu file bắt buộc: {req_dist}")
+        for sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
+            if not (dist_site / "data" / "stories" / f"{sid}.json").is_file():
+                errors.append(f"dist/site thiếu gói JSON tách riêng: data/stories/{sid}.json")
     return errors
 
 

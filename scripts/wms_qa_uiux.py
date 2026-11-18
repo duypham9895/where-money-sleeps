@@ -112,9 +112,18 @@ def static_uiux_checks(root_dir: Path) -> list[str]:
             errs.append("SVG <svg viewBox> chứa font-size rem|em bị cấm")
             break
 
+    fonts_css = root_dir / "public" / "fonts" / "wms-fonts.css"
+    if not fonts_css.is_file():
+        errs.append("Thiếu public/fonts/wms-fonts.css cho self-hosted SIL OFL fonts")
+    else:
+        fcss = fonts_css.read_text(encoding="utf-8")
+        for fam in ("Be Vietnam Pro", "Newsreader", "Fraunces", "JetBrains Mono"):
+            if f"'{fam}'" not in fcss:
+                errs.append(f"public/fonts/wms-fonts.css thiếu @font-face '{fam}'")
+
     if '"Newsreader Fallback"' not in wf or not re.search(r"\.fact-cell\s+\.val\{[^}]*var\(--sans\)", wf):
         errs.append("workflows.html thiếu font fallback hoặc .fact-cell .val chưa dùng var(--sans)")
-    for tok in ["wms-studio-theme", "--ok-fill", "--flag-fill", "Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700", "font-size: 0.875rem"]:
+    for tok in ["wms-studio-theme", "--ok-fill", "--flag-fill", "public/fonts/wms-fonts.css", "font-size: 0.875rem"]:
         if tok not in studio:
             errs.append(f"studio.html thiếu {tok}")
     if re.search(r"html,\s*body\s*\{[^}]*font-size:\s*14px", studio):
@@ -122,9 +131,11 @@ def static_uiux_checks(root_dir: Path) -> list[str]:
 
     for pg in DOC_PAGES:
         txt = (docs / pg).read_text(encoding="utf-8")
-        for tok in ["viewport-fit=cover", 'name="text-scale"', 'name="color-scheme"', "vibe-doc-theme", "wght@400;500;600;700;800"]:
+        for tok in ["viewport-fit=cover", 'name="text-scale"', 'name="color-scheme"', "vibe-doc-theme", "public/fonts/wms-fonts.css"]:
             if tok not in txt:
                 errs.append(f"docs/{pg} thiếu {tok}")
+        if "fonts.googleapis.com" in txt or "fonts.gstatic.com" in txt:
+            errs.append(f"docs/{pg} vẫn gọi Google Fonts ngoài thay vì self-hosted wms-fonts.css")
         if "wght@400;500;650" in txt:
             errs.append(f"docs/{pg} vẫn còn font axis wght@400;500;650")
 

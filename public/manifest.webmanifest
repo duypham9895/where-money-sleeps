@@ -1,0 +1,18 @@
+{
+  "name": "Where Money Sleeps",
+  "short_name": "Money Sleeps",
+  "description": "Từ tin báo ghi có tới sổ sách ngân hàng: giải mã đường đi thật của dòng tiền và Thông tư 99/2025/TT-BTC (VI ⇄ EN).",
+  "start_url": "/?lang=vi",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f0e4",
+  "theme_color": "#0d1320",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

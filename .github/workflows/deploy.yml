@@ -43,11 +43,11 @@ jobs:
       - name: Run T1 Deterministic Gate (wms-check.sh)
         run: bash scripts/wms-check.sh --quiet
 
-      - name: Run S4 E2E QA Verification (wms-qa-verify.py --ci)
-        run: python3 -I scripts/wms-qa-verify.py --ci
-
       - name: Build Static Assets Bundle (dist/site)
         run: python3 -I scripts/wms-build-deploy.py
+
+      - name: Run S4 E2E QA Verification (wms-qa-verify.py --ci)
+        run: python3 -I scripts/wms-qa-verify.py --ci
 
   deploy:
     name: Deploy to Cloudflare Workers + D1
@@ -143,6 +143,14 @@ jobs:
             "/favicon.svg"
             "/robots.txt"
             "/sitemap.xml"
+            "/feed.xml"
+            "/feed-en.xml"
+            "/public/manifest.webmanifest"
+            "/sw.js"
+            "/data/stories/card.json"
+            "/public/brand/card-fig-1.webp"
+            "/public/brand/card-fig-1.avif"
+            "/public/fonts/wms-fonts.css"
           )
 
           verify_origin() {
@@ -175,7 +183,17 @@ jobs:
 
             curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors -A "WMS-CI-Verify/1.0" "$ORIGIN/?story=profitcash&lang=en" -o /tmp/live-og.html
             grep -q "profitcash-fig-1.jpg" /tmp/live-og.html
-            echo "  OK HTMLRewriter OG meta $ORIGIN/?story=profitcash&lang=en"
+            grep -q "VideoObject" /tmp/live-og.html
+            grep -q "/data/stories/profitcash.json" /tmp/live-og.html
+            echo "  OK HTMLRewriter OG + JSON-LD + Preload $ORIGIN/?story=profitcash&lang=en"
+
+            CSP_CNT=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN/studio.html" | tr -d '\r' | grep -ic "^content-security-policy:" || true)
+            CSP_VAL=$(curl -sSI -A "WMS-CI-Verify/1.0" "$ORIGIN/studio.html" | tr -d '\r' | grep -i "^content-security-policy:" || true)
+            if [ "$CSP_CNT" != "1" ] || ! echo "$CSP_VAL" | grep -q "connect-src 'none'"; then
+              echo "::error::Expected exactly 1 connect-src 'none' CSP header on $ORIGIN/studio.html, got count=$CSP_CNT"
+              exit 1
+            fi
+            echo "  OK single CSP header on $ORIGIN/studio.html"
 
             FB_CODE=$(curl -sS --retry 3 --retry-delay 2 -A "WMS-CI-Verify/1.0" -o /dev/null -w "%{http_code}" -X POST "$ORIGIN/api/feedback" -d '{}')
             if [ "$FB_CODE" != "410" ]; then

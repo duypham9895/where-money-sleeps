@@ -55,9 +55,13 @@
   }catch(_){}
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="manifest" href="../public/manifest.webmanifest">
+<link rel="alternate" type="application/atom+xml" title="Where Money Sleeps (Tiếng Việt)" href="https://wheremoneysleeps.duyslab.icu/feed.xml">
+<link rel="alternate" type="application/atom+xml" title="Where Money Sleeps (English)" href="https://wheremoneysleeps.duyslab.icu/feed-en.xml">
+<link rel="preload" href="../public/fonts/bevietnampro-normal-400-vietnamese-2bcedc48.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../public/fonts/newsreader-normal-400-600-vietnamese-35749bec.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../public/fonts/wms-fonts.css">
+<script type="application/ld+json" id="jsonLdScript">{"@context":"https://schema.org","@type":"WebSite","name":"Where Money Sleeps","url":"https://wheremoneysleeps.duyslab.icu/"}</script>
 <style>
 @font-face{
   font-family:"Newsreader Fallback";
@@ -107,7 +111,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;container-type:scroll-state;overflow-x:clip}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
-  font-size:1.1875rem;line-height:1.6;-webkit-font-smoothing:antialiased;
+  font-size:1.1875rem;line-height:1.6;font-size-adjust:from-font;-webkit-font-smoothing:antialiased;
   font-optical-sizing:auto;transition:background .3s,color .3s;overflow-x:clip}
 /* hạt giấy phủ toàn trang — một lớp nhiễu, không phải ảnh */
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.22;mix-blend-mode:multiply;
@@ -583,6 +587,7 @@ button.tp:focus-visible{outline:2px solid var(--lamp);outline-offset:2px}
 .tp[aria-current="true"] .t{font-weight:600}
 .tp[aria-current="true"] .k::before{content:"▸ ";color:var(--lamp)}
 .atlas-empty{font-style:italic;color:var(--ink-3);margin:8px 0}
+.tp-match{display:block;margin-top:2px;font:600 11px/1.3 var(--mono);color:var(--clay)}
 mark{background:var(--lamp-soft);color:inherit;border-radius:2px;padding:0 2px}
 
 /* ── Trạm đọc kế tiếp cuối bài (End-of-Article Handoff Card) ── */
@@ -685,6 +690,8 @@ body.cms-on{padding-bottom:150px}
 .asks li{counter-increment:ask;position:relative;padding:12px 14px 12px 52px;border-left:4px solid var(--lamp);background:var(--card);font-size:1.02rem}
 .asks li::before{content:"?" counter(ask);position:absolute;left:12px;top:10px;font:700 15px var(--mono);color:var(--lamp)}
 .pack-note{font:12.5px/1.5 var(--sans);color:var(--ink-3);margin:22px auto 0;max-width:min(42rem,100%);text-align:center}
+.pack-retry-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:10px 18px;font:600 13.5px/1.3 var(--sans);background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:4px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.pack-retry-btn:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
 .mech{max-width:min(54rem,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:14px}
 .mech article{border-top:3px solid var(--ink);padding-top:8px}
 .mech h5{font:700 15px var(--sans);margin:0 0 6px}
@@ -1138,6 +1145,13 @@ button.compact-row:focus-visible{background:var(--paper-2);border-color:var(--in
 .preset-btn:hover{border-color:var(--clay);background:var(--card);background:color-mix(in srgb,var(--clay) 9%,transparent)}
 .preset-btn:focus-visible{border-color:var(--clay);background:var(--card);background:color-mix(in srgb,var(--clay) 9%,transparent);outline:2px solid var(--lamp);outline-offset:2px}
 .preset-btn[aria-pressed="true"]{border-color:var(--clay);background:var(--card);background:color-mix(in srgb,var(--clay) 14%,transparent);color:var(--clay)}
+.calc-share-wrap{margin-inline-start:auto}
+.calc-share-btn{appearance:none;display:inline-flex;align-items:center;gap:5px;border:1px dashed var(--rule-ui);border-radius:3px;background:var(--paper);color:var(--ink-2);font:600 11.5px/1.2 var(--sans);padding:5px 9px;cursor:pointer;transition:border-color .12s,color .12s,background-color .12s}
+.calc-share-btn:focus-visible{border-color:var(--ink);color:var(--ink);background:var(--card);outline:2px solid var(--lamp);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.calc-share-btn:hover{border-color:var(--ink);color:var(--ink);background:var(--card)}}
+.calc-share-btn[data-copied="true"]{color:var(--moss);border-color:var(--moss);border-style:solid}
+.calc-share-btn[data-failed="true"]{color:var(--clay);border-color:var(--clay);border-style:solid}
+.calc-share-btn[data-copied="true"] + .chap-copy-tip,.calc-share-btn[data-failed="true"] + .chap-copy-tip{opacity:1}
 
 .next-triad,.next-triad.handoff{display:block;max-width:min(54rem,100%);margin:36px auto 0;padding:26px 0 8px;border:0;border-top:1.5px solid var(--ink);border-radius:0;background:transparent;box-shadow:none}
 .next-triad-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:16px}
@@ -1255,7 +1269,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
   font:400 12.5px/1.55 var(--sans);color:var(--ink);display:grid;gap:3px}
 .fb-status strong,.fb-status b{display:block;font-weight:700;color:var(--moss);margin-bottom:2px}
 /* ── LUẬT 13 · R1–R5 & U1–U7: Responsive Mobile+Desktop Parity ── */
-.atlas-x,.ab-theme-btn,.ab-step,.pp-all,.gl-chip,.gl-jump-chip,.chap-fig-jump,.yt-chap,.preset-btn{min-height:26px;display:inline-flex;align-items:center;justify-content:center}
+.atlas-x,.ab-theme-btn,.ab-step,.pp-all,.gl-chip,.gl-jump-chip,.chap-fig-jump,.yt-chap,.preset-btn,.calc-share-btn{min-height:26px;display:inline-flex;align-items:center;justify-content:center}
 .toc a{min-height:28px;display:inline-flex;align-items:center}
 .dot{min-height:28px}
 .ft-copy-btn{min-block-size:28px;min-inline-size:28px}
@@ -1291,7 +1305,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
   input,select,textarea,.catalog-search,.atlas-q input,#glSearch,.gl-search,.yt-cms-bind input,.fb-control{font-size:max(16px,1rem)}
 }
 @media (pointer:coarse){
-  .ab-btn,.ab-theme-btn,.ab-back,.ab-step,.ab-brand,.split-pill>button,.cat-pill,.mode-seg button,.page-btn,.beat-btn,.beat-step-btn,.pack-tabs button,.yt-switch button,.yt-chap,.yt-play,.fmt button,.preset-btn,.gl-chip,.gl-jump-chip,.chap-fig-jump,.chap-copy-btn,.pop-jump,#popX,.atlas-x,#atlasSt button,.atlas .tp,.cat-nav-btn,.pp-item,.pp-all,.cta-main,.cta-sub,.catalog-more-btn,.ft-copy-btn,.fb-control,.fb-submit,.fb-mode-btn,.fb-tabs button,.lang-seg button,.seg button,.step,.voice,.edges summary,.gl-drawer>summary,.toc a,.author-dock__btn,.author-dock__exit,.catalog-search,.atlas-q input,.gl-search,#glSearch,.handoff-go,.handoff-cat,.triad-card button.card-link-btn,.fb-chip,.fb-mailto,.ft-link,.ab-jumps a,.yt-voice a,button[data-quiz-pick],[data-quiz-jump-sec]{min-block-size:44px;min-height:44px}
+  .ab-btn,.ab-theme-btn,.ab-back,.ab-step,.ab-brand,.split-pill>button,.cat-pill,.mode-seg button,.page-btn,.beat-btn,.beat-step-btn,.pack-tabs button,.yt-switch button,.yt-chap,.yt-play,.fmt button,.preset-btn,.calc-share-btn,.gl-chip,.gl-jump-chip,.chap-fig-jump,.chap-copy-btn,.pop-jump,#popX,.atlas-x,#atlasSt button,.atlas .tp,.cat-nav-btn,.pp-item,.pp-all,.cta-main,.cta-sub,.catalog-more-btn,.ft-copy-btn,.fb-control,.fb-submit,.fb-mode-btn,.fb-tabs button,.lang-seg button,.seg button,.step,.voice,.edges summary,.gl-drawer>summary,.toc a,.author-dock__btn,.author-dock__exit,.catalog-search,.atlas-q input,.gl-search,#glSearch,.handoff-go,.handoff-cat,.triad-card button.card-link-btn,.fb-chip,.fb-mailto,.ft-link,.ab-jumps a,.yt-voice a,button[data-quiz-pick],[data-quiz-jump-sec]{min-block-size:44px;min-height:44px}
   input[type="range"]{min-block-size:44px;height:44px}
   [data-quiz-jump-sec]{display:inline-flex;align-items:center}
   .ab-theme-btn,.ab-step,.ab-back,#atlasBtn,#popX,.ft-copy-btn,.chap-copy-btn,.author-dock__exit,.lang-seg button,.page-btn,.yt-voice a{min-inline-size:44px}
@@ -1303,7 +1317,11 @@ textarea.fb-control{resize:vertical;min-height:92px}
   .story-card,.book.open,.cta-main,.toc a,.chap-fig-jump,.pack-tabs button,.handoff-go{transform:none!important}
 }
 
+@supports (content-visibility:auto){
+  .gl-sec,footer.site-footer{content-visibility:auto;contain-intrinsic-size:auto none auto 640px}
+}
 @media print{
+  .gl-sec{content-visibility:visible!important}
   :root,:root[data-theme="dark"]{
     --paper:#ffffff;--paper-2:#f4f4f4;--card:#ffffff;
     --ink:#111111;--ink-2:#2c2c2c;--ink-3:#444444;
@@ -1581,6 +1599,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryCard" data-set='{"amt":500000}'>Bữa sáng 500k</button>
         <button type="button" class="preset-btn" data-calc="tryCard" data-set='{"amt":10000000}' aria-pressed="true">Liên hoan 10 tr</button>
         <button type="button" class="preset-btn" data-calc="tryCard" data-set='{"amt":30000000}'>Hoá đơn 30 tr</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryCard" aria-label="Chép link phép tính — hoá đơn quẹt thẻ">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tcHint">Kéo để đổi số tiền của bữa liên hoan. Tỉ lệ phí ở đây là <b>một ví dụ</b> để thấy cơ chế, không phải biểu phí của ngân hàng nào.</p>
       <div class="field"><label for="amt"><span class="flbl" data-wmi="tcAmt">Hoá đơn quẹt thẻ</span> <output id="amtOut" class="num"></output></label>
@@ -1611,6 +1630,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryInst" data-set='{"ip":12000000,"ic":5}' aria-pressed="true">12 tr · Giảm 5%</button>
         <button type="button" class="preset-btn" data-calc="tryInst" data-set='{"ip":24000000,"ic":8}'>24 tr · Giảm 8%</button>
         <button type="button" class="preset-btn" data-calc="tryInst" data-set='{"ip":36000000,"ic":10}'>36 tr · Giảm 10%</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryInst" aria-label="Chép link phép tính — trả góp 0%">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tiHint">Kéo để đổi giá món hàng trả góp 0%, và phần cửa hàng giảm nếu bạn trả thẳng. Các tỉ lệ ở đây là <b>ví dụ</b> để thấy cơ chế.</p>
       <div class="field"><label for="ip"><span class="flbl" data-wmi="tiP">Giá trả góp 0% (12 kỳ)</span> <output id="ipOut" class="num"></output></label>
@@ -1636,6 +1656,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryPay" data-set='{"sal":15000000,"keep":35}' aria-pressed="true">Lương 15 tr · Giữ 35%</button>
         <button type="button" class="preset-btn" data-calc="tryPay" data-set='{"sal":25000000,"keep":45}'>Lương 25 tr · Giữ 45%</button>
         <button type="button" class="preset-btn" data-calc="tryPay" data-set='{"sal":45000000,"keep":50}'>Lương 45 tr · Giữ 50%</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryPay" aria-label="Chép link phép tính — lương CASA">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tpHint">Kéo để đổi lương và phần bạn thường để yên trong tài khoản suốt tháng. Lãi suất 0,1%/năm là <b>một ví dụ</b>.</p>
       <div class="field"><label for="sal"><span class="flbl" data-wmi="tpS">Lương thực lĩnh mỗi tháng</span> <output id="salOut" class="num"></output></label>
@@ -1660,6 +1681,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryMin" data-set='{"mpBal":10000000,"mpPct":5}' aria-pressed="true">10 tr · Trả 5%</button>
         <button type="button" class="preset-btn" data-calc="tryMin" data-set='{"mpBal":20000000,"mpPct":50}'>20 tr · Trả 50%</button>
         <button type="button" class="preset-btn" data-calc="tryMin" data-set='{"mpBal":20000000,"mpPct":100}'>20 tr · Trả đủ 100%</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryMin" aria-label="Chép link phép tính — trả tối thiểu">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tmHint">Kéo để đổi dư nợ sao kê Ngày 30 và tỉ lệ bạn trả ở Ngày 45 (từ mức tối thiểu 5% đến 100%). Lãi suất 36%/năm (0,1%/ngày) là <b>số ví dụ</b> để thấy cơ chế mất ân hạn miễn lãi.</p>
       <div class="field"><label for="mpBal"><span class="flbl" data-wmi="tmB">Dư nợ sao kê Ngày 30</span> <output id="mpBalOut" class="num"></output></label>
@@ -1685,6 +1707,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryQr" data-set='{"qrRev":10000000,"qrFeePct":0}' aria-pressed="true">10 tr/ngày · QR tĩnh 0%</button>
         <button type="button" class="preset-btn" data-calc="tryQr" data-set='{"qrRev":20000000,"qrFeePct":0.3}'>20 tr/ngày · QR động 0,3%</button>
         <button type="button" class="preset-btn" data-calc="tryQr" data-set='{"qrRev":35000000,"qrFeePct":0}'>35 tr/ngày · QR tĩnh 0%</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryQr" aria-label="Chép link phép tính — quét mã QR">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tqHint">Kéo để đổi doanh thu một ngày của quán và chế độ mã QR quán đang dùng. Đặt cạnh mức phí quẹt thẻ <button class="term" data-term="mdr">MDR</button> 2,2% <span class="ex">ví dụ</span> để thấy số tiền quán giữ lại được mỗi ngày và mỗi tháng.</p>
       <div class="field"><label for="qrRev"><span class="flbl" data-wmi="tqR">Doanh thu quán mỗi ngày</span> <output id="qrRevOut" class="num"></output></label>
@@ -1710,6 +1733,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryProfit" data-set='{"pcAr":2500000000,"pcInv":950000000}' aria-pressed="true">Bình thường (Nợ 2,5 tỷ)</button>
         <button type="button" class="preset-btn" data-calc="tryProfit" data-set='{"pcAr":3500000000,"pcInv":1500000000}'>Căng vốn (Nợ 3,5 tỷ + Kho 1,5 tỷ)</button>
         <button type="button" class="preset-btn" data-calc="tryProfit" data-set='{"pcAr":500000000,"pcInv":250000000}'>Thu tiền sớm (Nợ 0,5 tỷ)</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryProfit" aria-label="Chép link phép tính — dòng tiền doanh nghiệp">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="tpcHint">Kéo để đổi khoản phải thu khách sỉ đang nợ (<button class="term" data-term="accrual">TK 131</button>) và lượng hàng tồn kho nhập thêm (<button class="term" data-term="workingcapital">TK 156</button>) trên cùng doanh thu 10 tỷ đồng (lãi ròng trên sổ 2 tỷ đồng, tiền mặt đầu kỳ 1 tỷ đồng <span class="ex">ví dụ</span>) để thấy vì sao két tiền <button class="term" data-term="ocf">TK 112</button> chiều 31/12 bị rút cạn.</p>
       <div class="field"><label for="pcAr"><span class="flbl" data-wmi="tpcA">Khách hàng còn nợ chưa trả (TK 131)</span> <output id="pcArOut" class="num"></output></label>
@@ -1735,6 +1759,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" class="preset-btn" data-calc="tryOffus" data-set='{"ouOut":500000000000,"ouIn":470000000000}' aria-pressed="true">Cân bằng nhẹ (500 vs 470 tỷ)</button>
         <button type="button" class="preset-btn" data-calc="tryOffus" data-set='{"ouOut":750000000000,"ouIn":150000000000}'>Lệch dòng mạnh (750 vs 150 tỷ)</button>
         <button type="button" class="preset-btn" data-calc="tryOffus" data-set='{"ouOut":400000000000,"ouIn":400000000000}'>Khớp 100% (400 vs 400 tỷ)</button>
+        <span class="chap-copy-wrap calc-share-wrap"><button type="button" class="calc-share-btn" data-calc-share="tryOffus" aria-label="Chép link phép tính — bù trừ ròng">Chép link phép tính</button><span class="chap-copy-tip" role="status"></span></span>
       </div>
       <p class="tryhint" data-wmi-h="touHint">Kéo để đổi tổng luồng lệnh khách chuyển đi từ Ngân hàng A sang Ngân hàng B và chiều ngược lại từ B về A trong phiên (<span class="ex">ví dụ</span>) để thấy cơ chế <button class="term" data-term="netting">bù trừ ròng</button> giúp tiết kiệm bao nhiêu tiền dự trữ tại Ngân hàng Trung ương so với giao dịch nội mạng <button class="term" data-term="onus">On-Us</button>.</p>
       <div class="field"><label for="ouOut"><span class="flbl" data-wmi="touOut">Tổng lệnh khách chuyển đi A → B trong phiên</span> <output id="ouOutLbl" class="num"></output></label>
@@ -1856,7 +1881,9 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <div class="ft-dir-row">
           <dt>Quy trình &amp; Tự động hoá</dt>
           <dd>
-            <a class="ft-link" href="workflows.html">Sơ đồ Full-Agent (T0–T4) &amp; Sổ trung thực (VI / EN) →</a>
+            <a class="ft-link" id="ftWorkflowLink" href="workflows.html">Sơ đồ Full-Agent (T0–T4) &amp; Sổ trung thực (VI / EN) →</a>
+            <a class="ft-link" href="/feed.xml">RSS / Atom (VI)</a>
+            <a class="ft-link" href="/feed-en.xml">Atom (EN)</a>
           </dd>
         </div>
       </dl>
@@ -13004,6 +13031,67 @@ const S = {lang:"vi", story:"card", beat:0, sent:0, playing:false, voice:true, l
 /* chế độ duyệt: bật bằng nút trên tủ mục lục hoặc ?preview=1. Không lưu đi đâu — đây là prototype. */
 const CMS = {on: new URLSearchParams(location.search).has("preview"), q:"review", edit:false};
 const A = {q:"", st:"all", cat:null};                              // bộ lọc của bản đồ toàn bộ
+const STORY_PACK_PROMISES = {};
+const STORY_PACK_WAITERS = Object.create(null);
+const CALC_PARAM_MAP = {
+  card: ["amt"],
+  install: ["ip", "ic"],
+  pay: ["sal", "keep"],
+  minpay: ["mpBal", "mpPct"],
+  qr: ["qrRev", "qrFeePct"],
+  profitcash: ["pcAr", "pcInv"],
+  offus: ["ouOut", "ouIn"]
+};
+const CALC_ID_MAP = {
+  card: "tryCard", install: "tryInst", pay: "tryPay",
+  minpay: "tryMin", qr: "tryQr", profitcash: "tryProfit", offus: "tryOffus"
+};
+const DEEP_URL_PARAMS = new Set(["beat", "lens", "tab", "term", ...Object.values(CALC_PARAM_MAP).flat()]);
+function stripDeepUrlParams(u){
+  DEEP_URL_PARAMS.forEach(p => u.searchParams.delete(p));
+  return u;
+}
+function applyLoadedStoryPack(slug, pack){
+  if (!pack || typeof pack !== "object") return false;
+  if (pack.vi && typeof STORIES === "object" && STORIES[slug]) {
+    if (pack.vi.article) STORIES[slug].article = pack.vi.article;
+    if (pack.vi.videoScript) STORIES[slug].videoScript = pack.vi.videoScript;
+    STORIES[slug]._splitPack = false;
+  }
+  if (pack.en && typeof STORIES_EN === "object" && STORIES_EN[slug]) {
+    if (pack.en.article) STORIES_EN[slug].article = pack.en.article;
+    if (pack.en.videoScript) STORIES_EN[slug].videoScript = pack.en.videoScript;
+    STORIES_EN[slug]._splitPack = false;
+  }
+  if (typeof STORY_TERM_CACHE === "object") {
+    delete STORY_TERM_CACHE[`vi:${slug}`];
+    delete STORY_TERM_CACHE[`en:${slug}`];
+  }
+  if (typeof STORY_SEARCH_CACHE === "object") {
+    delete STORY_SEARCH_CACHE[`vi:${slug}`];
+    delete STORY_SEARCH_CACHE[`en:${slug}`];
+  }
+  return true;
+}
+function ensureStoryPack(slug){
+  const s = (typeof STORIES === "object" && STORIES[slug]) || null;
+  if (!slug || !s) return Promise.resolve(false);
+  const sEn = (typeof STORIES_EN === "object" && STORIES_EN[slug]) || null;
+  const hasFull = st => Boolean(st && st.article && st.article.lay && st.article.pro && st.videoScript && st.videoScript.long && Array.isArray(st.videoScript.long.scenes) && st.videoScript.long.scenes[0] && st.videoScript.long.scenes[0].vo);
+  if (hasFull(s) && (!sEn || hasFull(sEn))) return Promise.resolve(true);
+  if (!s._splitPack && location.protocol === "file:") return Promise.resolve(true);
+  if (STORY_PACK_PROMISES[slug]) return STORY_PACK_PROMISES[slug];
+  const base = location.pathname.includes("/docs/") ? "../data/stories/" : "data/stories/";
+  STORY_PACK_PROMISES[slug] = fetch(`${base}${encodeURIComponent(slug)}.json`, { credentials: "same-origin" })
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then(pack => applyLoadedStoryPack(slug, pack))
+    .catch(() => { delete STORY_PACK_PROMISES[slug]; return false; });
+  return STORY_PACK_PROMISES[slug];
+}
+function prefetchStoryPack(slug){
+  const s = slug && typeof STORIES === "object" ? STORIES[slug] : null;
+  if (s && s._splitPack && location.protocol !== "file:") ensureStoryPack(slug);
+}
 
 /* ── taxonomy: mọi con số trên trang suy ra từ activeCategories() + getStories(), không gõ cứng ── */
 const stStatus = tp => tp.story ? getStories()[tp.story].status : tp.status;
@@ -13834,8 +13922,10 @@ function renderChapHTML(sKey, c, i){
   if (!fig || paras.length < 2) {
     return `<section class="chap" id="${anchorId}">${headHTML}<div class="prose">${paras.map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
   }
+  const stem = String(fig.file || "").replace(/\.jpe?g$/i, "");
+  const brandBase = (location.protocol === "file:" && !location.pathname.includes("/docs/")) ? "public/brand/" : "../public/brand/";
   const figHTML = `<figure class="chap-fig" data-chap-fig="${i+1}">`
-    + `<img src="../public/brand/${esc(fig.file)}" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='public/brand/${esc(fig.file)}';}" width="1200" height="675" loading="lazy" decoding="async" alt="${esc(fig.alt)}">`
+    + `<picture><source type="image/avif" srcset="${brandBase}${esc(stem)}.avif"><source type="image/webp" srcset="${brandBase}${esc(stem)}.webp"><img src="${brandBase}${esc(fig.file)}" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='public/brand/${esc(fig.file)}';}" width="1200" height="675" loading="lazy" decoding="async" alt="${esc(fig.alt)}"></picture>`
     + `<figcaption>`
     + `<div class="chap-fig-top"><span class="chap-fig-kicker">${esc(fig.kicker)}</span>`
     + `<button type="button" class="chap-fig-jump" data-jump-beat="${fig.beat}">▶ ${enMode ? "Jump to this beat in Video &amp; Ledger ↑" : "Xem đoạn này trong Video &amp; Sổ kế toán ↑"}</button></div>`
@@ -13844,10 +13934,45 @@ function renderChapHTML(sKey, c, i){
     + `</figcaption></figure>`;
   return `<section class="chap" id="${anchorId}">${headHTML}<div class="prose"><p>${rich(paras[0])}</p></div>${figHTML}<div class="prose">${paras.slice(1).map(x => `<p>${rich(x)}</p>`).join("")}</div></section>`;
 }
+function renderPackLoadError(reqSlug){
+  const lay = $("#pnl-lay");
+  if (!lay) return;
+  const enMode = isEn();
+  lay.innerHTML = `<div class="pack-note" role="alert">`
+    + `<p>${enMode ? "Could not load the full essay &amp; Circular 99/2025 ledgers (offline or network error)." : "Không nạp được toàn văn bài khảo cứu &amp; sổ bút toán Thông tư 99/2025 (mất mạng hoặc chưa có bản lưu ngoại tuyến)."}</p>`
+    + `<button type="button" class="pack-retry-btn" id="packRetryBtn">${enMode ? "Retry loading lesson" : "Thử tải lại bài viết"}</button>`
+    + `</div>`;
+  const btn = $("#packRetryBtn", lay);
+  if (btn) btn.onclick = () => { delete STORY_PACK_PROMISES[reqSlug]; renderPack(); };
+}
 function renderPack(){
-  const s = getStories()[S.story], a = s.article, v = s.videoScript, sec = $("#baiday"), enMode = isEn();
+  const reqSlug = S.story, s = getStories()[reqSlug], a = s && s.article, v = s && s.videoScript, sec = $("#baiday"), enMode = isEn();
   if (S.view !== "detail") {
     if (sec) sec.hidden = true;
+    return;
+  }
+  if (s && s._splitPack && visible(reqSlug) && !(a && a.lay && a.pro)) {
+    sec.hidden = false;
+    $("#pack-h").textContent = s.title;
+    $("#pnl-lay").innerHTML = `<p class="pack-note">${enMode ? "Loading full essay &amp; Circular 99/2025 double-entry ledgers…" : "Đang nạp hồ sơ khảo cứu &amp; sổ bút toán Thông tư 99/2025…"}</p>`;
+    $("#pnl-pro").innerHTML = "";
+    const waitKey = `${reqSlug}:${getLang()}`;
+    if (!STORY_PACK_WAITERS[waitKey]) {
+      STORY_PACK_WAITERS[waitKey] = ensureStoryPack(reqSlug).then(ok => {
+        delete STORY_PACK_WAITERS[waitKey];
+        if (S.story !== reqSlug || S.view !== "detail") return ok;
+        if (ok) {
+          renderPack();
+          renderGlossary();
+          renderHandoff();
+          renderCMS();
+          if (PK.tab === "pro" && typeof showTab === "function") showTab("pro", false);
+        } else {
+          renderPackLoadError(reqSlug);
+        }
+        return ok;
+      });
+    }
     return;
   }
   sec.hidden = !(a && a.lay && a.pro && v && v.long && v.short && Array.isArray(v.long.scenes) && Array.isArray(v.short.scenes)) || !visible(S.story);
@@ -14030,7 +14155,10 @@ function showTab(t, focus){
     const stSec = $("#studioScriptSec");
     if (stSec) {
       stSec.hidden = false;
-      renderVid(getStories()[S.story], "");
+      const vidSlug = S.story;
+      ensureStoryPack(vidSlug).then(ok => {
+        if (ok && S.story === vidSlug) renderVid(getStories()[vidSlug], "");
+      });
       if (focus) stSec.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"});
     }
     return;
@@ -14097,15 +14225,15 @@ function renderAll(){
   if (typeof renderGlossary === "function") renderGlossary();
   if (typeof syncHeadMeta === "function") syncHeadMeta();
 }
-function go(story, b, s, keepPlaying){
+function go(story, b, s, keepPlaying, replaceUrl = true){
   stopSpeech();
   const changed = story!==S.story;
   S.story = story; S.beat = b; S.sent = s || 0;
   if (changed) {
     drawHouses();
     try {
-      if (location.protocol !== "file:" && history && history.replaceState) {
-        const u = new URL(location.href);
+      if (replaceUrl && location.protocol !== "file:" && history && history.replaceState) {
+        const u = stripDeepUrlParams(new URL(location.href));
         u.searchParams.set("story", S.story);
         if (u.hash && !u.hash.startsWith("#sync=")) u.hash = "";
         history.replaceState(null, "", u.pathname + u.search + u.hash);
@@ -14357,7 +14485,16 @@ $("#popX").addEventListener("click", () => closePop(true));
 document.addEventListener("keydown", e => { if (e.key==="Escape") closePop(true); });
 
 /* ── điều khiển ────────────────────────────── */
-function openStory(k){ lastGlCtx = ""; setView("detail", k, "top", true); }
+function openStory(k){ lastGlCtx = ""; prefetchStoryPack(k); setView("detail", k, "top", true); }
+{
+  const onHoverPrefetch = e => {
+    const hit = e.target && e.target.closest ? e.target.closest("[data-open], [data-handoff], [data-open-gl], .atlas .tp[data-story]") : null;
+    if (!hit) return;
+    prefetchStoryPack(hit.dataset.open || hit.dataset.handoff || hit.dataset.openGl || hit.dataset.story);
+  };
+  document.addEventListener("pointerenter", onHoverPrefetch, true);
+  document.addEventListener("focusin", onHoverPrefetch, true);
+}
 $("#play").onclick = () => {
   if (S.playing){ stopSpeech(); setPlaying(false); return; }
   const bs = getStories()[S.story].beats;
@@ -14617,10 +14754,86 @@ function closePostPop(returnFocus){
   syncBarOpenState();
   if (returnFocus) $("#postPillBtn").focus({preventScroll:true});
 }
-// tô sáng trên chữ THÔ rồi mới escape từng mảnh — không bao giờ cắt vào giữa một entity như &amp;
-function hl(s){ const q = A.q.normalize("NFC").toLowerCase().trim(); if (!q) return esc(s);
-  const i = s.toLowerCase().indexOf(q);
-  return i < 0 ? esc(s) : esc(s.slice(0,i)) + "<mark>" + esc(s.slice(i, i+q.length)) + "</mark>" + esc(s.slice(i+q.length)); }
+const STORY_SEARCH_CACHE = {};
+function foldText(s){
+  return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").toLowerCase();
+}
+function getStorySearchMeta(k){
+  const lang = getLang(), cacheKey = `${lang}:${k}`;
+  if (STORY_SEARCH_CACHE[cacheKey]) return STORY_SEARCH_CACHE[cacheKey];
+  const s = getStories()[k], gl = getGloss(), c = catOf(k);
+  if (!s) return { normAll: "", deepTokens: [] };
+  const deepTokens = [], seenTok = new Set();
+  const addTok = tok => {
+    const t = String(tok || "").trim();
+    if (!t) return;
+    const key = foldText(t);
+    if (!seenTok.has(key)) { seenTok.add(key); deepTokens.push(t); }
+  };
+  const extractAccts = led => {
+    if (!led || !Array.isArray(led.rows)) return;
+    led.rows.forEach(r => {
+      const code = String(r && r[1] != null ? r[1] : "").trim();
+      const name = String(r && r[2] != null ? r[2] : "").trim();
+      if (code) { addTok(`TK ${code}`); addTok(`Account ${code}`); addTok(code); }
+      if (name) addTok(name);
+    });
+  };
+  (s.beats || []).forEach(b => extractAccts(b.ledger));
+  if (s.article && s.article.pro && Array.isArray(s.article.pro.journal)) {
+    s.article.pro.journal.forEach(extractAccts);
+  }
+  if (Array.isArray(s._accts)) {
+    s._accts.forEach(code => { addTok(`TK ${code}`); addTok(`Account ${code}`); addTok(code); });
+  }
+  if (Array.isArray(s._acctNames)) {
+    s._acctNames.forEach(nm => addTok(nm));
+  }
+  extractStoryTerms(k).forEach(tk => {
+    const g = gl[tk] || GLOSS[tk];
+    if (g) { addTok(g.t); addTok(g.en); }
+    addTok(tk);
+  });
+  const beatTxt = (s.beats || []).flatMap(b => [...(b.say || []), b.life || "", b.sys || "", b.title || ""]).join(" ");
+  const hTxt = (s.houses || []).map(h => h.label).join(" ");
+  const extra = s._q || "";
+  const full = `${s.title || ""} ${s.teaser || ""} ${s.name || ""} ${c ? c.name : ""} ${hTxt} ${k} ${beatTxt} ${deepTokens.join(" ")} ${extra}`;
+  const out = { normAll: normVi(full), deepTokens };
+  if (s.article) STORY_SEARCH_CACHE[cacheKey] = out;
+  return out;
+}
+// tô sáng không phụ thuộc dấu trên chữ THÔ (khớp khoảng trắng với normVi) rồi mới escape từng mảnh
+function hl(s){
+  const str = String(s || "").normalize("NFC");
+  const qNorm = normVi(A.q);
+  if (!qNorm) return esc(str);
+  const origChars = Array.from(str);
+  let normStr = "";
+  const mapIdx = [];
+  let prevSpace = true;
+  for (let i = 0; i < origChars.length; i++) {
+    if (/\s/.test(origChars[i])) {
+      if (!prevSpace) {
+        normStr += " ";
+        mapIdx.push(i);
+        prevSpace = true;
+      }
+      continue;
+    }
+    prevSpace = false;
+    const chFold = foldText(origChars[i]);
+    for (let j = 0; j < chFold.length; j++) {
+      normStr += chFold[j];
+      mapIdx.push(i);
+    }
+  }
+  const idx = normStr.indexOf(qNorm);
+  if (idx < 0) return esc(str);
+  const st = mapIdx[idx], en = mapIdx[idx + qNorm.length - 1] + 1;
+  return esc(origChars.slice(0, st).join(""))
+    + "<mark>" + esc(origChars.slice(st, en).join("")) + "</mark>"
+    + esc(origChars.slice(en).join(""));
+}
 function renderAtlas(){
   const n = counts(), p = position(S.story), cats = activeCategories(), prog = loadWmsProgress(), stLbl = getStLabel(), enMode = isEn();
   if (A.cat && !cats.some(c => c.id === A.cat)) A.cat = null;
@@ -14648,7 +14861,7 @@ function renderAtlas(){
     $('#atlasSt [data-st="review"]').hidden = false;
   }
   $$("#atlasSt button").forEach(b => b.setAttribute("aria-pressed", b.dataset.st === A.st));
-  const q = A.q.normalize("NFC").toLowerCase().trim();
+  const qNorm = normVi(A.q);
 
   const master = $("#atlasMaster"); master.innerHTML = "";
   const allLi = document.createElement("li"), allBtn = document.createElement("button");
@@ -14674,23 +14887,34 @@ function renderAtlas(){
 
   const box = $("#drawers"); box.innerHTML = ""; let shown = 0;
   cats.forEach((c, ci) => {
-    if (A.cat && !q && c.id !== A.cat) return;
-    const items = c.topics.map((tp, ti) => ({tp, ti, s: shownStatus(tp), t: stTitle(tp)}))
-      .filter(x => (A.st === "all" || x.s === A.st) && (!q || x.t.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)));
+    if (A.cat && !qNorm && c.id !== A.cat) return;
+    const catNorm = normVi(c.name);
+    const items = c.topics.map((tp, ti) => {
+      const sKey = tp.story, title = stTitle(tp);
+      const titleNorm = normVi(title);
+      const meta = sKey && getStories()[sKey] ? getStorySearchMeta(sKey) : null;
+      const inHead = !qNorm || titleNorm.includes(qNorm) || catNorm.includes(qNorm);
+      const inDeep = Boolean(qNorm && !inHead && meta && meta.normAll.includes(qNorm));
+      const hitTok = inDeep ? (meta.deepTokens.find(tok => normVi(tok).includes(qNorm)) || "") : "";
+      return { tp, ti, s: shownStatus(tp), t: title, inHead, inDeep, hitTok };
+    }).filter(x => (A.st === "all" || x.s === A.st) && (!qNorm || x.inHead || x.inDeep));
     if (!items.length) return;
     shown += items.length;
     const d = document.createElement("div"); d.className = "drawer" + (c.id === p.c.id ? " focus" : ""); d.style.setProperty("--c", c.c);
     const drawerUnit = CMS.on ? (enMode ? "topics" : "chủ đề") : (enMode ? (c.topics.length === 1 ? "lesson" : "lessons") : "bài");
     d.innerHTML = `<h3><span><span class="ix">${String(ci+1).padStart(2,"0")}</span>${hl(c.name)}</span><small>${c.topics.length} ${drawerUnit}</small></h3><ol></ol>`;
-    items.forEach(({tp, ti, s, t}) => {
+    items.forEach(({tp, ti, s, t, inDeep, hitTok}) => {
       const li = document.createElement("li"), open = tp.story && visible(tp.story);
       const el = document.createElement(open ? "button" : "div");
-      if (open) el.type = "button";
+      if (open) { el.type = "button"; el.dataset.story = tp.story; }
       el.className = "tp";
       const isCur = open && tp.story === S.story;
       const isDone = open && !!(prog.completed && prog.completed[tp.story]);
       const stTxt = isCur ? (enMode ? "Reading" : "Đang đọc") : (isDone ? (enMode ? "✓ Read" : "✓ Đã đọc") : stLbl[s]);
-      el.innerHTML = `<span class="k">${enMode ? "Lesson" : "Bài"} ${ti+1}/${c.topics.length}</span><span class="t">${hl(t)}</span><span class="s"><i class="pip ${s}"></i>${stTxt}</span>`;
+      const matchHint = inDeep
+        ? `<small class="tp-match">${enMode ? (hitTok ? `Match: ${esc(hitTok)}` : "Matched inside lesson") : (hitTok ? `Khớp: ${esc(hitTok)}` : "Khớp nội dung bài")}</small>`
+        : "";
+      el.innerHTML = `<span class="k">${enMode ? "Lesson" : "Bài"} ${ti+1}/${c.topics.length}</span><span class="t">${hl(t)}${matchHint}</span><span class="s"><i class="pip ${s}"></i>${stTxt}</span>`;
       if (open){ if (isCur) el.setAttribute("aria-current","true");
         el.onclick = () => { closeAtlas(false); openStory(tp.story); }; }
       li.appendChild(el); d.querySelector("ol").appendChild(li);
@@ -14794,7 +15018,7 @@ document.addEventListener("keydown", e => {
 });
 
 function normVi(s){
-  return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").toLowerCase().trim();
+  return foldText(s).replace(/\s+/g, " ").trim();
 }
 function buildPageList(cur, total){
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -14810,7 +15034,9 @@ function buildPageList(cur, total){
 function storyWordStats(k){
   const s = getStories()[k];
   if (!s) return {lay: 0, pro: 0, min: 4};
-  const lay = ((s.article && s.article.lay && s.article.lay.sections) || []).reduce((n, x) => n + nw(...(x.paras || [])), 0);
+  const lay = (s.article && s.article.lay && Array.isArray(s.article.lay.sections))
+    ? s.article.lay.sections.reduce((n, x) => n + nw(...(x.paras || [])), 0)
+    : (+s._layWords || 0);
   const beatW = (s.beats || []).reduce((n, b) => n + nw(...(b.say || [])), 0);
   const min = Math.max(4, Math.round((lay + beatW) / 185));
   return {lay, pro: 0, min};
@@ -14893,11 +15119,10 @@ function renderStories(){
   });
 
   const filtered = o.filter(k => {
-    const s = stories[k], p = position(k);
+    const s = stories[k];
     if (S.catFilter !== "all" && catIdOf(s) !== S.catFilter) return false;
     if (!qNorm) return true;
-    const hTxt = (s.houses || []).map(h => h.label).join(" ");
-    return normVi(`${s.title} ${s.teaser} ${s.name || ""} ${p.c.name} ${hTxt} ${k}`).includes(qNorm);
+    return getStorySearchMeta(k).normAll.includes(qNorm);
   });
 
   const isFiltered = S.catFilter !== "all" || !!qNorm;
@@ -14913,6 +15138,9 @@ function renderStories(){
         const teaser = tp.story && stories[tp.story] ? stories[tp.story].teaser : "";
         if (tp.story && !visible(tp.story) && !CMS.on) {
           return !qNorm || normVi(`${title} ${c.name}`).includes(qNorm);
+        }
+        if (tp.story && stories[tp.story]) {
+          return !qNorm || getStorySearchMeta(tp.story).normAll.includes(qNorm);
         }
         return !qNorm || normVi(`${title} ${teaser} ${c.name} ${tp.story || ""}`).includes(qNorm);
       });
@@ -15016,7 +15244,7 @@ function renderStories(){
     card.dataset.story = k;
     const houseNames = (s.houses || []).map(h => h.label).join(" → ");
     const numLabel = o.indexOf(k) + 1;
-    const secCnt = (s.article && s.article.lay && Array.isArray(s.article.lay.sections)) ? s.article.lay.sections.length : 5;
+    const secCnt = (s.article && s.article.lay && Array.isArray(s.article.lay.sections)) ? s.article.lay.sections.length : (+s._secCount || 5);
     const durTxt = isDone
       ? (enMode ? "✓ Read" : "✓ Đã đọc")
       : (s.status !== "published" ? (enMode ? "Draft" : "Bản nháp") : (enMode ? `~${st.min} min read · ${s.beats.length} beats` : `~${st.min} phút đọc · ${s.beats.length} lát cắt`));
@@ -16351,6 +16579,16 @@ function applyStaticChrome(lang){
   Object.keys(PRESETS_EN).forEach(cid => {
     cacheAndSetList(`.preset-btn[data-calc="${cid}"]`, PRESETS_EN[cid], false, enMode);
   });
+  cacheAndSetList(".calc-share-btn", Array(7).fill("Copy scenario link"), false, enMode);
+  [
+    ["tryCard", "Copy scenario link — card bill"],
+    ["tryInst", "Copy scenario link — 0% installment"],
+    ["tryPay", "Copy scenario link — payroll CASA"],
+    ["tryMin", "Copy scenario link — minimum payment"],
+    ["tryQr", "Copy scenario link — QR payment"],
+    ["tryProfit", "Copy scenario link — business cash flow"],
+    ["tryOffus", "Copy scenario link — net settlement"]
+  ].forEach(([cid, lbl]) => cacheAndSetAttr(`.calc-share-btn[data-calc-share="${cid}"]`, "aria-label", lbl, enMode));
   Object.entries(WMI_EN_TEXT).forEach(([k, txt]) => cacheAndSetText(`[data-wmi="${k}"]`, txt, enMode));
   Object.entries(WMI_EN_HTML).forEach(([k, htm]) => cacheAndSetHtml(`[data-wmi-h="${k}"]`, htm, enMode));
   cacheAndSetHtml("#tcCbHint", 'Meanwhile, your 1% <button class="term" data-term="cashback">cashback</button> reward <span class="ex">example</span>: <b class="num" id="cbOut"></b>', enMode);
@@ -16384,7 +16622,7 @@ function applyStaticChrome(lang){
   cacheAndSetText("#siteFooter .ft-copy-toast", "Copied", enMode);
   cacheAndSetAttr("#ftCopyEmailBtn", "aria-label", "Copy email hello@duypham.me", enMode);
   cacheAndSetAttr("#ftCopyEmailBtn", "title", "Copy email hello@duypham.me", enMode);
-  cacheAndSetList("#siteFooter .ft-dir-row:last-child dd a", ["Full-Agent Blueprint (T0–T4) & Integrity Ledger (VI / EN) →"], false, enMode);
+  cacheAndSetText("#ftWorkflowLink", "Full-Agent Blueprint (T0–T4) & Integrity Ledger (VI / EN) →", enMode);
   cacheAndSetHtml("#ftColophon", 'Independent archival edition · Verified against 4 gates: Circular 99/2025 accounting (K1–K4), banking mechanics (F1–F4), brand safety (B1–B4) &amp; motion (M1–M4) · Explains how money moves and settles; not financial, tax, or investment advice · Account tables represent an <span lang="en">unofficial summary of Circular 99/2025/TT-BTC</span>.', enMode);
 
   cacheAndSetText("#fbFormHeading", "Feedback & Topic Suggestion Box", enMode);
@@ -16444,18 +16682,25 @@ function extractStoryTerms(k){
   const cacheKey = `${getLang()}:${k}`;
   if (STORY_TERM_CACHE[cacheKey]) return STORY_TERM_CACHE[cacheKey];
   const s = getStories()[k], gl = getGloss(); if (!s) return new Set();
+  const set = new Set();
+  if (!s.article && Array.isArray(s._terms)) {
+    s._terms.forEach(tk => {
+      const key = String(tk || "").toLowerCase();
+      if (gl[key] || GLOSS[key]) set.add(key);
+    });
+    return set;
+  }
   const deep = x => typeof x === "string" ? [x] : Array.isArray(x) ? x.flatMap(deep) : x && typeof x === "object" ? Object.values(x).flatMap(deep) : [];
   const raw = [];
   (s.beats || []).forEach(b => { raw.push(...(b.say || []), b.life || "", b.sys || ""); });
   if (s.article) raw.push(...deep(s.article));
-  const set = new Set();
   raw.forEach(t => {
     for (const m of String(t).matchAll(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g)){
       const key = (m[2] || m[1] || "").toLowerCase();
       if (gl[key] || GLOSS[key]) set.add(key);
     }
   });
-  STORY_TERM_CACHE[cacheKey] = set;
+  if (s.article) STORY_TERM_CACHE[cacheKey] = set;
   return set;
 }
 var lastGlCtx = "";
@@ -16532,28 +16777,33 @@ document.addEventListener("click", e => {
   const btn = e.target.closest(".term");
   if (btn) activePopTerm = (btn.dataset.term || "").toLowerCase();
 }, true);
+function jumpToGlossaryTerm(termKey, opts){
+  opts = opts || {};
+  const k = String(termKey || "").toLowerCase();
+  const pop = $("#pop");
+  if (pop) pop.classList.remove("on");
+  const storyTerms = opts.storyTerms || (S.view === "detail" ? extractStoryTerms(S.story) : null);
+  S.glScope = (storyTerms && (!k || storyTerms.has(k))) ? "story" : "all";
+  S.glQ = "";
+  if ($("#glSearch")) $("#glSearch").value = "";
+  const dr = $("#glDrawer");
+  if (dr) dr.open = true;
+  renderGlossary();
+  const target = (k && document.getElementById(`gl-t-${k}`)) || $("#glSec");
+  if (target){
+    target.scrollIntoView({ behavior: reduced ? "auto" : (opts.behavior || "smooth"), block: "center" });
+    if (target.tagName === "DT"){
+      const dd = target.nextElementSibling;
+      target.classList.add("gl-jump-hi");
+      if (dd) dd.classList.add("gl-jump-hi");
+      setTimeout(() => { target.classList.remove("gl-jump-hi"); if (dd) dd.classList.remove("gl-jump-hi"); }, 2200);
+    }
+  }
+}
 if ($("#popJumpBtn")){
   $("#popJumpBtn").onclick = () => {
-    const k = activePopTerm;
-    const pop = $("#pop");
-    if (pop) pop.classList.remove("on");
     const storyTerms = S.view === "detail" ? extractStoryTerms(S.story) : null;
-    S.glScope = (storyTerms && (!k || storyTerms.has(k))) ? "story" : "all";
-    S.glQ = "";
-    if ($("#glSearch")) $("#glSearch").value = "";
-    const dr = $("#glDrawer");
-    if (dr) dr.open = true;
-    renderGlossary();
-    const target = (k && document.getElementById(`gl-t-${k}`)) || $("#glSec");
-    if (target){
-      target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-      if (target.tagName === "DT"){
-        const dd = target.nextElementSibling;
-        target.classList.add("gl-jump-hi");
-        if (dd) dd.classList.add("gl-jump-hi");
-        setTimeout(() => { target.classList.remove("gl-jump-hi"); if (dd) dd.classList.remove("gl-jump-hi"); }, 2200);
-      }
-    }
+    jumpToGlossaryTerm(activePopTerm, { storyTerms });
   };
 }
 
@@ -16617,6 +16867,43 @@ function syncHeadMeta(){
   setHeadAttr("twTitle", "content", title);
   setHeadAttr("twDesc", "content", desc);
   setHeadAttr("twImage", "content", imgUrl);
+  const ldEl = document.getElementById("jsonLdScript");
+  if (ldEl) {
+    const ytLong = isDetail && s && s.videoScript && s.videoScript.long && s.videoScript.long.youtubeId ? s.videoScript.long.youtubeId.trim() : "";
+    const ldObj = isDetail
+      ? {
+          "@context": "https://schema.org",
+          "@type": ["Article", "LearningResource"],
+          headline: s.title,
+          description: desc,
+          inLanguage: lang,
+          image: imgUrl,
+          url: canonical,
+          mainEntityOfPage: canonical,
+          educationalLevel: enMode ? "Beginner to Practitioner" : "Người mới đến Kế toán TT 99/2025",
+          author: { "@type": "Organization", name: "Where Money Sleeps", url: SITE_ORIGIN },
+          publisher: { "@type": "Organization", name: "Where Money Sleeps", url: SITE_ORIGIN },
+          ...(ytLong ? {
+            video: {
+              "@type": "VideoObject",
+              name: (s.videoScript.long && s.videoScript.long.title) || s.title,
+              description: desc,
+              thumbnailUrl: `https://i.ytimg.com/vi/${encodeURIComponent(ytLong)}/hqdefault.jpg`,
+              embedUrl: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytLong)}`
+            }
+          } : {})
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Where Money Sleeps",
+          inLanguage: ["vi", "en"],
+          url: `${SITE_ORIGIN}/`,
+          description: desc,
+          author: { "@type": "Organization", name: "Where Money Sleeps", url: SITE_ORIGIN }
+        };
+    ldEl.textContent = JSON.stringify(ldObj);
+  }
 }
 
 function syncViewDOM(doAnim){
@@ -16671,28 +16958,31 @@ function runViewTransition(updateFn){
   }
 }
 
-function setView(nextView, storyKey, scrollTarget, pushHist){
+function setView(nextView, storyKey, scrollTarget, pushHist, afterFn){
   const prevView = S.view, stories = getStories();
+  const nextStory = storyKey && stories[storyKey] ? storyKey : S.story;
+  const shouldSwitch = Boolean(storyKey && stories[storyKey] && (storyKey !== S.story || prevView !== "detail"));
   S.view = nextView === "detail" ? "detail" : "landing";
   if (S.view === "landing" && S.playing){ stopSpeech(); setPlaying(false); }
   runViewTransition(() => {
-    if (storyKey && stories[storyKey] && (storyKey !== S.story || prevView !== "detail")){
-      go(storyKey, 0, 0, false);
+    if (shouldSwitch){
+      go(nextStory, 0, 0, false, false);
     }
     syncViewDOM(true);
+    if (typeof afterFn === "function") afterFn();
   });
   if (pushHist !== false){
     try {
-      const u = new URL(location.href);
+      const u = stripDeepUrlParams(new URL(location.href));
       if (S.view === "detail") {
-        u.searchParams.set("story", S.story);
+        u.searchParams.set("story", nextStory);
         if (storyKey && u.hash && !u.hash.startsWith("#sync=")) u.hash = "";
       } else {
         u.searchParams.delete("story");
         u.hash = "";
       }
       u.searchParams.set("lang", getLang());
-      history.pushState({ view: S.view, story: S.story, lang: getLang() }, "", u.toString());
+      history.pushState({ view: S.view, story: nextStory, lang: getLang() }, "", u.toString());
     } catch (_) {}
   }
   if (scrollTarget === "top" || prevView !== S.view){
@@ -16708,11 +16998,41 @@ window.addEventListener("popstate", () => {
   }
   const qsStory = qs.get("story"), stories = getStories();
   if (qsStory && stories[qsStory] && visible(qsStory)){
-    setView("detail", qsStory, "top", false);
+    setView("detail", qsStory, "top", false, () => {
+      const deepPop = applyUrlDeepState(qs, { resetMissing: true });
+      [calcCard, calcPay, calcInst, calcMin, calcQr, calcProfit, calcOffus].forEach(fn => { if (typeof fn === "function") fn(); });
+      renderAll();
+      const finishPop = () => {
+        if (S.view !== "detail" || S.story !== qsStory) return;
+        if (deepPop.tab && typeof showTab === "function") showTab(deepPop.tab, false);
+        if (deepPop.term) jumpToGlossaryTerm(deepPop.term);
+      };
+      const stPop = getStories()[qsStory];
+      const popWaitKey = `${qsStory}:${getLang()}`;
+      if (stPop && stPop._splitPack && !stPop.article) {
+        (STORY_PACK_WAITERS[popWaitKey] || ensureStoryPack(qsStory)).then(ok => { if (ok) finishPop(); });
+      } else {
+        finishPop();
+      }
+    });
   } else {
     setView("landing", null, "top", false);
   }
 });
+
+/* CALC_PARAM_MAP & CALC_ID_MAP đã khai báo ở đầu module để dùng chung cho go(), setView() và popstate */
+function syncCalcPresetsPressed(calcId){
+  $$(`.preset-btn[data-calc="${calcId}"]`).forEach(b => {
+    let spec = {};
+    try { spec = JSON.parse(b.dataset.set || "{}"); } catch (_) {}
+    const keys = Object.keys(spec);
+    const match = keys.length > 0 && keys.every(k => {
+      const inp = document.getElementById(k);
+      return inp && Math.abs(Number(inp.value) - Number(spec[k])) < 1e-6;
+    });
+    b.setAttribute("aria-pressed", String(match));
+  });
+}
 
 /* Presets cho 7 máy tính */
 $$(".preset-btn[data-calc]").forEach(btn => {
@@ -16724,11 +17044,17 @@ $$(".preset-btn[data-calc]").forEach(btn => {
       const inp = document.getElementById(id);
       if (inp){ inp.value = String(val); inp.dispatchEvent(new Event("input", { bubbles: true })); }
     });
-    $$(`.preset-btn[data-calc="${calcId}"]`).forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+    syncCalcPresetsPressed(calcId);
   };
 });
+if ($("#thu")){
+  $("#thu").addEventListener("input", e => {
+    const tryEl = e.target && e.target.closest ? e.target.closest(".try") : null;
+    if (tryEl && tryEl.id) syncCalcPresetsPressed(tryEl.id);
+  });
+}
 
-/* Dùng chung sao chép clipboard + liên kết neo chương/sổ kế toán */
+/* Dùng chung sao chép clipboard + thông báo VoiceOver (copy-button) */
 async function copyTextWithFallback(text){
   const val = String(text || "");
   if (!val) return false;
@@ -16750,39 +17076,82 @@ async function copyTextWithFallback(text){
   }
 }
 
-(function initChapterAnchorCopy(){
-  const timers = new WeakMap();
-  let lastAnnouncement = "";
-  document.addEventListener("click", async e => {
-    const btn = e.target.closest("button.chap-copy-btn[data-copy-anchor]");
-    if (!btn) return;
-    const anchorId = btn.dataset.copyAnchor;
-    if (!anchorId) return;
-    const base = location.protocol === "file:" ? `${SITE_ORIGIN}/` : `${location.origin}${location.pathname}`;
-    const url = `${base}?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`;
-    if (location.protocol !== "file:" && history && history.replaceState){
-      try { history.replaceState(history.state, "", `?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`); } catch (_) {}
-    }
-    const ok = await copyTextWithFallback(url);
-    const tip = btn.nextElementSibling, glyph = btn.querySelector(".chap-copy-glyph");
-    clearTimeout(timers.get(btn));
+const _copyTimers = new WeakMap();
+let _lastCopyAnnouncement = "";
+function announceCopyButton(btn, ok, copiedMsg, failedMsg, glyphEl, resetGlyph){
+  const tip = btn.nextElementSibling;
+  clearTimeout(_copyTimers.get(btn));
+  btn.removeAttribute("data-copied");
+  btn.removeAttribute("data-failed");
+  btn.setAttribute(ok ? "data-copied" : "data-failed", "true");
+  if (glyphEl) glyphEl.textContent = ok ? "✓" : "!";
+  let msg = ok ? copiedMsg : failedMsg;
+  if (msg === _lastCopyAnnouncement) msg += "\u00A0";
+  _lastCopyAnnouncement = msg;
+  if (tip){
+    tip.textContent = "";
+    requestAnimationFrame(() => { tip.textContent = msg; });
+  }
+  _copyTimers.set(btn, setTimeout(() => {
     btn.removeAttribute("data-copied");
     btn.removeAttribute("data-failed");
-    btn.setAttribute(ok ? "data-copied" : "data-failed", "true");
-    if (glyph) glyph.textContent = ok ? "✓" : "!";
-    let msg = isEn() ? (ok ? "Link copied" : "Copy failed") : (ok ? "Đã chép link" : "Chưa chép được");
-    if (msg === lastAnnouncement) msg += "\u00A0";
-    lastAnnouncement = msg;
-    if (tip){
-      tip.textContent = "";
-      requestAnimationFrame(() => { tip.textContent = msg; });
+    if (glyphEl && resetGlyph !== undefined) glyphEl.textContent = resetGlyph;
+    if (tip) tip.textContent = "";
+  }, 2000));
+}
+
+(function initChapterAnchorCopy(){
+  document.addEventListener("click", async e => {
+    const anchorBtn = e.target.closest("button.chap-copy-btn[data-copy-anchor]");
+    if (anchorBtn){
+      const anchorId = anchorBtn.dataset.copyAnchor;
+      if (!anchorId) return;
+      const base = location.protocol === "file:" ? `${SITE_ORIGIN}/` : `${location.origin}${location.pathname}`;
+      const url = `${base}?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`;
+      if (location.protocol !== "file:" && history && history.replaceState){
+        try { history.replaceState(history.state, "", `?story=${encodeURIComponent(S.story)}&lang=${getLang()}#${anchorId}`); } catch (_) {}
+      }
+      const ok = await copyTextWithFallback(url);
+      announceCopyButton(
+        anchorBtn,
+        ok,
+        isEn() ? "Link copied" : "Đã chép link",
+        isEn() ? "Copy failed" : "Chưa chép được",
+        anchorBtn.querySelector(".chap-copy-glyph"),
+        "#"
+      );
+      return;
     }
-    timers.set(btn, setTimeout(() => {
-      btn.removeAttribute("data-copied");
-      btn.removeAttribute("data-failed");
-      if (glyph) glyph.textContent = "#";
-      if (tip) tip.textContent = "";
-    }, 2000));
+    const calcBtn = e.target.closest("button.calc-share-btn[data-calc-share]");
+    if (calcBtn){
+      const storyKey = Object.keys(CALC_ID_MAP).find(k => CALC_ID_MAP[k] === calcBtn.dataset.calcShare) || S.story;
+      const params = CALC_PARAM_MAP[storyKey] || [];
+      const shareBase = location.protocol === "file:" ? `${SITE_ORIGIN}/` : `${location.origin}${location.pathname}`;
+      const u = new URL(shareBase);
+      u.searchParams.set("story", storyKey);
+      u.searchParams.set("lang", getLang());
+      params.forEach(pid => {
+        const inp = document.getElementById(pid);
+        if (inp) u.searchParams.set(pid, inp.value);
+      });
+      u.hash = "#thu";
+      if (location.protocol !== "file:" && history && history.replaceState){
+        try {
+          const histU = new URL(u.toString());
+          const curQs = new URLSearchParams(location.search);
+          if (curQs.has("preview")) histU.searchParams.set("preview", curQs.get("preview"));
+          if (curQs.has("author")) histU.searchParams.set("author", curQs.get("author"));
+          history.replaceState(history.state, "", `${histU.pathname}${histU.search}${histU.hash}`);
+        } catch (_) {}
+      }
+      const ok = await copyTextWithFallback(u.toString());
+      announceCopyButton(
+        calcBtn,
+        ok,
+        isEn() ? "Scenario copied" : "Đã chép link",
+        isEn() ? "Copy failed" : "Chưa chép được"
+      );
+    }
   });
 })();
 
@@ -17051,16 +17420,17 @@ $$("[data-wms-lang]").forEach(b => {
   b.onclick = () => setWmsLang(b.dataset.wmsLang || "vi");
 });
 
-/* Chạy khởi động thực tế */
+/* Chạy khởi động thực tế + Deep-link (UX-2) + Offline PWA SW (SEO-1) */
 S.lang = detectInitLang();
-if (new URLSearchParams(location.search).get("lang")) {
+const initialSearchParams = new URLSearchParams(location.search);
+if (initialSearchParams.get("lang")) {
   try { localStorage.setItem("wms-lang", S.lang); } catch (_) {}
   WMS_PROG = loadWmsProgress();
   WMS_PROG.lang = S.lang;
   saveWmsProgress(WMS_PROG);
 }
 applyStaticChrome(S.lang);
-const initialUrlStory = new URLSearchParams(location.search).get("story");
+const initialUrlStory = initialSearchParams.get("story");
 const detailHashSet = new Set(["stage", "secStage", "thu", "baiday", "lessonQuizWrap", "studioScriptSec", "ledger"]);
 const initialHash = (location.hash || "").replace(/^#/, "");
 if (initialUrlStory && getStories()[initialUrlStory] && visible(initialUrlStory)){
@@ -17072,11 +17442,85 @@ if (initialUrlStory && getStories()[initialUrlStory] && visible(initialUrlStory)
   S.view = "landing";
 }
 if (!visible(S.story) && order().length) S.story = order()[0];
+
+function applyUrlDeepState(sp, opts){
+  const resetMissing = Boolean(opts && opts.resetMissing);
+  const curStory = getStories()[S.story];
+  if (sp.has("beat") && curStory && Array.isArray(curStory.beats)) {
+    const rawB = Number(sp.get("beat"));
+    if (Number.isFinite(rawB) && rawB >= 0) {
+      const idxB = rawB === 0 ? 0 : Math.min(curStory.beats.length - 1, Math.max(0, Math.round(rawB) - 1));
+      S.beat = idxB;
+      S.sent = 0;
+    }
+  } else if (resetMissing) {
+    S.beat = 0;
+    S.sent = 0;
+  }
+  const rawLens = (sp.get("lens") || "").toLowerCase();
+  if (rawLens === "ledger" || rawLens === "pro" || rawLens === "sys") {
+    S.lens = "ledger";
+  } else if (rawLens === "life" || rawLens === "lay" || resetMissing) {
+    S.lens = "life";
+  }
+  $$("[data-lens]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lens === S.lens)));
+
+  const paramList = CALC_PARAM_MAP[S.story] || [];
+  let calcChanged = false;
+  paramList.forEach(pid => {
+    const inp = document.getElementById(pid);
+    if (!inp) return;
+    if (sp.has(pid)) {
+      const rawVal = Number(sp.get(pid));
+      if (Number.isFinite(rawVal)) {
+        const lo = inp.min !== "" ? Number(inp.min) : -Infinity;
+        const hi = inp.max !== "" ? Number(inp.max) : Infinity;
+        inp.value = String(Math.max(lo, Math.min(hi, rawVal)));
+        calcChanged = true;
+      }
+    } else if (resetMissing && inp.defaultValue !== "") {
+      inp.value = inp.defaultValue;
+      calcChanged = true;
+    }
+  });
+  if (calcChanged && CALC_ID_MAP[S.story]) syncCalcPresetsPressed(CALC_ID_MAP[S.story]);
+
+  const rawTab = (sp.get("tab") || "").toLowerCase();
+  const rawTerm = (sp.get("term") || "").toLowerCase().trim();
+  return {
+    tab: rawTab === "pro" || rawTab === "lay" ? rawTab : (resetMissing ? "lay" : ""),
+    term: rawTerm && (getGloss()[rawTerm] || GLOSS[rawTerm]) ? rawTerm : ""
+  };
+}
+const deepInit = applyUrlDeepState(initialSearchParams);
+
 applyTheme(); drawHouses(); renderTranscript(); renderAll(); calcCard(); calcPay(); calcInst(); calcMin(); calcQr(); calcProfit(); calcOffus();
 syncViewDOM(false);
-if (S.view === "detail" && initialHash){
-  if (initialHash.startsWith("pk-pro-") && typeof showTab === "function") showTab("pro", false);
-  setTimeout(() => { const el = document.getElementById(initialHash); if (el) el.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); }, 80);
+
+(function finalizeInitialDeepState(){
+  const finish = () => {
+    if (S.view === "detail" && (deepInit.tab === "pro" || initialHash.startsWith("pk-pro-")) && typeof showTab === "function") {
+      showTab("pro", false);
+    } else if (S.view === "detail" && deepInit.tab === "lay" && typeof showTab === "function") {
+      showTab("lay", false);
+    }
+    if (deepInit.term) {
+      jumpToGlossaryTerm(deepInit.term);
+    } else if (S.view === "detail" && initialHash) {
+      setTimeout(() => { const el = document.getElementById(initialHash); if (el) el.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "start"}); }, 80);
+    }
+  };
+  const stNow = getStories()[S.story];
+  const initWaitKey = `${S.story}:${getLang()}`;
+  if (S.view === "detail" && stNow && stNow._splitPack && !stNow.article) {
+    (STORY_PACK_WAITERS[initWaitKey] || ensureStoryPack(S.story)).then(ok => { if (ok) finish(); });
+  } else {
+    finish();
+  }
+})();
+
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1") && (location.pathname === "/" || location.pathname === "/index.html" || location.pathname === "/prototype" || location.pathname === "/prototype.html")) {
+  addEventListener("load", () => { navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {}); }, { once: true });
 }
 setTimeout(()=>{ if ($("#sms")) $("#sms").classList.add("in"); if ($("#smsnote")) $("#smsnote").classList.add("in"); }, reduced ? 0 : 500);
 </script>

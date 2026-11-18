@@ -45,7 +45,15 @@ const HTML_SECURITY_HEADERS = {
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Frame-Options": "DENY",
   "Content-Security-Policy":
-    "default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'"
+    "default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'none'"
+};
+
+const STUDIO_SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "no-referrer",
+  "X-Frame-Options": "DENY",
+  "Content-Security-Policy":
+    "default-src 'self'; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'none'"
 };
 
 const SEO_CATALOG = {
@@ -63,6 +71,7 @@ const SEO_CATALOG = {
   },
   stories: {
     card: {
+      ytLong: "l56GlTCof4c",
       vi: {
         title: "Đêm nay, 10 triệu bạn vừa quẹt thẻ đang ngủ ở đâu? — Where Money Sleeps",
         desc: "Một bữa liên hoan, năm bên đứng sau cú chạm thẻ, và 220.000 đồng chưa từng biến mất.",
@@ -75,6 +84,7 @@ const SEO_CATALOG = {
       }
     },
     pay: {
+      ytLong: "OET3IUPC6Qs",
       vi: {
         title: "Vì sao công ty bảo bạn mở tài khoản nhận lương ở đúng một ngân hàng? — Where Money Sleeps",
         desc: "15 triệu lương vừa báo về, nhưng không đồng nào thật sự chảy vào tài khoản ngay lúc đó. Con số trên màn hình lại là món nợ ngân hàng đang nợ ngược lại bạn.",
@@ -87,6 +97,7 @@ const SEO_CATALOG = {
       }
     },
     install: {
+      ytLong: "OdcXfR5kSkI",
       vi: {
         title: "Mua điện thoại 12 triệu trả góp 0%: ai đang trả tiền lãi? — Where Money Sleeps",
         desc: "Chiếc máy 12 triệu (ví dụ), tờ rơi ghi 0%, và 600.000 đồng cửa hàng chịu cắt lại ngay sau quầy thu ngân.",
@@ -99,6 +110,7 @@ const SEO_CATALOG = {
       }
     },
     minpay: {
+      ytLong: "aLsnblI01yM",
       vi: {
         title: "Sao kê 10 triệu, trả tối thiểu 5% (500.000 đồng): vì sao kỳ sau vẫn bị cộng 592.500 đồng tiền lãi? — Where Money Sleeps",
         desc: "Chạm thẻ 10 triệu đầu kỳ (ví dụ), trả đúng hạn 500.000 đồng ở Ngày 45, và đồng hồ tính lãi lặng lẽ quay ngược về Ngày 01.",
@@ -111,6 +123,7 @@ const SEO_CATALOG = {
       }
     },
     qr: {
+      ytLong: "awgxZiOJMOM",
       vi: {
         title: "Quét QR trả 50 nghìn: vì sao quán nhận đủ ngay, không mất 2,2% phí như quẹt thẻ? — Where Money Sleeps",
         desc: "Tấm bảng mica trên quầy gỗ, tiếng loa báo tiền sau 3 giây, và hai chiều tiền đi ngược nhau giữa quét mã (Push) với quẹt thẻ (Pull).",
@@ -123,6 +136,7 @@ const SEO_CATALOG = {
       }
     },
     profitcash: {
+      ytLong: "doLPegldsWE",
       vi: {
         title: "Chốt sổ lãi ròng 2 tỷ nhưng TK 112 chỉ còn 50 triệu: sao công ty có lãi vẫn hết tiền trả lương? — Where Money Sleeps",
         desc: "Chiều 31 tháng 12, hai tờ giấy đặt cạnh nhau trên bàn: báo cáo ghi lãi ròng 2 tỷ đồng, sao kê ngân hàng còn đúng 50 triệu — vì 3,45 tỷ đang nằm yên trong giấy hẹn nợ (TK 131) và trên kệ kho (TK 156).",
@@ -135,6 +149,7 @@ const SEO_CATALOG = {
       }
     },
     offus: {
+      ytLong: "pyf9muWYLmI",
       vi: {
         title: "Chuyển khoản 20 triệu cùng và khác ngân hàng: cùng reo sau 3 giây, sao tiền thật đi hai đường? — Where Money Sleeps",
         desc: "Hai lệnh 20 triệu cùng báo thành công sau 3 giây. Một lệnh chỉ sửa hai dòng số dư trong cùng toà nhà; lệnh kia cần tiền cọc bảo chứng và phiên bù trừ 30 tỷ cuối ngày tại Ngân hàng Trung ương.",
@@ -159,11 +174,48 @@ export function resolveSeoMeta(urlInput) {
   const rawStory = (urlObj.searchParams.get("story") || "").toLowerCase();
   const isStory = Boolean(rawStory && Object.prototype.hasOwnProperty.call(SEO_CATALOG.stories, rawStory));
   const slug = isStory ? rawStory : "landing";
-  const entry = isStory ? SEO_CATALOG.stories[slug][lang] : SEO_CATALOG.landing[lang];
+  const storyNode = isStory ? SEO_CATALOG.stories[slug] : null;
+  const entry = storyNode ? storyNode[lang] : SEO_CATALOG.landing[lang];
   const canonicalUrl = isStory
     ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}&lang=${lang}`
     : (lang === "en" ? `${SITE_ORIGIN}/?lang=en` : `${SITE_ORIGIN}/`);
   const imageUrl = `${SITE_ORIGIN}/public/brand/${isStory ? slug : "card"}-fig-1.jpg`;
+  const headline = entry.title.replace(/ — Where Money Sleeps$/, "");
+  const org = { "@type": "Organization", name: "Where Money Sleeps", url: SITE_ORIGIN };
+  const ytLong = storyNode && storyNode.ytLong ? storyNode.ytLong : "";
+  const ldObj = isStory
+    ? {
+        "@context": "https://schema.org",
+        "@type": ["Article", "LearningResource"],
+        headline,
+        description: entry.desc,
+        inLanguage: lang,
+        image: imageUrl,
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+        educationalLevel: lang === "en" ? "Beginner to Practitioner" : "Người mới đến Kế toán TT 99/2025",
+        author: org,
+        publisher: org,
+        ...(ytLong ? {
+          video: {
+            "@type": "VideoObject",
+            name: headline,
+            description: entry.desc,
+            thumbnailUrl: `https://i.ytimg.com/vi/${encodeURIComponent(ytLong)}/hqdefault.jpg`,
+            embedUrl: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytLong)}`
+          }
+        } : {})
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Where Money Sleeps",
+        inLanguage: ["vi", "en"],
+        url: `${SITE_ORIGIN}/`,
+        description: entry.desc,
+        author: org
+      };
+  const jsonLd = JSON.stringify(ldObj).replace(/</g, "\\u003c").replace(/>/g, "\\u003e");
   return {
     lang,
     isStory,
@@ -177,7 +229,8 @@ export function resolveSeoMeta(urlInput) {
     altDefaultUrl: isStory ? `${SITE_ORIGIN}/?story=${encodeURIComponent(slug)}` : `${SITE_ORIGIN}/`,
     imageUrl,
     locale: lang === "en" ? "en_US" : "vi_VN",
-    altLocale: lang === "en" ? "vi_VN" : "en_US"
+    altLocale: lang === "en" ? "vi_VN" : "en_US",
+    jsonLd
   };
 }
 
@@ -235,7 +288,7 @@ function applyHtmlSeoRewriter(resp, urlObj) {
       el.setAttribute(attr, val);
     }
   });
-  return new HTMLRewriter()
+  let rw = new HTMLRewriter()
     .on("html", setAttr("lang", meta.lang))
     .on("title", {
       element(el) {
@@ -258,7 +311,19 @@ function applyHtmlSeoRewriter(resp, urlObj) {
     .on("#twTitle", setAttr("content", meta.title))
     .on("#twDesc", setAttr("content", meta.desc))
     .on("#twImage", setAttr("content", meta.imageUrl))
-    .transform(resp);
+    .on("#jsonLdScript", {
+      element(el) {
+        el.setInnerContent(meta.jsonLd, { html: true });
+      }
+    });
+  if (meta.isStory) {
+    rw = rw.on("head", {
+      element(el) {
+        el.append(`<link rel="preload" href="/data/stories/${encodeURIComponent(meta.slug)}.json" as="fetch" crossorigin>`, { html: true });
+      }
+    });
+  }
+  return rw.transform(resp);
 }
 
 export default {
@@ -324,8 +389,24 @@ export default {
     }
 
     if (env && env.ASSETS && typeof env.ASSETS.fetch === "function") {
+      const isStudio = url.pathname === "/studio" || url.pathname === "/studio.html";
+      if (isStudio) {
+        let stResp = await env.ASSETS.fetch(request);
+        if (stResp.status >= 300 && stResp.status < 400) {
+          stResp = await env.ASSETS.fetch(new Request(new URL("/studio", url.origin), { method: request.method, headers: request.headers }));
+        }
+        const stHeaders = new Headers(stResp.headers);
+        for (const [hk, hv] of Object.entries(STUDIO_SECURITY_HEADERS)) {
+          stHeaders.set(hk, hv);
+        }
+        return new Response(stResp.body, {
+          status: stResp.status,
+          statusText: stResp.statusText,
+          headers: stHeaders
+        });
+      }
       const assetResp = await env.ASSETS.fetch(request);
-      const isMainEntry = url.pathname === "/" || url.pathname === "/index.html" || url.pathname === "/prototype.html";
+      const isMainEntry = url.pathname === "/" || url.pathname === "/index.html" || url.pathname === "/prototype" || url.pathname === "/prototype.html";
       if (!isMainEntry || assetResp.status !== 200) {
         return assetResp;
       }
