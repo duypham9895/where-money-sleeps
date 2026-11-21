@@ -1,0 +1,493 @@
+{
+  "fig_scenes": [3, 4, 7, 8],
+  "short": [
+    {
+      "is_hook": true,
+      "step": "MỞ ĐẦU · CÂU HỎI ĐẶT RA",
+      "ket": 0,
+      "ket_pct": 0.0,
+      "hud_left": "ĐÓNG PHÍ: 12.000.000 đ",
+      "hud_right": "CHI NGAY: 3.000.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["ĐÓNG 12 TRIỆU TIỀN BẢO HIỂM", "12 TRIỆU", "GREEN"],
+        ["TIỀN ĐANG NGỦ Ở ĐÂU?", "Ở ĐÂU?", "AMBER"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "ĐÓNG 12 TRIỆU", "beat": 1},
+        {"id": 2, "tag": "TREO DỰ PHÒNG", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "CÂU DẪN · TRƯỚC KHI VÀO 5 BƯỚC GIẢI MÃ", "prop": "coin"},
+      "hook_data": {
+        "left_title": "BỀ MẶT HỢP ĐỒNG",
+        "left_amt": "12.000.000 đ",
+        "left_sub": "Bạn đóng trọn gói cả năm",
+        "left_actor": 0,
+        "left_accent": "NAVY",
+        "right_title": "PHẦN CHƯA HƯỞNG",
+        "right_amt": "11.000.000 đ",
+        "right_sub": "Chưa thành doanh thu hôm nay",
+        "right_actor": 2,
+        "right_accent": "AMBER",
+        "hook_kicker": "NGHỊCH LÝ PHÍ BẢO HIỂM 1 NĂM",
+        "hook_line1": "NGƯỜI ĐÓNG TƯỞNG TIỀN NẰM KÉT CHỜ SẴN",
+        "hook_line2": "NHƯNG CHỈ 1 TRIỆU LÀ DOANH THU THÁNG 1",
+        "hook_sub": "Bóc tách 5 chặng đi của 12 triệu đồng trong 12 tháng"
+      },
+      "focal": {"type": "HERO_NUM", "fixed_text": "12 TR", "color": "AMBER", "pill": "BẮT ĐẦU NGAY · 5 CHẶNG CỦA 12 TRIỆU ĐỒNG"}
+    },
+    {
+      "step": "BƯỚC 1/5 · CHUYỂN KHOẢN 12 TRIỆU",
+      "ket": 12000000,
+      "ket_pct": 1.0,
+      "hud_left": "ĐÓNG PHÍ: 12.000.000 đ",
+      "hud_right": "TK 112: +12.000.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["TIỀN VÀO NGÂN HÀNG THU HỘ", "NGÂN HÀNG", "GREEN"],
+        ["NHƯNG CHƯA PHẢI DOANH THU", "CHƯA PHẢI", "AMBER"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "CHUYỂN 12 TRIỆU", "beat": 1},
+        {"id": 1, "tag": "BÁO CÓ +12 TR", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 1/5 · THU PHÍ VÀO TÀI KHOẢN NGÂN HÀNG", "prop": "wire"},
+      "focal": {"type": "HERO_NUM", "target_val": 12000000, "prefix": "+", "suffix": " đ", "color": "GREEN", "pill": "NGƯỜI MUA GHI TK 242 · BÊN THU GHI TK 3387"}
+    },
+    {
+      "step": "BƯỚC 2/5 · CHI NGAY 25% VẬN HÀNH",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "ĐÓNG PHÍ: 12.000.000 đ",
+      "hud_right": "CÒN QUỸ: 9.000.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["3 TRIỆU RỜI BỂ VỐN NGAY", "3 TRIỆU", "CORAL"],
+        ["TRẢ HOA HỒNG VÀ THẨM ĐỊNH", "HOA HỒNG", "AMBER"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "CẮT 25% CHI PHÍ", "beat": 1},
+        {"id": 3, "tag": "ĐẠI LÝ: +2 TR +1 TR", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 2/5 · HOA HỒNG 2 TR + VẬN HÀNH 1 TR", "prop": "split"},
+      "focal": {"type": "HERO_NUM", "target_val": 9000000, "prefix": "", "suffix": " đ", "color": "CORAL", "pill": "25% CHI PHÍ KHAI THÁC RỜI KHỎI QUỸ DỰ PHÒNG"}
+    },
+    {
+      "step": "BƯỚC 3/5 · CHỈ GHI DOANH THU 1/12",
+      "ket": 1000000,
+      "ket_pct": 0.083,
+      "hud_left": "DOANH THU T1: 1.000.000 đ",
+      "hud_right": "TK 3387: 11.000.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["THÁNG ĐẦU HƯỞNG ĐÚNG 1 TRIỆU", "1 TRIỆU", "GREEN"],
+        ["11 TRIỆU TREO CHỜ PHÂN BỔ", "11 TRIỆU", "AMBER"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "TK 511: +1 TRIỆU", "beat": 1},
+        {"id": 2, "tag": "TK 3387: 11 TRIỆU", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 3/5 · PHÂN BỔ DOANH THU TỪNG THÁNG", "prop": "ledger"},
+      "focal": {"type": "HERO_NUM", "target_val": 11000000, "prefix": "", "suffix": " đ", "color": "AMBER", "pill": "MỖI THÁNG TRÔI QUA CHUYỂN DẦN 1 TRIỆU SANG TK 511"}
+    },
+    {
+      "step": "BƯỚC 4/5 · ĐƯA 8 TỶ VÀO TK 128",
+      "ket": 8000000,
+      "ket_pct": 0.667,
+      "hud_left": "VỐN NỔI: 8.000.000 đ/HĐ",
+      "hud_right": "LÃI 6%: +480.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["PHẦN LỚN CHẠY SANG TRÁI PHIẾU", "TRÁI PHIẾU", "GREEN"],
+        ["SINH +480.000 VÀO TK 515", "+480.000", "TEAL"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "CHUYỂN 8 TR/HĐ", "beat": 1},
+        {"id": 4, "tag": "TK 128 · LÃI 6%", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 4/5 · ĐẦU TƯ TRÁI PHIẾU & TIỀN GỬI KỲ HẠN", "prop": "coin"},
+      "focal": {"type": "HERO_NUM", "target_val": 480000, "prefix": "+", "suffix": " đ", "color": "TEAL", "pill": "VỐN NỔI SINH LÃI KHI BỒI THƯỜNG CHƯA ĐẾN LƯỢT"}
+    },
+    {
+      "step": "BƯỚC 5/5 · CHI TRẢ TỪ BỂ CHUNG",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "PHÍ 12TR · CHI TRẢ 9TR",
+      "hud_right": "LÃI VỐN NỔI: +480.000 đ",
+      "step_cards": [
+        ["B1 THU PHÍ", "Nợ TK 112 · 12tr"],
+        ["B2 CẮT PHÍ", "3tr hoa hồng"],
+        ["B3 TREO SỔ", "11tr chưa hưởng"],
+        ["B4 ĐẦU TƯ", "8tr mua TP 6%"],
+        ["B5 CHI TRẢ", "Lấy từ quỹ chung"]
+      ],
+      "beat_headlines": [
+        ["1.000 NGƯỜI CÙNG GÓP QUỸ", "1.000 NGƯỜI", "NAVY"],
+        ["LÃI VỐN NỔI BÙ NGHIỆP VỤ", "VỐN NỔI", "GREEN"]
+      ],
+      "actors": [
+        {"id": 1, "tag": "QUỸ CHI NHANH 1TR", "beat": 1},
+        {"id": 3, "tag": "CHI BỒI THƯỜNG", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 5/5 · TRÍCH TK 352 CHI TRẢ BỒI THƯỜNG", "prop": "coin"},
+      "focal": {"type": "HERO_NUM", "fixed_text": "100% -> +6%", "color": "GREEN", "pill": "BỒI THƯỜNG + PHÍ = 100% VẪN CÓ LÃI TÀI CHÍNH"}
+    }
+  ],
+  "long": [
+    {
+      "is_hook": true,
+      "step": "MỞ ĐẦU · CÂU HỎI ĐẶT RA",
+      "ket": 0,
+      "ket_pct": 0.0,
+      "hud_left": "PHÍ 1 NĂM: 12 TRIỆU",
+      "hud_right": "THÁNG 1: 1.000.000 đ",
+      "archetype": "HOOK_STAGE",
+      "beat_headlines": [
+        ["12 TRIỆU ĐÓNG TRƯỚC CẢ NĂM", "12 TRIỆU", "AMBER"],
+        ["TIỀN NGỦ Ở ĐÂU CẢ NĂM?", "Ở ĐÂU", "NAVY"]
+      ],
+      "phrase_beats": [
+        ["BẠN ĐÓNG 12 TRIỆU MỘT LẦN", "12 TRIỆU", "AMBER"],
+        ["TÀI KHOẢN TRỪ TRONG 3 GIÂY", "3 GIÂY", "GREEN"],
+        ["NHƯNG CHƯA PHẢI LÃI CỦA HỌ", "CHƯA PHẢI", "CORAL"],
+        ["TIỀN NGỦ Ở ĐÂU CHỜ CHI?", "Ở ĐÂU", "AMBER"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "ĐÓNG PHÍ 12 TRIỆU", "beat": 1},
+        {"id": 2, "tag": "CHƯA THÀNH DOANH THU", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "CÂU DẪN · TỪ BIÊN LAI 12 TRIỆU ĐẾN QUỸ ĐẦU TƯ", "prop": "wire"},
+      "hook_data": {
+        "left_title": "NGƯỜI ĐÓNG PHÍ THẤY",
+        "left_amt": "12.000.000 đ",
+        "left_sub": "Chuyển một lần đầu năm bảo hiểm",
+        "left_actor": 0,
+        "left_accent": "NAVY",
+        "right_title": "SỔ THÁNG ĐẦU GHI NHẬN",
+        "right_amt": "1.000.000 đ",
+        "right_sub": "11.000.000 đ còn lại là nợ nghĩa vụ",
+        "right_actor": 2,
+        "right_accent": "AMBER",
+        "hook_kicker": "NGHỊCH LÝ QUỸ BẢO HIỂM (VÍ DỤ 12 TRIỆU/NĂM)",
+        "hook_line1": "ĐÓNG TRỌN 12 TRIỆU — NHƯNG HỌ CHỈ HƯỞNG ĐƯỢC 1 TRIỆU/THÁNG",
+        "hook_sub": "Cùng bóc tách từng đồng trong cụm 1.000 hợp đồng (12 tỷ đồng)"
+      },
+      "arch_data": {
+        "left": {"kicker": "KHI BẠN CHUYỂN KHOẢN", "actor_id": 0, "big": "12.000.000 đ", "sub": "Phí bảo vệ 12 tháng tới", "tag1": "Tài khoản cá nhân trừ ngay 12tr", "tag2": "Tưởng két nhà bảo hiểm ăn gọn", "accent": "AMBER"},
+        "right": {"kicker": "TRÊN SỔ KẾ TOÁN", "actor_id": 2, "big": "11.000.000 đ", "sub": "Nợ phải gánh 11 tháng còn lại", "tag1": "Tháng 1 chỉ ghi có 1.000.000 đ", "tag2": "Phần lớn đem đi đầu tư sinh lãi", "accent": "GREEN"},
+        "bridge": "VS"
+      },
+      "focal": {"type": "HERO_NUM", "fixed_text": "11 TR TREO", "color": "AMBER", "pill": "BẮT ĐẦU · BƯỚC 1/10: KHOẢN PHÍ NẰM Ở ĐÂU NGÀY ĐẦU?"}
+    },
+    {
+      "step": "B1/10 · BÊN MUA GHI TK 242",
+      "ket": 0,
+      "ket_pct": 0.0,
+      "hud_left": "PHÍ 1 NĂM: 12 TRIỆU",
+      "hud_right": "TK 242: 12.000.000 đ",
+      "archetype": "LEDGER_BOARD",
+      "beat_headlines": [
+        ["BÊN MUA TREO VÀO TK 242", "TK 242", "AMBER"],
+        ["KHÔNG DỒN HẾT VÀO THÁNG ĐẦU", "THÁNG ĐẦU", "GREEN"]
+      ],
+      "phrase_beats": [
+        ["DOANH NGHIỆP MUA GÓI 12 TRIỆU", "12 TRIỆU", "NAVY"],
+        ["GHI NỢ VÀO TK 242", "TK 242", "AMBER"],
+        ["TRÍCH 1 TRIỆU VÀO TK 642", "1 TRIỆU", "GREEN"],
+        ["CHIA ĐỀU CHI PHÍ TỪNG THÁNG", "TỪNG THÁNG", "TEAL"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "TRẢ 12 TRIỆU TK 112", "beat": 1},
+        {"id": 1, "tag": "TREO TK 242", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 1/10 · DOANH NGHIỆP MUA BẢO HIỂM GHI SỔ TT 99/2025", "prop": "ledger"},
+      "arch_data": {
+        "active_day": 0,
+        "days": [["NGÀY ĐÓNG PHÍ", "Treo 12tr TK 242"], ["CUỐI THÁNG 1", "Phân bổ 1tr TK 642"], ["HẾT THÁNG 12", "TK 242 về 0 đ"]],
+        "debit_title": "BÊN NỢ · CHI PHÍ CHỜ PHÂN BỔ",
+        "debit_rows": [["TK 242 · Chi phí chờ phân bổ", "+12.000.000 đ", "Quyền được bảo vệ suốt 12 tháng tới", "AMBER"]],
+        "credit_title": "BÊN CÓ · TIỀN GỬI GIẢM",
+        "credit_rows": [["TK 112 · Tiền gửi không kỳ hạn", "−12.000.000 đ", "Lệnh chuyển khoản sang NH thu hộ", "CORAL"]],
+        "balance_lbl": "Σ NỢ = Σ CÓ = 12.000.000 đ"
+      },
+      "focal": {"type": "T_ACCOUNT", "debit": "Nợ TK 242 (Chi phí chờ phân bổ): +12.000.000 đ", "credit": "Có TK 112 (Tiền gửi không kỳ hạn): −12.000.000 đ", "pill": "BÊN MUA CŨNG CHỈ GHI CHI PHÍ 1 TRIỆU/THÁNG"}
+    },
+    {
+      "step": "B2/10 · GOM BỂ 1.000 HỢP ĐỒNG",
+      "ket": 12000000,
+      "ket_pct": 1.0,
+      "hud_left": "BỂ 1.000 HĐ",
+      "hud_right": "TỔNG QUỸ: 12 TỶ ĐỒNG",
+      "archetype": "RELAY_PIPELINE",
+      "beat_headlines": [
+        ["MỘT NGƯỜI KHÓ ĐỠ BIẾN CỐ", "BIẾN CỐ", "NAVY"],
+        ["1.000 NGƯỜI GOM QUỸ 12 TỶ", "12 TỶ", "GREEN"]
+      ],
+      "phrase_beats": [
+        ["ĐƠN LẺ KHÓ BÙ TAI NẠN", "ĐƠN LẺ", "CORAL"],
+        ["1.000 NGƯỜI ĐÓNG CÙNG 12 TRIỆU", "1.000 NGƯỜI", "NAVY"],
+        ["GOM NGAY THÀNH BỂ 12 TỶ", "12 TỶ", "GREEN"],
+        ["LUẬT SỐ LỚN GIẢM SỐC", "LUẬT SỐ LỚN", "TEAL"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "1.000 KHÁCH ĐÓNG PHÍ", "beat": 1},
+        {"id": 1, "tag": "NGÂN HÀNG GOM 12 TỶ", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 2/10 · GOM 1.000 HỢP ĐỒNG TẠI NGÂN HÀNG THU HỘ", "prop": "coin"},
+      "arch_data": {"sub_mode": "CHECKLIST"},
+      "focal": {"type": "CHECKLIST_3", "items": ["1. Gom 12 tỷ ngày đầu", "2. Chia đều rủi ro", "3. Sàng lọc trục lợi"], "pill": "ĐÓNG PHÍ LÀ MUA QUYỀN CHIA SẺ TRONG BỂ 1.000 NGƯỜI"}
+    },
+    {
+      "step": "B3/10 · CHI 25% PHÍ BAN ĐẦU",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "BỂ 12 TỶ ĐỒNG",
+      "hud_right": "CHI NGAY: 3 TỶ (25%)",
+      "archetype": "WATERFALL_SPLIT",
+      "beat_headlines": [
+        ["25% RỜI BỂ NGAY TUẦN ĐẦU", "25%", "CORAL"],
+        ["TRẢ HOA HỒNG VÀ THẨM ĐỊNH", "HOA HỒNG", "AMBER"]
+      ],
+      "phrase_beats": [
+        ["BỂ 12 TỶ KHÔNG GIỮ 100%", "12 TỶ", "NAVY"],
+        ["2 TỶ CHI HOA HỒNG BÁN", "2 TỶ", "CORAL"],
+        ["1 TỶ PHÍ THẨM ĐỊNH ĐƠN", "1 TỶ", "AMBER"],
+        ["GIỮ LẠI 9 TỶ BẢO CHỨNG", "9 TỶ", "GREEN"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "CẮT 25% PHÍ KHAI THÁC", "beat": 1},
+        {"id": 3, "tag": "ĐẠI LÝ & VẬN HÀNH: 3 TỶ", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 3/10 · PHÂN BỔ 12 TỶ NGÀY ĐẦU TIÊN", "prop": "split"},
+      "arch_data": {
+        "top_left": ["Quỹ giữ lại (75%)", "9 tỷ đ", "GREEN"],
+        "top_right": ["Tổng phí khai thác (25%)", "3 tỷ đ", "CORAL"],
+        "top_ratio": 0.64,
+        "buckets": [
+          {"title": "1. HOA HỒNG", "sub": "Phí môi giới (16,7%)", "amt": "2 tỷ đ", "note": "Chi ngay năm đầu ký hợp đồng", "color": "CORAL", "actor_id": 3},
+          {"title": "2. VẬN HÀNH", "sub": "Thẩm định hồ sơ (8,3%)", "amt": "1 tỷ đ", "note": "Hệ thống, giám định & lương", "color": "AMBER", "actor_id": 2},
+          {"title": "3. QUỸ VỐN NỔI", "sub": "Giữ lại phục vụ rủi ro (75%)", "amt": "9 tỷ đ", "note": "1 tỷ giữ sẵn + 8 tỷ đem đầu tư", "color": "GREEN", "actor_id": 4}
+        ]
+      },
+      "focal": {"type": "THREE_SLICE", "slices": [["Quỹ 75%", "9 tỷ đ", 0.56, "GREEN"], ["Hoa hồng 17%", "2 tỷ đ", 0.24, "CORAL"], ["Thẩm định 8%", "1 tỷ đ", 0.20, "AMBER"]], "pill": "KHOẢNG 25% TIỀN PHÍ RA ĐI NGAY ĐỂ ĐỔI LẤY HỢP ĐỒNG MỚI"}
+    },
+    {
+      "step": "B4/10 · TREO 11 TRIỆU TK 3387",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "HỢP ĐỒNG: 12 TR",
+      "hud_right": "CHƯA HƯỞNG: 11/12",
+      "archetype": "GAUGE_AND_LOCK",
+      "beat_headlines": [
+        ["THÁNG ĐẦU CHỈ HƯỞNG 1 TRIỆU", "1 TRIỆU", "GREEN"],
+        ["11 TRIỆU LÀ NGHĨA VỤ NỢ", "11 TRIỆU", "AMBER"]
+      ],
+      "phrase_beats": [
+        ["NHẬN 12 TRIỆU CHƯA ĂN HẾT", "12 TRIỆU", "AMBER"],
+        ["THÁNG ĐẦU GHI NHẬN ĐÚNG 1/12", "1/12", "GREEN"],
+        ["11 TRIỆU TREO DỰ PHÒNG PHÍ", "11 TRIỆU", "AMBER"],
+        ["HUỶ SỚM HOÀN PHẦN CHƯA HƯỞNG", "CHƯA HƯỞNG", "TEAL"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "TK 511: 1 TR THÁNG 1", "beat": 1},
+        {"id": 2, "tag": "TK 3387: KHOÁ 11 TR", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 4/10 · DỰ PHÒNG PHÍ CHƯA ĐƯỢC HƯỞNG (TK 3387 / IFRS 17 LRC)", "prop": "lock"},
+      "arch_data": {
+        "gauge_title": "NHỊP NHẢ DOANH THU THEO 12 THÁNG BẢO VỆ",
+        "sub_hint": "PHÂN BỔ DOANH THU THEO 12 THÁNG TRÊN MÔ HÌNH TT 99/2025",
+        "locked_lbl": "11 tháng treo TK 3387: 11.000.000 đ",
+        "free_lbl": "Tháng 1: 1.000.000 đ",
+        "ratio": 0.76,
+        "mode": "LOCK",
+        "card_left": ["ĐÃ HƯỞNG THÁNG 1", "+1.000.000 đ", "Chuyển vào doanh thu TK 511", "GREEN"],
+        "card_right": ["CHƯA ĐƯỢC HƯỞNG", "11.000.000 đ", "Treo nghĩa vụ 11 tháng tới", "AMBER"]
+      },
+      "focal": {"type": "HOLD_GAUGE", "left_lbl": "Treo TK 3387 (11 tháng): 11tr", "right_lbl": "Tháng 1: 1tr", "ratio": 0.76, "pill": "PHÍ BẢO HIỂM NHẬN TRƯỚC NHƯNG PHẢI HƯỞNG DẦN TỪNG NGÀY"}
+    },
+    {
+      "step": "B5/10 · SỔ KÉP THÁNG ĐẦU",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "THÁNG 1: 12 TR",
+      "hud_right": "Σ NỢ = Σ CÓ = 12 TR",
+      "archetype": "LEDGER_BOARD",
+      "beat_headlines": [
+        ["TIỀN VÀO SỔ VẪN TREO NỢ", "TREO NỢ", "AMBER"],
+        ["MỖI THÁNG NHẢ ĐÚNG 1 TRIỆU", "1 TRIỆU", "GREEN"]
+      ],
+      "phrase_beats": [
+        ["SỔ THU GHI NỢ TK 112", "TK 112", "GREEN"],
+        ["CÓ TK 511 ĐÚNG 1 TRIỆU", "TK 511", "GREEN"],
+        ["CÓ TK 3387 TỚI 11 TRIỆU", "TK 3387", "AMBER"],
+        ["CHƯA HẾT KỲ CHƯA TÍNH LÃI", "CHƯA TÍNH", "NAVY"]
+      ],
+      "actors": [
+        {"id": 1, "tag": "TK 112: +12.000.000 đ", "beat": 1},
+        {"id": 2, "tag": "3387: 11TR · 511: 1TR", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 5/10 · HẠCH TOÁN THÁNG 1 TRÊN MÔ HÌNH TT 99/2025", "prop": "ledger"},
+      "arch_data": {
+        "active_day": 1,
+        "days": [["THU TIỀN NGÀY 1", "Nợ 112 / Có 3387"], ["CHỐT THÁNG 1", "11tr treo · 1tr 511"], ["CHỐT THÁNG 12", "3387 về 0 đ"]],
+        "debit_title": "BÊN NỢ · TIỀN THU VÀO",
+        "debit_rows": [["TK 112 · Tiền gửi không kỳ hạn", "+12.000.000 đ", "Phí 1 năm đã vào tài khoản thu hộ", "GREEN"]],
+        "credit_title": "BÊN CÓ · TÁCH NGHĨA VỤ & DOANH THU",
+        "credit_rows": [
+          ["TK 3387 · Doanh thu chờ phân bổ", "+11.000.000 đ", "Nghĩa vụ bảo vệ 11 tháng tiếp theo", "AMBER"],
+          ["TK 511 · Doanh thu tháng 1", "+1.000.000 đ", "Phần rủi ro của 30 ngày đầu đã qua", "TEAL"]
+        ],
+        "balance_lbl": "Σ NỢ = Σ CÓ = 12.000.000 đ"
+      },
+      "focal": {"type": "T_ACCOUNT", "debit": "Nợ TK 112 (Tiền gửi không kỳ hạn): +12.000.000 đ", "credit": "Có TK 3387: 11.000.000 đ + Có TK 511: 1.000.000 đ", "pill": "PHẦN CHƯA HƯỞNG CHÍNH LÀ GỐC RỄ CỦA VỐN NỔI"}
+    },
+    {
+      "step": "B6/10 · 8 TỶ SANG TK 128",
+      "ket": 8000000,
+      "ket_pct": 0.667,
+      "hud_left": "QUỸ CÒN: 9 TỶ ĐỒNG",
+      "hud_right": "TK 128: 8 TỶ · 6%/NĂM",
+      "archetype": "RELAY_PIPELINE",
+      "beat_headlines": [
+        ["9 TỶ KHÔNG NGỦ LÃI 0,1%", "9 TỶ", "NAVY"],
+        ["8 TỶ VÀO KÉT TK 128", "TK 128", "GREEN"]
+      ],
+      "phrase_beats": [
+        ["1 TỶ TK 112 CHI NHANH", "1 TỶ", "TEAL"],
+        ["ĐƯA 8 TỶ SANG TK 128", "8 TỶ", "GREEN"],
+        ["ƯU TIÊN TRÁI PHIẾU CHÍNH PHỦ", "TRÁI PHIẾU", "GREEN"],
+        ["GỬI KỲ HẠN SINH LÃI ĐỀU", "SINH LÃI", "AMBER"]
+      ],
+      "actors": [
+        {"id": 1, "tag": "CHỪA 1 TỶ TRẢ NHANH", "beat": 1},
+        {"id": 4, "tag": "TK 128: NẠP 8 TỶ Đ", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 6/10 · CHUYỂN VỐN NỔI SANG TÀI SẢN SINH LÃI AN TOÀN", "prop": "coin"},
+      "arch_data": {"sub_mode": "CHECKLIST"},
+      "focal": {"type": "CHECKLIST_3", "items": ["1 tỷ (TK 112): Rút nhanh", "8 tỷ (TK 128): Trái phiếu", "Không dồn vào rủi ro cao"], "pill": "TIỀN CHỦ YẾU NGỦ TRONG TRÁI PHIẾU & TIỀN GỬI KỲ HẠN"}
+    },
+    {
+      "step": "B7/10 · CỖ MÁY VỐN NỔI",
+      "ket": 8000000,
+      "ket_pct": 0.667,
+      "hud_left": "TỶ LỆ 100%",
+      "hud_right": "LÃI TK 515: +480 TRIỆU",
+      "archetype": "TWIN_SHOWDOWN",
+      "beat_headlines": [
+        ["BỒI THƯỜNG + PHÍ CHẠM 100%", "100%", "CORAL"],
+        ["VẪN DƯƠNG +480 TRIỆU VỐN NỔI", "+480 TRIỆU", "GREEN"]
+      ],
+      "phrase_beats": [
+        ["CHI BỒI THƯỜNG HẾT 9 TỶ", "9 TỶ", "CORAL"],
+        ["CỘNG 3 TỶ PHÍ = 100%", "100%", "AMBER"],
+        ["LÃI NGHIỆP VỤ BẰNG KHÔNG ĐỒNG", "KHÔNG ĐỒNG", "NAVY"],
+        ["VỐN NỔI ĐẺ +480 TRIỆU LÃI", "+480 TRIỆU", "GREEN"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "CHI BỒI THƯỜNG 9 TỶ", "beat": 1},
+        {"id": 4, "tag": "TK 515 THU +480 TRIỆU", "beat": 2}
+      ],
+      "flow": {"kind": "pipe", "label": "BƯỚC 7/10 · BÍ MẬT TỶ LỆ KẾT HỢP 100% VẪN CÓ LÃI", "prop": "coin"},
+      "arch_data": {
+        "left": {"kicker": "KẾT QUẢ NGHIỆP VỤ (100%)", "actor_id": 2, "big": "0 đ", "sub": "9 tỷ bồi thường + 3 tỷ phí = 12 tỷ", "tag1": "Tỷ lệ kết hợp = 75% + 25% = 100%", "tag2": "Thu phí vừa đủ trang trải rủi ro", "accent": "CORAL"},
+        "right": {"kicker": "DOANH THU TÀI CHÍNH TK 515", "actor_id": 4, "big": "+480.000.000 đ", "sub": "8 tỷ TK 128 × 6%/năm (480k/hợp đồng)", "tag1": "Ghi Nợ TK 112 / Có TK 515", "tag2": "Chênh lệch thời gian thành lợi nhuận", "accent": "GREEN"},
+        "bridge": "CỘNG"
+      },
+      "focal": {"type": "SPLIT_BAR", "left_lbl": "Nghiệp vụ: 0 đ (100%)", "right_lbl": "Vốn nổi: +480 triệu", "ratio": 0.45, "pill": "BÍ MẬT KINH TẾ BẢO HIỂM LÀ KHOẢNG TRỄ THỜI GIAN"}
+    },
+    {
+      "step": "B8/10 · TRẢ TỪ QUỸ TK 352",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "QUỸ CHI: 9 TỶ ĐỒNG",
+      "hud_right": "DỰ PHÒNG: TK 352",
+      "archetype": "LEDGER_BOARD",
+      "beat_headlines": [
+        ["SỰ CỐ GHI VÀO TK 352", "TK 352", "CORAL"],
+        ["ĐỒNG BỘ CHUẨN IFRS 17 LIC", "IFRS 17", "NAVY"]
+      ],
+      "phrase_beats": [
+        ["SỰ CỐ XẢY RA CHỜ DUYỆT", "SỰ CỐ", "CORAL"],
+        ["TRÍCH NGAY DỰ PHÒNG TK 352", "TK 352", "AMBER"],
+        ["RÚT NGĂN 1 TỶ TK 112", "TK 112", "GREEN"],
+        ["TRÁI PHIẾU ĐÁO HẠN BÙ QUỸ", "ĐÁO HẠN", "TEAL"]
+      ],
+      "actors": [
+        {"id": 2, "tag": "TRÍCH DỰ PHÒNG TK 352", "beat": 1},
+        {"id": 3, "tag": "CHUYỂN CHI BỒI THƯỜNG", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 8/10 · BÚT TOÁN BỒI THƯỜNG & CHUẨN DỰ PHÒNG PHẢI TRẢ", "prop": "ledger"},
+      "arch_data": {
+        "active_day": 2,
+        "days": [["NHẬN BÁO TAI NẠN", "Trích Nợ CP / Có 352"], ["THẨM ĐỊNH HỒ SƠ", "Khoá hạn mức TK 112"], ["CHUYỂN KHOẢN CHI", "Nợ TK 352 / Có 112"]],
+        "debit_title": "BÊN NỢ · TẤT TOÁN DỰ PHÒNG",
+        "debit_rows": [["TK 352 · Dự phòng phải trả", "9.000.000.000 đ", "Trích trả các ca rủi ro đủ điều kiện", "CORAL"]],
+        "credit_title": "BÊN CÓ · CHI TIỀN BỒI THƯỜNG",
+        "credit_rows": [["TK 112 · Tiền gửi không kỳ hạn", "9.000.000.000 đ", "Giải ngân trực tiếp sang người thụ hưởng", "GREEN"]],
+        "balance_lbl": "Σ NỢ = Σ CÓ = 9.000.000.000 đ"
+      },
+      "focal": {"type": "T_ACCOUNT", "debit": "Nợ TK 352 (Dự phòng phải trả): 9.000.000.000 đ", "credit": "Có TK 112 (Tiền gửi không kỳ hạn): 9.000.000.000 đ", "pill": "KHỚP KỲ HẠN GIÚP QUỸ KHÔNG KẸT THANH KHOẢN"}
+    },
+    {
+      "step": "B9/10 · BA KỊCH BẢN CUỐI KỲ",
+      "ket": 9000000,
+      "ket_pct": 0.75,
+      "hud_left": "CHỐT NĂM: 12 TR",
+      "hud_right": "3 TÌNH HUỐNG THỰC TẾ",
+      "archetype": "FULL_TRIPTYCH_3",
+      "beat_headlines": [
+        ["BA KỊCH BẢN KHI HẾT NĂM", "BA KỊCH BẢN", "NAVY"],
+        ["PHÍ RỦI RO KHÔNG CỘNG DỒN", "KHÔNG", "CORAL"]
+      ],
+      "phrase_beats": [
+        ["1. BÌNH AN: KHÔNG HOÀN PHÍ", "BÌNH AN", "TEAL"],
+        ["2. HUỶ SỚM: TRỪ PHÍ ĐẦU", "HUỶ SỚM", "AMBER"],
+        ["3. ĐỘT BIẾN: TÁI BẢO HIỂM", "TÁI BẢO HIỂM", "CORAL"],
+        ["MUA SỰ BẢO VỆ 365 NGÀY", "365 NGÀY", "GREEN"]
+      ],
+      "actors": [
+        {"id": 0, "tag": "HẾT NĂM KHÔNG TAI NẠN", "beat": 1},
+        {"id": 4, "tag": "QUỸ TÁI & DỰ PHÒNG", "beat": 2}
+      ],
+      "flow": {"kind": "wire", "label": "BƯỚC 9/10 · XỬ LÝ NGOẠI LỆ CUỐI KỲ", "prop": "wire"},
+      "arch_data": {
+        "cards": [
+          {"num": "KỊCH BẢN 01", "title": "KHÔNG RỦI RO", "sub": "Cả năm bình an không nộp hồ sơ", "when": "Hết hạn 12 tháng bảo hiểm", "flow": "11tr TK 3387 kết chuyển hết 511", "impact": "Bạn đã mua bình yên; 0 đ hoàn lại", "color": "TEAL"},
+          {"num": "KỊCH BẢN 02", "title": "HUỶ HỢP ĐỒNG", "sub": "Dừng ngang giữa tháng thứ 4", "when": "Phần phí còn lại chưa hưởng", "flow": "Hoàn phần thừa trừ chi phí khai thác", "impact": "Mất khoản hoa hồng & phí năm 1", "color": "AMBER"},
+          {"num": "KỊCH BẢN 03", "title": "BỒI THƯỜNG DỒN DẬP", "sub": "Thiên tai vượt mức 9 tỷ dự kiến", "when": "Tỷ lệ kết hợp vọt trên 100%", "flow": "Gọi tái bảo hiểm & bán dần TK 128", "impact": "Bào mòn lợi nhuận thậm chí lỗ", "color": "CORAL"}
+        ]
+      },
+      "focal": {"type": "TRIPTYCH_3", "cols": [["1. BÌNH AN", "Hết năm", "TK 3387 chuyển hết 511"], ["2. HUỶ SỚM", "Ngắt giữa kỳ", "Trừ 25% khai thác đầu"], ["3. ĐỘT BIẾN", "Bồi thường vọt", "Quỹ tái bảo hiểm gánh bớt"]], "pill": "PHÍ RỦI RO LÀ TIỀN MUA LÁ CHẮN — KHÔNG PHẢI SỔ TIẾT KIỆM"}
+    }
+  ]
+}

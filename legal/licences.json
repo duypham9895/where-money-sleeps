@@ -297,7 +297,19 @@
         "public/brand/offus-fig-3.webp",
         "public/brand/offus-fig-3.avif",
         "public/brand/offus-fig-4.webp",
-        "public/brand/offus-fig-4.avif"
+        "public/brand/offus-fig-4.avif",
+        "public/brand/insure-fig-1.avif",
+        "public/brand/insure-fig-1.jpg",
+        "public/brand/insure-fig-1.webp",
+        "public/brand/insure-fig-2.avif",
+        "public/brand/insure-fig-2.jpg",
+        "public/brand/insure-fig-2.webp",
+        "public/brand/insure-fig-3.avif",
+        "public/brand/insure-fig-3.jpg",
+        "public/brand/insure-fig-3.webp",
+        "public/brand/insure-fig-4.avif",
+        "public/brand/insure-fig-4.jpg",
+        "public/brand/insure-fig-4.webp"
       ]
     },
     {
@@ -373,7 +385,11 @@
       "source_url": "https://github.com/pnnbao97/VieNeu-TTS",
       "retrieved": "2026-11-21",
       "planned_file": "public/audio/{story}-beats.mp3",
-      "audio_files": []
+      "audio_files": [
+        {
+          "file": "public/audio/insure-beats.mp3"
+        }
+      ]
     }
   ]
 }

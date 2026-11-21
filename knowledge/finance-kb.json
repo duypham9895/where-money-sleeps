@@ -3,7 +3,7 @@
   "kbId": "wms-financial-specialist-kb",
   "title": "Kho Tri thức Chuyên gia Tài chính, Cơ chế Ngân hàng & Pháp quy Kế toán — Where Money Sleeps",
   "description": "Kho tri thức chuẩn hoá phục vụ Agent Chuyên gia Tài chính (tai-chinh-reviewer) để đối chiếu tính đúng đắn của toàn bộ bài viết (Diorama 5 đoạn + Bài khảo cứu 2 tầng) và Kịch bản/Đồ hoạ Video (YouTube Dài 16:9 + YouTube Shorts 9:16), kèm cơ chế tự động crawl & chắt lọc định kỳ theo thời gian.",
-  "lastCrawledAt": "2026-11-10T10:45:14+07:00",
+  "lastCrawledAt": "2026-11-21T17:13:15+07:00",
   "freshnessPolicy": {
     "maxAgeDays": 30,
     "recommendedCron": "0 8 * * 1",
@@ -901,11 +901,11 @@
     }
   },
   "lastCrawlSummary": {
-    "crawledAt": "2026-11-10T10:45:14+07:00",
+    "crawledAt": "2026-11-21T17:13:15+07:00",
     "localArtifactsVerified": 3,
     "localArtifactsTotal": 3,
     "liveUrlsProbed": 7,
-    "liveUrlsReachable": 6,
+    "liveUrlsReachable": 7,
     "domainRulesCount": 9,
     "storyInvariantsCount": 7
   }

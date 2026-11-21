@@ -507,15 +507,17 @@ def nwords(*texts) -> int:
     return sum(len(str(t).split()) for t in texts if isinstance(t, str))
 
 
-def _walk(x, out: list[str]) -> list[str]:
+def _walk(x, out: list[str], skip_keys: tuple[str, ...] = ()) -> list[str]:
     if isinstance(x, str):
         out.append(x)
     elif isinstance(x, list):
         for y in x:
-            _walk(y, out)
+            _walk(y, out, skip_keys)
     elif isinstance(x, dict):
-        for y in x.values():
-            _walk(y, out)
+        for k, y in x.items():
+            if k in skip_keys:
+                continue
+            _walk(y, out, skip_keys)
     return out
 
 
@@ -543,7 +545,7 @@ NONVISUAL_STAGE_LEAK_RE = re.compile(
 
 def article_text(story: dict) -> list[str]:
     """Mọi chuỗi trong article + videoScript — cho C5 (thuật ngữ) và grep C9. C6v vẫn chỉ đọc 5 đoạn."""
-    return _walk(story.get("videoScript"), _walk(story.get("article"), []))
+    return _walk(story.get("videoScript"), _walk(story.get("article"), []), ("elevenlabsVoiceId",))
 
 
 def secs(m: re.Match) -> tuple[int, int]:
@@ -1554,7 +1556,7 @@ def check(src: str, label: str, rep: Report, only: str | None) -> dict:
                     vw = sum(nwords(sc.get("vo")) for sc in es)
                     if vi_s.get("status") == "published" and vw < min_w:
                         rep.add("FAIL", "C11", f"STORIES_EN.{k}.{fmt}", f"tổng vo EN {vw} < {min_w} từ")
-                en_texts = _walk(en_s, [])
+                en_texts = _walk(en_s, [], ("elevenlabsVoiceId",))
                 for rx, why in ((BRAND_RE, "LUẬT 4 thương hiệu"), (PROP_EN_RE, "LUẬT 7 đạo cụ sân khấu"), (ADVICE_EN_RE, "ONE-PAGER §3.2 lời khuyên"), (QD41_EN_RE, "QĐ 41 giả danh kế toán/chuyên gia")):
                     hits = sorted({mt.group(0) for t in en_texts for mt in rx.finditer(t)})
                     if hits:

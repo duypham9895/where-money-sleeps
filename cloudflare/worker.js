@@ -16,7 +16,8 @@ const ALLOWED_LESSONS = new Set([
   "minpay",
   "qr",
   "profitcash",
-  "offus"
+  "offus",
+  "insure"
 ]);
 
 const ALLOWED_CARDS = new Set([
@@ -33,7 +34,9 @@ const ALLOWED_CARDS = new Set([
   "profitcash-q1.v1",
   "profitcash-q2.v1",
   "offus-q1.v1",
-  "offus-q2.v1"
+  "offus-q2.v1",
+  "insure-q1.v1",
+  "insure-q2.v1"
 ]);
 
 const ALLOWED_METHODS = new Set(["link", "code"]);
@@ -159,6 +162,19 @@ const SEO_CATALOG = {
         title: "20 Million to the Same Bank vs. Another Bank: Both Chime in 3 Seconds, So Why Do Reserves Go Two Ways? — Where Money Sleeps",
         desc: "Two 20-million-dong transfers chime after 3 seconds. One edits two lines in a single ledger; the other taps pledged collateral and waits for a 30-billion-dong net settlement at the central bank. (Unofficial summary of Circular 99/2025/TT-BTC.)",
         imgAlt: "20 Million to the Same Bank vs. Another Bank: Both Chime in 3 Seconds, So Why Do Reserves Go Two Ways?"
+      }
+    },
+    insure: {
+      ytLong: "7634SEhjkWY",
+      vi: {
+        title: "Đóng 12 triệu phí bảo hiểm 1 năm: vì sao chỉ 1 triệu thành doanh thu ngay, còn 11 triệu đang ngủ ở đâu? — Where Money Sleeps",
+        desc: "Chuyển 12 triệu đầu năm (ví dụ), 25% trả hoa hồng vận hành ngay, 11 triệu treo sổ nghĩa vụ, còn 8 tỷ đồng vốn nổi chạy sang trái phiếu sinh lãi 6%/năm.",
+        imgAlt: "Đóng 12 triệu phí bảo hiểm 1 năm: vì sao chỉ 1 triệu thành doanh thu ngay, còn 11 triệu đang ngủ ở đâu?"
+      },
+      en: {
+        title: "Pay 12M VND for a year of insurance: why only 1M is earned today, and where the other 11M sits? — Where Money Sleeps",
+        desc: "One 12M transfer upfront (illustrative), 25% paid out immediately for commissions and underwriting, 11M locked in unearned liabilities, and 8B VND in float earning 6%/year on bonds. (Unofficial summary of Circular 99/2025/TT-BTC.)",
+        imgAlt: "Pay 12M VND for a year of insurance: why only 1M is earned today, and where the other 11M sits?"
       }
     }
   }

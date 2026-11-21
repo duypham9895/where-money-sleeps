@@ -1,0 +1,279 @@
+1
+00:00:00,300 --> 00:00:01,840
+Chín giờ mười lăm sáng thứ Ba.
+
+2
+00:00:01,840 --> 00:00:07,510
+Bạn mở ứng dụng ngân hàng, bấm chuyển đúng mười hai triệu đồng đóng phí bảo hiểm cho một năm bảo vệ phía trước.
+
+3
+00:00:07,510 --> 00:00:09,990
+Ba giây sau, tin nhắn báo trừ tài khoản vang lên.
+
+4
+00:00:09,990 --> 00:00:17,230
+Nhiều người nhìn biên lai mười hai triệu đồng thường tưởng tiền ấy nằm yên trong một chiếc két sắt dán tên mình, chờ lúc ốm đau mới mở ra rút.
+
+5
+00:00:17,230 --> 00:00:21,770
+Số khác lại nghĩ bên bán bảo hiểm vừa bỏ túi trọn mười hai triệu tiền lãi ngay buổi sáng.
+
+6
+00:00:21,770 --> 00:00:24,160
+Thực tế kế toán và dòng tiền vận hành khác hẳn.
+
+7
+00:00:24,160 --> 00:00:29,840
+Tiền mặt rời ví bạn đúng một lần duy nhất, nhưng quyền ghi nhận doanh thu phải chia qua mười hai tháng ròng rã.
+
+8
+00:00:29,840 --> 00:00:37,120
+Hôm nay chúng ta đi qua năm căn nhà tài chính để xem chính xác từng triệu đồng trong gói bảo hiểm đang nằm ở đâu suốt ba trăm sáu mươi lăm ngày.
+
+9
+00:00:37,700 --> 00:00:47,780
+Trước hết hãy nhìn từ phía người bỏ tiền mua hợp đồng, đặc biệt khi một doanh nghiệp mua gói bảo hiểm tài sản hay sức khoẻ mười hai triệu đồng (ví dụ) cho nhân sự.
+
+10
+00:00:47,780 --> 00:00:56,780
+Ngay lúc chuyển khoản hết mười hai triệu vào ngày đầu tiên, kế toán bên mua không được phép đẩy trọn con số đó vào chi phí của riêng tháng Một.
+
+11
+00:00:56,780 --> 00:01:03,580
+Làm vậy sẽ kéo tụt lợi nhuận tháng Giêng trong khi mười một tháng còn lại được bảo vệ miễn phí trên báo cáo.
+
+12
+00:01:03,580 --> 00:01:11,540
+Theo khung Thông tư 99/2025/TT-BTC, sổ bên mua tách dòng tiền ra khỏi chi phí bằng tài khoản 242 mang tên Chi phí chờ phân bổ.
+
+13
+00:01:11,540 --> 00:01:17,540
+Ngày chuyển tiền ghi Nợ TK 242 mười hai triệu và Có TK 112 Tiền gửi không kỳ hạn mười hai triệu.
+
+14
+00:01:17,540 --> 00:01:24,090
+Cuối tháng đầu, khi một phần mười hai kỳ hạn trôi qua, mới phân bổ Nợ TK 642 Có TK 242 đúng một triệu đồng.
+
+15
+00:01:24,670 --> 00:01:28,520
+Bây giờ bước qua ngân hàng thu hộ để xem phía bên kia của hợp đồng bảo hiểm.
+
+16
+00:01:28,520 --> 00:01:32,560
+Không công ty nào tồn tại nổi nếu chỉ bán hợp đồng cho duy nhất một khách hàng.
+
+17
+00:01:32,560 --> 00:01:39,000
+Một ca phẫu thuật hay tai nạn nặng có thể ngốn tới vài trăm triệu đồng, làm cạn sạch một suất phí mười hai triệu ngay lập tức.
+
+18
+00:01:39,000 --> 00:01:41,270
+Do đó cả ngành đặt nền móng trên luật số lớn.
+
+19
+00:01:41,270 --> 00:01:46,520
+Trong ví dụ hôm nay, giả sử tuần đầu tháng Giêng có một nghìn người cùng đóng gói mười hai triệu đồng.
+
+20
+00:01:46,520 --> 00:01:52,270
+Một nghìn dòng chuyển khoản qua ngân hàng thu hộ lập tức gom thành một bể tiền mặt chung tròn mười hai tỷ đồng.
+
+21
+00:01:52,270 --> 00:01:58,980
+Khi rủi ro bất ngờ của từng người đặt vào chung bể một nghìn gia đình, tỷ lệ bồi thường cả năm trở thành con số thống kê khá ổn định.
+
+22
+00:01:59,560 --> 00:02:06,520
+Thế nhưng nhìn vào bể mười hai tỷ đồng mới gom về ngày đầu, điều ít ai để ý là cả mười hai tỷ không nằm nguyên vẹn chờ bồi thường.
+
+23
+00:02:06,520 --> 00:02:13,050
+Để phát hành hợp đồng cho một nghìn người mua, hệ thống phải tốn chi phí phân phối và thẩm định ngay từ vạch xuất phát.
+
+24
+00:02:13,050 --> 00:02:20,100
+Khoảng hai mươi lăm phần trăm tổng tiền thu — tức ba tỷ đồng trên cả cụm, hay ba triệu đồng trên mỗi hợp đồng — rời bể ngay tuần đầu.
+
+25
+00:02:20,100 --> 00:02:25,030
+Cụ thể, hai tỷ đồng chi trả hoa hồng bán hàng qua tài khoản 641 cho mạng lưới đại lý tư vấn.
+
+26
+00:02:25,030 --> 00:02:29,150
+Một tỷ đồng còn lại trả chi phí thẩm định hồ sơ và hạ tầng qua tài khoản 642.
+
+27
+00:02:29,150 --> 00:02:32,070
+Quỹ thực giữ để bảo chứng rủi ro chỉ còn chín tỷ đồng.
+
+28
+00:02:32,070 --> 00:02:35,760
+Vì vậy huỷ hợp đồng sớm luôn bị trừ khoản phí khai thác ban đầu này.
+
+29
+00:02:36,340 --> 00:02:39,880
+Điểm bất ngờ thứ tư nằm ngay trên sổ doanh thu của công ty bảo hiểm.
+
+30
+00:02:39,880 --> 00:02:46,430
+Dù mười hai triệu tiền mặt đã về tài khoản thu hộ từ sáng thứ Ba, kế toán vẫn chưa được tính hết số đó vào doanh thu tháng Một.
+
+31
+00:02:46,430 --> 00:02:48,630
+Lý do nằm ở thời gian bảo vệ chưa trôi qua.
+
+32
+00:02:48,630 --> 00:02:51,830
+Hợp đồng năm kéo dài ba trăm sáu mươi lăm ngày qua cả bốn mùa.
+
+33
+00:02:51,830 --> 00:02:57,640
+Khi hết ngày ba mươi mốt tháng Giêng, thời gian rủi ro thực sự đã đi qua mới tròn đúng một phần mười hai kỳ hạn.
+
+34
+00:02:57,640 --> 00:03:03,160
+Bởi vậy trên suất mười hai triệu, bên phát hành chỉ mở khoá đúng một triệu đồng làm doanh thu tháng đầu.
+
+35
+00:03:03,160 --> 00:03:09,390
+Mười một triệu đồng còn lại buộc phải treo làm nợ nghĩa vụ bảo vệ cho mười một tháng tiếp theo trên báo cáo tài chính.
+
+36
+00:03:09,970 --> 00:03:19,700
+Đặt bút toán kép lên bàn trên mô hình doanh nghiệp chung của Thông tư 99/2025/TT-BTC sẽ thấy ngay sự đối xứng, song hành cùng chuẩn quốc tế IFRS 17.
+
+37
+00:03:19,700 --> 00:03:28,750
+Tại Việt Nam, doanh nghiệp bảo hiểm dùng hệ thống tài khoản chuyên ngành riêng cho các quỹ dự phòng nghiệp vụ theo quy định Bộ Tài chính.
+
+38
+00:03:28,750 --> 00:03:37,060
+Nhưng khi ánh xạ về khung tài khoản phổ thông để dễ so sánh giữa các ngành, bức tranh cuối Tháng 1 cho một hợp đồng cực kỳ rõ nét.
+
+39
+00:03:37,060 --> 00:03:42,180
+Bên Nợ ghi tăng TK 112 Tiền gửi không kỳ hạn tròn mười hai triệu đồng thực thu.
+
+40
+00:03:42,180 --> 00:03:50,530
+Bên Có tách đôi: một triệu đồng vào TK 511 Doanh thu tháng đầu đã qua, và mười một triệu đồng treo ở TK 3387 Doanh thu chờ phân bổ.
+
+41
+00:03:50,530 --> 00:03:53,240
+Chuẩn IFRS 17 gọi phần treo nợ này là LRC.
+
+42
+00:03:53,240 --> 00:03:57,150
+Tiền mặt về một cục ngày đầu, doanh thu đi bộ qua mười hai kỳ.
+
+43
+00:03:57,730 --> 00:04:03,970
+Và đây là câu hỏi lớn nhất: chín tỷ đồng quỹ thực giữ còn lại sau chi phí khai thác đang ngủ ở đâu suốt cả năm?
+
+44
+00:04:03,970 --> 00:04:10,670
+Chắc chắn nhà bảo hiểm không để chín tỷ đồng nằm không ở tài khoản thanh toán lãi không phẩy một phần trăm một năm.
+
+45
+00:04:10,670 --> 00:04:19,720
+Do các ca viện phí hay sửa chữa của một nghìn hợp đồng đến rải rác suốt bốn mùa thay vì dồn hết vào tháng Một, ban ngân quỹ chia chín tỷ thành hai ngăn rõ rệt.
+
+46
+00:04:19,720 --> 00:04:27,790
+Ngăn thứ nhất giữ khoảng một tỷ đồng (một triệu trên mỗi suất) nằm lỏng ở tài khoản TK 112 để giải ngân nhanh cho hồ sơ bồi thường hàng tuần.
+
+47
+00:04:27,790 --> 00:04:32,060
+Tám tỷ đồng còn lại chảy thẳng sang TK 128 Đầu tư nắm giữ đến ngày đáo hạn.
+
+48
+00:04:32,060 --> 00:04:40,660
+Ngăn TK 128 ưu tiên trái phiếu chính phủ và tiền gửi ngân hàng có kỳ hạn an toàn, giúp đồng tiền tạm nghỉ luôn sinh lãi mà không đánh cược rủi ro cao.
+
+49
+00:04:41,240 --> 00:04:46,550
+Nhìn vào ngăn tám tỷ đồng ở TK 128, ta giải mã được bí mật cốt lõi mang tên vốn nổi bảo hiểm.
+
+50
+00:04:46,550 --> 00:04:50,910
+Thử chạy một ví dụ thực tế trên bể một nghìn hợp đồng thu mười hai tỷ đồng.
+
+51
+00:04:50,910 --> 00:04:57,310
+Giả sử suốt một năm, tiền chi trả bồi thường chạm đúng chín tỷ đồng, tức bảy mươi lăm phần trăm tổng phí thu.
+
+52
+00:04:57,310 --> 00:05:04,350
+Cộng chín tỷ tiền bồi thường với ba tỷ chi phí hoa hồng và quản trị ban đầu, tổng chi bằng tròn mười hai tỷ đồng thu vào.
+
+53
+00:05:04,350 --> 00:05:07,960
+Chỉ số ngành gọi đây là tỷ lệ kết hợp đúng một trăm phần trăm.
+
+54
+00:05:07,960 --> 00:05:11,020
+Nghĩa là nghiệp vụ bán bảo hiểm hoà vốn không đồng.
+
+55
+00:05:11,020 --> 00:05:20,320
+Thế nhưng tám tỷ đồng vốn nổi nằm trong trái phiếu và tiền gửi kỳ hạn TK 128 ở mức lãi suất ví dụ sáu phần trăm một năm vẫn đẻ đều bốn trăm tám mươi triệu đồng.
+
+56
+00:05:20,320 --> 00:05:25,770
+Khoản lãi này vào thẳng TK 515 Doanh thu hoạt động tài chính, tạo bộ đệm sinh lời vững chắc.
+
+57
+00:05:26,350 --> 00:05:32,520
+Bây giờ nhìn dòng tiền đi ra khi có thành viên trong nhóm một nghìn người gặp biến cố thật sự.
+
+58
+00:05:32,520 --> 00:05:43,020
+Ngay khi bộ phận thẩm định nhận hồ sơ hợp lệ dù còn đợi vài tuần kiểm chứng hoá đơn trước ngày chuyển tiền, sổ sách vẫn phải lập ngay khoản dự phòng bồi thường.
+
+59
+00:05:43,020 --> 00:05:50,230
+Khung tham chiếu TT 99/2025 minh hoạ khoản nợ này qua TK 352 Dự phòng phải trả, tương ứng mục LIC của IFRS 17.
+
+60
+00:05:50,230 --> 00:05:58,720
+Tới ngày duyệt chi chính thức, lệnh chuyển khoản lấy tiền trực tiếp từ ngăn lỏng một tỷ ở TK 112 theo bút toán Nợ TK 352 Có TK 112.
+
+61
+00:05:58,720 --> 00:06:05,090
+Nhờ ngăn tiền mặt sẵn sàng đó, người thụ hưởng nhận tiền nhanh mà không cần bán tháo trái phiếu.
+
+62
+00:06:05,090 --> 00:06:10,980
+Đồng thời mỗi quý khi các lô trái phiếu TK 128 đáo hạn, tiền gốc quay về nạp đầy lại TK 112.
+
+63
+00:06:11,560 --> 00:06:16,330
+Cuối cùng là ba kịch bản thực tế hay gây hiểu nhầm nhất vào ngày chốt sổ cuối năm.
+
+64
+00:06:16,330 --> 00:06:20,750
+Thứ nhất là cả năm nhà bạn khoẻ mạnh bình an, không nộp hồ sơ bồi thường nào.
+
+65
+00:06:20,750 --> 00:06:29,000
+Hết tháng Mười Hai, toàn bộ mười một triệu đồng trên TK 3387 đã kết chuyển hết sang doanh thu TK 511 và gói bảo vệ thuần không hoàn lại tiền.
+
+66
+00:06:29,000 --> 00:06:30,240
+Bạn không hề mất oan.
+
+67
+00:06:30,240 --> 00:06:39,850
+Mười hai triệu đó đã trả chi phí nằm viện cho các gia đình kém may mắn trong cùng bể một nghìn người, đổi lại bạn mua trọn ba trăm sáu mươi lăm ngày an tâm tài chính.
+
+68
+00:06:39,850 --> 00:06:45,400
+Thứ hai là huỷ hợp đồng giữa kỳ, số hoàn trả luôn khấu trừ phần chi phí khai thác ban đầu đã chi.
+
+69
+00:06:45,400 --> 00:06:49,570
+Thứ ba là thiên tai vượt trần đẩy tỷ lệ kết hợp trên một trăm phần trăm.
+
+70
+00:06:49,570 --> 00:06:52,540
+Khi đó lãi TK 515 và quỹ tái bảo hiểm đứng ra bù đắp.
