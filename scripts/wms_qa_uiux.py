@@ -6,6 +6,7 @@ zero-FOUC color-scheme, Scoped Vestibular Dampening, Skip-Link + :focus-visible,
 """
 from __future__ import annotations
 
+import importlib.util
 import re
 from pathlib import Path
 
@@ -17,7 +18,32 @@ MOCKUP_PAGES = [
     "landing-detail-mockups.html", "mockup-option-a.html", "mockup-option-b.html",
     "mockup-mobile-a.html", "mockup-mobile-b.html", "studio-mockups.html",
 ]
-ALL_STORIES = ["card", "pay", "install", "minpay", "qr", "profitcash", "offus"]
+DEFAULT_CORE_STORIES = ["card", "pay", "install", "minpay", "qr", "profitcash", "offus"]
+
+
+def _load_active_stories(root_dir: Path) -> list[str]:
+    proto = root_dir / "docs" / "prototype.html"
+    cs_py = root_dir / "scripts" / "check-story.py"
+    if proto.is_file() and cs_py.is_file():
+        try:
+            spec = importlib.util.spec_from_file_location("check_story_mod", cs_py)
+            assert spec and spec.loader
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            stories_map = mod.extract(proto.read_text(encoding="utf-8"), "STORIES")
+            keys = [k for k, v in stories_map.items() if isinstance(v, dict) and v.get("status") == "published"]
+            if keys:
+                if len(keys) <= 18:
+                    return keys
+                core = [k for k in DEFAULT_CORE_STORIES if k in keys]
+                tail = [k for k in keys if k not in core][-11:]
+                return core + tail
+        except Exception:
+            pass
+    return list(DEFAULT_CORE_STORIES)
+
+
+ALL_STORIES = _load_active_stories(Path(__file__).resolve().parent.parent)
 
 _CONTRAST_JS = """(specs) => {
   const parseRgba = (s) => {
@@ -198,7 +224,7 @@ def runtime_uiux_checks(page, base_url: str) -> list[str]:
         {"sel": ".verdict h5"},
         {"sel": ".verdict p"},
     ]
-    for slug in ALL_STORIES:
+    for slug in _load_active_stories(Path(__file__).resolve().parent.parent):
         targets.append((f"story-{slug}-light", f"{base_url}/docs/prototype.html?story={slug}&theme=light", ".detail-cat-chip", story_specs))
         targets.append((f"story-{slug}-dark", f"{base_url}/docs/prototype.html?story={slug}&theme=dark", ".detail-cat-chip", story_specs))
 

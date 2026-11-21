@@ -12,22 +12,55 @@ cho 5 đoạn mặt cắt Diorama (STORIES[k].beats[0..4].say) của toàn bộ 
 
 from __future__ import annotations
 
+import argparse
 import base64
 import importlib.util
 import json
 import os
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
-import urllib.request
 import wave
 
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-CACHE_DIR = ROOT / ".cache/elevenlabs"
+
+
+def load_tts_module():
+    spec = importlib.util.spec_from_file_location("wms_tts_vieneu", ROOT / "scripts/wms_tts_vieneu.py")
+    mod = importlib.util.module_from_spec(spec)
+    assert spec and spec.loader
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _resolve_shared_dir(rel_path: str) -> pathlib.Path:
+    cand = ROOT / rel_path
+    if cand.exists() and (not cand.is_dir() or any(cand.iterdir())):
+        return cand
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "--git-common-dir"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            gd = pathlib.Path(res.stdout.strip())
+            resolved = gd.resolve() if gd.is_absolute() else (ROOT / gd).resolve()
+            if resolved.name == ".git":
+                return resolved.parent / rel_path
+    except Exception:
+        pass
+    return cand
+
+
+CACHE_DIR = _resolve_shared_dir(".cache/elevenlabs")
 AUDIO_OUT_DIR = ROOT / "public/audio"
 VOICE_ID = "JwqRvOqFdGeQNu7UjKjw"
 MODEL_ID = "eleven_v3"
@@ -37,7 +70,6 @@ VOICE_SETTINGS = {
     "style": 0.20,
     "use_speaker_boost": True,
 }
-STORIES_ORDER = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
 
 
 def load_pipeline():
@@ -74,8 +106,12 @@ def load_sfx_pcm(sfx_name: str, sr: int, tmp_dir: pathlib.Path) -> np.ndarray | 
         return None
 
 
-def synthesize_story_beats(story_key: str, story: dict, api_key: str) -> dict:
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+def synthesize_story_beats(
+    story_key: str,
+    story: dict,
+    voice_id: str = "Thiện Minh",
+    force: bool = False,
+) -> dict:
     AUDIO_OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     beats = story.get("beats") or []
@@ -87,32 +123,28 @@ def synthesize_story_beats(story_key: str, story: dict, api_key: str) -> dict:
         beat_texts.append(" ".join(sents))
 
     full_text = "\n\n".join(beat_texts)
-    cache_file = CACHE_DIR / f"{story_key}_beats_continuous_v3.json"
+    el_cache = CACHE_DIR / f"{story_key}_beats_continuous_v3.json"
+    tts_mod = load_tts_module()
+    tts_cache = tts_mod.TTS_CACHE_DIR / f"{story_key}_beats_continuous.json"
 
-    if not cache_file.is_file():
-        if not api_key:
-            raise RuntimeError(f"Thiếu ELEVENLABS_API_KEY để tổng hợp {cache_file.name}")
-        print(f"[ElevenLabs eleven_v3 Giọng Tâm] Đang thu âm 5 đoạn Diorama cho bài '{story_key}' ({len(full_text)} ký tự)...")
-        url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}/with-timestamps"
-        payload = {
-            "text": full_text,
-            "model_id": MODEL_ID,
-            "voice_settings": VOICE_SETTINGS,
-        }
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-            headers={"xi-api-key": api_key, "Content-Type": "application/json"},
-            method="POST",
+    cont_data = None
+    if not force and el_cache.is_file():
+        try:
+            cand_el = json.loads(el_cache.read_text(encoding="utf-8"))
+            cached_text = "".join((cand_el.get("alignment") or {}).get("characters") or [])
+            if cached_text == full_text:
+                print(f"[Cache Hit ElevenLabs] {el_cache.name}")
+                cont_data = cand_el
+                used_voice = f"{MODEL_ID}:{VOICE_ID}"
+                used_voice_name = "Giọng Tâm (ElevenLabs eleven_v3 Studio -14 LUFS)"
+        except Exception:
+            pass
+    if cont_data is None:
+        cont_data = tts_mod.synthesize_continuous_json(
+            beat_texts, tts_cache, voice_id=voice_id, force=force
         )
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            raw_bytes = resp.read()
-        cache_file.write_bytes(raw_bytes)
-        print(f"  -> Đã lưu bộ nhớ đệm: {cache_file.relative_to(ROOT)} ({len(raw_bytes):,} bytes)")
-    else:
-        print(f"[Cache Hit] Đã có sẵn {cache_file.relative_to(ROOT)}")
-
-    cont_data = json.loads(cache_file.read_text(encoding="utf-8"))
+        used_voice = f"vieneu:{voice_id}"
+        used_voice_name = f"Giọng Tâm · VieNeu-TTS ({voice_id}, Apache 2.0, -14 LUFS)"
     align = cont_data["alignment"]
     starts = [float(x) for x in align["character_start_times_seconds"]]
     ends = [float(x) for x in align["character_end_times_seconds"]]
@@ -268,30 +300,110 @@ def synthesize_story_beats(story_key: str, story: dict, api_key: str) -> dict:
         )
         return {
             "story": story_key,
-            "voice": f"{MODEL_ID}:{VOICE_ID}",
-            "voiceName": "Giọng Tâm (ElevenLabs eleven_v3 Studio -14 LUFS)",
+            "voice": used_voice,
+            "voiceName": used_voice_name,
             "src": f"public/audio/{story_key}-beats.mp3",
             "duration": total_dur,
             "beats": beats_meta,
         }
 
 
+def sync_beat_audio_in_html(html_path: pathlib.Path, manifest: dict) -> bool:
+    """Cập nhật khối `const BEAT_AUDIO = {...};` trong `docs/prototype.html` từ `beats-manifest.json`."""
+    src = html_path.read_text(encoding="utf-8")
+    m = re.search(r"\bconst\s+BEAT_AUDIO\s*=\s*\{", src)
+    if not m:
+        raise RuntimeError(f"Không tìm thấy `const BEAT_AUDIO = {{` trong {html_path}")
+    start_obj = m.end() - 1
+    depth, in_str, esc, end_obj = 0, False, False, -1
+    for i in range(start_obj, len(src)):
+        ch = src[i]
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+        else:
+            if ch == '"':
+                in_str = True
+            elif ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    end_obj = i + 1
+                    break
+    if end_obj < 0:
+        raise RuntimeError("Khối BEAT_AUDIO không đóng ngoặc nhọn")
+
+    lines = ["{"]
+    items = list(manifest.items())
+    for idx, (sk, info) in enumerate(items):
+        rel_src = f"../{info['src']}"
+        fb_src = info["src"]
+        dur = info["duration"]
+        key_js = sk if re.fullmatch(r"[A-Za-z_$][A-Za-z0-9_$]*", sk) else json.dumps(sk)
+        lines.append(f'  {key_js}: {{src:"{rel_src}", fallbackSrc:"{fb_src}", duration:{dur}, beats:[')
+        beats = info.get("beats") or []
+        for bi, b in enumerate(beats):
+            sents_s = json.dumps(b["sents"], separators=(",", ":"))
+            comma_b = "," if bi + 1 < len(beats) else ""
+            lines.append(f'    {{beat:{b["beat"]},t0:{b["t0"]},t1:{b["t1"]},sents:{sents_s}}}{comma_b}')
+        comma_s = "," if idx + 1 < len(items) else ""
+        lines.append(f"  ]}}{comma_s}")
+    lines.append("}")
+    new_block = "\n".join(lines)
+    if src[start_obj:end_obj] == new_block:
+        return False
+    html_path.write_text(src[:start_obj] + new_block + src[end_obj:], encoding="utf-8")
+    return True
+
+
 def main() -> int:
+    ap = argparse.ArgumentParser(description="Tổng hợp âm thanh Diorama beats (ElevenLabs cache hoặc VieNeu-TTS local)")
+    ap.add_argument("--story", default="all", help="Slug bài viết hoặc 'all'")
+    ap.add_argument("--voice", default="Thiện Minh", help="Preset voice VieNeu-TTS khi chưa có cache ElevenLabs")
+    ap.add_argument("--force", action="store_true", help="Tổng hợp lại ngay cả khi đã có cache")
+    ap.add_argument("--no-html-sync", action="store_true", help="Không ghi lại const BEAT_AUDIO trong docs/prototype.html")
+    args = ap.parse_args()
+
     wmp = load_pipeline()
-    wmp.load_dotenv()
-    api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
-    html_src = (ROOT / "docs/prototype.html").read_text(encoding="utf-8")
-    stories = wmp.extract_stories(html_src)
-
-    manifest = {}
-    for sk in STORIES_ORDER:
-        if sk not in stories:
-            continue
-        manifest[sk] = synthesize_story_beats(sk, stories[sk], api_key)
-
+    html_path = ROOT / "docs/prototype.html"
+    stories = wmp.extract_stories(html_path.read_text(encoding="utf-8"))
     manifest_path = AUDIO_OUT_DIR / "beats-manifest.json"
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"[HOÀN TẤT] Đã ghi {manifest_path.relative_to(ROOT)} cho {len(manifest)} bài học.")
+    manifest: dict = {}
+    if manifest_path.is_file():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception:
+            manifest = {}
+
+    if args.story == "all":
+        target_keys = list(stories.keys())
+    else:
+        if args.story not in stories:
+            print(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES", file=sys.stderr)
+            return 1
+        target_keys = [args.story]
+
+    for sk in target_keys:
+        manifest[sk] = synthesize_story_beats(sk, stories[sk], voice_id=args.voice, force=args.force)
+
+    # Giữ thứ tự chuẩn theo STORIES trong prototype.html
+    ordered = {sk: manifest[sk] for sk in stories if sk in manifest}
+    for sk, val in manifest.items():
+        if sk not in ordered:
+            ordered[sk] = val
+
+    manifest_path.write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if not args.no_html_sync:
+        changed = sync_beat_audio_in_html(html_path, ordered)
+        if changed and html_path.resolve() == (ROOT / "docs/prototype.html").resolve():
+            shutil.copy2(html_path, ROOT / "index.html")
+        print(f"[BEAT_AUDIO sync] {'Đã cập nhật (+ index.html)' if changed else 'Đã đồng bộ sẵn'} docs/prototype.html")
+    print(f"[HOÀN TẤT] Đã ghi {manifest_path.relative_to(ROOT)} cho {len(ordered)} bài học.")
     return 0
 
 

@@ -10,7 +10,9 @@ thu mẫu chuẩn LANCZOS về `1200×675` vào `public/brand/{sid}-fig-{1..4}.j
 
 from __future__ import annotations
 
+import argparse
 import importlib.util
+import json
 import pathlib
 import shutil
 from PIL import Image
@@ -56,8 +58,28 @@ def build_synthetic_scene_meta(n_scenes: int) -> list[dict]:
     ]
 
 
+def _resolve_fig_scenes(story_key: str, long_cfg: list[dict]) -> list[int]:
+    if story_key in FIG_SCENE_MAP:
+        return FIG_SCENE_MAP[story_key]
+    scene_json = ROOT / "data" / "video-scenes" / f"{story_key}.json"
+    if scene_json.is_file():
+        cfg = json.loads(scene_json.read_text(encoding="utf-8"))
+        indices = cfg.get("fig_scenes")
+        if isinstance(indices, list) and len(indices) == 4:
+            return [max(0, min(len(long_cfg) - 1, int(idx))) for idx in indices]
+    n = len(long_cfg)
+    raw = [1, max(1, n // 3), max(2, (2 * n) // 3), max(3, n - 2)]
+    return [max(0, min(n - 1, idx)) for idx in raw]
+
+
 def main() -> int:
+    ap = argparse.ArgumentParser(description="Kết xuất 4 hình minh hoạ biên tập 16:9 (1200x675) từ cảnh Long v7.2.")
+    ap.add_argument("--story", default="all", help="Slug bài viết hoặc 'all' cho toàn bộ các bài có cấu hình cảnh")
+    args = ap.parse_args()
+
     v50 = load_v50_module()
+    wmp = v50.load_pipeline_module()
+    stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     layout = v50.LAYOUT_LONG
     W, H = layout["W"], layout["H"]
     fonts = v50.load_fonts(is_short=False)
@@ -68,9 +90,21 @@ def main() -> int:
     brain_brand = BRAIN_DIR / "public" / "brand"
     brain_brand.mkdir(parents=True, exist_ok=True)
 
+    if args.story == "all":
+        target_keys = [
+            sk
+            for sk in stories
+            if sk in FIG_SCENE_MAP or (ROOT / "data" / "video-scenes" / f"{sk}.json").is_file()
+        ]
+    else:
+        if args.story not in stories:
+            raise SystemExit(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES")
+        target_keys = [args.story]
+
     count = 0
-    for story_key, scene_indices in FIG_SCENE_MAP.items():
+    for story_key in target_keys:
         _, long_cfg = v50._resolve_scenes(story_key)
+        scene_indices = _resolve_fig_scenes(story_key, long_cfg)
         synth_meta = build_synthetic_scene_meta(len(long_cfg))
 
         for fig_num, s_idx in enumerate(scene_indices, start=1):

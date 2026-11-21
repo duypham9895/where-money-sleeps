@@ -37,7 +37,36 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-CACHE_DIR = ROOT / ".cache/elevenlabs"
+
+
+def _resolve_main_root(repo_root: pathlib.Path = ROOT) -> pathlib.Path:
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(repo_root), "rev-parse", "--git-common-dir"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            gd = pathlib.Path(res.stdout.strip())
+            resolved = gd.resolve() if gd.is_absolute() else (repo_root / gd).resolve()
+            if resolved.name == ".git":
+                return resolved.parent
+    except Exception:
+        pass
+    return repo_root
+
+
+def _resolve_shared_dir(rel_path: str) -> pathlib.Path:
+    cand = ROOT / rel_path
+    if cand.exists() and (not cand.is_dir() or any(cand.iterdir())):
+        return cand
+    return _resolve_main_root(ROOT) / rel_path
+
+
+CACHE_DIR = _resolve_shared_dir(".cache/elevenlabs")
+TTS_CACHE_DIR = _resolve_shared_dir(".cache/tts")
 DIST_DIR = ROOT / "dist/youtube"
 
 # ── BẢNG MÀU GIẤY ẤM & MỰC IN TƯƠNG PHẢN CAO ────────────────────────────────
@@ -3035,6 +3064,96 @@ def assert_v51_containment(
         )
 
 
+def _resolve_audio_cache(story_key: str, fmt_name: str, voice_id: str = "") -> pathlib.Path | None:
+    el_path = CACHE_DIR / f"{story_key}_{fmt_name}_continuous_v3.json"
+    tts_path = TTS_CACHE_DIR / f"{story_key}_{fmt_name}_continuous.json"
+    order = (tts_path, el_path) if voice_id.startswith("vieneu:") else (el_path, tts_path)
+    for cand in order:
+        if cand.is_file():
+            return cand
+    return None
+
+
+def _hydrate_color(val: Any) -> Any:
+    palette = {
+        "PAPER_BG": PAPER_BG,
+        "PAPER_CARD": PAPER_CARD,
+        "PAPER_FLOOR": PAPER_FLOOR,
+        "PAPER_SOFT": PAPER_SOFT,
+        "INK": INK,
+        "INK_MUTED": INK_MUTED,
+        "AMBER": AMBER,
+        "AMBER_LIGHT": AMBER_LIGHT,
+        "GREEN": GREEN,
+        "GREEN_LIGHT": GREEN_LIGHT,
+        "CORAL": CORAL,
+        "CORAL_LIGHT": CORAL_LIGHT,
+        "NAVY": NAVY,
+        "TEAL": TEAL,
+        "TERRACOTTA": TERRACOTTA,
+        "GOLD": GOLD,
+    }
+    if isinstance(val, str) and val in palette:
+        return palette[val]
+    if isinstance(val, list) and len(val) == 3 and all(isinstance(x, int) for x in val):
+        return (val[0], val[1], val[2])
+    return val
+
+
+def _hydrate_scenes_list(scenes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for raw in scenes:
+        sc = json.loads(json.dumps(raw))
+        if "step_cards" in sc and isinstance(sc["step_cards"], list):
+            sc["step_cards"] = [(a, b) for a, b in sc["step_cards"]]
+        if "beat_headlines" in sc and isinstance(sc["beat_headlines"], list):
+            sc["beat_headlines"] = tuple((a, b, _hydrate_color(c)) for a, b, c in sc["beat_headlines"])
+        if "phrase_beats" in sc and isinstance(sc["phrase_beats"], list):
+            sc["phrase_beats"] = [(a, b, _hydrate_color(c)) for a, b, c in sc["phrase_beats"]]
+        hd = sc.get("hook_data")
+        if isinstance(hd, dict):
+            for k in ("left_accent", "right_accent"):
+                if k in hd:
+                    hd[k] = _hydrate_color(hd[k])
+        foc = sc.get("focal")
+        if isinstance(foc, dict):
+            if "color" in foc:
+                foc["color"] = _hydrate_color(foc["color"])
+            if "slices" in foc and isinstance(foc["slices"], list):
+                foc["slices"] = [(lbl, amt, share, _hydrate_color(col)) for lbl, amt, share, col in foc["slices"]]
+            for ck in ("cols", "items"):
+                if isinstance(foc.get(ck), list):
+                    foc[ck] = [tuple(x) if isinstance(x, list) else x for x in foc[ck]]
+        ad = sc.get("arch_data")
+        if isinstance(ad, dict):
+            for side in ("left", "right"):
+                if isinstance(ad.get(side), dict) and "accent" in ad[side]:
+                    ad[side]["accent"] = _hydrate_color(ad[side]["accent"])
+            for tk in ("top_left", "top_right"):
+                if isinstance(ad.get(tk), list) and len(ad[tk]) == 3:
+                    lbl, amt, col = ad[tk]
+                    ad[tk] = (lbl, amt, _hydrate_color(col))
+            for ck in ("card_left", "card_right"):
+                if isinstance(ad.get(ck), list) and len(ad[ck]) == 4:
+                    kicker, big, desc, col = ad[ck]
+                    ad[ck] = (kicker, big, desc, _hydrate_color(col))
+            for rk in ("debit_rows", "credit_rows"):
+                if isinstance(ad.get(rk), list):
+                    ad[rk] = [(code, amt, note, _hydrate_color(col)) for code, amt, note, col in ad[rk]]
+            if isinstance(ad.get("net_cols"), list):
+                ad["net_cols"] = [(nt, na, ns, _hydrate_color(col)) for nt, na, ns, col in ad["net_cols"]]
+            if isinstance(ad.get("buckets"), list):
+                for bk in ad["buckets"]:
+                    if isinstance(bk, dict) and "color" in bk:
+                        bk["color"] = _hydrate_color(bk["color"])
+            if isinstance(ad.get("cards"), list):
+                for card in ad["cards"]:
+                    if isinstance(card, dict) and "color" in card:
+                        card["color"] = _hydrate_color(card["color"])
+        out.append(sc)
+    return out
+
+
 def render_format(
     wmp,
     story_key: str,
@@ -3043,16 +3162,19 @@ def render_format(
     fmt_name: str,
     scenes_cfg: list[dict[str, Any]],
     preview_dir: pathlib.Path | None = None,
+    validate_only: bool = False,
 ) -> pathlib.Path | None:
     is_short = fmt_name == "short"
     layout = LAYOUT_SHORT if is_short else LAYOUT_LONG
     W, H = layout["W"], layout["H"]
     FPS = 30
 
-    cache_file = CACHE_DIR / f"{story_key}_{'short' if is_short else 'long'}_continuous_v3.json"
-    if not cache_file.is_file():
-        raise RuntimeError(f"Missing audio cache: {cache_file}")
-    cont_data = json.loads(cache_file.read_text(encoding="utf-8"))
+    vblock = (story.get("videoScript") or {}).get("short" if is_short else "long") or {}
+    cache_file = _resolve_audio_cache(story_key, "short" if is_short else "long", str(vblock.get("elevenlabsVoiceId") or ""))
+    if cache_file is None and not validate_only:
+        raise RuntimeError(
+            f"Missing audio cache for '{story_key}' ({fmt_name}) in {CACHE_DIR} or {TTS_CACHE_DIR}"
+        )
 
     scenes_vo = story["videoScript"]["short" if is_short else "long"]["scenes"]
     if len(scenes_vo) != len(scenes_cfg):
@@ -3070,9 +3192,22 @@ def render_format(
 
     with tempfile.TemporaryDirectory(prefix=f"wms_v72_{story_key}_{fmt_name}_") as tmp:
         tmp_dir = pathlib.Path(tmp)
-        master_wav, scene_meta, total_dur = build_master_audio(scenes_vo, cont_data, sfx_map, tmp_dir)
-        build_srt_chunks(scene_meta, max_words=8)
-        assert_v51_containment(layout, scenes_cfg, scene_meta, fonts, sprite_sz, is_short, wmp_mod=wmp)
+        if cache_file is not None:
+            cont_data = json.loads(cache_file.read_text(encoding="utf-8"))
+            master_wav, scene_meta, total_dur = build_master_audio(scenes_vo, cont_data, sfx_map, tmp_dir)
+            build_srt_chunks(scene_meta, max_words=8)
+            assert_v51_containment(layout, scenes_cfg, scene_meta, fonts, sprite_sz, is_short, wmp_mod=wmp)
+        else:
+            synth_meta = [
+                {"index": i, "win_t0": i * 10.0, "win_t1": (i + 1) * 10.0, "phrases": [{"t0": i * 10.0 + p * 2.5} for p in range(4)], "srt_chunks": []}
+                for i in range(len(scenes_cfg))
+            ]
+            assert_v51_containment(layout, scenes_cfg, synth_meta, fonts, sprite_sz, is_short, wmp_mod=wmp)
+            print(f"[VALIDATE ONLY PASS] {story_key}.{fmt_name} ({len(scenes_cfg)} scenes, LUẬT 6b/8/10 + B1–B4 clean)")
+            return None
+        if validate_only:
+            print(f"[VALIDATE ONLY PASS] {story_key}.{fmt_name} ({len(scenes_cfg)} scenes, {total_dur:.2f}s, LUẬT 6b/8/10 + B1–B4 clean)")
+            return None
         export_srt_subtitles(scene_meta, out_srt)
 
         if preview_dir is not None:
@@ -3149,29 +3284,45 @@ def render_format(
     return out_mp4
 
 
-ALL_STORIES = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+ALL_LEGACY_STORIES = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
 
 
 def _resolve_scenes(story_key: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     if story_key == "card":
         return SHORT_SCENES, LONG_SCENES
-    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-    from wms_v72_topics import get_topic_scenes
+    if story_key in ALL_LEGACY_STORIES:
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+        from wms_v72_topics import get_topic_scenes
 
-    return get_topic_scenes(story_key)
+        return get_topic_scenes(story_key)
+    scene_json = ROOT / "data" / "video-scenes" / f"{story_key}.json"
+    if not scene_json.is_file():
+        raise FileNotFoundError(f"Thiếu cấu hình cảnh video cho bài '{story_key}': {scene_json}")
+    cfg = json.loads(scene_json.read_text(encoding="utf-8"))
+    return _hydrate_scenes_list(cfg["short"]), _hydrate_scenes_list(cfg["long"])
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--story", default="card", choices=[*ALL_STORIES, "all"])
+    parser.add_argument("--story", default="card")
     parser.add_argument("--format", default="both", choices=["short", "long", "both"])
     parser.add_argument("--preview-dir", type=pathlib.Path, default=None)
+    parser.add_argument("--validate-only", action="store_true", help="Chỉ chạy kiểm định hình học LUẬT 6b/8/10 & B1–B4, không mã hoá MP4")
     args = parser.parse_args()
 
     wmp = load_pipeline_module()
     stories = wmp.extract_stories((ROOT / "docs/prototype.html").read_text(encoding="utf-8"))
     sfx_map = load_cached_sfx()
-    target_stories = ALL_STORIES if args.story == "all" else (args.story,)
+    if args.story == "all":
+        target_stories = tuple(
+            sk
+            for sk in stories
+            if sk in ALL_LEGACY_STORIES or (ROOT / "data" / "video-scenes" / f"{sk}.json").is_file()
+        )
+    else:
+        if args.story not in stories:
+            raise SystemExit(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES")
+        target_stories = (args.story,)
 
     for sk in target_stories:
         story = stories[sk]
@@ -3179,9 +3330,9 @@ def main() -> int:
         print(f"[Brand Safety B1-B4 PASS] {sk}: {audit['scenesAudited']} scenes clean")
         short_cfg, long_cfg = _resolve_scenes(sk)
         if args.format in ("short", "both"):
-            render_format(wmp, sk, story, sfx_map, "short", short_cfg, preview_dir=args.preview_dir)
+            render_format(wmp, sk, story, sfx_map, "short", short_cfg, preview_dir=args.preview_dir, validate_only=args.validate_only)
         if args.format in ("long", "both"):
-            render_format(wmp, sk, story, sfx_map, "long", long_cfg, preview_dir=args.preview_dir)
+            render_format(wmp, sk, story, sfx_map, "long", long_cfg, preview_dir=args.preview_dir, validate_only=args.validate_only)
     return 0
 
 

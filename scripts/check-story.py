@@ -464,7 +464,7 @@ REG_RE = re.compile(r"Điều\s+\d+|Nghị định|Thông tư(?!\s*(?:số\s*)?9
 # trong bài viết, kịch bản video, giọng đọc (vo), chữ trên màn hình (onScreen), nhãn nhà (houses), GLOSS và CATEGORIES.
 BRANDS = (
     # 1. Công cụ AI, Voice, Video hậu trường & Mạng xã hội
-    "ElevenLabs", "Google", "Veo", "Gemini", "Claude", "Anthropic", "OpenAI", "ChatGPT", "Sora", "Runway", "Midjourney",
+    "ElevenLabs", "VieNeu", "VieNeu-TTS", "Google", "Veo", "Gemini", "Claude", "Anthropic", "OpenAI", "ChatGPT", "Sora", "Runway", "Midjourney",
     "TikTok", "Reels", "Facebook", "Instagram", "Zalo", "Threads",
     # 2. Tổ chức thẻ & mạng chuyển mạch / trung gian thanh toán
     "Visa", "Mastercard", "JCB", "Amex", "American Express", "UnionPay", "NAPAS", "VietQR", "SmartPay", "Payoo", "VNPay",
@@ -595,14 +595,18 @@ def check_video(fmt: str, v, s: dict, w: str, rep: Report) -> tuple[int, int, in
         m_res = RESIDUAL_CLAUSE_RE.search(v_title)
         if m_res and not re.search(r"\d+", v_title[:m_res.start()]):
             rep.add("FAIL", "C9", w, f"{tag}.title {v_title!r} nêu số nhận về ở vế sau nhưng thiếu con số giá trị ban đầu ở vế trước (VOICE-AND-PROSODY-SPEC.md)")
-    # QĐ 56 & VOICE-AND-PROSODY-SPEC.md §2 — kiểm khoá nhúng YouTube & ElevenLabs voice ID (eleven_v3)
+    # QĐ 56 & QĐ 65 — kiểm khoá nhúng YouTube & Voice ID (eleven_v3:<id> hoặc vieneu:<preset>)
     yt_id = v.get("youtubeId")
     em_st = v.get("embedStatus")
     el_voice = v.get("elevenlabsVoiceId")
     if not isinstance(el_voice, str) or not el_voice.strip():
-        rep.add("FAIL", "C9", w, f"{tag} thiếu `elevenlabsVoiceId` (QĐ 56)")
+        rep.add("FAIL", "C9", w, f"{tag} thiếu `elevenlabsVoiceId` (QĐ 56 / QĐ 65)")
     elif el_voice.startswith("eleven_flash"):
-        rep.add("FAIL", "C9", w, f"{tag}.elevenlabsVoiceId {el_voice!r} dùng model flash (nhịp phẳng, đọc từng chữ) — bắt buộc dùng 'eleven_v3:<voice_id>' (VOICE-AND-PROSODY-SPEC.md)")
+        rep.add("FAIL", "C9", w, f"{tag}.elevenlabsVoiceId {el_voice!r} dùng model flash (nhịp phẳng, đọc từng chữ) — bắt buộc dùng 'eleven_v3:<voice_id>' hoặc 'vieneu:<preset>' (VOICE-AND-PROSODY-SPEC.md)")
+    elif not (el_voice.startswith("eleven_v3:") or el_voice.startswith("vieneu:")):
+        rep.add("FAIL", "C9", w, f"{tag}.elevenlabsVoiceId {el_voice!r} phải bắt đầu bằng 'eleven_v3:' hoặc 'vieneu:' (QĐ 56 / QĐ 65)")
+    elif not el_voice.split(":", 1)[1].strip():
+        rep.add("FAIL", "C9", w, f"{tag}.elevenlabsVoiceId {el_voice!r} thiếu tên voice/preset sau dấu `:`")
     if em_st not in EMBED_STATES:
         rep.add("FAIL", "C9", w, f"{tag}.embedStatus {em_st!r} không hợp lệ — cần 1 trong {sorted(EMBED_STATES)} (QĐ 56)")
     if not isinstance(yt_id, str):

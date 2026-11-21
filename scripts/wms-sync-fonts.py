@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import re
 import sys
 import urllib.request
@@ -17,7 +18,19 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 FONTS_DIR = ROOT / "public" / "fonts"
 BRAND_DIR = ROOT / "public" / "brand"
-LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+DEFAULT_LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+
+
+def load_lessons() -> tuple[str, ...]:
+    proto = ROOT / "docs" / "prototype.html"
+    if not proto.is_file():
+        return DEFAULT_LESSONS
+    spec = importlib.util.spec_from_file_location("check_story_mod", ROOT / "scripts" / "check-story.py")
+    assert spec and spec.loader
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    stories = mod.extract(proto.read_text(encoding="utf-8"), "STORIES")
+    return tuple(stories.keys()) or DEFAULT_LESSONS
 
 CHROME_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -91,10 +104,11 @@ def sync_fonts() -> tuple[list[str], dict[str, str]]:
     return sorted(kept_files), preloads
 
 
-def sync_editorial_formats() -> tuple[int, int, int]:
+def sync_editorial_formats(lessons: tuple[str, ...] | None = None) -> tuple[int, int, int, tuple[str, ...]]:
+    active = lessons if lessons is not None else load_lessons()
     jpg_bytes = webp_bytes = avif_bytes = 0
     count = 0
-    for sid in LESSONS:
+    for sid in active:
         for idx in (1, 2, 3, 4):
             jpg = BRAND_DIR / f"{sid}-fig-{idx}.jpg"
             if not jpg.is_file():
@@ -111,7 +125,7 @@ def sync_editorial_formats() -> tuple[int, int, int]:
             webp_bytes += webp.stat().st_size
             avif_bytes += avif.stat().st_size
             count += 1
-    return count, jpg_bytes, webp_bytes + avif_bytes
+    return count, jpg_bytes, webp_bytes + avif_bytes, active
 
 
 def main() -> int:
@@ -125,9 +139,9 @@ def main() -> int:
         total_kb = sum((FONTS_DIR / f).stat().st_size for f in files) / 1024
         print(f"[fonts] {len(files)} .woff2 files ({total_kb:.1f} KB); preloads={preloads}")
     if not args.fonts_only:
-        cnt, jpg_b, next_b = sync_editorial_formats()
-        webp_b = sum((BRAND_DIR / f"{s}-fig-{i}.webp").stat().st_size for s in LESSONS for i in (1, 2, 3, 4))
-        avif_b = sum((BRAND_DIR / f"{s}-fig-{i}.avif").stat().st_size for s in LESSONS for i in (1, 2, 3, 4))
+        cnt, jpg_b, next_b, active = sync_editorial_formats()
+        webp_b = sum((BRAND_DIR / f"{s}-fig-{i}.webp").stat().st_size for s in active for i in (1, 2, 3, 4))
+        avif_b = sum((BRAND_DIR / f"{s}-fig-{i}.avif").stat().st_size for s in active for i in (1, 2, 3, 4))
         print(
             f"[images] {cnt} figures: JPG={jpg_b/1024/1024:.2f} MB · "
             f"WebP={webp_b/1024/1024:.2f} MB · AVIF={avif_b/1024/1024:.2f} MB"

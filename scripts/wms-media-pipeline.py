@@ -34,6 +34,7 @@ import os
 import pathlib
 import re
 import shutil
+import subprocess
 import sys
 import time
 import urllib.parse
@@ -41,11 +42,63 @@ import urllib.request
 import webbrowser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+
+def resolve_main_root(repo_root: pathlib.Path = ROOT) -> pathlib.Path:
+    """Resolve main git repository root so `.env`, `.secrets/`, `.cache/` work from linked worktrees."""
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(repo_root), "rev-parse", "--git-common-dir"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            gd = pathlib.Path(res.stdout.strip())
+            resolved = gd.resolve() if gd.is_absolute() else (repo_root / gd).resolve()
+            if resolved.name == ".git":
+                return resolved.parent
+    except Exception:
+        pass
+    return repo_root
+
+
+def resolve_shared_path(rel_path: str) -> pathlib.Path:
+    cand = ROOT / rel_path
+    if cand.exists() and (not cand.is_dir() or any(cand.iterdir())):
+        return cand
+    shared = MAIN_ROOT / rel_path
+    if shared.exists() and (not shared.is_dir() or any(shared.iterdir())):
+        return shared
+    if rel_path == ".env" or rel_path.startswith((".cache/", ".cache\\", ".secrets/", ".secrets\\")):
+        return shared
+    return cand
+
+
+def _rel_display(p: pathlib.Path) -> str:
+    for base in (ROOT, MAIN_ROOT):
+        try:
+            return str(p.relative_to(base))
+        except ValueError:
+            pass
+    return str(p)
+
+
+def _published_story_count(stories_map: dict | None) -> int:
+    if not stories_map:
+        return 7
+    n_pub = sum(1 for v in stories_map.values() if isinstance(v, dict) and v.get("status") == "published")
+    return n_pub or len(stories_map)
+
+
+MAIN_ROOT = resolve_main_root(ROOT)
 DEFAULT_HTML = ROOT / "docs/prototype.html"
 LICENCES_JSON = ROOT / "legal/licences.json"
-ENV_FILE = ROOT / ".env"
-CACHE_DIR = ROOT / ".cache/elevenlabs"
-VEO_CACHE_DIR = ROOT / ".cache/google-veo"
+ENV_FILE = resolve_shared_path(".env")
+CACHE_DIR = resolve_shared_path(".cache/elevenlabs")
+TTS_CACHE_DIR = resolve_shared_path(".cache/tts")
+VEO_CACHE_DIR = resolve_shared_path(".cache/google-veo")
 DIST_DIR = ROOT / "dist/youtube"
 
 YT_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
@@ -122,11 +175,11 @@ def normalize_youtube_secrets(yt_secret: pathlib.Path, yt_token: pathlib.Path) -
 def run_auth_youtube(port: int = 8765) -> int:
     """Chạy luồng OAuth 2.0 loopback (`http://localhost:<port>`) để lấy `refresh_token` cho kênh `@WhereMoneySleeps`."""
     load_dotenv()
-    yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
-    yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+    yt_secret = resolve_shared_path(os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json"))
+    yt_token = resolve_shared_path(os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json"))
     normalize_youtube_secrets(yt_secret, yt_token)
     if not yt_secret.is_file():
-        print(f"LỖI: Không tìm thấy {yt_secret.relative_to(ROOT)}", file=sys.stderr)
+        print(f"LỖI: Không tìm thấy {_rel_display(yt_secret)}", file=sys.stderr)
         return 1
 
     raw = json.loads(yt_secret.read_text(encoding="utf-8"))
@@ -238,14 +291,14 @@ def run_auth_youtube(port: int = 8765) -> int:
     }
     yt_token.parent.mkdir(parents=True, exist_ok=True)
     yt_token.write_text(json.dumps(saved, indent=2) + "\n", encoding="utf-8")
-    print(f"[PASS] Đã lưu YouTube OAuth refresh token vào {yt_token.relative_to(ROOT)}")
+    print(f"[PASS] Đã lưu YouTube OAuth refresh token vào {_rel_display(yt_token)}")
     return 0
 
 
 def get_youtube_access_token() -> str:
     """Lấy `access_token` mới nhất từ `.secrets/youtube_token.json` (tự động chạy `--auth-youtube` nếu chưa có)."""
     load_dotenv()
-    yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+    yt_token = resolve_shared_path(os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json"))
     if not yt_token.is_file():
         rc = run_auth_youtube()
         if rc != 0 or not yt_token.is_file():
@@ -294,7 +347,7 @@ def step_5_0_brand_safety_audit(story_key: str, story: dict) -> dict:
         r"Thế\s+Giới\s+Di\s+Động|FPT\s+Shop|Điện\s+Máy\s+Xanh|CellphoneS|Bách\s+Hoá\s+Xanh|"
         r"WinMart|Circle\s*K|Highlands|Starbucks|Phúc\s+Long|Grab|Be|Gojek|"
         r"Apple|iPhone|MacBook|Samsung|Xiaomi|Oppo|Sony|"
-        r"ElevenLabs|Google|Veo|Gemini|OpenAI|ChatGPT|Claude|Anthropic|Sora|Runway|Midjourney|CapCut|"
+        r"ElevenLabs|VieNeu(?:\s*-?\s*TTS)?|Google|Veo|Gemini|OpenAI|ChatGPT|Claude|Anthropic|Sora|Runway|Midjourney|CapCut|"
         r"Stripe|PayPal|Adyen|Square|Klarna|Affirm|Afterpay|"
         r"Hermanson|Maher|Quán\s+Nhà\s+Liên)\b",
         re.I,
@@ -410,13 +463,25 @@ def step_5_0b_financial_specialist_audit(story_key: str, story: dict) -> dict:
     }
 
 
-def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: pathlib.Path) -> str:
+def step_5c_upload_youtube(
+    story_key: str,
+    story: dict,
+    fmt: str,
+    mp4_path: pathlib.Path,
+    privacy_status: str = "unlisted",
+) -> str:
     """
     5C — Đẩy file `.mp4` lên kênh `@WhereMoneySleeps` qua YouTube Data API v3 Resumable Upload.
-    Bắt buộc chạy `step_5_0_brand_safety_audit` và `step_5_0b_financial_specialist_audit` trước khi đẩy
-    và đặt `privacyStatus = "unlisted"` khi `story.status != "published"` (WMS-R4 / QĐ 56).
+    Bắt buộc chạy `step_5_0_brand_safety_audit` và `step_5_0b_financial_specialist_audit` trước khi đẩy.
+    Cấm đặt `privacyStatus == "public"` khi `story.status != "published"` (WMS-R4 / QĐ 56).
     Trả về `youtubeId` 11 ký tự.
     """
+    if privacy_status not in ("unlisted", "private", "public"):
+        raise ValueError(f"privacy_status không hợp lệ: {privacy_status!r}")
+    if privacy_status == "public" and story.get("status") != "published":
+        raise PermissionError(
+            f"CỔNG WMS-R4 / QĐ 56: Bài '{story_key}' đang ở status={story.get('status')!r}, cấm upload public"
+        )
     if not mp4_path.is_file():
         raise FileNotFoundError(f"Không tìm thấy file video để upload: {mp4_path}")
     brand_audit = step_5_0_brand_safety_audit(story_key, story)
@@ -430,9 +495,16 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
     )
     access_token = get_youtube_access_token()
     src_html = DEFAULT_HTML.read_text(encoding="utf-8") if DEFAULT_HTML.is_file() else ""
+    all_stories_vi = extract_stories(src_html) if src_html else {}
     story_en = extract_stories_en(src_html).get(story_key) if src_html else None
-    meta_dict = build_youtube_video_metadata(story_key, story, story_en, fmt)
-    privacy = "unlisted" if story.get("status") != "published" else "unlisted"
+    meta_dict = build_youtube_video_metadata(
+        story_key,
+        story,
+        story_en,
+        fmt,
+        story_count=_published_story_count(all_stories_vi),
+    )
+    privacy = privacy_status
     meta_dict["status"] = {
         "privacyStatus": privacy,
         "embeddable": True,
@@ -463,14 +535,14 @@ def step_5c_upload_youtube(story_key: str, story: dict, fmt: str, mp4_path: path
         if "uploadLimitExceeded" in err_raw:
             raise RuntimeError(
                 f"YouTube Data API v3 trả về 'uploadLimitExceeded' (kênh {DEFAULT_YT_HANDLE} đã chạm trần 10 video/24h của YouTube cho kênh mới). "
-                f"File video đã render sẵn tại {mp4_path.relative_to(ROOT)} ({len(mp4_bytes):,} bytes); "
+                f"File video đã render sẵn tại {_rel_display(mp4_path)} ({len(mp4_bytes):,} bytes); "
                 "hãy bật Intermediate/Advanced Features trong YouTube Studio (Settings -> Channel -> Feature eligibility) hoặc chạy lại lệnh upload sau khi hạn mức 24h mở lại."
             ) from exc
         raise RuntimeError(f"YouTube Data API v3 trả về HTTP {exc.code}: {err_raw}") from exc
     if not upload_url:
         raise RuntimeError("YouTube Data API v3 không trả về Location header cho Resumable Upload")
 
-    print(f"[5C Upload] Đang đẩy {mp4_path.relative_to(ROOT)} ({len(mp4_bytes):,} bytes) lên {DEFAULT_YT_HANDLE} (privacy={privacy!r})...")
+    print(f"[5C Upload] Đang đẩy {_rel_display(mp4_path)} ({len(mp4_bytes):,} bytes) lên {DEFAULT_YT_HANDLE} (privacy={privacy!r})...")
     up_req = urllib.request.Request(
         upload_url,
         data=mp4_bytes,
@@ -501,8 +573,8 @@ def run_check_env() -> int:
     video_mode = os.environ.get("WMS_VIDEO_MODE", "veo-hybrid").strip()
     yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
     yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
-    yt_secret = ROOT / os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json")
-    yt_token = ROOT / os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json")
+    yt_secret = resolve_shared_path(os.environ.get("YOUTUBE_CLIENT_SECRET_FILE", ".secrets/youtube_client_secret.json"))
+    yt_token = resolve_shared_path(os.environ.get("YOUTUBE_TOKEN_FILE", ".secrets/youtube_token.json"))
     normalize_youtube_secrets(yt_secret, yt_token)
 
     print("=== KIỂM TRA CẤU HÌNH PIPELINE BƯỚC 5 (QĐ 56: ElevenLabs Audio + Google Veo 3.1 Video -> YouTube) ===")
@@ -511,7 +583,7 @@ def run_check_env() -> int:
     print(f"  [PASS] Kênh YouTube đích: {yt_handle} ({yt_url})")
     print(f"  [INFO] Chế độ dựng Video (5B): video_mode={video_mode!r} · veo_model={veo_model!r}")
     if ENV_FILE.is_file():
-        print(f"  [PASS] File .env: đã tạo tại {ENV_FILE.relative_to(ROOT)}")
+        print(f"  [PASS] File .env: đã tạo tại {_rel_display(ENV_FILE)}")
     else:
         print(f"  [WAIT] File .env: chưa tạo (chạy `cp .env.example .env` trong where-money-sleeps/)")
 
@@ -530,15 +602,15 @@ def run_check_env() -> int:
     if yt_secret.is_file():
         raw_sec = json.loads(yt_secret.read_text(encoding="utf-8"))
         proj = (raw_sec.get("installed") or raw_sec.get("web") or {}).get("project_id", "unknown")
-        print(f"  [PASS] YouTube OAuth client_secret: {yt_secret.relative_to(ROOT)} (project_id={proj!r})")
+        print(f"  [PASS] YouTube OAuth client_secret: {_rel_display(yt_secret)} (project_id={proj!r})")
     else:
-        print(f"  [WAIT] YouTube OAuth client_secret: chưa đặt file tại {yt_secret.relative_to(ROOT)}")
+        print(f"  [WAIT] YouTube OAuth client_secret: chưa đặt file tại {_rel_display(yt_secret)}")
 
     if yt_token.is_file():
-        print(f"  [PASS] YouTube OAuth refresh token: {yt_token.relative_to(ROOT)}")
+        print(f"  [PASS] YouTube OAuth refresh token: {_rel_display(yt_token)}")
     else:
         print(
-            f"  [INFO] YouTube OAuth refresh token: chưa sinh ({yt_token.relative_to(ROOT)}) — "
+            f"  [INFO] YouTube OAuth refresh token: chưa sinh ({_rel_display(yt_token)}) — "
             "chạy `python3 -I scripts/wms-media-pipeline.py --auth-youtube` để uỷ quyền kênh @WhereMoneySleeps 1 lần"
         )
     return 0
@@ -612,6 +684,19 @@ def verify_elevenlabs_licence() -> dict:
             return asset
     raise RuntimeError(
         "legal/licences.json thiếu mục `id: \"elevenlabs-commercial-tts-sfx\"` — không được gọi ElevenLabs API"
+    )
+
+
+def verify_vieneu_licence() -> dict:
+    """Kiểm tra mục giấy phép Apache 2.0 cho VieNeu-TTS trong legal/licences.json (Quy tắc 4)."""
+    if not LICENCES_JSON.is_file():
+        raise RuntimeError(f"Thiếu {LICENCES_JSON} — Quy tắc 4 bắt buộc kiểm giấy phép trước khi build media")
+    data = json.loads(LICENCES_JSON.read_text(encoding="utf-8"))
+    for asset in data.get("assets", []):
+        if asset.get("id") == "vieneu-tts-local-apache2":
+            return asset
+    raise RuntimeError(
+        "legal/licences.json thiếu mục `id: \"vieneu-tts-local-apache2\"` — không được dùng VieNeu-TTS"
     )
 
 
@@ -711,6 +796,7 @@ def build_youtube_description(
     story_en: dict | None,
     fmt: str,
     lang_first: str = "vi",
+    story_count: int = 7,
 ) -> str:
     base_url = os.environ.get("WMS_SITE_BASE_URL", DEFAULT_SITE_BASE_URL).strip().rstrip("/")
     url_vi = build_article_url(story_key, "vi")
@@ -744,7 +830,7 @@ def build_youtube_description(
         f"[TIẾNG VIỆT]\n"
         f"📖 Tự nhập số & mở sổ Thông tư 99/2025 của bài này: {url_vi}\n"
         f"{cross_vi}"
-        f"🌐 Xem trọn bộ 7 bài tương tác: {base_url}\n\n"
+        f"🌐 Xem trọn bộ {story_count} bài tương tác: {base_url}\n\n"
         f"{teaser_vi}\n\n"
         f"Các chặng trong video:\n{chapters_vi}\n\n"
         f"Mọi con số chỉ làm ví dụ để thấy đường đi của tiền qua sổ sách, không lấy tên ngân hàng hay thương hiệu thật, và không phải lời khuyên tài chính."
@@ -776,9 +862,10 @@ def build_youtube_video_metadata(
     story_vi: dict,
     story_en: dict | None,
     fmt: str,
+    story_count: int = 7,
 ) -> dict:
     title_vi = _compose_yt_title(story_vi, fmt, story_key)
-    desc_vi = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="vi")
+    desc_vi = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="vi", story_count=story_count)
 
     tags = list(STORY_TAGS_MAP.get(story_key, ["WhereMoneySleeps", "FinancialLiteracy", "TaiChinhCaNhan", "KeToanKep"]))
     format_tag = "Shorts" if fmt == "short" else "DeepDiveExplainer"
@@ -803,7 +890,7 @@ def build_youtube_video_metadata(
     }
     if story_en:
         title_en = _compose_yt_title(story_en, fmt, story_key)
-        desc_en = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="en")
+        desc_en = build_youtube_description(story_key, story_vi, story_en, fmt, lang_first="en", story_count=story_count)
         payload["localizations"]["en"] = {
             "title": title_en,
             "description": desc_en,
@@ -902,6 +989,7 @@ def step_5c_update_youtube_description(
     fmt: str,
     privacy_status: str | None = None,
     story_en: dict | None = None,
+    story_count: int | None = None,
 ) -> str:
     """Cập nhật snippet + localizations (VI/EN) kèm URL song ngữ của bài viết trên YouTube qua videos.update."""
     step_5_0_brand_safety_audit(story_key, story)
@@ -912,10 +1000,13 @@ def step_5c_update_youtube_description(
         raise ValueError(f"Bài '{story_key}' ({fmt}) chưa có youtubeId hợp lệ để cập nhật description")
     if privacy_status == "public" and story.get("status") != "published":
         raise PermissionError(f"CỔNG WMS-R4: Bài '{story_key}' chưa ở status='published', cấm bật public")
-    if story_en is None and DEFAULT_HTML.is_file():
-        story_en = extract_stories_en(DEFAULT_HTML.read_text(encoding="utf-8")).get(story_key)
+    src_html = DEFAULT_HTML.read_text(encoding="utf-8") if DEFAULT_HTML.is_file() else ""
+    if story_count is None:
+        story_count = _published_story_count(extract_stories(src_html)) if src_html else 7
+    if story_en is None and src_html:
+        story_en = extract_stories_en(src_html).get(story_key)
     access_token = get_youtube_access_token()
-    payload = build_youtube_video_metadata(story_key, story, story_en, fmt)
+    payload = build_youtube_video_metadata(story_key, story, story_en, fmt, story_count=story_count)
     payload["id"] = yt_id
     part_q = "snippet,localizations"
     if privacy_status in ("public", "unlisted", "private"):
@@ -973,7 +1064,7 @@ def _upsert_caption_track(
     overwrite_existing: bool = False,
 ) -> str:
     if not target_srt.is_file():
-        print(f"  [WARN] Chưa thấy file phụ đề {target_srt.relative_to(ROOT)} để upload ({lang_code}) cho {story_key} ({fmt})")
+        print(f"  [WARN] Chưa thấy file phụ đề {_rel_display(target_srt)} để upload ({lang_code}) cho {story_key} ({fmt})")
         return ""
     existing_caption_id = ""
     for item in existing_items:
@@ -1095,8 +1186,14 @@ def step_5c_upload_youtube_captions(
         raise RuntimeError(f"YouTube captions upsert trả về HTTP {exc.code}: {err_raw}") from exc
 
 
-def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str = "veo-hybrid") -> dict:
-    """5.0 (Brand Safety Specialist B1-B4 & Financial Specialist F1-F4) -> 5A (ElevenLabs TTS with-timestamps + SFX) & 5B (Locked-Stage Diorama v3.0 Video 16:9/9:16)."""
+def step_5a_5b_manifest(
+    story_key: str,
+    story: dict,
+    mode: str,
+    video_mode: str = "veo-hybrid",
+    story_count: int | None = None,
+) -> dict:
+    """5.0 (Brand Safety B1-B4 & Financial F1-F4) -> 5A (ElevenLabs/VieNeu TTS + SFX) & 5B (Locked-Stage Diorama Video 16:9/9:16)."""
     load_dotenv()
     brand_audit = step_5_0_brand_safety_audit(story_key, story)
     print(
@@ -1108,22 +1205,34 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         f"[5.0b Financial Specialist PASS] F1–F4 sạch trên '{story_key}' "
         f"(KB: {fin_audit['kbLastCrawledAt']})"
     )
-    lic_el = verify_elevenlabs_licence()
-    lic_veo = verify_google_veo_licence()
     vid = story.get("videoScript") or {}
+    long_voice = str((vid.get("long") or {}).get("elevenlabsVoiceId") or DEFAULT_VOICE_SPEC).strip()
+    short_voice = str((vid.get("short") or {}).get("elevenlabsVoiceId") or DEFAULT_VOICE_SPEC).strip()
+    uses_vieneu = long_voice.startswith("vieneu:") or short_voice.startswith("vieneu:")
+    uses_elevenlabs = long_voice.startswith("eleven_v3:") or short_voice.startswith("eleven_v3:")
+    lic_audio = verify_vieneu_licence() if uses_vieneu else verify_elevenlabs_licence()
+    if uses_vieneu and uses_elevenlabs:
+        verify_elevenlabs_licence()
+    lic_veo = verify_google_veo_licence()
     api_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
     veo_model = os.environ.get("GOOGLE_VEO_MODEL", DEFAULT_VEO_MODEL).strip()
     veo_fast_model = os.environ.get("GOOGLE_VEO_FAST_MODEL", DEFAULT_VEO_FAST_MODEL).strip()
     yt_handle = os.environ.get("YOUTUBE_CHANNEL_HANDLE", DEFAULT_YT_HANDLE).strip()
     yt_url = os.environ.get("YOUTUBE_CHANNEL_URL", DEFAULT_YT_URL).strip()
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    TTS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     VEO_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
+    src_html_cache = DEFAULT_HTML.read_text(encoding="utf-8") if DEFAULT_HTML.is_file() else ""
+    if story_count is None:
+        story_count = _published_story_count(extract_stories(src_html_cache)) if src_html_cache else 7
+    story_en_obj = extract_stories_en(src_html_cache).get(story_key) if src_html_cache else None
 
     formats_out = {}
     for fmt in ("long", "short"):
         fobj = vid.get(fmt) or {}
         voice_spec = str(fobj.get("elevenlabsVoiceId") or DEFAULT_VOICE_SPEC).strip()
+        fmt_vieneu = voice_spec.startswith("vieneu:")
         model_id, _, voice_id = voice_spec.partition(":")
         if not voice_id:
             voice_id = model_id
@@ -1132,6 +1241,11 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         aspect = "16:9" if fmt == "long" else "9:16"
         scenes = fobj.get("scenes") or []
         scene_plan = []
+        cont_cache_file = (
+            TTS_CACHE_DIR / f"{story_key}_{fmt}_continuous.json"
+            if fmt_vieneu
+            else CACHE_DIR / f"{story_key}_{fmt}_continuous_v3.json"
+        )
         for i, sc in enumerate(scenes):
             vo = str(sc.get("vo") or "").strip()
             visual = str(sc.get("visual") or "").strip()
@@ -1139,11 +1253,11 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
             prev_text = str(scenes[i - 1].get("vo") or "").strip() if i > 0 else ""
             next_text = str(scenes[i + 1].get("vo") or "").strip() if i + 1 < len(scenes) else ""
             ck = scene_cache_key(voice_spec, fmt, i, vo, on_screen)
-            cache_file = CACHE_DIR / f"{ck}.json"
+            cache_file = TTS_CACHE_DIR / f"{ck}.json" if fmt_vieneu else CACHE_DIR / f"{ck}.json"
             sfx_match = re.search(r"SFX(?:\s*gợi ý)?:\s*([^·\n]+)", on_screen, flags=re.I)
             sfx_prompt = sfx_match.group(1).strip() if sfx_match else ""
 
-            if mode == "live" and api_key and not cache_file.is_file():
+            if not fmt_vieneu and mode == "live" and api_key and not cache_file.is_file():
                 # Gọi ElevenLabs /v1/text-to-speech/{voice_id}/with-timestamps (eleven_v3 expressive prosody)
                 url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps"
                 tts_payload: dict = {
@@ -1177,8 +1291,9 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                     "time": sc.get("time"),
                     "beat": sc.get("beat"),
                     "sha256CacheKey": ck,
-                    "cached": cache_file.is_file(),
-                    "elevenlabsTtsEndpoint": f"/v1/text-to-speech/{voice_id}/with-timestamps",
+                    "cached": cont_cache_file.is_file() if fmt_vieneu else cache_file.is_file(),
+                    "ttsProvider": "vieneu" if fmt_vieneu else "elevenlabs",
+                    "elevenlabsTtsEndpoint": None if fmt_vieneu else f"/v1/text-to-speech/{voice_id}/with-timestamps",
                     "elevenlabsModelId": model_id,
                     "googleVeoVideo": {
                         "enabled": use_veo,
@@ -1198,20 +1313,18 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
             )
 
         mp4_name = f"{story_key}-{fmt}-{aspect.replace(':', 'x')}.mp4"
-        formats_out[fmt] = {
-            "title": fobj.get("title"),
-            "aspectRatio": aspect,
-            "resolution": resolution,
-            "videoMode": video_mode,
-            "videoGenerator": {
-                "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
-                "sdk": "google-genai (client.models.generate_videos)",
-                "heroModelId": veo_model,
-                "bodyModelId": veo_fast_model,
-                "referenceImages": DEFAULT_REF_IMAGES,
-                "cacheDir": ".cache/google-veo/",
-            },
-            "audioGenerator": {
+        audio_gen = (
+            {
+                "provider": "VieNeu-TTS v3 Turbo Local (ONNX Runtime, Apache 2.0 + Cached SFX + Warm Room Tone Bed)",
+                "synthesisMode": "single_take_continuous_with_breath_bridges",
+                "continuousCacheFile": f".cache/tts/{story_key}_{fmt}_continuous.json",
+                "breathBridgeSeconds": 0.36,
+                "roomToneBedDbfs": -33.0,
+                "transitionSfxDbfs": -22.0,
+                "cacheDir": ".cache/tts/",
+            }
+            if fmt_vieneu
+            else {
                 "provider": "ElevenLabs API (Single-Take Continuous eleven_v3 TTS with-timestamps + Sound Effects + Warm Room Tone Bed)",
                 "synthesisMode": "single_take_continuous_with_breath_bridges",
                 "continuousCacheFile": f".cache/elevenlabs/{story_key}_{fmt}_continuous_v3.json",
@@ -1220,7 +1333,24 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "transitionSfxDbfs": -22.0,
                 "requiredKeyScopes": ["Text to Speech", "Sound Effects", "Voices (Read)", "Pronunciation Dictionaries"],
                 "cacheDir": ".cache/elevenlabs/",
+            }
+        )
+        formats_out[fmt] = {
+            "title": fobj.get("title"),
+            "aspectRatio": aspect,
+            "resolution": resolution,
+            "videoMode": video_mode,
+            "videoGenerator": {
+                "provider": "Programmatic Paper-Warm Minimalist Craft 30fps (wms-render-v50-focus.py)"
+                if video_mode == "programmatic"
+                else "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+                "sdk": "local-pillow-ffmpeg" if video_mode == "programmatic" else "google-genai (client.models.generate_videos)",
+                "heroModelId": veo_model if video_mode != "programmatic" else "wms-render-v50-focus",
+                "bodyModelId": veo_fast_model if video_mode != "programmatic" else "wms-render-v50-focus",
+                "referenceImages": DEFAULT_REF_IMAGES,
+                "cacheDir": ".cache/google-veo/",
             },
+            "audioGenerator": audio_gen,
             "visualTransitionEngine": {
                 "version": "4.3-broadcast-split-stage-30fps",
                 "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
@@ -1235,7 +1365,7 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
             "elevenlabsVoiceId": voice_spec,
             "youtubeId": fobj.get("youtubeId", ""),
             "embedStatus": fobj.get("embedStatus", "pending_upload"),
-            "outputMp4": str((DIST_DIR / mp4_name).relative_to(ROOT)),
+            "outputMp4": _rel_display(DIST_DIR / mp4_name),
             "youtubeUploadSpec": {
                 "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
                 "channelHandle": yt_handle,
@@ -1252,15 +1382,16 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
                 "description": build_youtube_description(
                     story_key,
                     story,
-                    extract_stories_en(DEFAULT_HTML.read_text(encoding="utf-8")).get(story_key) if DEFAULT_HTML.is_file() else None,
+                    story_en_obj,
                     fmt,
+                    story_count=story_count,
                 ),
             },
             "scenes": scene_plan,
         }
 
     manifest = {
-        "schemaVersion": "1.4-qd56-locked-stage-brand-and-financial-specialists",
+        "schemaVersion": "1.5-qd65-locked-stage-brand-and-financial-specialists",
         "story": story_key,
         "storyStatus": story.get("status"),
         "brandSafetyAudit": brand_audit,
@@ -1271,8 +1402,8 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         },
         "licenceCheck": {
             "audio": {
-                "id": lic_el.get("id"),
-                "licence": lic_el.get("licence"),
+                "id": lic_audio.get("id"),
+                "licence": lic_audio.get("licence"),
             },
             "video": {
                 "id": lic_veo.get("id"),
@@ -1281,7 +1412,8 @@ def step_5a_5b_manifest(story_key: str, story: dict, mode: str, video_mode: str 
         },
         "formats": formats_out,
     }
-    manifest_path = DIST_DIR / f"{story_key}-elevenlabs-youtube-manifest.json"
+    manifest_name = f"{story_key}-youtube-manifest.json" if uses_vieneu else f"{story_key}-elevenlabs-youtube-manifest.json"
+    manifest_path = DIST_DIR / manifest_name
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return manifest
 
@@ -1332,6 +1464,8 @@ def step_5d_embed_into_post(
     new_vs_json = json.dumps(vid, ensure_ascii=False, indent=1)
     updated_src = src[:start] + new_vs_json + src[end:]
     html_path.write_text(updated_src, encoding="utf-8")
+    if html_path.resolve() == DEFAULT_HTML.resolve():
+        shutil.copy2(html_path, ROOT / "index.html")
     return (
         vid["long"].get("youtubeId", ""),
         vid["short"].get("youtubeId", ""),
@@ -1367,7 +1501,13 @@ def main() -> int:
     ap.add_argument("--update-channel", action="store_true", help="Cập nhật mô tả & localizations song ngữ (kèm domain) cho kênh @WhereMoneySleeps")
     ap.add_argument("--upload-captions", action="store_true", help="Tải phụ đề .srt (VI) và .en.srt (EN) lên YouTube qua Captions API")
     ap.add_argument("--overwrite-captions", action="store_true", help="Ghi đè track phụ đề đã tồn tại (tốn 450 quota/track; mặc định bỏ qua nếu đã có)")
-    ap.add_argument("--all-stories", action="store_true", help="Chạy cho toàn bộ 7 bài trong STORIES")
+    ap.add_argument("--all-stories", action="store_true", help="Chạy cho toàn bộ các bài trong STORIES")
+    ap.add_argument(
+        "--privacy",
+        choices=("unlisted", "private", "public"),
+        default="unlisted",
+        help="Quyền riêng tư khi upload YouTube (chỉ cho phép 'public' khi bài đã ở status='published')",
+    )
     ap.add_argument(
         "--embed-status",
         choices=sorted(VALID_EMBED_STATUS),
@@ -1409,20 +1549,25 @@ def main() -> int:
             stories_en = extract_stories_en(src)
 
         # Phase 1: Lightweight metadata updates (50 quota units/video) across ALL stories first
+        pub_count = _published_story_count(stories)
         if args.update_youtube_desc:
             try:
                 for sk in story_keys:
-                    step_5c_update_youtube_description(sk, stories[sk], "short", privacy_status=target_priv, story_en=stories_en.get(sk))
-                    step_5c_update_youtube_description(sk, stories[sk], "long", privacy_status=target_priv, story_en=stories_en.get(sk))
+                    step_5c_update_youtube_description(
+                        sk, stories[sk], "short", privacy_status=target_priv, story_en=stories_en.get(sk), story_count=pub_count
+                    )
+                    step_5c_update_youtube_description(
+                        sk, stories[sk], "long", privacy_status=target_priv, story_en=stories_en.get(sk), story_count=pub_count
+                    )
             except RuntimeError as exc:
                 if "[QUOTA EXCEEDED]" not in str(exc):
                     raise
                 print(exc, file=sys.stderr)
                 quota_err = exc
 
-        # Phase 2: Offline manifests (0 quota units) always succeed for all 7 stories
+        # Phase 2: Offline manifests (0 quota units) always succeed for all stories
         for sk in story_keys:
-            step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode)
+            step_5a_5b_manifest(sk, stories[sk], args.mode, args.video_mode, story_count=pub_count)
 
         # Phase 3: Heavy caption uploads (400-450 quota units/track) last
         if args.upload_captions and quota_err is None:
@@ -1445,47 +1590,57 @@ def main() -> int:
         print(f"LỖI: Không tìm thấy bài '{args.story}' trong STORIES", file=sys.stderr)
         return 1
 
-    if args.update_youtube_desc:
-        step_5c_update_youtube_description(args.story, stories[args.story], "short", story_en=stories_en.get(args.story))
-        step_5c_update_youtube_description(args.story, stories[args.story], "long", story_en=stories_en.get(args.story))
-    if args.upload_captions:
-        step_5c_upload_youtube_captions(args.story, stories[args.story], "short", overwrite_existing=args.overwrite_captions)
-        step_5c_upload_youtube_captions(args.story, stories[args.story], "long", overwrite_existing=args.overwrite_captions)
+    default_embed_for_priv = {"public": "uploaded_public", "private": "uploaded_private", "unlisted": "uploaded_unlisted"}[args.privacy]
 
     if args.upload_short:
         mp4_short = DIST_DIR / f"{args.story}-short-9x16.mp4"
-        yt_short_id = step_5c_upload_youtube(args.story, stories[args.story], "short", mp4_short)
+        yt_short_id = step_5c_upload_youtube(args.story, stories[args.story], "short", mp4_short, privacy_status=args.privacy)
         args.bind_short_id = yt_short_id
         if args.embed_status is None:
-            args.embed_status = "uploaded_unlisted"
+            args.embed_status = default_embed_for_priv
 
     if args.upload_long:
         mp4_long = DIST_DIR / f"{args.story}-long-16x9.mp4"
-        yt_long_id = step_5c_upload_youtube(args.story, stories[args.story], "long", mp4_long)
+        yt_long_id = step_5c_upload_youtube(args.story, stories[args.story], "long", mp4_long, privacy_status=args.privacy)
         args.bind_long_id = yt_long_id
         if args.embed_status is None:
-            args.embed_status = "uploaded_unlisted"
+            args.embed_status = default_embed_for_priv
 
     if args.bind_long_id is not None or args.bind_short_id is not None or args.embed_status is not None:
         long_id, short_id, st_now = step_5d_embed_into_post(
             args.html, args.story, args.bind_long_id, args.bind_short_id, args.embed_status
         )
         print(
-            f"[5D Embed] Đã nhúng vào bài '{args.story}' trong {args.html.relative_to(ROOT)}: "
+            f"[5D Embed] Đã nhúng vào bài '{args.story}' trong {_rel_display(args.html)}: "
             f"long.youtubeId={long_id!r}, short.youtubeId={short_id!r}, embedStatus={st_now!r}"
         )
         src = args.html.read_text(encoding="utf-8")
         stories = extract_stories(src)
+        stories_en = extract_stories_en(src)
 
-    manifest = step_5a_5b_manifest(args.story, stories[args.story], args.mode, args.video_mode)
+    pub_count = _published_story_count(stories)
+    if args.update_youtube_desc:
+        step_5c_update_youtube_description(
+            args.story, stories[args.story], "short", story_en=stories_en.get(args.story), story_count=pub_count
+        )
+        step_5c_update_youtube_description(
+            args.story, stories[args.story], "long", story_en=stories_en.get(args.story), story_count=pub_count
+        )
+    if args.upload_captions:
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "short", overwrite_existing=args.overwrite_captions)
+        step_5c_upload_youtube_captions(args.story, stories[args.story], "long", overwrite_existing=args.overwrite_captions)
+
+    manifest = step_5a_5b_manifest(args.story, stories[args.story], args.mode, args.video_mode, story_count=pub_count)
     long_cfg = manifest["formats"]["long"]
     short_cfg = manifest["formats"]["short"]
+    uses_vieneu_any = str(long_cfg["elevenlabsVoiceId"]).startswith("vieneu:") or str(short_cfg["elevenlabsVoiceId"]).startswith("vieneu:")
+    mf_suffix = "youtube-manifest.json" if uses_vieneu_any else "elevenlabs-youtube-manifest.json"
     print(
         f"[5A-5C Pipeline] Bài '{args.story}' (status={manifest['storyStatus']!r}, channel={manifest['youtubeChannel']['handle']}, videoMode={args.video_mode}): "
         f"Dài {len(long_cfg['scenes'])} cảnh ({long_cfg['aspectRatio']}, voice={long_cfg['elevenlabsVoiceId']}, "
         f"embed={long_cfg['embedStatus']}, yt={long_cfg['youtubeId'] or 'chưa gán'}) | "
         f"Ngắn {len(short_cfg['scenes'])} cảnh ({short_cfg['aspectRatio']}, embed={short_cfg['embedStatus']}, "
-        f"yt={short_cfg['youtubeId'] or 'chưa gán'}) -> dist/youtube/{args.story}-elevenlabs-youtube-manifest.json"
+        f"yt={short_cfg['youtubeId'] or 'chưa gán'}) -> dist/youtube/{args.story}-{mf_suffix}"
     )
     return 0
 

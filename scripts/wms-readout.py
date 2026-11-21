@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import importlib.util
 import json
 import subprocess
 import sys
@@ -21,7 +22,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 READOUT_MD = ROOT / "gates" / "06-iterate" / "READOUT.md"
 DB_NAME = "where-money-sleeps-db"
-LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+DEFAULT_LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
+
+
+def _load_lessons() -> tuple[str, ...]:
+    proto = ROOT / "docs" / "prototype.html"
+    cs_py = ROOT / "scripts" / "check-story.py"
+    if proto.is_file() and cs_py.is_file():
+        try:
+            spec = importlib.util.spec_from_file_location("check_story_mod", cs_py)
+            assert spec and spec.loader
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            keys = tuple(mod.extract(proto.read_text(encoding="utf-8"), "STORIES").keys())
+            if keys:
+                return keys
+        except Exception:
+            pass
+    return DEFAULT_LESSONS
+
+
+LESSONS = _load_lessons()
 CARDS = tuple(f"{sid}-q{q}.v1" for sid in LESSONS for q in (1, 2))
 D1_SQL = (
     "SELECT day, event, d1, d2, n FROM counts "
