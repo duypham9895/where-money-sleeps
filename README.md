@@ -25,7 +25,7 @@ When you tap your credit card at a restaurant or scan a QR code at a café, the 
 
 ---
 
-## Published Stories (4 Categories · 7 Lessons Live — VI ⇄ EN)
+## Published Stories (5 Categories · 8 Lessons Live — VI ⇄ EN)
 
 | Story | Title | Mechanism & Focus | YouTube (16:9 & Shorts · v7.2) |
 |---|---|---|---|
@@ -36,6 +36,7 @@ When you tap your credit card at a restaurant or scan a QR code at a café, the 
 | `qr` | Quét mã QR 50 nghìn | Instant interbank credit transfer (24/7 interbank switch & dynamic/static QR; bilingual `VI ⇄ EN` via `?lang=vi\|en`) | `awgxZiOJMOM` · `kQzff8VVZ4E` |
 | `profitcash` | Lãi ròng 2 tỷ nhưng két còn 50 triệu | Net income on accrual basis vs operating cash flow | `doLPegldsWE` · `RlYjvtiVuDA` |
 | `offus` | Chuyển khoản On-Us vs Off-Us | Internal ledger debit vs interbank clearing & RTGS | `pyf9muWYLmI` · `csafiwCITcQ` |
+| `insure` | 12 triệu đóng phí bảo hiểm một năm | One 12M transfer upfront (illustrative), 25% paid out immediately for commissions and underwriting, 11M locked in unearned liabilities, and 8B VND in float earning 6%/year on bonds | `7634SEhjkWY` · `e_qInpsTcOk` |
 
 ---
 

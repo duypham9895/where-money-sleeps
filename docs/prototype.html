@@ -1387,11 +1387,11 @@ textarea.fb-control{resize:vertical;min-height:92px}
         <button type="button" id="hdrLangVi" data-wms-lang="vi" aria-pressed="true">VI</button>
         <button type="button" id="hdrLangEn" data-wms-lang="en" aria-pressed="false">EN</button>
       </div>
-      <button type="button" class="ab-btn" id="atlasBtn" aria-expanded="false" aria-controls="atlas" aria-label="Mở Mục lục &amp; Tìm kiếm" title="Xem Mục lục 4 danh mục · 7 bài đang mở &amp; Tìm kiếm nhanh (⌘K / Ctrl+K)">
+      <button type="button" class="ab-btn" id="atlasBtn" aria-expanded="false" aria-controls="atlas" aria-label="Mở Mục lục &amp; Tìm kiếm" title="Xem Mục lục 5 danh mục · 8 bài đang mở &amp; Tìm kiếm nhanh (⌘K / Ctrl+K)">
         <svg class="ab-ico" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6"/><path d="m10.4 10.4 3.6 3.6"/></svg>
         <span id="atlasBtnTxt">Mục lục</span>
         <span class="ab-sep" aria-hidden="true">·</span>
-        <span class="ab-badge num" id="abSum">4 mục · 7 bài</span>
+        <span class="ab-badge num" id="abSum">5 mục · 8 bài</span>
         <kbd class="ab-kbd">⌘K</kbd>
       </button>
       <button type="button" class="ab-theme-btn" id="navThemeBtn" aria-label="Đổi giao diện Ngày / Đêm" title="Đổi giao diện Ngày / Đêm">
@@ -1452,7 +1452,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
     <p class="aha" id="heroAha">Mỗi bài bám theo một giao dịch hằng ngày qua 5 ngôi nhà, tách rạch ròi lúc nào mới chỉ có tin nhắn chạy, lúc nào tiền thật mới rời tài khoản — kèm đối chiếu Nợ/Có theo Thông tư 99/2025.</p>
     <div class="hero-cta-row">
       <button type="button" class="cta-main" id="heroStartBtn">Đọc bài 01: 10 triệu quẹt thẻ →</button>
-      <button type="button" class="cta-sub" id="heroScrollBtn">Chọn trong 7 bài đang mở ↓</button>
+      <button type="button" class="cta-sub" id="heroScrollBtn">Chọn trong 8 bài đang mở ↓</button>
     </div>
   </div>
   <div class="hero-art">
@@ -1487,7 +1487,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
 <!-- ── Danh mục bài viết ─────────────────────────────────────── -->
 <section class="sec" id="chuyen" aria-labelledby="stories-h">
   <div class="inner">
-    <h2 id="stories-h">7 bài đang mở trong 4 nhóm chủ đề</h2>
+    <h2 id="stories-h">8 bài đang mở trong 5 nhóm chủ đề</h2>
     <p class="sec-lead" id="catalogCounter">Chọn một bài để xem sơ đồ 5 ngôi nhà, thử máy tính và đối chiếu sổ kế toán.</p>
   </div>
   <div class="catalog-bar">
@@ -1500,7 +1500,7 @@ textarea.fb-control{resize:vertical;min-height:92px}
       <div class="mode-seg" id="gridModeSeg" role="group" aria-label="Cách hiển thị danh sách bài">
         <button type="button" data-grid-mode="curated" aria-pressed="true">Phân trang (6 bài / trang)</button>
         <button type="button" data-grid-mode="all" aria-pressed="false">Danh sách đầy đủ</button>
-        <button type="button" data-grid-mode="compact" aria-pressed="false">Theo 4 danh mục</button>
+        <button type="button" data-grid-mode="compact" aria-pressed="false">Theo 5 danh mục</button>
       </div>
     </div>
   </div>
@@ -1512,8 +1512,8 @@ textarea.fb-control{resize:vertical;min-height:92px}
 
 <section class="sec" id="shelfSec" aria-labelledby="shelf-h">
   <div class="inner">
-    <h2 id="shelf-h">Kệ sách theo dòng chảy của tiền (4 danh mục · 7 bài)</h2>
-    <p class="shelf-sub" id="shelfSub">Bốn danh mục đang mở từ bảng lương, quẹt thẻ, vay trả góp tới dòng tiền doanh nghiệp · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.</p>
+    <h2 id="shelf-h">Kệ sách theo dòng chảy của tiền (5 danh mục · 8 bài)</h2>
+    <p class="shelf-sub" id="shelfSub">Năm danh mục đang mở (8 bài) từ lương tháng, quẹt thẻ, vay trả góp, dòng tiền doanh nghiệp tới bảo hiểm · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.</p>
   </div>
   <div class="shelf" id="shelf"></div>
 </section>
@@ -2218,6 +2218,26 @@ const GLOSS = {
     t: "Pre-funded net debit cap",
     en: "hạn mức ký quỹ bảo chứng",
     d: "Khoản tiền mặt hoặc giấy tờ có giá ngân hàng phải đặt cọc trước để bảo đảm khả năng trả nợ 24/7. Nhờ khoản cọc này, ngân hàng bên nhận mới dám cộng tiền ngay cho khách ở giây thứ 3."
+  },
+  "unearned": {
+    "t": "Unearned premium reserve",
+    "en": "dự phòng phí chưa được hưởng",
+    "d": "Phần phí bảo hiểm khách đã đóng trước nhưng thời gian bảo vệ chưa trôi qua. Mô hình doanh nghiệp theo Thông tư 99/2025/TT-BTC treo khoản này trên TK 3387 (Doanh thu chờ phân bổ), còn IFRS 17 gọi là LRC, rồi mới nhả sang doanh thu từng tháng."
+  },
+  "claimsreserve": {
+    "t": "Claims reserve",
+    "en": "dự phòng bồi thường",
+    "d": "Khoản tiền trích lập cho các sự cố đã xảy ra trong kỳ nhưng hồ sơ đang thẩm định hoặc chưa giải ngân xong (minh hoạ qua TK 352 Dự phòng phải trả trên khung TT 99/2025, chuẩn IFRS 17 gọi là LIC)."
+  },
+  "float": {
+    "t": "Insurance float",
+    "en": "vốn nổi bảo hiểm",
+    "d": "Khoản tiền phí bảo hiểm tạm nằm trong tay bên thu từ lúc khách đóng tiền cho tới ngày phải giải ngân bồi thường. Bên phát hành đem vốn nổi đầu tư trái phiếu và tiền gửi kỳ hạn để hưởng lãi trước."
+  },
+  "combinedratio": {
+    "t": "Combined ratio",
+    "en": "tỷ lệ kết hợp",
+    "d": "Tổng chi phí bồi thường cộng chi phí vận hành chia cho phí bảo hiểm đã hưởng. Dưới 100% là nghiệp vụ tự có lãi; bằng 100% là hoà vốn nghiệp vụ và sống nhờ lãi đầu tư vốn nổi."
   }
 };
 
@@ -7026,6 +7046,882 @@ const STORIES = {
         }
       }
     ]
+  },
+  "insure": {
+    "name": "12 triệu đóng phí bảo hiểm một năm",
+    "title": "Đóng 12 triệu phí bảo hiểm 1 năm: vì sao chỉ 1 triệu thành doanh thu ngay, còn 11 triệu đang ngủ ở đâu?",
+    "teaser": "Chuyển 12 triệu đầu năm (ví dụ), 25% trả hoa hồng vận hành ngay, 11 triệu treo sổ nghĩa vụ, còn 8 tỷ đồng vốn nổi chạy sang trái phiếu sinh lãi 6%/năm.",
+    "category": "c5",
+    "status": "published",
+    "approvedBy": "auto-daily",
+    "approvedAt": "2026-11-21",
+    "review": {
+      "ketoan": "Tổng: PASS 10 · FAIL 0 · UNVERIFIED 0 · FLAG 0",
+      "ketoanAt": "2026-11-21",
+      "draftedBy": "agent",
+      "draftedAt": "2026-11-21"
+    },
+    "article": {
+      "lay": {
+        "myths": [
+          {
+            "myth": "Đóng 12 triệu phí bảo hiểm hôm nay thì toàn bộ 12 triệu nằm yên trong két mang tên riêng của mình chờ có việc rút ra.",
+            "truth": "Tiền chảy ngay vào bể chung của hàng nghìn hợp đồng, tách [[vốn nổi bảo hiểm|float]] sang trái phiếu và tiền gửi kỳ hạn TK 128 chứ không nằm không ở két."
+          },
+          {
+            "myth": "Bên thu phí nhận đủ 12 triệu ngày đầu tiên nghĩa là họ vừa bỏ túi trọn 12 triệu doanh thu trong tháng Một.",
+            "truth": "Hết tháng đầu mới ghi nhận đúng 1/12 (1 triệu đồng); 11 triệu còn lại treo nợ trong [[dự phòng phí chưa được hưởng|unearned]] (khung TT 99/2025 mô hình chung dùng TK 3387)."
+          },
+          {
+            "myth": "Nếu công ty bảo hiểm chi bồi thường và vận hành hết sạch 100% tiền phí thu thì chắc chắn họ làm không công hoặc lỗ.",
+            "truth": "Ngay cả khi [[tỷ lệ kết hợp|combinedratio]] đạt 100% (lãi nghiệp vụ = 0), 8 tỷ đồng vốn nổi ở TK 128 sinh lãi 6%/năm vẫn đẻ thêm 480 triệu đồng lợi tức tài chính."
+          },
+          {
+            "myth": "Cuối năm khoẻ mạnh không dùng quyền lợi bảo hiểm nào là mình vừa mất oan 12 triệu đồng.",
+            "truth": "Số tiền đó đã chia sẻ rủi ro cho các ca không may trong nhóm 1.000 hợp đồng — bạn mua đúng 365 ngày lá chắn tài chính trọn vẹn."
+          }
+        ],
+        "sections": [
+          {
+            "h": "Cú chuyển 12 triệu lúc 09:15 và ảo giác về két tiền đứng yên",
+            "paras": [
+              "Sáng thứ Ba, 09:15. Bạn chuyển khoản 12.000.000 đồng (ví dụ minh hoạ) đóng trọn phí bảo hiểm sức khoẻ và tài sản cho 12 tháng tới.",
+              "Ba giây sau, tin nhắn báo trừ sạch 12 triệu. Nhiều người đóng phí đinh ninh tiền ấy vừa chảy vào két doanh thu của bên bán. Có người lại tưởng khoản tiền nằm yên trong két ngân hàng chờ đúng tên mình gặp chuyện mới rút ra.",
+              "Thực tế khác hẳn. Khoản 12 triệu vừa chuyển không hề nằm bất động ở tài khoản thanh toán lãi 0,1%/năm.",
+              "Tiền bước ngay vào một bể chung lớn hơn nhiều. Chỉ trong tuần đầu tiên, 12 triệu tách làm nhiều dòng tiền riêng biệt và xoay vòng suốt cả năm trên bảng cân đối."
+            ]
+          },
+          {
+            "h": "25% chi sớm và bài toán treo 11 triệu chưa được hưởng",
+            "paras": [
+              "Đừng nhìn một hợp đồng đứng riêng lẻ. Giả sử 1.000 người cùng đóng gói 12.000.000 đồng trong tuần đầu tháng Giêng. Cả nhóm gom ngay thành bể 12.000.000.000 đồng (12 tỷ đồng) tại ngân hàng thu hộ.",
+              "Nhưng cả 12 tỷ không ở nguyên một chỗ. Khoảng 25% rời bể ngay tuần đầu, tương đương 3.000.000.000 đồng (3 triệu trên mỗi hợp đồng). Hai tỷ đi trả hoa hồng cho đại lý phân phối, một tỷ chi cho thẩm định hồ sơ và phần mềm.",
+              "Chỉ còn 9 tỷ nằm lại làm lõi dự phòng. Và sổ kế toán doanh thu cũng khóa chặt hơn dòng tiền mặt rất nhiều.",
+              "Trên góc nhìn một hợp đồng đơn lẻ 12.000.000 đồng, hết tháng đầu tiên, bên bảo hiểm mới ghi nhận đúng 1.000.000 đồng (1/12) làm doanh thu TK 511. Phần 11.000.000 đồng còn lại phải treo vào nợ nghĩa vụ [[dự phòng phí chưa được hưởng|unearned]] (mô hình doanh nghiệp theo TT 99/2025 ghi TK 3387, chuẩn IFRS 17 gọi là LRC) vì 11 tháng bảo vệ vẫn ở phía trước.",
+              "Tiền mặt đóng một cục nhưng doanh thu nhả từng giọt. Tháng thứ hai qua hết 30 ngày, 1 triệu đồng nữa mới rời sổ treo TK 3387 sang TK 511."
+            ]
+          },
+          {
+            "h": "Ngân hàng thu hộ → Trái phiếu TK 128: cỗ máy vốn nổi 8 tỷ đồng",
+            "paras": [
+              "Quỹ thực giữ chỉ còn 9 tỷ đồng. Tại sao bên phát hành không để số tiền này ngủ yên trong [[tiền gửi không kỳ hạn|casa]] TK 112?",
+              "Bởi quy luật lệch pha thời gian rất rõ. Một nghìn người đóng tiền vào đầu năm, nhưng sự cố bệnh tật hay sửa chữa nhà cửa lại rơi rải rác từ tháng Hai tới tháng Mười Hai.",
+              "Khoản tiền đang tạm nằm chờ giữa ngày thu và ngày chi chính là [[vốn nổi bảo hiểm|float]].",
+              "Trong bể 9 tỷ đồng đó, bên bảo hiểm chỉ chừa khoảng 1.000.000.000 đồng (1 triệu/hợp đồng) nằm lỏng ở TK 112 để giải ngân bồi thường hàng tuần. Toàn bộ 8.000.000.000 đồng còn lại (8 triệu mỗi suất) chảy thẳng sang tài khoản đầu tư nắm giữ đến ngày đáo hạn TK 128.",
+              "Ngăn TK 128 ưu tiên trái phiếu chính phủ và tiền gửi ngân hàng có kỳ hạn. Tiền phí của bạn đang đi tài trợ ngân sách và lấy lãi suất định kỳ chứ không nằm chết sau cánh cửa sắt."
+            ]
+          },
+          {
+            "h": "Khi bồi thường + vận hành chạm 100%, lãi chạy từ đâu ra?",
+            "paras": [
+              "Nhiều người hay thắc mắc một câu rất thật. Thu phí xong trả gần hết cho người gặp nạn và đại lý, vậy công ty bảo hiểm kiếm tiền từ đâu?",
+              "Giả sử cả năm đó, nhà bảo hiểm chi trả sạch 9.000.000.000 đồng tiền bồi thường cho các ca gặp nạn trong nhóm 1.000 người (tỷ lệ bồi thường 75%). Cộng với 3.000.000.000 đồng chi phí khai thác và vận hành lúc đầu (25%), [[tỷ lệ kết hợp|combinedratio]] chạm tròn 100% nên lãi nghiệp vụ bằng 0 đồng. Nhờ 8.000.000.000 đồng [[vốn nổi bảo hiểm|float]] ở TK 128 sinh lãi 6%/năm, khoản 480.000.000 đồng (480.000 đ/hợp đồng) vẫn chảy đều vào TK 515 Doanh thu hoạt động tài chính.",
+              "Cơ chế ấy giúp mức phí năm giữ ở ngưỡng hợp lý hơn nhiều. Không có nguồn lãi 480 triệu từ trái phiếu và tiền gửi kỳ hạn, gói bảo hiểm 12 triệu một năm sẽ phải tăng giá thêm.",
+              "Chỉ khi thiên tai lớn đẩy bồi thường vượt xa mức thu, nhà bảo hiểm mới đụng tới khoản lãi tài chính này hoặc gọi quỹ tái bảo hiểm cùng chia sẻ. Phía doanh nghiệp mua gói 12 triệu cho nhân sự cũng hạch toán đối xứng qua TK 242 rồi phân bổ 1 triệu đồng mỗi tháng vào TK 642."
+            ]
+          },
+          {
+            "h": "Bút toán giải ngân TK 352 và ba ngoại lệ khi hết năm hoặc huỷ sớm",
+            "paras": [
+              "Khi thành viên trong nhóm 1.000 hợp đồng gửi hồ sơ bồi thường hợp lệ, sổ sách lập tức ghi nghĩa vụ [[dự phòng bồi thường|claimsreserve]] trước ngày rút tiền. Khung TT 99/2025 minh hoạ khoản này bằng TK 352 Dự phòng phải trả, còn chuẩn IFRS 17 tách riêng thành LIC.",
+              "Tới ngày duyệt chi, tiền rời thẳng ngăn thanh khoản 1 tỷ đồng ở TK 112 theo bút toán Nợ TK 352 / Có TK 112. Cùng lúc đó, các lô trái phiếu và sổ tiết kiệm TK 128 đáo hạn theo từng quý lại nạp đầy ngân quỹ trở về TK 112.",
+              "Còn nếu hết 365 ngày cả gia đình bạn khoẻ mạnh và không nộp hồ sơ nào? Toàn bộ 11 triệu đồng từng treo ở TK 3387 đã chuyển hết sang doanh thu TK 511 qua 12 kỳ kế toán.",
+              "Bạn không mất oan. Số tiền 12 triệu đó đã san sẻ rủi ro cho các ca nằm viện thật sự trong cùng bể 1.000 người — đổi lấy lá chắn an toàn tài chính cho riêng bạn suốt một năm."
+            ]
+          }
+        ],
+        "flowSummary": [
+          {
+            "step": "Bước 1 · Người đóng phí chuyển 12.000.000 đ (Doanh nghiệp ghi TK 242)",
+            "fromTo": "Bạn → Ngân hàng thu hộ",
+            "channel": "wire",
+            "amount": "12.000.000 đồng",
+            "essence": "Tiền rời TK 112 người mua; doanh nghiệp mua bảo hiểm treo [[chi phí chờ phân bổ|amortization]] TK 242 để phân bổ 1.000.000 đ/tháng."
+          },
+          {
+            "step": "Bước 2 · Chi sớm 25% phí khai thác & vận hành (3 tỷ trên bể 12 tỷ đ)",
+            "fromTo": "Công ty bảo hiểm → Đại lý & Quỹ chi trả",
+            "channel": "pipe",
+            "amount": "3.000.000.000 đồng",
+            "essence": "Gom 1.000 hợp đồng được 12 tỷ đ; trích 2 tỷ đ hoa hồng phân phối (TK 641) và 1 tỷ đ vận hành thẩm định (TK 642), giữ lại 9 tỷ đ."
+          },
+          {
+            "step": "Bước 3 · Treo 11/12 vào dự phòng phí chưa được hưởng (TK 3387 / IFRS 17 LRC)",
+            "fromTo": "Sổ doanh thu Công ty bảo hiểm",
+            "channel": "book",
+            "amount": "11.000.000 đ/hợp đồng",
+            "essence": "Hết tháng đầu mới ghi TK 511 đúng 1.000.000 đ; 11.000.000 đ còn lại giữ ở [[dự phòng phí chưa được hưởng|unearned]]."
+          },
+          {
+            "step": "Bước 4 · Đẩy 8 tỷ đồng vốn nổi sang trái phiếu & tiền gửi kỳ hạn (TK 128)",
+            "fromTo": "Ngân hàng thu hộ → Trái phiếu & Tiền gửi kỳ hạn",
+            "channel": "pipe",
+            "amount": "8.000.000.000 đồng",
+            "essence": "Chừa 1 tỷ đ lỏng ở TK 112 trả bồi thường tuần; 8 tỷ đ [[vốn nổi bảo hiểm|float]] sinh 6%/năm (480 triệu đ vào TK 515)."
+          },
+          {
+            "step": "Bước 5 · Chi bồi thường 9 tỷ từ TK 352 & hồi tiền khi đáo hạn",
+            "fromTo": "Công ty bảo hiểm → Đại lý & Quỹ chi trả",
+            "channel": "pipe",
+            "amount": "9.000.000.000 đồng",
+            "essence": "Sự cố phát sinh ghi [[dự phòng bồi thường|claimsreserve]] TK 352, giải ngân qua TK 112; hết năm không rủi ro thì TK 3387 kết chuyển sạch sang TK 511."
+          }
+        ],
+        "roles": [
+          {
+            "who": "Bạn (Người đóng phí)",
+            "pays": "Đóng trước 12.000.000 đ một lần cho cả năm bảo vệ.",
+            "gains": "Chuyển giao rủi ro y tế/tài sản lớn suốt 12 tháng sang bể 1.000 người.",
+            "risk": "Huỷ ngang giữa kỳ bị trừ phần chi phí khai thác ban đầu; bình an hết năm không hoàn lại phí rủi ro."
+          },
+          {
+            "who": "Ngân hàng thu hộ",
+            "pays": "Duy trì kênh thu hộ và trả lãi tiền gửi thanh toán/kỳ hạn.",
+            "gains": "Nhận dòng tiền gửi lớn 12 tỷ đ đầu năm và phần tiền gửi kỳ hạn từ bể đầu tư.",
+            "risk": "Quản trị khớp dòng rút tiền đột biến khi cụm hồ sơ bồi thường tập trung cuối quý."
+          },
+          {
+            "who": "Công ty bảo hiểm",
+            "pays": "Chi 3 tỷ đ vận hành + hoa hồng (25%) và bồi thường dự kiến 9 tỷ đ (75%).",
+            "gains": "Giữ 8 tỷ đ [[vốn nổi bảo hiểm|float]] đầu tư trái phiếu/tiền gửi mang về 480 triệu đ vào TK 515.",
+            "risk": "Thiên tai vượt trần đẩy [[tỷ lệ kết hợp|combinedratio]] trên 100%, ăn mòn vốn chủ sở hữu."
+          },
+          {
+            "who": "Đại lý & Quỹ chi trả",
+            "pays": "Bỏ công tư vấn thẩm định hồ sơ và giải quyết thủ tục sự cố.",
+            "gains": "Nhận 2 tỷ đ hoa hồng phân phối năm đầu; người gặp nạn nhận 9 tỷ đ bồi thường từ bể chung.",
+            "risk": "Hồ sơ trục lợi hoặc thiếu chứng từ hợp lệ bị loại chi trả."
+          },
+          {
+            "who": "Trái phiếu & Tiền gửi kỳ hạn",
+            "pays": "Trả lợi tức định kỳ 6%/năm (~480 triệu đ) cho khoản tiền gửi/trái phiếu 8 tỷ đ.",
+            "gains": "Có nguồn vốn ổn định dài hạn 8 tỷ đ tài trợ ngân sách công và tín dụng kỳ hạn.",
+            "risk": "Rủi ro biến động lãi suất thị trường nếu buộc phải bán trái phiếu trước ngày đáo hạn."
+          }
+        ],
+        "whenHelps": [
+          "Chủ động tách rõ sản phẩm bảo vệ thuần (chi phí mất đi để mua lá chắn rủi ro) khỏi kênh tiết kiệm đầu tư riêng biệt.",
+          "Doanh nghiệp hạch toán đúng chuẩn TT 99/2025 qua TK 242 để tránh làm biến dạng chi phí quản lý của riêng tháng đóng phí.",
+          "Biết kiểm tra sức khoẻ tài chính nhà bảo hiểm qua [[tỷ lệ kết hợp|combinedratio]] và tỷ trọng nắm giữ trái phiếu an toàn ở TK 128.",
+          "Giảm bớt phí phân phối không cần thiết bằng việc ưu tiên hợp đồng minh bạch tỷ lệ chi phí ban đầu."
+        ],
+        "whenTraps": [
+          "Trộn lẫn tiền phí bảo hiểm rủi ro với sổ tiết kiệm rồi bức xúc khi cuối năm bình an không được hoàn lại tiền.",
+          "Huỷ hợp đồng ngay trong 2 năm đầu đối với hợp đồng dài hạn dẫn đến hụt lớn do phần hoa hồng 25% năm đầu đã chi.",
+          "Doanh nghiệp quên phân bổ TK 242 suốt 12 tháng làm sai lệch báo cáo lãi lỗ giữa các quý.",
+          "Chạy theo gói phí quá rẻ ở đơn vị có danh mục đầu tư vốn nổi rủi ro cao, thiếu thanh khoản khi cần bồi thường lớn."
+        ],
+        "takeaways": [
+          "Đóng 12 triệu một lần nhưng mỗi tháng nhà bảo hiểm mới được ghi nhận doanh thu 1 triệu; 11 triệu còn lại là nợ nghĩa vụ bảo vệ.",
+          "Khoảng 25% dòng tiền đi ngay vào hoa hồng và thẩm định; 75% ở lại làm thanh khoản chi nhanh (TK 112) và đầu tư an toàn (TK 128).",
+          "Bí mật tài chính của ngành bảo hiểm là [[vốn nổi bảo hiểm|float]]: lợi tức 6%/năm trên 8 tỷ đ trái phiếu vẫn tạo 480 triệu đ lãi dù nghiệp vụ hoà vốn 100%.",
+          "Bình an cuối năm không nhận lại tiền vì 12 triệu của bạn đã gánh rủi ro chung cho cả bể 1.000 hợp đồng suốt 365 ngày.",
+          "Mỗi bên giữ hai cuốn sổ đối xứng nhau: người mua treo TK 242 rồi phân bổ dần, bên phát hành treo [[dự phòng phí chưa được hưởng|unearned]] rồi nhả dần từng tháng."
+        ]
+      },
+      "pro": {
+        "mechanics": [
+          {
+            "h": "1. Tách dòng tiền mặt T+0 và doanh thu dồn tích 12 kỳ",
+            "p": "Khoảnh khắc 12.000.000 đ (ví dụ) chuyển vào ngân hàng thu hộ (TK 112), toàn bộ tiền mặt sẵn sàng trên ngân quỹ nhưng hợp đồng mới qua 0 ngày bảo vệ. Doanh thu chỉ ghi nhận theo thời gian rủi ro đã trôi qua, tức 1/12 mỗi tháng (1.000.000 đ/tháng). Nếu hạch toán 100% tiền thu vào TK 511 ngay tháng Một, báo cáo lãi giả tăng vọt đầu kỳ còn 11 tháng sau thiếu nguồn đối ứng rủi ro."
+          },
+          {
+            "h": "2. Phân mảnh quỹ ngày đầu trên quy mô cụm 1.000 hợp đồng (12 tỷ đ)",
+            "p": "Khi gom 1.000 hợp đồng thành bể 12.000.000.000 đ, dòng tiền lập tức chia ba ngả. Ngả 1 (~25% = 3 tỷ đ) rời bể trả hoa hồng đại lý (2 tỷ đ) và chi phí thẩm định, hạ tầng công nghệ (1 tỷ đ). Ngả 2 (~8,3% = 1 tỷ đ) nằm tại TK 112 làm đệm giải ngân nhanh hàng tuần. Ngả 3 (~66,7% = 8 tỷ đ) chuyển sang TK 128 Đầu tư nắm giữ đến ngày đáo hạn gồm trái phiếu chính phủ và tiền gửi kỳ hạn."
+          },
+          {
+            "h": "3. Phương trình Tỷ lệ kết hợp vs Vốn nổi bảo hiểm",
+            "p": "Tỷ lệ kết hợp = (Chi phí bồi thường + Chi phí vận hành) / Phí bảo hiểm đã hưởng. Với bồi thường 9 tỷ đ (75%) cộng chi phí 3 tỷ đ (25%), tỷ lệ kết hợp bằng tròn 100% nên lãi nghiệp vụ thuần = 0 đồng. Tuy nhiên, độ trễ thời gian giữ tiền tạo ra bể [[vốn nổi bảo hiểm|float]] 8 tỷ đ nằm ở TK 128. Lợi tức 6%/năm mang về 480.000.000 đ (480.000 đ/hợp đồng) chảy thẳng vào TK 515."
+          },
+          {
+            "h": "4. Khớp kỳ hạn tài sản — nợ phải trả (Asset-Liability Matching)",
+            "p": "Quỹ bảo hiểm không được phép đổ dồn 8 tỷ đ vào tài sản kém thanh khoản vì hồ sơ bồi thường đòi hỏi giải ngân đúng hạn hợp đồng. Nhà bảo hiểm chia nhỏ các lô trái phiếu và tiền gửi TK 128 thành bậc thang đáo hạn từng quý. Nhờ vậy mỗi khi ngăn tiền lỏng 1 tỷ đ ở TK 112 vơi đi do chi bồi thường, luôn có lô đến hạn trả gốc tự động bù đắp mà không cần bán tháo chịu lỗ trước hạn."
+          },
+          {
+            "h": "5. Bồi thường dồn dập và lớp đệm tái bảo hiểm",
+            "p": "Khi rủi ro hệ thống như bão lớn gây tổn thất hàng loạt trong cụm 1.000 hợp đồng và kéo tỷ lệ kết hợp vượt 100%, hai lớp chắn kích hoạt nối tiếp nhau. Lớp thứ nhất chuyển phần tổn thất vượt mức sang công ty tái bảo hiểm theo hợp đồng nhượng tái định kỳ. Lớp thứ hai rút lợi nhuận tài chính từ TK 515 cùng quỹ dự phòng bắt buộc để tránh đứt thanh khoản chi trả."
+          }
+        ],
+        "accountingNotes": [
+          "Lưu ý khung pháp quy chuyên ngành: Tại Việt Nam, doanh nghiệp bảo hiểm hạch toán trực tiếp theo chế độ kế toán doanh nghiệp bảo hiểm của Bộ Tài chính với các tiểu khoản dự phòng nghiệp vụ chuyên biệt. Để giữ thống nhất giáo dục tài chính doanh nghiệp chung trên toàn chuỗi bài theo Thông tư 99/2025/TT-BTC (Phụ lục II), các bút toán minh hoạ ánh xạ về TK 242, TK 112, TK 128, TK 3387, TK 352, TK 511 và TK 515.",
+          "Phía doanh nghiệp mua bảo hiểm (TK 242 & TK 642): Doanh nghiệp đóng trọn 12.000.000 đ ngày đầu ghi Nợ TK 242 (Chi phí chờ phân bổ — tên gọi mới theo Phụ lục II TT 99/2025) và Có TK 112. Cuối mỗi tháng phân bổ đều 1/12 vào chi phí quản lý hoặc chi phí bán hàng qua bút toán Nợ TK 642 / Có TK 242: 1.000.000 đ, tuyệt đối không dồn hết vào tháng Giêng.",
+          "Tách doanh thu chưa thực hiện (TK 3387 vs IFRS 17 LRC): Trên mô hình doanh nghiệp chung TT 99/2025, phần 11.000.000 đ cho 11 tháng bảo vệ chưa tới được treo vào Có TK 3387 (Doanh thu chờ phân bổ), chỉ 1.000.000 đ tháng đầu sang Có TK 511. Chuẩn mực quốc tế IFRS 17 chuẩn hoá nghĩa vụ tương lai này thành Liability for Remaining Coverage (LRC).",
+          "Dự phòng bồi thường đang xử lý (TK 352 vs IFRS 17 LIC): Với các ca sự cố đã xảy ra cuối kỳ nhưng chưa chốt xong biên bản giám định để giải ngân, kế toán vẫn phải ghi nhận nghĩa vụ vào [[dự phòng bồi thường|claimsreserve]]. Khung tham chiếu TT 99/2025 dùng TK 352 (Dự phòng phải trả), tương ứng Liability for Incurred Claims (LIC) trong IFRS 17.",
+          "Danh mục sinh lãi vốn nổi (TK 128 & TK 515): Tiền gửi kỳ hạn và trái phiếu chính phủ nắm giữ tới đáo hạn hạch toán Nợ TK 128 (Đầu tư nắm giữ đến ngày đáo hạn). Lợi tức nhận về ghi Có TK 515 (Doanh thu hoạt động tài chính), tách bạch lãi nghiệp vụ với lãi đầu tư [[vốn nổi bảo hiểm|float]]."
+        ],
+        "journal": [
+          {
+            "step": "Bút toán 1 (Ngày đóng phí — Phía doanh nghiệp mua bảo hiểm trả trước 1 năm)",
+            "book": "Sổ kế toán doanh nghiệp mua bảo hiểm (TT 99/2025)",
+            "assume": "Doanh nghiệp chuyển khoản 12.000.000 đ (ví dụ) mua gói bảo hiểm tài sản và sức khoẻ kỳ hạn trọn 12 tháng.",
+            "rows": [
+              [
+                "Nợ",
+                "242",
+                "Chi phí chờ phân bổ",
+                "quyền được bảo vệ suốt 12 tháng chưa phân bổ vào chi phí ngay",
+                "Ghi nhận chi phí chờ phân bổ tăng 12 triệu đồng",
+                12000000
+              ],
+              [
+                "Có",
+                "112",
+                "Tiền gửi không kỳ hạn",
+                "lệnh chuyển khoản thanh toán trọn gói phí bảo hiểm năm đầu",
+                "Số dư tài khoản ngân hàng giảm 12 triệu đồng",
+                12000000
+              ]
+            ],
+            "note": "Σ Debit = 12.000.000 = Σ Credit. Theo Phụ lục II TT 99/2025/TT-BTC, TK 242 mang tên 'Chi phí chờ phân bổ'.",
+            "lifeNote": "Tiền mặt rời tài khoản ngay ngày đầu nhưng trên báo cáo kết quả kinh doanh tháng Giêng chưa ghi lỗ chi phí cả năm."
+          },
+          {
+            "step": "Bút toán 2 (Cuối tháng 1 — Doanh nghiệp mua phân bổ chi phí 1/12 kỳ)",
+            "book": "Sổ kế toán doanh nghiệp mua bảo hiểm (TT 99/2025)",
+            "assume": "Sau 30 ngày bảo vệ đầu tiên, doanh nghiệp kết chuyển đúng phần 1/12 (= 1.000.000 đ) vào chi phí quản lý kỳ này.",
+            "rows": [
+              [
+                "Nợ",
+                "642",
+                "Chi phí quản lý doanh nghiệp",
+                "chi phí bảo hiểm thuộc tháng đầu tiên đã hưởng bảo vệ",
+                "Chi phí quản lý tháng 1 tăng 1 triệu đồng",
+                1000000
+              ],
+              [
+                "Có",
+                "242",
+                "Chi phí chờ phân bổ",
+                "giảm bớt 1/12 số dư trả trước chuyển sang chi phí kỳ hiện tại",
+                "Số dư treo TK 242 còn 11 triệu đồng",
+                1000000
+              ]
+            ],
+            "note": "Σ Debit = 1.000.000 = Σ Credit. Quy trình lặp lại đều đặn 11 tháng còn lại cho tới khi TK 242 về 0 đ.",
+            "lifeNote": "Mỗi tháng bảo hiểm chia đều 1 triệu đồng chi phí thay vì làm méo kết quả lãi lỗ của tháng đóng tiền."
+          },
+          {
+            "step": "Bút toán 3 (Thu phí & tách phần Tháng 1 cho 1 hợp đồng — Mô hình tham chiếu doanh nghiệp TT 99/2025)",
+            "book": "Mô hình cân đối tham chiếu TT 99/2025 (khớp nguyên tắc IFRS 17 LRC)",
+            "assume": "Nhận 12.000.000 đ phí cả năm vào TK 112; hết Tháng 1 ghi nhận 1.000.000 đ đã hưởng và khoá 11.000.000 đ của 11 tháng còn lại.",
+            "rows": [
+              [
+                "Nợ",
+                "112",
+                "Tiền gửi không kỳ hạn",
+                "nhận đủ tiền phí bảo hiểm 12 tháng từ người đóng",
+                "Tiền ngân hàng thu hộ tăng 12 triệu đồng",
+                12000000
+              ],
+              [
+                "Có",
+                "3387",
+                "Doanh thu chờ phân bổ",
+                "nghĩa vụ bảo vệ 11 tháng tương lai chưa tới hạn hưởng",
+                "Nợ nghĩa vụ chờ phân bổ tăng 11 triệu đồng",
+                11000000
+              ],
+              [
+                "Có",
+                "511",
+                "Doanh thu bán hàng và cung cấp dịch vụ",
+                "phần doanh thu tháng đầu tiên đã hoàn thành bảo vệ",
+                "Doanh thu tháng 1 chỉ ghi nhận đúng 1 triệu đồng",
+                1000000
+              ]
+            ],
+            "note": "Σ Debit = 12.000.000 = Σ Credit (11.000.000 + 1.000.000). Tiền mặt nhận trước 100%, doanh thu ghi dần mỗi kỳ 1/12.",
+            "lifeNote": "11 triệu đồng nằm lại ở vế nợ nghĩa vụ chính là phần tạo ra nguồn vốn nổi chờ đầu tư."
+          },
+          {
+            "step": "Bút toán 4 (Chuyển 8 tỷ đ vốn nổi từ bể 1.000 hợp đồng sang đầu tư kỳ hạn & trái phiếu)",
+            "book": "Sổ quản trị vốn đầu tư (khung tài khoản TT 99/2025)",
+            "assume": "Sau khi tách 3 tỷ đ chi khai thác + vận hành và giữ 1 tỷ đ lỏng ở TK 112, 8.000.000.000 đ vốn nổi mua trái phiếu chính phủ và tiền gửi kỳ hạn.",
+            "rows": [
+              [
+                "Nợ",
+                "128",
+                "Đầu tư nắm giữ đến ngày đáo hạn",
+                "nắm giữ trái phiếu an toàn và tiền gửi kỳ hạn lấy lãi đều",
+                "Danh mục đầu tư an toàn tăng 8 tỷ đồng",
+                8000000000
+              ],
+              [
+                "Có",
+                "112",
+                "Tiền gửi không kỳ hạn",
+                "chuyển tiền từ tài khoản thu hộ sang tài sản đầu tư kỳ hạn",
+                "Tiền không kỳ hạn giảm 8 tỷ (giữ lại 1 tỷ trả nhanh)",
+                8000000000
+              ]
+            ],
+            "note": "Σ Debit = 8.000.000.000 = Σ Credit. Phân bổ danh mục tài sản bảo đảm khớp kỳ hạn chi trả bồi thường.",
+            "lifeNote": "Phần lớn tiền phí bạn đóng thực chất đang ngủ an toàn trong trái phiếu và tiền gửi kỳ hạn thay vì nằm chết ở két."
+          },
+          {
+            "step": "Bút toán 5 (Nhận 480 triệu đ lãi đầu tư vốn nổi 6%/năm cuối kỳ)",
+            "book": "Sổ hoạt động tài chính (TT 99/2025)",
+            "assume": "Cuối năm danh mục 8.000.000.000 đ ở TK 128 mang về lợi tức bình quân 6%/năm (= 480.000.000 đ), tương đương 480.000 đ trên mỗi hợp đồng 12 triệu.",
+            "rows": [
+              [
+                "Nợ",
+                "112",
+                "Tiền gửi không kỳ hạn",
+                "nhận tiền lãi trái phiếu và lãi tiền gửi kỳ hạn chảy về tài khoản",
+                "Tiền mặt thực nhận tăng 480 triệu đồng",
+                480000000
+              ],
+              [
+                "Có",
+                "515",
+                "Doanh thu hoạt động tài chính",
+                "ghi nhận phần sinh lời tạo ra từ vốn nổi bảo hiểm",
+                "Lãi đầu tư tài chính tăng 480 triệu đồng",
+                480000000
+              ]
+            ],
+            "note": "Σ Debit = 480.000.000 = Σ Credit. Dù tỷ lệ kết hợp bồi thường + phí chạm 100%, nguồn lãi TK 515 vẫn bảo toàn dương.",
+            "lifeNote": "Đây là lý do nhà bảo hiểm luôn trọng dòng tiền đều và độ trễ thời gian giữ quỹ."
+          }
+        ],
+        "edgeCases": [
+          {
+            "h": "Huỷ hợp đồng ngang giữa năm",
+            "p": "Giả sử người đóng phí xin huỷ hợp đồng ngay đầu tháng thứ 4 (ví dụ). Phần thời gian chưa bảo vệ trên sổ kế toán còn đúng 8 tháng tương ứng 8.000.000 đ trên TK 3387. Tuy nhiên khoản hoàn trả thực tế thường bị khấu trừ 25% chi phí khai thác ban đầu (3.000.000 đ đã chi trả hoa hồng đại lý và thẩm định ở tuần một) cùng phí huỷ hợp đồng theo điều khoản đã ký."
+          },
+          {
+            "h": "Cả năm không nộp hồ sơ bồi thường nào",
+            "p": "Khi hết tháng Mười Hai mà gia đình bạn khoẻ mạnh hoàn toàn, toàn bộ 11.000.000 đ từng treo ở [[dự phòng phí chưa được hưởng|unearned]] đã kết chuyển lần lượt xong sang doanh thu TK 511. Với gói bảo vệ thuần, không có hoàn tiền cuối năm vì số phí đó đã thanh toán cho những thành viên gặp biến cố thật trong bể chung 1.000 người, đúng bản chất chia sẻ rủi ro tập thể."
+          },
+          {
+            "h": "Thiên tai diện rộng vượt trần 100%",
+            "p": "Nếu bão lớn cùng lúc gây tổn thất hàng loạt khiến tổng bồi thường nhảy vọt lên 11 tỷ đ thay vì 9 tỷ đ dự kiến, tỷ lệ kết hợp vọt qua 115% và đẩy nghiệp vụ vào vùng âm. Lúc này hợp đồng nhượng tái bảo hiểm đứng ra gánh tầng thiệt hại vượt ngưỡng, phần còn thiếu lấy trực tiếp từ 480 triệu đ lãi đầu tư TK 515 và quỹ dự phòng bắt buộc của doanh nghiệp."
+          },
+          {
+            "h": "Chậm đóng phí kỳ gia hạn (Grace period)",
+            "p": "Bước sang năm thứ hai, hầu hết hợp đồng đều có cửa sổ gia hạn 30 ngày kể từ ngày đến hạn đóng phí. Nếu trong thời gian này tiền chưa về tài khoản thu hộ TK 112 mà xảy ra rủi ro, quyền lợi thường bị tạm treo chờ xác minh đóng bù phí theo điều khoản. Quá hạn ân hạn mà người mua vẫn chưa thanh toán thì hợp đồng tự động chấm dứt hiệu lực bảo vệ."
+          }
+        ]
+      }
+    },
+    "houses": [
+      {
+        "type": "home",
+        "label": "Bạn (Người đóng phí)",
+        "sign": "NGƯỜI MUA",
+        "fxText": {
+          "phone": "trừ −12.000.000 đ · treo TK 242"
+        }
+      },
+      {
+        "type": "acq",
+        "label": "Ngân hàng thu hộ",
+        "sign": "TK THU PHÍ",
+        "fxText": {
+          "board": "nhận +12 tỷ bể · giữ 1 tỷ lỏng",
+          "split": "tách 3 tỷ phí + 8 tỷ đầu tư"
+        }
+      },
+      {
+        "type": "co",
+        "label": "Công ty bảo hiểm",
+        "sign": "NHÀ BẢO HIỂM",
+        "fxText": {
+          "deal": "hưởng 1tr/tháng · treo 11tr 3387",
+          "hr": "lập TK 352 khi phát sinh sự cố"
+        }
+      },
+      {
+        "type": "lend",
+        "label": "Đại lý & Quỹ chi trả",
+        "sign": "CHI TRẢ & PHÍ",
+        "fxText": {
+          "loan": "hoa hồng 2 tỷ + chi bồi thường 9 tỷ"
+        }
+      },
+      {
+        "type": "pbank",
+        "label": "Trái phiếu & Tiền gửi kỳ hạn",
+        "sign": "KÉT ĐẦU TƯ",
+        "fxText": {
+          "pool": "giữ 8 tỷ TK 128 · sinh 480tr lãi",
+          "two": "đáo hạn từng quý bổ sung TK 112"
+        }
+      }
+    ],
+    "beats": [
+      {
+        "when": "09:15 · Ngày 01",
+        "sub": "đóng 12 triệu phí bảo hiểm cả năm",
+        "title": "Đóng 12 triệu một lần: ví bạn trừ sạch, doanh nghiệp treo TK 242",
+        "say": [
+          "Sáng thứ Ba lúc 09:15, bạn chuyển 12.000.000 đồng (ví dụ) đóng trọn một năm phí bảo hiểm.",
+          "Điện thoại báo trừ sạch 12 triệu ngay lập tức. Nếu là doanh nghiệp mua, kế toán treo vào [[chi phí chờ phân bổ|amortization]] TK 242 rồi mỗi tháng mới cắt đúng 1.000.000 đồng vào chi phí.",
+          "Trên bể chung 1.000 người, khoản thu cùng tuần tạo ngay một bể tiền mặt 12 tỷ đồng tại ngân hàng thu hộ."
+        ],
+        "lit": [
+          0,
+          1
+        ],
+        "tags": {
+          "0": [
+            "chuyển −12.000.000 đ",
+            "minus"
+          ],
+          "1": [
+            "gom bể +12 tỷ TK 112",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "fx": [
+          "phone",
+          "board"
+        ],
+        "life": "Bạn đóng trọn một lần, nhưng chi phí kinh tế thực chất rải đều 1 triệu đồng cho mỗi tháng được bảo vệ.",
+        "sys": "Bên mua (TT 99/2025): Nợ TK 242 (Chi phí chờ phân bổ: 12.000.000) / Có TK 112 (12.000.000). Cuối mỗi tháng phân bổ: Nợ TK 642 / Có TK 242: 1.000.000.",
+        "ledger": {
+          "book": "Sổ doanh nghiệp mua bảo hiểm trả trước 1 năm (TT 99/2025)",
+          "assume": "Doanh nghiệp đóng trọn 12.000.000 đ phí bảo hiểm cho thời hạn 12 tháng bằng chuyển khoản ngân hàng.",
+          "rows": [
+            [
+              "Nợ",
+              "242",
+              "Chi phí chờ phân bổ",
+              "quyền bảo vệ 12 tháng chờ phân bổ dần từng kỳ",
+              "Tăng tài sản chi phí trả trước 12 triệu đ",
+              12000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "chuyển khoản thanh toán trọn phí năm đầu",
+              "Số dư ngân hàng giảm 12 triệu đ",
+              12000000
+            ]
+          ],
+          "note": "Σ Debit = 12.000.000 = Σ Credit. Hết mỗi tháng, phân bổ 1.000.000 đ sang Nợ TK 642 / Có TK 242.",
+          "lifeNote": "Trả 12 triệu ngày đầu nhưng mỗi tháng chỉ gánh đúng 1 triệu đồng chi phí."
+        }
+      },
+      {
+        "when": "Tuần đầu",
+        "sub": "25% rời bể trả hoa hồng & vận hành",
+        "title": "Chi sớm 25% (3 tỷ đ): trả hoa hồng đại lý và thẩm định hồ sơ",
+        "say": [
+          "Cả 12 tỷ đồng vừa gom không nằm im 100% để đợi bồi thường.",
+          "Khoảng 25% — tương đương 3 tỷ đồng trên cụm 1.000 hợp đồng (3 triệu mỗi suất) — đi ra ngay tuần đầu để trả 2 tỷ hoa hồng phân phối và 1 tỷ thẩm định, vận hành.",
+          "Vì khoản chi đầu năm lớn như vậy, huỷ ngang hợp đồng quá sớm gần như luôn bị khấu trừ phần chi phí ban đầu."
+        ],
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "tags": {
+          "2": [
+            "trừ 25% chi khai thác",
+            "minus"
+          ],
+          "3": [
+            "đại lý & vận hành 3 tỷ",
+            "plain"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "fx": [
+          "split",
+          "deal"
+        ],
+        "life": "Từ 12 triệu bạn đóng, khoảng 3 triệu đã đi trả công người bán và chi phí thẩm định hồ sơ ngay đầu kỳ.",
+        "sys": "Trên bể 12 tỷ đ: 2 tỷ hoa hồng (TK 641) + 1 tỷ quản trị thẩm định (TK 642) rời quỹ ngay; 9 tỷ đ còn lại giữ lại trong quỹ dự phòng & thanh khoản.",
+        "ledger": {
+          "book": "Phân bổ dòng tiền khai thác năm đầu (bể 1.000 hợp đồng)",
+          "assume": "Trong tuần đầu sau thu 12.000.000.000 đ, bên phát hành giải ngân tổng cộng 3.000.000.000 đ cho hoa hồng (2 tỷ) và thẩm định quản trị (1 tỷ).",
+          "rows": [
+            [
+              "Nợ",
+              "641",
+              "Chi phí bán hàng",
+              "trả hoa hồng phân phối và tư vấn hợp đồng mới",
+              "Chi phí bán hàng 2 tỷ đ",
+              2000000000
+            ],
+            [
+              "Nợ",
+              "642",
+              "Chi phí quản lý doanh nghiệp",
+              "chi phí thẩm định y tế/rủi ro và hệ thống",
+              "Chi phí quản lý 1 tỷ đ",
+              1000000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "chi trả chuyển khoản từ tài khoản ngân hàng thu phí",
+              "Tiền mặt xuất 3 tỷ (còn 9 tỷ đ)",
+              3000000000
+            ]
+          ],
+          "note": "Σ Debit = 3.000.000.000 = Σ Credit. Quỹ thực giữ còn 9 tỷ đ (9 triệu đ/hợp đồng).",
+          "lifeNote": "Ba triệu rời cuộc chơi ngay đầu năm để mở hợp đồng — 9 triệu ở lại gánh quỹ rủi ro."
+        }
+      },
+      {
+        "when": "Cuối Tháng 1",
+        "sub": "nhả 1 triệu doanh thu · khoá 11 triệu",
+        "title": "Sổ doanh thu chỉ mở khoá 1/12 (1 triệu đ); treo 11 triệu nợ nghĩa vụ",
+        "say": [
+          "Tiền mặt đã nằm trong tay bên bảo hiểm, nhưng sổ doanh thu chỉ cho phép ghi nhận phần thời gian đã trôi qua.",
+          "Hết Tháng 1, trên suất 12 triệu đồng của bạn, bên phát hành mới được hạch toán 1.000.000 đồng vào TK 511.",
+          "Đủ 11.000.000 đồng còn lại buộc phải khoá trên [[dự phòng phí chưa được hưởng|unearned]] (mô hình doanh nghiệp ghi TK 3387, chuẩn IFRS 17 gọi là LRC)."
+        ],
+        "lit": [
+          2
+        ],
+        "tags": {
+          "2": [
+            "TK 511: 1tr · TK 3387: 11tr",
+            "plain"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "fx": [
+          "deal"
+        ],
+        "life": "Một triệu đã thành doanh thu Tháng 1; 11 triệu vẫn đang là món nợ bảo vệ 11 tháng tiếp theo.",
+        "sys": "Mô hình tham chiếu TT 99/2025: Nợ TK 112 (12.000.000) / Có TK 3387 Doanh thu chờ phân bổ (11.000.000) + Có TK 511 (1.000.000).",
+        "ledger": {
+          "book": "Mô hình cân đối thu phí & nhả doanh thu Tháng 1 (TT 99/2025)",
+          "assume": "Hợp đồng 12.000.000 đ/năm đã hoàn tất 1 tháng đầu tiên (30/365 ngày tương đương 1/12 kỳ hạn năm).",
+          "rows": [
+            [
+              "Nợ",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "tiền phí đã thu đủ cho trọn 12 tháng hợp đồng",
+              "Tiền mặt thu về 12 triệu đ",
+              12000000
+            ],
+            [
+              "Có",
+              "3387",
+              "Doanh thu chờ phân bổ",
+              "nghĩa vụ bảo vệ 11 tháng còn lại chưa hưởng",
+              "Treo dự phòng 11 triệu đ",
+              11000000
+            ],
+            [
+              "Có",
+              "511",
+              "Doanh thu bán hàng và cung cấp dịch vụ",
+              "1/12 giá trị phí tương ứng Tháng 1 đã qua",
+              "Ghi doanh thu 1 triệu đ",
+              1000000
+            ]
+          ],
+          "note": "Σ Debit = 12.000.000 = Σ Credit. Cứ hết mỗi tháng sau, 1.000.000 đ mới rời TK 3387 sang TK 511.",
+          "lifeNote": "Họ cầm 12 triệu trong tay nhưng kế toán chỉ cho phép coi 1 triệu là tiền đã kiếm được."
+        }
+      },
+      {
+        "when": "Trong năm",
+        "sub": "8 tỷ vốn nổi chảy sang trái phiếu TK 128",
+        "title": "8 tỷ đồng chạy sang trái phiếu & tiền gửi TK 128, sinh +480 triệu đ lãi",
+        "say": [
+          "Tại sao 9 tỷ đồng còn lại không nằm im trong tiền gửi không kỳ hạn lãi ~0,1%/năm?",
+          "Vì ca bồi thường đến rải rác suốt bốn mùa, nhà bảo hiểm chỉ để 1 tỷ lỏng trên TK 112 trả hồ sơ tuần, còn 8 tỷ đẩy hết sang [[vốn nổi bảo hiểm|float]] trong TK 128.",
+          "Trái phiếu chính phủ và tiền gửi kỳ hạn trả lãi 6%/năm giúp 8 tỷ đẻ đều 480 triệu đồng vào TK 515."
+        ],
+        "lit": [
+          1,
+          4
+        ],
+        "tags": {
+          "1": [
+            "giữ lỏng 1 tỷ TK 112",
+            "plain"
+          ],
+          "4": [
+            "TK 128: 8 tỷ → lãi +480tr",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "fx": [
+          "split",
+          "pool"
+        ],
+        "life": "Phần lớn tiền phí của bạn đang nằm trong trái phiếu chính phủ và tiền gửi kỳ hạn — không phải két sắt tối om.",
+        "sys": "Đầu tư vốn nổi (TT 99/2025): Nợ TK 128 (8.000.000.000) / Có TK 112 (8.000.000.000). Lãi cuối kỳ: Nợ TK 112 (480.000.000) / Có TK 515 (480.000.000).",
+        "ledger": {
+          "book": "Sổ đầu tư vốn nổi của bể 1.000 hợp đồng (TT 99/2025)",
+          "assume": "8.000.000.000 đ được gửi kỳ hạn & mua trái phiếu nắm giữ đến ngày đáo hạn (TK 128) từ đầu năm; không đổi sang tài sản thanh khoản kém.",
+          "rows": [
+            [
+              "Nợ",
+              "128",
+              "Đầu tư nắm giữ đến ngày đáo hạn",
+              "trái phiếu chính phủ và tiền gửi ngân hàng có kỳ hạn",
+              "Danh mục đầu tư an toàn 8 tỷ đ",
+              8000000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "rút bớt phần tiền nhàn rỗi từ ngân hàng thu hộ",
+              "Tiền không kỳ hạn giảm 8 tỷ đ",
+              8000000000
+            ]
+          ],
+          "note": "Σ Debit = 8.000.000.000 = Σ Credit. Lợi tức 6%/năm = 480.000.000 đ ghi tiếp vào Nợ TK 112 / Có TK 515.",
+          "lifeNote": "Chênh lệch thời gian giữa ngày thu và ngày chi biến 8 tỷ tiền tạm giữ thành cỗ máy đẻ lãi."
+        }
+      },
+      {
+        "when": "Khi có sự cố",
+        "sub": "chi trả 9 tỷ từ TK 352 & vòng lặp đáo hạn",
+        "title": "Nghiệp vụ hoà vốn 100%, trích TK 352 chi trả 9 tỷ bồi thường",
+        "say": [
+          "Giả sử cả năm tổng bồi thường cho các ca không may hết đúng 9 tỷ đồng — cộng 3 tỷ phí vận hành là [[tỷ lệ kết hợp|combinedratio]] đạt tròn 100%.",
+          "Bán bảo hiểm hoà vốn không đồng, nhưng khoản lãi 480 triệu từ vốn nổi vẫn giữ doanh nghiệp tăng trưởng.",
+          "Còn nếu nhà bạn khoẻ mạnh cả năm? Phần phí bạn đóng đã đi đỡ giúp những gia đình không may trong cùng bể 1.000 người."
+        ],
+        "lit": [
+          2,
+          3,
+          4
+        ],
+        "tags": {
+          "2": [
+            "trích TK 352 · 9 tỷ",
+            "plain"
+          ],
+          "3": [
+            "chi trả người gặp nạn",
+            "minus"
+          ],
+          "4": [
+            "lãi tài chính +480tr",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "fx": [
+          "hr",
+          "loan",
+          "two"
+        ],
+        "life": "Bạn bình an cả năm không hề 'lỗ' — bạn đã mua sự an tâm suốt 365 ngày từ một bể chia sẻ rủi ro thật.",
+        "sys": "Khi phát sinh sự cố đủ điều kiện (TT 99/2025): lập [[dự phòng bồi thường|claimsreserve]] TK 352, khi giải ngân ghi Nợ TK 352 (9.000.000.000) / Có TK 112 (9.000.000.000).",
+        "ledger": {
+          "book": "Bút toán giải ngân bồi thường từ dự phòng (TT 99/2025)",
+          "assume": "Tổng hồ sơ bồi thường được duyệt chi trong năm của cụm 1.000 hợp đồng bằng 9.000.000.000 đ (tỷ lệ bồi thường 75%).",
+          "rows": [
+            [
+              "Nợ",
+              "352",
+              "Dự phòng phải trả",
+              "tất toán nghĩa vụ bồi thường cho các hồ sơ đã thẩm định",
+              "Giảm số dư dự phòng bồi thường 9 tỷ đ",
+              9000000000
+            ],
+            [
+              "Có",
+              "112",
+              "Tiền gửi không kỳ hạn",
+              "chuyển khoản chi trả từ quỹ thanh khoản + trái phiếu đáo hạn",
+              "Tiền chi trả cho người thụ hưởng 9 tỷ đ",
+              9000000000
+            ]
+          ],
+          "note": "Σ Debit = 9.000.000.000 = Σ Credit. Tổng 9 tỷ bồi thường + 3 tỷ phí = 12 tỷ phí thu (tỷ lệ kết hợp 100%).",
+          "lifeNote": "Khi rủi ro thật gõ cửa, 12 triệu bạn góp nối thẳng vào 9 tỷ tiền chi trả từ bể chung."
+        }
+      }
+    ],
+    "videoScript": {
+ "long": {
+  "title": "Đóng 12 triệu phí bảo hiểm 1 năm: 3 triệu chi sớm, 8 tỷ đi đâu sinh lãi?",
+  "hookNote": "Bức ảnh biên lai 12 triệu lúc 09:15 sáng vs 1 triệu doanh thu tháng đầu & 8 tỷ vốn nổi trên TK 128.",
+  "youtubeId": "7634SEhjkWY",
+  "embedStatus": "uploaded_public",
+  "elevenlabsVoiceId": "vieneu:Hải Đăng",
+  "scenes": [
+   {
+    "time": "0:00 – 0:54",
+    "beat": null,
+    "chapter": "09:15 sáng: bạn chuyển 12 triệu đóng phí 1 năm — tiền thật chạy đi đâu?",
+    "visual": "Mặt cắt 5 ngôi nhà lúc 09:15: nhà Bạn chuyển 12.000.000 đ, màn hình bên mua báo −12 triệu, đồng hồ đếm 11 tháng còn lại khoá lại.",
+    "vo": "Chín giờ mười lăm sáng thứ Ba. Bạn mở ứng dụng ngân hàng, bấm chuyển đúng mười hai triệu đồng đóng phí bảo hiểm cho một năm bảo vệ phía trước. Ba giây sau, tin nhắn báo trừ tài khoản vang lên. Nhiều người nhìn biên lai mười hai triệu đồng thường tưởng tiền ấy nằm yên trong một chiếc két sắt dán tên mình, chờ lúc ốm đau mới mở ra rút. Số khác lại nghĩ bên bán bảo hiểm vừa bỏ túi trọn mười hai triệu tiền lãi ngay buổi sáng. Thực tế kế toán và dòng tiền vận hành khác hẳn. Tiền mặt rời ví bạn đúng một lần duy nhất, nhưng quyền ghi nhận doanh thu phải chia qua mười hai tháng ròng rã. Hôm nay chúng ta đi qua năm căn nhà tài chính để xem chính xác từng triệu đồng trong gói bảo hiểm đang nằm ở đâu suốt ba trăm sáu mươi lăm ngày.",
+    "onScreen": "Đóng 12.000.000 đ cả năm: tháng 1 mới hưởng 1 triệu\nSFX: tiếng chuông báo chuyển khoản"
+   },
+   {
+    "time": "0:54 – 1:48",
+    "beat": 0,
+    "chapter": "Góc nhìn bên mua: treo TK 242 rồi phân bổ 1 triệu/tháng",
+    "visual": "Sổ T-account bên mua: Nợ TK 242 (+12.000.000 đ) / Có TK 112 (−12.000.000 đ), mũi tên nhỏ cuối tháng 1 trích 1.000.000 đ vào TK 642.",
+    "vo": "Trước hết hãy nhìn từ phía người bỏ tiền mua hợp đồng, đặc biệt khi một doanh nghiệp mua gói bảo hiểm tài sản hay sức khoẻ mười hai triệu đồng (ví dụ) cho nhân sự. Ngay lúc chuyển khoản hết mười hai triệu vào ngày đầu tiên, kế toán bên mua không được phép đẩy trọn con số đó vào chi phí của riêng tháng Một. Làm vậy sẽ kéo tụt lợi nhuận tháng Giêng trong khi mười một tháng còn lại được bảo vệ miễn phí trên báo cáo. Theo khung Thông tư 99/2025/TT-BTC, sổ bên mua tách dòng tiền ra khỏi chi phí bằng tài khoản 242 mang tên Chi phí chờ phân bổ. Ngày chuyển tiền ghi Nợ TK 242 mười hai triệu và Có TK 112 Tiền gửi không kỳ hạn mười hai triệu. Cuối tháng đầu, khi một phần mười hai kỳ hạn trôi qua, mới phân bổ Nợ TK 642 Có TK 242 đúng một triệu đồng.",
+    "onScreen": "Bên mua: Nợ TK 242 (12tr) / Có TK 112 · Mỗi tháng Nợ TK 642: 1tr"
+   },
+   {
+    "time": "1:48 – 2:42",
+    "beat": 0,
+    "chapter": "Luật số lớn: gom 1.000 hợp đồng thành bể 12 tỷ đồng",
+    "visual": "1.000 dấu chấm hội tụ từ nhà Người mua qua Ngân hàng thu hộ hợp thành bể 12.000.000.000 đ sáng lên cùng lúc.",
+    "vo": "Bây giờ bước qua ngân hàng thu hộ để xem phía bên kia của hợp đồng bảo hiểm. Không công ty nào tồn tại nổi nếu chỉ bán hợp đồng cho duy nhất một khách hàng. Một ca phẫu thuật hay tai nạn nặng có thể ngốn tới vài trăm triệu đồng, làm cạn sạch một suất phí mười hai triệu ngay lập tức. Do đó cả ngành đặt nền móng trên luật số lớn. Trong ví dụ hôm nay, giả sử tuần đầu tháng Giêng có một nghìn người cùng đóng gói mười hai triệu đồng. Một nghìn dòng chuyển khoản qua ngân hàng thu hộ lập tức gom thành một bể tiền mặt chung tròn mười hai tỷ đồng. Khi rủi ro bất ngờ của từng người đặt vào chung bể một nghìn gia đình, tỷ lệ bồi thường cả năm trở thành con số thống kê khá ổn định.",
+    "onScreen": "1.000 hợp đồng × 12.000.000 đ = Bể chung 12.000.000.000 đ"
+   },
+   {
+    "time": "2:42 – 3:36",
+    "beat": 1,
+    "chapter": "25% rời bể ngay tuần đầu: 2 tỷ hoa hồng + 1 tỷ vận hành",
+    "visual": "Thác phân rã từ 12 tỷ đ tách ngay 2 tỷ đ hoa hồng + 1 tỷ đ vận hành sang Đại lý; giữ lại 9 tỷ đ.",
+    "vo": "Thế nhưng nhìn vào bể mười hai tỷ đồng mới gom về ngày đầu, điều ít ai để ý là cả mười hai tỷ không nằm nguyên vẹn chờ bồi thường. Để phát hành hợp đồng cho một nghìn người mua, hệ thống phải tốn chi phí phân phối và thẩm định ngay từ vạch xuất phát. Khoảng hai mươi lăm phần trăm tổng tiền thu — tức ba tỷ đồng trên cả cụm, hay ba triệu đồng trên mỗi hợp đồng — rời bể ngay tuần đầu. Cụ thể, hai tỷ đồng chi trả hoa hồng bán hàng qua tài khoản 641 cho mạng lưới đại lý tư vấn. Một tỷ đồng còn lại trả chi phí thẩm định hồ sơ và hạ tầng qua tài khoản 642. Quỹ thực giữ để bảo chứng rủi ro chỉ còn chín tỷ đồng. Vì vậy huỷ hợp đồng sớm luôn bị trừ khoản phí khai thác ban đầu này.",
+    "onScreen": "Chi sớm 25% (3 tỷ đ): 2 tỷ hoa hồng + 1 tỷ thẩm định · Còn 9 tỷ đ"
+   },
+   {
+    "time": "3:36 – 4:30",
+    "beat": 1,
+    "chapter": "Quy tắc nhả doanh thu: tháng 1 hưởng 1 triệu, treo 11 triệu",
+    "visual": "Thanh thước 12 tháng đánh sáng ô Tháng 1 (1.000.000 đ đã hưởng) và khoá 11 ô tiếp theo (11.000.000 đ).",
+    "vo": "Điểm bất ngờ thứ tư nằm ngay trên sổ doanh thu của công ty bảo hiểm. Dù mười hai triệu tiền mặt đã về tài khoản thu hộ từ sáng thứ Ba, kế toán vẫn chưa được tính hết số đó vào doanh thu tháng Một. Lý do nằm ở thời gian bảo vệ chưa trôi qua. Hợp đồng năm kéo dài ba trăm sáu mươi lăm ngày qua cả bốn mùa. Khi hết ngày ba mươi mốt tháng Giêng, thời gian rủi ro thực sự đã đi qua mới tròn đúng một phần mười hai kỳ hạn. Bởi vậy trên suất mười hai triệu, bên phát hành chỉ mở khoá đúng một triệu đồng làm doanh thu tháng đầu. Mười một triệu đồng còn lại buộc phải treo làm nợ nghĩa vụ bảo vệ cho mười một tháng tiếp theo trên báo cáo tài chính.",
+    "onScreen": "Nhịp 12 tháng: Tháng 1 ghi doanh thu 1tr · 11tr treo TK 3387 (LRC)"
+   },
+   {
+    "time": "4:30 – 5:24",
+    "beat": 2,
+    "chapter": "Cân đối sổ kép: TK 112 vs TK 3387 & TK 511",
+    "visual": "Bảng cân đối sổ đôi Nợ TK 112 (+12tr) = Có TK 3387 (+11tr) + Có TK 511 (+1tr).",
+    "vo": "Đặt bút toán kép lên bàn trên mô hình doanh nghiệp chung của Thông tư 99/2025/TT-BTC sẽ thấy ngay sự đối xứng, song hành cùng chuẩn quốc tế IFRS 17. Tại Việt Nam, doanh nghiệp bảo hiểm dùng hệ thống tài khoản chuyên ngành riêng cho các quỹ dự phòng nghiệp vụ theo quy định Bộ Tài chính. Nhưng khi ánh xạ về khung tài khoản phổ thông để dễ so sánh giữa các ngành, bức tranh cuối Tháng 1 cho một hợp đồng cực kỳ rõ nét. Bên Nợ ghi tăng TK 112 Tiền gửi không kỳ hạn tròn mười hai triệu đồng thực thu. Bên Có tách đôi: một triệu đồng vào TK 511 Doanh thu tháng đầu đã qua, và mười một triệu đồng treo ở TK 3387 Doanh thu chờ phân bổ. Chuẩn IFRS 17 gọi phần treo nợ này là LRC. Tiền mặt về một cục ngày đầu, doanh thu đi bộ qua mười hai kỳ.",
+    "onScreen": "Nợ TK 112 (+12tr) = Có TK 3387 (+11tr) + Có TK 511 (+1tr)"
+   },
+   {
+    "time": "5:24 – 6:20",
+    "beat": 3,
+    "chapter": "9 tỷ còn lại: 1 tỷ lỏng ở TK 112 + 8 tỷ mua trái phiếu TK 128",
+    "visual": "Mạng đường chuyển 1 tỷ đ về ngăn chi nhanh TK 112 và đẩy 8 tỷ đ vào khu vực Trái phiếu & Tiền gửi TK 128.",
+    "vo": "Và đây là câu hỏi lớn nhất: chín tỷ đồng quỹ thực giữ còn lại sau chi phí khai thác đang ngủ ở đâu suốt cả năm? Chắc chắn nhà bảo hiểm không để chín tỷ đồng nằm không ở tài khoản thanh toán lãi không phẩy một phần trăm một năm. Do các ca viện phí hay sửa chữa của một nghìn hợp đồng đến rải rác suốt bốn mùa thay vì dồn hết vào tháng Một, ban ngân quỹ chia chín tỷ thành hai ngăn rõ rệt. Ngăn thứ nhất giữ khoảng một tỷ đồng (một triệu trên mỗi suất) nằm lỏng ở tài khoản TK 112 để giải ngân nhanh cho hồ sơ bồi thường hàng tuần. Tám tỷ đồng còn lại chảy thẳng sang TK 128 Đầu tư nắm giữ đến ngày đáo hạn. Ngăn TK 128 ưu tiên trái phiếu chính phủ và tiền gửi ngân hàng có kỳ hạn an toàn, giúp đồng tiền tạm nghỉ luôn sinh lãi mà không đánh cược rủi ro cao.",
+    "onScreen": "1 tỷ ở TK 112 trả nhanh + 8 tỷ sang TK 128 (trái phiếu & tiền gửi)"
+   },
+   {
+    "time": "6:20 – 7:16",
+    "beat": 3,
+    "chapter": "Cỗ máy vốn nổi: tỷ lệ kết hợp 100% vẫn sinh 480 triệu tiền lãi",
+    "visual": "So sánh đôi: Nghiệp vụ 9 tỷ bồi thường + 3 tỷ phí = 12 tỷ (0 đ) vs Két đầu tư TK 128 đẻ +480 triệu đ vào TK 515.",
+    "vo": "Nhìn vào ngăn tám tỷ đồng ở TK 128, ta giải mã được bí mật cốt lõi mang tên vốn nổi bảo hiểm. Thử chạy một ví dụ thực tế trên bể một nghìn hợp đồng thu mười hai tỷ đồng. Giả sử suốt một năm, tiền chi trả bồi thường chạm đúng chín tỷ đồng, tức bảy mươi lăm phần trăm tổng phí thu. Cộng chín tỷ tiền bồi thường với ba tỷ chi phí hoa hồng và quản trị ban đầu, tổng chi bằng tròn mười hai tỷ đồng thu vào. Chỉ số ngành gọi đây là tỷ lệ kết hợp đúng một trăm phần trăm. Nghĩa là nghiệp vụ bán bảo hiểm hoà vốn không đồng. Thế nhưng tám tỷ đồng vốn nổi nằm trong trái phiếu và tiền gửi kỳ hạn TK 128 ở mức lãi suất ví dụ sáu phần trăm một năm vẫn đẻ đều bốn trăm tám mươi triệu đồng. Khoản lãi này vào thẳng TK 515 Doanh thu hoạt động tài chính, tạo bộ đệm sinh lời vững chắc.",
+    "onScreen": "Nghiệp vụ 100% hoà vốn (0 đ) + Vốn nổi 8 tỷ × 6% = +480 triệu TK 515"
+   },
+   {
+    "time": "7:16 – 8:10",
+    "beat": 4,
+    "chapter": "Khi có sự cố: trích dự phòng TK 352 và nhịp đáo hạn từng quý",
+    "visual": "Bảng hạch toán giải ngân Nợ TK 352 / Có TK 112: 9 tỷ đ kết hợp vòng tuần hoàn đáo hạn trái phiếu bổ sung thanh khoản.",
+    "vo": "Bây giờ nhìn dòng tiền đi ra khi có thành viên trong nhóm một nghìn người gặp biến cố thật sự. Ngay khi bộ phận thẩm định nhận hồ sơ hợp lệ dù còn đợi vài tuần kiểm chứng hoá đơn trước ngày chuyển tiền, sổ sách vẫn phải lập ngay khoản dự phòng bồi thường. Khung tham chiếu TT 99/2025 minh hoạ khoản nợ này qua TK 352 Dự phòng phải trả, tương ứng mục LIC của IFRS 17. Tới ngày duyệt chi chính thức, lệnh chuyển khoản lấy tiền trực tiếp từ ngăn lỏng một tỷ ở TK 112 theo bút toán Nợ TK 352 Có TK 112. Nhờ ngăn tiền mặt sẵn sàng đó, người thụ hưởng nhận tiền nhanh mà không cần bán tháo trái phiếu. Đồng thời mỗi quý khi các lô trái phiếu TK 128 đáo hạn, tiền gốc quay về nạp đầy lại TK 112.",
+    "onScreen": "Sự cố -> Lập TK 352 (LIC) -> Giải ngân TK 112 + Đáo hạn TK 128"
+   },
+   {
+    "time": "8:10 – 9:05",
+    "beat": null,
+    "chapter": "Ba kịch bản thực tế: bình an cả năm, huỷ sớm, thiên tai đột biến",
+    "visual": "Ba thẻ đặt cạnh nhau: Bình an cả năm (TK 3387 -> 511), Huỷ ngang sớm (trừ phí khai thác), Bão lớn vượt 100% (tái bảo hiểm).",
+    "vo": "Cuối cùng là ba kịch bản thực tế hay gây hiểu nhầm nhất vào ngày chốt sổ cuối năm. Thứ nhất là cả năm nhà bạn khoẻ mạnh bình an, không nộp hồ sơ bồi thường nào. Hết tháng Mười Hai, toàn bộ mười một triệu đồng trên TK 3387 đã kết chuyển hết sang doanh thu TK 511 và gói bảo vệ thuần không hoàn lại tiền. Bạn không hề mất oan. Mười hai triệu đó đã trả chi phí nằm viện cho các gia đình kém may mắn trong cùng bể một nghìn người, đổi lại bạn mua trọn ba trăm sáu mươi lăm ngày an tâm tài chính. Thứ hai là huỷ hợp đồng giữa kỳ, số hoàn trả luôn khấu trừ phần chi phí khai thác ban đầu đã chi. Thứ ba là thiên tai vượt trần đẩy tỷ lệ kết hợp trên một trăm phần trăm. Khi đó lãi TK 515 và quỹ tái bảo hiểm đứng ra bù đắp.",
+    "onScreen": "Bình an cuối năm ≠ mất oan · Đã chia sẻ rủi ro trong bể 1.000 người"
+   }
+  ]
+ },
+ "short": {
+  "title": "Đóng 12 triệu bảo hiểm 1 năm: 1 triệu doanh thu, 11 triệu ngủ ở đâu?",
+  "angle": "12 triệu đóng 1 lần -> 3 triệu trả vận hành -> 11 triệu treo sổ tháng đầu -> 8 tỷ đẻ 480 triệu tiền lãi.",
+  "youtubeId": "e_qInpsTcOk",
+  "embedStatus": "uploaded_public",
+  "elevenlabsVoiceId": "vieneu:Hải Đăng",
+  "scenes": [
+   {
+    "time": "0:00 – 0:11",
+    "beat": null,
+    "visual": "Mặt trước thẻ 12.000.000 đ đóng 1 năm đối diện số 1.000.000 đ mở khoá tháng đầu.",
+    "vo": "Sáng thứ Ba, bạn đóng mười hai triệu tiền bảo hiểm một năm, nhưng thực tế mười một triệu chưa phải doanh thu ngay.",
+    "onScreen": "Đóng 12.000.000 đ — Nhưng 11 triệu chưa thành doanh thu\nSFX: tiếng chuông báo trừ tiền"
+   },
+   {
+    "time": "0:11 – 0:22",
+    "beat": 0,
+    "visual": "Tiền chuyển sang ngân hàng thu hộ +12.000.000 đ, bên mua ghi TK 242.",
+    "vo": "Bước một. Cả mười hai triệu vừa chuyển từ ví bạn vào ngân hàng thu hộ, doanh nghiệp mua ghi chi phí chờ phân bổ trên TK 242 rồi trích đều mỗi tháng.",
+    "onScreen": "B1: Tiền vào TK 112 · Bên mua ghi TK 242"
+   },
+   {
+    "time": "0:22 – 0:34",
+    "beat": 1,
+    "visual": "Cắt 25% ngay: 3 triệu/hợp đồng (3 tỷ trên bể 12 tỷ) sang hoa hồng & thẩm định.",
+    "vo": "Bước hai. Khi gộp một nghìn hợp đồng thành bể chung mười hai tỷ đồng, ba tỷ rời quỹ ngay tuần đầu để trả hoa hồng đại lý và chi phí thẩm định hồ sơ.",
+    "onScreen": "B2: 3 triệu (25%) trả hoa hồng & thẩm định ngay"
+   },
+   {
+    "time": "0:34 – 0:45",
+    "beat": 2,
+    "visual": "Nhả doanh thu đúng 1 triệu vào TK 511; 11 triệu treo TK 3387.",
+    "vo": "Bước ba. Hết tháng đầu tiên, bên bảo hiểm mới ghi nhận đúng một triệu vào doanh thu TK 511, giữ lại mười một triệu trên sổ nghĩa vụ.",
+    "onScreen": "B3: Tháng 1 hưởng 1 triệu · Treo 11 triệu ở TK 3387"
+   },
+   {
+    "time": "0:45 – 0:57",
+    "beat": 3,
+    "visual": "Đẩy 8 tỷ đồng vào trái phiếu & tiền gửi TK 128 sinh 480 triệu đ.",
+    "vo": "Bước bốn. Vì tiền bồi thường chưa chi ngay trong tuần một, tám tỷ đồng vốn nổi chảy sang trái phiếu chính phủ và tiền gửi TK 128, sinh bốn trăm tám mươi triệu tiền lãi.",
+    "onScreen": "B4: 8 tỷ sang trái phiếu TK 128 → +480 triệu đ (6%)"
+   },
+   {
+    "time": "0:57 – 1:10",
+    "beat": 4,
+    "visual": "Bồi thường 9 tỷ + chi phí 3 tỷ = 100% vẫn giữ lãi 480 triệu từ vốn nổi.",
+    "vo": "Bước năm. Dù cả năm chi chín tỷ bồi thường cộng ba tỷ vận hành bằng tròn một trăm phần trăm phí thu, nguồn lãi từ vốn nổi vẫn giúp cả quỹ có thặng dư.",
+    "onScreen": "B5: Bồi thường 9 tỷ (75%) + phí 3 tỷ = 100% vẫn dương lãi vốn nổi"
+   }
+  ]
+ }
+}
   }
 };
 
@@ -7113,8 +8009,7 @@ const CATEGORIES = [
     c: "#2f5a52",
     topics: [
       {
-        t: "Tiền phí bảo hiểm bạn đóng đều đặn mỗi năm đang nằm ở đâu chờ ngày chi trả?",
-        status: "upcoming"
+        story: "insure"
       },
       {
         t: "Tiền cọc mua nhà nằm trên sổ sách của ai trong những ngày chờ sang tên?",
@@ -7413,6 +8308,26 @@ const GLOSS_EN = {
     t: "Pre-funded Net Debit Cap",
     en: "Hạn mức ký quỹ bảo chứng",
     d: "Cash or government bills a bank parks as collateral at the payment switch so receiving banks can credit 24/7 transfers in seconds without waiting for settlement."
+  },
+  "unearned": {
+    "t": "Unearned Premium Reserve",
+    "en": "Dự phòng phí chưa được hưởng",
+    "d": "Prepaid premiums covering protection months that have not elapsed yet. Under the general enterprise model (Circular 99/2025 Account 3387; IFRS 17 LRC), it stays a liability until earned month by month."
+  },
+  "claimsreserve": {
+    "t": "Claims Reserve",
+    "en": "Dự phòng bồi thường",
+    "d": "Money set aside for covered accidents already reported or incurred before payout clears (Account 352 Provisions in Circular 99/2025 unofficial summary; IFRS 17 Liability for Incurred Claims)."
+  },
+  "float": {
+    "t": "Insurance Float",
+    "en": "Vốn nổi bảo hiểm",
+    "d": "Cash collected from policyholders today that will not be paid out in claims until months or years later, giving insurers an investable pool of temporary capital."
+  },
+  "combinedratio": {
+    "t": "Combined Ratio",
+    "en": "Tỷ lệ kết hợp",
+    "d": "Incurred claims plus operating expenses divided by earned premiums. Below 100% yields underwriting profit; at 100%, core policies break even and return on float creates net earnings."
   }
 };
 const CATEGORIES_EN = [
@@ -7462,7 +8377,7 @@ const CATEGORIES_EN = [
     name: "Insurance & Held Money",
     c: "#2f5a52",
     topics: [
-      { t: "Your annual insurance premium: where does that money actually sit?", status: "upcoming" },
+      { story: "insure" },
       { t: "House deposit in escrow: whose ledger holds it until closing day?", status: "upcoming" }
     ]
   },
@@ -12352,6 +13267,882 @@ const STORIES_EN = {
         }
       }
     ]
+  },
+  "insure": {
+    "name": "12M VND annual insurance premium",
+    "title": "Pay 12M VND for a year of insurance: why only 1M is earned today, and where the other 11M sits?",
+    "teaser": "One 12M transfer upfront (illustrative), 25% paid out immediately for commissions and underwriting, 11M locked in unearned liabilities, and 8B VND in float earning 6%/year on bonds. (Unofficial summary of Circular 99/2025/TT-BTC.)",
+    "category": "c5",
+    "status": "published",
+    "approvedBy": "auto-daily",
+    "approvedAt": "2026-11-21",
+    "review": {
+      "ketoan": "Tổng: PASS 10 · FAIL 0 · UNVERIFIED 0 · FLAG 0",
+      "ketoanAt": "2026-11-21",
+      "draftedBy": "agent",
+      "draftedAt": "2026-11-21"
+    },
+    "article": {
+      "lay": {
+        "myths": [
+          {
+            "myth": "Once you pay 12,000,000 VND, all 12 million stays parked inside an account with your name waiting for a claim.",
+            "truth": "Your money joins a shared pool of thousands of buyers, moving into [[insurance float|float]] inside Account 128 bonds and term deposits instead of idle cash."
+          },
+          {
+            "myth": "Receiving 12,000,000 VND in cash today means the insurer books all 12 million as January profit.",
+            "truth": "Only 1/12 (1,000,000 VND) earns in Month 1; 11,000,000 VND sits in [[unearned premium reserve|unearned]] (Account 3387 on the general Circular 99/2025 model, unofficial summary)."
+          },
+          {
+            "myth": "If covered claims plus expenses consume 100% of collected premiums, an insurer must lose money.",
+            "truth": "Even at a 100% [[combined ratio|combinedratio]] (zero underwriting gain), 8B VND of float at 6%/year in Account 128 produces 480,000,000 VND in investment income."
+          },
+          {
+            "myth": "Reaching December 31 healthy with zero claims means your 12,000,000 VND simply evaporated.",
+            "truth": "That premium shared real losses for hurt neighbors inside the 1,000-policy pool while shielding your balance sheet for 365 days."
+          }
+        ],
+        "sections": [
+          {
+            "h": "The 09:15 AM 12M Transfer and the Idle-Vault Illusion",
+            "paras": [
+              "Tuesday morning, 09:15. You wire 12,000,000 VND (illustrative example) to pay for one full year of health and property insurance protection.",
+              "Three seconds later, your checking balance drops by the full 12 million. Many policyholders picture that lump sum sitting idle in a vault with their name written on the envelope until claim day.",
+              "Accounting reality looks nothing like that. Your 12,000,000 VND leaves near-zero checking cash almost right away.",
+              "It joins a large shared risk pool instead. During Week 1 alone, the cash divides into separate operational and reserve tracks and works across fixed-income markets for all 365 days."
+            ]
+          },
+          {
+            "h": "25% Paid Upfront, and Why 11M Stays Locked Unearned",
+            "paras": [
+              "Never evaluate one contract in isolation. Suppose 1,000 people each wire 12,000,000 VND in early January. Together those buyers fund a 12,000,000,000 VND (12B VND) pool inside the collecting bank.",
+              "Wait one week and inspect the bank ledger. Roughly 25% exits immediately, totaling 3,000,000,000 VND (3M VND per contract). Two billion pays distribution commissions to sales agents, while 1 billion covers risk underwriting and systems admin.",
+              "Only 9 billion VND stays inside to back risk. And revenue recognition moves far slower than bank cash.",
+              "On a single 12,000,000 VND policy, once Month 1 ends, the insurer unlocks only 1,000,000 VND (1/12) into earned revenue (Account 511). The other 11,000,000 VND stays locked in [[unearned premium reserve|unearned]] (Account 3387 on the general Circular 99/2025 model, unofficial summary; IFRS 17 LRC) because 11 months of coverage remain.",
+              "Cash moves upfront while revenue unlocks monthly. Once Month 2 closes, another 1,000,000 VND releases smoothly from Account 3387 liabilities into earned revenue."
+            ]
+          },
+          {
+            "h": "From Collecting Bank to Account 128 Bonds: The 8B VND Float Machine",
+            "paras": [
+              "Why wouldn't the insurer leave those surviving 9 billion VND parked inside near-zero checking cash (Account 112)?",
+              "Calendar timing explains the choice. One thousand buyers pay upfront in January, yet medical bills and property repairs trickle in unevenly from February through December.",
+              "That timing gap creates temporary investable cash called [[insurance float|float]].",
+              "From the surviving 9B VND pool, the insurer holds a quick-pay buffer of 1,000,000,000 VND (1M per policy) liquid inside Account 112 for weekly claim payouts. All 8,000,000,000 VND remaining shifts immediately into Account 128 Held-to-maturity investments.",
+              "Account 128 favors sovereign government bonds and laddered bank term deposits. Rather than gathering dust behind a locked door, your prepaid premium finances public debt and earns steady interest."
+            ]
+          },
+          {
+            "h": "How 100% Claims Plus Costs Still Leaves a 480M Surplus",
+            "paras": [
+              "That timing math answers an everyday puzzle. If insurers pay almost every dollar back out in claims and expenses, how do they still build earnings?",
+              "Suppose covered claims consume 9,000,000,000 VND across those 1,000 policies (a 75% loss ratio). Add 3,000,000,000 VND in commissions and admin (25%), and the [[combined ratio|combinedratio]] reaches 100% with zero underwriting profit. Even so, 8,000,000,000 VND of [[insurance float|float]] inside Account 128 at 6%/year still yields 480,000,000 VND (480,000 VND per policy) directly into Account 515 Finance income.",
+              "Float yield also keeps retail premiums noticeably lower than pure actuarial risk alone would demand. Without bond coupons on held reserves, an annual 12,000,000 VND plan would carry a higher sticker price.",
+              "Only when major catastrophes push claims past 100% do insurers tap investment gains or excess reinsurance treaties. Meanwhile, a company buying the same 12M VND policy debits Account 242 and expenses 1,000,000 VND per month under Circular 99/2025 (unofficial summary)."
+            ]
+          },
+          {
+            "h": "Paying Claims Through Account 352 and Three Real-World Edge Cases",
+            "paras": [
+              "Whenever a cohort member files a valid claim awaiting final invoice audit, accounting logs a [[claims reserve|claimsreserve]] right away. Our general Circular 99/2025 parallel shows this obligation on Account 352 Provisions (IFRS 17 LIC).",
+              "On settlement day, payout wires leave the 1B VND Account 112 liquidity tank via Debit Account 352 / Credit Account 112. Quarterly bond maturities in Account 128 refill checking cash automatically right behind each payout wave.",
+              "What if December 31 arrives and you filed zero claims all year? Every dong of that 11,000,000 VND once held inside Account 3387 has gradually moved into Account 511 Revenue.",
+              "You bought real certainty. Your 12,000,000 VND helped cover genuine hospital and repair bills across the 1,000-buyer risk pool while shielding your own household balance sheet for 365 days."
+            ]
+          }
+        ],
+        "flowSummary": [
+          {
+            "step": "Step 1 · Policyholder transfers 12,000,000 VND (Business buyer books Account 242)",
+            "fromTo": "You → Collecting Bank",
+            "channel": "wire",
+            "amount": "12,000,000 VND",
+            "essence": "Cash leaves checking Account 112; corporate buyers park 12M in [[amortization|amortization]] Account 242 and expense 1,000,000 VND/month."
+          },
+          {
+            "step": "Step 2 · 25% exits immediately for commissions & underwriting (3B out of 12B)",
+            "fromTo": "Insurance Company → Agents & Claims Payout",
+            "channel": "pipe",
+            "amount": "3,000,000,000 VND",
+            "essence": "Across 1,000 policies (12B VND), 2B covers agent commissions (Account 641) and 1B funds underwriting/admin (Account 642), leaving 9B."
+          },
+          {
+            "step": "Step 3 · 11/12 stays in unearned premium reserve (Account 3387 / IFRS 17 LRC)",
+            "fromTo": "Insurance Company Ledger",
+            "channel": "book",
+            "amount": "11,000,000 VND/policy",
+            "essence": "Month 1 books only 1,000,000 VND to Account 511; 11,000,000 VND waits in [[unearned premium reserve|unearned]]."
+          },
+          {
+            "step": "Step 4 · 8B VND float buys bonds & term deposits (Account 128)",
+            "fromTo": "Collecting Bank → Bonds & Term Deposits",
+            "channel": "pipe",
+            "amount": "8,000,000,000 VND",
+            "essence": "1B stays liquid in Account 112; 8B VND [[insurance float|float]] earns 6%/year (480M VND to Account 515)."
+          },
+          {
+            "step": "Step 5 · Pay 9B claims from Account 352 & refill as bonds mature",
+            "fromTo": "Insurance Company → Agents & Claims Payout",
+            "channel": "pipe",
+            "amount": "9,000,000,000 VND",
+            "essence": "Valid losses hit [[claims reserve|claimsreserve]] Account 352 and wire via Account 112; year-end zero-claim policies clear Account 3387 into Account 511."
+          }
+        ],
+        "roles": [
+          {
+            "who": "You (Policyholder)",
+            "pays": "12,000,000 VND upfront for 12 months of protection.",
+            "gains": "Transfers catastrophic medical/property loss risk across 1,000 shared buyers.",
+            "risk": "Early cancellation refunds deduct upfront acquisition cost; healthy year-end yields no cash refund on pure risk cover."
+          },
+          {
+            "who": "Collecting Bank",
+            "pays": "Operates payment rails and pays checking/term deposit interest.",
+            "gains": "Receives 12B VND January inflows plus steady term-deposit funding.",
+            "risk": "Manages liquidity timing when major payout waves cluster near quarter-end."
+          },
+          {
+            "who": "Insurance Company",
+            "pays": "3B VND upfront acquisition/admin (25%) plus 9B VND projected claims (75%).",
+            "gains": "Invests 8B VND [[insurance float|float]] in bonds and deposits, earning 480M VND Finance income (Account 515).",
+            "risk": "Catastrophes driving [[combined ratio|combinedratio]] past 100% erode investment gains and capital reserves."
+          },
+          {
+            "who": "Agents & Claims Payout",
+            "pays": "Advisory, medical/risk underwriting, and loss adjustment labor.",
+            "gains": "Earns 2B VND Year-1 commissions; claimants collect 9B VND from the shared pool.",
+            "risk": "Fraudulent or uncovered claims fail verification."
+          },
+          {
+            "who": "Bonds & Term Deposits",
+            "pays": "6%/year (~480M VND) bond coupons and deposit interest.",
+            "gains": "Receives 8B VND of multi-quarter capital financing government bonds and bank deposits.",
+            "risk": "Mark-to-market rate swings if forced to liquidate early before maturity."
+          }
+        ],
+        "whenHelps": [
+          "Separate pure risk protection (an expense buying certainty) cleanly from dedicated savings or investment vehicles.",
+          "Amortize corporate premiums on Account 242 under Circular 99/2025 (unofficial summary) so January P&L isn't artificially depressed.",
+          "Evaluate insurer resilience by checking its [[combined ratio|combinedratio]] and safe Account 128 bond allocation.",
+          "Compare upfront acquisition load before committing to multi-year contracts you might exit early."
+        ],
+        "whenTraps": [
+          "Confusing risk insurance premiums with a savings account and expecting money back after a claim-free year.",
+          "Canceling a multi-year policy in Year 1 or Year 2 right after 25% acquisition cost left the pool.",
+          "Expensing 12 months of corporate coverage inside January alone instead of amortizing Account 242 monthly.",
+          "Picking cut-rate policies backed by illiquid or risky asset bets that strain payouts during severe downturns."
+        ],
+        "takeaways": [
+          "Cash moves all 12M VND on Day 1, yet revenue unlocks at 1M VND per month while 11M sits in unearned liabilities.",
+          "About 25% exits immediately for distribution and admin; the surviving float splits between rapid claims cash (Acct 112) and bonds/deposits (Acct 128).",
+          "The economic core is [[insurance float|float]]: 6% yield on 8B VND bonds produces 480M VND even when policies break even at 100%.",
+          "A claim-free year is not wasted money — your contribution shielded real losses across 1,000 households.",
+          "Both ledgers mirror timing: buyers park Account 242 and amortize down; issuers lock [[unearned premium reserve|unearned]] and recognize monthly."
+        ]
+      },
+      "pro": {
+        "mechanics": [
+          {
+            "h": "1. Separating Day-1 Cash Flow from 12-Month Accrual Revenue",
+            "p": "When 12,000,000 VND clears into collecting bank Account 112 on January 1, treasury holds full cash, yet zero coverage days have elapsed. Accrual matching unlocks revenue strictly pro-rata at 1/12 per month (1,000,000 VND/month). Booking all cash as Month-1 profit would inflate early paper earnings while disguising eleven months of open obligations."
+          },
+          {
+            "h": "2. Day-1 Pool Partition Across 1,000 Policies (12B VND)",
+            "p": "Combining 1,000 policies at 12,000,000 VND yields 12,000,000,000 VND. Track 1 (~25% = 3B VND) exits early for agent commissions (2B VND) and underwriting/IT (1B VND). Track 2 (~8.3% = 1B VND) remains liquid inside checking Account 112 to settle weekly claims. Track 3 (~66.7% = 8B VND) shifts into Account 128 government bonds and term deposits."
+          },
+          {
+            "h": "3. Combined Ratio vs. Insurance Float Equation",
+            "p": "Combined ratio equals (Incurred Claims + Expenses) / Earned Premium. At 75% claims (9B VND) plus 25% expenses (3B VND), the combined ratio hits 100% — yielding 0 VND underwriting profit. Yet holding 8B VND of [[insurance float|float]] inside Account 128 at 6% earns 480,000,000 VND (480,000 VND per policy) directly into Finance income (Account 515)."
+          },
+          {
+            "h": "4. Asset-Liability Duration Matching",
+            "p": "Because valid claims demand timely cash wires, insurers ladder Account 128 government bonds and term deposits to mature quarterly alongside expected payout waves. As Account 112 cash clears approved claims, maturing fixed-income principals refill liquidity without forced bond liquidation."
+          },
+          {
+            "h": "5. Catastrophic Tail Shocks & Reinsurance Layers",
+            "p": "When correlated disasters push loss ratios well above 100%, excess-of-loss reinsurance treaties absorb extreme tail losses first. Remaining deficits draw from Account 515 investment returns and statutory capital buffers so policyholder claims still clear on schedule."
+          }
+        ],
+        "accountingNotes": [
+          "Specialized Insurance Regime vs. General Model: Licensed Vietnamese insurers follow the Ministry of Finance's statutory insurance accounting rules for technical reserves. To present clean cross-industry intuition, this unofficial summary of Circular 99/2025/TT-BTC (Appendix II) maps economic roles to general accounts 242, 112, 128, 3387, 352, 511, and 515.",
+          "Buyer Ledger Under Circular 99/2025 (Account 242 / 642): A corporate buyer wiring 12,000,000 VND books Debit Account 242 (Deferred expenses) / Credit Account 112 on payment day, then amortizes 1,000,000 VND/month via Debit Account 642 / Credit Account 242 instead of expensing all 12M in January.",
+          "Unearned Liability (Account 3387 vs. IFRS 17 LRC): On the general Circular 99/2025 enterprise parallel (unofficial summary), 11,000,000 VND for eleven future months sits on Account 3387 (Unearned revenue) while 1,000,000 VND earns into Account 511. IFRS 17 standardizes this as Liability for Remaining Coverage (LRC).",
+          "Pending Claim Provisions (Account 352 vs. IFRS 17 LIC): Incurred claims awaiting final adjustment enter [[claims reserve|claimsreserve]] right away rather than waiting for payout wires — shown on Account 352 (Provisions) under Circular 99/2025 and IFRS 17 Liability for Incurred Claims (LIC).",
+          "Separating Underwriting from Float Returns (Account 128 / 515): Sovereign bonds and term deposits sit in Account 128 (Held-to-maturity investments), while coupons credit Account 515 (Finance income) so readers track underwriting margin apart from [[insurance float|float]] yield."
+        ],
+        "journal": [
+          {
+            "step": "Entry 1 (Prepayment Day — Buyer Company Pays 12M Annual Premium)",
+            "book": "Corporate policyholder ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+            "assume": "A company wires 12,000,000 VND (illustrative) for 12 months of business/health coverage.",
+            "rows": [
+              [
+                "Debit",
+                "242",
+                "Deferred expenses",
+                "12 months of prepaid insurance protection",
+                "Prepaid balance rises by 12M VND",
+                12000000
+              ],
+              [
+                "Credit",
+                "112",
+                "Demand deposits",
+                "wire transfer clearing the annual invoice",
+                "Checking cash falls by 12M VND",
+                12000000
+              ]
+            ],
+            "note": "Σ Debit = Σ Credit = 12,000,000 VND. Under Circular 99/2025/TT-BTC, Account 242 holds multi-month prepaid charges.",
+            "lifeNote": "Cash exited today, yet January operating profit only absorbs one month of cost."
+          },
+          {
+            "step": "Entry 2 (Month 1 Close — Buyer Company Amortizes 1/12th Expense)",
+            "book": "Corporate policyholder ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+            "assume": "At Month 1 end, 1/12 of coverage has elapsed, moving 1,000,000 VND into current-period expense.",
+            "rows": [
+              [
+                "Debit",
+                "642",
+                "General and administrative expenses",
+                "one month of insurance cost consumed",
+                "Monthly operating cost increases 1M VND",
+                1000000
+              ],
+              [
+                "Credit",
+                "242",
+                "Deferred expenses",
+                "amortization of prepaid annual policy",
+                "Remaining prepaid balance drops to 11M VND",
+                1000000
+              ]
+            ],
+            "note": "Σ Debit = Σ Credit = 1,000,000 VND. Repeats for each of the remaining 11 months.",
+            "lifeNote": "Cleanly matches protection cost to the months actually protected."
+          },
+          {
+            "step": "Entry 3 (Month 1 Policy Recognition — General Reference Model)",
+            "book": "General Circular 99/2025 reference (unofficial summary; IFRS 17 LRC parallel)",
+            "assume": "Receiving 12,000,000 VND cash on one policy while recognizing 1,000,000 VND in Month 1 and locking 11,000,000 VND unearned.",
+            "rows": [
+              [
+                "Debit",
+                "112",
+                "Demand deposits",
+                "full 12-month cash premium received",
+                "Bank cash increases 12M VND",
+                12000000
+              ],
+              [
+                "Credit",
+                "3387",
+                "Unearned revenue",
+                "11 months of future coverage liability",
+                "Unearned liability rises 11M VND",
+                11000000
+              ],
+              [
+                "Credit",
+                "511",
+                "Revenue from sales of goods and provision of services",
+                "Month 1 earned slice (1/12th)",
+                "Earned revenue increases 1M VND",
+                1000000
+              ]
+            ],
+            "note": "Σ Debit = Σ Credit = 12,000,000 VND. Unearned premium liabilities form the core of investable float.",
+            "lifeNote": "They hold all 12M VND in cash, yet accounting only recognizes 1M VND earned so far."
+          },
+          {
+            "step": "Entry 4 (Investing 8B VND Pool Float into Account 128 Bonds & Term Deposits)",
+            "book": "Insurer pool asset allocation (unofficial summary of Circular 99/2025/TT-BTC)",
+            "assume": "After 3B VND upfront commissions/ops and keeping 1B VND liquid in Account 112, 8,000,000,000 VND moves into safe bonds and term deposits.",
+            "rows": [
+              [
+                "Debit",
+                "128",
+                "Held-to-maturity investments",
+                "government bonds & laddered bank term deposits",
+                "Invested fixed-income assets +8B VND",
+                8000000000
+              ],
+              [
+                "Credit",
+                "112",
+                "Demand deposits",
+                "transferring idle pool cash into Account 128",
+                "Checking liquidity −8B VND (1B remains)",
+                8000000000
+              ]
+            ],
+            "note": "Σ Debit = Σ Credit = 8,000,000,000 VND. Laddered maturities match projected claim cash demands.",
+            "lifeNote": "Most of your premium is funding sovereign bonds and term bank deposits, not gathering dust."
+          },
+          {
+            "step": "Entry 5 (Year-End 6% Float Investment Income = 480M VND)",
+            "book": "Investment yield ledger (unofficial summary of Circular 99/2025/TT-BTC)",
+            "assume": "Account 128 fixed-income holdings of 8,000,000,000 VND earn 6%/year = 480,000,000 VND (480,000 VND per policy).",
+            "rows": [
+              [
+                "Debit",
+                "112",
+                "Demand deposits",
+                "bond coupons & deposit interest settled into bank",
+                "Cash inflows +480M VND",
+                480000000
+              ],
+              [
+                "Credit",
+                "515",
+                "Finance income",
+                "financial yield earned on insurance float",
+                "Finance income +480M VND",
+                480000000
+              ]
+            ],
+            "note": "Σ Debit = Σ Credit = 480,000,000 VND. Even if claims + expenses hit 100%, float yield sustains positive return.",
+            "lifeNote": "Timing gap turns temporary reserves into recurring interest revenue."
+          }
+        ],
+        "edgeCases": [
+          {
+            "h": "Mid-year cancellation",
+            "p": "Suppose a buyer cancels at Month 4 (illustrative example). Eight unelapsed coverage months still show 8,000,000 VND inside unearned liabilities on Account 3387. However, contractual cash refunds deduct upfront 25% acquisition and underwriting costs already disbursed in Week 1 plus short-rate cancellation fees stated in the policy schedule."
+          },
+          {
+            "h": "Claim-free year",
+            "p": "When December 31 passes with zero filed claims, every dong once held inside Account 3387 has smoothly cleared into Account 511 Revenue. Pure protection contracts return zero cash at year-end because your 12,000,000 VND helped pay real hospital and property losses for unfortunate members inside the shared 1,000-policy risk cohort."
+          },
+          {
+            "h": "Catastrophe surge above 100%",
+            "p": "If severe regional storms lift total cohort claims from 9B VND to 11B VND, the combined ratio climbs above 115% and turns underwriting negative. Excess-of-loss reinsurance treaties absorb extreme tail claims first, while remaining losses draw directly from Account 515 investment yields and statutory solvency reserves."
+          },
+          {
+            "h": "Renewal grace period",
+            "p": "At annual renewal, policies commonly include a 30-day grace window after the due date. If an incident happens before payment clears collecting bank Account 112 inside that window, benefits stay conditional upon settling overdue premiums under contract terms. Once the window expires unpaid, coverage terminates automatically."
+          }
+        ]
+      }
+    },
+    "houses": [
+      {
+        "type": "home",
+        "label": "You (Policyholder)",
+        "sign": "BUYER",
+        "fxText": {
+          "phone": "−12,000,000 VND · park in Acct 242"
+        }
+      },
+      {
+        "type": "acq",
+        "label": "Collecting Bank",
+        "sign": "COLLECTION",
+        "fxText": {
+          "board": "+12B pool · hold 1B cash",
+          "split": "3B upfront + 8B invested"
+        }
+      },
+      {
+        "type": "co",
+        "label": "Insurance Company",
+        "sign": "INSURER",
+        "fxText": {
+          "deal": "earn 1M/mo · lock 11M Acct 3387",
+          "hr": "book Acct 352 when claim hits"
+        }
+      },
+      {
+        "type": "lend",
+        "label": "Agents & Claims Payout",
+        "sign": "PAYOUTS",
+        "fxText": {
+          "loan": "2B commission + 9B claims paid"
+        }
+      },
+      {
+        "type": "pbank",
+        "label": "Bonds & Term Deposits",
+        "sign": "INVESTED FLOAT",
+        "fxText": {
+          "pool": "8B in Acct 128 · +480M @ 6%",
+          "two": "quarterly maturities refill 112"
+        }
+      }
+    ],
+    "beats": [
+      {
+        "when": "09:15 AM · Day 1",
+        "sub": "paying 12M annual premium",
+        "title": "Pay 12M Once: Checking Drops Instantly While Buyers Book Acct 242",
+        "say": [
+          "At 09:15 AM Tuesday, you wire 12,000,000 VND (example) for 12 months of protection.",
+          "Corporate buyers book the lump sum into [[Account 242|amortization]] and expense only 1,000,000 VND per month.",
+          "Across 1,000 policies, that same week builds a 12 billion VND pool at the collecting bank."
+        ],
+        "lit": [
+          0,
+          1
+        ],
+        "tags": {
+          "0": [
+            "−12,000,000 VND",
+            "minus"
+          ],
+          "1": [
+            "+12B pool Acct 112",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "fx": [
+          "phone",
+          "board"
+        ],
+        "life": "You pay all 12 million once, yet true economic cost spreads cleanly at 1 million per protected month.",
+        "sys": "Corporate buyer (Circular 99/2025 unofficial summary): Debit Acct 242 (12,000,000) / Credit Acct 112 (12,000,000); monthly Debit Acct 642 / Credit Acct 242 (1,000,000).",
+        "ledger": {
+          "book": "Corporate policyholder prepayment (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "Business wires 12,000,000 VND upfront for a 12-month policy term.",
+          "rows": [
+            [
+              "Debit",
+              "242",
+              "Deferred expenses",
+              "12-month prepaid insurance asset",
+              "Prepaid balance rises 12M VND",
+              12000000
+            ],
+            [
+              "Credit",
+              "112",
+              "Demand deposits",
+              "wire transfer clearing the annual premium",
+              "Bank balance drops 12M VND",
+              12000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 12,000,000 VND. Monthly amortization moves 1M VND to Account 642.",
+          "lifeNote": "Twelve million left checking today, while P&L only counts 1M per month."
+        }
+      },
+      {
+        "when": "Week 1",
+        "sub": "25% pays commissions & underwriting",
+        "title": "25% (3B VND) Leaves Immediately for Agents & Underwriting",
+        "say": [
+          "All 12 billion collected does not wait inside reserves for claims.",
+          "Roughly 25% — 3B VND across the 1,000-policy pool (3M per contract) — exits Week 1 for 2B commissions and 1B underwriting.",
+          "Because selling costs hit upfront, early policy cancellations deduct initial acquisition expenses."
+        ],
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "tags": {
+          "2": [
+            "−25% upfront load",
+            "minus"
+          ],
+          "3": [
+            "3B agents & ops",
+            "plain"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "fx": [
+          "split",
+          "deal"
+        ],
+        "life": "Roughly 3 million out of your 12 million paid commissions and risk vetting on Day 1.",
+        "sys": "Out of 12B VND: 2B commissions (Account 641) + 1B admin/underwriting (Account 642) clear upfront; 9B stays to back claims.",
+        "ledger": {
+          "book": "Week-1 acquisition & ops outflow (1,000-policy pool)",
+          "assume": "Upon collecting 12,000,000,000 VND, 3,000,000,000 VND exits for distribution commissions (2B) and admin/underwriting (1B).",
+          "rows": [
+            [
+              "Debit",
+              "641",
+              "Selling expenses",
+              "distribution commissions on new contracts",
+              "Selling costs +2B VND",
+              2000000000
+            ],
+            [
+              "Debit",
+              "642",
+              "General and administrative expenses",
+              "medical/property underwriting & systems ops",
+              "Admin costs +1B VND",
+              1000000000
+            ],
+            [
+              "Credit",
+              "112",
+              "Demand deposits",
+              "disbursing upfront acquisition expenses",
+              "Cash out −3B (9B retained)",
+              3000000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 3,000,000,000 VND. Nine billion VND stays to back protection and float.",
+          "lifeNote": "Three million covers selling and setup; nine million backs the risk pool."
+        }
+      },
+      {
+        "when": "Month 1 End",
+        "sub": "unlock 1M · lock 11M unearned",
+        "title": "Only 1/12 (1M VND) Unlocks as Revenue; 11M Sits Unearned",
+        "say": [
+          "Cash sits in the bank, yet revenue unlocks one month at a time.",
+          "At Month 1 close, only 1,000,000 VND moves into Account 511 earned revenue.",
+          "The remaining 11,000,000 VND stays locked in [[unearned premium reserve|unearned]] (Account 3387 / IFRS 17 LRC)."
+        ],
+        "lit": [
+          2
+        ],
+        "tags": {
+          "2": [
+            "511: +1M · 3387: 11M",
+            "plain"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "fx": [
+          "deal"
+        ],
+        "life": "One million is Month 1 revenue; eleven million remains a legal promise for the next eleven months.",
+        "sys": "General Circular 99/2025 parallel (unofficial summary): Debit 112 (12,000,000) / Credit 3387 (11,000,000) + Credit 511 (1,000,000).",
+        "ledger": {
+          "book": "Month-1 revenue recognition (unofficial summary of Circular 99/2025/TT-BTC)",
+          "assume": "Policyholder paid 12,000,000 VND; 1 out of 12 coverage months has elapsed.",
+          "rows": [
+            [
+              "Debit",
+              "112",
+              "Demand deposits",
+              "12-month premium cash received",
+              "Cash +12M VND",
+              12000000
+            ],
+            [
+              "Credit",
+              "3387",
+              "Unearned revenue",
+              "11 months of unexpired protection obligation",
+              "Unearned liability +11M VND",
+              11000000
+            ],
+            [
+              "Credit",
+              "511",
+              "Revenue from sales of goods and provision of services",
+              "Month 1 earned slice (1/12th)",
+              "Revenue +1M VND",
+              1000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 12,000,000 VND. Each passing month releases 1M VND from Account 3387 to Account 511.",
+          "lifeNote": "Time, not the cash transfer itself, turns prepaid fees into earned revenue."
+        }
+      },
+      {
+        "when": "All Year",
+        "sub": "8B float earns 6% in Account 128",
+        "title": "8B VND Shifts Into Account 128 Bonds & Deposits, Earning +480M",
+        "say": [
+          "Instead of idling near 0.1%, the 9 billion VND reserve splits between liquid cash and investments.",
+          "1 billion stays inside Account 112 for quick payouts, while 8 billion buys government bonds and term deposits (Account 128).",
+          "At 6%/year, that [[insurance float|float]] earns 480 million VND credited directly to Finance income."
+        ],
+        "lit": [
+          1,
+          4
+        ],
+        "tags": {
+          "1": [
+            "1B quick cash 112",
+            "plain"
+          ],
+          "4": [
+            "8B Acct 128 → +480M",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "fx": [
+          "split",
+          "pool"
+        ],
+        "life": "Most of your annual premium works quietly inside sovereign bonds and term deposits rather than empty cash.",
+        "sys": "Invest float: Debit Acct 128 / Credit Acct 112 (8,000,000,000). Annual coupon: Debit Acct 112 / Credit Acct 515 (480,000,000).",
+        "ledger": {
+          "book": "Pool float deployment (1,000-policy pool, Circular 99/2025 unofficial summary)",
+          "assume": "8,000,000,000 VND shifts into laddered bonds & term deposits inside Account 128.",
+          "rows": [
+            [
+              "Debit",
+              "128",
+              "Held-to-maturity investments",
+              "government bonds and bank term deposits",
+              "Invested assets +8B VND",
+              8000000000
+            ],
+            [
+              "Credit",
+              "112",
+              "Demand deposits",
+              "transferring idle reserve cash",
+              "Checking pool −8B (1B remains)",
+              8000000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 8,000,000,000 VND. 6% interest yields 480,000,000 VND into Account 515.",
+          "lifeNote": "The lag between premium collection and claim payout funds bond returns."
+        }
+      },
+      {
+        "when": "On Claim Day",
+        "sub": "pay 9B from Acct 352 · refill pool",
+        "title": "At 100% Combined Ratio, Account 352 Pays Claims & Float Still Pays",
+        "say": [
+          "Suppose claims reach 9 billion VND (75%) plus 3 billion costs (25%), hitting a 100% [[combined ratio|combinedratio]].",
+          "Underwriting breaks even at zero, yet 480 million VND from float bonds still delivers surplus.",
+          "And if you stay healthy all year? Your premium paid real bills for unlucky neighbors inside your shared 1,000-policy pool."
+        ],
+        "lit": [
+          2,
+          3,
+          4
+        ],
+        "tags": {
+          "2": [
+            "book Acct 352 · 9B",
+            "plain"
+          ],
+          "3": [
+            "wire 9B payouts",
+            "minus"
+          ],
+          "4": [
+            "yield +480M 515",
+            "plus"
+          ]
+        },
+        "msgs": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "fx": [
+          "hr",
+          "loan",
+          "two"
+        ],
+        "life": "Staying claim-free wasn't money lost — it bought 365 days of protection while sharing real community risk.",
+        "sys": "Approved claims release [[claims reserve|claimsreserve]]: Debit Account 352 (9,000,000,000) / Credit Account 112 (9,000,000,000).",
+        "ledger": {
+          "book": "Annual claims disbursement from reserves (Circular 99/2025 unofficial summary)",
+          "assume": "Aggregate approved claims across the 1,000-policy pool total 9,000,000,000 VND (75% loss ratio).",
+          "rows": [
+            [
+              "Debit",
+              "352",
+              "Provisions",
+              "clearing incurred claims liabilities upon settlement",
+              "Claims reserve drops 9B VND",
+              9000000000
+            ],
+            [
+              "Credit",
+              "112",
+              "Demand deposits",
+              "paying claimants via liquidity buffer & maturing bonds",
+              "Bank cash pays 9B VND",
+              9000000000
+            ]
+          ],
+          "note": "Σ Debit = Σ Credit = 9,000,000,000 VND. Claims (9B) + costs (3B) = 12B (100% combined ratio).",
+          "lifeNote": "When risk strikes, the shared tank pays 9 billion out to affected policyholders."
+        }
+      }
+    ],
+    "videoScript": {
+      "long": {
+        "title": "Pay 12M insurance upfront: 3M spent Week 1, how does float still earn 480M?",
+        "hookNote": "09:15 AM 12M payment receipt vs 1M Month-1 revenue and 8B VND float invested in Account 128.",
+        "youtubeId": "7634SEhjkWY",
+        "embedStatus": "uploaded_public",
+        "elevenlabsVoiceId": "vieneu:Hải Đăng",
+        "scenes": [
+          {
+            "time": "0:00 – 0:54",
+            "beat": null,
+            "chapter": "09:15 AM: you wire 12M for one year — where does it go?",
+            "visual": "5-house cutaway at 09:15: buyer sends 12M VND; checking drops while 11 months lock into unearned status.",
+            "vo": "Tuesday morning, 09:15. You open your banking app and wire 12,000,000 VND for one full year of health and property insurance. Three seconds later, your checking balance drops by the full amount. Many buyers picture that cash resting inside a private vault with their name on the envelope, or jumping straight into the insurer's profit column today. Neither happens. Cash changes hands once, yet accounting revenue unlocks across twelve months while most reserves move straight into fixed-income markets all year.",
+            "onScreen": "12,000,000 VND paid once: only 1M earned in Month 1"
+          },
+          {
+            "time": "0:54 – 1:48",
+            "beat": 0,
+            "chapter": "Buyer ledger: park Account 242 and expense 1M/month",
+            "visual": "Buyer T-account: Debit 242 (+12M) / Credit 112 (−12M), amortizing 1M/month to Account 642.",
+            "vo": "Start on the corporate buyer's ledger. Under Circular 99/2025/TT-BTC (unofficial summary), a firm paying 12,000,000 VND upfront cannot expense the entire policy inside January. Doing so would crush January operating margins while giving the remaining eleven months zero cost. Accounting therefore books Debit Account 242 Deferred expenses and Credit Account 112 Demand deposits for 12,000,000 VND on Day 1. At Month 1 close, one-twelfth amortizes via Debit Account 642 / Credit Account 242 for 1,000,000 VND.",
+            "onScreen": "Buyer: Debit 242 (12M) / Credit 112 · Amortize 1M/month to 642"
+          },
+          {
+            "time": "1:48 – 2:42",
+            "beat": 0,
+            "chapter": "Law of large numbers: 1,000 buyers fund a 12B VND tank",
+            "visual": "1,000 dots converge into Collecting Bank creating a 12B VND shared reserve pool.",
+            "vo": "Now step inside the insurer's door. No standalone contract works for a single buyer because one severe surgery or fire easily wipes out a small 12-million contribution. The entire model rests on the law of large numbers. Suppose 1,000 people all wire 12,000,000 VND during the first week of January. Together those deposits form one shared 12,000,000,000 VND (12 billion VND) pool in the collecting bank, turning unpredictable personal shocks into a fairly steady annual payout curve.",
+            "onScreen": "1,000 contracts × 12M VND = 12,000,000,000 VND shared pool"
+          },
+          {
+            "time": "2:42 – 3:36",
+            "beat": 1,
+            "chapter": "25% exits immediately: 2B commissions + 1B ops",
+            "visual": "Waterfall splits 12B pool into 2B commissions + 1B admin + 9B retained reserve pool.",
+            "vo": "Yet all 12 billion VND does not sit untouched inside claims reserves. Selling policies and vetting medical files costs real cash upfront in Week 1. In this illustrative example, roughly 25% of collected premiums — 3,000,000,000 VND total, or 3,000,000 VND per contract — exits the pool right away. Two billion pays distribution commissions (Account 641), while one billion covers underwriting and IT administration (Account 642). Only nine billion VND stays inside to back risk, which is why early cancellation always triggers upfront deductions.",
+            "onScreen": "25% upfront (3B): 2B commission + 1B underwriting · 9B stays"
+          },
+          {
+            "time": "3:36 – 4:30",
+            "beat": 1,
+            "chapter": "Revenue throttle: 1M earned Month 1, 11M unearned",
+            "visual": "12-month gauge lights Month 1 (1M earned) and locks 11M for future months.",
+            "vo": "Rule four lives on the income statement. Even with all 12,000,000 VND already cleared into bank cash on Tuesday morning, accounting prohibits recognizing the full lump sum in January revenue. Only 30 days of protection have elapsed when Month 1 closes. So just one-twelfth — 1,000,000 VND per contract — counts as earned revenue today. The remaining 11,000,000 VND stays locked as an unearned liability backing the eleven months still ahead on the calendar.",
+            "onScreen": "1M earned Month 1 · 11M parked in Account 3387 (IFRS 17 LRC)"
+          },
+          {
+            "time": "4:30 – 5:24",
+            "beat": 2,
+            "chapter": "Balanced entry: Account 112 vs Accounts 3387 & 511",
+            "visual": "Balanced journal: Debit 112 (12M) = Credit 3387 (11M) + Credit 511 (1M).",
+            "vo": "Look at the double-entry balance under our general Circular 99/2025 enterprise reference (unofficial summary), running parallel to IFRS 17. While licensed Vietnamese insurers use dedicated statutory insurance sub-accounts, general corporate books make the economics crystal clear. Month 1 pairs Debit Account 112 (12,000,000 VND cash in) against Credit Account 3387 Unearned revenue (11,000,000 VND) and Credit Account 511 Sales & service revenue (1,000,000 VND). IFRS 17 labels that liability bucket LRC. Cash arrives on Day 1; profit unlocks month by month.",
+            "onScreen": "Debit 112 (+12M) = Credit 3387 (+11M) + Credit 511 (+1M)"
+          },
+          {
+            "time": "5:24 – 6:20",
+            "beat": 3,
+            "chapter": "The 9B pool: 1B cash buffer + 8B Account 128 bonds",
+            "visual": "1B stays liquid in 112 while 8B flows to Account 128 bonds & deposits.",
+            "vo": "Where do the surviving 9 billion VND of reserves stay all year? Not inside near-zero ~0.1%/year checking accounts. Because hospital bills and property repairs land unevenly from February through December, treasury splits the 9B pool into two distinct layers. One billion stays liquid inside checking Account 112 to fund weekly claims fast. Meanwhile 8 billion VND shifts immediately into Account 128 Held-to-maturity investments, prioritizing government bonds and laddered bank term deposits that earn predictable coupons without locking cash into illiquid bets.",
+            "onScreen": "1B liquid in 112 + 8B in Account 128 government bonds & deposits"
+          },
+          {
+            "time": "6:20 – 7:16",
+            "beat": 3,
+            "chapter": "The float engine: 100% combined ratio + 480M bond yield",
+            "visual": "Twin comparison: Underwriting break-even 0 VND (100% ratio) vs Float +480M VND in Account 515.",
+            "vo": "That 8B bond bucket reveals the core engine of insurance finance: float. Suppose covered claims consume 9,000,000,000 VND across the cohort (a 75% loss ratio), plus 3,000,000,000 VND in upfront commissions and operations (25%). Combined payouts equal 100% of collected premiums, producing zero underwriting profit. Still, holding 8,000,000,000 VND of insurance float inside Account 128 at an illustrative 6%/year yield generates 480,000,000 VND (480,000 VND per policy) straight into Account 515 Finance income.",
+            "onScreen": "Underwriting 0 VND (100%) + Float 8B × 6% = +480M Finance income"
+          },
+          {
+            "time": "7:16 – 8:10",
+            "beat": 4,
+            "chapter": "Claims settlement: Account 352 reserves & maturing bonds",
+            "visual": "Debit 352 / Credit 112 (9B claims payout) fed by quarterly maturing bonds.",
+            "vo": "When someone in the 1,000-policy pool suffers a covered injury or fire, claims awaiting final invoice audit cannot stay off the books. Accounting immediately logs a claims reserve, shown on Account 352 Provisions under Circular 99/2025 (parallel to IFRS 17 LIC). Once approved, payouts wire out from the 1B Account 112 buffer via Debit Account 352 / Credit Account 112 so claimants get cash quickly, while maturing Account 128 bonds refill liquidity every quarter.",
+            "onScreen": "Claim occurs -> Acct 352 (LIC) -> Payout 112 + bond maturities"
+          },
+          {
+            "time": "8:10 – 9:05",
+            "beat": null,
+            "chapter": "Three real edge cases: zero claims, cancellation, catastrophes",
+            "visual": "Three triptych cards: Claim-free year, Early cancellation deduction, Severe catastrophe reinsurance.",
+            "vo": "Three everyday scenarios close the 365-day loop. First, zero claims over twelve months means Account 3387 empties gradually into Account 511 with no year-end refund on pure protection; your 12M helped shield hurt cohort members while buying continuous certainty. Second, canceling mid-year returns only the unelapsed time slice minus upfront acquisition costs already spent. Third, severe disasters pushing the combined ratio above 100% draw on Account 515 investment returns, statutory reserves, and excess reinsurance treaties.",
+            "onScreen": "Zero claims ≠ wasted cash · Shared shield across 1,000 families"
+          }
+        ]
+      },
+      "short": {
+        "title": "12M annual insurance: 1M earned Month 1, where does the 11M sleep?",
+        "angle": "12M upfront -> 3M immediate costs -> 11M locked Month 1 -> 8B earning 480M in bonds.",
+        "youtubeId": "e_qInpsTcOk",
+        "embedStatus": "uploaded_public",
+        "elevenlabsVoiceId": "vieneu:Hải Đăng",
+        "scenes": [
+          {
+            "time": "0:00 – 0:11",
+            "beat": null,
+            "visual": "12M annual receipt opposite 1M Month-1 revenue unlocked.",
+            "vo": "You pay 12 million VND upfront for annual insurance, yet only 1 million becomes earned revenue in Month 1.",
+            "onScreen": "Paid 12M upfront — Yet 11M isn't revenue today"
+          },
+          {
+            "time": "0:11 – 0:22",
+            "beat": 0,
+            "visual": "12M enters collecting bank Account 112; buyers park in Account 242.",
+            "vo": "Step one: all 12 million lands in the collecting bank while corporate buyers park it in Account 242 prepaid expense.",
+            "onScreen": "Step 1: Cash enters Account 112 · Buyer books Account 242"
+          },
+          {
+            "time": "0:22 – 0:34",
+            "beat": 1,
+            "visual": "25% upfront (3M/contract, 3B/pool) pays agents and underwriting.",
+            "vo": "Step two: across 1,000 policies totaling 12 billion VND, 3 billion exits early for commissions and underwriting.",
+            "onScreen": "Step 2: 3M (25%) pays commissions & underwriting immediately"
+          },
+          {
+            "time": "0:34 – 0:45",
+            "beat": 2,
+            "visual": "1M unlocks into Account 511; 11M stays in Account 3387.",
+            "vo": "Step three: only one-twelfth unlocks each month into earned revenue while 11 million stays locked as an unearned liability.",
+            "onScreen": "Step 3: 1M earned Month 1 · 11M stays in Account 3387"
+          },
+          {
+            "time": "0:45 – 0:57",
+            "beat": 3,
+            "visual": "8B VND buys bonds and term deposits (Account 128) yielding 480M.",
+            "vo": "Step four: 8 billion VND flows into Account 128 government bonds and term deposits, earning 480 million in annual interest.",
+            "onScreen": "Step 4: 8B enters Account 128 bonds (+480M/yr at 6%)"
+          },
+          {
+            "time": "0:57 – 1:10",
+            "beat": 4,
+            "visual": "9B claims + 3B costs = 100%, yet bond yield leaves 480M surplus.",
+            "vo": "Step five: even if 9 billion in claims plus 3 billion in expenses hits 100%, bond yield on float keeps the insurer positive.",
+            "onScreen": "Step 5: Claims + ops = 100%, float yield keeps pool positive"
+          }
+        ]
+      }
+    }
   }
 };
 /*SCENEJS:START — dùng chung với bản xem nhanh 450px (Diorama v4.0 Architectural Cutaway & Dual Financial Rails).
@@ -13660,6 +15451,41 @@ const CHAP_FIGS = {
       title: "Khi nào lệnh đi thẳng RTGS (10 tỷ đ) và khi nào phải treo TK 113 (Tiền đang chuyển)?",
       desc: "Lệnh tiền tỷ vượt trần chuyển nhanh 24/7 chạy thẳng từng món qua kênh [[RTGS|rtgs]] tại Ngân hàng Trung ương. Còn lệnh [[Off-Us|offus]] 20.000.000 đ bị kẹt đối soát qua giao thừa chiều 31/12 phải hạch toán Nợ TK 113 / Có TK 112 theo TT 99/2025."
     }
+  ],
+  "insure": [
+    null,
+    {
+      "file": "insure-fig-1.jpg",
+      "beat": 0,
+      "kicker": "HÌNH 01 · CHƯƠNG 02 · BỂ CHUNG 12 TỶ & 25% CHI PHÍ SỚM",
+      "alt": "Sơ đồ cụm 1.000 hợp đồng bảo hiểm đóng gói 12.000.000 đ/năm tạo bể 12 tỷ đồng tại ngân hàng thu hộ; 3 tỷ đồng (25%) đi sớm vào hoa hồng và thẩm định, còn 9 tỷ đồng giữ lại làm dự phòng",
+      "title": "Từ 12 tỷ đồng gom được ở bể chung: vì sao 3 tỷ (25%) rời cuộc chơi ngay tuần đầu?",
+      "desc": "Ngay tuần đầu tiên nhận phí, 2 tỷ hoa hồng đại lý (TK 641) và 1 tỷ thẩm định, vận hành (TK 642) rời bể. Phần 9 tỷ đồng còn lại — cùng với 11/12 tiền phí khoá ở [[dự phòng phí chưa được hưởng|unearned]] TK 3387 — trở thành phần lõi tạo quỹ."
+    },
+    {
+      "file": "insure-fig-2.jpg",
+      "beat": 2,
+      "kicker": "HÌNH 02 · CHƯƠNG 03 · KHOÁ 11 TRIỆU Ở TK 3387",
+      "alt": "Thước 12 tháng minh hoạ quy tắc nhả doanh thu bảo hiểm từng tháng: tháng 1 chỉ ghi nhận 1.000.000 đ vào TK 511, còn 11.000.000 đ treo trong dự phòng phí chưa được hưởng TK 3387",
+      "title": "Tháng 1 chỉ ghi nhận 1 triệu đồng doanh thu: 11 triệu còn lại treo làm nợ nghĩa vụ",
+      "desc": "Dù người đóng phí chuyển 12.000.000 đ ngay ngày đầu (bên mua ghi TK 242 theo TT 99/2025), sổ doanh thu bên phát hành chỉ mở khoá 1/12 mỗi tháng. Nghĩa vụ [[dự phòng phí chưa được hưởng|unearned]] chính là lớp bảo chứng cho 11 tháng còn lại."
+    },
+    {
+      "file": "insure-fig-3.jpg",
+      "beat": 3,
+      "kicker": "HÌNH 03 · CHƯƠNG 04 · 8 TỶ VỐN NỔI TRÊN TK 128",
+      "alt": "Phân bổ 9 tỷ đồng quỹ dự phòng: 1 tỷ đồng giữ ở tài khoản tiền gửi không kỳ hạn TK 112 chi nhanh hàng tuần, 8 tỷ đồng chảy sang trái phiếu chính phủ và tiền gửi kỳ hạn TK 128 sinh lãi 6%/năm",
+      "title": "Ngăn chi nhanh 1 tỷ (TK 112) + ngăn trái phiếu 8 tỷ (TK 128): cỗ máy vốn nổi 480 triệu",
+      "desc": "Độ trễ giữa ngày đóng phí và ngày chi bồi thường biến 8 tỷ đồng thành [[vốn nổi bảo hiểm|float]]. Ngay cả khi bồi thường và chi phí đạt tròn 100%, lãi suất 6%/năm ở TK 128 vẫn tạo ra 480.000.000 đ doanh thu tài chính TK 515."
+    },
+    {
+      "file": "insure-fig-4.jpg",
+      "beat": 4,
+      "kicker": "HÌNH 04 · CHƯƠNG 05 · TRÍCH TK 352 & ĐÁO HẠN BỔ SUNG",
+      "alt": "Sơ đồ chi trả 9 tỷ đồng bồi thường qua tài khoản dự phòng phải trả TK 352 và nhịp đáo hạn trái phiếu TK 128 hàng quý bù lại ngân quỹ TK 112",
+      "title": "Giải ngân bồi thường từ TK 352 và cách trái phiếu đáo hạn nạp lại quỹ hàng quý",
+      "desc": "Khi sự cố xảy ra, sổ lập [[dự phòng bồi thường|claimsreserve]] TK 352 (IFRS 17 LIC), tiền chi ra từ ngăn 1 tỷ TK 112, còn các lô trái phiếu TK 128 đáo hạn theo bậc thang nạp lại thanh khoản đều đặn — đồng thời giữ vững [[tỷ lệ kết hợp|combinedratio]]."
+    }
   ]
 };
 const CHAP_FIGS_EN = {
@@ -13907,6 +15733,41 @@ const CHAP_FIGS_EN = {
       alt: "Cross-section of two exceptions: a 10B corporate wire settling directly through RTGS at the Central Bank, and a stalled Dec 31 transfer waiting in Account 113 Cash in Transit",
       title: "When Do Wires Route via RTGS (10B VND), and When Do They Park in Account 113?",
       desc: "Huge wires above retail caps move one by one through central-bank [[RTGS|rtgs]]; meanwhile, a 20,000,000 VND [[Off-Us|offus]] transfer stalled overnight on December 31 sits in Account 113 (Cash in transit) via Debit 113 / Credit 112 under Circular 99/2025/TT-BTC (unofficial summary)."
+    }
+  ],
+  "insure": [
+    null,
+    {
+      "file": "insure-fig-1.jpg",
+      "beat": 0,
+      "kicker": "FIGURE 01 · CHAPTER 02 · THE 12B POOL & 25% UPFRONT OUTFLOW",
+      "alt": "1,000 annual policies paying 12,000,000 VND form a 12B VND pool at the collecting bank; 3B VND (25%) pays commissions and underwriting in week one while 9B remains inside reserves",
+      "title": "Out of a 12B VND Policy Pool: Why 3B (25%) Exits in Week One",
+      "desc": "Upfront distribution commissions (2B VND) and underwriting/admin (1B VND) leave first. Together with 11/12 of each policy locked inside [[unearned premium reserve|unearned]] Account 3387 (Circular 99/2025, unofficial summary), 9B VND stays to back protection."
+    },
+    {
+      "file": "insure-fig-2.jpg",
+      "beat": 2,
+      "kicker": "FIGURE 02 · CHAPTER 03 · 11M LOCKED IN ACCOUNT 3387",
+      "alt": "12-month revenue meter showing only 1,000,000 VND unlocked in Month 1 (Account 511) while 11,000,000 VND waits inside Unearned Revenue Account 3387",
+      "title": "Only 1M VND Counts as Month 1 Revenue: 11M Remains an Unearned Promise",
+      "desc": "Although buyers pay 12,000,000 VND upfront (booking Account 242 under Circular 99/2025, unofficial summary), revenue accrues strictly 1/12 per month. [[Unearned premium reserve|unearned]] (IFRS 17 LRC) holds the remaining eleven months."
+    },
+    {
+      "file": "insure-fig-3.jpg",
+      "beat": 3,
+      "kicker": "FIGURE 03 · CHAPTER 04 · 8B FLOAT INSIDE ACCOUNT 128 BONDS",
+      "alt": "Reserve allocation diagram splitting 9B VND into 1B quick-pay checking cash (Account 112) and 8B held-to-maturity government bonds and deposits (Account 128) yielding 6%/year",
+      "title": "1B Quick Cash (Acct 112) + 8B Bonds (Acct 128): How Float Yields 480M",
+      "desc": "The calendar lag between premium collection and claims settlement turns 8B VND into [[insurance float|float]]. Even at a 100% combined ratio, 6%/year yield on Account 128 adds 480,000,000 VND into Account 515 Finance income."
+    },
+    {
+      "file": "insure-fig-4.jpg",
+      "beat": 4,
+      "kicker": "FIGURE 04 · CHAPTER 05 · ACCOUNT 352 PAYOUTS & MATURING BONDS",
+      "alt": "Disbursement flow showing 9B VND claims settled via Provisions Account 352 and checking Account 112 while laddered Account 128 bonds refill liquidity quarterly",
+      "title": "Settling Claims via Account 352 and Refilling Cash as Bonds Mature",
+      "desc": "Incurred accidents hit [[claims reserve|claimsreserve]] Account 352 (IFRS 17 LIC), paying out via the 1B Account 112 buffer while laddered bond maturities replenish cash quarterly alongside the [[combined ratio|combinedratio]]."
     }
   ]
 };
@@ -14295,6 +16156,13 @@ const BEAT_AUDIO = {
     {beat:2,t0:59.962,t1:94.822,sents:[[59.962,68.822],[68.998,80.742],[81.142,94.822]]},
     {beat:3,t0:96.022,t1:139.422,sents:[[96.022,105.742],[106.062,123.222],[123.392,139.422]]},
     {beat:4,t0:140.242,t1:195.862,sents:[[140.242,155.462],[155.942,173.142],[173.398,195.862]]}
+  ]},
+  insure: {src:"../public/audio/insure-beats.mp3", fallbackSrc:"public/audio/insure-beats.mp3", duration:110.129, beats:[
+    {beat:0,t0:0.18,t1:21.37,sents:[[0.18,5.31],[5.31,15.273],[15.273,21.37]]},
+    {beat:1,t0:21.951,t1:41.443,sents:[[21.951,25.512],[25.512,34.888],[34.888,41.443]]},
+    {beat:2,t0:42.023,t1:64.039,sents:[[42.023,48.828],[48.828,55.429],[55.429,64.039]]},
+    {beat:3,t0:64.619,t1:89.417,sents:[[64.619,70.785],[70.785,82.016],[82.016,89.417]]},
+    {beat:4,t0:89.997,t1:109.679,sents:[[89.997,96.938],[96.938,102.986],[102.986,109.679]]}
   ]}
 };
 let viVoice = null, enVoice = null, timer = null, audioRaf = 0;
@@ -15460,13 +17328,17 @@ function renderShelf(){
   }
   const shelfSub = $("#shelfSub");
   if (shelfSub) {
+    const viNums = { 1: "Một", 2: "Hai", 3: "Ba", 4: "Bốn", 5: "Năm", 6: "Sáu", 7: "Bảy" };
+    const enNums = { 1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five", 6: "Six", 7: "Seven" };
+    const viN = viNums[cats.length] || String(cats.length);
+    const enN = enNums[cats.length] || String(cats.length);
     shelfSub.textContent = CMS.on
       ? (enMode
           ? "Seven core money-flow pillars from monthly payroll to cross-border settlement · Click any spine to filter or check reading progress."
           : "Bảy nhánh cơ chế từ lương tháng tới thanh toán xuyên biên giới · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.")
       : (enMode
-          ? "Four active categories from monthly payroll and card rails to installment loans and corporate cash flow · Click any spine to filter or check reading progress."
-          : "Bốn danh mục đang mở từ bảng lương, quẹt thẻ, vay trả góp tới dòng tiền doanh nghiệp · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.");
+          ? `${enN} active categories (${o.length} lessons) from monthly payroll, card rails, and loans to corporate cash flow and insurance · Click any spine to filter or check reading progress.`
+          : `${viN} danh mục đang mở (${o.length} bài) từ lương tháng, quẹt thẻ, vay trả góp, dòng tiền doanh nghiệp tới bảo hiểm · Bấm gáy sách để lọc bài hoặc xem tiến độ đọc.`);
   }
   shelf.classList.toggle("is-multi-row", cats.length > 7);
   shelf.innerHTML = "";
@@ -15849,6 +17721,38 @@ const WMS_QUIZ_BANK = {
       ans: 0,
       explain: "Theo TT 99/2025/TT-BTC, tiền đã rời TK 112 nhưng hết ngày 31/12 chưa vào tài khoản người bán thì chưa được xoá nợ TK 331. Kế toán phải treo tạm ở TK 113 (Tiền đang chuyển) cho tới khi có xác nhận bên nhận báo Có."
     }
+  ],
+  "insure": [
+    {
+      "id": "insure-q1.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "Trên góc nhìn một hợp đồng đơn lẻ 12.000.000 đồng, hết tháng đầu tiên, bên bảo hiểm mới ghi nhận đúng 1.000.000 đồng (1/12) làm doanh thu TK 511. Phần 11.000.000 đồng còn lại phải treo vào nợ nghĩa vụ [[dự phòng phí chưa được hưởng|unearned]] (mô hình doanh nghiệp theo TT 99/2025 ghi TK 3387, chuẩn IFRS 17 gọi là LRC) vì 11 tháng bảo vệ vẫn ở phía trước.",
+      "reviewed_by": "auto-daily",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "Bạn chuyển 12.000.000 đ đóng phí bảo hiểm cho trọn 12 tháng vào đầu tháng Giêng. Khi hết tháng đầu tiên, bên thu phí hạch toán bao nhiêu làm doanh thu tháng đó và treo bao nhiêu ở khoản chờ phân bổ (khung TT 99/2025)?",
+      "opts": [
+        "Ghi nhận đúng 1.000.000 đ (1/12) vào doanh thu TK 511 và khoá 11.000.000 đ vào dự phòng phí chưa được hưởng (mô hình doanh nghiệp ghi TK 3387).",
+        "Ghi nhận ngay trọn 12.000.000 đ vào doanh thu TK 511 trong tháng đầu vì tiền mặt đã vào tài khoản ngân hàng thu hộ.",
+        "Ghi nhận 9.000.000 đ vào doanh thu sau khi trừ 3.000.000 đ chi phí hoa hồng và thẩm định ban đầu."
+      ],
+      "ans": 0,
+      "explain": "Tiền thu cả năm nhưng mới trôi qua 1/12 thời gian bảo vệ. Theo nguyên tắc phù hợp (mô hình TT 99/2025 ghi Nợ TK 112 12 triệu / Có TK 511 1 triệu + Có TK 3387 11 triệu; chuẩn IFRS 17 gọi là LRC)."
+    },
+    {
+      "id": "insure-q2.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "Giả sử cả năm đó, nhà bảo hiểm chi trả sạch 9.000.000.000 đồng tiền bồi thường cho các ca gặp nạn trong nhóm 1.000 người (tỷ lệ bồi thường 75%). Cộng với 3.000.000.000 đồng chi phí khai thác và vận hành lúc đầu (25%), [[tỷ lệ kết hợp|combinedratio]] chạm tròn 100% nên lãi nghiệp vụ bằng 0 đồng. Nhờ 8.000.000.000 đồng [[vốn nổi bảo hiểm|float]] ở TK 128 sinh lãi 6%/năm, khoản 480.000.000 đồng (480.000 đ/hợp đồng) vẫn chảy đều vào TK 515 Doanh thu hoạt động tài chính.",
+      "reviewed_by": "auto-daily",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "Cụm 1.000 hợp đồng thu 12 tỷ đ phí, nhưng trong năm chi bồi thường hết 9 tỷ đ (75%) cộng chi phí khai thác vận hành 3 tỷ đ (25% — tỷ lệ kết hợp 100%). Lợi nhuận của công ty bảo hiểm khi đó đến từ đâu?",
+      "opts": [
+        "Đến từ 480.000.000 đ doanh thu tài chính (TK 515) do 8 tỷ đ vốn nổi bảo hiểm ở TK 128 (trái phiếu & tiền gửi kỳ hạn) sinh lãi 6%/năm trước ngày chi bồi thường.",
+        "Không thể có bất kỳ khoản lãi nào vì tỷ lệ kết hợp đã đạt 100%, bắt buộc âm vào vốn chủ sở hữu ngay.",
+        "Trừ ngược lại tiền hoa hồng 2 tỷ đ từ tài khoản của các đại lý tư vấn khi tỷ lệ bồi thường chạm mức 75%."
+      ],
+      "ans": 0,
+      "explain": "Khi tỷ lệ kết hợp bằng 100% (lãi nghiệp vụ = 0 đ), khoảng trễ thời gian giữ quỹ giúp 8 tỷ đ ở TK 128 sinh lãi 6%/năm = 480.000.000 đ ghi vào Có TK 515 (480.000 đ/hợp đồng)."
+    }
   ]
 };
 
@@ -16075,6 +17979,38 @@ const WMS_QUIZ_BANK_EN = {
       ],
       ans: 0,
       explain: "Under Circular 99/2025/TT-BTC (unofficial summary), cash debited from Account 112 that hasn't landed by year-end waits in Account 113 (Cash in transit) until final delivery clears Account 331."
+    }
+  ],
+  "insure": [
+    {
+      "id": "insure-q1.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "On a single 12,000,000 VND policy, once Month 1 ends, the insurer unlocks only 1,000,000 VND (1/12) into earned revenue (Account 511). The other 11,000,000 VND stays locked in [[unearned premium reserve|unearned]] (Account 3387 on the general Circular 99/2025 model, unofficial summary; IFRS 17 LRC) because 11 months of coverage remain.",
+      "reviewed_by": "auto-daily",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "You transfer 12,000,000 VND upfront for 12 months of insurance in January. At Month 1 close under the general Circular 99/2025 model (unofficial summary), how is that 12M split on the insurer's revenue vs. liability lines?",
+      "opts": [
+        "Only 1,000,000 VND (1/12) unlocks into earned revenue (Account 511), while 11,000,000 VND stays locked in unearned revenue (Account 3387; IFRS 17 LRC).",
+        "All 12,000,000 VND becomes Month-1 earned revenue immediately because bank cash cleared in January.",
+        "9,000,000 VND books as Month-1 revenue after deducting 3,000,000 VND in upfront commissions."
+      ],
+      "ans": 0,
+      "explain": "Revenue tracks elapsed risk time, not Day-1 cash movement: Debit Acct 112 (12M) / Credit Acct 3387 (11M) + Credit Acct 511 (1M) under Circular 99/2025 (unofficial summary)."
+    },
+    {
+      "id": "insure-q2.v1",
+      "sectionId": "pk-lay-essay",
+      "source_quote": "Suppose covered claims consume 9,000,000,000 VND across those 1,000 policies (a 75% loss ratio). Add 3,000,000,000 VND in commissions and admin (25%), and the [[combined ratio|combinedratio]] reaches 100% with zero underwriting profit. Even so, 8,000,000,000 VND of [[insurance float|float]] inside Account 128 at 6%/year still yields 480,000,000 VND (480,000 VND per policy) directly into Account 515 Finance income.",
+      "reviewed_by": "auto-daily",
+      "accountant_agent": "ke-toan-reviewer",
+      "q": "Across a 12B VND pool (1,000 contracts), claims total 9B VND (75%) and commissions/ops total 3B VND (25%), yielding a 100% combined ratio. Where does the insurer's surplus come from?",
+      "opts": [
+        "From 480,000,000 VND in Finance income (Account 515) earned at 6%/year on 8B VND of insurance float parked inside Account 128 government bonds and term deposits.",
+        "Impossible to generate any surplus at a 100% combined ratio because bond investments are prohibited for insurers.",
+        "From clawing back 100% of agent commissions whenever total claims reach 75% of collected premiums."
+      ],
+      "ans": 0,
+      "explain": "Even at zero underwriting margin (100% combined ratio), timing float invested in Account 128 at 6% produces 480,000,000 VND into Account 515 Finance income."
     }
   ]
 };
@@ -16527,7 +18463,7 @@ function applyStaticChrome(lang){
   cacheAndSetText("#heroDeck", "Dinner with friends at a regular spot. You tap your card, the terminal beeps, and your phone buzzes. Everyone at the table thinks the restaurant just got paid.", enMode);
   cacheAndSetHtml("#heroAha", "Each piece follows one card swipe or payday through five stops — showing when only a text alert moves and when real cash settles on Circular 99/2025 ledgers.", enMode);
   cacheAndSetText("#heroStartBtn", "Read Lesson 01: 10M card swipe →", enMode);
-  cacheAndSetText("#heroScrollBtn", "Choose from 7 open lessons ↓", enMode);
+  cacheAndSetText("#heroScrollBtn", `Choose from ${order().length} open lessons ↓`, enMode);
   cacheAndSetHtml("#heroSlip", '<b>LOCAL BISTRO</b><span class="c">table 6 · 22:47</span><hr><span class="r"><span>TOTAL</span><span>10,000,000</span></span><span class="r"><span>CARD</span><span>****4821</span></span><hr><span class="ok">APPROVED</span>', enMode);
   cacheAndSetAttr("#heroPhone", "aria-label", "Lock screen at 22:47 displaying a card authorization SMS", enMode);
   cacheAndSetText("#heroPhoneDate", "Saturday, Nov 7", enMode);

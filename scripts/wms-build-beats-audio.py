@@ -109,7 +109,7 @@ def load_sfx_pcm(sfx_name: str, sr: int, tmp_dir: pathlib.Path) -> np.ndarray | 
 def synthesize_story_beats(
     story_key: str,
     story: dict,
-    voice_id: str = "Thiện Minh",
+    voice_id: str = "Hải Đăng",
     force: bool = False,
 ) -> dict:
     AUDIO_OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -364,7 +364,7 @@ def sync_beat_audio_in_html(html_path: pathlib.Path, manifest: dict) -> bool:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Tổng hợp âm thanh Diorama beats (ElevenLabs cache hoặc VieNeu-TTS local)")
     ap.add_argument("--story", default="all", help="Slug bài viết hoặc 'all'")
-    ap.add_argument("--voice", default="Thiện Minh", help="Preset voice VieNeu-TTS khi chưa có cache ElevenLabs")
+    ap.add_argument("--voice", default="Hải Đăng", help="Preset voice VieNeu-TTS khi chưa có cache ElevenLabs")
     ap.add_argument("--force", action="store_true", help="Tổng hợp lại ngay cả khi đã có cache")
     ap.add_argument("--no-html-sync", action="store_true", help="Không ghi lại const BEAT_AUDIO trong docs/prototype.html")
     args = ap.parse_args()

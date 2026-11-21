@@ -1,0 +1,187 @@
+1
+00:00:00,300 --> 00:00:01,970
+Tuesday morning, 09:15.
+
+2
+00:00:01,970 --> 00:00:09,310
+You open your banking app and wire 12,000,000 VND for one full year of health and property insurance.
+
+3
+00:00:09,310 --> 00:00:14,250
+Three seconds later, your checking balance drops by the full amount.
+
+4
+00:00:14,250 --> 00:00:25,360
+Many buyers picture that cash resting inside a private vault with their name on the envelope, or jumping straight into the insurer's profit column today.
+
+5
+00:00:25,360 --> 00:00:26,520
+Neither happens.
+
+6
+00:00:26,520 --> 00:00:37,120
+Cash changes hands once, yet accounting revenue unlocks across twelve months while most reserves move straight into fixed-income markets all year.
+
+7
+00:00:37,700 --> 00:00:41,200
+Start on the corporate buyer's ledger.
+
+8
+00:00:41,200 --> 00:00:53,810
+Under Circular 99/2025/TT-BTC (unofficial summary), a firm paying 12,000,000 VND upfront cannot expense the entire policy inside January.
+
+9
+00:00:53,810 --> 00:01:02,830
+Doing so would crush January operating margins while giving the remaining eleven months zero cost.
+
+10
+00:01:02,830 --> 00:01:14,800
+Accounting therefore books Debit Account 242 Deferred expenses and Credit Account 112 Demand deposits for 12,000,000 VND on Day 1.
+
+11
+00:01:14,800 --> 00:01:24,090
+At Month 1 close, one-twelfth amortizes via Debit Account 642 / Credit Account 242 for 1,000,000 VND.
+
+12
+00:01:24,670 --> 00:01:27,170
+Now step inside the insurer's door.
+
+13
+00:01:27,170 --> 00:01:36,600
+No standalone contract works for a single buyer because one severe surgery or fire easily wipes out a small 12-million contribution.
+
+14
+00:01:36,600 --> 00:01:40,240
+The entire model rests on the law of large numbers.
+
+15
+00:01:40,240 --> 00:01:45,810
+Suppose 1,000 people all wire 12,000,000 VND during the first week of January.
+
+16
+00:01:45,810 --> 00:01:58,980
+Together those deposits form one shared 12,000,000,000 VND (12 billion VND) pool in the collecting bank, turning unpredictable personal shocks into a fairly steady annual payout curve.
+
+17
+00:01:59,560 --> 00:02:04,160
+Yet all 12 billion VND does not sit untouched inside claims reserves.
+
+18
+00:02:04,160 --> 00:02:09,300
+Selling policies and vetting medical files costs real cash upfront in Week 1.
+
+19
+00:02:09,300 --> 00:02:19,250
+In this illustrative example, roughly 25% of collected premiums — 3,000,000,000 VND total, or 3,000,000 VND per contract — exits the pool right away.
+
+20
+00:02:19,250 --> 00:02:28,000
+Two billion pays distribution commissions (Account 641), while one billion covers underwriting and IT administration (Account 642).
+
+21
+00:02:28,000 --> 00:02:35,760
+Only nine billion VND stays inside to back risk, which is why early cancellation always triggers upfront deductions.
+
+22
+00:02:36,340 --> 00:02:39,260
+Rule four lives on the income statement.
+
+23
+00:02:39,260 --> 00:02:50,210
+Even with all 12,000,000 VND already cleared into bank cash on Tuesday morning, accounting prohibits recognizing the full lump sum in January revenue.
+
+24
+00:02:50,210 --> 00:02:54,590
+Only 30 days of protection have elapsed when Month 1 closes.
+
+25
+00:02:54,590 --> 00:03:00,570
+So just one-twelfth — 1,000,000 VND per contract — counts as earned revenue today.
+
+26
+00:03:00,570 --> 00:03:09,390
+The remaining 11,000,000 VND stays locked as an unearned liability backing the eleven months still ahead on the calendar.
+
+27
+00:03:09,970 --> 00:03:21,790
+Look at the double-entry balance under our general Circular 99/2025 enterprise reference (unofficial summary), running parallel to IFRS 17.
+
+28
+00:03:21,790 --> 00:03:33,690
+While licensed Vietnamese insurers use dedicated statutory insurance sub-accounts, general corporate books make the economics crystal clear.
+
+29
+00:03:33,690 --> 00:03:49,160
+Month 1 pairs Debit Account 112 (12,000,000 VND cash in) against Credit Account 3387 Unearned revenue (11,000,000 VND) and Credit Account 511 Sales & service revenue (1,000,000 VND).
+
+30
+00:03:49,160 --> 00:03:52,650
+IFRS 17 labels that liability bucket LRC.
+
+31
+00:03:52,650 --> 00:03:57,150
+Cash arrives on Day 1; profit unlocks month by month.
+
+32
+00:03:57,730 --> 00:04:02,580
+Where do the surviving 9 billion VND of reserves stay all year?
+
+33
+00:04:02,580 --> 00:04:06,430
+Not inside near-zero ~0.1%/year checking accounts.
+
+34
+00:04:06,430 --> 00:04:17,430
+Because hospital bills and property repairs land unevenly from February through December, treasury splits the 9B pool into two distinct layers.
+
+35
+00:04:17,430 --> 00:04:23,580
+One billion stays liquid inside checking Account 112 to fund weekly claims fast.
+
+36
+00:04:23,580 --> 00:04:40,660
+Meanwhile 8 billion VND shifts immediately into Account 128 Held-to-maturity investments, prioritizing government bonds and laddered bank term deposits that earn predictable coupons without locking cash into illiquid bets.
+
+37
+00:04:41,240 --> 00:04:47,550
+That 8B bond bucket reveals the core engine of insurance finance: float.
+
+38
+00:04:47,550 --> 00:05:01,050
+Suppose covered claims consume 9,000,000,000 VND across the cohort (a 75% loss ratio), plus 3,000,000,000 VND in upfront commissions and operations (25%).
+
+39
+00:05:01,050 --> 00:05:08,590
+Combined payouts equal 100% of collected premiums, producing zero underwriting profit.
+
+40
+00:05:08,590 --> 00:05:25,770
+Still, holding 8,000,000,000 VND of insurance float inside Account 128 at an illustrative 6%/year yield generates 480,000,000 VND (480,000 VND per policy) straight into Account 515 Finance income.
+
+41
+00:05:26,350 --> 00:05:39,290
+When someone in the 1,000-policy pool suffers a covered injury or fire, claims awaiting final invoice audit cannot stay off the books.
+
+42
+00:05:39,290 --> 00:05:51,560
+Accounting immediately logs a claims reserve, shown on Account 352 Provisions under Circular 99/2025 (parallel to IFRS 17 LIC).
+
+43
+00:05:51,560 --> 00:06:10,980
+Once approved, payouts wire out from the 1B Account 112 buffer via Debit Account 352 / Credit Account 112 so claimants get cash quickly, while maturing Account 128 bonds refill liquidity every quarter.
+
+44
+00:06:11,560 --> 00:06:15,300
+Three everyday scenarios close the 365-day loop.
+
+45
+00:06:15,300 --> 00:06:31,900
+First, zero claims over twelve months means Account 3387 empties gradually into Account 511 with no year-end refund on pure protection; your 12M helped shield hurt cohort members while buying continuous certainty.
+
+46
+00:06:31,900 --> 00:06:40,550
+Second, canceling mid-year returns only the unelapsed time slice minus upfront acquisition costs already spent.
+
+47
+00:06:40,550 --> 00:06:52,540
+Third, severe disasters pushing the combined ratio above 100% draw on Account 515 investment returns, statutory reserves, and excess reinsurance treaties.

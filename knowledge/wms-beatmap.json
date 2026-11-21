@@ -1205,5 +1205,163 @@
         "t1": 195.862
       }
     ]
+  },
+  "insure": {
+    "story": "insure",
+    "title": "Đóng 12 triệu phí bảo hiểm 1 năm: vì sao chỉ 1 triệu thành doanh thu ngay, còn 11 triệu đang ngủ ở đâu?",
+    "audioSrc": "public/audio/insure-beats.mp3",
+    "duration": 110.129,
+    "youtubeLongId": "7634SEhjkWY",
+    "youtubeShortId": "e_qInpsTcOk",
+    "beats": [
+      {
+        "beat": 0,
+        "when": "09:15 · Ngày 01",
+        "title": "Đóng 12 triệu một lần: ví bạn trừ sạch, doanh nghiệp treo TK 242",
+        "lit": [
+          0,
+          1
+        ],
+        "msgs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "tags": {
+          "0": [
+            "chuyển −12.000.000 đ",
+            "minus"
+          ],
+          "1": [
+            "gom bể +12 tỷ TK 112",
+            "plus"
+          ]
+        },
+        "t0": 0.18,
+        "t1": 21.37
+      },
+      {
+        "beat": 1,
+        "when": "Tuần đầu",
+        "title": "Chi sớm 25% (3 tỷ đ): trả hoa hồng đại lý và thẩm định hồ sơ",
+        "lit": [
+          1,
+          2,
+          3
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "tags": {
+          "2": [
+            "trừ 25% chi khai thác",
+            "minus"
+          ],
+          "3": [
+            "đại lý & vận hành 3 tỷ",
+            "plain"
+          ]
+        },
+        "t0": 21.951,
+        "t1": 41.443
+      },
+      {
+        "beat": 2,
+        "when": "Cuối Tháng 1",
+        "title": "Sổ doanh thu chỉ mở khoá 1/12 (1 triệu đ); treo 11 triệu nợ nghĩa vụ",
+        "lit": [
+          2
+        ],
+        "msgs": [
+          [
+            1,
+            2
+          ]
+        ],
+        "tags": {
+          "2": [
+            "TK 511: 1tr · TK 3387: 11tr",
+            "plain"
+          ]
+        },
+        "t0": 42.023,
+        "t1": 64.039
+      },
+      {
+        "beat": 3,
+        "when": "Trong năm",
+        "title": "8 tỷ đồng chạy sang trái phiếu & tiền gửi TK 128, sinh +480 triệu đ lãi",
+        "lit": [
+          1,
+          4
+        ],
+        "msgs": [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "tags": {
+          "1": [
+            "giữ lỏng 1 tỷ TK 112",
+            "plain"
+          ],
+          "4": [
+            "TK 128: 8 tỷ → lãi +480tr",
+            "plus"
+          ]
+        },
+        "t0": 64.619,
+        "t1": 89.417
+      },
+      {
+        "beat": 4,
+        "when": "Khi có sự cố",
+        "title": "Nghiệp vụ hoà vốn 100%, trích TK 352 chi trả 9 tỷ bồi thường",
+        "lit": [
+          2,
+          3,
+          4
+        ],
+        "msgs": [
+          [
+            4,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "tags": {
+          "2": [
+            "trích TK 352 · 9 tỷ",
+            "plain"
+          ],
+          "3": [
+            "chi trả người gặp nạn",
+            "minus"
+          ],
+          "4": [
+            "lãi tài chính +480tr",
+            "plus"
+          ]
+        },
+        "t0": 89.997,
+        "t1": 109.679
+      }
+    ]
   }
 }

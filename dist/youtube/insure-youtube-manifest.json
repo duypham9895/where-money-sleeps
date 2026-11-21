@@ -1,0 +1,600 @@
+{
+  "schemaVersion": "1.5-qd65-locked-stage-brand-and-financial-specialists",
+  "story": "insure",
+  "storyStatus": "published",
+  "brandSafetyAudit": {
+    "specialist": "brand-safety-reviewer",
+    "rule": "LUẬT 4 (VOICE-AND-PROSODY-SPEC.md §5)",
+    "checks": [
+      "B1_zero_commercial_proper_nouns",
+      "B2_fourth_wall_tool_immunity",
+      "B3_canonical_5house_archetypes",
+      "B4_frame_and_metadata_audit"
+    ],
+    "status": "PASS",
+    "scenesAudited": 16,
+    "properNounsFound": 0
+  },
+  "financialSpecialistAudit": {
+    "specialist": "tai-chinh-reviewer",
+    "kbFile": "knowledge/finance-kb.json",
+    "kbLastCrawledAt": "2026-11-21T17:13:15+07:00",
+    "checks": [
+      "F1_banking_payment_credit_mechanics",
+      "F2_financial_math_irr_eir_ledger",
+      "F3_regulatory_freshness_tt99_2025",
+      "F4_cross_format_post_to_video_fidelity"
+    ],
+    "status": "PASS",
+    "details": [
+      "Cơ chế ngân hàng & phân tách 3 kênh (wire · pipe · book) chuẩn xác (standard_5house_flow)",
+      "Toán cân đối 10 bút toán Σ Nợ = Σ Có hợp lệ",
+      "Kho tri thức pháp quy TT 99/2025 & NHNN khớp 100% (các TK sử dụng: 112, 128, 242, 3387, 352, 511, 515, 641, 642)",
+      "Đồng nhất số liệu & bản chất tài chính xuyên suốt Bài viết (Diorama + Khảo cứu 2 tầng) ↔ Video (Long 16:9 + Short 9:16)"
+    ]
+  },
+  "youtubeChannel": {
+    "handle": "@WhereMoneySleeps",
+    "url": "https://www.youtube.com/@WhereMoneySleeps"
+  },
+  "licenceCheck": {
+    "audio": {
+      "id": "vieneu-tts-local-apache2",
+      "licence": "Apache License 2.0"
+    },
+    "video": {
+      "id": "google-veo-video-generation",
+      "licence": "Google APIs Terms of Service & Gemini API Additional Terms (Commercial usage permitted; SynthID watermark preserved; YouTube containsSyntheticMedia=true declared)"
+    }
+  },
+  "formats": {
+    "long": {
+      "title": "Đóng 12 triệu phí bảo hiểm 1 năm: 3 triệu chi sớm, 8 tỷ đi đâu sinh lãi?",
+      "aspectRatio": "16:9",
+      "resolution": "1920x1080",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "VieNeu-TTS v3 Turbo Local (ONNX Runtime, Apache 2.0 + Cached SFX + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/tts/insure_long_continuous.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "cacheDir": ".cache/tts/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "vieneu:Hải Đăng",
+      "youtubeId": "7634SEhjkWY",
+      "embedStatus": "uploaded_public",
+      "outputMp4": "dist/youtube/insure-long-16x9.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "articleUrl": "https://wheremoneysleeps.duyslab.icu/?story=insure",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "public",
+        "embeddable": true,
+        "publicStatsViewable": true,
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 09:15 sáng: bạn chuyển 12 triệu đóng phí 1 năm — tiền thật chạy đi đâu?\n0:54 Góc nhìn bên mua: treo TK 242 rồi phân bổ 1 triệu/tháng\n1:48 Luật số lớn: gom 1.000 hợp đồng thành bể 12 tỷ đồng\n2:42 25% rời bể ngay tuần đầu: 2 tỷ hoa hồng + 1 tỷ vận hành\n3:36 Quy tắc nhả doanh thu: tháng 1 hưởng 1 triệu, treo 11 triệu\n4:30 Cân đối sổ kép: TK 112 vs TK 3387 & TK 511\n5:24 9 tỷ còn lại: 1 tỷ lỏng ở TK 112 + 8 tỷ mua trái phiếu TK 128\n6:20 Cỗ máy vốn nổi: tỷ lệ kết hợp 100% vẫn sinh 480 triệu tiền lãi\n7:16 Khi có sự cố: trích dự phòng TK 352 và nhịp đáo hạn từng quý\n8:10 Ba kịch bản thực tế: bình an cả năm, huỷ sớm, thiên tai đột biến",
+        "description": "[TIẾNG VIỆT]\n📖 Tự nhập số & mở sổ Thông tư 99/2025 của bài này: https://wheremoneysleeps.duyslab.icu/?story=insure\n▶ Xem bản tóm tắt dọc 9:16 (Shorts): https://youtu.be/e_qInpsTcOk\n🌐 Xem trọn bộ 8 bài tương tác: https://wheremoneysleeps.duyslab.icu\n\nChuyển 12 triệu đầu năm (ví dụ), 25% trả hoa hồng vận hành ngay, 11 triệu treo sổ nghĩa vụ, còn 8 tỷ đồng vốn nổi chạy sang trái phiếu sinh lãi 6%/năm.\n\nCác chặng trong video:\n0:00 09:15 sáng: bạn chuyển 12 triệu đóng phí 1 năm — tiền thật chạy đi đâu?\n0:54 Góc nhìn bên mua: treo TK 242 rồi phân bổ 1 triệu/tháng\n1:48 Luật số lớn: gom 1.000 hợp đồng thành bể 12 tỷ đồng\n2:42 25% rời bể ngay tuần đầu: 2 tỷ hoa hồng + 1 tỷ vận hành\n3:36 Quy tắc nhả doanh thu: tháng 1 hưởng 1 triệu, treo 11 triệu\n4:30 Cân đối sổ kép: TK 112 vs TK 3387 & TK 511\n5:24 9 tỷ còn lại: 1 tỷ lỏng ở TK 112 + 8 tỷ mua trái phiếu TK 128\n6:20 Cỗ máy vốn nổi: tỷ lệ kết hợp 100% vẫn sinh 480 triệu tiền lãi\n7:16 Khi có sự cố: trích dự phòng TK 352 và nhịp đáo hạn từng quý\n8:10 Ba kịch bản thực tế: bình an cả năm, huỷ sớm, thiên tai đột biến\n\nMọi con số chỉ làm ví dụ để thấy đường đi của tiền qua sổ sách, không lấy tên ngân hàng hay thương hiệu thật, và không phải lời khuyên tài chính.\n\n────────────────────────\n\n[ENGLISH]\n📖 Interactive Walkthrough, Calculators & Circular 99 ⇄ IFRS/GAAP Ledger: https://wheremoneysleeps.duyslab.icu/?story=insure&lang=en\n▶ Watch the 9:16 Quick Summary (Shorts): https://youtu.be/e_qInpsTcOk\n🌐 Full Library: https://wheremoneysleeps.duyslab.icu/?lang=en\n\nOne 12M transfer upfront (illustrative), 25% paid out immediately for commissions and underwriting, 11M locked in unearned liabilities, and 8B VND in float earning 6%/year on bonds. (Unofficial summary of Circular 99/2025/TT-BTC.)\n\nChapters:\n0:00 09:15 AM: you wire 12M for one year — where does it go?\n0:54 Buyer ledger: park Account 242 and expense 1M/month\n1:48 Law of large numbers: 1,000 buyers fund a 12B VND tank\n2:42 25% exits immediately: 2B commissions + 1B ops\n3:36 Revenue throttle: 1M earned Month 1, 11M unearned\n4:30 Balanced entry: Account 112 vs Accounts 3387 & 511\n5:24 The 9B pool: 1B cash buffer + 8B Account 128 bonds\n6:20 The float engine: 100% combined ratio + 480M bond yield\n7:16 Claims settlement: Account 352 reserves & maturing bonds\n8:10 Three real edge cases: zero claims, cancellation, catastrophes\n\nNote: Numbers and scenes are everyday illustrative examples showing how payments clear and settle (unofficial summary of Circular 99/2025/TT-BTC). Zero real brands; not financial advice.\n\nWhere Money Sleeps (@WhereMoneySleeps) · https://wheremoneysleeps.duyslab.icu"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:54",
+          "beat": null,
+          "sha256CacheKey": "6b902614eaeb0e3003d8f86d5755ea706a8170567c821f4e87da39b25ff8ca2d",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "1c15d45229333abb637d9575ffa89b6f1d2bffb1559a17e2b0c64fbd241f0368",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Mặt cắt 5 ngôi nhà lúc 09:15: nhà Bạn chuyển 12.000.000 đ, màn hình bên mua báo −12 triệu, đồng hồ đếm 11 tháng còn lại khoá lại.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông báo chuyển khoản",
+          "voWords": 161
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:54 – 1:48",
+          "beat": 0,
+          "sha256CacheKey": "4560a89d01ee55de1dfe866f3a8a01e24a4a5fd6b462393205a7f36de5347e39",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "15f7f3dad623028d5398738935548267f818b1fd6d3cc8a5e796493c953c88ef",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Sổ T-account bên mua: Nợ TK 242 (+12.000.000 đ) / Có TK 112 (−12.000.000 đ), mũi tên nhỏ cuối tháng 1 trích 1.000.000 đ vào TK 642.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 164
+        },
+        {
+          "sceneIndex": 2,
+          "time": "1:48 – 2:42",
+          "beat": 0,
+          "sha256CacheKey": "d9532320e720ddc40621274628ba147e1e189a6d5edc2588373b073a0aa85102",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "742c4d8b5723bd0df0697ab8b2c5ee92cbc20fd74f0e585a3eedadf0044449d1",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "1.000 dấu chấm hội tụ từ nhà Người mua qua Ngân hàng thu hộ hợp thành bể 12.000.000.000 đ sáng lên cùng lúc.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 152
+        },
+        {
+          "sceneIndex": 3,
+          "time": "2:42 – 3:36",
+          "beat": 1,
+          "sha256CacheKey": "a95374e7a8e3c2941a665cc5e30a4e2dd1430575d004c7ab7036a30acdf0fafe",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "3eea765de770e45dee1fd600581f931a28733572a699c2cffe8a1e68cf4a1084",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Thác phân rã từ 12 tỷ đ tách ngay 2 tỷ đ hoa hồng + 1 tỷ đ vận hành sang Đại lý; giữ lại 9 tỷ đ.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 158
+        },
+        {
+          "sceneIndex": 4,
+          "time": "3:36 – 4:30",
+          "beat": 1,
+          "sha256CacheKey": "3267c81293460e54bb81e86bdf53ebcd457fb5960b246744c3d77967dd3a6db9",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "5dc88c77c11c7a25a39f4e9bd89b2eb59b77f5b1f82e66c17efb9e038d70c8d0",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Thanh thước 12 tháng đánh sáng ô Tháng 1 (1.000.000 đ đã hưởng) và khoá 11 ô tiếp theo (11.000.000 đ).",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 146
+        },
+        {
+          "sceneIndex": 5,
+          "time": "4:30 – 5:24",
+          "beat": 2,
+          "sha256CacheKey": "c77d04763765ed86e14571e2c7810b9b11ede1c9dcdc8e9879876911ec6aa38c",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "566ca9f4c16db9798df2fd278ed168c4f72e3f1b7741a05b664609a4188e2e28",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bảng cân đối sổ đôi Nợ TK 112 (+12tr) = Có TK 3387 (+11tr) + Có TK 511 (+1tr).",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 161
+        },
+        {
+          "sceneIndex": 6,
+          "time": "5:24 – 6:20",
+          "beat": 3,
+          "sha256CacheKey": "e8c74e558a8997ac50156e31dc4ad3a1c66270318d3aca56b764f4213abf5e0a",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "9a0452e0c68980b812646f85fda28f893d4138592517cfc40421e23e46e2760d",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Mạng đường chuyển 1 tỷ đ về ngăn chi nhanh TK 112 và đẩy 8 tỷ đ vào khu vực Trái phiếu & Tiền gửi TK 128.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 172
+        },
+        {
+          "sceneIndex": 7,
+          "time": "6:20 – 7:16",
+          "beat": 3,
+          "sha256CacheKey": "1a2443bf038238258b1c564d0afbcd31061e7074bb0801669f6e9d7566adebef",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "d65194ca1167651664d39a54a5a7b85f8dd0bd96aa2dab1f2f95cd3c268abd9c",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "So sánh đôi: Nghiệp vụ 9 tỷ bồi thường + 3 tỷ phí = 12 tỷ (0 đ) vs Két đầu tư TK 128 đẻ +480 triệu đ vào TK 515.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 177
+        },
+        {
+          "sceneIndex": 8,
+          "time": "7:16 – 8:10",
+          "beat": 4,
+          "sha256CacheKey": "fd12371a8825558ea776acafd8267070aa4d0238bf66edfdf82ab685d9316574",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-fast-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "f693641fa2b1c5338f98219b29021c158480a706acd8c20d58af1948a6b41f97",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bảng hạch toán giải ngân Nợ TK 352 / Có TK 112: 9 tỷ đ kết hợp vòng tuần hoàn đáo hạn trái phiếu bổ sung thanh khoản.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 152
+        },
+        {
+          "sceneIndex": 9,
+          "time": "8:10 – 9:05",
+          "beat": null,
+          "sha256CacheKey": "ae8a606d86118fbc236d6d99d43592193bb599565b362ad0ed0ba50ae8c4a569",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "16:9",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "3f1eb7ad9e9f80eacf7ac2f0b692d0b0f817d320474f1ad93b9dfe00f5de9390",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Ba thẻ đặt cạnh nhau: Bình an cả năm (TK 3387 -> 511), Huỷ ngang sớm (trừ phí khai thác), Bão lớn vượt 100% (tái bảo hiểm).",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 165
+        }
+      ]
+    },
+    "short": {
+      "title": "Đóng 12 triệu bảo hiểm 1 năm: 1 triệu doanh thu, 11 triệu ngủ ở đâu?",
+      "aspectRatio": "9:16",
+      "resolution": "1080x1920",
+      "videoMode": "veo-hybrid",
+      "videoGenerator": {
+        "provider": "Google Veo 3.1 (Google AI Ultra / Gemini API) + FFmpeg Diorama/TT99 Overlay",
+        "sdk": "google-genai (client.models.generate_videos)",
+        "heroModelId": "veo-3.1-generate-preview",
+        "bodyModelId": "veo-3.1-fast-generate-preview",
+        "referenceImages": [
+          "public/brand/youtube-banner-2560x1440-safezone.jpg",
+          "public/brand/youtube-avatar-1024x1024.png"
+        ],
+        "cacheDir": ".cache/google-veo/"
+      },
+      "audioGenerator": {
+        "provider": "VieNeu-TTS v3 Turbo Local (ONNX Runtime, Apache 2.0 + Cached SFX + Warm Room Tone Bed)",
+        "synthesisMode": "single_take_continuous_with_breath_bridges",
+        "continuousCacheFile": ".cache/tts/insure_short_continuous.json",
+        "breathBridgeSeconds": 0.36,
+        "roomToneBedDbfs": -33.0,
+        "transitionSfxDbfs": -22.0,
+        "cacheDir": ".cache/tts/"
+      },
+      "visualTransitionEngine": {
+        "version": "4.3-broadcast-split-stage-30fps",
+        "stageMotion": "0px_pan_1.00x_zoom_locked_stage",
+        "stageLayout": "3_zone_non_overlapping_split_stage_luat_8",
+        "fps": 30,
+        "crossDissolveSeconds": 0.96,
+        "easing": "cubic_smoothstep",
+        "captionMode": "phrase_by_phrase_constant_weight_pill_highlight",
+        "liveConduitAnimation": true
+      },
+      "loudnessTarget": "-14 LUFS (true peak <= -1.0 dBTP)",
+      "elevenlabsVoiceId": "vieneu:Hải Đăng",
+      "youtubeId": "e_qInpsTcOk",
+      "embedStatus": "uploaded_public",
+      "outputMp4": "dist/youtube/insure-short-9x16.mp4",
+      "youtubeUploadSpec": {
+        "api": "YouTube Data API v3 — videos.insert (part=snippet,status)",
+        "channelHandle": "@WhereMoneySleeps",
+        "channelUrl": "https://www.youtube.com/@WhereMoneySleeps",
+        "articleUrl": "https://wheremoneysleeps.duyslab.icu/?story=insure",
+        "categoryId": "27",
+        "defaultLanguage": "vi",
+        "privacyStatus": "public",
+        "embeddable": true,
+        "publicStatsViewable": true,
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": true,
+        "chaptersDescription": "0:00 Đóng 12 triệu bảo hiểm 1 năm: 1 triệu doanh thu, 11 triệu ngủ ở đâu?\n0:11 Scene 2\n0:22 Scene 3\n0:34 Scene 4\n0:45 Scene 5\n0:57 Scene 6",
+        "description": "[TIẾNG VIỆT]\n📖 Tự nhập số & mở sổ Thông tư 99/2025 của bài này: https://wheremoneysleeps.duyslab.icu/?story=insure\n▶ Xem bài giảng 16:9 đầy đủ: https://youtu.be/7634SEhjkWY\n🌐 Xem trọn bộ 8 bài tương tác: https://wheremoneysleeps.duyslab.icu\n\nChuyển 12 triệu đầu năm (ví dụ), 25% trả hoa hồng vận hành ngay, 11 triệu treo sổ nghĩa vụ, còn 8 tỷ đồng vốn nổi chạy sang trái phiếu sinh lãi 6%/năm.\n\nCác chặng trong video:\n0:00 Đóng 12 triệu bảo hiểm 1 năm: 1 triệu doanh thu, 11 triệu ngủ ở đâu?\n0:11 Scene 2\n0:22 Scene 3\n0:34 Scene 4\n0:45 Scene 5\n0:57 Scene 6\n\nMọi con số chỉ làm ví dụ để thấy đường đi của tiền qua sổ sách, không lấy tên ngân hàng hay thương hiệu thật, và không phải lời khuyên tài chính.\n\n────────────────────────\n\n[ENGLISH]\n📖 Interactive Walkthrough, Calculators & Circular 99 ⇄ IFRS/GAAP Ledger: https://wheremoneysleeps.duyslab.icu/?story=insure&lang=en\n▶ Watch the Full 16:9 Deep Dive: https://youtu.be/7634SEhjkWY\n🌐 Full Library: https://wheremoneysleeps.duyslab.icu/?lang=en\n\nOne 12M transfer upfront (illustrative), 25% paid out immediately for commissions and underwriting, 11M locked in unearned liabilities, and 8B VND in float earning 6%/year on bonds. (Unofficial summary of Circular 99/2025/TT-BTC.)\n\nChapters:\n0:00 12M annual insurance: 1M earned Month 1, where does the 11M sleep?\n0:11 Scene 2\n0:22 Scene 3\n0:34 Scene 4\n0:45 Scene 5\n0:57 Scene 6\n\nNote: Numbers and scenes are everyday illustrative examples showing how payments clear and settle (unofficial summary of Circular 99/2025/TT-BTC). Zero real brands; not financial advice.\n\nWhere Money Sleeps (@WhereMoneySleeps) · https://wheremoneysleeps.duyslab.icu"
+      },
+      "scenes": [
+        {
+          "sceneIndex": 0,
+          "time": "0:00 – 0:11",
+          "beat": null,
+          "sha256CacheKey": "91dc770ff6e7b3e31bdf5c9fc6e819b220b0634384a3059bc5e3d6b10a02f815",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "369663b50dc9199cc05bf0968afa21fdb32f50907ccee0850217d38bc271d060",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Mặt trước thẻ 12.000.000 đ đóng 1 năm đối diện số 1.000.000 đ mở khoá tháng đầu.",
+          "sfxEndpoint": "/v1/sound-generation",
+          "sfxPrompt": "tiếng chuông báo trừ tiền",
+          "voWords": 24
+        },
+        {
+          "sceneIndex": 1,
+          "time": "0:11 – 0:22",
+          "beat": 0,
+          "sha256CacheKey": "9a4821dfcb6abea669ebb1a1e54d599bf679c662b26597a4d4593bd25eae7588",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "3dcb5a0e4cb7e6450e6dedb20864dd864b96e80b33a788552c5f1b7a12af6cfd",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Tiền chuyển sang ngân hàng thu hộ +12.000.000 đ, bên mua ghi TK 242.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 33
+        },
+        {
+          "sceneIndex": 2,
+          "time": "0:22 – 0:34",
+          "beat": 1,
+          "sha256CacheKey": "e5f168e78c85f8a3e920044dd873fc248819e89dd7cb8e91617a0fe3ecacd58c",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "f41d80a1b7f2f6b5ca812d169584197c01441d75197f64b9e22650b76d6296b6",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Cắt 25% ngay: 3 triệu/hợp đồng (3 tỷ trên bể 12 tỷ) sang hoa hồng & thẩm định.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 35
+        },
+        {
+          "sceneIndex": 3,
+          "time": "0:34 – 0:45",
+          "beat": 2,
+          "sha256CacheKey": "32eb96bd6ee5700d78e3ad6c07ce7cfbfde99d1077efaef2055d7032a8588b52",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "fbcf2f9d332563a11e7ca2a928523164ade092ed47a10ece408721f2f209ccff",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Nhả doanh thu đúng 1 triệu vào TK 511; 11 triệu treo TK 3387.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 29
+        },
+        {
+          "sceneIndex": 4,
+          "time": "0:45 – 0:57",
+          "beat": 3,
+          "sha256CacheKey": "cd20212a5d90d148734c851ca0f35312cf567aa9b29027bd0fb957c8a1fa86c4",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "810c0b657d36612eaeacadf1339840d3f53c4c0cfbe509628a21fa8d94df1160",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Đẩy 8 tỷ đồng vào trái phiếu & tiền gửi TK 128 sinh 480 triệu đ.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 36
+        },
+        {
+          "sceneIndex": 5,
+          "time": "0:57 – 1:10",
+          "beat": 4,
+          "sha256CacheKey": "69d4fbf6ebe6bf5dbee766b6b0c48e17ad544b3172d93ea942ca8d97514e12b6",
+          "cached": true,
+          "ttsProvider": "vieneu",
+          "elevenlabsTtsEndpoint": null,
+          "elevenlabsModelId": "vieneu",
+          "googleVeoVideo": {
+            "enabled": true,
+            "sdkMethod": "google.genai.Client().models.generate_videos",
+            "modelId": "veo-3.1-generate-preview",
+            "aspectRatio": "9:16",
+            "referenceImages": [
+              "public/brand/youtube-banner-2560x1440-safezone.jpg",
+              "public/brand/youtube-avatar-1024x1024.png"
+            ],
+            "sha256CacheKey": "4dd9b6e46744ebe7b398c610c84ea7e80ed5cfed2005e26b69e3638d3ad6278f",
+            "cachedMp4": false,
+            "dioramaHudOverlay": true
+          },
+          "visualPrompt": "Bồi thường 9 tỷ + chi phí 3 tỷ = 100% vẫn giữ lãi 480 triệu từ vốn nổi.",
+          "sfxEndpoint": null,
+          "sfxPrompt": "",
+          "voWords": 35
+        }
+      ]
+    }
+  }
+}

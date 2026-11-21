@@ -1,6 +1,6 @@
 # Báo cáo Crawl & Chắt lọc Tri thức Tài chính (`tai-chinh-reviewer`)
 
-- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-10T10:45:14+07:00`
+- **Thời điểm cập nhật (`lastCrawledAt`):** `2026-11-21T17:13:15+07:00`
 - **Kho tri thức:** `knowledge/finance-kb.json` (Schema v1)
 - **Chính sách độ tươi (`freshnessPolicy`):** Tối đa `30` ngày · Lịch định kỳ khuyến nghị: `0 8 * * 1` (`Asia/Ho_Chi_Minh`)
 - **Tổng số nguồn chuẩn thức:** `5` nguồn · `9` quy tắc miền (`F1–F4`) · `7` hợp đồng bất biến bài viết ↔ video
@@ -11,7 +11,7 @@
 |---|---|---:|---|---|
 | `SRC-MOF-TT99-2025` | `legal/VanBanGoc_TT 99.2025-btc.pdf` | 1,603,054 | `357add90184f37e6…97c76036` | **VERIFIED_LOCAL** |
 | `SRC-MOF-TT99-2025` | `legal/tt99-phu-luc-ii.secondary.json` | 40,471 | `612a971a43479a3d…9844d918` | **VERIFIED_LOCAL** |
-| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 14,430 | `87c0c6aac7dbb633…88bff733` | **VERIFIED_LOCAL** |
+| `SRC-HERMANSON-ACCOUNTING` | `legal/licences.json` | 21,975 | `74fb7df0f7c36da3…1bda5b0f` | **VERIFIED_LOCAL** |
 
 ## 2. Trạng thái Thăm dò Nguồn Pháp quy & Ngân hàng Công khai
 
@@ -20,7 +20,7 @@
 | `SRC-MOF-TT99-2025` | `https://vbpl.vn/botaichinh/Pages/vbpq-toanvan.aspx?ItemID=180615` | `308` | **HTTP_RESPONSE** | HTTP 308 (cần trình duyệt thật nếu có tường chống bot) |
 | `SRC-MOF-TT99-2025` | `https://mof.gov.vn` | `200` | **LIVE_REACHABLE** | Cổng thông tin điện tử Bộ Tài Chính |
 | `SRC-MOF-TT99-2025` | `https://congbao.chinhphu.vn` | `200` | **LIVE_REACHABLE** | Công báo điện tử Nước CHXHCN Việt Nam |
-| `SRC-SBV-PAYMENT-CARD` | `https://www.sbv.gov.vn` | `—` | **OFFLINE_OR_SANDBOX** | Chế độ cô lập mạng / ngoại tuyến (TimeoutError) — giữ nguyên bản chốt trong repo |
+| `SRC-SBV-PAYMENT-CARD` | `https://www.sbv.gov.vn` | `200` | **LIVE_REACHABLE** | Trang Chủ - Ngân hàng Nhà nước Việt Nam |
 | `SRC-SBV-PAYMENT-CARD` | `https://www.bis.org/cpmi/publ/d00b.htm` | `200` | **LIVE_REACHABLE** | OK |
 | `SRC-SBV-CONSUMER-FINANCE` | `https://vbpl.vn/nganhangnhanuoc` | `404` | **HTTP_RESPONSE** | HTTP 404 (cần trình duyệt thật nếu có tường chống bot) |
 | `SRC-HERMANSON-ACCOUNTING` | `https://openlibrary-repo.ecampusontario.ca/jspui/bitstream/123456789/425/1/Accounting%20Principles%20A%20Business%20Perspective.pdf` | `200` | **LIVE_REACHABLE** | OK |
