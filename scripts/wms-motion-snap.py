@@ -149,11 +149,17 @@ def run_audit() -> int:
         has_beatmap = beatmap_json.is_file()
         has_audio_sync = 'id="dioramaAudio"' in psrc and "const BEAT_AUDIO =" in psrc and "startAudioMasterClock" in psrc
         has_loop_hud = "const phase = e % cycle" in psrc and 'id="dioramaHudBar"' in psrc and 'id="packVideoEmbed"' in psrc and 'id="stageVideoWrap"' in psrc
-        audio_files_ok = all((ROOT / "public" / "audio" / f"{k}-beats.mp3").is_file() for k in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"))
+        import importlib.util
+        cs_spec = importlib.util.spec_from_file_location("check_story_mod", ROOT / "scripts" / "check-story.py")
+        assert cs_spec and cs_spec.loader
+        cs_mod = importlib.util.module_from_spec(cs_spec)
+        cs_spec.loader.exec_module(cs_mod)
+        story_keys = list(cs_mod.extract(psrc, "STORIES").keys())
+        audio_files_ok = bool(story_keys) and all((ROOT / "public" / "audio" / f"{k}-beats.mp3").is_file() for k in story_keys)
         if has_beatmap and has_audio_sync and has_loop_hud and audio_files_ok:
-            ok("M3c", "docs/prototype.html", "Đồng bộ Web ↔ Video: 7 MP3 Giọng Tâm (-14 LUFS) + rAF master clock + HUD 5 nhà + vòng lặp hạt + nhúng Video trực tiếp")
+            ok("M3c", "docs/prototype.html", f"Đồng bộ Web ↔ Video: {len(story_keys)} MP3 Giọng Tâm (-14 LUFS) + rAF master clock + HUD 5 nhà + vòng lặp hạt + nhúng Video trực tiếp")
         else:
-            bad("M3c", "docs/prototype.html", f"Thiếu đồng bộ Web ↔ Video: beatmap={has_beatmap}, audio_sync={has_audio_sync}, loop_hud={has_loop_hud}, mp3_7={audio_files_ok}")
+            bad("M3c", "docs/prototype.html", f"Thiếu đồng bộ Web ↔ Video: beatmap={has_beatmap}, audio_sync={has_audio_sync}, loop_hud={has_loop_hud}, mp3_all={audio_files_ok}")
 
     if STUDIO_HTML.is_file():
         ssrc = STUDIO_HTML.read_text(encoding="utf-8")

@@ -29,7 +29,6 @@ GATES_DIR = ROOT / "gates"
 YT_DIR = ROOT / "dist" / "youtube"
 OUT = ROOT / "dist" / "site"
 
-LESSONS = ("card", "pay", "install", "minpay", "qr", "profitcash", "offus")
 SITE_ORIGIN = "https://wheremoneysleeps.duyslab.icu"
 TERM_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 
@@ -240,7 +239,7 @@ def _write_favicons(out_dir: Path) -> None:
     (out_dir / "favicon.ico").write_bytes(ico_dir + ico_data)
 
 
-def _write_seo_files(out_dir: Path) -> None:
+def _write_seo_files(out_dir: Path, lessons: tuple[str, ...]) -> None:
     robots_txt = (
         "User-agent: *\n"
         "Allow: /\n"
@@ -263,7 +262,7 @@ def _write_seo_files(out_dir: Path) -> None:
     )
     for loc in (f"{SITE_ORIGIN}/", f"{SITE_ORIGIN}/?lang=en"):
         url_blocks.append(f"  <url>\n    <loc>{loc}</loc>\n{home_alts}\n    <priority>1.0</priority>\n  </url>")
-    for sid in LESSONS:
+    for sid in lessons:
         alts = (
             f'    <xhtml:link rel="alternate" hreflang="vi" href="{SITE_ORIGIN}/?story={sid}&amp;lang=vi"/>\n'
             f'    <xhtml:link rel="alternate" hreflang="en" href="{SITE_ORIGIN}/?story={sid}&amp;lang=en"/>\n'
@@ -283,7 +282,7 @@ def _write_seo_files(out_dir: Path) -> None:
     (out_dir / "sitemap.xml").write_text(sitemap_xml, encoding="utf-8")
 
 
-def _write_atom_feeds(out_dir: Path, vi_stories: dict, en_stories: dict) -> None:
+def _write_atom_feeds(out_dir: Path, vi_stories: dict, en_stories: dict, lessons: tuple[str, ...]) -> None:
     for lang, catalog, fname, feed_title, subtitle in (
         (
             "vi",
@@ -300,10 +299,10 @@ def _write_atom_feeds(out_dir: Path, vi_stories: dict, en_stories: dict) -> None
             "Everyday money flows across five stops and Circular 99/2025/TT-BTC ledgers (unofficial summary).",
         ),
     ):
-        dates = [str((catalog.get(s) or {}).get("approvedAt") or "2026-11-18") for s in LESSONS]
+        dates = [str((catalog.get(s) or {}).get("approvedAt") or "2026-11-18") for s in lessons]
         updated = max(dates) if dates else "2026-11-18"
         entries = []
-        for sid in LESSONS:
+        for sid in lessons:
             st = catalog.get(sid) or {}
             title = _html.escape(str(st.get("title") or sid))
             teaser = str(st.get("teaser") or "")
@@ -468,9 +467,10 @@ def build_site() -> int:
     if MANIFEST_SRC.is_file():
         shutil.copy2(MANIFEST_SRC, OUT / "public" / "manifest.webmanifest")
 
+    lessons = tuple(vi_stories.keys())
     _write_favicons(OUT)
-    _write_seo_files(OUT)
-    _write_atom_feeds(OUT, vi_stories, en_stories)
+    _write_seo_files(OUT, lessons)
+    _write_atom_feeds(OUT, vi_stories, en_stories, lessons)
     _write_service_worker(OUT)
 
     # 3. Copy web-used brand figures (.jpg + .webp + .avif) & audio MP3s
@@ -490,7 +490,7 @@ def build_site() -> int:
                 shutil.copy2(aud, OUT / "public" / "audio" / aud.name)
                 copied_audio += 1
 
-    for sid in LESSONS:
+    for sid in lessons:
         for idx in (1, 2, 3, 4):
             for ext in ("jpg", "webp", "avif"):
                 fig = OUT / "public" / "brand" / f"{sid}-fig-{idx}.{ext}"
@@ -499,7 +499,7 @@ def build_site() -> int:
                     return 1
         mp3 = OUT / "public" / "audio" / f"{sid}-beats.mp3"
         if not mp3.is_file() or mp3.stat().st_size < 50_000:
-            print(f"FAIL: Thiếu file âm thanh Giọng Tâm ElevenLabs trong gói deploy: {mp3}", file=sys.stderr)
+            print(f"FAIL: Thiếu file âm thanh trong gói deploy: {mp3}", file=sys.stderr)
             return 1
         pack_f = OUT / "data" / "stories" / f"{sid}.json"
         if not pack_f.is_file() or pack_f.stat().st_size < 10_000:
@@ -580,7 +580,7 @@ def build_site() -> int:
     print(
         f"[wms-build-deploy PASS] Đã đóng gói dist/site/ ({total_bytes / (1024 * 1024):.2f} MB · "
         f"index.html={idx_kb:.1f} KB · {copied_docs} trang/JS · {copied_fonts} font · "
-        f"{copied_figs} ảnh public/brand · {copied_audio} audio · 7 JSON split packs)"
+        f"{copied_figs} ảnh public/brand · {copied_audio} audio · {len(lessons)} JSON split packs)"
     )
     return 0
 

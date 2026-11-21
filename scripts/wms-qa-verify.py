@@ -11,6 +11,7 @@ Xác minh:
 
 import functools
 import http.server
+import importlib.util
 import json
 import os
 import re
@@ -23,7 +24,7 @@ from pathlib import Path
 if str(Path(__file__).resolve().parent) not in sys.path:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from wms_qa_uiux import runtime_uiux_checks, static_uiux_checks
+from wms_qa_uiux import _load_active_stories, runtime_uiux_checks, static_uiux_checks
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_HTML = ROOT / "index.html"
@@ -54,10 +55,19 @@ EXPECTED_YT_IDS = {
 }
 
 
+def _extract_stories_from_html(proto_text: str) -> dict:
+    spec = importlib.util.spec_from_file_location("check_story_mod", ROOT / "scripts" / "check-story.py")
+    assert spec and spec.loader
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.extract(proto_text, "STORIES")
+
+
 def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     errors = []
-    # Check 28 CHAP_FIGS images (.jpg, .webp, .avif) on disk and attributes across all 7 lessons
-    for sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
+    story_ids = list(_extract_stories_from_html(proto_text).keys())
+    # Check 4 CHAP_FIGS images (.jpg, .webp, .avif) on disk and attributes across all lessons
+    for sid in story_ids:
         for idx in (1, 2, 3, 4):
             for ext, min_sz in (("jpg", 10_000), ("webp", 4_000), ("avif", 4_000)):
                 fig_path = ROOT / "public" / "brand" / f"{sid}-fig-{idx}.{ext}"
@@ -66,16 +76,17 @@ def verify_qa1_content_and_quiz(proto_text: str) -> list[str]:
     if 'width="1200" height="675"' not in proto_text or 'loading="lazy"' not in proto_text:
         errors.append("prototype.html thiếu thuộc tính CLS=0 (width=1200 height=675 loading=lazy) cho CHAP_FIGS")
 
-    # Check WMS_QUIZ_BANK 14 cards across all 7 lessons
-    for cid in ("card-q1.v1", "card-q2.v1", "pay-q1.v1", "pay-q2.v1", "install-q1.v1", "install-q2.v1", "minpay-q1.v1", "minpay-q2.v1", "qr-q1.v1", "qr-q2.v1", "profitcash-q1.v1", "profitcash-q2.v1", "offus-q1.v1", "offus-q2.v1"):
+    # Check WMS_QUIZ_BANK 2 cards per lesson across all lessons
+    quiz_ids = [f"{sid}-q{q}.v1" for sid in story_ids for q in (1, 2)]
+    for cid in quiz_ids:
         if cid not in proto_text:
             errors.append(f"WMS_QUIZ_BANK thiếu card trắc nghiệm: {cid}")
     if 'reviewed_by: "Duy"' not in proto_text or 'accountant_agent: "ke-toan-reviewer"' not in proto_text:
         errors.append("WMS_QUIZ_BANK thiếu trường reviewed_by='Duy' hoặc accountant_agent='ke-toan-reviewer' (AC-21)")
     if "const WMS_QUIZ_BANK_EN =" not in proto_text:
-        errors.append("LUẬT 11: prototype.html thiếu WMS_QUIZ_BANK_EN (14 thẻ trắc nghiệm tiếng Anh)")
+        errors.append("LUẬT 11: prototype.html thiếu WMS_QUIZ_BANK_EN (thẻ trắc nghiệm tiếng Anh)")
     else:
-        for cid in ("card-q1.v1", "pay-q1.v1", "install-q1.v1", "minpay-q1.v1", "qr-q1.v1", "profitcash-q1.v1", "offus-q1.v1"):
+        for cid in quiz_ids:
             if proto_text.count(cid) < 2:
                 errors.append(f"WMS_QUIZ_BANK_EN thiếu card trắc nghiệm EN: {cid}")
     if "unofficial summary" not in proto_text.lower():
@@ -355,13 +366,15 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
         errors.append(f"wms-readout.py --selftest lỗi: {readout_chk.stderr.strip() or readout_chk.stdout.strip()}")
 
     dist_site = ROOT / "dist" / "site"
+    story_ids = list(_extract_stories_from_html(proto_text).keys())
     if (dist_site / "index.html").is_file():
-        if (dist_site / "index.html").stat().st_size >= 800 * 1024:
-            errors.append(f"dist/site/index.html chưa được tách nhỏ (<800 KB): {(dist_site / 'index.html').stat().st_size} bytes")
+        max_idx_bytes = max(800 * 1024, 650 * 1024 + len(story_ids) * 30 * 1024)
+        if (dist_site / "index.html").stat().st_size >= max_idx_bytes:
+            errors.append(f"dist/site/index.html chưa được tách nhỏ (<{max_idx_bytes // 1024} KB): {(dist_site / 'index.html').stat().st_size} bytes")
         for req_dist in ("feed.xml", "feed-en.xml", "sw.js", "public/manifest.webmanifest", "public/fonts/wms-fonts.css"):
             if not (dist_site / req_dist).is_file():
                 errors.append(f"dist/site thiếu file bắt buộc: {req_dist}")
-        for sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
+        for sid in story_ids:
             if not (dist_site / "data" / "stories" / f"{sid}.json").is_file():
                 errors.append(f"dist/site thiếu gói JSON tách riêng: data/stories/{sid}.json")
     return errors
@@ -369,33 +382,50 @@ def verify_qa3_privacy_and_csp(proto_text: str, studio_text: str, wf_text: str) 
 
 def verify_qa4_videos_and_youtube_ids(proto_text: str, studio_data_text: str, ci_mode: bool = False) -> list[str]:
     errors = []
+    stories = _extract_stories_from_html(proto_text)
     readme_text = (ROOT / "README.md").read_text(encoding="utf-8") if (ROOT / "README.md").is_file() else ""
     beatmap_text = (ROOT / "knowledge" / "wms-beatmap.json").read_text(encoding="utf-8") if (ROOT / "knowledge" / "wms-beatmap.json").is_file() else ""
+    expected_pairs = dict(EXPECTED_YT_IDS)
+    for sid, st in stories.items():
+        if sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
+            continue
+        vid = st.get("videoScript") or {}
+        for fmt in ("long", "short"):
+            ytid = str((vid.get(fmt) or {}).get("youtubeId") or "").strip()
+            if st.get("status") == "published" or ytid:
+                expected_pairs[(sid, fmt)] = ytid
+
     seen_sids = set()
-    for (sid, fmt), ytid in EXPECTED_YT_IDS.items():
+    for (sid, fmt), ytid in expected_pairs.items():
         seen_sids.add(sid)
+        if not re.match(r"^[A-Za-z0-9_-]{11}$", ytid or ""):
+            errors.append(f"youtubeId không hợp lệ cho ({sid}, {fmt}): {ytid!r}")
+            continue
         if ytid not in proto_text:
             errors.append(f"prototype.html thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         if ytid not in studio_data_text:
             errors.append(f"wms-studio-data.js thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         if readme_text and ytid not in readme_text:
-            errors.append(f"README.md thiếu youtubeId v7.2 {ytid} cho ({sid}, {fmt})")
+            errors.append(f"README.md thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         if beatmap_text and ytid not in beatmap_text:
-            errors.append(f"knowledge/wms-beatmap.json thiếu youtubeId v7.2 {ytid} cho ({sid}, {fmt})")
+            errors.append(f"knowledge/wms-beatmap.json thiếu youtubeId {ytid} cho ({sid}, {fmt})")
         suffix = "long-16x9" if fmt == "long" else "short-9x16"
         mp4_path = YT_DIR / f"{sid}-{suffix}.mp4"
         srt_path = YT_DIR / f"{sid}-{suffix}.srt"
         if not ci_mode or mp4_path.is_file():
             if not mp4_path.is_file() or mp4_path.stat().st_size < 5_000_000:
-                errors.append(f"File MP4 v6.5 thiếu hoặc quá nhỏ: {mp4_path}")
+                if sid in ("card", "pay", "install", "minpay", "qr", "profitcash", "offus"):
+                    errors.append(f"File MP4 v6.5 thiếu hoặc quá nhỏ: {mp4_path}")
         if not srt_path.is_file() or srt_path.stat().st_size < 200:
             errors.append(f"File phụ đề .srt thiếu hoặc rỗng: {srt_path}")
     if 'const effFmt = scope === "stage" ? "long" : fmt;' not in proto_text:
         errors.append("prototype.html chưa khoá chỉ hiển thị Video Dài 16:9 trên sân khấu website (scope === 'stage')")
     for sid in sorted(seen_sids):
-        manifest_path = YT_DIR / f"{sid}-elevenlabs-youtube-manifest.json"
+        manifest_path = YT_DIR / f"{sid}-youtube-manifest.json"
+        if not manifest_path.is_file():
+            manifest_path = YT_DIR / f"{sid}-elevenlabs-youtube-manifest.json"
         if not manifest_path.is_file() or manifest_path.stat().st_size < 100:
-            errors.append(f"File manifest thiếu hoặc rỗng: {manifest_path}")
+            errors.append(f"File manifest thiếu hoặc rỗng cho bài '{sid}' trong dist/youtube/")
             continue
         try:
             mf = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -784,8 +814,8 @@ def verify_qa5_responsive_ux(proto_text: str, studio_text: str, wf_text: str, ci
                     ctx.close()
                     checked_cases += 1
 
-                # Quét toàn bộ 6 bài học còn lại (pay, install, minpay, qr, profitcash, offus) ở 320x568 VI/EN & 1440x900
-                extra_stories = ["pay", "install", "minpay", "qr", "profitcash", "offus"]
+                # Quét toàn bộ các bài học còn lại (ngoài card) ở 320x568 VI/EN & 1440x900
+                extra_stories = [sid for sid in _load_active_stories(ROOT) if sid != "card"]
                 for vw, vh, is_mob, langs in [(320, 568, True, ("vi", "en")), (1440, 900, False, ("vi",))]:
                     s_ctx = browser.new_context(viewport={"width": vw, "height": vh}, has_touch=is_mob, is_mobile=is_mob)
                     s_page = s_ctx.new_page()

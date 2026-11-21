@@ -87,62 +87,97 @@ def _parse_mmss_span(t_str: str) -> tuple[float, float]:
     return float(int(m.group(1)) * 60 + int(m.group(2))), float(int(m.group(3)) * 60 + int(m.group(4)))
 
 
+def _resolve_shared_dir(rel_path: str) -> pathlib.Path:
+    cand = ROOT / rel_path
+    if cand.exists() and (not cand.is_dir() or any(cand.iterdir())):
+        return cand
+    try:
+        res = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "--git-common-dir"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            gd = pathlib.Path(res.stdout.strip())
+            resolved = gd.resolve() if gd.is_absolute() else (ROOT / gd).resolve()
+            if resolved.name == ".git":
+                return resolved.parent / rel_path
+    except Exception:
+        pass
+    return cand
+
+
 def _compute_real_audio_windows(
     story_key: str,
     fmt: str,
     vi_scenes: list[dict],
+    voice_id: str = "",
 ) -> list[dict] | None:
-    """Tính khung thời gian giọng đọc thật [adj_t0, adj_t1] cho từng cảnh từ cache ElevenLabs continuous_v3."""
-    cache_json = ROOT / ".cache" / "elevenlabs" / f"{story_key}_{fmt}_continuous_v3.json"
-    if not cache_json.is_file() or not vi_scenes:
+    """Tính khung thời gian giọng đọc thật [adj_t0, adj_t1] cho từng cảnh từ cache ElevenLabs hoặc VieNeu-TTS."""
+    if not vi_scenes:
         return None
-    try:
-        cont = json.loads(cache_json.read_text(encoding="utf-8"))
-        align = cont.get("alignment") or {}
-        starts = [float(x) for x in align.get("character_start_times_seconds") or []]
-        ends = [float(x) for x in align.get("character_end_times_seconds") or []]
-        if not starts or not ends:
-            return None
-        scene_texts = [str(s.get("vo") or "").strip() for s in vi_scenes]
-        full_text = "\n\n".join(scene_texts)
-        cached_text = "".join(align.get("characters") or [])
-        exact_match = cached_text == full_text
-        if exact_match:
-            ref_text = full_text
-            segs = scene_texts
-        else:
-            cached_segs = [seg.strip() for seg in cached_text.split("\n\n") if seg.strip()]
-            if not cached_text or len(cached_segs) != len(scene_texts):
-                return None
-            ref_text = cached_text
-            segs = cached_segs
-        lead_in = 0.30 if fmt == "long" else 0.25
-        extra_pause = 0.36
-        cursor = 0
-        raw_bounds: list[tuple[int, int, float, float]] = []
-        for st in segs:
-            pos = ref_text.find(st, cursor)
-            if pos < 0 or pos >= len(starts):
-                return None
-            end_pos = pos + len(st) - 1
-            raw_bounds.append((pos, end_pos, starts[pos], ends[min(end_pos, len(ends) - 1)]))
-            cursor = end_pos + 1
-        out: list[dict] = []
-        cum_shift = lead_in
-        for idx, (pos, end_pos, raw_t0, raw_t1) in enumerate(raw_bounds):
-            out.append({
-                "pos": pos,
-                "exact": exact_match,
-                "adj_t0": raw_t0 + cum_shift,
-                "adj_t1": raw_t1 + cum_shift,
-                "cum_shift": cum_shift,
-                "starts": starts,
-                "ends": ends,
-            })
-            cum_shift += extra_pause
-        return out
-    except Exception:
-        return None
+    el_dir = _resolve_shared_dir(".cache/elevenlabs")
+    tts_dir = _resolve_shared_dir(".cache/tts")
+    el_json = el_dir / f"{story_key}_{fmt}_continuous_v3.json"
+    tts_json = tts_dir / f"{story_key}_{fmt}_continuous.json"
+    candidates = (tts_json, el_json) if voice_id.startswith("vieneu:") else (el_json, tts_json)
+    scene_texts = [str(s.get("vo") or "").strip() for s in vi_scenes]
+    full_text = "\n\n".join(scene_texts)
+    for cache_json in candidates:
+        if not cache_json.is_file():
+            continue
+        try:
+            cont = json.loads(cache_json.read_text(encoding="utf-8"))
+            align = cont.get("alignment") or {}
+            starts = [float(x) for x in align.get("character_start_times_seconds") or []]
+            ends = [float(x) for x in align.get("character_end_times_seconds") or []]
+            if not starts or not ends:
+                continue
+            cached_text = "".join(align.get("characters") or [])
+            exact_match = cached_text == full_text
+            if exact_match:
+                ref_text = full_text
+                segs = scene_texts
+            else:
+                cached_segs = [seg.strip() for seg in cached_text.split("\n\n") if seg.strip()]
+                if not cached_text or len(cached_segs) != len(scene_texts):
+                    continue
+                ref_text = cached_text
+                segs = cached_segs
+            lead_in = 0.30 if fmt == "long" else 0.25
+            extra_pause = 0.36
+            cursor = 0
+            raw_bounds: list[tuple[int, int, float, float]] = []
+            failed_find = False
+            for st in segs:
+                pos = ref_text.find(st, cursor)
+                if pos < 0 or pos >= len(starts):
+                    failed_find = True
+                    break
+                end_pos = pos + len(st) - 1
+                raw_bounds.append((pos, end_pos, starts[pos], ends[min(end_pos, len(ends) - 1)]))
+                cursor = end_pos + 1
+            if failed_find:
+                continue
+            out: list[dict] = []
+            cum_shift = lead_in
+            for idx, (pos, end_pos, raw_t0, raw_t1) in enumerate(raw_bounds):
+                out.append({
+                    "pos": pos,
+                    "exact": exact_match,
+                    "adj_t0": raw_t0 + cum_shift,
+                    "adj_t1": raw_t1 + cum_shift,
+                    "cum_shift": cum_shift,
+                    "starts": starts,
+                    "ends": ends,
+                })
+                cum_shift += extra_pause
+            return out
+        except Exception:
+            continue
+    return None
 
 
 def build_subtitles_for_format(
@@ -153,6 +188,7 @@ def build_subtitles_for_format(
     write_disk: bool = True,
     vi_scenes: list[dict] | None = None,
     existing_sub: dict | None = None,
+    voice_id: str = "",
 ) -> dict:
     """Tạo danh sách cue phụ đề chuẩn YouTube CC (.srt / .en.srt) khớp timeline ElevenLabs thật và ghi ra dist/youtube/."""
     import re
@@ -160,7 +196,7 @@ def build_subtitles_for_format(
     ext = ".en.srt" if lang == "en" else ".srt"
     srt_path = DIST_YT / f"{story_key}-{fmt}-{aspect_tag}{ext}"
 
-    audio_wins = _compute_real_audio_windows(story_key, fmt, vi_scenes if vi_scenes is not None else scenes)
+    audio_wins = _compute_real_audio_windows(story_key, fmt, vi_scenes if vi_scenes is not None else scenes, voice_id=voice_id)
     if audio_wins is None and existing_sub and existing_sub.get("srtText") and srt_path.is_file():
         return existing_sub
 
@@ -256,10 +292,10 @@ def build_studio_payload(write_disk: bool = True) -> dict:
             j_end = raw_js.rfind("}")
             if j_start >= 0 and j_end > j_start:
                 ex = json.loads(raw_js[j_start : j_end + 1])
+                existing_waves = ex.get("waveforms", {}) or {}
                 if ex.get("sourceHash") == proto_sha:
                     existing_subs = ex.get("subtitles", {}) or {}
                     existing_subs_en = ex.get("subtitlesEn", {}) or {}
-                    existing_waves = ex.get("waveforms", {}) or {}
         except Exception:
             pass
 
@@ -274,13 +310,17 @@ def build_studio_payload(write_disk: bool = True) -> dict:
             "short": build_subtitles_for_format(
                 k, "short", (vid_obj.get("short") or {}).get("scenes") or [],
                 lang="vi", write_disk=write_disk, existing_sub=ex_k_sub.get("short"),
+                voice_id=str((vid_obj.get("short") or {}).get("elevenlabsVoiceId") or ""),
             ),
             "long": build_subtitles_for_format(
                 k, "long", (vid_obj.get("long") or {}).get("scenes") or [],
                 lang="vi", write_disk=write_disk, existing_sub=ex_k_sub.get("long"),
+                voice_id=str((vid_obj.get("long") or {}).get("elevenlabsVoiceId") or ""),
             ),
         }
-        m_path = DIST_YT / f"{k}-elevenlabs-youtube-manifest.json"
+        m_path = DIST_YT / f"{k}-youtube-manifest.json"
+        if not m_path.is_file():
+            m_path = DIST_YT / f"{k}-elevenlabs-youtube-manifest.json"
         if m_path.is_file():
             try:
                 m_raw = json.loads(m_path.read_text(encoding="utf-8"))
@@ -342,11 +382,13 @@ def build_studio_payload(write_disk: bool = True) -> dict:
                 k, "short", (vid_en.get("short") or {}).get("scenes") or [],
                 lang="en", write_disk=write_disk, vi_scenes=(vid_vi.get("short") or {}).get("scenes") or [],
                 existing_sub=ex_k_sub_en.get("short"),
+                voice_id=str((vid_vi.get("short") or {}).get("elevenlabsVoiceId") or ""),
             ),
             "long": build_subtitles_for_format(
                 k, "long", (vid_en.get("long") or {}).get("scenes") or [],
                 lang="en", write_disk=write_disk, vi_scenes=(vid_vi.get("long") or {}).get("scenes") or [],
                 existing_sub=ex_k_sub_en.get("long"),
+                voice_id=str((vid_vi.get("long") or {}).get("elevenlabsVoiceId") or ""),
             ),
         }
 

@@ -360,6 +360,20 @@
         "public/fonts/jetbrainsmono-normal-400-700-latin-ext-8a34053f.woff2",
         "public/fonts/jetbrainsmono-normal-400-700-vietnamese-808103a3.woff2"
       ]
+    },
+    {
+      "id": "vieneu-tts-local-apache2",
+      "title": "VieNeu-TTS v3 Turbo (Local Vietnamese Neural Text-to-Speech — Built-in Preset Voices)",
+      "authors": [
+        "Phạm Nguyễn Ngọc Bảo (pnnbao97 / pnnbao-ump)"
+      ],
+      "licence": "Apache License 2.0",
+      "licence_url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "licence_evidence": "QĐ 66 (2026-11-21): VieNeu-TTS v3 Turbo (ONNX Runtime local, chạy offline trên Apple Silicon) và các preset voice đi kèm trong gói/model (`Thiện Minh`, `Hải Đăng`, `Thái Sơn`, ...) phát hành theo Apache License 2.0, cấp quyền sử dụng thương mại đầy đủ cho âm thanh web (`public/audio/*-beats.mp3`) và video YouTube (`@WhereMoneySleeps`). Không sử dụng voice cloning tuỳ chỉnh chưa có uỷ quyền.",
+      "source_url": "https://github.com/pnnbao97/VieNeu-TTS",
+      "retrieved": "2026-11-21",
+      "planned_file": "public/audio/{story}-beats.mp3",
+      "audio_files": []
     }
   ]
 }
